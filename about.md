@@ -12,4 +12,6 @@ A place to include any other types of information that you'd like to include abo
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[Telegram @muklis64](https://msng.link/o/?@muklis64=tg)
+
+[muhashari64@gmail.com](mailto:muhashari64@gmail.com)
