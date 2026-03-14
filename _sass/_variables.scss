@@ -4,24 +4,37 @@
 //
 
 // Colors
-$blue: #4183C4;
+$blue: #3b82f6;
+$indigo: #6366f1;
+$purple: #8b5cf6;
+$teal: #14b8a6;
+$accent: #6366f1;
+$accentDark: #4f46e5;
 
 // Grays
-$black: #000;
-$darkerGray: #222;
-$darkGray: #333;
-$gray: #666;
-$lightGray: #eee;
-$white: #fff;
+$black: #0f172a;
+$darkerGray: #1e293b;
+$darkGray: #334155;
+$gray: #64748b;
+$lightGray: #f1f5f9;
+$white: #ffffff;
+$border: #e2e8f0;
 
 // Font stacks
-$helvetica: Helvetica, Arial, sans-serif;
-$helveticaNeue: "Helvetica Neue", Helvetica, Arial, sans-serif;
-$georgia: Georgia, serif;
+$helvetica: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+$helveticaNeue: 'Inter', "Helvetica Neue", Helvetica, Arial, sans-serif;
+$georgia: 'Merriweather', Georgia, serif;
+$mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 
 // Mobile breakpoints
 @mixin mobile {
   @media screen and (max-width: 640px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media screen and (max-width: 900px) {
     @content;
   }
 }
