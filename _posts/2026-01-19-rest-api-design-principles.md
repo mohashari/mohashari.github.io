@@ -11,27 +11,17 @@ A good REST API is a joy to use. A bad one is a daily source of frustration. Aft
 
 Resources are things, not actions. The HTTP method already carries the verb.
 
-```
-# Bad
-GET /getUsers
-POST /createUser
-DELETE /deleteUser/42
 
-# Good
-GET    /users
-POST   /users
-DELETE /users/42
-```
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet.txt"></script>
+
 
 ## 2. Use Plural Nouns Consistently
 
 Pick plural and stick with it everywhere:
 
-```
-/users           # collection
-/users/42        # single resource
-/users/42/posts  # nested resource
-```
+
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet-2.txt"></script>
+
 
 ## 3. HTTP Methods Have Meaning — Use Them Right
 
@@ -49,50 +39,28 @@ Use `PATCH` for partial updates, `PUT` for full replacement. Don't use `POST` fo
 
 Return meaningful HTTP status codes — don't always return `200 OK`:
 
-```
-200 OK          — Success, returning data
-201 Created     — Resource created (POST)
-204 No Content  — Success, nothing to return (DELETE)
-400 Bad Request — Client sent invalid data
-401 Unauthorized — Authentication required
-403 Forbidden    — Authenticated but not authorized
-404 Not Found    — Resource doesn't exist
-409 Conflict     — State conflict (duplicate, etc.)
-422 Unprocessable Entity — Validation failed
-429 Too Many Requests    — Rate limited
-500 Internal Server Error — Your bug
-```
+
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet-3.txt"></script>
+
 
 ## 5. Consistent Error Response Shape
 
 Always return errors in a predictable format:
 
-```json
-{
-  "error": {
-    "code": "VALIDATION_FAILED",
-    "message": "Request validation failed",
-    "details": [
-      {
-        "field": "email",
-        "message": "Must be a valid email address"
-      }
-    ]
-  }
-}
-```
+
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet.json"></script>
+
 
 ## 6. Version Your API From Day One
 
-```
-/api/v1/users
-/api/v2/users
-```
+
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet-4.txt"></script>
+
 
 Or use headers:
-```
-Accept: application/vnd.myapp.v2+json
-```
+
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet-5.txt"></script>
+
 
 URI versioning is simpler and more visible — prefer it.
 
@@ -100,40 +68,27 @@ URI versioning is simpler and more visible — prefer it.
 
 Never return unbounded collections. Use cursor-based or offset pagination:
 
-```
-# Offset pagination
-GET /users?page=2&per_page=20
 
-# Cursor pagination (better for large datasets)
-GET /users?cursor=eyJpZCI6MTAwfQ&limit=20
-```
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet-6.txt"></script>
+
 
 Include pagination metadata in the response:
 
-```json
-{
-  "data": [...],
-  "meta": {
-    "total": 1543,
-    "page": 2,
-    "per_page": 20,
-    "next_cursor": "eyJpZCI6MTIwfQ"
-  }
-}
-```
+
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet-2.json"></script>
+
 
 Support filtering and sorting:
 
-```
-GET /users?status=active&role=admin&sort=created_at&order=desc
-```
+
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet-7.txt"></script>
+
 
 ## 8. Use Proper Content Negotiation
 
-```
-Content-Type: application/json
-Accept: application/json
-```
+
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet-8.txt"></script>
+
 
 Return `415 Unsupported Media Type` if the client sends an unsupported format.
 
@@ -141,15 +96,9 @@ Return `415 Unsupported Media Type` if the client sends an unsupported format.
 
 POST is not idempotent — retries can create duplicates. Use an idempotency key:
 
-```
-POST /payments
-Idempotency-Key: 550e8400-e29b-41d4-a716-446655440000
 
-{
-  "amount": 9900,
-  "currency": "USD"
-}
-```
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet-9.txt"></script>
+
 
 Store the key and return the same response on duplicate requests.
 
@@ -157,28 +106,9 @@ Store the key and return the same response on duplicate requests.
 
 A well-documented API is 10x easier to use. Write an OpenAPI spec:
 
-```yaml
-openapi: 3.1.0
-info:
-  title: My API
-  version: 1.0.0
-paths:
-  /users:
-    get:
-      summary: List all users
-      parameters:
-        - name: page
-          in: query
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserList'
-```
+
+<script src="https://gist.github.com/mohashari/bc69361c5aff9beb588ae4d5c0956ad0.js?file=snippet.yaml"></script>
+
 
 Use [Swagger UI](https://swagger.io/tools/swagger-ui/) or [Redoc](https://github.com/Redocly/redoc) to generate interactive docs.
 

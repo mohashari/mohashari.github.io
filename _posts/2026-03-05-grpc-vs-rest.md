@@ -16,34 +16,14 @@ gRPC (Google Remote Procedure Call) uses:
 - **Protocol Buffers** — binary serialization format (smaller, faster than JSON)
 - **Code generation** — client and server stubs generated from `.proto` files
 
-```protobuf
-// user.proto
-syntax = "proto3";
 
-package user;
+<script src="https://gist.github.com/mohashari/6feff35fa422c005a0d9b04f1296bf0e.js?file=snippet.proto"></script>
 
-service UserService {
-  rpc GetUser(GetUserRequest) returns (User);
-  rpc ListUsers(ListUsersRequest) returns (stream User);
-  rpc CreateUser(CreateUserRequest) returns (User);
-}
-
-message GetUserRequest {
-  string user_id = 1;
-}
-
-message User {
-  string id = 1;
-  string name = 2;
-  string email = 3;
-  int64 created_at = 4;
-}
-```
 
 Generate code:
-```bash
-protoc --go_out=. --go-grpc_out=. user.proto
-```
+
+<script src="https://gist.github.com/mohashari/6feff35fa422c005a0d9b04f1296bf0e.js?file=snippet.sh"></script>
+
 
 You get type-safe client and server code in any supported language.
 
@@ -64,32 +44,18 @@ For high-throughput service-to-service communication, these differences are sign
 gRPC has four communication patterns:
 
 ### 1. Unary (same as REST)
-```
-Client → Request → Server
-Client ← Response ← Server
-```
+
+<script src="https://gist.github.com/mohashari/6feff35fa422c005a0d9b04f1296bf0e.js?file=snippet.txt"></script>
+
 
 ### 2. Server Streaming
-```
-Client → Request → Server
-Client ← Response ←
-Client ← Response ←
-Client ← Response ← Server (stream)
-```
 
-```go
-// Server streaming example
-func (s *server) ListUsers(req *pb.ListUsersRequest, stream pb.UserService_ListUsersServer) error {
-    rows, err := db.QueryUsers(req.Filter)
-    for rows.Next() {
-        user := scanUser(rows)
-        if err := stream.Send(user); err != nil {
-            return err
-        }
-    }
-    return nil
-}
-```
+<script src="https://gist.github.com/mohashari/6feff35fa422c005a0d9b04f1296bf0e.js?file=snippet-2.txt"></script>
+
+
+
+<script src="https://gist.github.com/mohashari/6feff35fa422c005a0d9b04f1296bf0e.js?file=snippet.go"></script>
+
 
 ### 3. Client Streaming
 
@@ -99,18 +65,9 @@ Client sends a stream of messages; server responds once. Good for bulk uploads.
 
 Both sides stream simultaneously. Great for chat, real-time collaboration.
 
-```go
-func (s *server) Chat(stream pb.ChatService_ChatServer) error {
-    for {
-        msg, err := stream.Recv()
-        if err == io.EOF {
-            return nil
-        }
-        // Broadcast to other users...
-        stream.Send(&pb.ChatMessage{Content: "echoed: " + msg.Content})
-    }
-}
-```
+
+<script src="https://gist.github.com/mohashari/6feff35fa422c005a0d9b04f1296bf0e.js?file=snippet-2.go"></script>
+
 
 ## Developer Experience: REST Wins
 
@@ -124,14 +81,9 @@ gRPC requires HTTP/2 trailers which browsers don't natively support. You need **
 
 With REST, you `curl` and see JSON. With gRPC, you need tools like `grpcurl` or `Postman gRPC`:
 
-```bash
-# Inspect available services
-grpcurl -plaintext localhost:50051 list
 
-# Call a method
-grpcurl -plaintext -d '{"user_id": "42"}' \
-  localhost:50051 user.UserService/GetUser
-```
+<script src="https://gist.github.com/mohashari/6feff35fa422c005a0d9b04f1296bf0e.js?file=snippet-2.sh"></script>
+
 
 ### Less Universal Tooling
 
@@ -139,42 +91,9 @@ REST has Swagger/OpenAPI, Postman, thousands of tutorials. gRPC tooling is catch
 
 ## Go Implementation Example
 
-```go
-// Server
-func main() {
-    lis, err := net.Listen("tcp", ":50051")
-    if err != nil {
-        log.Fatalf("failed to listen: %v", err)
-    }
 
-    s := grpc.NewServer(
-        grpc.UnaryInterceptor(authInterceptor),
-        grpc.MaxRecvMsgSize(1024*1024*4),
-    )
+<script src="https://gist.github.com/mohashari/6feff35fa422c005a0d9b04f1296bf0e.js?file=snippet-3.go"></script>
 
-    pb.RegisterUserServiceServer(s, &UserServiceServer{db: db})
-    reflection.Register(s)  // Enable grpcurl inspection
-
-    log.Printf("gRPC server listening on :50051")
-    s.Serve(lis)
-}
-
-// Client
-func main() {
-    conn, err := grpc.Dial("localhost:50051",
-        grpc.WithTransportCredentials(insecure.NewCredentials()),
-    )
-    defer conn.Close()
-
-    client := pb.NewUserServiceClient(conn)
-
-    ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-    defer cancel()
-
-    user, err := client.GetUser(ctx, &pb.GetUserRequest{UserId: "42"})
-    fmt.Printf("Got user: %v\n", user)
-}
-```
 
 ## When to Use gRPC
 
@@ -196,9 +115,9 @@ func main() {
 
 Many organizations use both:
 
-```
-Browser/Mobile → REST (via API Gateway) → Internal Services via gRPC
-```
+
+<script src="https://gist.github.com/mohashari/6feff35fa422c005a0d9b04f1296bf0e.js?file=snippet-3.txt"></script>
+
 
 The API Gateway translates HTTP/JSON to gRPC internally. You get the ergonomics of REST externally and the performance of gRPC internally. This is the approach Google, Netflix, and many large-scale companies use.
 

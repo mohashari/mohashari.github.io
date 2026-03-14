@@ -15,10 +15,9 @@ Load balancing is how you turn one server into many — distributing traffic to 
 
 Routes based on IP and TCP/UDP port. Doesn't inspect content. Ultra-fast.
 
-```
-Client → L4 LB (sees: TCP port 443) → Backend Server
-         ↑ Doesn't look inside the packet
-```
+
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet.txt"></script>
+
 
 Use cases: TCP/UDP traffic, when raw performance is critical, database proxies (e.g., HAProxy for PostgreSQL).
 
@@ -26,11 +25,9 @@ Use cases: TCP/UDP traffic, when raw performance is critical, database proxies (
 
 Routes based on HTTP content — headers, cookies, URL path, body. More intelligent but more overhead.
 
-```
-Client → L7 LB → Routes /api/* to API servers
-                → Routes /static/* to CDN
-                → Routes /ws/* to WebSocket servers
-```
+
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-2.txt"></script>
+
 
 Use cases: HTTP APIs, content-based routing, SSL termination, A/B testing.
 
@@ -40,12 +37,9 @@ Use cases: HTTP APIs, content-based routing, SSL termination, A/B testing.
 
 Distribute requests sequentially to each server in rotation.
 
-```
-Request 1 → Server A
-Request 2 → Server B
-Request 3 → Server C
-Request 4 → Server A (cycle repeats)
-```
+
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-3.txt"></script>
+
 
 **Best for:** Homogeneous servers, stateless requests with similar processing time.
 
@@ -53,12 +47,9 @@ Request 4 → Server A (cycle repeats)
 
 Like round robin but respects server capacity:
 
-```
-Server A (weight 3): handles 3x more traffic
-Server B (weight 1): baseline
 
-Sequence: A, A, A, B, A, A, A, B...
-```
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-4.txt"></script>
+
 
 **Best for:** Mixed-capacity servers, gradual canary deployments (route 5% to new version).
 
@@ -66,11 +57,9 @@ Sequence: A, A, A, B, A, A, A, B...
 
 Route each new request to the server with the fewest active connections.
 
-```
-Server A: 45 connections
-Server B: 52 connections
-Server C: 38 connections → next request goes here
-```
+
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-5.txt"></script>
+
 
 **Best for:** Long-lived connections (WebSockets), variable-duration requests.
 
@@ -78,19 +67,17 @@ Server C: 38 connections → next request goes here
 
 Routes to the server with the lowest combination of response time and active connections. The smartest basic algorithm.
 
-```
-Server A: 38ms avg, 45 connections → score: 38 × 45 = 1,710
-Server B: 22ms avg, 80 connections → score: 22 × 80 = 1,760
-Server C: 45ms avg, 30 connections → score: 45 × 30 = 1,350 → winner
-```
+
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-6.txt"></script>
+
 
 ### IP Hash (Sticky Sessions without Cookies)
 
 Hash the client's IP to always route them to the same server:
 
-```
-hash(client_ip) % num_servers = server_index
-```
+
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-7.txt"></script>
+
 
 **Problem:** Uneven distribution if many users share an IP (corporate NAT). Not ideal for large fleets.
 
@@ -98,12 +85,9 @@ hash(client_ip) % num_servers = server_index
 
 Used heavily in distributed caches (Redis Cluster, Memcached). Adding/removing nodes only remaps a fraction of keys.
 
-```
-Hash ring with virtual nodes:
-[ Server A ] [ Server B ] [ Server C ] [ Server A ] [ Server B ] ...
-     ↑                                      ↑
-  Request 1 (hash → here)             Request 2 (hash → here)
-```
+
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-8.txt"></script>
+
 
 **Best for:** Distributed caches, content delivery, session stores.
 
@@ -113,15 +97,9 @@ Some applications store state in memory (session data, in-memory caches). Sticky
 
 ### Cookie-Based Stickiness
 
-```nginx
-upstream backend {
-    server 192.168.1.10:8080;
-    server 192.168.1.11:8080;
-    server 192.168.1.12:8080;
 
-    sticky cookie srv_id expires=1h domain=.example.com path=/;
-}
-```
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet.conf"></script>
+
 
 The load balancer inserts a cookie identifying which backend served the user.
 
@@ -135,27 +113,17 @@ A load balancer is useless if it routes to dead servers. Always configure health
 
 Mark a server unhealthy based on failed responses:
 
-```nginx
-upstream backend {
-    server 192.168.1.10:8080 max_fails=3 fail_timeout=30s;
-    server 192.168.1.11:8080 max_fails=3 fail_timeout=30s;
-}
-```
+
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-2.conf"></script>
+
 
 ### Active Health Checks
 
 Periodically probe servers:
 
-```nginx
-# NGINX Plus or use Lua in open-source NGINX
-upstream backend {
-    zone backend 64k;
-    server 192.168.1.10:8080;
-    server 192.168.1.11:8080;
 
-    health_check interval=5s passes=2 fails=3 uri=/health;
-}
-```
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-3.conf"></script>
+
 
 Your `/health` endpoint should check:
 - Database connectivity
@@ -165,53 +133,17 @@ Your `/health` endpoint should check:
 
 ## NGINX Configuration Example
 
-```nginx
-http {
-    upstream api_backend {
-        least_conn;  # Algorithm
 
-        server 10.0.0.10:8080 weight=2;  # Higher capacity
-        server 10.0.0.11:8080 weight=1;
-        server 10.0.0.12:8080 weight=1;
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-4.conf"></script>
 
-        keepalive 32;  # Reuse connections to backends
-    }
-
-    server {
-        listen 443 ssl http2;
-        server_name api.example.com;
-
-        ssl_certificate /etc/ssl/cert.pem;
-        ssl_certificate_key /etc/ssl/key.pem;
-
-        location /api/ {
-            proxy_pass http://api_backend;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-
-            proxy_connect_timeout 5s;
-            proxy_send_timeout 30s;
-            proxy_read_timeout 30s;
-
-            # Retry on errors
-            proxy_next_upstream error timeout http_500;
-            proxy_next_upstream_tries 3;
-        }
-    }
-}
-```
 
 ## Global Load Balancing with DNS
 
 For multi-region deployments, use DNS-based load balancing:
 
-```
-api.example.com →
-  US-East: 1.2.3.4 (primary)
-  US-West: 5.6.7.8 (failover)
-  EU: 9.10.11.12
-```
+
+<script src="https://gist.github.com/mohashari/3cf7db17b8061b26efd0dea89e179f45.js?file=snippet-9.txt"></script>
+
 
 AWS Route 53, Cloudflare, and GCP Cloud DNS support latency-based routing (route to closest region) and health-check-based failover.
 

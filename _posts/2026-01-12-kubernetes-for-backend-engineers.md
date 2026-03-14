@@ -13,9 +13,9 @@ Kubernetes (K8s) can feel overwhelming at first. Pods, Services, Deployments, In
 
 Think of Kubernetes as a **desired state machine**. You tell it what you want (e.g., "run 3 replicas of my API"), and Kubernetes constantly works to make that reality. It's declarative, not imperative.
 
-```
-You declare desired state → Kubernetes reconciles → Actual state matches desired state
-```
+
+<script src="https://gist.github.com/mohashari/e192933c9b52b133b98523e2c93fdafb.js?file=snippet.txt"></script>
+
 
 ## Key Primitives
 
@@ -23,18 +23,9 @@ You declare desired state → Kubernetes reconciles → Actual state matches des
 
 The smallest deployable unit. A pod wraps one (or more) containers that share network and storage.
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: my-api
-spec:
-  containers:
-  - name: api
-    image: myapp:1.0.0
-    ports:
-    - containerPort: 8080
-```
+
+<script src="https://gist.github.com/mohashari/e192933c9b52b133b98523e2c93fdafb.js?file=snippet.yaml"></script>
+
 
 You almost never create bare Pods — use Deployments instead.
 
@@ -42,110 +33,39 @@ You almost never create bare Pods — use Deployments instead.
 
 Manages a ReplicaSet which manages Pods. This is how you run your application.
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: api-deployment
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: my-api
-  template:
-    metadata:
-      labels:
-        app: my-api
-    spec:
-      containers:
-      - name: api
-        image: myapp:1.0.0
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 10
-```
+
+<script src="https://gist.github.com/mohashari/e192933c9b52b133b98523e2c93fdafb.js?file=snippet-2.yaml"></script>
+
 
 ### Service
 
 Services give your pods a stable network identity. Pods die and restart with new IPs — Services provide a stable endpoint.
 
-```yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: api-service
-spec:
-  selector:
-    app: my-api
-  ports:
-  - port: 80
-    targetPort: 8080
-  type: ClusterIP
-```
+
+<script src="https://gist.github.com/mohashari/e192933c9b52b133b98523e2c93fdafb.js?file=snippet-3.yaml"></script>
+
 
 ### ConfigMap and Secret
 
 Decouple configuration from your container image:
 
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: api-config
-data:
-  LOG_LEVEL: "info"
-  MAX_CONNECTIONS: "100"
 
----
+<script src="https://gist.github.com/mohashari/e192933c9b52b133b98523e2c93fdafb.js?file=snippet-4.yaml"></script>
 
-apiVersion: v1
-kind: Secret
-metadata:
-  name: api-secrets
-type: Opaque
-data:
-  # base64 encoded values
-  DB_PASSWORD: cGFzc3dvcmQxMjM=
-```
 
 Reference them in your deployment:
 
-```yaml
-env:
-- name: LOG_LEVEL
-  valueFrom:
-    configMapKeyRef:
-      name: api-config
-      key: LOG_LEVEL
-- name: DB_PASSWORD
-  valueFrom:
-    secretKeyRef:
-      name: api-secrets
-      key: DB_PASSWORD
-```
+
+<script src="https://gist.github.com/mohashari/e192933c9b52b133b98523e2c93fdafb.js?file=snippet-5.yaml"></script>
+
 
 ## Rolling Updates with Zero Downtime
 
 By default, Kubernetes does rolling updates — replacing old pods one by one:
 
-```yaml
-spec:
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1        # Can have 1 extra pod during update
-      maxUnavailable: 0  # Never have fewer than desired count
-```
+
+<script src="https://gist.github.com/mohashari/e192933c9b52b133b98523e2c93fdafb.js?file=snippet-6.yaml"></script>
+
 
 Combined with readiness probes, this gives you true zero-downtime deployments.
 
@@ -153,50 +73,15 @@ Combined with readiness probes, this gives you true zero-downtime deployments.
 
 Scale based on CPU/memory automatically:
 
-```yaml
-apiVersion: autoscaling/v2
-kind: HorizontalPodAutoscaler
-metadata:
-  name: api-hpa
-spec:
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: api-deployment
-  minReplicas: 2
-  maxReplicas: 10
-  metrics:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-        averageUtilization: 70
-```
+
+<script src="https://gist.github.com/mohashari/e192933c9b52b133b98523e2c93fdafb.js?file=snippet-7.yaml"></script>
+
 
 ## Essential kubectl Commands
 
-```bash
-# See what's running
-kubectl get pods -n my-namespace
-kubectl get deployments
 
-# Debug a pod
-kubectl describe pod <pod-name>
-kubectl logs <pod-name> --tail=100 -f
+<script src="https://gist.github.com/mohashari/e192933c9b52b133b98523e2c93fdafb.js?file=snippet.sh"></script>
 
-# Execute into a container
-kubectl exec -it <pod-name> -- /bin/sh
-
-# Apply a manifest
-kubectl apply -f deployment.yaml
-
-# Rollback a deployment
-kubectl rollout undo deployment/api-deployment
-
-# Check rollout status
-kubectl rollout status deployment/api-deployment
-```
 
 ## Takeaway
 

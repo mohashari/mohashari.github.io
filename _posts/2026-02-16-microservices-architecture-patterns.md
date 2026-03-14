@@ -26,19 +26,9 @@ The "microservices first" approach almost always leads to distributed monolith h
 
 Organize around business functions, not technical layers:
 
-```
-# Bad (technical layers)
-frontend-service
-business-logic-service
-database-service
 
-# Good (business capabilities)
-user-service
-payment-service
-notification-service
-inventory-service
-order-service
-```
+<script src="https://gist.github.com/mohashari/2906ab214d1e67848fb2ba58cfa21bcf.js?file=snippet.txt"></script>
+
 
 ### Decompose by Subdomain (DDD)
 
@@ -50,9 +40,9 @@ Use Domain-Driven Design to find service boundaries. Each bounded context become
 
 Use for operations requiring an immediate response:
 
-```
-Client → Order Service → [HTTP] → Inventory Service → [HTTP] → Payment Service
-```
+
+<script src="https://gist.github.com/mohashari/2906ab214d1e67848fb2ba58cfa21bcf.js?file=snippet-2.txt"></script>
+
 
 Problem: Coupling. If payment service is down, the whole chain fails.
 
@@ -60,51 +50,23 @@ Problem: Coupling. If payment service is down, the whole chain fails.
 
 Use for operations that don't require immediate response:
 
-```
-Order Service → [Kafka] → Payment Service
-                       → Inventory Service
-                       → Notification Service
-```
+
+<script src="https://gist.github.com/mohashari/2906ab214d1e67848fb2ba58cfa21bcf.js?file=snippet-3.txt"></script>
+
 
 Benefits: Decoupling, resilience, natural retry mechanism.
 
-```go
-// Producer
-func PlaceOrder(order Order) error {
-    if err := db.Save(order); err != nil {
-        return err
-    }
 
-    event := OrderPlacedEvent{
-        OrderID:   order.ID,
-        UserID:    order.UserID,
-        Items:     order.Items,
-        Total:     order.Total,
-        Timestamp: time.Now(),
-    }
+<script src="https://gist.github.com/mohashari/2906ab214d1e67848fb2ba58cfa21bcf.js?file=snippet.go"></script>
 
-    return kafka.Publish("orders.placed", event)
-}
-
-// Consumer (in payment-service)
-func HandleOrderPlaced(event OrderPlacedEvent) error {
-    return paymentService.ChargeUser(event.UserID, event.Total, event.OrderID)
-}
-```
 
 ## The API Gateway Pattern
 
 Never expose your internal services directly. Use an API Gateway as the single entry point:
 
-```
-                    ┌─────────────────┐
-Clients ──────────→ │   API Gateway   │
-                    └────────┬────────┘
-                             │
-              ┌──────────────┼──────────────┐
-              ↓              ↓              ↓
-        user-service   order-service  product-service
-```
+
+<script src="https://gist.github.com/mohashari/2906ab214d1e67848fb2ba58cfa21bcf.js?file=snippet-4.txt"></script>
+
 
 The gateway handles:
 - Authentication/Authorization
@@ -121,82 +83,25 @@ ACID transactions don't work across services. Use sagas — a sequence of local 
 
 Services react to events:
 
-```
-1. Order Service: Creates order → publishes "order.created"
-2. Payment Service: Charges card → publishes "payment.processed"
-                    (if fails) → publishes "payment.failed"
-3. Inventory Service: Reserves stock → publishes "stock.reserved"
-                       (if fails) → publishes "stock.insufficient"
-4. Order Service:
-   - On "payment.failed" → cancels order
-   - On "stock.insufficient" → refunds payment, cancels order
-```
+
+<script src="https://gist.github.com/mohashari/2906ab214d1e67848fb2ba58cfa21bcf.js?file=snippet-5.txt"></script>
+
 
 ### Orchestration-based Saga
 
 A central coordinator drives the steps:
 
-```go
-type OrderSaga struct{}
 
-func (s *OrderSaga) Execute(orderID string) error {
-    steps := []SagaStep{
-        {Execute: paymentService.Charge,    Compensate: paymentService.Refund},
-        {Execute: inventoryService.Reserve, Compensate: inventoryService.Release},
-        {Execute: shippingService.Schedule, Compensate: shippingService.Cancel},
-    }
+<script src="https://gist.github.com/mohashari/2906ab214d1e67848fb2ba58cfa21bcf.js?file=snippet-2.go"></script>
 
-    var completed []SagaStep
-    for _, step := range steps {
-        if err := step.Execute(orderID); err != nil {
-            // Rollback in reverse order
-            for i := len(completed) - 1; i >= 0; i-- {
-                completed[i].Compensate(orderID)
-            }
-            return err
-        }
-        completed = append(completed, step)
-    }
-    return nil
-}
-```
 
 ## Circuit Breaker Pattern
 
 Prevent cascading failures when a downstream service is struggling:
 
-```go
-type CircuitBreaker struct {
-    failures   int
-    threshold  int
-    lastFailed time.Time
-    timeout    time.Duration
-    state      string // "closed", "open", "half-open"
-}
 
-func (cb *CircuitBreaker) Call(fn func() error) error {
-    if cb.state == "open" {
-        if time.Since(cb.lastFailed) < cb.timeout {
-            return errors.New("circuit breaker open")
-        }
-        cb.state = "half-open"
-    }
+<script src="https://gist.github.com/mohashari/2906ab214d1e67848fb2ba58cfa21bcf.js?file=snippet-3.go"></script>
 
-    err := fn()
-    if err != nil {
-        cb.failures++
-        cb.lastFailed = time.Now()
-        if cb.failures >= cb.threshold {
-            cb.state = "open"
-        }
-        return err
-    }
-
-    cb.failures = 0
-    cb.state = "closed"
-    return nil
-}
-```
 
 Use libraries like `gobreaker` (Go) or `resilience4j` (Java) in production.
 

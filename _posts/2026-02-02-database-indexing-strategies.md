@@ -23,28 +23,23 @@ In PostgreSQL (and most databases), the default index type is a **B-Tree** (Bala
 ### B-Tree (Default)
 Best for most cases — equality, ranges, sorting.
 
-```sql
-CREATE INDEX idx_users_email ON users(email);
-CREATE INDEX idx_orders_created ON orders(created_at);
-```
+
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet.sql"></script>
+
 
 ### Hash Index
 Only for exact equality matches. Faster than B-Tree for this case but limited.
 
-```sql
-CREATE INDEX idx_sessions_token ON sessions USING HASH (token);
-```
+
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-2.sql"></script>
+
 
 ### GIN (Generalized Inverted Index)
 For full-text search and array/JSONB columns.
 
-```sql
--- Full text search
-CREATE INDEX idx_articles_search ON articles USING GIN (to_tsvector('english', content));
 
--- JSONB
-CREATE INDEX idx_users_metadata ON users USING GIN (metadata);
-```
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-3.sql"></script>
+
 
 ### GiST and BRIN
 For geometric data and very large sequential tables respectively.
@@ -60,19 +55,9 @@ But NOT:
 - `WHERE b = ...` (doesn't start from leftmost)
 - `WHERE c = ...`
 
-```sql
--- This index serves both queries below efficiently
-CREATE INDEX idx_orders_user_status ON orders(user_id, status, created_at);
 
--- Uses the index
-SELECT * FROM orders WHERE user_id = 42 AND status = 'pending';
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-4.sql"></script>
 
--- Also uses the index (partial)
-SELECT * FROM orders WHERE user_id = 42;
-
--- Does NOT use the index efficiently
-SELECT * FROM orders WHERE status = 'pending';
-```
 
 **Rule: Put the most selective column first in composite indexes.**
 
@@ -80,66 +65,37 @@ SELECT * FROM orders WHERE status = 'pending';
 
 If your index contains all the columns a query needs, PostgreSQL never has to touch the main table — this is an "index-only scan" and is extremely fast:
 
-```sql
--- Query needs user_id, status, and total
-SELECT user_id, status, total FROM orders WHERE user_id = 42;
 
--- Covering index includes all needed columns
-CREATE INDEX idx_orders_covering ON orders(user_id) INCLUDE (status, total);
-```
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-5.sql"></script>
+
 
 ## Partial Indexes
 
 Index only a subset of rows. Smaller, faster:
 
-```sql
--- Only index unprocessed jobs (90% are already processed)
-CREATE INDEX idx_jobs_pending ON jobs(created_at)
-  WHERE status = 'pending';
 
--- Only index active users
-CREATE INDEX idx_users_active_email ON users(email)
-  WHERE deleted_at IS NULL;
-```
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-6.sql"></script>
+
 
 ## Functional Indexes
 
 Index the result of a function:
 
-```sql
--- Case-insensitive email lookup
-CREATE INDEX idx_users_lower_email ON users(LOWER(email));
 
--- Now this query is fast
-SELECT * FROM users WHERE LOWER(email) = LOWER('User@Example.com');
-```
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-7.sql"></script>
+
 
 ## Diagnosing Slow Queries
 
-```sql
--- Enable timing
-\timing
 
--- See the query plan
-EXPLAIN ANALYZE
-SELECT * FROM orders WHERE user_id = 42 AND status = 'pending';
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-8.sql"></script>
 
--- Look for:
--- "Seq Scan" — full table scan (bad for large tables)
--- "Index Scan" — good
--- "Index Only Scan" — best
--- actual time vs estimated time
-```
 
 Find slow queries from logs:
 
-```sql
--- Find the most time-consuming queries
-SELECT query, mean_exec_time, calls, total_exec_time
-FROM pg_stat_statements
-ORDER BY total_exec_time DESC
-LIMIT 10;
-```
+
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-9.sql"></script>
+
 
 ## Common Indexing Mistakes
 
@@ -149,30 +105,22 @@ Every index slows down writes (INSERT, UPDATE, DELETE). Don't add indexes "just 
 ### 2. Not indexing foreign keys
 Always index foreign keys — they're used in JOINs constantly:
 
-```sql
--- After creating the foreign key
-ALTER TABLE orders ADD CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id);
 
--- Always add this index
-CREATE INDEX idx_orders_user_id ON orders(user_id);
-```
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-10.sql"></script>
+
 
 ### 3. Ignoring index bloat
 Indexes can become bloated over time. Rebuild them periodically:
 
-```sql
-REINDEX INDEX CONCURRENTLY idx_orders_user_id;
-```
+
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-11.sql"></script>
+
 
 ### 4. Using functions on indexed columns in WHERE
 
-```sql
--- This CANNOT use an index on created_at
-WHERE DATE(created_at) = '2026-01-01'
 
--- This CAN
-WHERE created_at >= '2026-01-01' AND created_at < '2026-01-02'
-```
+<script src="https://gist.github.com/mohashari/42ed858dddc9f02021880443120f21c4.js?file=snippet-12.sql"></script>
+
 
 ## Quick Decision Guide
 

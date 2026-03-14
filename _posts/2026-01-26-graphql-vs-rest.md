@@ -11,19 +11,9 @@ GraphQL exploded in popularity after Facebook open-sourced it in 2015. But does 
 
 GraphQL is a query language for APIs and a runtime for executing those queries. Instead of multiple endpoints, you have a single `/graphql` endpoint where clients specify exactly what data they need.
 
-```graphql
-# Client asks for exactly what it needs
-query {
-  user(id: "42") {
-    name
-    email
-    posts(last: 5) {
-      title
-      createdAt
-    }
-  }
-}
-```
+
+<script src="https://gist.github.com/mohashari/aabb88ccc9700b95c0407e0812106082.js?file=snippet.txt"></script>
+
 
 Response contains exactly those fields — no more, no less.
 
@@ -39,11 +29,9 @@ Response contains exactly those fields — no more, no less.
 - **No N+1 complexity** — You control exactly what SQL runs for each endpoint
 - **Better for public APIs** — Versioning and stability are easier
 
-```bash
-# REST is easy to explore and debug
-curl -X GET https://api.example.com/users/42 \
-  -H "Authorization: Bearer token123"
-```
+
+<script src="https://gist.github.com/mohashari/aabb88ccc9700b95c0407e0812106082.js?file=snippet.sh"></script>
+
 
 ## Where GraphQL Shines
 
@@ -56,24 +44,9 @@ curl -X GET https://api.example.com/users/42 \
 - **Rapid iteration** — Frontend adds fields without backend changes
 - **Subscriptions** — Real-time updates built into the spec
 
-```graphql
-# One request instead of 5
-query DashboardData {
-  currentUser {
-    name
-    recentOrders(limit: 10) {
-      id
-      total
-      status
-      items { name quantity }
-    }
-    notifications(unread: true) {
-      message
-      createdAt
-    }
-  }
-}
-```
+
+<script src="https://gist.github.com/mohashari/aabb88ccc9700b95c0407e0812106082.js?file=snippet-2.txt"></script>
+
 
 ## The Tradeoffs You Must Know
 
@@ -91,26 +64,9 @@ query DashboardData {
 
 GraphQL naively can execute a database query per item in a list. You **must** use DataLoader (batching) to avoid this:
 
-```javascript
-// Without DataLoader — N+1 queries
-const resolvers = {
-  Post: {
-    author: (post) => User.findById(post.authorId) // 1 query per post!
-  }
-}
 
-// With DataLoader — 1 batched query
-const userLoader = new DataLoader(async (ids) => {
-  const users = await User.findAll({ where: { id: ids } });
-  return ids.map(id => users.find(u => u.id === id));
-});
+<script src="https://gist.github.com/mohashari/aabb88ccc9700b95c0407e0812106082.js?file=snippet.js"></script>
 
-const resolvers = {
-  Post: {
-    author: (post) => userLoader.load(post.authorId)
-  }
-}
-```
 
 ## My Recommendation
 
