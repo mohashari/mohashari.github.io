@@ -2,56 +2,64 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }}</title>
 
     {% include meta.html %}
 
-    <!--[if lt IE 9]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.baseurl }}/feed.xml" />
   </head>
 
   <body>
-    <div class="wrapper-masthead">
-      <div class="container">
-        <header class="masthead clearfix">
-          <a href="{{ site.baseurl }}/" class="site-avatar">
-            <img src="{{ site.avatar }}" alt="{{ site.name }}" />
-          </a>
 
-          <div class="site-info">
-            <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
+    <header class="site-header">
+      <div class="container">
+        <div class="site-header-inner">
+          <a href="{{ site.baseurl }}/" class="site-avatar-link">
+            <img src="{{ site.avatar }}" alt="{{ site.name }}" class="site-avatar-img" />
+          </a>
+          <div class="site-branding">
+            <h1 class="site-name">
+              <a href="{{ site.baseurl }}/">{{ site.name }}</a>
+            </h1>
             <p class="site-description">{{ site.description }}</p>
           </div>
-
-          <nav>
-            <a href="{{ site.baseurl }}/">Blog</a>
+          <nav class="site-nav">
+            <a href="{{ site.baseurl }}/">Writing</a>
             <a href="{{ site.baseurl }}/about">About</a>
           </nav>
-        </header>
+        </div>
       </div>
+    </header>
+
+    <div class="header-rule">
+      <div class="container"><div class="rule-line"></div></div>
     </div>
 
-    <div id="main" role="main" class="container">
+    <main id="main" role="main" class="container main-content">
       {{ content }}
+    </main>
+
+    <div class="footer-rule">
+      <div class="container"><div class="rule-line"></div></div>
     </div>
 
-    <div class="wrapper-footer">
+    <footer class="site-footer">
       <div class="container">
-        <footer class="footer">
-          <div class="footer-links">
-            {% include svg-icons.html %}
-          </div>
-          <p class="footer-copy">&copy; {{ site.time | date: '%Y' }} {{ site.name }}. Built with Jekyll.</p>
-        </footer>
+        <div class="footer-social">
+          {% include svg-icons.html %}
+        </div>
+        <p class="footer-copy">
+          &copy; {{ site.time | date: '%Y' }} {{ site.name }}
+          <span class="footer-sep">&middot;</span>
+          Backend Engineer
+        </p>
       </div>
-    </div>
+    </footer>
 
     {% include analytics.html %}
   </body>

@@ -3,38 +3,48 @@ layout: default
 ---
 
 <article class="post">
-  <div class="post-header">
-    <div class="post-meta">
-      <span class="post-date">{{ page.date | date: "%B %e, %Y" }}</span>
-      {% if page.tags %}
-        <span class="post-meta-sep">·</span>
-        {% for tag in page.tags %}
-          <span class="post-tag">{{ tag }}</span>
-        {% endfor %}
-      {% endif %}
+
+  <header class="post-header">
+    {% if page.tags %}
+    <div class="post-tags">
+      {% for tag in page.tags %}
+        <span class="post-tag">{{ tag }}</span>
+      {% endfor %}
     </div>
+    {% endif %}
+
     <h1 class="post-title">{{ page.title }}</h1>
+
     {% if page.description %}
       <p class="post-description">{{ page.description }}</p>
     {% endif %}
-  </div>
 
-  <div class="post-divider"></div>
+    <div class="post-meta-line">
+      <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+    </div>
+  </header>
+
+  <div class="post-divider">
+    <span class="post-divider-ornament">&#10022;</span>
+  </div>
 
   <div class="entry">
     {{ content }}
   </div>
 
-  <div class="post-footer">
+  <footer class="post-footer">
+    {% if page.tags %}
     <div class="post-footer-tags">
-      {% if page.tags %}
-        {% for tag in page.tags %}
-          <span class="post-tag">{{ tag }}</span>
-        {% endfor %}
-      {% endif %}
+      {% for tag in page.tags %}
+        <span class="post-tag">{{ tag }}</span>
+      {% endfor %}
     </div>
-    <a href="{{ site.baseurl }}/" class="back-link">← Back to Blog</a>
-  </div>
+    {% endif %}
+    <a href="{{ site.baseurl }}/" class="back-link">← All posts</a>
+  </footer>
 
-  {% include disqus.html %}
 </article>
+
+{% include disqus.html %}

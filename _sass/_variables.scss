@@ -1,32 +1,41 @@
 
 //
-// VARIABLES
+// VARIABLES — Elegant Editorial Theme
 //
 
-// Colors
-$blue: #3b82f6;
-$indigo: #6366f1;
-$purple: #8b5cf6;
-$teal: #14b8a6;
-$accent: #6366f1;
-$accentDark: #4f46e5;
+// Palette
+$cream:       #FAFAF8;
+$paper:       #F5F4F0;
+$ink:         #1C1C1C;
+$inkLight:    #3D3D3D;
+$muted:       #7A7A7A;
+$subtle:      #B0ADA8;
+$border:      #E5E3DE;
+$borderLight: #EDECEA;
+$accent:      #B07D54;   // warm amber
+$accentDark:  #8C6240;
+$white:       #FFFFFF;
 
-// Grays
-$black: #0f172a;
-$darkerGray: #1e293b;
-$darkGray: #334155;
-$gray: #64748b;
-$lightGray: #f1f5f9;
-$white: #ffffff;
-$border: #e2e8f0;
+// Aliases (used by existing partials)
+$black:       $ink;
+$darkerGray:  $ink;
+$darkGray:    $inkLight;
+$gray:        $muted;
+$lightGray:   $borderLight;
+$blue:        $accent;
 
 // Font stacks
-$helvetica: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-$helveticaNeue: 'Inter', "Helvetica Neue", Helvetica, Arial, sans-serif;
-$georgia: 'Merriweather', Georgia, serif;
-$mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+$serif:         'Playfair Display', 'Georgia', 'Times New Roman', serif;
+$serifBody:     'Lora', 'Georgia', serif;
+$sansSerif:     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$mono:          'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
 
-// Mobile breakpoints
+// Legacy aliases
+$helvetica:     $sansSerif;
+$helveticaNeue: $sansSerif;
+$georgia:       $serifBody;
+
+// Breakpoints
 @mixin mobile {
   @media screen and (max-width: 640px) {
     @content;
