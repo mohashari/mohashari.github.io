@@ -7,6 +7,8 @@ description: "A deep-dive comparison of gRPC and REST — performance, tooling, 
 
 gRPC has been gaining serious traction in the microservices world. Built on HTTP/2 and Protocol Buffers, it promises better performance and stronger contracts than REST. But should you switch? Let's compare honestly.
 
+![gRPC vs REST Communication](/images/diagrams/grpc-vs-rest.svg)
+
 ## What is gRPC?
 
 gRPC (Google Remote Procedure Call) uses:

@@ -7,6 +7,8 @@ description: "Everything you need to know about JWT — how it works, common vul
 
 JSON Web Tokens (JWT) are everywhere. But they're also widely misimplemented. This guide covers how JWT actually works, the mistakes that create security vulnerabilities, and how to do it right.
 
+![JWT Authentication Flow](/images/diagrams/jwt-auth-flow.svg)
+
 ## What is a JWT?
 
 A JWT is a compact, URL-safe string with three base64url-encoded parts separated by dots:

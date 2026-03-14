@@ -7,6 +7,8 @@ description: "Understanding database indexes deeply — how they work, when to u
 
 Slow queries are responsible for more production incidents than almost anything else. And the solution is almost always the same: proper indexing. Let's go deep on how indexes work and how to use them effectively.
 
+![B-Tree Index vs Full Table Scan](/images/diagrams/database-indexing.svg)
+
 ## How Indexes Work (The Mental Model)
 
 Think of a database table as a book and an index as the book's index at the back. Without an index, finding all mentions of "Redis" means reading every single page (full table scan). With an index, you jump directly to the right pages.

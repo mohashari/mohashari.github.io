@@ -7,6 +7,8 @@ description: "A practical comparison of Kafka and RabbitMQ to help you choose th
 
 Message queues are the backbone of resilient, decoupled systems. But choosing between Kafka and RabbitMQ can feel overwhelming. This guide cuts through the marketing to give you a practical decision framework.
 
+![Apache Kafka Architecture](/images/diagrams/kafka-architecture.svg)
+
 ## The Core Difference
 
 **RabbitMQ** is a traditional message broker. Messages are pushed to consumers, and once consumed and acknowledged, they're gone.

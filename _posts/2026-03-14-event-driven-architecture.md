@@ -7,6 +7,8 @@ description: "Learn how event-driven architecture works, its patterns, benefits,
 
 Event-driven architecture (EDA) is a paradigm shift in how services communicate. Instead of direct calls ("do this now"), services emit events ("this happened") and other services react. The result: systems that are more resilient, scalable, and evolvable.
 
+![Event-Driven Architecture with Outbox Pattern](/images/diagrams/event-driven-architecture.svg)
+
 ## The Core Concept
 
 In a synchronous world:

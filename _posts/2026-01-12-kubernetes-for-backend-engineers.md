@@ -7,6 +7,8 @@ description: "A practical Kubernetes guide for backend engineers who want to dep
 
 Kubernetes (K8s) can feel overwhelming at first. Pods, Services, Deployments, Ingress — it's a lot. But once you understand the mental model, everything clicks. This guide cuts through the noise and gives you what you actually need as a backend engineer.
 
+![Kubernetes Cluster Architecture](/images/diagrams/kubernetes-architecture.svg)
+
 ## The Core Mental Model
 
 Think of Kubernetes as a **desired state machine**. You tell it what you want (e.g., "run 3 replicas of my API"), and Kubernetes constantly works to make that reality. It's declarative, not imperative.

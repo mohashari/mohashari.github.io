@@ -7,6 +7,8 @@ description: "The essential microservices patterns — from service decompositio
 
 Microservices aren't a silver bullet. They solve real problems while creating new ones. This post covers the patterns that make microservices work in practice — and the pitfalls that bring them down.
 
+![Microservices Architecture Diagram](/images/diagrams/microservices-architecture.svg)
+
 ## When to Go Microservices
 
 Don't start with microservices. Start with a monolith, then extract services when you feel the pain:

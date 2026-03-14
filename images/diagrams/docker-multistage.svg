@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="820" height="260" viewBox="0 0 820 260"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&amp;display=swap');
+      text { font-family: 'Caveat', 'Comic Sans MS', cursive; }
+    </style>
+    <!-- Slight hand-drawn roughness filter -->
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3"
+                    seed="2" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2"
+                         xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Arrow marker – dark -->
+    <marker id="arr" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <!-- Arrow marker – colored -->
+    <marker id="arr-color" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1d4ed8"/>
+    </marker>
+    <!-- Arrow marker – white (for dark backgrounds) -->
+    <marker id="arr-white" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ffffff"/>
+    </marker>
+  </defs>
+  <!-- Background -->
+  <rect width="820" height="260" fill="#fafaf8" rx="8"/>
+<text x="410" y="34" text-anchor="middle"
+               font-size="17" font-weight="700" fill="#1e1e2e">Docker Multi-Stage Build</text>
+  <line x1="40" y1="44" x2="780" y2="44" stroke="#e5e3de" stroke-width="1"/>
+  <g filter="url(#rough)">
+    <rect x="30" y="90" width="150" height="60" rx="6" ry="6"
+          fill="#ffffff" stroke="#1e1e2e" stroke-width="2"/>
+  </g>
+  <text x="105" y="112" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e1e2e">Source Code</text>
+  <text x="105" y="134" text-anchor="middle"
+        font-size="11" fill="#1e1e2e" opacity="0.7">.go files</text>
+  <g filter="url(#rough)">
+    <rect x="230" y="90" width="160" height="60" rx="6" ry="6"
+          fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  </g>
+  <text x="310" y="112" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e3a5f">Builder Stage</text>
+  <text x="310" y="134" text-anchor="middle"
+        font-size="11" fill="#1e3a5f" opacity="0.7">golang:1.21-alpine</text>
+  <g filter="url(#rough)">
+    <rect x="450" y="90" width="160" height="60" rx="6" ry="6"
+          fill="#d1fae5" stroke="#065f46" stroke-width="2"/>
+  </g>
+  <text x="530" y="112" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#064e3b">Runtime Stage</text>
+  <text x="530" y="134" text-anchor="middle"
+        font-size="11" fill="#064e3b" opacity="0.7">alpine:3.19</text>
+  <g filter="url(#rough)">
+    <rect x="670" y="90" width="120" height="60" rx="6" ry="6"
+          fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+  </g>
+  <text x="730" y="112" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#134e4a">Final Image</text>
+  <text x="730" y="134" text-anchor="middle"
+        font-size="11" fill="#134e4a" opacity="0.7">~12 MB</text>
+  <line x1="180" y1="120" x2="228" y2="120"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  <rect x="190" y="108" width="36" height="18"
+                   fill="#fafaf8" rx="3"/>
+    <text x="204" y="122" text-anchor="middle" font-size="11" fill="#6b7280">COPY</text>
+  <line x1="390" y1="120" x2="448" y2="120"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  <rect x="352.5" y="108" width="141" height="18"
+                   fill="#fafaf8" rx="3"/>
+    <text x="419" y="122" text-anchor="middle" font-size="11" fill="#6b7280">COPY --from=builder</text>
+  <line x1="610" y1="120" x2="668" y2="120"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  <rect x="628.5" y="108" width="29" height="18"
+                   fill="#fafaf8" rx="3"/>
+    <text x="639" y="122" text-anchor="middle" font-size="11" fill="#6b7280">CMD</text><text x="695" y="175" text-anchor="middle"
+               font-size="11" fill="#065f46">800MB→12MB</text><circle cx="105" cy="90" r="12" fill="#1d4ed8" opacity="0.15"/><text x="105" y="94" text-anchor="middle"
+               font-size="12" fill="#1d4ed8">1</text><circle cx="310" cy="90" r="12" fill="#1d4ed8" opacity="0.15"/><text x="310" y="94" text-anchor="middle"
+               font-size="12" fill="#1d4ed8">2</text><circle cx="530" cy="90" r="12" fill="#1d4ed8" opacity="0.15"/><text x="530" y="94" text-anchor="middle"
+               font-size="12" fill="#1d4ed8">3</text><circle cx="730" cy="90" r="12" fill="#1d4ed8" opacity="0.15"/><text x="730" y="94" text-anchor="middle"
+               font-size="12" fill="#1d4ed8">4</text></svg>

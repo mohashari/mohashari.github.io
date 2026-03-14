@@ -7,6 +7,8 @@ description: "A comprehensive guide to load balancing algorithms, Layer 4 vs Lay
 
 Load balancing is how you turn one server into many — distributing traffic to achieve high availability and horizontal scalability. Understanding the algorithms and patterns helps you design systems that stay up when individual components fail.
 
+![Load Balancing Architecture](/images/diagrams/load-balancing.svg)
+
 ## Layer 4 vs Layer 7 Load Balancing
 
 ### Layer 4 (Transport Layer)

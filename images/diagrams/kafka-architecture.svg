@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="820" height="400" viewBox="0 0 820 400"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&amp;display=swap');
+      text { font-family: 'Caveat', 'Comic Sans MS', cursive; }
+    </style>
+    <!-- Slight hand-drawn roughness filter -->
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3"
+                    seed="2" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2"
+                         xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Arrow marker – dark -->
+    <marker id="arr" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <!-- Arrow marker – colored -->
+    <marker id="arr-color" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1d4ed8"/>
+    </marker>
+    <!-- Arrow marker – white (for dark backgrounds) -->
+    <marker id="arr-white" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ffffff"/>
+    </marker>
+  </defs>
+  <!-- Background -->
+  <rect width="820" height="400" fill="#fafaf8" rx="8"/>
+<text x="410" y="34" text-anchor="middle"
+               font-size="17" font-weight="700" fill="#1e1e2e">Apache Kafka Architecture</text>
+  <line x1="40" y1="44" x2="780" y2="44" stroke="#e5e3de" stroke-width="1"/>
+  <g filter="url(#rough)">
+    <rect x="20" y="60" width="140" height="260" rx="8" ry="8"
+          fill="none" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="6 3"
+          opacity="0.6"/>
+  </g>
+  <rect x="30" y="50" width="88" height="20"
+        fill="#fafaf8" rx="3"/>
+  <text x="38" y="65" font-size="12" fill="#1d4ed8"
+        font-weight="600">Producers</text>
+  <g filter="url(#rough)">
+    <rect x="35" y="90" width="110" height="50" rx="6" ry="6"
+          fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  </g>
+  <text x="90" y="120" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e3a5f">Order Service</text>
+  
+  <g filter="url(#rough)">
+    <rect x="35" y="160" width="110" height="50" rx="6" ry="6"
+          fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  </g>
+  <text x="90" y="190" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e3a5f">Payment Service</text>
+  
+  <g filter="url(#rough)">
+    <rect x="35" y="230" width="110" height="50" rx="6" ry="6"
+          fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  </g>
+  <text x="90" y="260" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e3a5f">User Service</text>
+  
+  <g filter="url(#rough)">
+    <rect x="210" y="60" width="260" height="260" rx="8" ry="8"
+          fill="none" stroke="#9a3412" stroke-width="1.5" stroke-dasharray="6 3"
+          opacity="0.6"/>
+  </g>
+  <rect x="220" y="50" width="112" height="20"
+        fill="#fafaf8" rx="3"/>
+  <text x="228" y="65" font-size="12" fill="#9a3412"
+        font-weight="600">Kafka Broker</text>
+  <g filter="url(#rough)">
+    <rect x="220" y="90" width="240" height="40" rx="6" ry="6"
+          fill="#ffedd5" stroke="#9a3412" stroke-width="2"/>
+  </g>
+  <text x="340" y="115" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#7c2d12">orders.placed</text>
+  
+  <g filter="url(#rough)">
+    <rect x="220" y="145" width="240" height="40" rx="6" ry="6"
+          fill="#ffedd5" stroke="#9a3412" stroke-width="2"/>
+  </g>
+  <text x="340" y="170" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#7c2d12">payments.processed</text>
+  
+  <g filter="url(#rough)">
+    <rect x="220" y="200" width="240" height="40" rx="6" ry="6"
+          fill="#ffedd5" stroke="#9a3412" stroke-width="2"/>
+  </g>
+  <text x="340" y="225" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#7c2d12">user.events</text>
+  
+  <g filter="url(#rough)">
+    <rect x="220" y="255" width="240" height="40" rx="6" ry="6"
+          fill="#ffedd5" stroke="#9a3412" stroke-width="2"/>
+  </g>
+  <text x="340" y="280" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#7c2d12">notifications</text>
+  
+  <g filter="url(#rough)">
+    <rect x="530" y="60" width="270" height="260" rx="8" ry="8"
+          fill="none" stroke="#065f46" stroke-width="1.5" stroke-dasharray="6 3"
+          opacity="0.6"/>
+  </g>
+  <rect x="540" y="50" width="136" height="20"
+        fill="#fafaf8" rx="3"/>
+  <text x="548" y="65" font-size="12" fill="#065f46"
+        font-weight="600">Consumer Groups</text>
+  <g filter="url(#rough)">
+    <rect x="545" y="90" width="240" height="50" rx="6" ry="6"
+          fill="#d1fae5" stroke="#065f46" stroke-width="2"/>
+  </g>
+  <text x="665" y="120" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#064e3b">Inventory Service</text>
+  
+  <g filter="url(#rough)">
+    <rect x="545" y="160" width="240" height="50" rx="6" ry="6"
+          fill="#ccfbf1" stroke="#0f766e" stroke-width="2"/>
+  </g>
+  <text x="665" y="190" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#134e4a">Analytics Service</text>
+  
+  <g filter="url(#rough)">
+    <rect x="545" y="230" width="240" height="50" rx="6" ry="6"
+          fill="#d1fae5" stroke="#065f46" stroke-width="2"/>
+  </g>
+  <text x="665" y="260" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#064e3b">Email Service</text>
+  
+  <line x1="147" y1="115" x2="218" y2="110"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  
+  <line x1="147" y1="185" x2="218" y2="165"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  
+  <line x1="147" y1="255" x2="218" y2="220"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  
+  <line x1="462" y1="110" x2="543" y2="115"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  
+  <line x1="462" y1="165" x2="543" y2="185"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  
+  <line x1="462" y1="220" x2="543" y2="255"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  
+  <line x1="462" y1="275" x2="543" y2="255"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  <text x="340" y="360" text-anchor="middle"
+               font-size="12" fill="#92400e">Each consumer group tracks its own offset</text></svg>

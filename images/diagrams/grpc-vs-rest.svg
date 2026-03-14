@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="820" height="370" viewBox="0 0 820 370"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&amp;display=swap');
+      text { font-family: 'Caveat', 'Comic Sans MS', cursive; }
+    </style>
+    <!-- Slight hand-drawn roughness filter -->
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3"
+                    seed="2" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2"
+                         xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <!-- Arrow marker – dark -->
+    <marker id="arr" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <!-- Arrow marker – colored -->
+    <marker id="arr-color" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1d4ed8"/>
+    </marker>
+    <!-- Arrow marker – white (for dark backgrounds) -->
+    <marker id="arr-white" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ffffff"/>
+    </marker>
+  </defs>
+  <!-- Background -->
+  <rect width="820" height="370" fill="#fafaf8" rx="8"/>
+<text x="410" y="34" text-anchor="middle"
+               font-size="17" font-weight="700" fill="#1e1e2e">gRPC vs REST Communication Patterns</text>
+  <line x1="40" y1="44" x2="780" y2="44" stroke="#e5e3de" stroke-width="1"/>
+  <g filter="url(#rough)">
+    <rect x="20" y="60" width="360" height="280" rx="8" ry="8"
+          fill="none" stroke="#1e1e2e" stroke-width="1.5" stroke-dasharray="6 3"
+          opacity="0.6"/>
+  </g>
+  <rect x="30" y="50" width="192" height="20"
+        fill="#fafaf8" rx="3"/>
+  <text x="38" y="65" font-size="12" fill="#1e1e2e"
+        font-weight="600">REST (HTTP/1.1 + JSON)</text>
+  <g filter="url(#rough)">
+    <rect x="35" y="90" width="130" height="50" rx="6" ry="6"
+          fill="#ffffff" stroke="#1e1e2e" stroke-width="2"/>
+  </g>
+  <text x="100" y="120" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e1e2e">Client</text>
+  
+  <g filter="url(#rough)">
+    <rect x="35" y="175" width="130" height="50" rx="6" ry="6"
+          fill="#ffffff" stroke="#1e1e2e" stroke-width="2"/>
+  </g>
+  <text x="100" y="205" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e1e2e">Client</text>
+  
+  <g filter="url(#rough)">
+    <rect x="220" y="90" width="140" height="50" rx="6" ry="6"
+          fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  </g>
+  <text x="290" y="107" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e3a5f">REST API</text>
+  <text x="290" y="129" text-anchor="middle"
+        font-size="11" fill="#1e3a5f" opacity="0.7">/users  /orders</text>
+  <g filter="url(#rough)">
+    <rect x="220" y="175" width="140" height="50" rx="6" ry="6"
+          fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  </g>
+  <text x="290" y="192" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e3a5f">REST API</text>
+  <text x="290" y="214" text-anchor="middle"
+        font-size="11" fill="#1e3a5f" opacity="0.7">different endpoints</text>
+  <line x1="167" y1="115" x2="218" y2="115"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  <rect x="157.5" y="103" width="78" height="18"
+                   fill="#fafaf8" rx="3"/>
+    <text x="192.5" y="117" text-anchor="middle" font-size="11" fill="#6b7280">GET /users</text>
+  <line x1="218" y1="200" x2="167" y2="200"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  <rect x="147" y="188" width="99" height="18"
+                   fill="#fafaf8" rx="3"/>
+    <text x="192.5" y="202" text-anchor="middle" font-size="11" fill="#6b7280">JSON response</text><text x="192" y="162" text-anchor="middle"
+               font-size="11" fill="#991b1b">2 round trips</text>
+  <g filter="url(#rough)">
+    <rect x="440" y="60" width="360" height="280" rx="8" ry="8"
+          fill="none" stroke="#1d4ed8" stroke-width="1.5" stroke-dasharray="6 3"
+          opacity="0.6"/>
+  </g>
+  <rect x="450" y="50" width="208" height="20"
+        fill="#fafaf8" rx="3"/>
+  <text x="458" y="65" font-size="12" fill="#1d4ed8"
+        font-weight="600">gRPC (HTTP/2 + Protobuf)</text>
+  <g filter="url(#rough)">
+    <rect x="455" y="90" width="130" height="50" rx="6" ry="6"
+          fill="#ffffff" stroke="#1e1e2e" stroke-width="2"/>
+  </g>
+  <text x="520" y="120" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e1e2e">Client</text>
+  
+  <g filter="url(#rough)">
+    <rect x="640" y="90" width="140" height="50" rx="6" ry="6"
+          fill="#dbeafe" stroke="#1d4ed8" stroke-width="2"/>
+  </g>
+  <text x="710" y="107" text-anchor="middle"
+        font-size="14" font-weight="600" fill="#1e3a5f">gRPC Server</text>
+  <text x="710" y="129" text-anchor="middle"
+        font-size="11" fill="#1e3a5f" opacity="0.7">single connection</text><text x="540" y="160" text-anchor="middle" font-family="Caveat,cursive" font-size="11" fill="#1d4ed8">GetUser()</text><text x="540" y="185" text-anchor="middle" font-family="Caveat,cursive" font-size="11" fill="#1d4ed8">ListOrders(stream)</text><text x="540" y="210" text-anchor="middle" font-family="Caveat,cursive" font-size="11" fill="#1d4ed8">Chat(bidi stream)</text>
+  <line x1="585" y1="115" x2="638" y2="115"
+        stroke="#374151" stroke-width="1.8" 
+        marker-end="url(#arr)"/>
+  <line x1="585" y1="155" x2="638" y2="155" stroke="#1d4ed8" stroke-width="1.3" marker-end="url(#arr-color)"/><line x1="585" y1="180" x2="638" y2="180" stroke="#1d4ed8" stroke-width="1.3" marker-end="url(#arr-color)"/><line x1="585" y1="205" x2="638" y2="205" stroke="#1d4ed8" stroke-width="1.3" marker-end="url(#arr-color)"/><text x="540" y="240" text-anchor="middle"
+               font-size="11" fill="#065f46">multiplexed over 1 TCP connection</text>
+  <g filter="url(#rough)">
+    <rect x="20" y="350" width="780" height="0" rx="8" ry="8"
+          fill="none" stroke="#374151" stroke-width="1.5" stroke-dasharray="6 3"
+          opacity="0.6"/>
+  </g>
+  <rect x="30" y="340" width="16" height="20"
+        fill="#fafaf8" rx="3"/>
+  <text x="38" y="355" font-size="12" fill="#374151"
+        font-weight="600"></text></svg>

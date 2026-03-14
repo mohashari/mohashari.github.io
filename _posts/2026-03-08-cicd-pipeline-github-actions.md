@@ -7,6 +7,8 @@ description: "Build a robust CI/CD pipeline with GitHub Actions — automated te
 
 A great CI/CD pipeline is your team's safety net and productivity multiplier. This guide shows how to build one with GitHub Actions that actually works in production.
 
+![CI/CD Pipeline Flow](/images/diagrams/cicd-pipeline.svg)
+
 ## The Pipeline Structure
 
 A production pipeline typically has these stages:

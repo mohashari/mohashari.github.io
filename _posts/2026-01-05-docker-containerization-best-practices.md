@@ -7,6 +7,8 @@ description: "Level up your Docker skills with proven patterns for writing lean,
 
 Docker has become the de-facto standard for packaging and shipping applications. But running containers in production requires more than just `docker run`. Here are the practices that separate hobby projects from production-grade deployments.
 
+![Docker Multi-Stage Build Diagram](/images/diagrams/docker-multistage.svg)
+
 ## 1. Use Multi-Stage Builds
 
 Multi-stage builds dramatically reduce final image size by separating the build environment from the runtime environment.

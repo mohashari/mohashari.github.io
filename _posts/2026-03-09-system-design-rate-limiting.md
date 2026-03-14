@@ -7,6 +7,8 @@ description: "A deep dive into rate limiting algorithms — fixed window, slidin
 
 Rate limiting is one of those topics that appears in every system design interview — and for good reason. Every production API needs it. Let's explore the algorithms and implementation strategies.
 
+![Token Bucket Rate Limiting](/images/diagrams/rate-limiting-token-bucket.svg)
+
 ## Why Rate Limit?
 
 - **Prevent abuse** — Stop one bad actor from hammering your API

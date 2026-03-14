@@ -7,6 +7,8 @@ description: "Master Redis caching patterns — from simple key-value caching to
 
 Redis is the Swiss Army knife of backend engineering. At its core it's a blazing-fast in-memory data store, but the real power is in how you design your caching strategy. Let's explore the patterns that matter.
 
+![Redis Cache-Aside Pattern](/images/diagrams/redis-cache-aside.svg)
+
 ## Why Cache?
 
 Simple math: a database query might take 50ms. A Redis hit takes 0.1ms. That's a 500x speedup. For endpoints that serve millions of requests, caching is not optional — it's survival.
