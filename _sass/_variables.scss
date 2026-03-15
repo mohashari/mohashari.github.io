@@ -3,18 +3,18 @@
 // VARIABLES — Casual Blog Theme
 //
 
-// Palette
+// Palette — White & Grey dominant, casual
 $white:       #FFFFFF;
-$bg:          #F8FAFC;
-$ink:         #1E293B;
-$inkLight:    #334155;
-$muted:       #64748B;
-$subtle:      #94A3B8;
-$border:      #E2E8F0;
-$borderLight: #F1F5F9;
-$accent:      #6366F1;
-$accentDark:  #4F46E5;
-$accentLight: #EEF2FF;
+$bg:          #FFFFFF;
+$ink:         #1C1C1E;
+$inkLight:    #3A3A3C;
+$muted:       #6B7280;
+$subtle:      #9CA3AF;
+$border:      #E4E4E7;
+$borderLight: #F7F7F8;
+$accent:      #52525B;
+$accentDark:  #3F3F46;
+$accentLight: #F4F4F5;
 
 // Legacy aliases
 $cream:       $bg;
@@ -27,8 +27,8 @@ $lightGray:   $borderLight;
 $blue:        $accent;
 
 // Font stacks
-$display:     'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-$sans:        'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$display:     'Caveat', cursive;
+$sans:        'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 $mono:        'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 
 // Legacy font aliases

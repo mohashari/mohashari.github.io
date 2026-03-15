@@ -8,3 +8,8 @@ Gemfile
 Gemfile.lock
 node_modules
 package.json
+
+# Social share script — credentials, state & browser session
+scripts/.env
+scripts/share_state.json
+scripts/chrome_profile/

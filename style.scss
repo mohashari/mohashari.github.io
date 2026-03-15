@@ -47,9 +47,9 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2rem 0 0.75rem;
 }
 
-h1 { font-size: 2rem; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.2rem; }
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.4rem; }
 h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: $muted; font-weight: 600; }
 
 p {
@@ -174,8 +174,8 @@ table {
 /* Selection
    ============================================ */
 
-::selection      { background: rgba(99, 102, 241, 0.15); color: $ink; }
-::-moz-selection { background: rgba(99, 102, 241, 0.15); color: $ink; }
+::selection      { background: rgba(82, 82, 91, 0.12); color: $ink; }
+::-moz-selection { background: rgba(82, 82, 91, 0.12); color: $ink; }
 
 /* Clearfix
    ============================================ */
@@ -194,15 +194,15 @@ table {
   top: 0;
   z-index: 100;
 
-  // Gradient accent line at bottom — the signature visual
+  // Subtle grey separator at bottom
   &::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+    height: 1px;
+    background: $border;
   }
 }
 
@@ -214,19 +214,19 @@ table {
   gap: 1rem;
 }
 
-// Avatar with gradient ring
+// Avatar with grey ring
 .avatar-ring {
   flex-shrink: 0;
   width: 44px;
   height: 44px;
   border-radius: 50%;
   padding: 2px;
-  background: linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899);
+  background: linear-gradient(135deg, #D1D5DB, #9CA3AF);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 
   .site-logo:hover & {
     transform: scale(1.08) rotate(3deg);
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
 }
 
@@ -371,8 +371,8 @@ table {
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 
   &:hover {
-    border-color: $accent;
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08);
+    border-color: $muted;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     transform: translateY(-1px);
   }
 }
@@ -464,14 +464,14 @@ table {
 }
 
 .post-title {
-  font-size: 1.9rem;
+  font-size: 2.2rem;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.2;
   color: $ink;
   margin: 0 0 0.65rem;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
 
-  @include mobile { font-size: 1.5rem; }
+  @include mobile { font-size: 1.8rem; }
 }
 
 .post-description {
@@ -805,6 +805,7 @@ table {
   width: 88px;
   height: 88px;
   padding: 3px;
+  background: linear-gradient(135deg, #D1D5DB, #9CA3AF);
   flex-shrink: 0;
 }
 
@@ -825,10 +826,10 @@ table {
 
 .about-name {
   font-family: $display;
-  font-size: 1.75rem;
-  font-weight: 800;
+  font-size: 2.25rem;
+  font-weight: 700;
   color: $ink;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   margin: 0;
   line-height: 1.1;
 }
@@ -979,8 +980,8 @@ table {
   transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 
   &:hover {
-    border-color: $accent;
-    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.1);
+    border-color: $muted;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     transform: translateY(-2px);
   }
 }
