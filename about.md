@@ -1,17 +1,12 @@
 ---
-layout: page
+layout: about
 title: About
 permalink: /about/
+tagline: Building reliable, scalable backend systems — one service at a time.
 ---
 
-Some information about you!
+Hey, I'm **Moh Ashari Muklis** — a backend engineer based in Indonesia with a focus on distributed systems, API design, and infrastructure reliability.
 
-### More Information
+I spend most of my time designing and building server-side systems that are meant to last: clean architecture, sensible abstractions, and the kind of reliability that lets teams sleep at night. When I'm not writing Go code or tuning Postgres queries, I write about backend engineering topics here on this blog.
 
-A place to include any other types of information that you'd like to include about yourself.
-
-### Contact me
-
-[Telegram @muklis64](https://msng.link/o/?@muklis64=tg)
-
-[muhashari64@gmail.com](mailto:muhashari64@gmail.com)
+I believe in **writing to learn** — most of the articles on this site started as notes I took while solving a real problem. If something here saved you a debugging session, I'd love to hear about it.
