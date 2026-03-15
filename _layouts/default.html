@@ -9,7 +9,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
     <link rel="alternate" type="application/rss+xml" title="{{ site.name }}" href="{{ site.baseurl }}/feed.xml" />
   </head>
@@ -19,45 +19,35 @@
     <header class="site-header">
       <div class="container">
         <div class="site-header-inner">
-          <a href="{{ site.baseurl }}/" class="site-avatar-link">
+          <a href="{{ site.baseurl }}/" class="site-logo">
             <img src="{{ site.avatar }}" alt="{{ site.name }}" class="site-avatar-img" />
+            <span class="site-logo-text">
+              <span class="site-name">{{ site.name }}</span>
+              <span class="site-desc">{{ site.description }}</span>
+            </span>
           </a>
-          <div class="site-branding">
-            <h1 class="site-name">
-              <a href="{{ site.baseurl }}/">{{ site.name }}</a>
-            </h1>
-            <p class="site-description">{{ site.description }}</p>
-          </div>
           <nav class="site-nav">
-            <a href="{{ site.baseurl }}/">Writing</a>
-            <a href="{{ site.baseurl }}/about">About</a>
+            <a href="{{ site.baseurl }}/" class="nav-link">Blog</a>
+            <a href="{{ site.baseurl }}/about" class="nav-link">About</a>
           </nav>
         </div>
       </div>
     </header>
 
-    <div class="header-rule">
-      <div class="container"><div class="rule-line"></div></div>
-    </div>
-
     <main id="main" role="main" class="container main-content">
       {{ content }}
     </main>
 
-    <div class="footer-rule">
-      <div class="container"><div class="rule-line"></div></div>
-    </div>
-
     <footer class="site-footer">
       <div class="container">
-        <div class="footer-social">
-          {% include svg-icons.html %}
+        <div class="footer-inner">
+          <div class="footer-social">
+            {% include svg-icons.html %}
+          </div>
+          <p class="footer-copy">
+            &copy; {{ site.time | date: '%Y' }} {{ site.name }} &middot; Backend Engineer
+          </p>
         </div>
-        <p class="footer-copy">
-          &copy; {{ site.time | date: '%Y' }} {{ site.name }}
-          <span class="footer-sep">&middot;</span>
-          Backend Engineer
-        </p>
       </div>
     </footer>
 

@@ -5,7 +5,7 @@
 @import "variables";
 
 /* ============================================
-   ELEGANT EDITORIAL THEME
+   CASUAL BLOG THEME
    ============================================ */
 
 /* Base
@@ -14,25 +14,25 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
-  font-size: 18px;
+  font-size: 16px;
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background-color: $cream;
+  background-color: $bg;
   color: $ink;
-  font-family: $serifBody;
+  font-family: $sans;
   font-weight: 400;
-  line-height: 1.75;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
   width: 100%;
 }
 
@@ -40,23 +40,22 @@ body {
    ============================================ */
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: $serif;
+  font-family: $sans;
   color: $ink;
   font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.3;
   margin: 2rem 0 0.75rem;
 }
 
-h1 { font-size: 2.25rem; }
-h2 { font-size: 1.625rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.05rem; color: $muted; font-weight: 500; font-family: $sansSerif; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.75rem; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: $muted; font-weight: 600; }
 
 p {
   margin: 0 0 1.25rem;
   color: $inkLight;
-  line-height: 1.85;
+  line-height: 1.8;
 }
 
 a {
@@ -71,10 +70,9 @@ em, i { font-style: italic; }
 
 ul, ol {
   margin: 0 0 1.25rem;
-  padding-left: 1.75rem;
+  padding-left: 1.5rem;
   color: $inkLight;
-
-  li { margin-bottom: 0.35rem; }
+  li { margin-bottom: 0.4rem; line-height: 1.75; }
 }
 
 ul ul, ol ol, ul ol, ol ul { margin-bottom: 0; }
@@ -84,7 +82,7 @@ img {
   height: auto;
   display: block;
   margin: 2rem auto;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 hr {
@@ -98,30 +96,28 @@ hr {
 
 code {
   font-family: $mono;
-  font-size: 0.82em;
-  background: $paper;
-  color: #8C4000;
-  padding: 0.15em 0.45em;
-  border-radius: 3px;
-  border: 1px solid $border;
-  font-weight: 400;
+  font-size: 0.83em;
+  background: $accentLight;
+  color: $accentDark;
+  padding: 0.18em 0.45em;
+  border-radius: 5px;
+  font-weight: 500;
 }
 
 pre {
-  background: #1E1E1E;
-  border-radius: 6px;
+  background: #0F172A;
+  border-radius: 10px;
   padding: 1.5rem;
   overflow-x: auto;
   margin: 1.75rem 0;
-  border: 1px solid #333;
 
   code {
     background: transparent;
-    border: none;
-    color: #D4D4D4;
-    font-size: 0.83rem;
+    color: #E2E8F0;
+    font-size: 0.85rem;
     padding: 0;
-    line-height: 1.65;
+    font-weight: 400;
+    line-height: 1.7;
   }
 }
 
@@ -130,19 +126,15 @@ pre {
 
 blockquote {
   margin: 2rem 0;
-  padding: 1.5rem 2rem;
+  padding: 1.25rem 1.5rem;
   border-left: 3px solid $accent;
-  background: $paper;
-  border-radius: 0 4px 4px 0;
+  background: $accentLight;
+  border-radius: 0 8px 8px 0;
 
   p {
-    font-family: $serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    line-height: 1.7;
     color: $inkLight;
     margin: 0;
-
+    font-style: italic;
     &:not(:last-child) { margin-bottom: 0.75rem; }
   }
 }
@@ -154,276 +146,225 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin: 1.75rem 0;
-  font-family: $sansSerif;
-  font-size: 0.875rem;
-  color: $inkLight;
+  font-size: 0.9rem;
 
   th {
     font-weight: 600;
     color: $ink;
     text-align: left;
-    padding: 0.65rem 1rem;
+    padding: 0.6rem 1rem;
     border-bottom: 2px solid $border;
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
+    background: $borderLight;
   }
 
   td {
     padding: 0.65rem 1rem;
-    border-bottom: 1px solid $borderLight;
+    border-bottom: 1px solid $border;
+    color: $inkLight;
     vertical-align: top;
   }
 
+  tr:hover td { background: $borderLight; }
   tr:last-child td { border-bottom: none; }
 }
 
 /* Selection
    ============================================ */
 
-::selection      { background: rgba(176, 125, 84, 0.2); color: $ink; }
-::-moz-selection { background: rgba(176, 125, 84, 0.2); color: $ink; }
+::selection      { background: rgba(99, 102, 241, 0.15); color: $ink; }
+::-moz-selection { background: rgba(99, 102, 241, 0.15); color: $ink; }
 
 /* Clearfix
    ============================================ */
 
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
-}
+.clearfix::after { content: ""; display: table; clear: both; }
 
 /* ============================================
-   LAYOUT
-   ============================================ */
-
-/* Header
+   HEADER / NAV
    ============================================ */
 
 .site-header {
-  padding: 3rem 0 2rem;
-  background: $cream;
-
-  @include mobile {
-    padding: 2rem 0 1.5rem;
-  }
+  background: $white;
+  border-bottom: 1px solid $border;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .site-header-inner {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-
-  @include mobile {
-    flex-direction: column;
-    text-align: center;
-    gap: 1rem;
-  }
+  justify-content: space-between;
+  height: 60px;
+  gap: 1rem;
 }
 
-.site-avatar-link {
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
   flex-shrink: 0;
+
+  &:hover .site-name { color: $accent; }
 }
 
 .site-avatar-img {
-  width: 56px;
-  height: 56px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
   margin: 0;
-  filter: grayscale(20%);
   border: 2px solid $border;
-  transition: filter 0.3s ease, border-color 0.3s ease;
+  transition: border-color 0.2s;
 
-  &:hover {
-    filter: grayscale(0%);
-    border-color: $accent;
-  }
+  .site-logo:hover & { border-color: $accent; }
 }
 
-.site-branding {
-  flex: 1;
-
-  @include mobile {
-    text-align: center;
-  }
+.site-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
 }
 
 .site-name {
-  font-family: $serif;
-  font-size: 1.35rem;
+  font-size: 0.95rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.15rem;
-  line-height: 1.2;
-
-  a {
-    color: $ink;
-    &:hover { color: $accent; }
-  }
+  color: $ink;
+  transition: color 0.15s;
 }
 
-.site-description {
-  font-family: $sansSerif;
+.site-desc {
   font-size: 0.72rem;
-  font-weight: 500;
   color: $muted;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin: 0;
+  font-weight: 400;
+
+  @include mobile { display: none; }
 }
 
 .site-nav {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
 
-  @include mobile {
-    justify-content: center;
-  }
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $muted;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
 
-  a {
-    font-family: $sansSerif;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: $muted;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.4rem 0.75rem;
-    border-radius: 3px;
-    transition: color 0.15s, background 0.15s;
-
-    &:hover {
-      color: $ink;
-      background: $paper;
-    }
+  &:hover {
+    background: $borderLight;
+    color: $ink;
   }
 }
 
-/* Decorative rules
-   ============================================ */
-
-.header-rule,
-.footer-rule {
-  .rule-line {
-    height: 1px;
-    background: $border;
-    position: relative;
-
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 40px;
-      height: 1px;
-      background: $accent;
-    }
-  }
-}
-
-/* Main content area
+/* ============================================
+   MAIN CONTENT
    ============================================ */
 
 .main-content {
-  padding-top: 4rem;
-  padding-bottom: 5rem;
-  min-height: 60vh;
+  padding-top: 2.5rem;
+  padding-bottom: 4rem;
+  min-height: calc(100vh - 60px - 80px);
 
   @include mobile {
-    padding-top: 2.5rem;
+    padding-top: 1.75rem;
     padding-bottom: 3rem;
   }
 }
 
 /* ============================================
-   POST LIST (Index page)
+   POST LIST — Cards
    ============================================ */
 
 .post-list {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .post-item {
-  padding: 2.5rem 0;
-  border-bottom: 1px solid $borderLight;
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
 
-  &:first-child { padding-top: 0; }
-  &:last-child  { border-bottom: none; }
-
-  @include mobile {
-    padding: 2rem 0;
+  &:hover {
+    border-color: $accent;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08);
+    transform: translateY(-1px);
   }
 }
 
 .post-item-meta {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.6rem;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .post-item-date {
-  font-family: $sansSerif;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: $muted;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  color: $subtle;
 }
 
 .post-item-title {
-  font-family: $serif;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  line-height: 1.3;
-  margin: 0 0 0.6rem;
-  letter-spacing: -0.02em;
+  color: $ink;
+  line-height: 1.35;
+  margin: 0 0 0.4rem;
 
   a {
     color: $ink;
+    text-decoration: none;
     &:hover { color: $accent; }
   }
 }
 
 .post-item-desc {
-  font-family: $serifBody;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: $muted;
-  line-height: 1.7;
-  margin: 0 0 1rem;
-  max-width: 600px;
+  line-height: 1.6;
+  margin: 0 0 0.9rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .post-item-read {
-  font-family: $sansSerif;
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: $accent;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: color 0.15s;
 
   &:hover { color: $accentDark; }
 }
 
-/* Tags
+/* Tags — Pill style
    ============================================ */
 
 .post-tag {
-  display: inline-block;
-  font-family: $sansSerif;
+  display: inline-flex;
+  align-items: center;
   font-size: 0.68rem;
   font-weight: 600;
   color: $accent;
-  background: rgba(176, 125, 84, 0.08);
-  border: 1px solid rgba(176, 125, 84, 0.25);
+  background: $accentLight;
   padding: 0.2rem 0.6rem;
-  border-radius: 2px;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
 }
 
 .post-tag--sm { font-size: 0.63rem; padding: 0.15rem 0.5rem; }
@@ -433,140 +374,87 @@ table {
    ============================================ */
 
 .post {
-  max-width: 680px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
 .post-header {
-  margin-bottom: 0;
-  text-align: center;
-
-  @include mobile {
-    text-align: left;
-  }
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $border;
 }
 
 .post-tags {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
-
-  @include mobile {
-    justify-content: flex-start;
-  }
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
 }
 
 .post-title {
-  font-family: $serif;
-  font-size: 2.5rem;
+  font-size: 1.9rem;
   font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.03em;
+  line-height: 1.25;
   color: $ink;
-  margin: 0 0 1rem;
+  margin: 0 0 0.65rem;
+  letter-spacing: -0.02em;
 
-  @include mobile {
-    font-size: 1.8rem;
-  }
+  @include mobile { font-size: 1.5rem; }
 }
 
 .post-description {
-  font-family: $serifBody;
-  font-style: italic;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: $muted;
-  line-height: 1.6;
-  margin: 0 0 1.25rem;
+  line-height: 1.65;
+  margin: 0 0 1rem;
 }
 
 .post-meta-line {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
-
-  @include mobile {
-    justify-content: flex-start;
-  }
+  gap: 0.75rem;
 }
 
 .post-date {
-  font-family: $sansSerif;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 500;
   color: $subtle;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
 }
 
-/* Post ornament divider
-   ============================================ */
+.post-divider { display: none; }
 
-.post-divider {
-  text-align: center;
-  margin: 2.5rem 0 2.5rem;
-  position: relative;
-
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: calc(50% - 2rem);
-    height: 1px;
-    background: $border;
-  }
-  &::before { left: 0; }
-  &::after  { right: 0; }
-}
-
-.post-divider-ornament {
-  font-size: 0.75rem;
-  color: $accent;
-  position: relative;
-  z-index: 1;
-  padding: 0 0.5rem;
-  background: $cream;
-}
-
-/* Post entry body
+/* Post body
    ============================================ */
 
 .entry {
-  font-family: $serifBody;
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.85;
   color: $inkLight;
 
-  > * + * { margin-top: 0; }
-
-  p { margin-bottom: 1.35rem; }
+  p { margin-bottom: 1.4rem; }
 
   h2 {
-    font-family: $serif;
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     color: $ink;
     margin: 2.5rem 0 0.75rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid $borderLight;
-    letter-spacing: -0.02em;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid $border;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   h3 {
-    font-family: $serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: $ink;
     margin: 2rem 0 0.5rem;
+    font-weight: 700;
   }
 
   h4 {
-    font-family: $sansSerif;
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
     color: $muted;
     margin: 1.5rem 0 0.5rem;
   }
@@ -574,7 +462,7 @@ table {
   a {
     color: $accent;
     text-decoration: underline;
-    text-decoration-color: rgba(176, 125, 84, 0.4);
+    text-decoration-color: rgba(99, 102, 241, 0.35);
     text-underline-offset: 3px;
     &:hover {
       color: $accentDark;
@@ -583,14 +471,13 @@ table {
   }
 
   ul, ol {
-    margin-bottom: 1.35rem;
+    margin-bottom: 1.4rem;
     padding-left: 1.5rem;
     color: $inkLight;
-
     li { margin-bottom: 0.4rem; line-height: 1.75; }
   }
 
-  img { border-radius: 4px; }
+  img { border-radius: 10px; }
 }
 
 /* Post footer
@@ -601,29 +488,33 @@ table {
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 3.5rem;
-  padding-top: 2rem;
+  gap: 0.75rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
   border-top: 1px solid $border;
 }
 
 .post-footer-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .back-link {
-  font-family: $sansSerif;
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 600;
   color: $muted;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  transition: color 0.15s;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid $border;
+  border-radius: 7px;
+  transition: all 0.15s;
   margin-left: auto;
 
-  &:hover { color: $accent; }
+  &:hover {
+    border-color: $accent;
+    color: $accent;
+    background: $accentLight;
+  }
 }
 
 /* ============================================
@@ -631,48 +522,62 @@ table {
    ============================================ */
 
 .site-footer {
-  padding: 2rem 0 3rem;
-  text-align: center;
+  background: $white;
+  border-top: 1px solid $border;
+  padding: 1.5rem 0;
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  @include mobile {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
 .footer-social {
-  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 
   a {
-    display: inline-block;
-    margin: 0 0.35rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
     opacity: 0.45;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s, background 0.2s;
 
-    &:hover { opacity: 1; }
+    &:hover {
+      opacity: 1;
+      background: $borderLight;
+    }
   }
 }
 
 .footer-copy {
-  font-family: $sansSerif;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: $subtle;
-  letter-spacing: 0.04em;
   margin: 0;
-  line-height: 1.5;
-}
-
-.footer-sep {
-  margin: 0 0.5rem;
-  color: $border;
 }
 
 /* ============================================
-   HIGHLIGHT (code syntax)
+   HIGHLIGHT (syntax)
    ============================================ */
 
 .highlight {
-  background: #1E1E1E;
-  border-radius: 6px;
+  background: #0F172A;
+  border-radius: 10px;
   padding: 1.5rem;
   overflow-x: auto;
   margin: 1.75rem 0;
-  border: 1px solid #333;
 
   code { background: transparent; border: none; }
 }
@@ -682,16 +587,5 @@ table {
    ============================================ */
 
 .gmnoprint img { max-width: none; }
-
-/* ============================================
-   MOBILE TWEAKS
-   ============================================ */
-
-@include mobile {
-  html { font-size: 16px; }
-
-  .post-title { font-size: 1.8rem; }
-  .post-item-title { font-size: 1.3rem; }
-}
 
 @import "svg-icons";

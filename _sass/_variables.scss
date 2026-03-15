@@ -1,22 +1,24 @@
 
 //
-// VARIABLES — Elegant Editorial Theme
+// VARIABLES — Casual Blog Theme
 //
 
 // Palette
-$cream:       #FAFAF8;
-$paper:       #F5F4F0;
-$ink:         #1C1C1C;
-$inkLight:    #3D3D3D;
-$muted:       #7A7A7A;
-$subtle:      #B0ADA8;
-$border:      #E5E3DE;
-$borderLight: #EDECEA;
-$accent:      #B07D54;   // warm amber
-$accentDark:  #8C6240;
 $white:       #FFFFFF;
+$bg:          #F8FAFC;
+$ink:         #1E293B;
+$inkLight:    #334155;
+$muted:       #64748B;
+$subtle:      #94A3B8;
+$border:      #E2E8F0;
+$borderLight: #F1F5F9;
+$accent:      #6366F1;
+$accentDark:  #4F46E5;
+$accentLight: #EEF2FF;
 
-// Aliases (used by existing partials)
+// Legacy aliases
+$cream:       $bg;
+$paper:       $borderLight;
 $black:       $ink;
 $darkerGray:  $ink;
 $darkGray:    $inkLight;
@@ -25,15 +27,16 @@ $lightGray:   $borderLight;
 $blue:        $accent;
 
 // Font stacks
-$serif:         'Playfair Display', 'Georgia', 'Times New Roman', serif;
-$serifBody:     'Lora', 'Georgia', serif;
-$sansSerif:     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-$mono:          'Fira Code', 'JetBrains Mono', 'Courier New', monospace;
+$sans:        'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$mono:        'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 
-// Legacy aliases
-$helvetica:     $sansSerif;
-$helveticaNeue: $sansSerif;
-$georgia:       $serifBody;
+// Legacy font aliases
+$serif:         $sans;
+$serifBody:     $sans;
+$sansSerif:     $sans;
+$helvetica:     $sans;
+$helveticaNeue: $sans;
+$georgia:       $sans;
 
 // Breakpoints
 @mixin mobile {
