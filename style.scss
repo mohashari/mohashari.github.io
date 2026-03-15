@@ -552,6 +552,106 @@ table {
   img { border-radius: 10px; }
 }
 
+/* Share Section
+   ============================================ */
+
+.share-section {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  background: $borderLight;
+  border: 1px solid $border;
+  border-radius: 14px;
+}
+
+.share-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: $muted;
+  margin: 0 0 0.75rem;
+}
+
+.share-summary {
+  font-size: 0.9rem;
+  color: $inkLight;
+  line-height: 1.55;
+  margin: 0 0 1.25rem;
+  padding: 0.75rem 1rem;
+  background: $white;
+  border: 1px solid $border;
+  border-left: 3px solid $accent;
+  border-radius: 0 8px 8px 0;
+  font-style: normal;
+}
+
+.share-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: $sans;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+  &:active { transform: translateY(0); }
+}
+
+.share-btn--twitter {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+
+  &:hover { background: #1a1a1a; color: #fff; }
+}
+
+.share-btn--linkedin {
+  background: #0A66C2;
+  color: #fff;
+  border-color: #0A66C2;
+
+  &:hover { background: #0855a5; color: #fff; }
+}
+
+.share-btn--whatsapp {
+  background: #25D366;
+  color: #fff;
+  border-color: #25D366;
+
+  &:hover { background: #1eba58; color: #fff; }
+}
+
+.share-btn--copy {
+  background: $white;
+  color: $ink;
+  border-color: $border;
+  font-family: $sans;
+
+  &:hover { border-color: $accent; color: $accent; background: $accentLight; }
+
+  &.copied {
+    background: #DCFCE7;
+    color: #16A34A;
+    border-color: #86EFAC;
+  }
+}
+
 /* Post footer
    ============================================ */
 
