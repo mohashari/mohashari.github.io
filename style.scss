@@ -637,6 +637,22 @@ table {
   &:hover { background: #1eba58; color: #fff; }
 }
 
+.share-btn--facebook {
+  background: #1877F2;
+  color: #fff;
+  border-color: #1877F2;
+
+  &:hover { background: #1464d0; color: #fff; }
+}
+
+.share-btn--tiktok {
+  background: #010101;
+  color: #fff;
+  border-color: #010101;
+
+  &:hover { background: #2a2a2a; color: #fff; }
+}
+
 .share-btn--copy {
   background: $white;
   color: $ink;
