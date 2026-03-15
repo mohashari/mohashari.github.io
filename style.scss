@@ -187,82 +187,154 @@ table {
    ============================================ */
 
 .site-header {
-  background: $white;
-  border-bottom: 1px solid $border;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 100;
+
+  // Gradient accent line at bottom — the signature visual
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+  }
 }
 
 .site-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 68px;
   gap: 1rem;
+}
+
+// Avatar with gradient ring
+.avatar-ring {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  .site-logo:hover & {
+    transform: scale(1.08) rotate(3deg);
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35);
+  }
+}
+
+.site-avatar-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0;
+  border: 2px solid $white;
 }
 
 .site-logo {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.75rem;
   text-decoration: none;
   flex-shrink: 0;
-
-  &:hover .site-name { color: $accent; }
 }
 
-.site-avatar-img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 0;
-  border: 2px solid $border;
-  transition: border-color 0.2s;
-
-  .site-logo:hover & { border-color: $accent; }
-}
-
-.site-logo-text {
+.site-identity {
   display: flex;
   flex-direction: column;
-  line-height: 1.2;
+  gap: 0.2rem;
+  line-height: 1;
 }
 
 .site-name {
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-family: $display;
+  font-size: 1rem;
+  font-weight: 800;
   color: $ink;
+  letter-spacing: -0.025em;
   transition: color 0.15s;
+  line-height: 1;
+
+  .site-logo:hover & { color: $accent; }
 }
 
-.site-desc {
-  font-size: 0.72rem;
-  color: $muted;
-  font-weight: 400;
+// Role badge with pulsing dot
+.site-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: $sans;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: $accent;
+  background: $accentLight;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+  width: fit-content;
 
   @include mobile { display: none; }
 }
 
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22C55E;
+  flex-shrink: 0;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(0.75); }
+}
+
+// Nav with animated underline
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.15rem;
 }
 
 .nav-link {
+  font-family: $sans;
   font-size: 0.875rem;
   font-weight: 500;
   color: $muted;
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  transition: background 0.15s, color 0.15s;
+  padding: 0.45rem 0.85rem;
+  border-radius: 8px;
+  transition: color 0.15s, background 0.15s;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    right: 50%;
+    height: 2px;
+    border-radius: 2px;
+    background: $accent;
+    transition: left 0.2s ease, right 0.2s ease;
+  }
 
   &:hover {
-    background: $borderLight;
     color: $ink;
+
+    &::after {
+      left: 0.85rem;
+      right: 0.85rem;
+    }
   }
 }
 
@@ -273,7 +345,7 @@ table {
 .main-content {
   padding-top: 2.5rem;
   padding-bottom: 4rem;
-  min-height: calc(100vh - 60px - 80px);
+  min-height: calc(100vh - 68px - 80px);
 
   @include mobile {
     padding-top: 1.75rem;
