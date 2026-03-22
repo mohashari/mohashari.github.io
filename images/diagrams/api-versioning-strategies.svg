@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="900" height="520" fill="#f8f9fa" rx="12"/>
+  <text x="450" y="36" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">API Versioning Request Lifecycle</text>
+  <rect x="30" y="70" width="120" height="50" rx="8" fill="#4361ee" opacity="0.15" stroke="#4361ee" stroke-width="1.5"/>
+  <text x="90" y="91" text-anchor="middle" font-size="12" font-weight="bold" fill="#4361ee">Legacy Client</text>
+  <text x="90" y="108" text-anchor="middle" font-size="10" fill="#4361ee">v1 (URL path)</text>
+  <rect x="30" y="145" width="120" height="50" rx="8" fill="#4361ee" opacity="0.15" stroke="#4361ee" stroke-width="1.5"/>
+  <text x="90" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#4361ee">Mobile Client</text>
+  <text x="90" y="183" text-anchor="middle" font-size="10" fill="#4361ee">v2 (Header)</text>
+  <rect x="30" y="220" width="120" height="50" rx="8" fill="#4361ee" opacity="0.15" stroke="#4361ee" stroke-width="1.5"/>
+  <text x="90" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#4361ee">Partner API</text>
+  <text x="90" y="258" text-anchor="middle" font-size="10" fill="#4361ee">v3 (Accept header)</text>
+  <rect x="220" y="100" width="150" height="170" rx="10" fill="#560bad" opacity="0.1" stroke="#560bad" stroke-width="2"/>
+  <text x="295" y="128" text-anchor="middle" font-size="13" font-weight="bold" fill="#560bad">API Gateway</text>
+  <rect x="235" y="138" width="120" height="28" rx="5" fill="#560bad" opacity="0.15" stroke="#560bad" stroke-width="1"/>
+  <text x="295" y="157" text-anchor="middle" font-size="10" fill="#560bad">Version Detection</text>
+  <rect x="235" y="174" width="120" height="28" rx="5" fill="#560bad" opacity="0.15" stroke="#560bad" stroke-width="1"/>
+  <text x="295" y="193" text-anchor="middle" font-size="10" fill="#560bad">Rate Limiting</text>
+  <rect x="235" y="210" width="120" height="28" rx="5" fill="#560bad" opacity="0.15" stroke="#560bad" stroke-width="1"/>
+  <text x="295" y="229" text-anchor="middle" font-size="10" fill="#560bad">Auth and Routing</text>
+  <rect x="440" y="100" width="140" height="170" rx="10" fill="#f72585" opacity="0.1" stroke="#f72585" stroke-width="2"/>
+  <text x="510" y="128" text-anchor="middle" font-size="13" font-weight="bold" fill="#f72585">Version Router</text>
+  <rect x="455" y="138" width="110" height="25" rx="5" fill="#f72585" opacity="0.15" stroke="#f72585" stroke-width="1"/>
+  <text x="510" y="155" text-anchor="middle" font-size="10" fill="#f72585">Route /v1/* to svc-v1</text>
+  <rect x="455" y="170" width="110" height="25" rx="5" fill="#f72585" opacity="0.15" stroke="#f72585" stroke-width="1"/>
+  <text x="510" y="187" text-anchor="middle" font-size="10" fill="#f72585">Route /v2/* to svc-v2</text>
+  <rect x="455" y="202" width="110" height="25" rx="5" fill="#f72585" opacity="0.15" stroke="#f72585" stroke-width="1"/>
+  <text x="510" y="219" text-anchor="middle" font-size="10" fill="#f72585">Route /v3/* to svc-v3</text>
+  <rect x="455" y="234" width="110" height="25" rx="5" fill="#e0aaff" opacity="0.5" stroke="#f72585" stroke-width="1"/>
+  <text x="510" y="251" text-anchor="middle" font-size="10" fill="#7b2d8b">Sunset header inject</text>
+  <rect x="655" y="70" width="110" height="45" rx="8" fill="#4cc9f0" opacity="0.15" stroke="#4cc9f0" stroke-width="1.5"/>
+  <text x="710" y="89" text-anchor="middle" font-size="12" font-weight="bold" fill="#0077b6">Service v1</text>
+  <text x="710" y="106" text-anchor="middle" font-size="9" fill="#0077b6">deprecated 2027-01</text>
+  <rect x="655" y="140" width="110" height="45" rx="8" fill="#4cc9f0" opacity="0.2" stroke="#4cc9f0" stroke-width="1.5"/>
+  <text x="710" y="159" text-anchor="middle" font-size="12" font-weight="bold" fill="#0077b6">Service v2</text>
+  <text x="710" y="176" text-anchor="middle" font-size="9" fill="#0077b6">stable</text>
+  <rect x="655" y="210" width="110" height="45" rx="8" fill="#4cc9f0" opacity="0.3" stroke="#4cc9f0" stroke-width="2"/>
+  <text x="710" y="229" text-anchor="middle" font-size="12" font-weight="bold" fill="#0077b6">Service v3</text>
+  <text x="710" y="246" text-anchor="middle" font-size="9" fill="#0077b6">current</text>
+  <ellipse cx="710" cy="340" rx="70" ry="28" fill="#06d6a0" opacity="0.15" stroke="#06d6a0" stroke-width="2"/>
+  <text x="710" y="336" text-anchor="middle" font-size="12" font-weight="bold" fill="#028a60">Shared DB</text>
+  <text x="710" y="352" text-anchor="middle" font-size="9" fill="#028a60">schema migrations</text>
+  <line x1="150" y1="95" x2="218" y2="155" stroke="#4361ee" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+  <line x1="150" y1="170" x2="218" y2="185" stroke="#4361ee" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+  <line x1="150" y1="245" x2="218" y2="215" stroke="#4361ee" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+  <line x1="370" y1="185" x2="438" y2="185" stroke="#560bad" stroke-width="2" marker-end="url(#arr2)"/>
+  <line x1="580" y1="150" x2="653" y2="110" stroke="#f72585" stroke-width="1.5" marker-end="url(#arr3)"/>
+  <line x1="580" y1="185" x2="653" y2="163" stroke="#f72585" stroke-width="1.5" marker-end="url(#arr3)"/>
+  <line x1="580" y1="222" x2="653" y2="228" stroke="#f72585" stroke-width="1.5" marker-end="url(#arr3)"/>
+  <line x1="710" y1="115" x2="710" y2="310" stroke="#06d6a0" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr4)"/>
+  <rect x="30" y="320" width="580" height="110" rx="10" fill="#fff3cd" stroke="#ffc107" stroke-width="1.5"/>
+  <text x="50" y="344" font-size="12" font-weight="bold" fill="#856404">Deprecation Timeline</text>
+  <line x1="60" y1="385" x2="570" y2="385" stroke="#856404" stroke-width="2"/>
+  <circle cx="100" cy="385" r="6" fill="#4361ee"/>
+  <text x="100" y="405" text-anchor="middle" font-size="9" fill="#333">v1 released</text>
+  <text x="100" y="416" text-anchor="middle" font-size="9" fill="#333">2024-01</text>
+  <circle cx="210" cy="385" r="6" fill="#f72585"/>
+  <text x="210" y="405" text-anchor="middle" font-size="9" fill="#333">v2 released</text>
+  <text x="210" y="416" text-anchor="middle" font-size="9" fill="#333">2024-07</text>
+  <circle cx="320" cy="385" r="6" fill="#f72585"/>
+  <text x="320" y="405" text-anchor="middle" font-size="9" fill="#333">v1 sunset</text>
+  <text x="320" y="416" text-anchor="middle" font-size="9" fill="#333">announced</text>
+  <circle cx="430" cy="385" r="6" fill="#4cc9f0"/>
+  <text x="430" y="405" text-anchor="middle" font-size="9" fill="#333">v3 released</text>
+  <text x="430" y="416" text-anchor="middle" font-size="9" fill="#333">2025-06</text>
+  <circle cx="540" cy="385" r="8" fill="#dc3545"/>
+  <text x="540" y="405" text-anchor="middle" font-size="9" fill="#dc3545" font-weight="bold">v1 EOL</text>
+  <text x="540" y="416" text-anchor="middle" font-size="9" fill="#dc3545">2027-01</text>
+  <rect x="285" y="358" width="70" height="18" rx="4" fill="#ffc107" opacity="0.4"/>
+  <text x="320" y="371" text-anchor="middle" font-size="9" fill="#856404">6-mo warning</text>
+  <rect x="30" y="445" width="840" height="60" rx="8" fill="#e9ecef" stroke="#ced4da" stroke-width="1"/>
+  <text x="50" y="464" font-size="11" font-weight="bold" fill="#495057">Versioning Strategies:</text>
+  <circle cx="195" cy="460" r="5" fill="#4361ee"/>
+  <text x="205" y="464" font-size="10" fill="#333">URL Path (/v1/users)</text>
+  <circle cx="320" cy="460" r="5" fill="#f72585"/>
+  <text x="330" y="464" font-size="10" fill="#333">Header (X-API-Version: 2)</text>
+  <circle cx="475" cy="460" r="5" fill="#560bad"/>
+  <text x="485" y="464" font-size="10" fill="#333">Accept (application/vnd.api+json;version=3)</text>
+  <text x="50" y="495" font-size="10" fill="#6c757d">Sunset-Date header injected by gateway on deprecated versions. Clients receive 12-month minimum notice before EOL.</text>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4361ee"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#560bad"/>
+    </marker>
+    <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f72585"/>
+    </marker>
+    <marker id="arr4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#06d6a0"/>
+    </marker>
+  </defs>
+</svg>

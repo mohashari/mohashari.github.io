@@ -1,0 +1,174 @@
+[2026-03-22 00:26:48] Starting blog generation run
+2026-03-22 00:26:48,231 INFO === Blog generation run: 2026-03-22 ===
+2026-03-22 00:26:48,232 INFO Selected 20 topics
+2026-03-22 00:26:48,232 INFO [1/20] zero-downtime-database-migrations
+2026-03-22 00:26:48,232 INFO Generating: zero-downtime-database-migrations
+2026-03-22 00:30:24,735 ERROR Failed [zero-downtime-database-migrations]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 434, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 332, in generate
+    raise PostGenerationError("Output missing frontmatter delimiter")
+PostGenerationError: Output missing frontmatter delimiter
+2026-03-22 00:30:24,737 INFO [2/20] kafka-consumer-groups-partitions
+2026-03-22 00:30:24,737 INFO Generating: kafka-consumer-groups-partitions
+2026-03-22 00:31:56,482 DEBUG Creating gist: Kafka Consumer Groups and Partitions: Getting the Parallelism Right — code snippets
+2026-03-22 00:31:58,186 INFO Gist created: 34344d3f8b4131236d516464eea010e5
+2026-03-22 00:31:58,187 ERROR Failed [kafka-consumer-groups-partitions]: Content does not start with frontmatter: kafka-consumer-groups-partitions
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 441, in run
+    self.writer.write(config, content)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 348, in write
+    raise PostWriteError(f"Content does not start with frontmatter: {config.slug}")
+PostWriteError: Content does not start with frontmatter: kafka-consumer-groups-partitions
+2026-03-22 00:31:58,188 INFO [3/20] llm-observability-langfuse
+2026-03-22 00:31:58,188 INFO Generating: llm-observability-langfuse
+2026-03-22 00:33:32,775 DEBUG llm-observability-langfuse: no code blocks found
+2026-03-22 00:33:32,776 ERROR Failed [llm-observability-langfuse]: Content does not start with frontmatter: llm-observability-langfuse
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 441, in run
+    self.writer.write(config, content)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 348, in write
+    raise PostWriteError(f"Content does not start with frontmatter: {config.slug}")
+PostWriteError: Content does not start with frontmatter: llm-observability-langfuse
+[2026-03-22 08:27:12] Starting blog generation run
+2026-03-22 08:27:12,779 INFO === Blog generation run: 2026-03-22 ===
+2026-03-22 08:27:12,780 INFO Selected 20 topics
+2026-03-22 08:27:12,780 INFO [1/20] trivy-container-vulnerability-scanning
+2026-03-22 08:27:12,780 INFO Generating: trivy-container-vulnerability-scanning
+2026-03-22 08:30:53,319 ERROR Failed [trivy-container-vulnerability-scanning]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 438, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 332, in generate
+    raise PostGenerationError("Output missing frontmatter delimiter")
+PostGenerationError: Output missing frontmatter delimiter
+2026-03-22 08:30:53,323 INFO [2/20] caching-strategies-cache-invalidation
+2026-03-22 08:30:53,323 INFO Generating: caching-strategies-cache-invalidation
+2026-03-22 08:35:53,502 ERROR Failed [caching-strategies-cache-invalidation]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Caching Strategies and the Art of Cache Invalidation\nCATEGORY: software_engineering\nDATE: 2026-03-22\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/caching-strategies-cache-invalidation.svg\n- Reference the diagram in the post body as: ![Caching Strategies and the Art of Cache Invalidation Diagram](/images/diagrams/caching-strategies-cache-invalidation.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Caching Strategies and the Art of Cache Invalidation"\ndate: 2026-03-22 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 438, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 314, in generate
+    result = subprocess.run(
+        cmd,
+    ...<3 lines>...
+        cwd=str(BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Caching Strategies and the Art of Cache Invalidation\nCATEGORY: software_engineering\nDATE: 2026-03-22\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/caching-strategies-cache-invalidation.svg\n- Reference the diagram in the post body as: ![Caching Strategies and the Art of Cache Invalidation Diagram](/images/diagrams/caching-strategies-cache-invalidation.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Caching Strategies and the Art of Cache Invalidation"\ndate: 2026-03-22 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+2026-03-22 08:35:53,532 INFO [3/20] go-error-handling-patterns
+2026-03-22 08:35:53,532 INFO Generating: go-error-handling-patterns
+2026-03-22 08:37:46,715 ERROR Failed [go-error-handling-patterns]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 438, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 332, in generate
+    raise PostGenerationError("Output missing frontmatter delimiter")
+PostGenerationError: Output missing frontmatter delimiter
+2026-03-22 08:37:46,717 INFO [4/20] outbox-pattern-reliable-messaging
+2026-03-22 08:37:46,718 INFO Generating: outbox-pattern-reliable-messaging
+2026-03-22 08:41:02,385 ERROR Failed [outbox-pattern-reliable-messaging]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 438, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 332, in generate
+    raise PostGenerationError("Output missing frontmatter delimiter")
+PostGenerationError: Output missing frontmatter delimiter
+2026-03-22 08:41:02,387 INFO [5/20] strangler-fig-migration-pattern
+2026-03-22 08:41:02,387 INFO Generating: strangler-fig-migration-pattern
+2026-03-22 08:56:27,716 ERROR Failed [strangler-fig-migration-pattern]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Strangler Fig: Migrating Monoliths Without Big Bang Rewrites\nCATEGORY: software_engineering\nDATE: 2026-03-22\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/strangler-fig-migration-pattern.svg\n- Reference the diagram in the post body as: ![Strangler Fig: Migrating Monoliths Without Big Bang Rewrites Diagram](/images/diagrams/strangler-fig-migration-pattern.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Strangler Fig: Migrating Monoliths Without Big Bang Rewrites"\ndate: 2026-03-22 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 438, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 314, in generate
+    result = subprocess.run(
+        cmd,
+    ...<3 lines>...
+        cwd=str(BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Strangler Fig: Migrating Monoliths Without Big Bang Rewrites\nCATEGORY: software_engineering\nDATE: 2026-03-22\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/strangler-fig-migration-pattern.svg\n- Reference the diagram in the post body as: ![Strangler Fig: Migrating Monoliths Without Big Bang Rewrites Diagram](/images/diagrams/strangler-fig-migration-pattern.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Strangler Fig: Migrating Monoliths Without Big Bang Rewrites"\ndate: 2026-03-22 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+2026-03-22 08:56:27,720 INFO [6/20] image-signing-cosign-sigstore
+2026-03-22 08:56:27,721 INFO Generating: image-signing-cosign-sigstore
+2026-03-22 09:00:57,085 DEBUG image-signing-cosign-sigstore: no code blocks found
+2026-03-22 09:00:57,086 INFO Written: 2026-03-22-image-signing-cosign-sigstore.md
+2026-03-22 09:00:57,086 WARNING Diagram SVG missing: /home/muklis/Documents/exploring/blog/images/diagrams/image-signing-cosign-sigstore.svg
+2026-03-22 09:00:57,087 INFO [7/20] redis-cluster-sharding
+2026-03-22 09:00:57,087 INFO Generating: redis-cluster-sharding
+2026-03-22 09:02:28,542 DEBUG Creating gist: Redis Cluster and Sharding: Horizontal Scaling Without Data Loss — code snippets
+2026-03-22 09:02:31,056 INFO Gist created: 49b68d4e14223e778814cd5a253d32be
+2026-03-22 09:02:31,059 INFO Written: 2026-03-22-redis-cluster-sharding.md
+2026-03-22 09:02:31,059 INFO [8/20] embeddings-fine-tuning-strategies
+2026-03-22 09:02:31,059 INFO Generating: embeddings-fine-tuning-strategies
+2026-03-22 09:04:00,648 DEBUG Creating gist: Embeddings Fine-Tuning: When Generic Models Are Not Enough — code snippets
+2026-03-22 09:04:02,313 INFO Gist created: 2b367527400e64af842cc8f6297dd4a2
+2026-03-22 09:04:02,315 INFO Written: 2026-03-22-embeddings-fine-tuning-strategies.md
+2026-03-22 09:04:02,315 INFO [9/20] leader-election-distributed-systems
+2026-03-22 09:04:02,316 INFO Generating: leader-election-distributed-systems
+2026-03-22 09:08:36,075 DEBUG leader-election-distributed-systems: no code blocks found
+2026-03-22 09:08:36,076 INFO Written: 2026-03-22-leader-election-distributed-systems.md
+2026-03-22 09:08:36,076 WARNING Diagram SVG missing: /home/muklis/Documents/exploring/blog/images/diagrams/leader-election-distributed-systems.svg
+2026-03-22 09:08:36,077 INFO [10/20] api-versioning-strategies
+2026-03-22 09:08:36,077 INFO Generating: api-versioning-strategies
+2026-03-22 09:13:36,251 ERROR Failed [api-versioning-strategies]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: API Versioning Strategies: Breaking Changes Without Breaking Clients\nCATEGORY: software_engineering\nDATE: 2026-03-22\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/api-versioning-strategies.svg\n- Reference the diagram in the post body as: ![API Versioning Strategies: Breaking Changes Without Breaking Clients Diagram](/images/diagrams/api-versioning-strategies.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "API Versioning Strategies: Breaking Changes Without Breaking Clients"\ndate: 2026-03-22 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 438, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 314, in generate
+    result = subprocess.run(
+        cmd,
+    ...<3 lines>...
+        cwd=str(BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: API Versioning Strategies: Breaking Changes Without Breaking Clients\nCATEGORY: software_engineering\nDATE: 2026-03-22\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/api-versioning-strategies.svg\n- Reference the diagram in the post body as: ![API Versioning Strategies: Breaking Changes Without Breaking Clients Diagram](/images/diagrams/api-versioning-strategies.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "API Versioning Strategies: Breaking Changes Without Breaking Clients"\ndate: 2026-03-22 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+2026-03-22 09:13:36,256 INFO [11/20] kubernetes-hpa-vpa-autoscaling
+2026-03-22 09:13:36,256 INFO Generating: kubernetes-hpa-vpa-autoscaling
+2026-03-22 09:15:10,092 DEBUG Creating gist: Kubernetes HPA and VPA: Autoscaling That Actually Works — code snippets
+2026-03-22 09:15:12,519 INFO Gist created: 3a64a93cd95ef183d3de17f4c60589c9
+2026-03-22 09:15:12,521 INFO Written: 2026-03-22-kubernetes-hpa-vpa-autoscaling.md
+2026-03-22 09:15:12,522 INFO [12/20] multi-modal-llm-vision-production
+2026-03-22 09:15:12,522 INFO Generating: multi-modal-llm-vision-production
+2026-03-22 09:17:10,639 DEBUG multi-modal-llm-vision-production: no code blocks found
+2026-03-22 09:17:10,640 INFO Written: 2026-03-22-multi-modal-llm-vision-production.md
+2026-03-22 09:17:10,640 INFO [13/20] database-indexing-deep-dive
+2026-03-22 09:17:10,640 INFO Generating: database-indexing-deep-dive
