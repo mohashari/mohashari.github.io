@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580" width="900" height="580" font-family="'Segoe UI', Arial, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="580" fill="#0f172a" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-size="15" font-weight="700" fill="#e2e8f0" letter-spacing="0.5">Renovate Bot — Automated Dependency Update Pipeline</text>
+
+  <!-- ===== ROW 1: Sources ===== -->
+  <!-- Package Registries box -->
+  <rect x="30" y="65" width="160" height="100" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="110" y="87" text-anchor="middle" font-size="11" font-weight="700" fill="#94a3b8">Package Registries</text>
+  <text x="110" y="107" text-anchor="middle" font-size="10" fill="#64748b">npm · PyPI · Maven</text>
+  <text x="110" y="122" text-anchor="middle" font-size="10" fill="#64748b">Go Modules · RubyGems</text>
+  <text x="110" y="137" text-anchor="middle" font-size="10" fill="#64748b">Docker Hub · Helm</text>
+  <text x="110" y="152" text-anchor="middle" font-size="10" fill="#3b82f6">↑ version metadata</text>
+
+  <!-- CVE Databases box -->
+  <rect x="370" y="65" width="160" height="100" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="450" y="87" text-anchor="middle" font-size="11" font-weight="700" fill="#94a3b8">CVE Databases</text>
+  <text x="450" y="107" text-anchor="middle" font-size="10" fill="#64748b">NVD · OSV · GitHub Advisories</text>
+  <text x="450" y="122" text-anchor="middle" font-size="10" fill="#64748b">Snyk · GHSA</text>
+  <text x="450" y="137" text-anchor="middle" font-size="10" fill="#64748b">osv.dev API</text>
+  <text x="450" y="152" text-anchor="middle" font-size="10" fill="#ef4444">↑ severity scores</text>
+
+  <!-- GitHub/GitLab Repo box -->
+  <rect x="710" y="65" width="160" height="100" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="790" y="87" text-anchor="middle" font-size="11" font-weight="700" fill="#94a3b8">Source Repos</text>
+  <text x="790" y="107" text-anchor="middle" font-size="10" fill="#64748b">package.json</text>
+  <text x="790" y="122" text-anchor="middle" font-size="10" fill="#64748b">go.mod · pom.xml</text>
+  <text x="790" y="137" text-anchor="middle" font-size="10" fill="#64748b">requirements.txt</text>
+  <text x="790" y="152" text-anchor="middle" font-size="10" fill="#22c55e">↑ lockfiles</text>
+
+  <!-- ===== ROW 2: Renovate Core ===== -->
+  <!-- Renovate Bot central box -->
+  <rect x="220" y="215" width="460" height="100" rx="10" fill="#1e3a5f" stroke="#3b82f6" stroke-width="2"/>
+  <text x="450" y="240" text-anchor="middle" font-size="13" font-weight="700" fill="#60a5fa">Renovate Bot</text>
+  <text x="290" y="263" text-anchor="middle" font-size="10" fill="#93c5fd">• Dependency graph scan</text>
+  <text x="290" y="279" text-anchor="middle" font-size="10" fill="#93c5fd">• Version resolution</text>
+  <text x="290" y="295" text-anchor="middle" font-size="10" fill="#93c5fd">• Changelog extraction</text>
+  <text x="580" y="263" text-anchor="middle" font-size="10" fill="#93c5fd">• Vulnerability enrichment</text>
+  <text x="580" y="279" text-anchor="middle" font-size="10" fill="#93c5fd">• Grouping &amp; scheduling</text>
+  <text x="580" y="295" text-anchor="middle" font-size="10" fill="#93c5fd">• automerge policy eval</text>
+
+  <!-- Arrows from sources to Renovate -->
+  <line x1="190" y1="115" x2="270" y2="215" stroke="#334155" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <polygon points="268,208 278,218 260,220" fill="#334155"/>
+  <line x1="450" y1="165" x2="450" y2="215" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <polygon points="445,208 450,218 455,208" fill="#ef4444"/>
+  <line x1="710" y1="115" x2="630" y2="215" stroke="#334155" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <polygon points="638,208 622,218 630,208" fill="#334155"/>
+
+  <!-- ===== ROW 3: PR Groups ===== -->
+  <!-- Critical/High PR -->
+  <rect x="30" y="370" width="175" height="110" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="2"/>
+  <rect x="30" y="370" width="175" height="24" rx="8" fill="#ef4444"/>
+  <rect x="30" y="382" width="175" height="12" fill="#ef4444"/>
+  <text x="117" y="387" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">CRITICAL / HIGH CVE</text>
+  <text x="117" y="408" text-anchor="middle" font-size="10" fill="#fca5a5">Immediate PR — no delay</text>
+  <text x="117" y="424" text-anchor="middle" font-size="10" fill="#94a3b8">CVSS ≥ 7.0</text>
+  <text x="117" y="440" text-anchor="middle" font-size="10" fill="#94a3b8">Pages on-call via Slack</text>
+  <text x="117" y="456" text-anchor="middle" font-size="10" fill="#fbbf24">automerge: false</text>
+  <text x="117" y="472" text-anchor="middle" font-size="10" fill="#fbbf24">requires: 2 approvals</text>
+
+  <!-- Medium PR -->
+  <rect x="240" y="370" width="175" height="110" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="2"/>
+  <rect x="240" y="370" width="175" height="24" rx="8" fill="#f59e0b"/>
+  <rect x="240" y="382" width="175" height="12" fill="#f59e0b"/>
+  <text x="327" y="387" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">MEDIUM CVE / MINOR</text>
+  <text x="327" y="408" text-anchor="middle" font-size="10" fill="#fde68a">Grouped — weekly batch</text>
+  <text x="327" y="424" text-anchor="middle" font-size="10" fill="#94a3b8">CVSS 4.0–6.9</text>
+  <text x="327" y="440" text-anchor="middle" font-size="10" fill="#94a3b8">Non-breaking minor bumps</text>
+  <text x="327" y="456" text-anchor="middle" font-size="10" fill="#fbbf24">automerge: after CI</text>
+  <text x="327" y="472" text-anchor="middle" font-size="10" fill="#fbbf24">requires: 1 approval</text>
+
+  <!-- Patch PR -->
+  <rect x="450" y="370" width="175" height="110" rx="8" fill="#1e293b" stroke="#22c55e" stroke-width="2"/>
+  <rect x="450" y="370" width="175" height="24" rx="8" fill="#22c55e"/>
+  <rect x="450" y="382" width="175" height="12" fill="#22c55e"/>
+  <text x="537" y="387" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">PATCH / DIGEST</text>
+  <text x="537" y="408" text-anchor="middle" font-size="10" fill="#bbf7d0">Fully automated</text>
+  <text x="537" y="424" text-anchor="middle" font-size="10" fill="#94a3b8">SemVer patch · digest pins</text>
+  <text x="537" y="440" text-anchor="middle" font-size="10" fill="#94a3b8">No breaking changes</text>
+  <text x="537" y="456" text-anchor="middle" font-size="10" fill="#22c55e">automerge: true</text>
+  <text x="537" y="472" text-anchor="middle" font-size="10" fill="#22c55e">mergeConfidence: high</text>
+
+  <!-- Major PR -->
+  <rect x="660" y="370" width="210" height="110" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="2"/>
+  <rect x="660" y="370" width="210" height="24" rx="8" fill="#8b5cf6"/>
+  <rect x="660" y="382" width="210" height="12" fill="#8b5cf6"/>
+  <text x="765" y="387" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">MAJOR VERSION</text>
+  <text x="765" y="408" text-anchor="middle" font-size="10" fill="#ddd6fe">Pinned — manual schedule</text>
+  <text x="765" y="424" text-anchor="middle" font-size="10" fill="#94a3b8">Breaking change candidate</text>
+  <text x="765" y="440" text-anchor="middle" font-size="10" fill="#94a3b8">Requires migration notes</text>
+  <text x="765" y="456" text-anchor="middle" font-size="10" fill="#c084fc">automerge: false</text>
+  <text x="765" y="472" text-anchor="middle" font-size="10" fill="#c084fc">requires: lead engineer</text>
+
+  <!-- Arrows from Renovate to PR groups -->
+  <line x1="335" y1="315" x2="117" y2="370" stroke="#ef4444" stroke-width="1.5"/>
+  <polygon points="113,363 121,373 126,362" fill="#ef4444"/>
+  <line x1="390" y1="315" x2="327" y2="370" stroke="#f59e0b" stroke-width="1.5"/>
+  <polygon points="323,363 331,373 336,362" fill="#f59e0b"/>
+  <line x1="510" y1="315" x2="537" y2="370" stroke="#22c55e" stroke-width="1.5"/>
+  <polygon points="533,363 541,373 546,362" fill="#22c55e"/>
+  <line x1="565" y1="315" x2="765" y2="370" stroke="#8b5cf6" stroke-width="1.5"/>
+  <polygon points="761,363 769,373 774,362" fill="#8b5cf6"/>
+
+  <!-- CI/CD Pipeline note at bottom -->
+  <rect x="200" y="505" width="500" height="52" rx="8" fill="#0f2e1a" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="450" y="525" text-anchor="middle" font-size="11" font-weight="700" fill="#4ade80">CI Pipeline Gate (GitHub Actions / GitLab CI)</text>
+  <text x="450" y="545" text-anchor="middle" font-size="10" fill="#86efac">Unit tests · Integration tests · SBOM generation · Container scan · DAST probe</text>
+
+  <!-- Arrow from PRs to CI -->
+  <line x1="450" y1="480" x2="450" y2="505" stroke="#22c55e" stroke-width="1.5"/>
+  <polygon points="445,498 450,508 455,498" fill="#22c55e"/>
+</svg>
