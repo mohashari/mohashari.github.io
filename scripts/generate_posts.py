@@ -463,7 +463,7 @@ class BlogOrchestrator:
         self.logger.info(f"=== Blog generation run: {today} ===")
 
         history = load_history(str(HISTORY_PATH))
-        topics = select_topics(history, count=20)
+        topics = select_topics(history, count=5)
         self.logger.info(f"Selected {len(topics)} topics")
 
         successful_posts: list[Path] = []
@@ -473,7 +473,7 @@ class BlogOrchestrator:
 
         for i, topic in enumerate(topics, 1):
             config = PostConfig.from_topic(topic, today)
-            self.logger.info(f"[{i}/20] {config.slug}")
+            self.logger.info(f"[{i}/5] {config.slug}")
 
             try:
                 config.description = self.desc_generator.generate(config)
@@ -501,7 +501,7 @@ class BlogOrchestrator:
         save_history(str(HISTORY_PATH), history)
 
         self.logger.info(
-            f"Generation complete: {len(successful_posts)}/20 succeeded, {failed} failed"
+            f"Generation complete: {len(successful_posts)}/5 succeeded, {failed} failed"
         )
 
         if successful_posts:
