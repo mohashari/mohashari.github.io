@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="'Segoe UI', Arial, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="520" fill="#f8f9fa" rx="8"/>
+  <text x="450" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">Aggregate Boundary Design: Invariants vs. Entity Relationships</text>
+
+  <!-- LEFT: Naive (bad) aggregate -->
+  <rect x="30" y="55" width="370" height="390" fill="#fff0f0" rx="10" stroke="#e74c3c" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="215" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#e74c3c">Naive Aggregate (Entity-Relationship Boundary)</text>
+
+  <!-- Order root -->
+  <rect x="80" y="100" width="130" height="44" rx="6" fill="#e74c3c" opacity="0.85"/>
+  <text x="145" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">Order</text>
+  <text x="145" y="136" text-anchor="middle" font-size="10" fill="#fff">[Aggregate Root]</text>
+
+  <!-- OrderLine -->
+  <rect x="55" y="185" width="110" height="38" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="110" y="202" text-anchor="middle" font-size="11" fill="#922b21">OrderLine</text>
+  <text x="110" y="217" text-anchor="middle" font-size="9" fill="#922b21">qty, price, sku</text>
+  <line x1="110" y1="144" x2="110" y2="185" stroke="#e74c3c" stroke-width="1.5"/>
+  <line x1="145" y1="144" x2="110" y2="185" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Customer (embedded) -->
+  <rect x="195" y="185" width="120" height="38" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="255" y="202" text-anchor="middle" font-size="11" fill="#922b21">Customer</text>
+  <text x="255" y="217" text-anchor="middle" font-size="9" fill="#922b21">name, email, addr</text>
+  <line x1="200" y1="144" x2="255" y2="185" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Payment (embedded) -->
+  <rect x="55" y="260" width="110" height="38" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="110" y="277" text-anchor="middle" font-size="11" fill="#922b21">Payment</text>
+  <text x="110" y="292" text-anchor="middle" font-size="9" fill="#922b21">method, status</text>
+  <line x1="110" y1="223" x2="110" y2="260" stroke="#e74c3c" stroke-width="1.5"/>
+
+  <!-- Shipment (embedded) -->
+  <rect x="195" y="260" width="120" height="38" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="255" y="277" text-anchor="middle" font-size="11" fill="#922b21">Shipment</text>
+  <text x="255" y="292" text-anchor="middle" font-size="9" fill="#922b21">address, carrier</text>
+  <line x1="255" y1="223" x2="255" y2="260" stroke="#e74c3c" stroke-width="1.5"/>
+
+  <!-- Inventory (embedded) -->
+  <rect x="125" y="335" width="120" height="38" rx="6" fill="#fadbd8" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="185" y="352" text-anchor="middle" font-size="11" fill="#922b21">Inventory</text>
+  <text x="185" y="367" text-anchor="middle" font-size="9" fill="#922b21">reserved, available</text>
+  <line x1="110" y1="298" x2="185" y2="335" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="255" y1="298" x2="185" y2="335" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="4,2"/>
+
+  <!-- Problems -->
+  <text x="215" y="398" text-anchor="middle" font-size="11" fill="#c0392b" font-weight="bold">Problems:</text>
+  <text x="215" y="414" text-anchor="middle" font-size="10" fill="#c0392b">• Serializes entire graph on every write</text>
+  <text x="215" y="428" text-anchor="middle" font-size="10" fill="#c0392b">• Contention: order + inventory same lock</text>
+
+  <!-- RIGHT: Proper aggregate design -->
+  <rect x="500" y="55" width="370" height="390" fill="#f0fff4" rx="10" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="685" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Proper Aggregates (Invariant Boundaries)</text>
+
+  <!-- Order aggregate -->
+  <rect x="520" y="95" width="145" height="100" rx="8" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="592" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e8449">Order Aggregate</text>
+  <rect x="535" y="122" width="115" height="30" rx="4" fill="#27ae60" opacity="0.8"/>
+  <text x="592" y="139" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">Order [Root]</text>
+  <rect x="535" y="158" width="52" height="26" rx="4" fill="#a9dfbf" stroke="#27ae60"/>
+  <text x="561" y="170" text-anchor="middle" font-size="9" fill="#1e8449">OrderLine</text>
+  <text x="561" y="180" text-anchor="middle" font-size="8" fill="#1e8449">×N</text>
+  <text x="592" y="205" text-anchor="middle" font-size="9" fill="#1e8449" font-style="italic">Invariant: total = Σ lines</text>
+
+  <!-- Customer aggregate -->
+  <rect x="685" y="95" width="165" height="100" rx="8" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="767" y="115" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e8449">Customer Aggregate</text>
+  <rect x="700" y="122" width="135" height="30" rx="4" fill="#27ae60" opacity="0.8"/>
+  <text x="767" y="139" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">Customer [Root]</text>
+  <text x="767" y="160" text-anchor="middle" font-size="9" fill="#1e8449">Address, Preferences</text>
+  <text x="767" y="175" text-anchor="middle" font-size="9" fill="#1e8449" font-style="italic">Invariant: email unique</text>
+  <text x="767" y="190" text-anchor="middle" font-size="9" fill="#1e8449" font-style="italic">per domain</text>
+
+  <!-- Inventory aggregate -->
+  <rect x="520" y="220" width="145" height="90" rx="8" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="592" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e8449">Inventory Aggregate</text>
+  <rect x="535" y="248" width="115" height="28" rx="4" fill="#27ae60" opacity="0.8"/>
+  <text x="592" y="265" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">StockItem [Root]</text>
+  <text x="592" y="298" text-anchor="middle" font-size="9" fill="#1e8449" font-style="italic">Invariant: reserved ≤ available</text>
+
+  <!-- Payment aggregate -->
+  <rect x="685" y="220" width="165" height="90" rx="8" fill="#d5f5e3" stroke="#27ae60" stroke-width="2"/>
+  <text x="767" y="240" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e8449">Payment Aggregate</text>
+  <rect x="700" y="248" width="135" height="28" rx="4" fill="#27ae60" opacity="0.8"/>
+  <text x="767" y="265" text-anchor="middle" font-size="10" font-weight="bold" fill="#fff">Payment [Root]</text>
+  <text x="767" y="298" text-anchor="middle" font-size="9" fill="#1e8449" font-style="italic">Invariant: no double-charge</text>
+
+  <!-- Domain Events connecting -->
+  <rect x="555" y="335" width="260" height="50" rx="8" fill="#fef9e7" stroke="#f39c12" stroke-width="2"/>
+  <text x="685" y="354" text-anchor="middle" font-size="11" font-weight="bold" fill="#d68910">Domain Events (Eventual Consistency)</text>
+  <text x="685" y="372" text-anchor="middle" font-size="10" fill="#d68910">OrderPlaced → reserve inventory, charge payment</text>
+
+  <!-- Arrows from aggregates to events -->
+  <line x1="592" y1="310" x2="630" y2="335" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr)"/>
+  <line x1="767" y1="310" x2="740" y2="335" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr)"/>
+
+  <!-- ID reference arrows (cross-aggregate) -->
+  <line x1="665" y1="145" x2="685" y2="145" stroke="#7f8c8d" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr2)"/>
+  <text x="673" y="140" text-anchor="middle" font-size="8" fill="#7f8c8d">ID ref</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f39c12"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#7f8c8d"/>
+    </marker>
+  </defs>
+
+  <!-- Center divider label -->
+  <text x="450" y="270" text-anchor="middle" font-size="22" fill="#bdc3c7">vs</text>
+
+  <!-- Bottom caption -->
+  <text x="450" y="468" text-anchor="middle" font-size="11" fill="#7f8c8d">Cross-aggregate consistency via domain events, not shared locks</text>
+</svg>

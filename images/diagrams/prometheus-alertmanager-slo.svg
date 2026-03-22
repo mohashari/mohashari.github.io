@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1565c0"/></marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#bf360c"/></marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#b71c1c"/></marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#1b5e20"/></marker>
+    <marker id="arrowIndigo" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#283593"/></marker>
+    <marker id="arrowDown" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#bf360c"/></marker>
+  </defs>
+  <rect width="960" height="520" fill="#fafafa" rx="10"/>
+  <text x="480" y="38" text-anchor="middle" font-family="ui-monospace,monospace" font-size="15" font-weight="bold" fill="#212121">SLO Alerting Pipeline: Prometheus + Alertmanager</text>
+  <!-- Services -->
+  <rect x="30" y="70" width="155" height="175" fill="#e3f2fd" stroke="#1565c0" stroke-width="1.5" rx="7"/>
+  <text x="107" y="93" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="bold" fill="#0d47a1">Services</text>
+  <rect x="45" y="102" width="125" height="30" fill="#fff" stroke="#90caf9" stroke-width="1" rx="4"/>
+  <text x="107" y="117" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#333">api-gateway</text>
+  <text x="107" y="128" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#666">:9090/metrics</text>
+  <rect x="45" y="140" width="125" height="30" fill="#fff" stroke="#90caf9" stroke-width="1" rx="4"/>
+  <text x="107" y="155" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#333">payment-svc</text>
+  <text x="107" y="166" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#666">:9090/metrics</text>
+  <rect x="45" y="178" width="125" height="30" fill="#fff" stroke="#90caf9" stroke-width="1" rx="4"/>
+  <text x="107" y="193" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" fill="#333">order-svc</text>
+  <text x="107" y="204" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#666">:9090/metrics</text>
+  <!-- scrape arrow -->
+  <line x1="186" y1="155" x2="256" y2="155" stroke="#1565c0" stroke-width="1.8" marker-end="url(#arrowBlue)"/>
+  <text x="221" y="147" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#1565c0">scrape 15s</text>
+  <!-- Prometheus -->
+  <rect x="260" y="55" width="225" height="320" fill="#fff3e0" stroke="#bf360c" stroke-width="1.5" rx="7"/>
+  <text x="372" y="78" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="bold" fill="#bf360c">Prometheus</text>
+  <rect x="275" y="88" width="195" height="40" fill="#fff" stroke="#ffb74d" stroke-width="1" rx="4"/>
+  <text x="372" y="106" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" font-weight="bold" fill="#333">TSDB</text>
+  <text x="372" y="120" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#666">http_requests_total, duration_seconds</text>
+  <rect x="275" y="142" width="195" height="100" fill="#fff" stroke="#ffb74d" stroke-width="1" rx="4"/>
+  <text x="372" y="160" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" font-weight="bold" fill="#333">Recording Rules</text>
+  <text x="372" y="178" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">burn_rate:rate5m</text>
+  <text x="372" y="193" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">burn_rate:rate30m</text>
+  <text x="372" y="208" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">burn_rate:rate1h</text>
+  <text x="372" y="223" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">burn_rate:rate6h</text>
+  <line x1="372" y1="243" x2="372" y2="254" stroke="#bf360c" stroke-width="1.5" marker-end="url(#arrowDown)"/>
+  <rect x="275" y="256" width="195" height="100" fill="#fff" stroke="#ffb74d" stroke-width="1" rx="4"/>
+  <text x="372" y="274" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" font-weight="bold" fill="#333">Alert Rules</text>
+  <text x="372" y="293" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#c62828">Critical: burn &gt; 14.4x (5m+1h)</text>
+  <text x="372" y="309" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#c62828">Critical: burn &gt; 6x (30m+6h)</text>
+  <text x="372" y="325" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#e65100">Warning:  burn &gt; 3x (6h+1d)</text>
+  <text x="372" y="341" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#558b2f">Info:     burn &gt; 1x (1d+3d)</text>
+  <!-- ALERTS arrow -->
+  <line x1="486" y1="200" x2="565" y2="200" stroke="#bf360c" stroke-width="1.8" marker-end="url(#arrowOrange)"/>
+  <text x="525" y="190" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#bf360c">ALERTS</text>
+  <!-- Alertmanager -->
+  <rect x="570" y="70" width="210" height="225" fill="#f3e5f5" stroke="#6a1b9a" stroke-width="1.5" rx="7"/>
+  <text x="675" y="93" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="bold" fill="#6a1b9a">Alertmanager</text>
+  <rect x="585" y="103" width="180" height="50" fill="#fff" stroke="#ce93d8" stroke-width="1" rx="4"/>
+  <text x="675" y="121" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" font-weight="bold" fill="#333">Grouping + Deduplication</text>
+  <text x="675" y="136" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#666">group_by: [alertname, slo]</text>
+  <text x="675" y="148" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#666">repeat_interval: 1h / 24h</text>
+  <rect x="585" y="163" width="180" height="50" fill="#fff" stroke="#ce93d8" stroke-width="1" rx="4"/>
+  <text x="675" y="181" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" font-weight="bold" fill="#333">Routing Tree</text>
+  <text x="675" y="197" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#666">severity=critical -&gt; PagerDuty</text>
+  <text x="675" y="210" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#666">severity=warning  -&gt; Slack</text>
+  <rect x="585" y="223" width="180" height="40" fill="#fff" stroke="#ce93d8" stroke-width="1" rx="4"/>
+  <text x="675" y="241" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" font-weight="bold" fill="#333">Inhibition Rules</text>
+  <text x="675" y="255" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#666">critical suppresses warning</text>
+  <!-- Alertmanager -> PagerDuty -->
+  <line x1="650" y1="296" x2="650" y2="368" stroke="#b71c1c" stroke-width="1.8" marker-end="url(#arrowRed)"/>
+  <text x="628" y="335" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#b71c1c">critical</text>
+  <!-- Alertmanager -> Slack -->
+  <line x1="750" y1="270" x2="830" y2="368" stroke="#1b5e20" stroke-width="1.8" marker-end="url(#arrowGreen)"/>
+  <text x="815" y="325" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#1b5e20">warning</text>
+  <!-- PagerDuty -->
+  <rect x="575" y="370" width="160" height="65" fill="#ffebee" stroke="#b71c1c" stroke-width="1.5" rx="7"/>
+  <text x="655" y="396" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="bold" fill="#b71c1c">PagerDuty</text>
+  <text x="655" y="413" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">Page on-call engineer</text>
+  <text x="655" y="426" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">repeat: 1h</text>
+  <!-- Slack -->
+  <rect x="760" y="370" width="160" height="65" fill="#e8f5e9" stroke="#1b5e20" stroke-width="1.5" rx="7"/>
+  <text x="840" y="396" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="bold" fill="#1b5e20">Slack</text>
+  <text x="840" y="413" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">#engineering-alerts</text>
+  <text x="840" y="426" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">repeat: 24h</text>
+  <!-- Grafana -->
+  <rect x="260" y="435" width="225" height="65" fill="#e8eaf6" stroke="#283593" stroke-width="1.5" rx="7"/>
+  <text x="372" y="460" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" font-weight="bold" fill="#283593">Grafana</text>
+  <text x="372" y="477" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">Error budget remaining (%)</text>
+  <text x="372" y="491" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#555">Burn rate trend / 30d window</text>
+  <!-- Prometheus -> Grafana -->
+  <line x1="372" y1="377" x2="372" y2="433" stroke="#283593" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowIndigo)"/>
+  <text x="350" y="408" text-anchor="middle" font-family="ui-monospace,monospace" font-size="9" fill="#283593">PromQL</text>
+  <!-- Legend -->
+  <rect x="30" y="400" width="195" height="90" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1" rx="5"/>
+  <text x="127" y="418" text-anchor="middle" font-family="ui-monospace,monospace" font-size="10" font-weight="bold" fill="#555">Error Budget Math (99.9% SLO)</text>
+  <text x="45" y="436" font-family="ui-monospace,monospace" font-size="9" fill="#333">Budget/mo:  43.2 min downtime</text>
+  <text x="45" y="452" font-family="ui-monospace,monospace" font-size="9" fill="#c62828">14.4x burn: exhausted in 2h</text>
+  <text x="45" y="468" font-family="ui-monospace,monospace" font-size="9" fill="#e65100">  6x  burn: exhausted in 5h</text>
+  <text x="45" y="484" font-family="ui-monospace,monospace" font-size="9" fill="#558b2f">  1x  burn: exactly on track</text>
+</svg>

@@ -1,4 +1,25 @@
 {
-  "used": [],
-  "last_updated": null
+  "used": [
+    "nginx-configuration-performance",
+    "mlflow-model-registry-deployment",
+    "kubernetes-hpa-vpa-autoscaling",
+    "redis-cluster-sharding",
+    "protobuf-schema-evolution",
+    "llm-cost-optimization-strategies",
+    "ai-safety-guardrails-production",
+    "rest-api-design-principles",
+    "knowledge-graph-rag-enhancement",
+    "dependency-updates-renovate-security",
+    "postgresql-jsonb-performance",
+    "streaming-llm-responses-sse",
+    "fine-tuning-llm-domain-specific",
+    "postgresql-partitioning-strategies",
+    "reranking-retrieval-cohere",
+    "vector-search-filtering-metadata",
+    "circuit-breaker-resilience-patterns",
+    "redis-data-structures-advanced",
+    "hybrid-search-dense-sparse-retrieval",
+    "incident-response-runbooks-automation"
+  ],
+  "last_updated": "2026-03-23"
 }

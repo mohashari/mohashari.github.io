@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="900" height="560" font-family="monospace, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="560" fill="#f8f9fa" rx="8"/>
+
+  <!-- Title -->
+  <text x="450" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">Compliance as Code: SOC2 Controls Pipeline in Kubernetes</text>
+
+  <!-- === LANE 1: Dev/CI === -->
+  <rect x="20" y="50" width="200" height="480" fill="#eaf0fb" rx="8" stroke="#b0c4de" stroke-width="1.5"/>
+  <text x="120" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#4a4a8a">DEV / CI</text>
+
+  <!-- Git commit -->
+  <rect x="45" y="85" width="150" height="44" fill="#fff" rx="6" stroke="#5c85d6" stroke-width="1.5"/>
+  <text x="120" y="104" text-anchor="middle" font-size="10" fill="#333">git push</text>
+  <text x="120" y="118" text-anchor="middle" font-size="9" fill="#666">feature branch</text>
+
+  <!-- Arrow down -->
+  <line x1="120" y1="130" x2="120" y2="150" stroke="#5c85d6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- CI Pipeline -->
+  <rect x="45" y="152" width="150" height="44" fill="#fff" rx="6" stroke="#5c85d6" stroke-width="1.5"/>
+  <text x="120" y="171" text-anchor="middle" font-size="10" fill="#333">CI Pipeline</text>
+  <text x="120" y="185" text-anchor="middle" font-size="9" fill="#666">conftest + rego checks</text>
+
+  <!-- Arrow down -->
+  <line x1="120" y1="197" x2="120" y2="217" stroke="#5c85d6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- OPA Policy Gate -->
+  <rect x="45" y="219" width="150" height="44" fill="#fffbe6" rx="6" stroke="#e6a817" stroke-width="2"/>
+  <text x="120" y="238" text-anchor="middle" font-size="10" font-weight="bold" fill="#b07000">OPA Policy Gate</text>
+  <text x="120" y="252" text-anchor="middle" font-size="9" fill="#666">DENY on violation</text>
+
+  <!-- Arrow down -->
+  <line x1="120" y1="264" x2="120" y2="284" stroke="#5c85d6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- Image Scan -->
+  <rect x="45" y="286" width="150" height="44" fill="#fff" rx="6" stroke="#5c85d6" stroke-width="1.5"/>
+  <text x="120" y="305" text-anchor="middle" font-size="10" fill="#333">Trivy / Grype</text>
+  <text x="120" y="319" text-anchor="middle" font-size="9" fill="#666">CRITICAL = block</text>
+
+  <!-- Arrow to k8s -->
+  <line x1="196" y1="308" x2="248" y2="308" stroke="#5c85d6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+  <!-- === LANE 2: Kubernetes Cluster === -->
+  <rect x="240" y="50" width="400" height="480" fill="#edf7ed" rx="8" stroke="#7abf7a" stroke-width="1.5"/>
+  <text x="440" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#2d6a2d">KUBERNETES CLUSTER</text>
+
+  <!-- Admission Controller -->
+  <rect x="265" y="85" width="350" height="54" fill="#fff" rx="6" stroke="#7abf7a" stroke-width="1.5"/>
+  <text x="440" y="108" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Admission Webhook</text>
+  <text x="440" y="124" text-anchor="middle" font-size="9" fill="#666">OPA/Gatekeeper — validates every resource before persist</text>
+
+  <!-- Arrow down -->
+  <line x1="440" y1="140" x2="440" y2="158" stroke="#7abf7a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+  <!-- Gatekeeper Constraints row -->
+  <rect x="265" y="160" width="160" height="44" fill="#f0fff0" rx="6" stroke="#7abf7a" stroke-width="1.5"/>
+  <text x="345" y="179" text-anchor="middle" font-size="9" font-weight="bold" fill="#2d6a2d">ConstraintTemplates</text>
+  <text x="345" y="193" text-anchor="middle" font-size="9" fill="#555">no-root, read-only-fs</text>
+
+  <rect x="455" y="160" width="160" height="44" fill="#f0fff0" rx="6" stroke="#7abf7a" stroke-width="1.5"/>
+  <text x="535" y="179" text-anchor="middle" font-size="9" font-weight="bold" fill="#2d6a2d">NetworkPolicy</text>
+  <text x="535" y="193" text-anchor="middle" font-size="9" fill="#555">default-deny egress</text>
+
+  <!-- Arrow down -->
+  <line x1="440" y1="205" x2="440" y2="225" stroke="#7abf7a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+  <!-- Workloads -->
+  <rect x="265" y="227" width="350" height="54" fill="#fff" rx="6" stroke="#7abf7a" stroke-width="1.5"/>
+  <text x="440" y="250" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Workloads (namespaced)</text>
+  <text x="440" y="266" text-anchor="middle" font-size="9" fill="#666">ServiceAccount + RBAC + PodSecurity enforced per namespace</text>
+
+  <!-- Arrow down -->
+  <line x1="440" y1="282" x2="440" y2="300" stroke="#7abf7a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+  <!-- Falco -->
+  <rect x="265" y="302" width="160" height="54" fill="#fff4f4" rx="6" stroke="#d46060" stroke-width="1.5"/>
+  <text x="345" y="323" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Falco</text>
+  <text x="345" y="337" text-anchor="middle" font-size="9" fill="#555">runtime syscall rules</text>
+  <text x="345" y="349" text-anchor="middle" font-size="9" fill="#555">alert → SIEM / Slack</text>
+
+  <!-- kube-audit -->
+  <rect x="455" y="302" width="160" height="54" fill="#f4f4ff" rx="6" stroke="#7070cc" stroke-width="1.5"/>
+  <text x="535" y="323" text-anchor="middle" font-size="10" font-weight="bold" fill="#4040aa">Audit Logs</text>
+  <text x="535" y="337" text-anchor="middle" font-size="9" fill="#555">kube-apiserver policy</text>
+  <text x="535" y="349" text-anchor="middle" font-size="9" fill="#555">→ S3 / GCS (90 days)</text>
+
+  <!-- Arrow down from Falco+audit -->
+  <line x1="440" y1="357" x2="440" y2="375" stroke="#888" stroke-width="1.5" marker-end="url(#arrow-grey)"/>
+
+  <!-- Evidence Store -->
+  <rect x="265" y="377" width="350" height="44" fill="#fffde7" rx="6" stroke="#f0c030" stroke-width="1.5"/>
+  <text x="440" y="396" text-anchor="middle" font-size="10" font-weight="bold" fill="#7a5c00">Evidence Collector</text>
+  <text x="440" y="410" text-anchor="middle" font-size="9" fill="#666">CronJob: snapshot ConfigMaps, RBAC, policies → signed S3 bundle</text>
+
+  <!-- Arrow down -->
+  <line x1="440" y1="422" x2="440" y2="440" stroke="#888" stroke-width="1.5" marker-end="url(#arrow-grey)"/>
+
+  <!-- Config drift checker -->
+  <rect x="265" y="442" width="350" height="44" fill="#fff" rx="6" stroke="#aaa" stroke-width="1.5"/>
+  <text x="440" y="461" text-anchor="middle" font-size="10" fill="#333">Drift Detector (kyverno / custom)</text>
+  <text x="440" y="475" text-anchor="middle" font-size="9" fill="#666">compares live state vs git baseline — pages on deviation</text>
+
+  <!-- === LANE 3: Audit / Compliance === -->
+  <rect x="660" y="50" width="220" height="480" fill="#f5edfb" rx="8" stroke="#b07abf" stroke-width="1.5"/>
+  <text x="770" y="72" text-anchor="middle" font-size="11" font-weight="bold" fill="#5a2d7a">AUDIT / COMPLIANCE</text>
+
+  <!-- SOC2 Controls map -->
+  <rect x="680" y="85" width="180" height="64" fill="#fff" rx="6" stroke="#b07abf" stroke-width="1.5"/>
+  <text x="770" y="104" text-anchor="middle" font-size="10" font-weight="bold" fill="#5a2d7a">SOC2 CC Mapping</text>
+  <text x="770" y="118" text-anchor="middle" font-size="9" fill="#555">CC6: logical access</text>
+  <text x="770" y="130" text-anchor="middle" font-size="9" fill="#555">CC7: change mgmt</text>
+  <text x="770" y="142" text-anchor="middle" font-size="9" fill="#555">CC8: risk monitoring</text>
+
+  <!-- Arrow from evidence to audit -->
+  <line x1="616" y1="399" x2="679" y2="399" stroke="#888" stroke-width="1.5" marker-end="url(#arrow-grey)"/>
+
+  <!-- Evidence Bundle -->
+  <rect x="680" y="370" width="180" height="54" fill="#f5edfb" rx="6" stroke="#b07abf" stroke-width="1.5"/>
+  <text x="770" y="391" text-anchor="middle" font-size="10" font-weight="bold" fill="#5a2d7a">Evidence Bundle</text>
+  <text x="770" y="405" text-anchor="middle" font-size="9" fill="#555">SBOM + scan results</text>
+  <text x="770" y="417" text-anchor="middle" font-size="9" fill="#555">policy snapshots + events</text>
+
+  <!-- Arrow down -->
+  <line x1="770" y1="425" x2="770" y2="443" stroke="#b07abf" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+
+  <!-- Auditor Dashboard -->
+  <rect x="680" y="445" width="180" height="54" fill="#fff" rx="6" stroke="#b07abf" stroke-width="1.5"/>
+  <text x="770" y="464" text-anchor="middle" font-size="10" font-weight="bold" fill="#5a2d7a">Auditor Dashboard</text>
+  <text x="770" y="478" text-anchor="middle" font-size="9" fill="#555">Grafana / Vanta / Drata</text>
+  <text x="770" y="490" text-anchor="middle" font-size="9" fill="#555">continuous control status</text>
+
+  <!-- Arrow from k8s lane to audit lane (Falco) -->
+  <line x1="616" y1="328" x2="679" y2="328" stroke="#d46060" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-red)"/>
+  <text x="647" y="322" text-anchor="middle" font-size="8" fill="#c0392b">alerts</text>
+
+  <!-- Arrows markers -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5c85d6"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#7abf7a"/>
+    </marker>
+    <marker id="arrow-grey" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#888"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#b07abf"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#d46060"/>
+    </marker>
+  </defs>
+</svg>

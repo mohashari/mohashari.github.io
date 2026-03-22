@@ -1,0 +1,136 @@
+<svg width="900" height="560" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" font-family="'Segoe UI', system-ui, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="560" fill="#f8f9fa" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1a2e">Saga Pattern: Choreography vs Orchestration</text>
+
+  <!-- ===== LEFT: CHOREOGRAPHY ===== -->
+  <rect x="20" y="55" width="410" height="490" fill="#fff" rx="10" stroke="#dee2e6" stroke-width="1.5"/>
+  <text x="225" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="#495057">Choreography (Event-Driven)</text>
+
+  <!-- Order Service -->
+  <rect x="150" y="100" width="150" height="44" rx="8" fill="#4361ee" stroke="#3a56d4" stroke-width="1"/>
+  <text x="225" y="117" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Order Service</text>
+  <text x="225" y="133" text-anchor="middle" font-size="10" fill="#c8d3ff">creates order (PENDING)</text>
+
+  <!-- Arrow down -->
+  <line x1="225" y1="144" x2="225" y2="165" stroke="#868e96" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="270" y="158" font-size="9" fill="#868e96">OrderCreated</text>
+
+  <!-- Payment Service -->
+  <rect x="150" y="165" width="150" height="44" rx="8" fill="#2b9348" stroke="#22803b" stroke-width="1"/>
+  <text x="225" y="182" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Payment Service</text>
+  <text x="225" y="198" text-anchor="middle" font-size="10" fill="#c8ffcc">reserves funds</text>
+
+  <line x1="225" y1="209" x2="225" y2="230" stroke="#868e96" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="270" y="223" font-size="9" fill="#868e96">PaymentReserved</text>
+
+  <!-- Inventory Service -->
+  <rect x="150" y="230" width="150" height="44" rx="8" fill="#2b9348" stroke="#22803b" stroke-width="1"/>
+  <text x="225" y="247" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Inventory Service</text>
+  <text x="225" y="263" text-anchor="middle" font-size="10" fill="#c8ffcc">reserves stock</text>
+
+  <line x1="225" y1="274" x2="225" y2="295" stroke="#868e96" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="270" y="288" font-size="9" fill="#868e96">StockReserved</text>
+
+  <!-- Shipping Service -->
+  <rect x="150" y="295" width="150" height="44" rx="8" fill="#2b9348" stroke="#22803b" stroke-width="1"/>
+  <text x="225" y="312" text-anchor="middle" font-size="11" font-weight="600" fill="#fff">Shipping Service</text>
+  <text x="225" y="328" text-anchor="middle" font-size="10" fill="#c8ffcc">schedules delivery</text>
+
+  <!-- Failure path -->
+  <line x1="150" y1="317" x2="90" y2="317" stroke="#e03131" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRed)"/>
+  <text x="55" y="313" text-anchor="middle" font-size="9" fill="#e03131">FAIL</text>
+
+  <!-- Compensating arrows -->
+  <line x1="90" y1="317" x2="90" y2="252" stroke="#e03131" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="90" y1="252" x2="150" y2="252" stroke="#e03131" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRed)"/>
+  <text x="55" y="260" text-anchor="middle" font-size="9" fill="#e03131">release</text>
+  <text x="55" y="271" text-anchor="middle" font-size="9" fill="#e03131">stock</text>
+
+  <line x1="90" y1="252" x2="90" y2="187" stroke="#e03131" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="90" y1="187" x2="150" y2="187" stroke="#e03131" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRed)"/>
+  <text x="55" y="193" text-anchor="middle" font-size="9" fill="#e03131">refund</text>
+  <text x="55" y="204" text-anchor="middle" font-size="9" fill="#e03131">payment</text>
+
+  <!-- Event bus label -->
+  <rect x="30" y="390" width="370" height="32" rx="6" fill="#f1f3f5" stroke="#dee2e6" stroke-width="1"/>
+  <text x="215" y="411" text-anchor="middle" font-size="11" fill="#495057">Event Bus (Kafka / RabbitMQ)</text>
+
+  <!-- Compensating label -->
+  <rect x="30" y="440" width="370" height="30" rx="6" fill="#fff5f5" stroke="#ffc9c9" stroke-width="1"/>
+  <text x="215" y="459" text-anchor="middle" font-size="10" fill="#c92a2a">Compensating transactions flow right-to-left on failure</text>
+
+  <!-- Pro/Con -->
+  <text x="40" y="495" font-size="10" fill="#2b9348">+ Loose coupling, no SPOF</text>
+  <text x="40" y="512" font-size="10" fill="#e03131">- Hard to track state, debugging nightmare</text>
+
+  <!-- ===== RIGHT: ORCHESTRATION ===== -->
+  <rect x="470" y="55" width="410" height="490" fill="#fff" rx="10" stroke="#dee2e6" stroke-width="1.5"/>
+  <text x="675" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="#495057">Orchestration (Command-Driven)</text>
+
+  <!-- Saga Orchestrator -->
+  <rect x="595" y="100" width="160" height="52" rx="8" fill="#7048e8" stroke="#5f3dc4" stroke-width="2"/>
+  <text x="675" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">Saga Orchestrator</text>
+  <text x="675" y="136" text-anchor="middle" font-size="10" fill="#d0bfff">state machine + journal</text>
+
+  <!-- Step 1 -->
+  <rect x="595" y="182" width="160" height="36" rx="7" fill="#4361ee" stroke="#3a56d4" stroke-width="1"/>
+  <text x="675" y="196" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">1. ReservePayment</text>
+  <text x="675" y="210" text-anchor="middle" font-size="9" fill="#c8d3ff">Payment Service</text>
+
+  <!-- Step 2 -->
+  <rect x="595" y="238" width="160" height="36" rx="7" fill="#4361ee" stroke="#3a56d4" stroke-width="1"/>
+  <text x="675" y="252" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">2. ReserveInventory</text>
+  <text x="675" y="266" text-anchor="middle" font-size="9" fill="#c8d3ff">Inventory Service</text>
+
+  <!-- Step 3 -->
+  <rect x="595" y="294" width="160" height="36" rx="7" fill="#4361ee" stroke="#3a56d4" stroke-width="1"/>
+  <text x="675" y="308" text-anchor="middle" font-size="10" font-weight="600" fill="#fff">3. ScheduleShipping</text>
+  <text x="675" y="322" text-anchor="middle" font-size="9" fill="#c8d3ff">Shipping Service</text>
+
+  <!-- Arrows from orchestrator to steps -->
+  <line x1="675" y1="152" x2="675" y2="180" stroke="#868e96" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="675" y1="218" x2="675" y2="236" stroke="#868e96" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="675" y1="274" x2="675" y2="292" stroke="#868e96" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Reply arrows back to orchestrator -->
+  <path d="M 757 200 C 800 200 800 126 757 126" fill="none" stroke="#40c057" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowGreen)"/>
+  <text x="808" y="167" font-size="9" fill="#40c057">reply</text>
+
+  <path d="M 757 256 C 810 256 810 126 757 126" fill="none" stroke="#40c057" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowGreen)"/>
+
+  <!-- Compensate arrows on failure -->
+  <path d="M 593 312 C 545 312 545 200 593 200" fill="none" stroke="#e03131" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowRed)"/>
+  <text x="482" y="266" font-size="9" fill="#e03131">compensate</text>
+  <text x="490" y="278" font-size="9" fill="#e03131">on FAIL</text>
+
+  <!-- Saga state store -->
+  <rect x="595" y="355" width="160" height="36" rx="7" fill="#f8f9fa" stroke="#adb5bd" stroke-width="1"/>
+  <text x="675" y="369" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">Saga State Store</text>
+  <text x="675" y="383" text-anchor="middle" font-size="9" fill="#868e96">PostgreSQL / Redis</text>
+  <line x1="675" y1="352" x2="675" y2="391" stroke="#adb5bd" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Command channel label -->
+  <rect x="480" y="410" width="370" height="32" rx="6" fill="#f1f3f5" stroke="#dee2e6" stroke-width="1"/>
+  <text x="665" y="431" text-anchor="middle" font-size="11" fill="#495057">Command Channel (reply queue per saga)</text>
+
+  <!-- Pro/Con -->
+  <text x="490" y="465" font-size="10" fill="#2b9348">+ Centralized visibility, easy to add steps</text>
+  <text x="490" y="482" font-size="10" fill="#e03131">- Orchestrator is SPOF if not HA</text>
+  <text x="490" y="499" font-size="10" fill="#e03131">- Tight coupling to orchestrator logic</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#868e96"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e03131"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#40c057"/>
+    </marker>
+  </defs>
+</svg>

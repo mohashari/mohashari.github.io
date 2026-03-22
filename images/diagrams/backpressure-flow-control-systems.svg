@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="960" height="560" fill="#f8f9fa" rx="12"/>
+  <text x="480" y="38" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a2e">Backpressure and Flow Control - Signal Propagation</text>
+  <rect x="40" y="80" width="150" height="64" rx="8" fill="#4361ee" stroke="#3a56d4" stroke-width="1.5"/>
+  <text x="115" y="107" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">Producer</text>
+  <text x="115" y="125" text-anchor="middle" font-size="11" fill="#c8d4ff">10 000 msg/s</text>
+  <line x1="115" y1="144" x2="115" y2="184" stroke="#4361ee" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="40" y="185" width="150" height="64" rx="8" fill="#fff" stroke="#4361ee" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="115" y="210" text-anchor="middle" font-size="13" font-weight="600" fill="#4361ee">Bounded Buffer</text>
+  <text x="115" y="228" text-anchor="middle" font-size="11" fill="#555">capacity: 1 000</text>
+  <rect x="50" y="238" width="130" height="6" rx="3" fill="#e0e0e0"/>
+  <rect x="50" y="238" width="95" height="6" rx="3" fill="#f72585"/>
+  <text x="185" y="244" font-size="10" fill="#f72585">73%</text>
+  <line x1="190" y1="217" x2="300" y2="217" stroke="#555" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <rect x="300" y="185" width="150" height="64" rx="8" fill="#06d6a0" stroke="#05c090" stroke-width="1.5"/>
+  <text x="375" y="210" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">Consumer</text>
+  <text x="375" y="228" text-anchor="middle" font-size="11" fill="#d0fff5">3 000 msg/s</text>
+  <path d="M 290 200 C 230 170, 160 170, 155 185" fill="none" stroke="#f72585" stroke-width="2.5" stroke-dasharray="7,4" marker-end="url(#arr-pink)"/>
+  <rect x="175" y="153" width="130" height="22" rx="5" fill="#fff0f6" stroke="#f72585" stroke-width="1"/>
+  <text x="240" y="168" text-anchor="middle" font-size="11" font-weight="600" fill="#f72585">BACKPRESSURE</text>
+  <rect x="520" y="185" width="150" height="64" rx="8" fill="#f77f00" stroke="#e07000" stroke-width="1.5"/>
+  <text x="595" y="210" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">Downstream DB</text>
+  <text x="595" y="228" text-anchor="middle" font-size="11" fill="#ffe8cc">p99 lat: 340ms</text>
+  <line x1="450" y1="217" x2="520" y2="217" stroke="#555" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <path d="M 520 200 C 490 170, 460 170, 455 185" fill="none" stroke="#f77f00" stroke-width="2.5" stroke-dasharray="7,4" marker-end="url(#arr-orange)"/>
+  <rect x="452" y="153" width="68" height="22" rx="5" fill="#fff8f0" stroke="#f77f00" stroke-width="1"/>
+  <text x="486" y="168" text-anchor="middle" font-size="11" font-weight="600" fill="#f77f00">slow</text>
+  <rect x="40" y="310" width="840" height="210" rx="10" fill="#fff" stroke="#dee2e6" stroke-width="1.5"/>
+  <text x="460" y="335" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a2e">Backpressure Strategies</text>
+  <rect x="65" y="350" width="230" height="148" rx="8" fill="#eef2ff" stroke="#4361ee" stroke-width="1.2"/>
+  <text x="180" y="373" text-anchor="middle" font-size="13" font-weight="700" fill="#4361ee">1 - Buffer / Queue</text>
+  <text x="180" y="393" text-anchor="middle" font-size="11" fill="#333">Absorb bursts up to capacity.</text>
+  <text x="180" y="410" text-anchor="middle" font-size="11" fill="#333">Pro: smooths spikes</text>
+  <text x="180" y="427" text-anchor="middle" font-size="11" fill="#333">Con: hides saturation,</text>
+  <text x="180" y="444" text-anchor="middle" font-size="11" fill="#333">unbounded = OOM</text>
+  <text x="180" y="465" text-anchor="middle" font-size="10" fill="#4361ee" font-style="italic">e.g. Kafka consumer lag</text>
+  <text x="180" y="482" text-anchor="middle" font-size="10" fill="#4361ee" font-style="italic">channel buffer in Go</text>
+  <rect x="315" y="350" width="230" height="148" rx="8" fill="#fff0f6" stroke="#f72585" stroke-width="1.2"/>
+  <text x="430" y="373" text-anchor="middle" font-size="13" font-weight="700" fill="#f72585">2 - Drop / Shed Load</text>
+  <text x="430" y="393" text-anchor="middle" font-size="11" fill="#333">Discard excess when full.</text>
+  <text x="430" y="410" text-anchor="middle" font-size="11" fill="#333">Pro: predictable latency</text>
+  <text x="430" y="427" text-anchor="middle" font-size="11" fill="#333">Con: data loss, requires</text>
+  <text x="430" y="444" text-anchor="middle" font-size="11" fill="#333">idempotent producers</text>
+  <text x="430" y="465" text-anchor="middle" font-size="10" fill="#f72585" font-style="italic">e.g. UDP, log sampling,</text>
+  <text x="430" y="482" text-anchor="middle" font-size="10" fill="#f72585" font-style="italic">circuit breaker</text>
+  <rect x="565" y="350" width="290" height="148" rx="8" fill="#f0fff8" stroke="#06d6a0" stroke-width="1.2"/>
+  <text x="710" y="373" text-anchor="middle" font-size="13" font-weight="700" fill="#06d6a0">3 - Block / Slow Producer</text>
+  <text x="710" y="393" text-anchor="middle" font-size="11" fill="#333">Apply credit-based flow control.</text>
+  <text x="710" y="410" text-anchor="middle" font-size="11" fill="#333">Pro: zero data loss</text>
+  <text x="710" y="427" text-anchor="middle" font-size="11" fill="#333">Con: propagates latency</text>
+  <text x="710" y="444" text-anchor="middle" font-size="11" fill="#333">upstream (cascades)</text>
+  <text x="710" y="465" text-anchor="middle" font-size="10" fill="#06d6a0" font-style="italic">e.g. TCP window, gRPC flow</text>
+  <text x="710" y="482" text-anchor="middle" font-size="10" fill="#06d6a0" font-style="italic">control, reactive streams</text>
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4361ee"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+    <marker id="arr-pink" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f72585"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f77f00"/>
+    </marker>
+  </defs>
+</svg>

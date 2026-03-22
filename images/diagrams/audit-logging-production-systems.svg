@@ -1,0 +1,112 @@
+<svg viewBox="0 0 960 600" xmlns="http://www.w3.org/2000/svg" font-family="monospace, sans-serif">
+  <rect width="960" height="600" fill="#0f172a"/>
+
+  <!-- Title -->
+  <text x="480" y="36" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="bold">Audit Logging Architecture — Production Model</text>
+
+  <!-- ══ Service Layer ══ -->
+  <text x="480" y="66" text-anchor="middle" fill="#64748b" font-size="11">SERVICE LAYER</text>
+
+  <!-- Service boxes -->
+  <rect x="40" y="76" width="130" height="52" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="105" y="98" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="bold">Auth Service</text>
+  <text x="105" y="114" text-anchor="middle" fill="#94a3b8" font-size="10">login / token ops</text>
+
+  <rect x="200" y="76" width="130" height="52" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="265" y="98" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="bold">API Gateway</text>
+  <text x="265" y="114" text-anchor="middle" fill="#94a3b8" font-size="10">rate-limit / authz</text>
+
+  <rect x="360" y="76" width="130" height="52" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="425" y="98" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="bold">User Service</text>
+  <text x="425" y="114" text-anchor="middle" fill="#94a3b8" font-size="10">CRUD / role change</text>
+
+  <rect x="520" y="76" width="130" height="52" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="585" y="98" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="bold">Payment Service</text>
+  <text x="585" y="114" text-anchor="middle" fill="#94a3b8" font-size="10">mutations / refunds</text>
+
+  <rect x="680" y="76" width="130" height="52" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="745" y="98" text-anchor="middle" fill="#7dd3fc" font-size="11" font-weight="bold">Admin Console</text>
+  <text x="745" y="114" text-anchor="middle" fill="#94a3b8" font-size="10">priv escalation</text>
+
+  <!-- Arrows from services to SDK layer -->
+  <line x1="105" y1="128" x2="105" y2="166" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="265" y1="128" x2="265" y2="166" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="425" y1="128" x2="425" y2="166" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="585" y1="128" x2="585" y2="166" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="745" y1="128" x2="745" y2="166" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ══ Audit SDK / Middleware ══ -->
+  <text x="480" y="160" text-anchor="middle" fill="#64748b" font-size="11">INSTRUMENTATION</text>
+  <rect x="40" y="170" width="770" height="46" rx="6" fill="#1e3a5f" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="425" y="190" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">Audit SDK / Middleware (shared library)</text>
+  <text x="425" y="207" text-anchor="middle" fill="#64748b" font-size="10">schema validation · actor enrichment · correlation_id injection · deterministic event_id (SHA-256)</text>
+
+  <!-- Arrow SDK → Kafka -->
+  <line x1="425" y1="216" x2="425" y2="254" stroke="#2563eb" stroke-width="2" marker-end="url(#arr2)"/>
+
+  <!-- ══ Transport ══ -->
+  <text x="480" y="248" text-anchor="middle" fill="#64748b" font-size="11">TRANSPORT</text>
+  <rect x="280" y="258" width="290" height="46" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="425" y="278" text-anchor="middle" fill="#fcd34d" font-size="11" font-weight="bold">Kafka  audit.events  (3× replicated)</text>
+  <text x="425" y="294" text-anchor="middle" fill="#94a3b8" font-size="10">retention: 7d  ·  min.insync.replicas=2  ·  acks=all</text>
+
+  <!-- Arrow Kafka → Fan-out -->
+  <line x1="425" y1="304" x2="425" y2="342" stroke="#f59e0b" stroke-width="2" marker-end="url(#arr3)"/>
+
+  <!-- ══ Consumer ══ -->
+  <text x="480" y="336" text-anchor="middle" fill="#64748b" font-size="11">CONSUMERS</text>
+  <rect x="240" y="346" width="370" height="46" rx="6" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="425" y="366" text-anchor="middle" fill="#c4b5fd" font-size="11" font-weight="bold">Audit Consumer Service</text>
+  <text x="425" y="382" text-anchor="middle" fill="#94a3b8" font-size="10">hash-chain verification  ·  dedup  ·  fan-out write</text>
+
+  <!-- Fan-out arrows -->
+  <line x1="340" y1="392" x2="200" y2="440" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arr4)"/>
+  <line x1="425" y1="392" x2="425" y2="440" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arr4)"/>
+  <line x1="510" y1="392" x2="650" y2="440" stroke="#a78bfa" stroke-width="1.5" marker-end="url(#arr4)"/>
+
+  <!-- ══ Storage ══ -->
+  <text x="480" y="434" text-anchor="middle" fill="#64748b" font-size="11">STORAGE  &amp;  QUERY</text>
+
+  <rect x="100" y="444" width="200" height="64" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="200" y="464" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="bold">ClickHouse</text>
+  <text x="200" y="480" text-anchor="middle" fill="#94a3b8" font-size="10">hot queries  ·  90d TTL</text>
+  <text x="200" y="496" text-anchor="middle" fill="#94a3b8" font-size="10">ReplicatedMergeTree</text>
+
+  <rect x="325" y="444" width="200" height="64" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="425" y="464" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="bold">Postgres (append-only)</text>
+  <text x="425" y="480" text-anchor="middle" fill="#94a3b8" font-size="10">forensic integrity  ·  1y TTL</text>
+  <text x="425" y="496" text-anchor="middle" fill="#94a3b8" font-size="10">hash_chain column</text>
+
+  <rect x="550" y="444" width="200" height="64" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="650" y="464" text-anchor="middle" fill="#6ee7b7" font-size="11" font-weight="bold">S3 / Object Store</text>
+  <text x="650" y="480" text-anchor="middle" fill="#94a3b8" font-size="10">cold archive  ·  7y WORM</text>
+  <text x="650" y="496" text-anchor="middle" fill="#94a3b8" font-size="10">Parquet + Athena</text>
+
+  <!-- ══ Query ══ -->
+  <line x1="200" y1="508" x2="200" y2="546" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="425" y1="508" x2="425" y2="546" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="650" y1="508" x2="650" y2="546" stroke="#334155" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="100" y="550" width="200" height="36" rx="5" fill="#1e293b" stroke="#475569"/>
+  <text x="200" y="573" text-anchor="middle" fill="#e2e8f0" font-size="10">SOC 2 / SIEM dashboards</text>
+  <rect x="325" y="550" width="200" height="36" rx="5" fill="#1e293b" stroke="#475569"/>
+  <text x="425" y="573" text-anchor="middle" fill="#e2e8f0" font-size="10">Incident forensics / legal hold</text>
+  <rect x="550" y="550" width="200" height="36" rx="5" fill="#1e293b" stroke="#475569"/>
+  <text x="650" y="573" text-anchor="middle" fill="#e2e8f0" font-size="10">Compliance archive (Athena)</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#334155"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f59e0b"/>
+    </marker>
+    <marker id="arr4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#a78bfa"/>
+    </marker>
+  </defs>
+</svg>

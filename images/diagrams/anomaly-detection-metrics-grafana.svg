@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" font-family="'Segoe UI', system-ui, sans-serif">
+  <rect width="960" height="560" fill="#f8f9fa" rx="12"/>
+  <text x="480" y="36" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a2e">ML-Based Anomaly Detection Architecture on Grafana Metrics</text>
+  <text x="80" y="72" font-size="11" font-weight="600" fill="#6c757d" text-anchor="middle">SOURCES</text>
+  <rect x="20" y="82" width="120" height="44" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="80" y="99" text-anchor="middle" font-size="11" font-weight="600" fill="#1d4ed8">API Service</text>
+  <text x="80" y="115" text-anchor="middle" font-size="9.5" fill="#3b82f6">latency / errors</text>
+  <rect x="20" y="140" width="120" height="44" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="80" y="157" text-anchor="middle" font-size="11" font-weight="600" fill="#1d4ed8">Database</text>
+  <text x="80" y="173" text-anchor="middle" font-size="9.5" fill="#3b82f6">query time / conns</text>
+  <rect x="20" y="198" width="120" height="44" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="80" y="215" text-anchor="middle" font-size="11" font-weight="600" fill="#1d4ed8">Workers / Jobs</text>
+  <text x="80" y="231" text-anchor="middle" font-size="9.5" fill="#3b82f6">queue depth / lag</text>
+  <rect x="20" y="256" width="120" height="44" rx="8" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="80" y="273" text-anchor="middle" font-size="11" font-weight="600" fill="#1d4ed8">Infrastructure</text>
+  <text x="80" y="289" text-anchor="middle" font-size="9.5" fill="#3b82f6">CPU / mem / disk</text>
+  <rect x="190" y="140" width="130" height="140" rx="10" fill="#fff7ed" stroke="#f97316" stroke-width="1.8"/>
+  <text x="255" y="163" text-anchor="middle" font-size="12" font-weight="700" fill="#c2410c">Prometheus</text>
+  <text x="255" y="181" text-anchor="middle" font-size="9.5" fill="#ea580c">scrape interval: 15s</text>
+  <line x1="210" y1="192" x2="300" y2="192" stroke="#fed7aa" stroke-width="1"/>
+  <text x="255" y="207" text-anchor="middle" font-size="9" fill="#9a3412">remote_write</text>
+  <text x="255" y="221" text-anchor="middle" font-size="9" fill="#9a3412">Thanos / Mimir</text>
+  <text x="255" y="237" text-anchor="middle" font-size="9" fill="#9a3412">long-term TSDB</text>
+  <text x="255" y="255" text-anchor="middle" font-size="9" fill="#9a3412">recording rules</text>
+  <text x="255" y="269" text-anchor="middle" font-size="9" fill="#9a3412">downsampling</text>
+  <line x1="142" y1="104" x2="188" y2="185" stroke="#93c5fd" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="142" y1="162" x2="188" y2="195" stroke="#93c5fd" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="142" y1="220" x2="188" y2="215" stroke="#93c5fd" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="142" y1="270" x2="188" y2="240" stroke="#93c5fd" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="375" y="100" width="140" height="200" rx="10" fill="#f0fdf4" stroke="#22c55e" stroke-width="1.8"/>
+  <text x="445" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#15803d">Grafana</text>
+  <line x1="390" y1="133" x2="500" y2="133" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="445" y="150" text-anchor="middle" font-size="9.5" fill="#166534">Dashboards</text>
+  <text x="445" y="166" text-anchor="middle" font-size="9.5" fill="#166534">Alert Rules (native)</text>
+  <text x="445" y="182" text-anchor="middle" font-size="9.5" fill="#166534">Contact Points</text>
+  <line x1="390" y1="194" x2="500" y2="194" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="445" y="210" text-anchor="middle" font-size="9" fill="#166534">static threshold alerts</text>
+  <text x="445" y="226" text-anchor="middle" font-size="9" fill="#166534">p99 latency over 500ms</text>
+  <text x="445" y="242" text-anchor="middle" font-size="9" fill="#166534">error rate over 1%</text>
+  <text x="445" y="264" text-anchor="middle" font-size="9.5" fill="#166534" font-weight="600">webhook triggers</text>
+  <text x="445" y="280" text-anchor="middle" font-size="9" fill="#166534">ML scoring job</text>
+  <line x1="321" y1="210" x2="373" y2="210" stroke="#fb923c" stroke-width="1.8" marker-end="url(#arr-orange)"/>
+  <text x="347" y="204" text-anchor="middle" font-size="8.5" fill="#9a3412">PromQL</text>
+  <rect x="570" y="82" width="160" height="240" rx="10" fill="#fdf4ff" stroke="#a855f7" stroke-width="1.8"/>
+  <text x="650" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#7e22ce">ML Anomaly Engine</text>
+  <line x1="585" y1="115" x2="715" y2="115" stroke="#e9d5ff" stroke-width="1"/>
+  <rect x="585" y="124" width="130" height="50" rx="6" fill="#f3e8ff" stroke="#c084fc" stroke-width="1.2"/>
+  <text x="650" y="141" text-anchor="middle" font-size="10" font-weight="600" fill="#6b21a8">Prophet</text>
+  <text x="650" y="156" text-anchor="middle" font-size="8.5" fill="#7e22ce">seasonal baselines</text>
+  <text x="650" y="169" text-anchor="middle" font-size="8.5" fill="#7e22ce">trend + weekly cycle</text>
+  <rect x="585" y="182" width="130" height="50" rx="6" fill="#f3e8ff" stroke="#c084fc" stroke-width="1.2"/>
+  <text x="650" y="199" text-anchor="middle" font-size="10" font-weight="600" fill="#6b21a8">Isolation Forest</text>
+  <text x="650" y="214" text-anchor="middle" font-size="8.5" fill="#7e22ce">multivariate outliers</text>
+  <text x="650" y="227" text-anchor="middle" font-size="8.5" fill="#7e22ce">contamination=0.01</text>
+  <rect x="585" y="240" width="130" height="50" rx="6" fill="#f3e8ff" stroke="#c084fc" stroke-width="1.2"/>
+  <text x="650" y="257" text-anchor="middle" font-size="10" font-weight="600" fill="#6b21a8">Anomaly Scorer</text>
+  <text x="650" y="272" text-anchor="middle" font-size="8.5" fill="#7e22ce">score + severity</text>
+  <text x="650" y="285" text-anchor="middle" font-size="8.5" fill="#7e22ce">pushgateway export</text>
+  <line x1="515" y1="270" x2="568" y2="270" stroke="#4ade80" stroke-width="1.8" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="541" y="264" text-anchor="middle" font-size="8" fill="#15803d">webhook</text>
+  <path d="M321 185 Q360 120 568 155" stroke="#fb923c" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#arr-orange)"/>
+  <text x="420" y="112" text-anchor="middle" font-size="8" fill="#9a3412">bulk metric pull</text>
+  <text x="420" y="123" text-anchor="middle" font-size="8" fill="#9a3412">(training data)</text>
+  <rect x="785" y="100" width="150" height="200" rx="10" fill="#fff1f2" stroke="#f43f5e" stroke-width="1.8"/>
+  <text x="860" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#be123c">Alert Router</text>
+  <line x1="800" y1="133" x2="920" y2="133" stroke="#fecdd3" stroke-width="1"/>
+  <text x="860" y="150" text-anchor="middle" font-size="9.5" fill="#9f1239">Alertmanager</text>
+  <text x="860" y="166" text-anchor="middle" font-size="9" fill="#9f1239">dedup + grouping</text>
+  <text x="860" y="182" text-anchor="middle" font-size="9" fill="#9f1239">silence rules</text>
+  <line x1="800" y1="194" x2="920" y2="194" stroke="#fecdd3" stroke-width="1"/>
+  <text x="860" y="212" text-anchor="middle" font-size="9.5" fill="#be123c" font-weight="600">Destinations:</text>
+  <text x="860" y="228" text-anchor="middle" font-size="9" fill="#9f1239">PagerDuty (P1/P2)</text>
+  <text x="860" y="244" text-anchor="middle" font-size="9" fill="#9f1239">Slack #alerts</text>
+  <text x="860" y="260" text-anchor="middle" font-size="9" fill="#9f1239">OpsGenie</text>
+  <text x="860" y="276" text-anchor="middle" font-size="9" fill="#9f1239">JIRA (low severity)</text>
+  <line x1="731" y1="200" x2="783" y2="200" stroke="#c084fc" stroke-width="1.8" marker-end="url(#arr-purple)"/>
+  <text x="757" y="193" text-anchor="middle" font-size="8" fill="#7e22ce">anomaly_score</text>
+  <text x="757" y="204" text-anchor="middle" font-size="8" fill="#7e22ce">metric</text>
+  <path d="M860 302 Q860 380 650 380 Q440 380 445 302" stroke="#6b7280" stroke-width="1.5" fill="none" stroke-dasharray="6,3" marker-end="url(#arr-gray)"/>
+  <text x="650" y="398" text-anchor="middle" font-size="9" fill="#6b7280">alert feedback: re-train and adjust thresholds</text>
+  <rect x="340" y="430" width="320" height="58" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="500" y="452" text-anchor="middle" font-size="10" font-weight="600" fill="#334155">Scheduled Retraining Pipeline</text>
+  <text x="500" y="468" text-anchor="middle" font-size="9" fill="#64748b">cron: pull 90d history, fit Prophet + IsolationForest, serialize to S3, hot-reload scorer</text>
+  <text x="500" y="481" text-anchor="middle" font-size="9" fill="#64748b">daily at 02:00 UTC — drift via KL divergence on score distributions</text>
+  <line x1="650" y1="322" x2="650" y2="428" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arr-purple)"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#3b82f6"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f97316"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#22c55e"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#a855f7"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <text x="80" y="530" text-anchor="middle" font-size="9" fill="#9ca3af">Instrumented Services</text>
+  <text x="255" y="530" text-anchor="middle" font-size="9" fill="#9ca3af">Collection Layer</text>
+  <text x="445" y="530" text-anchor="middle" font-size="9" fill="#9ca3af">Visualization + Static Alerts</text>
+  <text x="650" y="530" text-anchor="middle" font-size="9" fill="#9ca3af">ML Scoring Layer</text>
+  <text x="860" y="530" text-anchor="middle" font-size="9" fill="#9ca3af">Routing + Dispatch</text>
+</svg>
