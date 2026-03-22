@@ -125,6 +125,8 @@ class PostConfig:
         self.post_path = POSTS_DIR / self.post_filename
         self.diagram_path = IMAGES_DIR / f"{self.slug}.svg"
 
+    description: str = ""
+
     @classmethod
     def from_topic(cls, topic: dict, date: datetime.date) -> "PostConfig":
         return cls(
@@ -135,6 +137,40 @@ class PostConfig:
             needs_code=topic["needs_code"],
             needs_diagram=topic["needs_diagram"],
         )
+
+
+# ---------------------------------------------------------------------------
+# DescriptionGenerator
+# ---------------------------------------------------------------------------
+
+
+class DescriptionGenerator:
+    def __init__(self, logger: logging.Logger):
+        self.logger = logger
+
+    def generate(self, config: PostConfig) -> str:
+        prompt = (
+            f"You are planning a technical blog post.\n"
+            f"Topic: {config.title}\n"
+            f"Category: {config.category}\n\n"
+            f"Write a 2-3 sentence description of this post: the specific angle, "
+            f"the key problem it solves, and the main takeaway for a senior backend engineer. "
+            f"Output ONLY the description, no labels or extra text."
+        )
+        self.logger.info(f"Getting description: {config.slug}")
+        result = subprocess.run(
+            ["claude", "-p", prompt],
+            capture_output=True,
+            text=True,
+            timeout=60,
+            cwd=str(BLOG_DIR),
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            self.logger.warning(f"{config.slug}: description generation failed, using empty description")
+            return ""
+        description = result.stdout.strip()
+        self.logger.debug(f"{config.slug} description: {description}")
+        return description
 
 
 # ---------------------------------------------------------------------------
@@ -268,11 +304,15 @@ DIAGRAM:
 - The diagram should show the high-level architecture or data flow described in the post
 """
 
+        description_section = ""
+        if config.description:
+            description_section = f"\nDESCRIPTION: {config.description}\nUse this as your guiding angle for the post.\n"
+
         return f"""You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.
 
 TOPIC: {config.title}
 CATEGORY: {config.category}
-DATE: {config.date_str}
+DATE: {config.date_str}{description_section}
 
 REQUIREMENTS:
 - Write a high-quality, in-depth technical post (1500-2500 words)
@@ -410,6 +450,7 @@ class BlogOrchestrator:
     def __init__(self):
         self.logger = setup_logging()
         self.gist_mgr = GistManager(GITHUB_USER, self.logger)
+        self.desc_generator = DescriptionGenerator(self.logger)
         self.generator = PostGenerator(self.logger)
         self.extractor = CodeExtractor(self.gist_mgr, self.logger)
         self.writer = PostWriter(self.logger)
@@ -435,6 +476,7 @@ class BlogOrchestrator:
             self.logger.info(f"[{i}/20] {config.slug}")
 
             try:
+                config.description = self.desc_generator.generate(config)
                 raw = self.generator.generate(config)
 
                 if config.needs_code:
