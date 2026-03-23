@@ -73,7 +73,7 @@ def preflight(logger: logging.Logger) -> bool:
                     ok = False
                 else:
                     logger.warning(msg)
-        except FileNotFoundError:
+        except (FileNotFoundError, subprocess.TimeoutExpired):
             msg = f"[preflight] {name}: NOT FOUND"
             if required:
                 logger.error(msg)
