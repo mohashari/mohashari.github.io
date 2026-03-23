@@ -43,7 +43,7 @@ Now configure Vault's database engine:
 <script src="https://gist.github.com/mohashari/1b3535e93040e28aba679c2c8a00ee59.js?file=snippet-5.sh"></script>
 
 `★ Insight ─────────────────────────────────────`
-The `VALID UNTIL '{{expiration}}'` clause in the creation SQL is a defense-in-depth measure. Even if Vault's revocation job fails or is delayed, the credential has a hard expiry baked into PostgreSQL itself. This two-layer expiry is a pattern worth applying broadly — never rely on a single revocation mechanism.
+The `VALID UNTIL '{% raw %}{{expiration}}{% endraw %}'` clause in the creation SQL is a defense-in-depth measure. Even if Vault's revocation job fails or is delayed, the credential has a hard expiry baked into PostgreSQL itself. This two-layer expiry is a pattern worth applying broadly — never rely on a single revocation mechanism.
 `─────────────────────────────────────────────────`
 
 ## Reading Secrets from Go

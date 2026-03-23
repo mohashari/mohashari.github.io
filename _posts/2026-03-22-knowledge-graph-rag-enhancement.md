@@ -101,6 +101,7 @@ Run this across all chunks during your indexing pipeline. Batch calls to stay wi
 
 ## Loading into Neo4j
 
+{% raw %}
 ```python
 # snippet-2
 from neo4j import GraphDatabase
@@ -146,6 +147,7 @@ class KnowledgeGraphWriter:
     def close(self):
         self.driver.close()
 ```
+{% endraw %}
 
 One thing to get right: `MERGE` on entity ID prevents the graph from exploding with duplicates when the same entity appears in 50 chunks. You want one node per real-world entity, with multiple `MENTIONED_IN` edges pointing to every chunk that references it.
 
@@ -153,6 +155,7 @@ One thing to get right: `MERGE` on entity ID prevents the graph from exploding w
 
 Once you have vector retrieval results, you expand them via the graph. The traversal depth is a tunable parameter—1 hop is usually safe, 2 hops is useful for multi-hop questions, 3+ hops gets expensive and noisy fast.
 
+{% raw %}
 ```python
 # snippet-3
 from neo4j import GraphDatabase
@@ -214,6 +217,7 @@ class GraphExpander:
             
             return expanded
 ```
+{% endraw %}
 
 The `LIMIT 50` on the Cypher query is intentional. Without it, a highly connected entity like "payments_service" can return thousands of neighboring chunks. You want breadth, not completeness—this is context enrichment, not a full graph traversal.
 
