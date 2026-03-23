@@ -93,3 +93,24 @@ def test_generate_raises_on_claude_failure():
     with patch("subprocess.run", return_value=mock_result):
         with pytest.raises(post_generator.PostGenerationError):
             gen.generate(SAMPLE_TOPIC, "2026-03-23")
+
+
+def test_generate_uses_diagram_timeout_for_diagram_posts():
+    import config as cfg
+    gen = post_generator.PostGenerator(logger)
+    mock_result = MagicMock(returncode=0, stdout=VALID_POST, stderr="")
+    with patch("subprocess.run", return_value=mock_result) as mock_run:
+        gen.generate(SAMPLE_TOPIC, "2026-03-23")  # SAMPLE_TOPIC has needs_diagram=True
+    call_kwargs = mock_run.call_args[1]
+    assert call_kwargs["timeout"] == cfg.TIMEOUT_WITH_DIAGRAM
+
+
+def test_generate_uses_text_timeout_for_no_diagram_posts():
+    import config as cfg
+    gen = post_generator.PostGenerator(logger)
+    topic_no_diagram = {**SAMPLE_TOPIC, "needs_diagram": False}
+    mock_result = MagicMock(returncode=0, stdout=VALID_POST, stderr="")
+    with patch("subprocess.run", return_value=mock_result) as mock_run:
+        gen.generate(topic_no_diagram, "2026-03-23")
+    call_kwargs = mock_run.call_args[1]
+    assert call_kwargs["timeout"] == cfg.TIMEOUT_TEXT_ONLY

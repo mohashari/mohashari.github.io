@@ -8,6 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 import topic_generator
+import config
 
 logger = logging.getLogger("test")
 
@@ -52,7 +53,8 @@ def test_parse_missing_required_fields_returns_none():
 
 def test_build_prompt_uses_config_values():
     prompt = topic_generator.build_prompt(["slug-a", "slug-b"])
-    assert "5" in prompt
+    assert str(config.POSTS_PER_RUN) in prompt
+    assert f"exactly {config.POSTS_PER_RUN} topics" in prompt
     assert "software_engineering" in prompt
     assert "slug-a" in prompt
     assert "slug-b" in prompt
