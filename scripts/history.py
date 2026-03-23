@@ -8,8 +8,11 @@ def load(path: Path) -> dict:
     """Return history dict with 'used' list and 'last_updated'."""
     if not path.exists():
         return {"used": [], "last_updated": None}
-    with open(path) as f:
-        return json.load(f)
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"History file is corrupt ({path}): {e}") from e
 
 
 def append_and_save(path: Path, slug: str) -> None:

@@ -53,6 +53,8 @@ def test_last_n_slugs_returns_recent(tmp_path):
     h = history.load(p)
     recent = history.last_n_slugs(h, n=50)
     assert len(recent) == 50
+    # Must be the MOST RECENT 50 (slugs 10-59), not the first 50
+    assert recent == [f"slug-{i}" for i in range(10, 60)]
 
 
 def test_last_n_slugs_empty(tmp_path):
