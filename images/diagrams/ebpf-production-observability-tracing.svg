@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="monospace, sans-serif">
+  <rect width="960" height="580" fill="#0f1117" rx="8"/>
+  <text x="480" y="34" text-anchor="middle" fill="#e2e8f0" font-size="15" font-weight="bold">eBPF Production Observability: Zero-Instrumentation Tracing Architecture</text>
+  <rect x="20" y="55" width="920" height="130" fill="#0d1f2d" rx="6" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="36" y="76" fill="#60a5fa" font-size="11" font-weight="bold">USER SPACE</text>
+  <rect x="40" y="88" width="120" height="52" fill="#1e3a5f" rx="4" stroke="#3b82f6" stroke-width="1"/>
+  <text x="100" y="108" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">Go Service</text>
+  <text x="100" y="124" text-anchor="middle" fill="#6b9fd4" font-size="9">unmodified binary</text>
+  <rect x="180" y="88" width="120" height="52" fill="#1e3a5f" rx="4" stroke="#3b82f6" stroke-width="1"/>
+  <text x="240" y="108" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">Java Service</text>
+  <text x="240" y="124" text-anchor="middle" fill="#6b9fd4" font-size="9">unmodified JVM</text>
+  <rect x="320" y="88" width="120" height="52" fill="#1e3a5f" rx="4" stroke="#3b82f6" stroke-width="1"/>
+  <text x="380" y="108" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">Python svc</text>
+  <text x="380" y="124" text-anchor="middle" fill="#6b9fd4" font-size="9">unmodified process</text>
+  <rect x="520" y="78" width="180" height="70" fill="#1a2e1a" rx="4" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="610" y="100" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="bold">BPF Loader / Agent</text>
+  <text x="610" y="116" text-anchor="middle" fill="#86efac" font-size="9">Pixie / Cilium / bpftrace</text>
+  <text x="610" y="130" text-anchor="middle" fill="#86efac" font-size="9">reads BPF maps via perf_event</text>
+  <rect x="730" y="78" width="190" height="70" fill="#2a1a1a" rx="4" stroke="#f87171" stroke-width="1.5"/>
+  <text x="825" y="100" text-anchor="middle" fill="#f87171" font-size="11" font-weight="bold">Observability Backend</text>
+  <text x="825" y="116" text-anchor="middle" fill="#fca5a5" font-size="9">Prometheus / Grafana / Jaeger</text>
+  <text x="825" y="130" text-anchor="middle" fill="#fca5a5" font-size="9">OTEL Collector</text>
+  <defs>
+    <marker id="ag" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#4ade80"/></marker>
+    <marker id="ay" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#fbbf24"/></marker>
+    <marker id="ab" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#3b82f6"/></marker>
+    <marker id="ap" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#818cf8"/></marker>
+  </defs>
+  <line x1="700" y1="113" x2="728" y2="113" stroke="#4ade80" stroke-width="1.5" marker-end="url(#ag)"/>
+  <line x1="20" y1="198" x2="940" y2="198" stroke="#fbbf24" stroke-width="2" stroke-dasharray="8,4"/>
+  <text x="480" y="213" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">--- KERNEL BOUNDARY ---</text>
+  <rect x="20" y="220" width="920" height="290" fill="#0d1a0d" rx="6" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="36" y="240" fill="#4ade80" font-size="11" font-weight="bold">KERNEL SPACE</text>
+  <rect x="370" y="248" width="200" height="52" fill="#1a2e1a" rx="4" stroke="#4ade80" stroke-width="2"/>
+  <text x="470" y="268" text-anchor="middle" fill="#4ade80" font-size="12" font-weight="bold">BPF Verifier</text>
+  <text x="470" y="284" text-anchor="middle" fill="#86efac" font-size="9">safety: memory bounds, no unbounded loops</text>
+  <text x="470" y="296" text-anchor="middle" fill="#86efac" font-size="9">JIT compile to native machine code</text>
+  <rect x="680" y="248" width="210" height="52" fill="#1a1a2e" rx="4" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="785" y="268" text-anchor="middle" fill="#818cf8" font-size="12" font-weight="bold">BPF Maps</text>
+  <text x="785" y="284" text-anchor="middle" fill="#a5b4fc" font-size="9">hash / ringbuf / perf_event_array</text>
+  <text x="785" y="296" text-anchor="middle" fill="#a5b4fc" font-size="9">shared kernel-user memory region</text>
+  <rect x="35" y="338" width="128" height="80" fill="#1a1a0a" rx="4" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="99" y="358" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">kprobes</text>
+  <text x="99" y="374" text-anchor="middle" fill="#fde68a" font-size="9">any kernel func</text>
+  <text x="99" y="388" text-anchor="middle" fill="#fde68a" font-size="9">tcp_sendmsg</text>
+  <text x="99" y="402" text-anchor="middle" fill="#fde68a" font-size="9">do_sys_openat2</text>
+  <rect x="181" y="338" width="128" height="80" fill="#1a1a0a" rx="4" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="245" y="358" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">uprobes</text>
+  <text x="245" y="374" text-anchor="middle" fill="#fde68a" font-size="9">user-space funcs</text>
+  <text x="245" y="388" text-anchor="middle" fill="#fde68a" font-size="9">Go runtime hooks</text>
+  <text x="245" y="402" text-anchor="middle" fill="#fde68a" font-size="9">SSL_write (openssl)</text>
+  <rect x="327" y="338" width="128" height="80" fill="#1a1a0a" rx="4" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="391" y="358" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">tracepoints</text>
+  <text x="391" y="374" text-anchor="middle" fill="#fde68a" font-size="9">stable ABI hooks</text>
+  <text x="391" y="388" text-anchor="middle" fill="#fde68a" font-size="9">sched:sched_switch</text>
+  <text x="391" y="402" text-anchor="middle" fill="#fde68a" font-size="9">syscalls:sys_enter</text>
+  <rect x="473" y="338" width="128" height="80" fill="#1a1a0a" rx="4" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="537" y="358" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">XDP / TC</text>
+  <text x="537" y="374" text-anchor="middle" fill="#fde68a" font-size="9">network path hooks</text>
+  <text x="537" y="388" text-anchor="middle" fill="#fde68a" font-size="9">packet-level latency</text>
+  <text x="537" y="402" text-anchor="middle" fill="#fde68a" font-size="9">L3/L4 visibility</text>
+  <rect x="619" y="338" width="128" height="80" fill="#1a1a0a" rx="4" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="683" y="358" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">perf_events</text>
+  <text x="683" y="374" text-anchor="middle" fill="#fde68a" font-size="9">CPU sampling</text>
+  <text x="683" y="388" text-anchor="middle" fill="#fde68a" font-size="9">hardware counters</text>
+  <text x="683" y="402" text-anchor="middle" fill="#fde68a" font-size="9">LLC misses, cycles</text>
+  <rect x="765" y="338" width="155" height="80" fill="#1a1a0a" rx="4" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="842" y="358" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="bold">LSM hooks</text>
+  <text x="842" y="374" text-anchor="middle" fill="#fde68a" font-size="9">security events</text>
+  <text x="842" y="388" text-anchor="middle" fill="#fde68a" font-size="9">file_open, exec</text>
+  <text x="842" y="402" text-anchor="middle" fill="#fde68a" font-size="9">socket_connect</text>
+  <rect x="180" y="454" width="560" height="42" fill="#0d1f0d" rx="4" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="460" y="472" text-anchor="middle" fill="#4ade80" font-size="11" font-weight="bold">BPF Programs (JIT-compiled, running in kernel context)</text>
+  <text x="460" y="488" text-anchor="middle" fill="#86efac" font-size="9">bounded execution · no unbounded loops · memory-safe · avg overhead &lt;3% CPU</text>
+  <line x1="99" y1="418" x2="210" y2="453" stroke="#fbbf24" stroke-width="1" marker-end="url(#ay)"/>
+  <line x1="245" y1="418" x2="290" y2="453" stroke="#fbbf24" stroke-width="1" marker-end="url(#ay)"/>
+  <line x1="391" y1="418" x2="390" y2="453" stroke="#fbbf24" stroke-width="1" marker-end="url(#ay)"/>
+  <line x1="537" y1="418" x2="500" y2="453" stroke="#fbbf24" stroke-width="1" marker-end="url(#ay)"/>
+  <line x1="683" y1="418" x2="620" y2="453" stroke="#fbbf24" stroke-width="1" marker-end="url(#ay)"/>
+  <line x1="842" y1="418" x2="720" y2="453" stroke="#fbbf24" stroke-width="1" marker-end="url(#ay)"/>
+  <line x1="470" y1="300" x2="460" y2="453" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#ag)"/>
+  <line x1="740" y1="470" x2="785" y2="300" stroke="#818cf8" stroke-width="1.5" marker-end="url(#ap)"/>
+  <line x1="785" y1="248" x2="700" y2="148" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#ap)"/>
+  <line x1="100" y1="140" x2="99" y2="337" stroke="#3b82f6" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ab)"/>
+  <line x1="240" y1="140" x2="245" y2="337" stroke="#3b82f6" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ab)"/>
+  <line x1="380" y1="140" x2="350" y2="337" stroke="#3b82f6" stroke-width="1" stroke-dasharray="3,2" marker-end="url(#ab)"/>
+  <rect x="22" y="540" width="916" height="30" fill="#111827" rx="4"/>
+  <line x1="40" y1="555" x2="68" y2="555" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="74" y="559" fill="#93c5fd" font-size="9">syscall / call flow</text>
+  <line x1="190" y1="555" x2="218" y2="555" stroke="#fbbf24" stroke-width="1.5"/>
+  <text x="224" y="559" fill="#fde68a" font-size="9">eBPF attach hook</text>
+  <line x1="330" y1="555" x2="358" y2="555" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="364" y="559" fill="#86efac" font-size="9">BPF program lifecycle</text>
+  <line x1="500" y1="555" x2="528" y2="555" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="534" y="559" fill="#a5b4fc" font-size="9">map read/write (kernel to user)</text>
+  <rect x="750" y="547" width="12" height="12" fill="#1e3a5f" stroke="#3b82f6" stroke-width="1"/>
+  <text x="767" y="558" fill="#93c5fd" font-size="9">zero application code changes</text>
+</svg>
