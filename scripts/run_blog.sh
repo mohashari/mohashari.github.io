@@ -13,7 +13,7 @@ export PATH="/usr/bin:/usr/local/bin:/home/muklis/.local/bin:${PATH}"
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting blog generation run" >> "${LOG_DIR}/generation.log"
 
 cd "${SCRIPTS_DIR}"
-/usr/bin/python3 "${SCRIPTS_DIR}/generate_posts.py"
+/usr/bin/python3 "${SCRIPTS_DIR}/orchestrator.py"
 EXIT_CODE=$?
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Run finished with exit code ${EXIT_CODE}" >> "${LOG_DIR}/generation.log"

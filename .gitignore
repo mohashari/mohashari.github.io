@@ -14,3 +14,6 @@ scripts/.env
 scripts/share_state.json
 scripts/chrome_profile/
 vendor/*
+
+# Git worktrees
+.worktrees/
