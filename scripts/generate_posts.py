@@ -275,6 +275,10 @@ ALLOWED_TOOLS = (
     "mcp__claude_ai_Excalidraw__save_checkpoint"
 )
 
+# Timeout in seconds: diagram posts require MCP tool calls on top of generation
+TIMEOUT_WITH_DIAGRAM = 600
+TIMEOUT_TEXT_ONLY = 400
+
 
 class PostGenerator:
     def __init__(self, logger: logging.Logger):
@@ -347,15 +351,19 @@ description: "One-sentence description under 160 characters"
             "claude",
             "-p",
             prompt,
+            "--output-format",
+            "text",
             "--allowedTools",
             ALLOWED_TOOLS,
         ]
+
+        timeout = TIMEOUT_WITH_DIAGRAM if config.needs_diagram else TIMEOUT_TEXT_ONLY
 
         result = subprocess.run(
             cmd,
             capture_output=True,
             text=True,
-            timeout=300,
+            timeout=timeout,
             cwd=str(BLOG_DIR),
         )
 
@@ -368,11 +376,14 @@ description: "One-sentence description under 160 characters"
         if not output:
             raise PostGenerationError("claude -p returned empty output")
 
-        if "---" not in output:
-            raise PostGenerationError("Output missing frontmatter delimiter")
-
         # Strip any text before the frontmatter delimiter
         frontmatter_start = output.find("---")
+        if frontmatter_start == -1:
+            self.logger.debug(
+                f"{config.slug}: output preview (no frontmatter found): {output[:500]!r}"
+            )
+            raise PostGenerationError("Output missing frontmatter delimiter")
+
         output = output[frontmatter_start:]
 
         return output
