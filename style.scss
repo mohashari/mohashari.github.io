@@ -30,7 +30,7 @@ body {
 }
 
 .container {
-  max-width: 760px;
+  max-width: 680px;
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
@@ -194,7 +194,6 @@ table {
   top: 0;
   z-index: 100;
 
-  // Subtle grey separator at bottom
   &::after {
     content: '';
     position: absolute;
@@ -210,96 +209,40 @@ table {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 64px;
   gap: 1rem;
-}
-
-// Avatar with grey ring
-.avatar-ring {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  padding: 2px;
-  background: linear-gradient(135deg, #D1D5DB, #9CA3AF);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-
-  .site-logo:hover & {
-    transform: scale(1.08) rotate(3deg);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  }
-}
-
-.site-avatar-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 0;
-  border: 2px solid $white;
-}
-
-.site-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  text-decoration: none;
-  flex-shrink: 0;
 }
 
 .site-identity {
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.15rem;
   line-height: 1;
 }
 
 .site-name {
   font-family: $display;
-  font-size: 1rem;
-  font-weight: 800;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: $ink;
-  letter-spacing: -0.025em;
+  text-decoration: none;
+  letter-spacing: -0.01em;
   transition: color 0.15s;
   line-height: 1;
 
-  .site-logo:hover & { color: $accent; }
+  &:hover { color: $accent; }
 }
 
-// Role badge with pulsing dot
-.site-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
+.site-subtitle {
   font-family: $sans;
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: $accent;
-  background: $accentLight;
-  padding: 0.2rem 0.55rem;
-  border-radius: 999px;
-  letter-spacing: 0.01em;
-  width: fit-content;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: $muted;
+  letter-spacing: 0.02em;
 
   @include mobile { display: none; }
 }
 
-.badge-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #22C55E;
-  flex-shrink: 0;
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.6; transform: scale(0.75); }
-}
-
-// Nav with animated underline
 .site-nav {
   display: flex;
   align-items: center;
@@ -314,28 +257,9 @@ table {
   padding: 0.45rem 0.85rem;
   border-radius: 8px;
   transition: color 0.15s, background 0.15s;
-  position: relative;
+  text-decoration: none;
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 50%;
-    right: 50%;
-    height: 2px;
-    border-radius: 2px;
-    background: $accent;
-    transition: left 0.2s ease, right 0.2s ease;
-  }
-
-  &:hover {
-    color: $ink;
-
-    &::after {
-      left: 0.85rem;
-      right: 0.85rem;
-    }
-  }
+  &:hover { color: $ink; background: $borderLight; }
 }
 
 /* ============================================
@@ -354,74 +278,64 @@ table {
 }
 
 /* ============================================
-   POST LIST — Cards
+   POST LIST — Flat (Simples-inspired)
    ============================================ */
 
 .post-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 
 .post-item {
-  background: $white;
-  border: 1px solid $border;
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-
-  &:hover {
-    border-color: $muted;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    transform: translateY(-1px);
-  }
+  padding: 1.75rem 0;
 }
 
-.post-item-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.post-item-date {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: $subtle;
+.post-separator {
+  border: none;
+  border-top: 1px solid $separator;
+  margin: 0;
 }
 
 .post-item-title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: $ink;
   line-height: 1.35;
-  margin: 0 0 0.4rem;
+  margin: 0 0 0.3rem;
 
   a {
     color: $ink;
     text-decoration: none;
-    &:hover { color: $accent; }
+    &:hover {
+      color: $accent;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
   }
 }
 
-.post-item-desc {
-  font-size: 0.9rem;
+.post-item-date {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
   color: $muted;
-  line-height: 1.6;
-  margin: 0 0 0.9rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-bottom: 0.6rem;
+}
+
+.post-item-desc {
+  font-size: 0.925rem;
+  color: $inkLight;
+  line-height: 1.65;
+  margin: 0 0 0.75rem;
 }
 
 .post-item-read {
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 600;
-  color: $accent;
+  color: $ink;
+  text-decoration: none;
 
-  &:hover { color: $accentDark; }
+  &:hover { color: $accent; }
 }
 
 /* Tags — Pill style
@@ -439,7 +353,39 @@ table {
   letter-spacing: 0.02em;
 }
 
-.post-tag--sm { font-size: 0.63rem; padding: 0.15rem 0.5rem; }
+/* ============================================
+   PAGINATION
+   ============================================ */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 0 0.5rem;
+  border-top: 1px solid $separator;
+  margin-top: 0.5rem;
+}
+
+.pagination-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: $ink;
+  text-decoration: none;
+  transition: color 0.15s;
+
+  &:hover { color: $accent; }
+
+  &--disabled {
+    color: $subtle;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.pagination-info {
+  font-size: 0.78rem;
+  color: $muted;
+}
 
 /* ============================================
    POST PAGE

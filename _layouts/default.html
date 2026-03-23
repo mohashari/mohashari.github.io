@@ -19,18 +19,10 @@
     <header class="site-header">
       <div class="container">
         <div class="site-header-inner">
-          <a href="{{ site.baseurl }}/" class="site-logo">
-            <div class="avatar-ring">
-              <img src="{{ site.avatar }}" alt="{{ site.name }}" class="site-avatar-img" />
-            </div>
-            <div class="site-identity">
-              <span class="site-name">{{ site.name }}</span>
-              <span class="site-badge">
-                <span class="badge-dot"></span>
-                {{ site.description }}
-              </span>
-            </div>
-          </a>
+          <div class="site-identity">
+            <a href="{{ site.baseurl }}/" class="site-name">{{ site.name }}</a>
+            <span class="site-subtitle">{{ site.description }}</span>
+          </div>
           <nav class="site-nav">
             <a href="{{ site.baseurl }}/" class="nav-link">Writing</a>
             <a href="{{ site.baseurl }}/about" class="nav-link">About</a>
