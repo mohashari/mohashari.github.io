@@ -186,6 +186,7 @@ Pay specific attention to `master_repl_offset` drift between primary and replica
 
 For operations where you cannot afford to lose a write — financial transactions, idempotency keys, distributed locks — Redis provides `WAIT numreplicas timeout`. It blocks until the specified number of replicas have acknowledged the write, up to `timeout` milliseconds.
 
+{% raw %}
 ```python
 # snippet-7
 import redis.cluster
@@ -227,6 +228,7 @@ class DurableRedisClient:
         finally:
             self.client.delete(lock_key)
 ```
+{% endraw %}
 
 `WAIT` does not make Redis synchronously replicated in the traditional sense — the primary doesn't hold the write until replicas confirm. It's a post-write check. The write is already committed on the primary. If the replica never responds (network partition), `WAIT` returns 0 after the timeout, but the write persists on the primary. This is still useful: it lets you detect — and optionally retry or alert on — situations where your durability guarantees are degraded.
 

@@ -193,6 +193,7 @@ Staging → Production is where governance matters most. This transition should 
 2. Collect production metrics for 48 hours (precision/recall on labeled outcomes, latency p99).
 3. Run promotion script that reads production metrics from your observability store and compares against incumbent.
 
+{% raw %}
 ```python
 # snippet-5
 import requests
@@ -243,6 +244,7 @@ def promote_to_production(
     client.set_model_version_tag(model_name, candidate_version, "online_auc_at_promotion", str(online_auc))
     print(f"Version {candidate_version} is now Production (online AUC: {online_auc:.4f})")
 ```
+{% endraw %}
 
 Tag the promotion metrics onto the model version. When you're debugging a degraded model six months later, you want to know what the online AUC was at promotion time without reconstructing it from Prometheus.
 
