@@ -42,12 +42,7 @@ class GitPublisher:
 
         self._run(["git", "add"] + all_files)
 
-        staged = subprocess.run(
-            ["git", "diff", "--cached", "--name-only"],
-            cwd=str(self.repo_dir),
-            capture_output=True,
-            text=True,
-        )
+        staged = self._run(["git", "diff", "--cached", "--name-only"])
         if not staged.stdout.strip():
             self.logger.info("Nothing staged — skipping commit")
             return
