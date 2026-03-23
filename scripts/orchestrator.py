@@ -102,7 +102,11 @@ class BlogOrchestrator:
         self.logger.info(f"=== Blog generation run: {date_str} ===")
 
         # Load history
-        hist = history.load(config.HISTORY_PATH)
+        try:
+            hist = history.load(config.HISTORY_PATH)
+        except ValueError as e:
+            self.logger.error(f"History file is corrupt: {e}")
+            return 1
         past_slugs = history.last_n_slugs(hist, n=50)
 
         # Generate topics

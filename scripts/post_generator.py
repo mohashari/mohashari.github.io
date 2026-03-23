@@ -89,11 +89,17 @@ class PostGenerator:
             else config.TIMEOUT_TEXT_ONLY
         )
 
+        allowed = (
+            config.ALLOWED_TOOLS_DIAGRAM
+            if topic.get("needs_diagram")
+            else config.ALLOWED_TOOLS_TEXT
+        )
+
         result = subprocess.run(
             [
                 "claude", "-p", prompt,
                 "--output-format", "text",
-                "--allowedTools", config.ALLOWED_TOOLS,
+                "--allowedTools", allowed,
             ],
             capture_output=True,
             text=True,

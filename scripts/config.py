@@ -14,12 +14,15 @@ CATEGORIES = ["software_engineering", "development", "devsecops", "ai_engineerin
 
 TIMEOUT_WITH_DIAGRAM = 600   # seconds
 TIMEOUT_TEXT_ONLY = 400      # seconds
+TIMEOUT_TOPIC_GENERATION = 120  # seconds
 
 UNSPLASH_API_BASE = "https://api.unsplash.com"
 
-ALLOWED_TOOLS = (
+ALLOWED_TOOLS_DIAGRAM = (
     "Bash,"
     "mcp__claude_ai_Excalidraw__export_to_excalidraw,"
     "mcp__claude_ai_Excalidraw__create_view,"
     "mcp__claude_ai_Excalidraw__save_checkpoint"
 )
+ALLOWED_TOOLS_TEXT = "Bash"
+ALLOWED_TOOLS = ALLOWED_TOOLS_DIAGRAM  # kept for reference

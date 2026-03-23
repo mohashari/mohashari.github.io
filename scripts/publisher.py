@@ -18,12 +18,16 @@ class GitPublisher:
         self.logger = logger
 
     def _run(self, cmd: list) -> subprocess.CompletedProcess:
-        result = subprocess.run(
-            cmd,
-            cwd=str(self.repo_dir),
-            capture_output=True,
-            text=True,
-        )
+        try:
+            result = subprocess.run(
+                cmd,
+                cwd=str(self.repo_dir),
+                capture_output=True,
+                text=True,
+                timeout=120,
+            )
+        except subprocess.TimeoutExpired as e:
+            raise GitPublishError(f"Command {cmd[0]} timed out after 120s") from e
         if result.returncode != 0:
             raise GitPublishError(
                 f"Command {cmd[0]} {cmd[1] if len(cmd) > 1 else ''} failed: {result.stderr.strip()}"

@@ -56,6 +56,9 @@ class UnsplashClient:
     def enrich_post(self, content: str, title: str) -> str:
         """Inject Unsplash URLs into post content. Returns content unchanged on failure."""
         keywords = extract_keywords(title)
+        if not keywords:
+            self.logger.warning("No keywords extracted from title — skipping Unsplash")
+            return content
         query = " ".join(keywords)
         result = self.fetch_photo(query)
         if result is None:

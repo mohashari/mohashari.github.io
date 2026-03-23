@@ -15,6 +15,7 @@ class TopicGenerationError(Exception):
 
 
 REQUIRED_FIELDS = {"title", "slug", "category", "needs_code", "needs_diagram"}
+SLUG_RE = re.compile(r'^[a-z0-9][a-z0-9\-]*$')
 
 
 def build_prompt(past_slugs: list) -> str:
@@ -47,6 +48,8 @@ def parse_topics(raw: str) -> list | None:
     for item in data:
         if not REQUIRED_FIELDS.issubset(item.keys()):
             return None
+        if not SLUG_RE.match(str(item["slug"])):
+            return None
     return data
 
 
@@ -62,7 +65,7 @@ class TopicGenerator:
                 ["claude", "-p", prompt, "--output-format", "text"],
                 capture_output=True,
                 text=True,
-                timeout=120,
+                timeout=config.TIMEOUT_TOPIC_GENERATION,
                 cwd=str(config.BLOG_DIR),
             )
             if result.returncode != 0:
