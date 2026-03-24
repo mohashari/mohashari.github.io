@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="900" height="620" fill="#0f172a" rx="12"/>
+  <text x="450" y="38" text-anchor="middle" fill="#e2e8f0" font-size="17" font-weight="700">SLSA Supply Chain: Build Provenance and Verification Flow</text>
+  <rect x="30" y="70" width="160" height="200" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="110" y="92" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="700">SOURCE</text>
+  <rect x="50" y="104" width="120" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="110" y="117" text-anchor="middle" fill="#94a3b8" font-size="10">Developer</text>
+  <text x="110" y="131" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">git commit --sign</text>
+  <rect x="50" y="150" width="120" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="110" y="163" text-anchor="middle" fill="#94a3b8" font-size="10">Code Review</text>
+  <text x="110" y="177" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">CODEOWNERS + PR</text>
+  <rect x="50" y="196" width="120" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="110" y="209" text-anchor="middle" fill="#94a3b8" font-size="10">Branch Protection</text>
+  <text x="110" y="223" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">required-checks</text>
+  <rect x="60" y="240" width="100" height="20" rx="4" fill="#0c4a6e" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="110" y="254" text-anchor="middle" fill="#7dd3fc" font-size="10" font-weight="700">SLSA L1 to L2</text>
+  <line x1="190" y1="170" x2="240" y2="170" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="240" y="70" width="200" height="200" rx="10" fill="#1e293b" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="340" y="92" text-anchor="middle" fill="#a78bfa" font-size="12" font-weight="700">BUILD (Isolated)</text>
+  <rect x="258" y="104" width="164" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="340" y="117" text-anchor="middle" fill="#94a3b8" font-size="10">Hermetic Builder</text>
+  <text x="340" y="131" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">no network / ephemeral</text>
+  <rect x="258" y="150" width="164" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="340" y="163" text-anchor="middle" fill="#94a3b8" font-size="10">Reproducible Build</text>
+  <text x="340" y="177" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">SOURCE_DATE_EPOCH</text>
+  <rect x="258" y="196" width="164" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="340" y="209" text-anchor="middle" fill="#94a3b8" font-size="10">SBOM Generation</text>
+  <text x="340" y="223" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">syft / cyclonedx</text>
+  <rect x="280" y="240" width="120" height="20" rx="4" fill="#2e1065" stroke="#a78bfa" stroke-width="1"/>
+  <text x="340" y="254" text-anchor="middle" fill="#c4b5fd" font-size="10" font-weight="700">SLSA L3 (isolated)</text>
+  <line x1="440" y1="170" x2="490" y2="170" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="490" y="70" width="200" height="200" rx="10" fill="#1e293b" stroke="#34d399" stroke-width="1.5"/>
+  <text x="590" y="92" text-anchor="middle" fill="#34d399" font-size="12" font-weight="700">PROVENANCE</text>
+  <rect x="508" y="104" width="164" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="590" y="117" text-anchor="middle" fill="#94a3b8" font-size="10">SLSA Attestation</text>
+  <text x="590" y="131" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">in-toto + DSSE</text>
+  <rect x="508" y="150" width="164" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="590" y="163" text-anchor="middle" fill="#94a3b8" font-size="10">Keyless Signing</text>
+  <text x="590" y="177" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">cosign + Fulcio OIDC</text>
+  <rect x="508" y="196" width="164" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="590" y="209" text-anchor="middle" fill="#94a3b8" font-size="10">Transparency Log</text>
+  <text x="590" y="223" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">Rekor (immutable)</text>
+  <rect x="530" y="240" width="120" height="20" rx="4" fill="#064e3b" stroke="#34d399" stroke-width="1"/>
+  <text x="590" y="254" text-anchor="middle" fill="#6ee7b7" font-size="10" font-weight="700">signed + logged</text>
+  <line x1="690" y1="170" x2="740" y2="170" stroke="#475569" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="740" y="70" width="130" height="200" rx="10" fill="#1e293b" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="805" y="92" text-anchor="middle" fill="#fb923c" font-size="12" font-weight="700">REGISTRY</text>
+  <rect x="755" y="104" width="100" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="805" y="117" text-anchor="middle" fill="#94a3b8" font-size="10">OCI Image</text>
+  <text x="805" y="131" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">+ attestation</text>
+  <rect x="755" y="150" width="100" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="805" y="163" text-anchor="middle" fill="#94a3b8" font-size="10">OCI Referrers</text>
+  <text x="805" y="177" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">SBOM + sig</text>
+  <rect x="755" y="196" width="100" height="36" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="805" y="209" text-anchor="middle" fill="#94a3b8" font-size="10">ghcr.io / ECR</text>
+  <text x="805" y="223" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">immutable tags</text>
+  <rect x="760" y="240" width="90" height="20" rx="4" fill="#431407" stroke="#fb923c" stroke-width="1"/>
+  <text x="805" y="254" text-anchor="middle" fill="#fdba74" font-size="10" font-weight="700">digest-pinned</text>
+  <line x1="805" y1="270" x2="805" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <line x1="805" y1="310" x2="340" y2="310" stroke="#475569" stroke-width="1.5"/>
+  <line x1="340" y1="310" x2="340" y2="330" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="590" y1="310" x2="590" y2="330" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <rect x="240" y="330" width="200" height="140" rx="10" fill="#1e293b" stroke="#f472b6" stroke-width="1.5"/>
+  <text x="340" y="352" text-anchor="middle" fill="#f472b6" font-size="12" font-weight="700">ADMISSION CONTROL</text>
+  <rect x="258" y="362" width="164" height="34" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="340" y="375" text-anchor="middle" fill="#94a3b8" font-size="10">Policy Engine</text>
+  <text x="340" y="389" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">Kyverno / OPA Gatekeeper</text>
+  <rect x="258" y="406" width="164" height="34" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="340" y="419" text-anchor="middle" fill="#94a3b8" font-size="10">Enforce at deploy</text>
+  <text x="340" y="433" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">verify-images policy</text>
+  <rect x="268" y="448" width="144" height="16" rx="4" fill="#500724" stroke="#f472b6" stroke-width="1"/>
+  <text x="340" y="460" text-anchor="middle" fill="#fda4af" font-size="10" font-weight="700">blocks unsigned images</text>
+  <rect x="490" y="330" width="200" height="140" rx="10" fill="#1e293b" stroke="#facc15" stroke-width="1.5"/>
+  <text x="590" y="352" text-anchor="middle" fill="#facc15" font-size="12" font-weight="700">VERIFICATION</text>
+  <rect x="508" y="362" width="164" height="34" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="590" y="375" text-anchor="middle" fill="#94a3b8" font-size="10">cosign verify-attestation</text>
+  <text x="590" y="389" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">--type slsaprovenance</text>
+  <rect x="508" y="406" width="164" height="34" rx="6" fill="#0f172a" stroke="#64748b" stroke-width="1"/>
+  <text x="590" y="419" text-anchor="middle" fill="#94a3b8" font-size="10">slsa-verifier</text>
+  <text x="590" y="433" text-anchor="middle" fill="#e2e8f0" font-size="10" font-weight="600">verify-image --source-uri</text>
+  <rect x="518" y="448" width="144" height="16" rx="4" fill="#713f12" stroke="#facc15" stroke-width="1"/>
+  <text x="590" y="460" text-anchor="middle" fill="#fef08a" font-size="10" font-weight="700">chain of custody proven</text>
+  <rect x="30" y="500" width="840" height="100" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+  <text x="450" y="522" text-anchor="middle" fill="#94a3b8" font-size="11" font-weight="700">SLSA LEVELS</text>
+  <rect x="50" y="532" width="180" height="54" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+  <text x="140" y="549" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="700">Level 1 - Documented</text>
+  <text x="140" y="564" text-anchor="middle" fill="#94a3b8" font-size="10">Provenance exists</text>
+  <text x="140" y="578" text-anchor="middle" fill="#94a3b8" font-size="10">CI generates attestation</text>
+  <rect x="250" y="532" width="180" height="54" rx="6" fill="#0f172a" stroke="#a78bfa" stroke-width="1"/>
+  <text x="340" y="549" text-anchor="middle" fill="#a78bfa" font-size="11" font-weight="700">Level 2 - Hosted</text>
+  <text x="340" y="564" text-anchor="middle" fill="#94a3b8" font-size="10">Signed by build platform</text>
+  <text x="340" y="578" text-anchor="middle" fill="#94a3b8" font-size="10">GitHub Actions native</text>
+  <rect x="450" y="532" width="180" height="54" rx="6" fill="#0f172a" stroke="#34d399" stroke-width="1"/>
+  <text x="540" y="549" text-anchor="middle" fill="#34d399" font-size="11" font-weight="700">Level 3 - Hardened</text>
+  <text x="540" y="564" text-anchor="middle" fill="#94a3b8" font-size="10">Isolated ephemeral builds</text>
+  <text x="540" y="578" text-anchor="middle" fill="#94a3b8" font-size="10">No persistent credentials</text>
+  <rect x="650" y="532" width="200" height="54" rx="6" fill="#0f172a" stroke="#fb923c" stroke-width="1"/>
+  <text x="750" y="549" text-anchor="middle" fill="#fb923c" font-size="11" font-weight="700">Level 4 - Two-Party Review</text>
+  <text x="750" y="564" text-anchor="middle" fill="#94a3b8" font-size="10">2-person review + hermetic</text>
+  <text x="750" y="578" text-anchor="middle" fill="#94a3b8" font-size="10">reproducible builds</text>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#475569"/>
+    </marker>
+  </defs>
+</svg>
