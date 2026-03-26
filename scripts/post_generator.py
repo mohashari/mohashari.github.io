@@ -99,6 +99,7 @@ class PostGenerator:
             [
                 "claude", "-p", prompt,
                 "--output-format", "text",
+                "--dangerously-skip-permissions",
                 "--allowedTools", allowed,
             ],
             capture_output=True,

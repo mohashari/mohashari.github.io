@@ -114,3 +114,12 @@ def test_generate_uses_text_timeout_for_no_diagram_posts():
         gen.generate(topic_no_diagram, "2026-03-23")
     call_kwargs = mock_run.call_args[1]
     assert call_kwargs["timeout"] == cfg.TIMEOUT_TEXT_ONLY
+
+
+def test_generate_includes_dangerously_skip_permissions():
+    gen = post_generator.PostGenerator(logger)
+    mock_result = MagicMock(returncode=0, stdout=VALID_POST, stderr="")
+    with patch("subprocess.run", return_value=mock_result) as mock_run:
+        gen.generate(SAMPLE_TOPIC, "2026-03-23")
+    args = mock_run.call_args[0][0]  # command list is first positional arg
+    assert "--dangerously-skip-permissions" in args
