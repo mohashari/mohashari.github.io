@@ -1,0 +1,1065 @@
+[2026-03-23 08:15:33] Starting blog generation run
+2026-03-23 08:15:34,065 INFO === Blog generation run: 2026-03-23 ===
+2026-03-23 08:15:34,066 INFO Selected 4 topics
+2026-03-23 08:15:34,067 INFO [1/5] write-ahead-log-storage-engines
+2026-03-23 08:15:34,067 INFO Getting description: write-ahead-log-storage-engines
+2026-03-23 08:15:46,296 DEBUG write-ahead-log-storage-engines description: Write-Ahead Logging (WAL) is the mechanism that lets databases guarantee durability and atomicity without sacrificing write performance—but most engineers use databases built on WAL without understanding why it works. This post cuts through the abstraction to explain how WAL ensures committed transactions survive crashes by sequentially writing changes to a log before touching data pages, and why that ordering constraint is the key insight. You'll leave with a concrete mental model of crash recovery, checkpointing, and the performance trade-offs that WAL introduces, so you can reason about database behavior under failure rather than treating it as magic.
+2026-03-23 08:15:46,297 INFO Generating: write-ahead-log-storage-engines
+2026-03-23 08:20:46,478 ERROR Failed [write-ahead-log-storage-engines]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Write-Ahead Logging: The Foundation of Database Durability\nCATEGORY: software_engineering\nDATE: 2026-03-23\nDESCRIPTION: Write-Ahead Logging (WAL) is the mechanism that lets databases guarantee durability and atomicity without sacrificing write performance—but most engineers use databases built on WAL without understanding why it works. This post cuts through the abstraction to explain how WAL ensures committed transactions survive crashes by sequentially writing changes to a log before touching data pages, and why that ordering constraint is the key insight. You\'ll leave with a concrete mental model of crash recovery, checkpointing, and the performance trade-offs that WAL introduces, so you can reason about database behavior under failure rather than treating it as magic.\nUse this as your guiding angle for the post.\n\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/write-ahead-log-storage-engines.svg\n- Reference the diagram in the post body as: ![Write-Ahead Logging: The Foundation of Database Durability Diagram](/images/diagrams/write-ahead-log-storage-engines.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Write-Ahead Logging: The Foundation of Database Durability"\ndate: 2026-03-23 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 480, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 354, in generate
+    result = subprocess.run(
+        cmd,
+    ...<3 lines>...
+        cwd=str(BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Write-Ahead Logging: The Foundation of Database Durability\nCATEGORY: software_engineering\nDATE: 2026-03-23\nDESCRIPTION: Write-Ahead Logging (WAL) is the mechanism that lets databases guarantee durability and atomicity without sacrificing write performance—but most engineers use databases built on WAL without understanding why it works. This post cuts through the abstraction to explain how WAL ensures committed transactions survive crashes by sequentially writing changes to a log before touching data pages, and why that ordering constraint is the key insight. You\'ll leave with a concrete mental model of crash recovery, checkpointing, and the performance trade-offs that WAL introduces, so you can reason about database behavior under failure rather than treating it as magic.\nUse this as your guiding angle for the post.\n\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/write-ahead-log-storage-engines.svg\n- Reference the diagram in the post body as: ![Write-Ahead Logging: The Foundation of Database Durability Diagram](/images/diagrams/write-ahead-log-storage-engines.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Write-Ahead Logging: The Foundation of Database Durability"\ndate: 2026-03-23 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+2026-03-23 08:20:46,482 INFO [2/5] ai-pipeline-workflow-prefect
+2026-03-23 08:20:46,483 INFO Getting description: ai-pipeline-workflow-prefect
+2026-03-23 08:20:58,612 DEBUG ai-pipeline-workflow-prefect description: Most ML teams wire together scripts with cron jobs and shell glue until pipeline failures become impossible to trace and retries corrupt state — Prefect solves this by bringing first-class task orchestration, dynamic DAGs, and built-in observability to Python-native AI workflows. This post walks through building a production-grade ML pipeline with Prefect 2.x, covering stateful retries for flaky model inference calls, parameterized flow runs for experiment management, and integrating with artifact stores like S3. The key takeaway: you get the operational discipline of Airflow without the XML ceremony, and your pipeline code stays testable Python.
+2026-03-23 08:20:58,612 INFO Generating: ai-pipeline-workflow-prefect
+2026-03-23 08:24:55,514 ERROR Failed [ai-pipeline-workflow-prefect]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 480, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 372, in generate
+    raise PostGenerationError("Output missing frontmatter delimiter")
+PostGenerationError: Output missing frontmatter delimiter
+2026-03-23 08:24:55,516 INFO [3/5] redis-pub-sub-vs-streams
+2026-03-23 08:24:55,516 INFO Getting description: redis-pub-sub-vs-streams
+2026-03-23 08:25:07,521 DEBUG redis-pub-sub-vs-streams description: Most engineers reach for Redis Pub/Sub out of habit, but its fire-and-forget semantics silently drop messages for offline consumers — a subtle reliability gap that only surfaces under failure conditions. This post cuts through the surface-level comparison to focus on the architectural decision point: when eventual delivery guarantees, consumer groups, and replay semantics in Streams justify the added operational complexity over Pub/Sub's simplicity. The key takeaway is a concrete decision framework based on consumer lifecycle, durability requirements, and fan-out patterns — so you pick the right primitive before you're debugging lost messages in production.
+2026-03-23 08:25:07,521 INFO Generating: redis-pub-sub-vs-streams
+2026-03-23 08:27:13,241 ERROR Failed [redis-pub-sub-vs-streams]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 480, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 372, in generate
+    raise PostGenerationError("Output missing frontmatter delimiter")
+PostGenerationError: Output missing frontmatter delimiter
+2026-03-23 08:27:13,242 INFO [4/5] image-signing-cosign-sigstore
+2026-03-23 08:27:13,242 INFO Getting description: image-signing-cosign-sigstore
+2026-03-23 08:27:26,844 DEBUG image-signing-cosign-sigstore description: Supply chain attacks exploiting unverified container images have made image provenance a critical gap in most CI/CD pipelines, yet many teams still rely solely on tag-based trust. This post walks through integrating Cosign and the Sigstore ecosystem to cryptographically sign images at build time and enforce signature verification at deploy time — without managing your own key infrastructure. You'll leave with a concrete policy-as-code pattern that fits into existing Kubernetes admission controllers and blocks unsigned or tampered images before they ever reach production.
+2026-03-23 08:27:26,844 INFO Generating: image-signing-cosign-sigstore
+2026-03-23 08:32:26,939 ERROR Failed [image-signing-cosign-sigstore]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Container Image Signing with Cosign and Sigstore\nCATEGORY: devsecops\nDATE: 2026-03-23\nDESCRIPTION: Supply chain attacks exploiting unverified container images have made image provenance a critical gap in most CI/CD pipelines, yet many teams still rely solely on tag-based trust. This post walks through integrating Cosign and the Sigstore ecosystem to cryptographically sign images at build time and enforce signature verification at deploy time — without managing your own key infrastructure. You\'ll leave with a concrete policy-as-code pattern that fits into existing Kubernetes admission controllers and blocks unsigned or tampered images before they ever reach production.\nUse this as your guiding angle for the post.\n\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/image-signing-cosign-sigstore.svg\n- Reference the diagram in the post body as: ![Container Image Signing with Cosign and Sigstore Diagram](/images/diagrams/image-signing-cosign-sigstore.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Container Image Signing with Cosign and Sigstore"\ndate: 2026-03-23 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 480, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 354, in generate
+    result = subprocess.run(
+        cmd,
+    ...<3 lines>...
+        cwd=str(BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Container Image Signing with Cosign and Sigstore\nCATEGORY: devsecops\nDATE: 2026-03-23\nDESCRIPTION: Supply chain attacks exploiting unverified container images have made image provenance a critical gap in most CI/CD pipelines, yet many teams still rely solely on tag-based trust. This post walks through integrating Cosign and the Sigstore ecosystem to cryptographically sign images at build time and enforce signature verification at deploy time — without managing your own key infrastructure. You\'ll leave with a concrete policy-as-code pattern that fits into existing Kubernetes admission controllers and blocks unsigned or tampered images before they ever reach production.\nUse this as your guiding angle for the post.\n\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff, no "in conclusion" paragraphs\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n- Do NOT write generic content or surface-level explanations\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating the key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1, // snippet-2)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/image-signing-cosign-sigstore.svg\n- Reference the diagram in the post body as: ![Container Image Signing with Cosign and Sigstore Diagram](/images/diagrams/image-signing-cosign-sigstore.svg)\n- Place the diagram reference right after the opening paragraph\n- The diagram should show the high-level architecture or data flow described in the post\n\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post file starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Container Image Signing with Cosign and Sigstore"\ndate: 2026-03-23 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\n---\n\n[post body here]\n', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 300 seconds
+2026-03-23 08:32:26,946 INFO Generation complete: 0/5 succeeded, 4 failed
+[2026-03-23 08:48:16] Starting blog generation run
+2026-03-23 08:48:16,438 INFO === Blog generation run: 2026-03-23 ===
+2026-03-23 08:48:16,438 INFO Selected 4 topics
+2026-03-23 08:48:16,439 INFO [1/5] context-window-management-strategies
+2026-03-23 08:48:16,439 INFO Getting description: context-window-management-strategies
+2026-03-23 08:48:32,539 DEBUG context-window-management-strategies description: Most LLMs silently truncate or degrade when inputs exceed their context window, creating subtle correctness bugs that are hard to detect in production retrieval and summarization pipelines. This post examines concrete strategies for handling long documents—chunking heuristics, sliding windows, hierarchical summarization, and retrieval-augmented approaches—with a focus on the tradeoffs that matter at scale: latency, coherence loss, and cost. The key takeaway is a decision framework for choosing the right strategy based on document structure and query type, so you can build reliable pipelines without hitting invisible token-limit walls.
+2026-03-23 08:48:32,540 INFO Generating: context-window-management-strategies
+2026-03-23 08:51:12,837 DEBUG context-window-management-strategies: output preview (no frontmatter found): "The file was not written yet — please approve the write permission and I'll proceed. The post is ready and covers:\n\n- **Silent truncation** failure mode with a concrete production scenario\n- **Token counting** utility with `tiktoken` and per-model budgets (snippet-1)\n- **Fixed-size chunking with overlap** as the baseline (snippet-2)\n- **Structure-aware chunking** for Markdown/hierarchical documents (snippet-3)\n- **Hierarchical summarization** (map-reduce, two-model cost pattern) (snippet-4)\n- **"
+2026-03-23 08:51:12,837 ERROR Failed [context-window-management-strategies]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 491, in run
+    raw = self.generator.generate(config)
+  File "/home/muklis/Documents/exploring/blog/scripts/generate_posts.py", line 385, in generate
+    raise PostGenerationError("Output missing frontmatter delimiter")
+PostGenerationError: Output missing frontmatter delimiter
+2026-03-23 08:51:12,841 INFO [2/5] merkle-tree-data-integrity
+2026-03-23 08:51:12,841 INFO Getting description: merkle-tree-data-integrity
+2026-03-23 08:51:24,714 DEBUG merkle-tree-data-integrity description: Merkle trees solve the problem of efficiently verifying large datasets without downloading or comparing everything — a critical primitive in distributed systems, blockchains, and content-addressed storage. This post digs into how the tree structure enables O(log n) proof paths, why root hash propagation makes tamper detection cheap, and where the math breaks down under real-world conditions like rebalancing and partial updates. The takeaway: knowing when to reach for a Merkle tree — and when a simpler hash chain or CRDT fits better — is what separates engineers who cargo-cult the pattern from those who wield it precisely.
+2026-03-23 08:51:24,715 INFO Generating: merkle-tree-data-integrity
+2026-03-23 12:47:19,666 INFO [preflight] Claude CLI: OK
+2026-03-23 12:47:20,459 INFO [preflight] GitHub CLI auth: OK
+2026-03-23 12:47:20,464 INFO [preflight] git remote: OK
+[2026-03-23 12:59:22] Starting blog generation run
+2026-03-23 12:59:22,916 INFO [preflight] Claude CLI: OK
+2026-03-23 12:59:25,193 INFO [preflight] GitHub CLI auth: OK
+2026-03-23 12:59:25,201 INFO [preflight] git remote: OK
+2026-03-23 12:59:25,202 INFO === Blog generation run: 2026-03-23 ===
+2026-03-23 12:59:25,203 INFO Generating topics (attempt 1)
+2026-03-23 12:59:36,540 INFO Got 5 topics
+2026-03-23 12:59:36,541 INFO Topics selected: 5
+2026-03-23 12:59:36,541 INFO [1/5] postgresql-wal-internals-durability
+2026-03-23 12:59:36,541 INFO Generating post: postgresql-wal-internals-durability
+2026-03-23 13:05:05,160 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-23 13:05:05,161 INFO Written: 2026-03-23-postgresql-wal-internals-durability.md
+2026-03-23 13:05:05,162 WARNING Diagram SVG missing: /home/muklis/Documents/exploring/blog/images/diagrams/postgresql-wal-internals-durability.svg
+2026-03-23 13:05:05,163 INFO [2/5] ebpf-production-observability-tracing
+2026-03-23 13:05:05,163 INFO Generating post: ebpf-production-observability-tracing
+2026-03-23 13:07:44,448 ERROR Failed [ebpf-production-observability-tracing]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 119, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-23 13:07:44,451 INFO [3/5] container-image-signing-cosign-sigstore
+2026-03-23 13:07:44,452 INFO Generating post: container-image-signing-cosign-sigstore
+2026-03-23 13:17:44,624 ERROR Failed [container-image-signing-cosign-sigstore]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Container Image Signing with Cosign and Sigstore in CI/CD\nCATEGORY: devsecops\nDATE: 2026-03-23\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/container-image-signing-cosign-sigstore.svg\n- Reference the diagram in the post body as: ![Container Image Signing with Cosign and Sigstore in CI/CD Diagram](/images/diagrams/container-image-signing-cosign-sigstore.svg)\n- Place the diagram reference right after the opening paragraph\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Container Image Signing with Cosign and Sigstore in CI/CD"\ndate: 2026-03-23 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 600 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 98, in generate
+    result = subprocess.run(
+        [
+    ...<7 lines>...
+        cwd=str(config.BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Container Image Signing with Cosign and Sigstore in CI/CD\nCATEGORY: devsecops\nDATE: 2026-03-23\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/container-image-signing-cosign-sigstore.svg\n- Reference the diagram in the post body as: ![Container Image Signing with Cosign and Sigstore in CI/CD Diagram](/images/diagrams/container-image-signing-cosign-sigstore.svg)\n- Place the diagram reference right after the opening paragraph\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Container Image Signing with Cosign and Sigstore in CI/CD"\ndate: 2026-03-23 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 600 seconds
+2026-03-23 13:17:44,632 INFO [4/5] llm-structured-output-enforcement
+2026-03-23 13:17:44,632 INFO Generating post: llm-structured-output-enforcement
+2026-03-23 13:20:51,608 ERROR Failed [llm-structured-output-enforcement]: claude -p failed (exit 1): 
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 111, in generate
+    raise PostGenerationError(
+        f"claude -p failed (exit {result.returncode}): {result.stderr[:300]}"
+    )
+post_generator.PostGenerationError: claude -p failed (exit 1): 
+2026-03-23 13:20:51,610 INFO [5/5] grpc-bidirectional-streaming-backpressure
+2026-03-23 13:20:51,611 INFO Generating post: grpc-bidirectional-streaming-backpressure
+2026-03-23 13:23:41,680 ERROR Failed [grpc-bidirectional-streaming-backpressure]: claude -p failed (exit 1): 
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 111, in generate
+    raise PostGenerationError(
+        f"claude -p failed (exit {result.returncode}): {result.stderr[:300]}"
+    )
+post_generator.PostGenerationError: claude -p failed (exit 1): 
+2026-03-23 13:23:41,681 INFO Generation complete: 1/5 succeeded, 4 failed
+2026-03-23 13:23:41,720 INFO Committed: Auto-generate 1 posts for 2026-03-23
+2026-03-23 13:23:41,752 ERROR Git publish failed: Command git push failed: fatal: unable to access 'https://github.com/mohashari/mohashari.github.io/': Could not resolve host: github.com
+[2026-03-23 16:15:00] Starting blog generation run
+2026-03-23 16:15:01,011 INFO [preflight] Claude CLI: OK
+2026-03-23 16:15:02,681 INFO [preflight] GitHub CLI auth: OK
+2026-03-23 16:15:02,688 INFO [preflight] git remote: OK
+2026-03-23 16:15:02,689 INFO === Blog generation run: 2026-03-23 ===
+2026-03-23 16:15:02,690 INFO Generating topics (attempt 1)
+2026-03-23 16:15:14,097 INFO Got 5 topics
+2026-03-23 16:15:14,097 INFO Topics selected: 5
+2026-03-23 16:15:14,097 INFO [1/5] ebpf-production-observability-tracing
+2026-03-23 16:15:14,097 INFO Generating post: ebpf-production-observability-tracing
+2026-03-23 16:22:07,756 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-23 16:22:07,756 INFO Written: 2026-03-23-ebpf-production-observability-tracing.md
+2026-03-23 16:22:07,757 INFO [2/5] temporal-workflow-orchestration-durable-execution
+2026-03-23 16:22:07,757 INFO Generating post: temporal-workflow-orchestration-durable-execution
+2026-03-23 16:23:47,102 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-23 16:23:47,104 INFO Written: 2026-03-23-temporal-workflow-orchestration-durable-execution.md
+2026-03-23 16:23:47,106 INFO [3/5] slsa-supply-chain-security-provenance
+2026-03-23 16:23:47,106 INFO Generating post: slsa-supply-chain-security-provenance
+2026-03-23 16:28:54,606 ERROR Failed [slsa-supply-chain-security-provenance]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 119, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-23 16:28:54,607 INFO [4/5] structured-outputs-json-schema-llm-pipelines
+2026-03-23 16:28:54,608 INFO Generating post: structured-outputs-json-schema-llm-pipelines
+2026-03-23 16:30:36,800 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-23 16:30:36,801 INFO Written: 2026-03-23-structured-outputs-json-schema-llm-pipelines.md
+2026-03-23 16:30:36,801 INFO [5/5] crdts-distributed-state-conflict-free
+2026-03-23 16:30:36,801 INFO Generating post: crdts-distributed-state-conflict-free
+2026-03-23 16:35:06,099 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-23 16:35:06,100 INFO Written: 2026-03-23-crdts-distributed-state-conflict-free.md
+2026-03-23 16:35:06,100 WARNING Diagram SVG missing: /home/muklis/Documents/exploring/blog/images/diagrams/crdts-distributed-state-conflict-free.svg
+2026-03-23 16:35:06,102 INFO Generation complete: 4/5 succeeded, 1 failed
+2026-03-23 16:35:06,156 INFO Committed: Auto-generate 4 posts for 2026-03-23
+2026-03-23 16:35:08,771 INFO Pushed to origin/master
+[2026-03-23 16:41:17] Starting blog generation run
+2026-03-23 16:41:17,739 INFO [preflight] Claude CLI: OK
+2026-03-23 16:41:18,648 INFO [preflight] GitHub CLI auth: OK
+2026-03-23 16:41:18,651 INFO [preflight] git remote: OK
+2026-03-23 16:41:18,651 INFO === Blog generation run: 2026-03-23 ===
+2026-03-23 16:41:18,651 INFO Generating topics (attempt 1)
+2026-03-23 16:41:31,211 INFO Got 5 topics
+2026-03-23 16:41:31,211 INFO Topics selected: 5
+2026-03-23 16:41:31,211 INFO [1/5] write-ahead-log-storage-engines
+2026-03-23 16:41:31,212 INFO Generating post: write-ahead-log-storage-engines
+2026-03-23 16:46:27,069 ERROR Failed [write-ahead-log-storage-engines]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 119, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-23 16:46:27,070 INFO [2/5] slsa-supply-chain-security-provenance
+2026-03-23 16:46:27,070 INFO Generating post: slsa-supply-chain-security-provenance
+2026-03-23 16:50:19,395 ERROR Failed [slsa-supply-chain-security-provenance]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 119, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-23 16:50:19,396 INFO [3/5] image-signing-cosign-sigstore
+2026-03-23 16:50:19,396 INFO Generating post: image-signing-cosign-sigstore
+2026-03-23 16:55:11,299 ERROR Failed [image-signing-cosign-sigstore]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 119, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-23 16:55:11,300 INFO [4/5] tool-use-function-calling-llm-agents
+2026-03-23 16:55:11,300 INFO Generating post: tool-use-function-calling-llm-agents
+2026-03-23 16:56:55,684 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-23 16:56:55,684 INFO Written: 2026-03-23-tool-use-function-calling-llm-agents.md
+2026-03-23 16:56:55,685 INFO [5/5] grpc-bidirectional-streaming-backpressure
+2026-03-23 16:56:55,685 INFO Generating post: grpc-bidirectional-streaming-backpressure
+2026-03-23 16:58:58,218 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-23 16:58:58,218 INFO Written: 2026-03-23-grpc-bidirectional-streaming-backpressure.md
+2026-03-23 16:58:58,219 INFO Generation complete: 2/5 succeeded, 3 failed
+2026-03-23 16:58:58,237 INFO Committed: Auto-generate 2 posts for 2026-03-23
+2026-03-23 16:59:01,855 INFO Pushed to origin/master
+[2026-03-24 11:38:08] Starting blog generation run
+2026-03-24 11:38:09,541 INFO [preflight] Claude CLI: OK
+2026-03-24 11:38:16,376 INFO [preflight] GitHub CLI auth: OK
+2026-03-24 11:38:16,382 INFO [preflight] git remote: OK
+2026-03-24 11:38:16,383 INFO === Blog generation run: 2026-03-24 ===
+2026-03-24 11:38:16,385 INFO Generating topics (attempt 1)
+2026-03-24 11:38:37,648 INFO Got 5 topics
+2026-03-24 11:38:37,649 INFO Topics selected: 5
+2026-03-24 11:38:37,649 INFO [1/5] postgresql-query-planner-statistics-costs
+2026-03-24 11:38:37,649 INFO Generating post: postgresql-query-planner-statistics-costs
+2026-03-24 11:39:58,554 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-24 11:39:58,556 INFO Written: 2026-03-24-postgresql-query-planner-statistics-costs.md
+2026-03-24 11:39:58,557 INFO [2/5] rust-async-tokio-task-scheduling-waker
+2026-03-24 11:39:58,557 INFO Generating post: rust-async-tokio-task-scheduling-waker
+2026-03-24 11:42:51,122 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-24 11:42:51,123 INFO Written: 2026-03-24-rust-async-tokio-task-scheduling-waker.md
+2026-03-24 11:42:51,124 INFO [3/5] slsa-supply-chain-security-provenance
+2026-03-24 11:42:51,124 INFO Generating post: slsa-supply-chain-security-provenance
+2026-03-24 11:48:06,686 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-24 11:48:06,686 INFO Written: 2026-03-24-slsa-supply-chain-security-provenance.md
+2026-03-24 11:48:06,687 INFO [4/5] llm-structured-extraction-batching-schema
+2026-03-24 11:48:06,687 INFO Generating post: llm-structured-extraction-batching-schema
+2026-03-24 11:50:19,817 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-24 11:50:19,818 INFO Written: 2026-03-24-llm-structured-extraction-batching-schema.md
+2026-03-24 11:50:19,818 INFO [5/5] write-ahead-log-storage-engines-compared
+2026-03-24 11:50:19,819 INFO Generating post: write-ahead-log-storage-engines-compared
+2026-03-24 11:57:32,833 WARNING UNSPLASH_ACCESS_KEY not set — skipping thumbnails
+2026-03-24 11:57:32,834 INFO Written: 2026-03-24-write-ahead-log-storage-engines-compared.md
+2026-03-24 11:57:32,835 INFO Generation complete: 5/5 succeeded, 0 failed
+2026-03-24 11:57:32,891 INFO Committed: Auto-generate 5 posts for 2026-03-24
+2026-03-24 11:57:41,546 INFO Pushed to origin/master
+[2026-03-24 11:57:41] Run finished with exit code 0
+[2026-03-26 12:00:36] Starting blog generation run
+2026-03-26 12:00:36,499 INFO [preflight] Claude CLI: OK
+2026-03-26 12:00:37,420 INFO [preflight] GitHub CLI auth: OK
+2026-03-26 12:00:37,428 INFO [preflight] git remote: OK
+2026-03-26 12:00:37,428 INFO === Blog generation run: 2026-03-26 ===
+2026-03-26 12:00:37,429 INFO Generating topics (attempt 1)
+2026-03-26 12:00:54,642 INFO Got 5 topics
+2026-03-26 12:00:54,643 INFO Topics selected: 5
+2026-03-26 12:00:54,643 INFO [1/5] kafka-consumer-group-rebalancing-cooperative-sticky
+2026-03-26 12:00:54,644 INFO Generating post: kafka-consumer-group-rebalancing-cooperative-sticky
+2026-03-26 12:05:32,397 WARNING Unsplash API error: 404 Client Error: Not Found for url: https://api.unsplash.com/photos/random?query=kafka+consumer+group&orientation=landscape
+2026-03-26 12:05:32,399 INFO Written: 2026-03-26-kafka-consumer-group-rebalancing-cooperative-sticky.md
+2026-03-26 12:05:32,400 INFO [2/5] opentelemetry-sampling-strategies-high-throughput
+2026-03-26 12:05:32,401 INFO Generating post: opentelemetry-sampling-strategies-high-throughput
+2026-03-26 12:07:07,331 INFO Written: 2026-03-26-opentelemetry-sampling-strategies-high-throughput.md
+2026-03-26 12:07:07,333 INFO [3/5] sigstore-keyless-signing-cicd-pipelines
+2026-03-26 12:07:07,333 INFO Generating post: sigstore-keyless-signing-cicd-pipelines
+2026-03-26 12:08:40,569 WARNING Unsplash API error: 404 Client Error: Not Found for url: https://api.unsplash.com/photos/random?query=sigstore+keyless+signing&orientation=landscape
+2026-03-26 12:08:40,571 INFO Written: 2026-03-26-sigstore-keyless-signing-cicd-pipelines.md
+2026-03-26 12:08:40,572 INFO [4/5] multi-agent-llm-orchestration-shared-memory-tool-routing
+2026-03-26 12:08:40,573 INFO Generating post: multi-agent-llm-orchestration-shared-memory-tool-routing
+2026-03-26 12:12:14,518 ERROR Failed [multi-agent-llm-orchestration-shared-memory-tool-routing]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-26 12:12:14,522 INFO [5/5] postgresql-logical-replication-slot-management-backpressure
+2026-03-26 12:12:14,522 INFO Generating post: postgresql-logical-replication-slot-management-backpressure
+2026-03-26 12:13:49,479 WARNING Unsplash API error: 404 Client Error: Not Found for url: https://api.unsplash.com/photos/random?query=postgresql+logical+replication&orientation=landscape
+2026-03-26 12:13:49,480 INFO Written: 2026-03-26-postgresql-logical-replication-slot-management-backpressure.md
+2026-03-26 12:13:49,482 INFO Generation complete: 4/5 succeeded, 1 failed
+2026-03-26 12:13:49,554 INFO Committed: Auto-generate 4 posts for 2026-03-26
+2026-03-26 12:13:52,635 INFO Pushed to origin/master
+[2026-03-26 12:29:34] Starting blog generation run
+2026-03-26 12:29:35,021 INFO [preflight] Claude CLI: OK
+2026-03-26 12:29:35,947 INFO [preflight] GitHub CLI auth: OK
+2026-03-26 12:29:35,950 INFO [preflight] git remote: OK
+2026-03-26 12:29:35,950 INFO === Blog generation run: 2026-03-26 ===
+2026-03-26 12:29:35,951 INFO Generating topics (attempt 1)
+2026-03-26 12:29:58,521 INFO Got 5 topics
+2026-03-26 12:29:58,521 INFO Topics selected: 5
+2026-03-26 12:29:58,521 INFO [1/5] consistent-hashing-virtual-nodes-distributed-caches
+2026-03-26 12:29:58,521 INFO Generating post: consistent-hashing-virtual-nodes-distributed-caches
+2026-03-26 12:33:03,872 ERROR Failed [consistent-hashing-virtual-nodes-distributed-caches]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-26 12:33:03,879 INFO [2/5] postgresql-index-types-btree-gin-gist-brin
+2026-03-26 12:33:03,879 INFO Generating post: postgresql-index-types-btree-gin-gist-brin
+2026-03-26 12:34:50,908 INFO Written: 2026-03-26-postgresql-index-types-btree-gin-gist-brin.md
+2026-03-26 12:34:50,908 INFO [3/5] opa-rego-kubernetes-admission-controllers
+2026-03-26 12:34:50,908 INFO Generating post: opa-rego-kubernetes-admission-controllers
+2026-03-26 12:36:24,916 INFO Written: 2026-03-26-opa-rego-kubernetes-admission-controllers.md
+2026-03-26 12:36:24,917 INFO [4/5] rag-evaluation-ragas-metrics-offline-testing
+2026-03-26 12:36:24,917 INFO Generating post: rag-evaluation-ragas-metrics-offline-testing
+2026-03-26 12:37:56,159 INFO Written: 2026-03-26-rag-evaluation-ragas-metrics-offline-testing.md
+2026-03-26 12:37:56,160 INFO [5/5] go-memory-model-happens-before-concurrent-data-structures
+2026-03-26 12:37:56,160 INFO Generating post: go-memory-model-happens-before-concurrent-data-structures
+2026-03-26 12:39:40,545 INFO Written: 2026-03-26-go-memory-model-happens-before-concurrent-data-structures.md
+2026-03-26 12:39:40,547 INFO Generation complete: 4/5 succeeded, 1 failed
+2026-03-26 12:39:40,585 INFO Committed: Auto-generate 4 posts for 2026-03-26
+2026-03-26 12:39:42,051 INFO Pushed to origin/master
+[2026-03-28 08:13:06] Starting blog generation run
+2026-03-28 08:13:06,676 INFO [preflight] Claude CLI: OK
+2026-03-28 08:13:07,594 INFO [preflight] GitHub CLI auth: OK
+2026-03-28 08:13:07,603 INFO [preflight] git remote: OK
+2026-03-28 08:13:07,603 INFO === Blog generation run: 2026-03-28 ===
+2026-03-28 08:13:07,604 INFO Generating topics (attempt 1)
+2026-03-28 08:13:14,197 WARNING claude -p failed: 
+2026-03-28 08:13:14,197 INFO Generating topics (attempt 2)
+2026-03-28 08:13:18,936 WARNING claude -p failed: 
+2026-03-28 08:13:18,936 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-03-28 08:18:43] Starting blog generation run
+2026-03-28 08:18:43,715 INFO [preflight] Claude CLI: OK
+2026-03-28 08:18:44,256 INFO [preflight] GitHub CLI auth: OK
+2026-03-28 08:18:44,262 INFO [preflight] git remote: OK
+2026-03-28 08:18:44,263 INFO === Blog generation run: 2026-03-28 ===
+2026-03-28 08:18:44,263 INFO Generating topics (attempt 1)
+2026-03-28 08:18:48,853 WARNING claude -p failed: 
+2026-03-28 08:18:48,853 INFO Generating topics (attempt 2)
+2026-03-28 08:18:52,993 WARNING claude -p failed: 
+2026-03-28 08:18:52,993 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-03-28 08:19:01] Starting blog generation run
+2026-03-28 08:19:01,612 INFO [preflight] Claude CLI: OK
+2026-03-28 08:19:02,525 INFO [preflight] GitHub CLI auth: OK
+2026-03-28 08:19:02,531 INFO [preflight] git remote: OK
+2026-03-28 08:19:02,532 INFO === Blog generation run: 2026-03-28 ===
+2026-03-28 08:19:02,533 INFO Generating topics (attempt 1)
+2026-03-28 08:19:06,939 WARNING claude -p failed: 
+2026-03-28 08:19:06,939 INFO Generating topics (attempt 2)
+2026-03-28 08:19:11,274 WARNING claude -p failed: 
+2026-03-28 08:19:11,274 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-03-28 08:20:30] Starting blog generation run
+2026-03-28 08:20:30,577 INFO [preflight] Claude CLI: OK
+2026-03-28 08:20:31,176 INFO [preflight] GitHub CLI auth: OK
+2026-03-28 08:20:31,183 INFO [preflight] git remote: OK
+2026-03-28 08:20:31,184 INFO === Blog generation run: 2026-03-28 ===
+2026-03-28 08:20:31,185 INFO Generating topics (attempt 1)
+2026-03-28 08:20:35,936 WARNING claude -p failed: 
+2026-03-28 08:20:35,938 INFO Generating topics (attempt 2)
+2026-03-28 08:20:50,611 WARNING claude -p failed: 
+2026-03-28 08:20:50,611 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-03-28 08:25:07] Starting blog generation run
+2026-03-28 08:25:07,902 INFO [preflight] Claude CLI: OK
+2026-03-28 08:25:09,361 INFO [preflight] GitHub CLI auth: OK
+2026-03-28 08:25:09,363 INFO [preflight] git remote: OK
+2026-03-28 08:25:09,364 INFO === Blog generation run: 2026-03-28 ===
+2026-03-28 08:25:09,364 INFO Generating topics (attempt 1)
+2026-03-28 08:25:23,796 INFO Got 5 topics
+2026-03-28 08:25:23,796 INFO Topics selected: 5
+2026-03-28 08:25:23,796 INFO [1/5] clickhouse-mergetree-sparse-indexes-query-execution
+2026-03-28 08:25:23,797 INFO Generating post: clickhouse-mergetree-sparse-indexes-query-execution
+2026-03-28 08:28:33,168 ERROR Failed [clickhouse-mergetree-sparse-indexes-query-execution]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-28 08:28:33,173 INFO [2/5] kubernetes-admission-webhooks-mutating-validating-go
+2026-03-28 08:28:33,173 INFO Generating post: kubernetes-admission-webhooks-mutating-validating-go
+2026-03-28 08:30:02,887 INFO Written: 2026-03-28-kubernetes-admission-webhooks-mutating-validating-go.md
+2026-03-28 08:30:02,888 INFO [3/5] llm-prompt-caching-anthropic-openai-high-throughput
+2026-03-28 08:30:02,888 INFO Generating post: llm-prompt-caching-anthropic-openai-high-throughput
+2026-03-28 08:31:39,750 INFO Written: 2026-03-28-llm-prompt-caching-anthropic-openai-high-throughput.md
+2026-03-28 08:31:39,751 INFO [4/5] epoll-io-uring-async-io-linux-network-servers
+2026-03-28 08:31:39,751 INFO Generating post: epoll-io-uring-async-io-linux-network-servers
+2026-03-28 08:34:55,479 ERROR Failed [epoll-io-uring-async-io-linux-network-servers]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-28 08:34:55,480 INFO [5/5] vault-dynamic-secrets-rotation-zero-downtime-lease-renewal
+2026-03-28 08:34:55,480 INFO Generating post: vault-dynamic-secrets-rotation-zero-downtime-lease-renewal
+2026-03-28 08:36:49,972 INFO Written: 2026-03-28-vault-dynamic-secrets-rotation-zero-downtime-lease-renewal.md
+2026-03-28 08:36:49,972 INFO Generation complete: 3/5 succeeded, 2 failed
+2026-03-28 08:36:49,987 INFO Committed: Auto-generate 3 posts for 2026-03-28
+2026-03-28 08:36:51,534 INFO Pushed to origin/master
+[2026-03-29 08:00:01] Starting blog generation run
+[2026-03-29 11:12:53] Starting blog generation run
+2026-03-29 11:12:53,344 INFO [preflight] Claude CLI: OK
+2026-03-29 11:12:54,056 INFO [preflight] GitHub CLI auth: OK
+2026-03-29 11:12:54,065 INFO [preflight] git remote: OK
+2026-03-29 11:12:54,065 INFO === Blog generation run: 2026-03-29 ===
+2026-03-29 11:12:54,066 INFO Generating topics (attempt 1)
+2026-03-29 11:13:28,907 INFO Got 5 topics
+2026-03-29 11:13:28,907 INFO Topics selected: 5
+2026-03-29 11:13:28,907 INFO [1/5] ebpf-network-policy-kubernetes-no-sidecar
+2026-03-29 11:13:28,908 INFO Generating post: ebpf-network-policy-kubernetes-no-sidecar
+2026-03-29 11:19:52,038 INFO Written: 2026-03-29-ebpf-network-policy-kubernetes-no-sidecar.md
+2026-03-29 11:19:52,040 INFO [2/5] postgresql-mvcc-tuple-visibility-vacuum-mechanics
+2026-03-29 11:19:52,041 INFO Generating post: postgresql-mvcc-tuple-visibility-vacuum-mechanics
+2026-03-29 11:22:36,824 ERROR Failed [postgresql-mvcc-tuple-visibility-vacuum-mechanics]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-29 11:22:36,858 INFO [3/5] kafka-exactly-once-semantics-transactions-idempotent
+2026-03-29 11:22:36,858 INFO Generating post: kafka-exactly-once-semantics-transactions-idempotent
+2026-03-29 11:24:20,403 INFO Written: 2026-03-29-kafka-exactly-once-semantics-transactions-idempotent.md
+2026-03-29 11:24:20,404 INFO [4/5] llm-context-window-management-chunking-summarization
+2026-03-29 11:24:20,405 INFO Generating post: llm-context-window-management-chunking-summarization
+2026-03-29 11:24:33,686 ERROR Failed [llm-context-window-management-chunking-summarization]: claude -p failed (exit 1): 
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 112, in generate
+    raise PostGenerationError(
+        f"claude -p failed (exit {result.returncode}): {result.stderr[:300]}"
+    )
+post_generator.PostGenerationError: claude -p failed (exit 1): 
+2026-03-29 11:24:33,688 INFO [5/5] sbom-generation-attestation-syft-grype-cosign
+2026-03-29 11:24:33,689 INFO Generating post: sbom-generation-attestation-syft-grype-cosign
+2026-03-29 11:24:45,285 ERROR Failed [sbom-generation-attestation-syft-grype-cosign]: claude -p failed (exit 1): 
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 112, in generate
+    raise PostGenerationError(
+        f"claude -p failed (exit {result.returncode}): {result.stderr[:300]}"
+    )
+post_generator.PostGenerationError: claude -p failed (exit 1): 
+2026-03-29 11:24:45,287 INFO Generation complete: 2/5 succeeded, 3 failed
+2026-03-29 11:24:45,348 INFO Committed: Auto-generate 2 posts for 2026-03-29
+2026-03-29 11:24:47,754 INFO Pushed to origin/master
+[2026-03-30 08:00:01] Starting blog generation run
+2026-03-30 08:00:02,031 INFO [preflight] Claude CLI: OK
+2026-03-30 08:00:02,843 INFO [preflight] GitHub CLI auth: OK
+2026-03-30 08:00:02,849 INFO [preflight] git remote: OK
+2026-03-30 08:00:02,849 INFO === Blog generation run: 2026-03-30 ===
+2026-03-30 08:00:02,850 INFO Generating topics (attempt 1)
+2026-03-30 08:00:49,572 INFO Got 5 topics
+2026-03-30 08:00:49,572 INFO Topics selected: 5
+2026-03-30 08:00:49,572 INFO [1/5] raft-consensus-internals-log-replication-leader-election-membership
+2026-03-30 08:00:49,572 INFO Generating post: raft-consensus-internals-log-replication-leader-election-membership
+2026-03-30 08:03:51,798 ERROR Failed [raft-consensus-internals-log-replication-leader-election-membership]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-30 08:03:51,803 INFO [2/5] go-pprof-production-continuous-profiling-flamegraphs-memory-leaks
+2026-03-30 08:03:51,803 INFO Generating post: go-pprof-production-continuous-profiling-flamegraphs-memory-leaks
+2026-03-30 08:05:49,784 WARNING gh gist create failed: - Creating gist with multiple files
+X Failed to create gist: HTTP 502: Server Error (https://api.github.com/gists)
+
+2026-03-30 08:05:49,785 WARNING go-pprof-production-continuous-profiling-flamegraphs-memory-leaks: gist failed, keeping raw code blocks
+2026-03-30 08:05:49,788 INFO Written: 2026-03-30-go-pprof-production-continuous-profiling-flamegraphs-memory-leaks.md
+2026-03-30 08:05:49,789 INFO [3/5] falco-runtime-security-custom-rules-kubernetes-audit-siem
+2026-03-30 08:05:49,790 INFO Generating post: falco-runtime-security-custom-rules-kubernetes-audit-siem
+2026-03-30 08:07:37,075 INFO Written: 2026-03-30-falco-runtime-security-custom-rules-kubernetes-audit-siem.md
+2026-03-30 08:07:37,076 INFO [4/5] speculative-decoding-continuous-batching-llm-serving-throughput
+2026-03-30 08:07:37,076 INFO Generating post: speculative-decoding-continuous-batching-llm-serving-throughput
+2026-03-30 08:11:15,560 ERROR Failed [speculative-decoding-continuous-batching-llm-serving-throughput]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-30 08:11:15,561 INFO [5/5] rocksdb-internals-compaction-strategies-block-cache-write-path
+2026-03-30 08:11:15,561 INFO Generating post: rocksdb-internals-compaction-strategies-block-cache-write-path
+2026-03-30 08:12:53,435 INFO Written: 2026-03-30-rocksdb-internals-compaction-strategies-block-cache-write-path.md
+2026-03-30 08:12:53,436 INFO Generation complete: 3/5 succeeded, 2 failed
+2026-03-30 08:12:53,452 INFO Committed: Auto-generate 3 posts for 2026-03-30
+2026-03-30 08:12:54,968 INFO Pushed to origin/master
+[2026-03-31 08:00:02] Starting blog generation run
+2026-03-31 08:00:02,227 INFO [preflight] Claude CLI: OK
+2026-03-31 08:00:02,985 INFO [preflight] GitHub CLI auth: OK
+2026-03-31 08:00:02,995 INFO [preflight] git remote: OK
+2026-03-31 08:00:02,995 INFO === Blog generation run: 2026-03-31 ===
+2026-03-31 08:00:02,996 INFO Generating topics (attempt 1)
+2026-03-31 08:00:51,850 INFO Got 5 topics
+2026-03-31 08:00:51,850 INFO Topics selected: 5
+2026-03-31 08:00:51,850 INFO [1/5] kafka-tiered-storage-s3-offloading-cold-data-fetch-proxy
+2026-03-31 08:00:51,850 INFO Generating post: kafka-tiered-storage-s3-offloading-cold-data-fetch-proxy
+2026-03-31 08:05:06,577 ERROR Failed [kafka-tiered-storage-s3-offloading-cold-data-fetch-proxy]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-31 08:05:06,585 INFO [2/5] pgbouncer-transaction-session-pooling-prepared-statements-multiplexing
+2026-03-31 08:05:06,585 INFO Generating post: pgbouncer-transaction-session-pooling-prepared-statements-multiplexing
+2026-03-31 08:06:32,327 INFO Written: 2026-03-31-pgbouncer-transaction-session-pooling-prepared-statements-multiplexing.md
+2026-03-31 08:06:32,329 INFO [3/5] sbom-syft-grype-supply-chain-vulnerability-policy-enforcement
+2026-03-31 08:06:32,329 INFO Generating post: sbom-syft-grype-supply-chain-vulnerability-policy-enforcement
+2026-03-31 08:08:21,239 INFO Written: 2026-03-31-sbom-syft-grype-supply-chain-vulnerability-policy-enforcement.md
+2026-03-31 08:08:21,240 INFO [4/5] llm-inference-quantization-gguf-awq-gptq-production-serving
+2026-03-31 08:08:21,240 INFO Generating post: llm-inference-quantization-gguf-awq-gptq-production-serving
+2026-03-31 08:12:14,672 ERROR Failed [llm-inference-quantization-gguf-awq-gptq-production-serving]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-31 08:12:14,673 INFO [5/5] linux-cgroups-v2-container-memory-oom-swap-accounting
+2026-03-31 08:12:14,673 INFO Generating post: linux-cgroups-v2-container-memory-oom-swap-accounting
+2026-03-31 08:13:48,149 INFO Written: 2026-03-31-linux-cgroups-v2-container-memory-oom-swap-accounting.md
+2026-03-31 08:13:48,150 INFO Generation complete: 3/5 succeeded, 2 failed
+2026-03-31 08:13:48,210 INFO Committed: Auto-generate 3 posts for 2026-03-31
+2026-03-31 08:13:49,791 INFO Pushed to origin/master
+[2026-04-01 08:00:01] Starting blog generation run
+2026-04-01 08:00:01,288 INFO [preflight] Claude CLI: OK
+2026-04-01 08:00:03,141 INFO [preflight] GitHub CLI auth: OK
+2026-04-01 08:00:03,150 INFO [preflight] git remote: OK
+2026-04-01 08:00:03,150 INFO === Blog generation run: 2026-04-01 ===
+2026-04-01 08:00:03,151 INFO Generating topics (attempt 1)
+2026-04-01 08:00:29,440 INFO Got 5 topics
+2026-04-01 08:00:29,440 INFO Topics selected: 5
+2026-04-01 08:00:29,440 INFO [1/5] go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs
+2026-04-01 08:00:29,440 INFO Generating post: go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs
+2026-04-01 08:10:29,563 ERROR Failed [go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning\nCATEGORY: development\nDATE: 2026-04-01\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs.svg\n- Reference the diagram in the post body as: ![Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning Diagram](/images/diagrams/go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs.svg)\n- Place the diagram reference right after the opening paragraph\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning"\ndate: 2026-04-01 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--dangerously-skip-permissions', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 600 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 98, in generate
+    result = subprocess.run(
+        [
+    ...<8 lines>...
+        cwd=str(config.BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning\nCATEGORY: development\nDATE: 2026-04-01\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs.svg\n- Reference the diagram in the post body as: ![Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning Diagram](/images/diagrams/go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs.svg)\n- Place the diagram reference right after the opening paragraph\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning"\ndate: 2026-04-01 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--dangerously-skip-permissions', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 600 seconds
+2026-04-01 08:10:29,590 INFO [2/5] distributed-rate-limiting-token-bucket-sliding-window-redis-envoy
+2026-04-01 08:10:29,590 INFO Generating post: distributed-rate-limiting-token-bucket-sliding-window-redis-envoy
+2026-04-01 08:12:12,981 INFO Written: 2026-04-01-distributed-rate-limiting-token-bucket-sliding-window-redis-envoy.md
+2026-04-01 08:12:12,983 INFO [3/5] llm-kv-cache-prefix-caching-paged-attention-vllm-throughput
+2026-04-01 08:12:12,983 INFO Generating post: llm-kv-cache-prefix-caching-paged-attention-vllm-throughput
+2026-04-01 08:17:53,498 ERROR Failed [llm-kv-cache-prefix-caching-paged-attention-vllm-throughput]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-04-01 08:17:53,499 INFO [4/5] trivy-operator-kyverno-vulnerability-scanning-admission-policy-kubernetes
+2026-04-01 08:17:53,499 INFO Generating post: trivy-operator-kyverno-vulnerability-scanning-admission-policy-kubernetes
+2026-04-01 08:24:33,573 ERROR Failed [trivy-operator-kyverno-vulnerability-scanning-admission-policy-kubernetes]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Trivy Operator and Kyverno: Continuous Vulnerability Scanning with Admission Policy Enforcement in Kubernetes\nCATEGORY: devsecops\nDATE: 2026-04-01\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Trivy Operator and Kyverno: Continuous Vulnerability Scanning with Admission Policy Enforcement in Kubernetes"\ndate: 2026-04-01 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--dangerously-skip-permissions', '--allowedTools', 'Bash']' timed out after 400 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 98, in generate
+    result = subprocess.run(
+        [
+    ...<8 lines>...
+        cwd=str(config.BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Trivy Operator and Kyverno: Continuous Vulnerability Scanning with Admission Policy Enforcement in Kubernetes\nCATEGORY: devsecops\nDATE: 2026-04-01\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Trivy Operator and Kyverno: Continuous Vulnerability Scanning with Admission Policy Enforcement in Kubernetes"\ndate: 2026-04-01 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--dangerously-skip-permissions', '--allowedTools', 'Bash']' timed out after 400 seconds
+2026-04-01 08:24:33,577 INFO [5/5] linux-io-uring-submission-queue-completion-ring-zero-copy-networking
+2026-04-01 08:24:33,577 INFO Generating post: linux-io-uring-submission-queue-completion-ring-zero-copy-networking
+2026-04-01 08:28:19,086 ERROR Failed [linux-io-uring-submission-queue-completion-ring-zero-copy-networking]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-04-01 08:28:19,087 INFO Generation complete: 1/5 succeeded, 4 failed
+2026-04-01 08:28:19,103 INFO Committed: Auto-generate 1 posts for 2026-04-01
+2026-04-01 08:28:20,852 INFO Pushed to origin/master
+[2026-04-02 08:00:01] Starting blog generation run
+2026-04-02 08:00:01,903 INFO [preflight] Claude CLI: OK
+2026-04-02 08:00:01,964 INFO [preflight] GitHub CLI auth: OK
+2026-04-02 08:00:01,966 INFO [preflight] git remote: OK
+2026-04-02 08:00:01,966 INFO === Blog generation run: 2026-04-02 ===
+2026-04-02 08:00:01,966 INFO Generating topics (attempt 1)
+[2026-04-06 08:00:01] Starting blog generation run
+2026-04-06 08:00:01,677 INFO [preflight] Claude CLI: OK
+2026-04-06 08:00:02,532 INFO [preflight] GitHub CLI auth: OK
+2026-04-06 08:00:02,540 INFO [preflight] git remote: OK
+2026-04-06 08:00:02,541 INFO === Blog generation run: 2026-04-06 ===
+2026-04-06 08:00:02,542 INFO Generating topics (attempt 1)
+2026-04-06 08:00:06,881 WARNING claude -p failed: 
+2026-04-06 08:00:06,881 INFO Generating topics (attempt 2)
+2026-04-06 08:00:12,745 WARNING claude -p failed: 
+2026-04-06 08:00:12,745 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-04-07 08:00:01] Starting blog generation run
+2026-04-07 08:00:01,745 INFO [preflight] Claude CLI: OK
+2026-04-07 08:00:02,498 INFO [preflight] GitHub CLI auth: OK
+2026-04-07 08:00:02,504 INFO [preflight] git remote: OK
+2026-04-07 08:00:02,505 INFO === Blog generation run: 2026-04-07 ===
+2026-04-07 08:00:02,507 INFO Generating topics (attempt 1)
+2026-04-07 08:00:06,824 WARNING claude -p failed: 
+2026-04-07 08:00:06,824 INFO Generating topics (attempt 2)
+2026-04-07 08:00:15,335 WARNING claude -p failed: 
+2026-04-07 08:00:15,335 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-04-13 08:00:01] Starting blog generation run
+2026-04-13 08:00:01,254 INFO [preflight] Claude CLI: OK
+2026-04-13 08:00:02,066 INFO [preflight] GitHub CLI auth: OK
+2026-04-13 08:00:02,077 INFO [preflight] git remote: OK
+2026-04-13 08:00:02,078 INFO === Blog generation run: 2026-04-13 ===
+2026-04-13 08:00:02,079 INFO Generating topics (attempt 1)
+2026-04-13 08:00:11,512 WARNING claude -p failed: 
+2026-04-13 08:00:11,512 INFO Generating topics (attempt 2)
+2026-04-13 08:00:19,365 WARNING claude -p failed: 
+2026-04-13 08:00:19,366 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-04-14 08:00:01] Starting blog generation run
+2026-04-14 08:00:01,371 INFO [preflight] Claude CLI: OK
+2026-04-14 08:00:03,287 INFO [preflight] GitHub CLI auth: OK
+2026-04-14 08:00:03,295 INFO [preflight] git remote: OK
+2026-04-14 08:00:03,295 INFO === Blog generation run: 2026-04-14 ===
+2026-04-14 08:00:03,296 INFO Generating topics (attempt 1)
+2026-04-14 08:00:07,522 WARNING claude -p failed: 
+2026-04-14 08:00:07,522 INFO Generating topics (attempt 2)
+2026-04-14 08:00:16,039 WARNING claude -p failed: 
+2026-04-14 08:00:16,039 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-04-17 08:00:01] Starting blog generation run
+2026-04-17 08:00:02,634 INFO [preflight] Claude CLI: OK
+2026-04-17 08:00:03,458 INFO [preflight] GitHub CLI auth: OK
+2026-04-17 08:00:03,473 INFO [preflight] git remote: OK
+2026-04-17 08:00:03,473 INFO === Blog generation run: 2026-04-17 ===
+2026-04-17 08:00:03,474 INFO Generating topics (attempt 1)
+2026-04-17 08:00:09,928 WARNING claude -p failed: 
+2026-04-17 08:00:09,928 INFO Generating topics (attempt 2)
+2026-04-17 08:00:19,027 WARNING claude -p failed: 
+2026-04-17 08:00:19,028 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-04-18 09:39:18] Starting blog generation run
+2026-04-18 09:39:18,734 INFO [preflight] Claude CLI: OK
+2026-04-18 09:39:19,377 INFO [preflight] GitHub CLI auth: OK
+2026-04-18 09:39:19,378 INFO [preflight] git remote: OK
+2026-04-18 09:39:19,379 INFO === Blog generation run: 2026-04-18 ===
+2026-04-18 09:39:19,379 INFO Generating topics (attempt 1)
+2026-04-18 09:39:23,667 WARNING claude -p failed: 
+2026-04-18 09:39:23,667 INFO Generating topics (attempt 2)
+2026-04-18 09:39:34,101 WARNING claude -p failed: 
+2026-04-18 09:39:34,102 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-04-25 08:00:01] Starting blog generation run
+2026-04-25 08:00:02,142 INFO [preflight] Claude CLI: OK
+2026-04-25 08:00:03,478 INFO [preflight] GitHub CLI auth: OK
+2026-04-25 08:00:03,490 INFO [preflight] git remote: OK
+2026-04-25 08:00:03,490 INFO === Blog generation run: 2026-04-25 ===
+2026-04-25 08:00:03,491 INFO Generating topics (attempt 1)
+2026-04-25 08:00:12,759 WARNING claude -p failed: 
+2026-04-25 08:00:12,759 INFO Generating topics (attempt 2)
+2026-04-25 08:00:21,396 WARNING claude -p failed: 
+2026-04-25 08:00:21,396 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-04-27 08:00:01] Starting blog generation run
+2026-04-27 08:00:02,024 INFO [preflight] Claude CLI: OK
+2026-04-27 08:00:12,042 WARNING [preflight] GitHub CLI auth: NOT FOUND
+2026-04-27 08:00:12,048 INFO [preflight] git remote: OK
+2026-04-27 08:00:12,049 INFO === Blog generation run: 2026-04-27 ===
+2026-04-27 08:00:12,050 INFO Generating topics (attempt 1)
+[2026-04-29 08:00:01] Starting blog generation run
+2026-04-29 08:00:01,326 INFO [preflight] Claude CLI: OK
+2026-04-29 08:00:03,343 INFO [preflight] GitHub CLI auth: OK
+2026-04-29 08:00:03,352 INFO [preflight] git remote: OK
+2026-04-29 08:00:03,353 INFO === Blog generation run: 2026-04-29 ===
+2026-04-29 08:00:03,354 INFO Generating topics (attempt 1)
+2026-04-29 08:00:12,477 WARNING claude -p failed: 
+2026-04-29 08:00:12,478 INFO Generating topics (attempt 2)
+2026-04-29 08:00:20,991 WARNING claude -p failed: 
+2026-04-29 08:00:20,991 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-04-30 08:00:01] Starting blog generation run
+2026-04-30 08:00:01,908 INFO [preflight] Claude CLI: OK
+2026-04-30 08:00:02,490 INFO [preflight] GitHub CLI auth: OK
+2026-04-30 08:00:02,492 INFO [preflight] git remote: OK
+2026-04-30 08:00:02,492 INFO === Blog generation run: 2026-04-30 ===
+2026-04-30 08:00:02,493 INFO Generating topics (attempt 1)
+2026-04-30 08:00:11,934 WARNING claude -p failed: 
+2026-04-30 08:00:11,934 INFO Generating topics (attempt 2)
+2026-04-30 08:00:17,334 WARNING claude -p failed: 
+2026-04-30 08:00:17,334 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-05 08:00:01] Starting blog generation run
+2026-05-05 08:00:01,680 INFO [preflight] Claude CLI: OK
+2026-05-05 08:00:03,050 INFO [preflight] GitHub CLI auth: OK
+2026-05-05 08:00:03,060 INFO [preflight] git remote: OK
+2026-05-05 08:00:03,060 INFO === Blog generation run: 2026-05-05 ===
+2026-05-05 08:00:03,061 INFO Generating topics (attempt 1)
+2026-05-05 08:00:12,691 WARNING claude -p failed: 
+2026-05-05 08:00:12,691 INFO Generating topics (attempt 2)
+2026-05-05 08:00:21,417 WARNING claude -p failed: 
+2026-05-05 08:00:21,417 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-06 08:00:01] Starting blog generation run
+2026-05-06 08:00:01,769 INFO [preflight] Claude CLI: OK
+2026-05-06 08:00:03,050 INFO [preflight] GitHub CLI auth: OK
+2026-05-06 08:00:03,056 INFO [preflight] git remote: OK
+2026-05-06 08:00:03,057 INFO === Blog generation run: 2026-05-06 ===
+2026-05-06 08:00:03,057 INFO Generating topics (attempt 1)
+2026-05-06 08:00:08,835 WARNING claude -p failed: 
+2026-05-06 08:00:08,835 INFO Generating topics (attempt 2)
+2026-05-06 08:00:13,870 WARNING claude -p failed: 
+2026-05-06 08:00:13,871 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-08 08:00:01] Starting blog generation run
+2026-05-08 08:00:01,475 INFO [preflight] Claude CLI: OK
+2026-05-08 08:00:02,191 INFO [preflight] GitHub CLI auth: OK
+2026-05-08 08:00:02,196 INFO [preflight] git remote: OK
+2026-05-08 08:00:02,196 INFO === Blog generation run: 2026-05-08 ===
+2026-05-08 08:00:02,196 INFO Generating topics (attempt 1)
+2026-05-08 08:00:09,371 WARNING claude -p failed: 
+2026-05-08 08:00:09,371 INFO Generating topics (attempt 2)
+2026-05-08 08:00:14,314 WARNING claude -p failed: 
+2026-05-08 08:00:14,315 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-09 08:00:01] Starting blog generation run
+2026-05-09 08:00:01,413 INFO [preflight] Claude CLI: OK
+2026-05-09 08:00:02,028 INFO [preflight] GitHub CLI auth: OK
+2026-05-09 08:00:02,045 INFO [preflight] git remote: OK
+2026-05-09 08:00:02,046 INFO === Blog generation run: 2026-05-09 ===
+2026-05-09 08:00:02,047 INFO Generating topics (attempt 1)
+[2026-05-10 08:00:01] Starting blog generation run
+2026-05-10 08:00:01,642 INFO [preflight] Claude CLI: OK
+2026-05-10 08:00:02,555 INFO [preflight] GitHub CLI auth: OK
+2026-05-10 08:00:02,566 INFO [preflight] git remote: OK
+2026-05-10 08:00:02,566 INFO === Blog generation run: 2026-05-10 ===
+2026-05-10 08:00:02,568 INFO Generating topics (attempt 1)
+2026-05-10 08:00:08,472 WARNING claude -p failed: 
+2026-05-10 08:00:08,473 INFO Generating topics (attempt 2)
+2026-05-10 08:00:13,329 WARNING claude -p failed: 
+2026-05-10 08:00:13,329 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-11 08:00:01] Starting blog generation run
+2026-05-11 08:00:02,303 INFO [preflight] Claude CLI: OK
+2026-05-11 08:00:03,297 INFO [preflight] GitHub CLI auth: OK
+2026-05-11 08:00:03,315 INFO [preflight] git remote: OK
+2026-05-11 08:00:03,315 INFO === Blog generation run: 2026-05-11 ===
+2026-05-11 08:00:03,316 INFO Generating topics (attempt 1)
+2026-05-11 08:00:11,024 WARNING claude -p failed: 
+2026-05-11 08:00:11,024 INFO Generating topics (attempt 2)
+2026-05-11 08:00:15,565 WARNING claude -p failed: 
+2026-05-11 08:00:15,565 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-12 08:00:01] Starting blog generation run
+2026-05-12 08:00:01,706 INFO [preflight] Claude CLI: OK
+2026-05-12 08:00:02,620 INFO [preflight] GitHub CLI auth: OK
+2026-05-12 08:00:02,627 INFO [preflight] git remote: OK
+2026-05-12 08:00:02,627 INFO === Blog generation run: 2026-05-12 ===
+2026-05-12 08:00:02,628 INFO Generating topics (attempt 1)
+2026-05-12 08:00:09,303 WARNING claude -p failed: 
+2026-05-12 08:00:09,303 INFO Generating topics (attempt 2)
+2026-05-12 08:00:14,006 WARNING claude -p failed: 
+2026-05-12 08:00:14,006 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-13 08:00:02] Starting blog generation run
+2026-05-13 08:00:02,140 INFO [preflight] Claude CLI: OK
+2026-05-13 08:00:03,058 INFO [preflight] GitHub CLI auth: OK
+2026-05-13 08:00:03,064 INFO [preflight] git remote: OK
+2026-05-13 08:00:03,064 INFO === Blog generation run: 2026-05-13 ===
+2026-05-13 08:00:03,065 INFO Generating topics (attempt 1)
+2026-05-13 08:00:10,150 WARNING claude -p failed: 
+2026-05-13 08:00:10,150 INFO Generating topics (attempt 2)
+2026-05-13 08:00:14,842 WARNING claude -p failed: 
+2026-05-13 08:00:14,842 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-14 08:00:01] Starting blog generation run
+2026-05-14 08:00:01,958 INFO [preflight] Claude CLI: OK
+2026-05-14 08:00:03,145 INFO [preflight] GitHub CLI auth: OK
+2026-05-14 08:00:03,150 INFO [preflight] git remote: OK
+2026-05-14 08:00:03,150 INFO === Blog generation run: 2026-05-14 ===
+2026-05-14 08:00:03,150 INFO Generating topics (attempt 1)
+2026-05-14 08:00:13,251 WARNING claude -p failed: 
+2026-05-14 08:00:13,251 INFO Generating topics (attempt 2)
+2026-05-14 08:00:18,045 WARNING claude -p failed: 
+2026-05-14 08:00:18,045 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-15 08:00:01] Starting blog generation run
+2026-05-15 08:00:01,741 INFO [preflight] Claude CLI: OK
+2026-05-15 08:00:02,705 INFO [preflight] GitHub CLI auth: OK
+2026-05-15 08:00:02,713 INFO [preflight] git remote: OK
+2026-05-15 08:00:02,714 INFO === Blog generation run: 2026-05-15 ===
+2026-05-15 08:00:02,715 INFO Generating topics (attempt 1)
+2026-05-15 08:00:09,118 WARNING claude -p failed: 
+2026-05-15 08:00:09,118 INFO Generating topics (attempt 2)
+2026-05-15 08:00:13,939 WARNING claude -p failed: 
+2026-05-15 08:00:13,940 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-16 08:00:01] Starting blog generation run
+2026-05-16 08:00:01,677 INFO [preflight] Claude CLI: OK
+2026-05-16 08:00:02,601 INFO [preflight] GitHub CLI auth: OK
+2026-05-16 08:00:02,627 INFO [preflight] git remote: OK
+2026-05-16 08:00:02,627 INFO === Blog generation run: 2026-05-16 ===
+2026-05-16 08:00:02,628 INFO Generating topics (attempt 1)
+2026-05-16 08:00:10,363 WARNING claude -p failed: 
+2026-05-16 08:00:10,363 INFO Generating topics (attempt 2)
+2026-05-16 08:00:15,141 WARNING claude -p failed: 
+2026-05-16 08:00:15,141 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-17 08:00:01] Starting blog generation run
+2026-05-17 08:00:01,658 INFO [preflight] Claude CLI: OK
+2026-05-17 08:00:02,458 INFO [preflight] GitHub CLI auth: OK
+2026-05-17 08:00:02,462 INFO [preflight] git remote: OK
+2026-05-17 08:00:02,462 INFO === Blog generation run: 2026-05-17 ===
+2026-05-17 08:00:02,462 INFO Generating topics (attempt 1)
+2026-05-17 08:00:06,146 WARNING claude -p failed: 
+2026-05-17 08:00:06,146 INFO Generating topics (attempt 2)
+2026-05-17 08:00:09,801 WARNING claude -p failed: 
+2026-05-17 08:00:09,801 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-19 08:00:01] Starting blog generation run
+2026-05-19 08:00:01,861 INFO [preflight] Claude CLI: OK
+2026-05-19 08:00:03,103 INFO [preflight] GitHub CLI auth: OK
+2026-05-19 08:00:03,124 INFO [preflight] git remote: OK
+2026-05-19 08:00:03,125 INFO === Blog generation run: 2026-05-19 ===
+2026-05-19 08:00:03,126 INFO Generating topics (attempt 1)
+2026-05-19 08:00:10,411 WARNING claude -p failed: 
+2026-05-19 08:00:10,412 INFO Generating topics (attempt 2)
+2026-05-19 08:00:14,160 WARNING claude -p failed: 
+2026-05-19 08:00:14,160 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-20 08:00:01] Starting blog generation run
+2026-05-20 08:00:02,405 INFO [preflight] Claude CLI: OK
+2026-05-20 08:00:03,297 INFO [preflight] GitHub CLI auth: OK
+2026-05-20 08:00:03,305 INFO [preflight] git remote: OK
+2026-05-20 08:00:03,305 INFO === Blog generation run: 2026-05-20 ===
+2026-05-20 08:00:03,306 INFO Generating topics (attempt 1)
+2026-05-20 08:00:07,787 WARNING claude -p failed: 
+2026-05-20 08:00:07,787 INFO Generating topics (attempt 2)
+2026-05-20 08:00:11,489 WARNING claude -p failed: 
+2026-05-20 08:00:11,489 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-21 08:00:01] Starting blog generation run
+2026-05-21 08:00:01,961 INFO [preflight] Claude CLI: OK
+2026-05-21 08:00:02,754 INFO [preflight] GitHub CLI auth: OK
+2026-05-21 08:00:02,757 INFO [preflight] git remote: OK
+2026-05-21 08:00:02,757 INFO === Blog generation run: 2026-05-21 ===
+2026-05-21 08:00:02,757 INFO Generating topics (attempt 1)
+2026-05-21 08:00:06,444 WARNING claude -p failed: 
+2026-05-21 08:00:06,444 INFO Generating topics (attempt 2)
+2026-05-21 08:00:10,126 WARNING claude -p failed: 
+2026-05-21 08:00:10,127 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-23 08:00:01] Starting blog generation run
+2026-05-23 08:00:01,884 ERROR [preflight] Claude CLI: NOT FOUND
+2026-05-23 08:00:02,760 INFO [preflight] GitHub CLI auth: OK
+2026-05-23 08:00:02,771 INFO [preflight] git remote: OK
+2026-05-23 08:00:02,771 ERROR Pre-flight failed — aborting
+[2026-05-24 08:00:01] Starting blog generation run
+2026-05-24 08:00:01,978 ERROR [preflight] Claude CLI: NOT FOUND
+2026-05-24 08:00:02,865 INFO [preflight] GitHub CLI auth: OK
+2026-05-24 08:00:02,875 INFO [preflight] git remote: OK
+2026-05-24 08:00:02,876 ERROR Pre-flight failed — aborting
+[2026-05-26 09:57:20] Starting blog generation run
+2026-05-26 09:57:20,673 ERROR [preflight] Claude CLI: NOT FOUND
+2026-05-26 09:57:30,693 WARNING [preflight] GitHub CLI auth: NOT FOUND
+2026-05-26 09:57:30,723 INFO [preflight] git remote: OK
+2026-05-26 09:57:30,723 ERROR Pre-flight failed — aborting
+[2026-05-27 09:04:48] Starting blog generation run
+2026-05-27 09:04:48,829 ERROR [preflight] Claude CLI: NOT FOUND
+2026-05-27 09:04:49,391 INFO [preflight] GitHub CLI auth: OK
+2026-05-27 09:04:49,394 INFO [preflight] git remote: OK
+2026-05-27 09:04:49,394 ERROR Pre-flight failed — aborting
+[2026-05-30 08:00:01] Starting blog generation run
+2026-05-30 08:00:02,053 INFO [preflight] Claude CLI: OK
+2026-05-30 08:00:02,720 INFO [preflight] GitHub CLI auth: OK
+2026-05-30 08:00:02,724 INFO [preflight] git remote: OK
+2026-05-30 08:00:02,724 INFO === Blog generation run: 2026-05-30 ===
+2026-05-30 08:00:02,724 INFO Generating topics (attempt 1)
+2026-05-30 08:00:05,244 WARNING claude -p failed: 
+2026-05-30 08:00:05,244 INFO Generating topics (attempt 2)
+2026-05-30 08:00:07,568 WARNING claude -p failed: 
+2026-05-30 08:00:07,569 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-05-31 08:00:01] Starting blog generation run
+2026-05-31 08:00:01,892 INFO [preflight] Claude CLI: OK
+2026-05-31 08:00:02,496 INFO [preflight] GitHub CLI auth: OK
+2026-05-31 08:00:02,500 INFO [preflight] git remote: OK
+2026-05-31 08:00:02,501 INFO === Blog generation run: 2026-05-31 ===
+2026-05-31 08:00:02,501 INFO Generating topics (attempt 1)
+2026-05-31 08:00:04,576 WARNING claude -p failed: 
+2026-05-31 08:00:04,577 INFO Generating topics (attempt 2)
+2026-05-31 08:00:06,277 WARNING claude -p failed: 
+2026-05-31 08:00:06,277 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-01 08:00:01] Starting blog generation run
+2026-06-01 08:00:02,120 INFO [preflight] Claude CLI: OK
+2026-06-01 08:00:02,855 INFO [preflight] GitHub CLI auth: OK
+2026-06-01 08:00:02,862 INFO [preflight] git remote: OK
+2026-06-01 08:00:02,863 INFO === Blog generation run: 2026-06-01 ===
+2026-06-01 08:00:02,863 INFO Generating topics (attempt 1)
+2026-06-01 08:00:05,235 WARNING claude -p failed: 
+2026-06-01 08:00:05,235 INFO Generating topics (attempt 2)
+2026-06-01 08:00:07,215 WARNING claude -p failed: 
+2026-06-01 08:00:07,215 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-02 08:00:01] Starting blog generation run
+2026-06-02 08:00:01,787 INFO [preflight] Claude CLI: OK
+2026-06-02 08:00:02,436 INFO [preflight] GitHub CLI auth: OK
+2026-06-02 08:00:02,441 INFO [preflight] git remote: OK
+2026-06-02 08:00:02,441 INFO === Blog generation run: 2026-06-02 ===
+2026-06-02 08:00:02,442 INFO Generating topics (attempt 1)
+2026-06-02 08:00:04,436 WARNING claude -p failed: 
+2026-06-02 08:00:04,436 INFO Generating topics (attempt 2)
+2026-06-02 08:00:06,587 WARNING claude -p failed: 
+2026-06-02 08:00:06,587 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-03 08:00:01] Starting blog generation run
+2026-06-03 08:00:02,368 INFO [preflight] Claude CLI: OK
+2026-06-03 08:00:03,423 INFO [preflight] GitHub CLI auth: OK
+2026-06-03 08:00:03,437 INFO [preflight] git remote: OK
+2026-06-03 08:00:03,438 INFO === Blog generation run: 2026-06-03 ===
+2026-06-03 08:00:03,438 INFO Generating topics (attempt 1)
+2026-06-03 08:00:13,283 WARNING claude -p failed: 
+2026-06-03 08:00:13,283 INFO Generating topics (attempt 2)
+2026-06-03 08:00:14,878 WARNING claude -p failed: 
+2026-06-03 08:00:14,878 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-05 08:00:01] Starting blog generation run
+2026-06-05 08:00:01,651 INFO [preflight] Claude CLI: OK
+2026-06-05 08:00:02,523 INFO [preflight] GitHub CLI auth: OK
+2026-06-05 08:00:02,538 INFO [preflight] git remote: OK
+2026-06-05 08:00:02,539 INFO === Blog generation run: 2026-06-05 ===
+2026-06-05 08:00:02,539 INFO Generating topics (attempt 1)
+2026-06-05 08:00:04,813 WARNING claude -p failed: 
+2026-06-05 08:00:04,813 INFO Generating topics (attempt 2)
+2026-06-05 08:00:06,390 WARNING claude -p failed: 
+2026-06-05 08:00:06,390 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-06 08:00:01] Starting blog generation run
+2026-06-06 08:00:01,808 INFO [preflight] Claude CLI: OK
+2026-06-06 08:00:02,615 INFO [preflight] GitHub CLI auth: OK
+2026-06-06 08:00:02,618 INFO [preflight] git remote: OK
+2026-06-06 08:00:02,618 INFO === Blog generation run: 2026-06-06 ===
+2026-06-06 08:00:02,618 INFO Generating topics (attempt 1)
+2026-06-06 08:00:05,000 WARNING claude -p failed: 
+2026-06-06 08:00:05,000 INFO Generating topics (attempt 2)
+2026-06-06 08:00:06,701 WARNING claude -p failed: 
+2026-06-06 08:00:06,701 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-08 08:00:01] Starting blog generation run
+2026-06-08 08:00:01,808 INFO [preflight] Claude CLI: OK
+2026-06-08 08:00:02,869 INFO [preflight] GitHub CLI auth: OK
+2026-06-08 08:00:02,889 INFO [preflight] git remote: OK
+2026-06-08 08:00:02,890 INFO === Blog generation run: 2026-06-08 ===
+2026-06-08 08:00:02,891 INFO Generating topics (attempt 1)
+2026-06-08 08:00:05,144 WARNING claude -p failed: 
+2026-06-08 08:00:05,144 INFO Generating topics (attempt 2)
+2026-06-08 08:00:06,829 WARNING claude -p failed: 
+2026-06-08 08:00:06,830 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-09 08:00:01] Starting blog generation run
+2026-06-09 08:00:02,134 INFO [preflight] Claude CLI: OK
+2026-06-09 08:00:03,052 INFO [preflight] GitHub CLI auth: OK
+2026-06-09 08:00:03,058 INFO [preflight] git remote: OK
+2026-06-09 08:00:03,058 INFO === Blog generation run: 2026-06-09 ===
+2026-06-09 08:00:03,059 INFO Generating topics (attempt 1)
+2026-06-09 08:00:06,046 WARNING claude -p failed: 
+2026-06-09 08:00:06,046 INFO Generating topics (attempt 2)
+2026-06-09 08:00:07,766 WARNING claude -p failed: 
+2026-06-09 08:00:07,766 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-10 08:00:01] Starting blog generation run
+2026-06-10 08:00:02,098 INFO [preflight] Claude CLI: OK
+2026-06-10 08:00:02,975 INFO [preflight] GitHub CLI auth: OK
+2026-06-10 08:00:02,977 INFO [preflight] git remote: OK
+2026-06-10 08:00:02,977 INFO === Blog generation run: 2026-06-10 ===
+2026-06-10 08:00:02,980 INFO Generating topics (attempt 1)
+2026-06-10 08:00:04,940 WARNING claude -p failed: 
+2026-06-10 08:00:04,940 INFO Generating topics (attempt 2)
+2026-06-10 08:00:06,852 WARNING claude -p failed: 
+2026-06-10 08:00:06,852 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-11 08:00:01] Starting blog generation run
+2026-06-11 08:00:02,111 INFO [preflight] Claude CLI: OK
+2026-06-11 08:00:03,170 INFO [preflight] GitHub CLI auth: OK
+2026-06-11 08:00:03,172 INFO [preflight] git remote: OK
+2026-06-11 08:00:03,172 INFO === Blog generation run: 2026-06-11 ===
+2026-06-11 08:00:03,174 INFO Generating topics (attempt 1)
+2026-06-11 08:00:06,994 WARNING claude -p failed: 
+2026-06-11 08:00:06,995 INFO Generating topics (attempt 2)
+2026-06-11 08:00:08,732 WARNING claude -p failed: 
+2026-06-11 08:00:08,732 ERROR Topic generation failed: Topic generation failed after 2 attempts
+[2026-06-12 08:00:01] Starting blog generation run
+2026-06-12 08:00:02,035 ERROR [preflight] Claude CLI: NOT FOUND
+2026-06-12 08:00:03,825 INFO [preflight] GitHub CLI auth: OK
+2026-06-12 08:00:03,830 INFO [preflight] git remote: OK
+2026-06-12 08:00:03,831 ERROR Pre-flight failed — aborting

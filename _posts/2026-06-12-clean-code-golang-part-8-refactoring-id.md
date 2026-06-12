@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code dengan Go — Part 8: Refactoring — Perbaiki Tanpa Merusak"
-date: 2026-07-10
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Refactoring tanpa test adalah judi. Pelajari teknik refactoring yang aman dan terapkan Boy Scout Rule di setiap commit Anda."
 ---

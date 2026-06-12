@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code with Go — Part 4: Comments Done Right"
-date: 2026-06-26
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Good comments explain WHY, not WHAT. Learn when to comment and when to let the code speak for itself."
 ---

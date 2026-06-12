@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code dengan Go — Part 5: Error Handling yang Bermartabat"
-date: 2026-06-30
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Error adalah warga kelas satu di Go. Pelajari cara handle error dengan benar: wrapping, sentinel errors, dan propagasi yang bersih."
 ---

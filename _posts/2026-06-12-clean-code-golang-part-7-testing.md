@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code with Go — Part 7: Testing as Documentation"
-date: 2026-07-07
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Good tests are documentation that never lies. Learn table-driven tests and how to write meaningful tests in Go."
 ---

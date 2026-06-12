@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code dengan Go — Part 7: Testing sebagai Dokumentasi"
-date: 2026-07-07
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Test yang baik adalah dokumentasi yang tidak pernah berbohong. Pelajari table-driven tests dan cara menulis test yang bermakna di Go."
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code dengan Go — Part 3: Fungsi Bersih & Tanggung Jawab Tunggal"
-date: 2026-06-23
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Fungsi yang baik hanya melakukan satu hal. Pelajari cara menulis fungsi Go yang kecil, fokus, dan mudah diuji."
 ---

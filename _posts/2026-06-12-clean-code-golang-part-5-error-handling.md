@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code with Go — Part 5: Error Handling Done Right"
-date: 2026-06-30
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Errors are first-class citizens in Go. Learn how to handle errors properly: wrapping, sentinel errors, and clean propagation."
 ---

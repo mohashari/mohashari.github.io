@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code with Go — Part 6: Code Structure & Organization"
-date: 2026-07-03
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Good project structure is the foundation of maintainable code. Learn how to organize your Go project with clean architecture."
 ---

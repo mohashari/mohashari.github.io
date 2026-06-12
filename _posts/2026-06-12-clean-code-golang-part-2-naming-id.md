@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code dengan Go — Part 2: Naming — Kode yang Berbicara Sendiri"
-date: 2026-06-19
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Nama yang baik adalah dokumentasi terbaik. Pelajari konvensi naming di Go dan cara menulis kode yang mudah dibaca."
 ---

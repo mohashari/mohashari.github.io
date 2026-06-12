@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code with Go — Part 1: Why Clean Code Matters"
-date: 2026-06-16
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices, tutorial]
 description: "Learn why clean code is not just aesthetics but a long-term investment. With real examples using Golang."
 ---

@@ -1,0 +1,599 @@
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 20, in <module>
+    import post_generator
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 72
+    idx/tmu = raw.find("---")
+    ^^^^^^^
+SyntaxError: cannot assign to expression here. Maybe you meant '==' instead of '='?
+2026-03-30 08:00:02,031 INFO [preflight] Claude CLI: OK
+2026-03-30 08:00:02,843 INFO [preflight] GitHub CLI auth: OK
+2026-03-30 08:00:02,849 INFO [preflight] git remote: OK
+2026-03-30 08:00:02,849 INFO === Blog generation run: 2026-03-30 ===
+2026-03-30 08:00:02,850 INFO Generating topics (attempt 1)
+2026-03-30 08:00:49,572 INFO Got 5 topics
+2026-03-30 08:00:49,572 INFO Topics selected: 5
+2026-03-30 08:00:49,572 INFO [1/5] raft-consensus-internals-log-replication-leader-election-membership
+2026-03-30 08:00:49,572 INFO Generating post: raft-consensus-internals-log-replication-leader-election-membership
+2026-03-30 08:03:51,798 ERROR Failed [raft-consensus-internals-log-replication-leader-election-membership]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-30 08:03:51,803 INFO [2/5] go-pprof-production-continuous-profiling-flamegraphs-memory-leaks
+2026-03-30 08:03:51,803 INFO Generating post: go-pprof-production-continuous-profiling-flamegraphs-memory-leaks
+2026-03-30 08:05:49,784 WARNING gh gist create failed: - Creating gist with multiple files
+X Failed to create gist: HTTP 502: Server Error (https://api.github.com/gists)
+
+2026-03-30 08:05:49,785 WARNING go-pprof-production-continuous-profiling-flamegraphs-memory-leaks: gist failed, keeping raw code blocks
+2026-03-30 08:05:49,788 INFO Written: 2026-03-30-go-pprof-production-continuous-profiling-flamegraphs-memory-leaks.md
+2026-03-30 08:05:49,789 INFO [3/5] falco-runtime-security-custom-rules-kubernetes-audit-siem
+2026-03-30 08:05:49,790 INFO Generating post: falco-runtime-security-custom-rules-kubernetes-audit-siem
+2026-03-30 08:07:37,075 INFO Written: 2026-03-30-falco-runtime-security-custom-rules-kubernetes-audit-siem.md
+2026-03-30 08:07:37,076 INFO [4/5] speculative-decoding-continuous-batching-llm-serving-throughput
+2026-03-30 08:07:37,076 INFO Generating post: speculative-decoding-continuous-batching-llm-serving-throughput
+2026-03-30 08:11:15,560 ERROR Failed [speculative-decoding-continuous-batching-llm-serving-throughput]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-30 08:11:15,561 INFO [5/5] rocksdb-internals-compaction-strategies-block-cache-write-path
+2026-03-30 08:11:15,561 INFO Generating post: rocksdb-internals-compaction-strategies-block-cache-write-path
+2026-03-30 08:12:53,435 INFO Written: 2026-03-30-rocksdb-internals-compaction-strategies-block-cache-write-path.md
+2026-03-30 08:12:53,436 INFO Generation complete: 3/5 succeeded, 2 failed
+2026-03-30 08:12:53,452 INFO Committed: Auto-generate 3 posts for 2026-03-30
+2026-03-30 08:12:54,968 INFO Pushed to origin/master
+2026-03-31 08:00:02,227 INFO [preflight] Claude CLI: OK
+2026-03-31 08:00:02,985 INFO [preflight] GitHub CLI auth: OK
+2026-03-31 08:00:02,995 INFO [preflight] git remote: OK
+2026-03-31 08:00:02,995 INFO === Blog generation run: 2026-03-31 ===
+2026-03-31 08:00:02,996 INFO Generating topics (attempt 1)
+2026-03-31 08:00:51,850 INFO Got 5 topics
+2026-03-31 08:00:51,850 INFO Topics selected: 5
+2026-03-31 08:00:51,850 INFO [1/5] kafka-tiered-storage-s3-offloading-cold-data-fetch-proxy
+2026-03-31 08:00:51,850 INFO Generating post: kafka-tiered-storage-s3-offloading-cold-data-fetch-proxy
+2026-03-31 08:05:06,577 ERROR Failed [kafka-tiered-storage-s3-offloading-cold-data-fetch-proxy]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-31 08:05:06,585 INFO [2/5] pgbouncer-transaction-session-pooling-prepared-statements-multiplexing
+2026-03-31 08:05:06,585 INFO Generating post: pgbouncer-transaction-session-pooling-prepared-statements-multiplexing
+2026-03-31 08:06:32,327 INFO Written: 2026-03-31-pgbouncer-transaction-session-pooling-prepared-statements-multiplexing.md
+2026-03-31 08:06:32,329 INFO [3/5] sbom-syft-grype-supply-chain-vulnerability-policy-enforcement
+2026-03-31 08:06:32,329 INFO Generating post: sbom-syft-grype-supply-chain-vulnerability-policy-enforcement
+2026-03-31 08:08:21,239 INFO Written: 2026-03-31-sbom-syft-grype-supply-chain-vulnerability-policy-enforcement.md
+2026-03-31 08:08:21,240 INFO [4/5] llm-inference-quantization-gguf-awq-gptq-production-serving
+2026-03-31 08:08:21,240 INFO Generating post: llm-inference-quantization-gguf-awq-gptq-production-serving
+2026-03-31 08:12:14,672 ERROR Failed [llm-inference-quantization-gguf-awq-gptq-production-serving]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-03-31 08:12:14,673 INFO [5/5] linux-cgroups-v2-container-memory-oom-swap-accounting
+2026-03-31 08:12:14,673 INFO Generating post: linux-cgroups-v2-container-memory-oom-swap-accounting
+2026-03-31 08:13:48,149 INFO Written: 2026-03-31-linux-cgroups-v2-container-memory-oom-swap-accounting.md
+2026-03-31 08:13:48,150 INFO Generation complete: 3/5 succeeded, 2 failed
+2026-03-31 08:13:48,210 INFO Committed: Auto-generate 3 posts for 2026-03-31
+2026-03-31 08:13:49,791 INFO Pushed to origin/master
+2026-04-01 08:00:01,288 INFO [preflight] Claude CLI: OK
+2026-04-01 08:00:03,141 INFO [preflight] GitHub CLI auth: OK
+2026-04-01 08:00:03,150 INFO [preflight] git remote: OK
+2026-04-01 08:00:03,150 INFO === Blog generation run: 2026-04-01 ===
+2026-04-01 08:00:03,151 INFO Generating topics (attempt 1)
+2026-04-01 08:00:29,440 INFO Got 5 topics
+2026-04-01 08:00:29,440 INFO Topics selected: 5
+2026-04-01 08:00:29,440 INFO [1/5] go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs
+2026-04-01 08:00:29,440 INFO Generating post: go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs
+2026-04-01 08:10:29,563 ERROR Failed [go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning\nCATEGORY: development\nDATE: 2026-04-01\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs.svg\n- Reference the diagram in the post body as: ![Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning Diagram](/images/diagrams/go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs.svg)\n- Place the diagram reference right after the opening paragraph\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning"\ndate: 2026-04-01 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--dangerously-skip-permissions', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 600 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 98, in generate
+    result = subprocess.run(
+        [
+    ...<8 lines>...
+        cwd=str(config.BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning\nCATEGORY: development\nDATE: 2026-04-01\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nDIAGRAM:\n- Include exactly one architecture diagram using the Excalidraw MCP tool\n- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON\n- Then use Bash to save the resulting SVG content to: /home/muklis/Documents/exploring/blog/images/diagrams/go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs.svg\n- Reference the diagram in the post body as: ![Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning Diagram](/images/diagrams/go-runtime-scheduler-work-stealing-goroutine-preemption-gomaxprocs.svg)\n- Place the diagram reference right after the opening paragraph\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Go Runtime Scheduler Internals: Work-Stealing, Goroutine Preemption, and GOMAXPROCS Tuning"\ndate: 2026-04-01 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--dangerously-skip-permissions', '--allowedTools', 'Bash,mcp__claude_ai_Excalidraw__export_to_excalidraw,mcp__claude_ai_Excalidraw__create_view,mcp__claude_ai_Excalidraw__save_checkpoint']' timed out after 600 seconds
+2026-04-01 08:10:29,590 INFO [2/5] distributed-rate-limiting-token-bucket-sliding-window-redis-envoy
+2026-04-01 08:10:29,590 INFO Generating post: distributed-rate-limiting-token-bucket-sliding-window-redis-envoy
+2026-04-01 08:12:12,981 INFO Written: 2026-04-01-distributed-rate-limiting-token-bucket-sliding-window-redis-envoy.md
+2026-04-01 08:12:12,983 INFO [3/5] llm-kv-cache-prefix-caching-paged-attention-vllm-throughput
+2026-04-01 08:12:12,983 INFO Generating post: llm-kv-cache-prefix-caching-paged-attention-vllm-throughput
+2026-04-01 08:17:53,498 ERROR Failed [llm-kv-cache-prefix-caching-paged-attention-vllm-throughput]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-04-01 08:17:53,499 INFO [4/5] trivy-operator-kyverno-vulnerability-scanning-admission-policy-kubernetes
+2026-04-01 08:17:53,499 INFO Generating post: trivy-operator-kyverno-vulnerability-scanning-admission-policy-kubernetes
+2026-04-01 08:24:33,573 ERROR Failed [trivy-operator-kyverno-vulnerability-scanning-admission-policy-kubernetes]: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Trivy Operator and Kyverno: Continuous Vulnerability Scanning with Admission Policy Enforcement in Kubernetes\nCATEGORY: devsecops\nDATE: 2026-04-01\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Trivy Operator and Kyverno: Continuous Vulnerability Scanning with Admission Policy Enforcement in Kubernetes"\ndate: 2026-04-01 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--dangerously-skip-permissions', '--allowedTools', 'Bash']' timed out after 400 seconds
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 98, in generate
+    result = subprocess.run(
+        [
+    ...<8 lines>...
+        cwd=str(config.BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are writing a technical blog post for Moh Ashari Muklis, a backend engineer.\n\nTOPIC: Trivy Operator and Kyverno: Continuous Vulnerability Scanning with Admission Policy Enforcement in Kubernetes\nCATEGORY: devsecops\nDATE: 2026-04-01\n\nREQUIREMENTS:\n- Write a high-quality, in-depth technical post (1500-2500 words)\n- Target audience: senior backend engineers with production experience\n- Tone: direct, opinionated, production-focused — no fluff\n- Open with a compelling paragraph about a real problem this topic solves in production\n- Use ## for section headers (no H1 in the body)\n- Be specific: give concrete numbers, name real tools, describe real failure modes\n\nCODE BLOCKS:\n- Include 4-8 fenced code blocks demonstrating key concepts\n- Start each block\'s first line with: // snippet-N (e.g. // snippet-1)\n- Use realistic, production-quality code — not toy examples\n- Each snippet should be self-contained and immediately useful\n- Use the actual language tag (go, python, yaml, bash, sql, etc.)\n\nOUTPUT FORMAT:\nOutput ONLY the complete Jekyll post starting with frontmatter. No text before or after.\n\n---\nlayout: post\ntitle: "Trivy Operator and Kyverno: Continuous Vulnerability Scanning with Admission Policy Enforcement in Kubernetes"\ndate: 2026-04-01 08:00:00 +0700\ntags: [pick 3-5 relevant tags]\ndescription: "One-sentence description under 160 characters"\nimage: ""\nthumbnail: ""\n---\n\n[post body here]\n', '--output-format', 'text', '--dangerously-skip-permissions', '--allowedTools', 'Bash']' timed out after 400 seconds
+2026-04-01 08:24:33,577 INFO [5/5] linux-io-uring-submission-queue-completion-ring-zero-copy-networking
+2026-04-01 08:24:33,577 INFO Generating post: linux-io-uring-submission-queue-completion-ring-zero-copy-networking
+2026-04-01 08:28:19,086 ERROR Failed [linux-io-uring-submission-queue-completion-ring-zero-copy-networking]: Output missing frontmatter delimiter
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 131, in run
+    content = self.post_gen.generate(topic, date_str)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 120, in generate
+    return strip_preamble(output)
+  File "/home/muklis/Documents/exploring/blog/scripts/post_generator.py", line 74, in strip_preamble
+    raise PostGenerationError("Output missing frontmatter delimiter")
+post_generator.PostGenerationError: Output missing frontmatter delimiter
+2026-04-01 08:28:19,087 INFO Generation complete: 1/5 succeeded, 4 failed
+2026-04-01 08:28:19,103 INFO Committed: Auto-generate 1 posts for 2026-04-01
+2026-04-01 08:28:20,852 INFO Pushed to origin/master
+2026-04-02 08:00:01,903 INFO [preflight] Claude CLI: OK
+2026-04-02 08:00:01,964 INFO [preflight] GitHub CLI auth: OK
+2026-04-02 08:00:01,966 INFO [preflight] git remote: OK
+2026-04-02 08:00:01,966 INFO === Blog generation run: 2026-04-02 ===
+2026-04-02 08:00:01,966 INFO Generating topics (attempt 1)
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 195, in <module>
+    sys.exit(orchestrator.run())
+             ~~~~~~~~~~~~~~~~^^
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 114, in run
+    topics = self.topic_gen.generate(past_slugs)
+  File "/home/muklis/Documents/exploring/blog/scripts/topic_generator.py", line 64, in generate
+    result = subprocess.run(
+        ["claude", "-p", prompt, "--output-format", "text", "--dangerously-skip-permissions"],
+    ...<3 lines>...
+        cwd=str(config.BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are selecting technical blog post topics for a backend engineering blog.\n\nGenerate exactly 5 topics as a JSON array. Requirements:\n- Distribute across these categories: software_engineering, development, devsecops, ai_engineering\n- Target: senior backend engineers with production experience\n- Be specific: \'PostgreSQL WAL internals\' not \'Introduction to Databases\'\n- Avoid these already-published slugs: hybrid-search-dense-sparse-retrieval, kubernetes-hpa-vpa-autoscaling, streaming-llm-responses-sse, redis-data-structures-advanced, knowledge-graph-rag-enhancement, mlflow-model-registry-deployment, nginx-configuration-performance, vector-search-filtering-metadata, dependency-updates-renovate-security, reranking-retrieval-cohere, protobuf-schema-evolution, redis-cluster-sharding, rest-api-design-principles, fine-tuning-llm-domain-specific, postgresql-partitioning-strategies, incident-response-runbooks-automation, postgresql-jsonb-performance, llm-cost-optimization-strategies, postgresql-wal-internals-durability, ebpf-production-observability-tracing, temporal-workflow-orchestration-durable-execution, structured-outputs-json-schema-llm-pipelines, crdts-distributed-state-conflict-free, tool-use-function-calling-llm-agents, grpc-bidirectional-streaming-backpressure, postgresql-query-planner-statistics-costs, rust-async-tokio-task-scheduling-waker, slsa-supply-chain-security-provenance, llm-structured-extraction-batching-schema, write-ahead-log-storage-engines-compared, kafka-consumer-group-rebalancing-cooperative-sticky, opentelemetry-sampling-strategies-high-throughput, sigstore-keyless-signing-cicd-pipelines, postgresql-logical-replication-slot-management-backpressure, postgresql-index-types-btree-gin-gist-brin, opa-rego-kubernetes-admission-controllers, rag-evaluation-ragas-metrics-offline-testing, go-memory-model-happens-before-concurrent-data-structures, kubernetes-admission-webhooks-mutating-validating-go, llm-prompt-caching-anthropic-openai-high-throughput, vault-dynamic-secrets-rotation-zero-downtime-lease-renewal, ebpf-network-policy-kubernetes-no-sidecar, kafka-exactly-once-semantics-transactions-idempotent, go-pprof-production-continuous-profiling-flamegraphs-memory-leaks, falco-runtime-security-custom-rules-kubernetes-audit-siem, rocksdb-internals-compaction-strategies-block-cache-write-path, pgbouncer-transaction-session-pooling-prepared-statements-multiplexing, sbom-syft-grype-supply-chain-vulnerability-policy-enforcement, linux-cgroups-v2-container-memory-oom-swap-accounting, distributed-rate-limiting-token-bucket-sliding-window-redis-envoy\n\nReturn ONLY valid JSON, no other text:\n[{"title": "...", "slug": "...", "category": "...", "needs_code": true, "needs_diagram": false}, ...]', '--output-format', 'text', '--dangerously-skip-permissions']' timed out after 120 seconds
+2026-04-06 08:00:01,677 INFO [preflight] Claude CLI: OK
+2026-04-06 08:00:02,532 INFO [preflight] GitHub CLI auth: OK
+2026-04-06 08:00:02,540 INFO [preflight] git remote: OK
+2026-04-06 08:00:02,541 INFO === Blog generation run: 2026-04-06 ===
+2026-04-06 08:00:02,542 INFO Generating topics (attempt 1)
+2026-04-06 08:00:06,881 WARNING claude -p failed: 
+2026-04-06 08:00:06,881 INFO Generating topics (attempt 2)
+2026-04-06 08:00:12,745 WARNING claude -p failed: 
+2026-04-06 08:00:12,745 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-04-07 08:00:01,745 INFO [preflight] Claude CLI: OK
+2026-04-07 08:00:02,498 INFO [preflight] GitHub CLI auth: OK
+2026-04-07 08:00:02,504 INFO [preflight] git remote: OK
+2026-04-07 08:00:02,505 INFO === Blog generation run: 2026-04-07 ===
+2026-04-07 08:00:02,507 INFO Generating topics (attempt 1)
+2026-04-07 08:00:06,824 WARNING claude -p failed: 
+2026-04-07 08:00:06,824 INFO Generating topics (attempt 2)
+2026-04-07 08:00:15,335 WARNING claude -p failed: 
+2026-04-07 08:00:15,335 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-04-13 08:00:01,254 INFO [preflight] Claude CLI: OK
+2026-04-13 08:00:02,066 INFO [preflight] GitHub CLI auth: OK
+2026-04-13 08:00:02,077 INFO [preflight] git remote: OK
+2026-04-13 08:00:02,078 INFO === Blog generation run: 2026-04-13 ===
+2026-04-13 08:00:02,079 INFO Generating topics (attempt 1)
+2026-04-13 08:00:11,512 WARNING claude -p failed: 
+2026-04-13 08:00:11,512 INFO Generating topics (attempt 2)
+2026-04-13 08:00:19,365 WARNING claude -p failed: 
+2026-04-13 08:00:19,366 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-04-14 08:00:01,371 INFO [preflight] Claude CLI: OK
+2026-04-14 08:00:03,287 INFO [preflight] GitHub CLI auth: OK
+2026-04-14 08:00:03,295 INFO [preflight] git remote: OK
+2026-04-14 08:00:03,295 INFO === Blog generation run: 2026-04-14 ===
+2026-04-14 08:00:03,296 INFO Generating topics (attempt 1)
+2026-04-14 08:00:07,522 WARNING claude -p failed: 
+2026-04-14 08:00:07,522 INFO Generating topics (attempt 2)
+2026-04-14 08:00:16,039 WARNING claude -p failed: 
+2026-04-14 08:00:16,039 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-04-17 08:00:02,634 INFO [preflight] Claude CLI: OK
+2026-04-17 08:00:03,458 INFO [preflight] GitHub CLI auth: OK
+2026-04-17 08:00:03,473 INFO [preflight] git remote: OK
+2026-04-17 08:00:03,473 INFO === Blog generation run: 2026-04-17 ===
+2026-04-17 08:00:03,474 INFO Generating topics (attempt 1)
+2026-04-17 08:00:09,928 WARNING claude -p failed: 
+2026-04-17 08:00:09,928 INFO Generating topics (attempt 2)
+2026-04-17 08:00:19,027 WARNING claude -p failed: 
+2026-04-17 08:00:19,028 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-04-18 09:39:18,734 INFO [preflight] Claude CLI: OK
+2026-04-18 09:39:19,377 INFO [preflight] GitHub CLI auth: OK
+2026-04-18 09:39:19,378 INFO [preflight] git remote: OK
+2026-04-18 09:39:19,379 INFO === Blog generation run: 2026-04-18 ===
+2026-04-18 09:39:19,379 INFO Generating topics (attempt 1)
+2026-04-18 09:39:23,667 WARNING claude -p failed: 
+2026-04-18 09:39:23,667 INFO Generating topics (attempt 2)
+2026-04-18 09:39:34,101 WARNING claude -p failed: 
+2026-04-18 09:39:34,102 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-04-25 08:00:02,142 INFO [preflight] Claude CLI: OK
+2026-04-25 08:00:03,478 INFO [preflight] GitHub CLI auth: OK
+2026-04-25 08:00:03,490 INFO [preflight] git remote: OK
+2026-04-25 08:00:03,490 INFO === Blog generation run: 2026-04-25 ===
+2026-04-25 08:00:03,491 INFO Generating topics (attempt 1)
+2026-04-25 08:00:12,759 WARNING claude -p failed: 
+2026-04-25 08:00:12,759 INFO Generating topics (attempt 2)
+2026-04-25 08:00:21,396 WARNING claude -p failed: 
+2026-04-25 08:00:21,396 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-04-27 08:00:02,024 INFO [preflight] Claude CLI: OK
+2026-04-27 08:00:12,042 WARNING [preflight] GitHub CLI auth: NOT FOUND
+2026-04-27 08:00:12,048 INFO [preflight] git remote: OK
+2026-04-27 08:00:12,049 INFO === Blog generation run: 2026-04-27 ===
+2026-04-27 08:00:12,050 INFO Generating topics (attempt 1)
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 195, in <module>
+    sys.exit(orchestrator.run())
+             ~~~~~~~~~~~~~~~~^^
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 114, in run
+    topics = self.topic_gen.generate(past_slugs)
+  File "/home/muklis/Documents/exploring/blog/scripts/topic_generator.py", line 64, in generate
+    result = subprocess.run(
+        ["claude", "-p", prompt, "--output-format", "text", "--dangerously-skip-permissions"],
+    ...<3 lines>...
+        cwd=str(config.BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are selecting technical blog post topics for a backend engineering blog.\n\nGenerate exactly 5 topics as a JSON array. Requirements:\n- Distribute across these categories: software_engineering, development, devsecops, ai_engineering\n- Target: senior backend engineers with production experience\n- Be specific: \'PostgreSQL WAL internals\' not \'Introduction to Databases\'\n- Avoid these already-published slugs: hybrid-search-dense-sparse-retrieval, kubernetes-hpa-vpa-autoscaling, streaming-llm-responses-sse, redis-data-structures-advanced, knowledge-graph-rag-enhancement, mlflow-model-registry-deployment, nginx-configuration-performance, vector-search-filtering-metadata, dependency-updates-renovate-security, reranking-retrieval-cohere, protobuf-schema-evolution, redis-cluster-sharding, rest-api-design-principles, fine-tuning-llm-domain-specific, postgresql-partitioning-strategies, incident-response-runbooks-automation, postgresql-jsonb-performance, llm-cost-optimization-strategies, postgresql-wal-internals-durability, ebpf-production-observability-tracing, temporal-workflow-orchestration-durable-execution, structured-outputs-json-schema-llm-pipelines, crdts-distributed-state-conflict-free, tool-use-function-calling-llm-agents, grpc-bidirectional-streaming-backpressure, postgresql-query-planner-statistics-costs, rust-async-tokio-task-scheduling-waker, slsa-supply-chain-security-provenance, llm-structured-extraction-batching-schema, write-ahead-log-storage-engines-compared, kafka-consumer-group-rebalancing-cooperative-sticky, opentelemetry-sampling-strategies-high-throughput, sigstore-keyless-signing-cicd-pipelines, postgresql-logical-replication-slot-management-backpressure, postgresql-index-types-btree-gin-gist-brin, opa-rego-kubernetes-admission-controllers, rag-evaluation-ragas-metrics-offline-testing, go-memory-model-happens-before-concurrent-data-structures, kubernetes-admission-webhooks-mutating-validating-go, llm-prompt-caching-anthropic-openai-high-throughput, vault-dynamic-secrets-rotation-zero-downtime-lease-renewal, ebpf-network-policy-kubernetes-no-sidecar, kafka-exactly-once-semantics-transactions-idempotent, go-pprof-production-continuous-profiling-flamegraphs-memory-leaks, falco-runtime-security-custom-rules-kubernetes-audit-siem, rocksdb-internals-compaction-strategies-block-cache-write-path, pgbouncer-transaction-session-pooling-prepared-statements-multiplexing, sbom-syft-grype-supply-chain-vulnerability-policy-enforcement, linux-cgroups-v2-container-memory-oom-swap-accounting, distributed-rate-limiting-token-bucket-sliding-window-redis-envoy\n\nReturn ONLY valid JSON, no other text:\n[{"title": "...", "slug": "...", "category": "...", "needs_code": true, "needs_diagram": false}, ...]', '--output-format', 'text', '--dangerously-skip-permissions']' timed out after 120 seconds
+2026-04-29 08:00:01,326 INFO [preflight] Claude CLI: OK
+2026-04-29 08:00:03,343 INFO [preflight] GitHub CLI auth: OK
+2026-04-29 08:00:03,352 INFO [preflight] git remote: OK
+2026-04-29 08:00:03,353 INFO === Blog generation run: 2026-04-29 ===
+2026-04-29 08:00:03,354 INFO Generating topics (attempt 1)
+2026-04-29 08:00:12,477 WARNING claude -p failed: 
+2026-04-29 08:00:12,478 INFO Generating topics (attempt 2)
+2026-04-29 08:00:20,991 WARNING claude -p failed: 
+2026-04-29 08:00:20,991 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-04-30 08:00:01,908 INFO [preflight] Claude CLI: OK
+2026-04-30 08:00:02,490 INFO [preflight] GitHub CLI auth: OK
+2026-04-30 08:00:02,492 INFO [preflight] git remote: OK
+2026-04-30 08:00:02,492 INFO === Blog generation run: 2026-04-30 ===
+2026-04-30 08:00:02,493 INFO Generating topics (attempt 1)
+2026-04-30 08:00:11,934 WARNING claude -p failed: 
+2026-04-30 08:00:11,934 INFO Generating topics (attempt 2)
+2026-04-30 08:00:17,334 WARNING claude -p failed: 
+2026-04-30 08:00:17,334 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-05 08:00:01,680 INFO [preflight] Claude CLI: OK
+2026-05-05 08:00:03,050 INFO [preflight] GitHub CLI auth: OK
+2026-05-05 08:00:03,060 INFO [preflight] git remote: OK
+2026-05-05 08:00:03,060 INFO === Blog generation run: 2026-05-05 ===
+2026-05-05 08:00:03,061 INFO Generating topics (attempt 1)
+2026-05-05 08:00:12,691 WARNING claude -p failed: 
+2026-05-05 08:00:12,691 INFO Generating topics (attempt 2)
+2026-05-05 08:00:21,417 WARNING claude -p failed: 
+2026-05-05 08:00:21,417 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-06 08:00:01,769 INFO [preflight] Claude CLI: OK
+2026-05-06 08:00:03,050 INFO [preflight] GitHub CLI auth: OK
+2026-05-06 08:00:03,056 INFO [preflight] git remote: OK
+2026-05-06 08:00:03,057 INFO === Blog generation run: 2026-05-06 ===
+2026-05-06 08:00:03,057 INFO Generating topics (attempt 1)
+2026-05-06 08:00:08,835 WARNING claude -p failed: 
+2026-05-06 08:00:08,835 INFO Generating topics (attempt 2)
+2026-05-06 08:00:13,870 WARNING claude -p failed: 
+2026-05-06 08:00:13,871 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-08 08:00:01,475 INFO [preflight] Claude CLI: OK
+2026-05-08 08:00:02,191 INFO [preflight] GitHub CLI auth: OK
+2026-05-08 08:00:02,196 INFO [preflight] git remote: OK
+2026-05-08 08:00:02,196 INFO === Blog generation run: 2026-05-08 ===
+2026-05-08 08:00:02,196 INFO Generating topics (attempt 1)
+2026-05-08 08:00:09,371 WARNING claude -p failed: 
+2026-05-08 08:00:09,371 INFO Generating topics (attempt 2)
+2026-05-08 08:00:14,314 WARNING claude -p failed: 
+2026-05-08 08:00:14,315 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-09 08:00:01,413 INFO [preflight] Claude CLI: OK
+2026-05-09 08:00:02,028 INFO [preflight] GitHub CLI auth: OK
+2026-05-09 08:00:02,045 INFO [preflight] git remote: OK
+2026-05-09 08:00:02,046 INFO === Blog generation run: 2026-05-09 ===
+2026-05-09 08:00:02,047 INFO Generating topics (attempt 1)
+Traceback (most recent call last):
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 195, in <module>
+    sys.exit(orchestrator.run())
+             ~~~~~~~~~~~~~~~~^^
+  File "/home/muklis/Documents/exploring/blog/scripts/orchestrator.py", line 114, in run
+    topics = self.topic_gen.generate(past_slugs)
+  File "/home/muklis/Documents/exploring/blog/scripts/topic_generator.py", line 64, in generate
+    result = subprocess.run(
+        ["claude", "-p", prompt, "--output-format", "text", "--dangerously-skip-permissions"],
+    ...<3 lines>...
+        cwd=str(config.BLOG_DIR),
+    )
+  File "/usr/lib/python3.13/subprocess.py", line 556, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1222, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 2129, in _communicate
+    self._check_timeout(endtime, orig_timeout, stdout, stderr)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/subprocess.py", line 1269, in _check_timeout
+    raise TimeoutExpired(
+    ...<2 lines>...
+            stderr=b''.join(stderr_seq) if stderr_seq else None)
+subprocess.TimeoutExpired: Command '['claude', '-p', 'You are selecting technical blog post topics for a backend engineering blog.\n\nGenerate exactly 5 topics as a JSON array. Requirements:\n- Distribute across these categories: software_engineering, development, devsecops, ai_engineering\n- Target: senior backend engineers with production experience\n- Be specific: \'PostgreSQL WAL internals\' not \'Introduction to Databases\'\n- Avoid these already-published slugs: hybrid-search-dense-sparse-retrieval, kubernetes-hpa-vpa-autoscaling, streaming-llm-responses-sse, redis-data-structures-advanced, knowledge-graph-rag-enhancement, mlflow-model-registry-deployment, nginx-configuration-performance, vector-search-filtering-metadata, dependency-updates-renovate-security, reranking-retrieval-cohere, protobuf-schema-evolution, redis-cluster-sharding, rest-api-design-principles, fine-tuning-llm-domain-specific, postgresql-partitioning-strategies, incident-response-runbooks-automation, postgresql-jsonb-performance, llm-cost-optimization-strategies, postgresql-wal-internals-durability, ebpf-production-observability-tracing, temporal-workflow-orchestration-durable-execution, structured-outputs-json-schema-llm-pipelines, crdts-distributed-state-conflict-free, tool-use-function-calling-llm-agents, grpc-bidirectional-streaming-backpressure, postgresql-query-planner-statistics-costs, rust-async-tokio-task-scheduling-waker, slsa-supply-chain-security-provenance, llm-structured-extraction-batching-schema, write-ahead-log-storage-engines-compared, kafka-consumer-group-rebalancing-cooperative-sticky, opentelemetry-sampling-strategies-high-throughput, sigstore-keyless-signing-cicd-pipelines, postgresql-logical-replication-slot-management-backpressure, postgresql-index-types-btree-gin-gist-brin, opa-rego-kubernetes-admission-controllers, rag-evaluation-ragas-metrics-offline-testing, go-memory-model-happens-before-concurrent-data-structures, kubernetes-admission-webhooks-mutating-validating-go, llm-prompt-caching-anthropic-openai-high-throughput, vault-dynamic-secrets-rotation-zero-downtime-lease-renewal, ebpf-network-policy-kubernetes-no-sidecar, kafka-exactly-once-semantics-transactions-idempotent, go-pprof-production-continuous-profiling-flamegraphs-memory-leaks, falco-runtime-security-custom-rules-kubernetes-audit-siem, rocksdb-internals-compaction-strategies-block-cache-write-path, pgbouncer-transaction-session-pooling-prepared-statements-multiplexing, sbom-syft-grype-supply-chain-vulnerability-policy-enforcement, linux-cgroups-v2-container-memory-oom-swap-accounting, distributed-rate-limiting-token-bucket-sliding-window-redis-envoy\n\nReturn ONLY valid JSON, no other text:\n[{"title": "...", "slug": "...", "category": "...", "needs_code": true, "needs_diagram": false}, ...]', '--output-format', 'text', '--dangerously-skip-permissions']' timed out after 120 seconds
+2026-05-10 08:00:01,642 INFO [preflight] Claude CLI: OK
+2026-05-10 08:00:02,555 INFO [preflight] GitHub CLI auth: OK
+2026-05-10 08:00:02,566 INFO [preflight] git remote: OK
+2026-05-10 08:00:02,566 INFO === Blog generation run: 2026-05-10 ===
+2026-05-10 08:00:02,568 INFO Generating topics (attempt 1)
+2026-05-10 08:00:08,472 WARNING claude -p failed: 
+2026-05-10 08:00:08,473 INFO Generating topics (attempt 2)
+2026-05-10 08:00:13,329 WARNING claude -p failed: 
+2026-05-10 08:00:13,329 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-11 08:00:02,303 INFO [preflight] Claude CLI: OK
+2026-05-11 08:00:03,297 INFO [preflight] GitHub CLI auth: OK
+2026-05-11 08:00:03,315 INFO [preflight] git remote: OK
+2026-05-11 08:00:03,315 INFO === Blog generation run: 2026-05-11 ===
+2026-05-11 08:00:03,316 INFO Generating topics (attempt 1)
+2026-05-11 08:00:11,024 WARNING claude -p failed: 
+2026-05-11 08:00:11,024 INFO Generating topics (attempt 2)
+2026-05-11 08:00:15,565 WARNING claude -p failed: 
+2026-05-11 08:00:15,565 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-12 08:00:01,706 INFO [preflight] Claude CLI: OK
+2026-05-12 08:00:02,620 INFO [preflight] GitHub CLI auth: OK
+2026-05-12 08:00:02,627 INFO [preflight] git remote: OK
+2026-05-12 08:00:02,627 INFO === Blog generation run: 2026-05-12 ===
+2026-05-12 08:00:02,628 INFO Generating topics (attempt 1)
+2026-05-12 08:00:09,303 WARNING claude -p failed: 
+2026-05-12 08:00:09,303 INFO Generating topics (attempt 2)
+2026-05-12 08:00:14,006 WARNING claude -p failed: 
+2026-05-12 08:00:14,006 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-13 08:00:02,140 INFO [preflight] Claude CLI: OK
+2026-05-13 08:00:03,058 INFO [preflight] GitHub CLI auth: OK
+2026-05-13 08:00:03,064 INFO [preflight] git remote: OK
+2026-05-13 08:00:03,064 INFO === Blog generation run: 2026-05-13 ===
+2026-05-13 08:00:03,065 INFO Generating topics (attempt 1)
+2026-05-13 08:00:10,150 WARNING claude -p failed: 
+2026-05-13 08:00:10,150 INFO Generating topics (attempt 2)
+2026-05-13 08:00:14,842 WARNING claude -p failed: 
+2026-05-13 08:00:14,842 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-14 08:00:01,958 INFO [preflight] Claude CLI: OK
+2026-05-14 08:00:03,145 INFO [preflight] GitHub CLI auth: OK
+2026-05-14 08:00:03,150 INFO [preflight] git remote: OK
+2026-05-14 08:00:03,150 INFO === Blog generation run: 2026-05-14 ===
+2026-05-14 08:00:03,150 INFO Generating topics (attempt 1)
+2026-05-14 08:00:13,251 WARNING claude -p failed: 
+2026-05-14 08:00:13,251 INFO Generating topics (attempt 2)
+2026-05-14 08:00:18,045 WARNING claude -p failed: 
+2026-05-14 08:00:18,045 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-15 08:00:01,741 INFO [preflight] Claude CLI: OK
+2026-05-15 08:00:02,705 INFO [preflight] GitHub CLI auth: OK
+2026-05-15 08:00:02,713 INFO [preflight] git remote: OK
+2026-05-15 08:00:02,714 INFO === Blog generation run: 2026-05-15 ===
+2026-05-15 08:00:02,715 INFO Generating topics (attempt 1)
+2026-05-15 08:00:09,118 WARNING claude -p failed: 
+2026-05-15 08:00:09,118 INFO Generating topics (attempt 2)
+2026-05-15 08:00:13,939 WARNING claude -p failed: 
+2026-05-15 08:00:13,940 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-16 08:00:01,677 INFO [preflight] Claude CLI: OK
+2026-05-16 08:00:02,601 INFO [preflight] GitHub CLI auth: OK
+2026-05-16 08:00:02,627 INFO [preflight] git remote: OK
+2026-05-16 08:00:02,627 INFO === Blog generation run: 2026-05-16 ===
+2026-05-16 08:00:02,628 INFO Generating topics (attempt 1)
+2026-05-16 08:00:10,363 WARNING claude -p failed: 
+2026-05-16 08:00:10,363 INFO Generating topics (attempt 2)
+2026-05-16 08:00:15,141 WARNING claude -p failed: 
+2026-05-16 08:00:15,141 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-17 08:00:01,658 INFO [preflight] Claude CLI: OK
+2026-05-17 08:00:02,458 INFO [preflight] GitHub CLI auth: OK
+2026-05-17 08:00:02,462 INFO [preflight] git remote: OK
+2026-05-17 08:00:02,462 INFO === Blog generation run: 2026-05-17 ===
+2026-05-17 08:00:02,462 INFO Generating topics (attempt 1)
+2026-05-17 08:00:06,146 WARNING claude -p failed: 
+2026-05-17 08:00:06,146 INFO Generating topics (attempt 2)
+2026-05-17 08:00:09,801 WARNING claude -p failed: 
+2026-05-17 08:00:09,801 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-19 08:00:01,861 INFO [preflight] Claude CLI: OK
+2026-05-19 08:00:03,103 INFO [preflight] GitHub CLI auth: OK
+2026-05-19 08:00:03,124 INFO [preflight] git remote: OK
+2026-05-19 08:00:03,125 INFO === Blog generation run: 2026-05-19 ===
+2026-05-19 08:00:03,126 INFO Generating topics (attempt 1)
+2026-05-19 08:00:10,411 WARNING claude -p failed: 
+2026-05-19 08:00:10,412 INFO Generating topics (attempt 2)
+2026-05-19 08:00:14,160 WARNING claude -p failed: 
+2026-05-19 08:00:14,160 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-20 08:00:02,405 INFO [preflight] Claude CLI: OK
+2026-05-20 08:00:03,297 INFO [preflight] GitHub CLI auth: OK
+2026-05-20 08:00:03,305 INFO [preflight] git remote: OK
+2026-05-20 08:00:03,305 INFO === Blog generation run: 2026-05-20 ===
+2026-05-20 08:00:03,306 INFO Generating topics (attempt 1)
+2026-05-20 08:00:07,787 WARNING claude -p failed: 
+2026-05-20 08:00:07,787 INFO Generating topics (attempt 2)
+2026-05-20 08:00:11,489 WARNING claude -p failed: 
+2026-05-20 08:00:11,489 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-21 08:00:01,961 INFO [preflight] Claude CLI: OK
+2026-05-21 08:00:02,754 INFO [preflight] GitHub CLI auth: OK
+2026-05-21 08:00:02,757 INFO [preflight] git remote: OK
+2026-05-21 08:00:02,757 INFO === Blog generation run: 2026-05-21 ===
+2026-05-21 08:00:02,757 INFO Generating topics (attempt 1)
+2026-05-21 08:00:06,444 WARNING claude -p failed: 
+2026-05-21 08:00:06,444 INFO Generating topics (attempt 2)
+2026-05-21 08:00:10,126 WARNING claude -p failed: 
+2026-05-21 08:00:10,127 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-23 08:00:01,884 ERROR [preflight] Claude CLI: NOT FOUND
+2026-05-23 08:00:02,760 INFO [preflight] GitHub CLI auth: OK
+2026-05-23 08:00:02,771 INFO [preflight] git remote: OK
+2026-05-23 08:00:02,771 ERROR Pre-flight failed — aborting
+2026-05-24 08:00:01,978 ERROR [preflight] Claude CLI: NOT FOUND
+2026-05-24 08:00:02,865 INFO [preflight] GitHub CLI auth: OK
+2026-05-24 08:00:02,875 INFO [preflight] git remote: OK
+2026-05-24 08:00:02,876 ERROR Pre-flight failed — aborting
+2026-05-26 09:57:20,673 ERROR [preflight] Claude CLI: NOT FOUND
+2026-05-26 09:57:30,693 WARNING [preflight] GitHub CLI auth: NOT FOUND
+2026-05-26 09:57:30,723 INFO [preflight] git remote: OK
+2026-05-26 09:57:30,723 ERROR Pre-flight failed — aborting
+2026-05-27 09:04:48,829 ERROR [preflight] Claude CLI: NOT FOUND
+2026-05-27 09:04:49,391 INFO [preflight] GitHub CLI auth: OK
+2026-05-27 09:04:49,394 INFO [preflight] git remote: OK
+2026-05-27 09:04:49,394 ERROR Pre-flight failed — aborting
+2026-05-30 08:00:02,053 INFO [preflight] Claude CLI: OK
+2026-05-30 08:00:02,720 INFO [preflight] GitHub CLI auth: OK
+2026-05-30 08:00:02,724 INFO [preflight] git remote: OK
+2026-05-30 08:00:02,724 INFO === Blog generation run: 2026-05-30 ===
+2026-05-30 08:00:02,724 INFO Generating topics (attempt 1)
+2026-05-30 08:00:05,244 WARNING claude -p failed: 
+2026-05-30 08:00:05,244 INFO Generating topics (attempt 2)
+2026-05-30 08:00:07,568 WARNING claude -p failed: 
+2026-05-30 08:00:07,569 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-05-31 08:00:01,892 INFO [preflight] Claude CLI: OK
+2026-05-31 08:00:02,496 INFO [preflight] GitHub CLI auth: OK
+2026-05-31 08:00:02,500 INFO [preflight] git remote: OK
+2026-05-31 08:00:02,501 INFO === Blog generation run: 2026-05-31 ===
+2026-05-31 08:00:02,501 INFO Generating topics (attempt 1)
+2026-05-31 08:00:04,576 WARNING claude -p failed: 
+2026-05-31 08:00:04,577 INFO Generating topics (attempt 2)
+2026-05-31 08:00:06,277 WARNING claude -p failed: 
+2026-05-31 08:00:06,277 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-01 08:00:02,120 INFO [preflight] Claude CLI: OK
+2026-06-01 08:00:02,855 INFO [preflight] GitHub CLI auth: OK
+2026-06-01 08:00:02,862 INFO [preflight] git remote: OK
+2026-06-01 08:00:02,863 INFO === Blog generation run: 2026-06-01 ===
+2026-06-01 08:00:02,863 INFO Generating topics (attempt 1)
+2026-06-01 08:00:05,235 WARNING claude -p failed: 
+2026-06-01 08:00:05,235 INFO Generating topics (attempt 2)
+2026-06-01 08:00:07,215 WARNING claude -p failed: 
+2026-06-01 08:00:07,215 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-02 08:00:01,787 INFO [preflight] Claude CLI: OK
+2026-06-02 08:00:02,436 INFO [preflight] GitHub CLI auth: OK
+2026-06-02 08:00:02,441 INFO [preflight] git remote: OK
+2026-06-02 08:00:02,441 INFO === Blog generation run: 2026-06-02 ===
+2026-06-02 08:00:02,442 INFO Generating topics (attempt 1)
+2026-06-02 08:00:04,436 WARNING claude -p failed: 
+2026-06-02 08:00:04,436 INFO Generating topics (attempt 2)
+2026-06-02 08:00:06,587 WARNING claude -p failed: 
+2026-06-02 08:00:06,587 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-03 08:00:02,368 INFO [preflight] Claude CLI: OK
+2026-06-03 08:00:03,423 INFO [preflight] GitHub CLI auth: OK
+2026-06-03 08:00:03,437 INFO [preflight] git remote: OK
+2026-06-03 08:00:03,438 INFO === Blog generation run: 2026-06-03 ===
+2026-06-03 08:00:03,438 INFO Generating topics (attempt 1)
+2026-06-03 08:00:13,283 WARNING claude -p failed: 
+2026-06-03 08:00:13,283 INFO Generating topics (attempt 2)
+2026-06-03 08:00:14,878 WARNING claude -p failed: 
+2026-06-03 08:00:14,878 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-05 08:00:01,651 INFO [preflight] Claude CLI: OK
+2026-06-05 08:00:02,523 INFO [preflight] GitHub CLI auth: OK
+2026-06-05 08:00:02,538 INFO [preflight] git remote: OK
+2026-06-05 08:00:02,539 INFO === Blog generation run: 2026-06-05 ===
+2026-06-05 08:00:02,539 INFO Generating topics (attempt 1)
+2026-06-05 08:00:04,813 WARNING claude -p failed: 
+2026-06-05 08:00:04,813 INFO Generating topics (attempt 2)
+2026-06-05 08:00:06,390 WARNING claude -p failed: 
+2026-06-05 08:00:06,390 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-06 08:00:01,808 INFO [preflight] Claude CLI: OK
+2026-06-06 08:00:02,615 INFO [preflight] GitHub CLI auth: OK
+2026-06-06 08:00:02,618 INFO [preflight] git remote: OK
+2026-06-06 08:00:02,618 INFO === Blog generation run: 2026-06-06 ===
+2026-06-06 08:00:02,618 INFO Generating topics (attempt 1)
+2026-06-06 08:00:05,000 WARNING claude -p failed: 
+2026-06-06 08:00:05,000 INFO Generating topics (attempt 2)
+2026-06-06 08:00:06,701 WARNING claude -p failed: 
+2026-06-06 08:00:06,701 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-08 08:00:01,808 INFO [preflight] Claude CLI: OK
+2026-06-08 08:00:02,869 INFO [preflight] GitHub CLI auth: OK
+2026-06-08 08:00:02,889 INFO [preflight] git remote: OK
+2026-06-08 08:00:02,890 INFO === Blog generation run: 2026-06-08 ===
+2026-06-08 08:00:02,891 INFO Generating topics (attempt 1)
+2026-06-08 08:00:05,144 WARNING claude -p failed: 
+2026-06-08 08:00:05,144 INFO Generating topics (attempt 2)
+2026-06-08 08:00:06,829 WARNING claude -p failed: 
+2026-06-08 08:00:06,830 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-09 08:00:02,134 INFO [preflight] Claude CLI: OK
+2026-06-09 08:00:03,052 INFO [preflight] GitHub CLI auth: OK
+2026-06-09 08:00:03,058 INFO [preflight] git remote: OK
+2026-06-09 08:00:03,058 INFO === Blog generation run: 2026-06-09 ===
+2026-06-09 08:00:03,059 INFO Generating topics (attempt 1)
+2026-06-09 08:00:06,046 WARNING claude -p failed: 
+2026-06-09 08:00:06,046 INFO Generating topics (attempt 2)
+2026-06-09 08:00:07,766 WARNING claude -p failed: 
+2026-06-09 08:00:07,766 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-10 08:00:02,098 INFO [preflight] Claude CLI: OK
+2026-06-10 08:00:02,975 INFO [preflight] GitHub CLI auth: OK
+2026-06-10 08:00:02,977 INFO [preflight] git remote: OK
+2026-06-10 08:00:02,977 INFO === Blog generation run: 2026-06-10 ===
+2026-06-10 08:00:02,980 INFO Generating topics (attempt 1)
+2026-06-10 08:00:04,940 WARNING claude -p failed: 
+2026-06-10 08:00:04,940 INFO Generating topics (attempt 2)
+2026-06-10 08:00:06,852 WARNING claude -p failed: 
+2026-06-10 08:00:06,852 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-11 08:00:02,111 INFO [preflight] Claude CLI: OK
+2026-06-11 08:00:03,170 INFO [preflight] GitHub CLI auth: OK
+2026-06-11 08:00:03,172 INFO [preflight] git remote: OK
+2026-06-11 08:00:03,172 INFO === Blog generation run: 2026-06-11 ===
+2026-06-11 08:00:03,174 INFO Generating topics (attempt 1)
+2026-06-11 08:00:06,994 WARNING claude -p failed: 
+2026-06-11 08:00:06,995 INFO Generating topics (attempt 2)
+2026-06-11 08:00:08,732 WARNING claude -p failed: 
+2026-06-11 08:00:08,732 ERROR Topic generation failed: Topic generation failed after 2 attempts
+2026-06-12 08:00:02,035 ERROR [preflight] Claude CLI: NOT FOUND
+2026-06-12 08:00:03,825 INFO [preflight] GitHub CLI auth: OK
+2026-06-12 08:00:03,830 INFO [preflight] git remote: OK
+2026-06-12 08:00:03,831 ERROR Pre-flight failed — aborting

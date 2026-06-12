@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code with Go — Part 8: Refactoring — Improve Without Breaking"
-date: 2026-07-10
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Refactoring without tests is gambling. Learn safe refactoring techniques and apply the Boy Scout Rule in every commit."
 ---

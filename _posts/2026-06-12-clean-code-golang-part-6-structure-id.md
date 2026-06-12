@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code dengan Go — Part 6: Struktur & Organisasi Kode"
-date: 2026-07-03
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Struktur proyek yang baik adalah fondasi dari kode yang maintainable. Pelajari cara mengorganisasi proyek Go dengan clean architecture."
 ---

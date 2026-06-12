@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code with Go — Part 2: Naming — Code That Speaks for Itself"
-date: 2026-06-19
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Good names are the best documentation. Learn Go naming conventions and how to write self-documenting code."
 ---

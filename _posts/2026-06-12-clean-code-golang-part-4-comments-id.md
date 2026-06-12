@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code dengan Go — Part 4: Komentar yang Tepat Guna"
-date: 2026-06-26
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Komentar yang baik menjelaskan MENGAPA, bukan APA. Pelajari kapan harus komentar dan kapan membiarkan kode berbicara sendiri."
 ---

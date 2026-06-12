@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code with Go — Part 3: Clean Functions & Single Responsibility"
-date: 2026-06-23
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "A good function does one thing. Learn how to write small, focused, and testable Go functions."
 ---

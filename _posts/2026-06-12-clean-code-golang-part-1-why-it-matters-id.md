@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Clean Code dengan Go — Part 1: Mengapa Clean Code Itu Penting?"
-date: 2026-06-16
+date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices, tutorial]
 description: "Pelajari mengapa clean code bukan sekadar estetika, tapi investasi jangka panjang. Dengan contoh nyata menggunakan Golang."
 ---
