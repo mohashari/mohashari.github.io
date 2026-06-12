@@ -30,9 +30,17 @@ layout: default
     <span class="post-divider-ornament">&#10022;</span>
   </div>
 
+  {% if site.google_adsense_slots.post_top %}
+    {% include adsense.html slot=site.google_adsense_slots.post_top slot_name="post-top" %}
+  {% endif %}
+
   <div class="entry">
     {{ content }}
   </div>
+
+  {% if site.google_adsense_slots.post_bottom %}
+    {% include adsense.html slot=site.google_adsense_slots.post_bottom slot_name="post-bottom" %}
+  {% endif %}
 
   <!-- Share Section -->
   <div class="share-section">

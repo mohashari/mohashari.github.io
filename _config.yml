@@ -38,6 +38,15 @@ disqus:
 # Enter your Google Analytics web tracking code (e.g. UA-2110908-2) to activate tracking
 google_analytics:
 
+# Enter your Google AdSense client ID (e.g. ca-pub-3007833603107864) to activate auto ads
+google_adsense: ca-pub-3007833603107864
+
+# Configure manual AdSense slots here (optional).
+# Leave blank to only run Auto Ads.
+google_adsense_slots:
+  post_top:
+  post_bottom:
+
 # Your website URL (e.g. http://barryclark.github.io or http://www.barryclark.co)
 # Used for Sitemap.xml and your RSS feed
 url:

@@ -1,0 +1,21 @@
+{% if jekyll.environment == "production" and site.google_adsense %}
+  {% if include.slot %}
+    <!-- AdSense Manual Unit: {{ include.slot_name | default: 'ad' }} -->
+    <div class="adsense-container adsense-{{ include.slot_name | default: 'ad' }}" style="margin: 2.5rem 0; text-align: center; overflow: hidden; clear: both; min-height: 120px;">
+      <span style="display: block; font-size: 0.65rem; color: #999; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1.5px;">Advertisement</span>
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="{{ site.google_adsense }}"
+           data-ad-slot="{{ include.slot }}"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  {% else %}
+    <!-- Google AdSense Auto Ads Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ site.google_adsense }}"
+         crossorigin="anonymous"></script>
+  {% endif %}
+{% endif %}
