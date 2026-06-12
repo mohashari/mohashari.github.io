@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580" width="1200" height="580" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="1200" height="580" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="600" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="#1e1e1e">LLM KV Cache: Prefix Caching + PagedAttention in vLLM</text>
+
+  <!-- Zone 1: Incoming Requests (blue) -->
+  <rect x="20" y="50" width="240" height="360" rx="12" fill="#dbe4ff" fill-opacity="0.6" stroke="#4a9eed" stroke-width="1.5"/>
+  <text x="32" y="70" font-size="14" font-weight="bold" fill="#2563eb">Incoming Requests</text>
+
+  <!-- Request boxes -->
+  <rect x="30" y="85" width="215" height="48" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="137" y="114" text-anchor="middle" font-size="14" fill="#1e1e1e">Req 1: [SYS] + Query A</text>
+
+  <rect x="30" y="148" width="215" height="48" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="137" y="177" text-anchor="middle" font-size="14" fill="#1e1e1e">Req 2: [SYS] + Query B</text>
+
+  <rect x="30" y="211" width="215" height="48" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="137" y="240" text-anchor="middle" font-size="14" fill="#1e1e1e">Req 3: [SYS] + Query C</text>
+
+  <!-- Shared prefix note -->
+  <rect x="30" y="278" width="215" height="55" rx="8" fill="#fff3bf" stroke="#f59e0b" stroke-width="2"/>
+  <text x="137" y="299" text-anchor="middle" font-size="13" fill="#92400e">Same 512-token</text>
+  <text x="137" y="317" text-anchor="middle" font-size="13" fill="#92400e">system prompt (prefix)</text>
+
+  <!-- Arrows from requests to cache manager -->
+  <line x1="245" y1="109" x2="278" y2="147" stroke="#4a9eed" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <line x1="245" y1="172" x2="278" y2="172" stroke="#4a9eed" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <line x1="245" y1="235" x2="278" y2="197" stroke="#4a9eed" stroke-width="2" marker-end="url(#arrow-blue)"/>
+
+  <!-- Zone 2: KV Cache Manager (purple) -->
+  <rect x="278" y="50" width="305" height="360" rx="12" fill="#e5dbff" fill-opacity="0.6" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="290" y="70" font-size="14" font-weight="bold" fill="#7c3aed">KV Cache Manager</text>
+
+  <!-- Prefix Cache box -->
+  <rect x="288" y="85" width="285" height="118" rx="8" fill="#d0bfff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="430" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#4c1d95">Prefix Cache</text>
+  <text x="430" y="128" text-anchor="middle" font-size="13" fill="#1e1e1e">hash(SYS_PROMPT) =&gt; [Blk 0, Blk 1]</text>
+  <text x="430" y="148" text-anchor="middle" font-size="13" fill="#1e1e1e">ref_count = 3</text>
+  <text x="430" y="168" text-anchor="middle" font-size="13" fill="#5b21b6">Copy-on-Write on mutation</text>
+  <text x="430" y="194" text-anchor="middle" font-size="12" fill="#7c3aed" font-style="italic">cache HIT</text>
+
+  <!-- Block Allocator box -->
+  <rect x="288" y="222" width="285" height="88" rx="8" fill="#d0bfff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="430" y="243" text-anchor="middle" font-size="14" font-weight="bold" fill="#4c1d95">Block Allocator</text>
+  <text x="430" y="263" text-anchor="middle" font-size="13" fill="#1e1e1e">Free pool: [6, 7, 8, 9]</text>
+  <text x="430" y="283" text-anchor="middle" font-size="13" fill="#1e1e1e">Active: 5 blocks (16 tokens each)</text>
+  <text x="430" y="300" text-anchor="middle" font-size="12" fill="#7c3aed" font-style="italic">new alloc for Req1, Req2, Req3</text>
+
+  <!-- LRU Eviction box -->
+  <rect x="288" y="325" width="285" height="42" rx="8" fill="#ffc9c9" stroke="#ef4444" stroke-width="2"/>
+  <text x="430" y="350" text-anchor="middle" font-size="13" fill="#991b1b">Eviction: LRU (when ref_count == 0)</text>
+
+  <!-- Arrows from cache manager to VRAM -->
+  <!-- cache hit arrow to shared blocks -->
+  <line x1="573" y1="148" x2="610" y2="123" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <text x="594" y="143" font-size="12" fill="#7c3aed">cache hit</text>
+
+  <!-- new alloc arrow to active blocks -->
+  <line x1="573" y1="266" x2="610" y2="210" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-purple)"/>
+  <text x="577" y="247" font-size="12" fill="#7c3aed">new alloc</text>
+
+  <!-- Zone 3: GPU VRAM (green) -->
+  <rect x="620" y="50" width="560" height="360" rx="12" fill="#d3f9d8" fill-opacity="0.6" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="632" y="70" font-size="14" font-weight="bold" fill="#15803d">GPU VRAM (PagedAttention — non-contiguous blocks)</text>
+
+  <!-- Row 1: Shared prefix blocks (green) -->
+  <rect x="630" y="85" width="110" height="65" rx="8" fill="#b2f2bb" stroke="#22c55e" stroke-width="2"/>
+  <text x="685" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#14532d">Block 0</text>
+  <text x="685" y="124" text-anchor="middle" font-size="12" fill="#14532d">16 tokens</text>
+  <text x="685" y="141" text-anchor="middle" font-size="12" fill="#15803d" font-weight="bold">SHARED</text>
+
+  <rect x="750" y="85" width="110" height="65" rx="8" fill="#b2f2bb" stroke="#22c55e" stroke-width="2"/>
+  <text x="805" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#14532d">Block 1</text>
+  <text x="805" y="124" text-anchor="middle" font-size="12" fill="#14532d">16 tokens</text>
+  <text x="805" y="141" text-anchor="middle" font-size="12" fill="#15803d" font-weight="bold">SHARED</text>
+
+  <!-- Active blocks row 1 (blue) -->
+  <rect x="870" y="85" width="90" height="65" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="915" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">Block 2</text>
+  <text x="915" y="132" text-anchor="middle" font-size="12" fill="#1d4ed8">Req 1</text>
+
+  <rect x="970" y="85" width="90" height="65" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="1015" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">Block 3</text>
+  <text x="1015" y="132" text-anchor="middle" font-size="12" fill="#1d4ed8">Req 1</text>
+
+  <rect x="1070" y="85" width="90" height="65" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="1115" y="113" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">Block 4</text>
+  <text x="1115" y="132" text-anchor="middle" font-size="12" fill="#1d4ed8">Req 2</text>
+
+  <!-- Active blocks row 2 -->
+  <rect x="630" y="162" width="90" height="65" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="675" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">Block 5</text>
+  <text x="675" y="209" text-anchor="middle" font-size="12" fill="#1d4ed8">Req 2</text>
+
+  <rect x="730" y="162" width="90" height="65" rx="8" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="775" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#1d4ed8">Block 6</text>
+  <text x="775" y="209" text-anchor="middle" font-size="12" fill="#1d4ed8">Req 3</text>
+
+  <!-- Free blocks row 2 -->
+  <rect x="830" y="162" width="90" height="65" rx="8" fill="#dee2e6" stroke="#868e96" stroke-width="2"/>
+  <text x="875" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#495057">Block 7</text>
+  <text x="875" y="209" text-anchor="middle" font-size="12" fill="#6c757d">FREE</text>
+
+  <rect x="930" y="162" width="90" height="65" rx="8" fill="#dee2e6" stroke="#868e96" stroke-width="2"/>
+  <text x="975" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#495057">Block 8</text>
+  <text x="975" y="209" text-anchor="middle" font-size="12" fill="#6c757d">FREE</text>
+
+  <rect x="1030" y="162" width="90" height="65" rx="8" fill="#dee2e6" stroke="#868e96" stroke-width="2"/>
+  <text x="1075" y="190" text-anchor="middle" font-size="13" font-weight="bold" fill="#495057">Block 9</text>
+  <text x="1075" y="209" text-anchor="middle" font-size="12" fill="#6c757d">FREE</text>
+
+  <!-- Block Table -->
+  <rect x="630" y="245" width="535" height="145" rx="8" fill="#c3fae8" stroke="#22c55e" stroke-width="2"/>
+  <text x="897" y="265" text-anchor="middle" font-size="14" font-weight="bold" fill="#14532d">Block Table (per-sequence virtual→physical mapping)</text>
+  <text x="640" y="285" font-size="13" fill="#1e1e1e">Req 1:  virt[0,1] → phys[0,1]   virt[2,3] → phys[2,3]</text>
+  <text x="640" y="306" font-size="13" fill="#1e1e1e">Req 2:  virt[0,1] → phys[0,1]   virt[2,3] → phys[4,5]</text>
+  <text x="640" y="327" font-size="13" fill="#1e1e1e">Req 3:  virt[0,1] → phys[0,1]   virt[2]   → phys[6]</text>
+  <text x="897" y="378" text-anchor="middle" font-size="12" fill="#15803d" font-style="italic">Non-contiguous physical pages — no fragmentation waste</text>
+
+  <!-- Zone 4: Throughput metrics -->
+  <rect x="20" y="428" width="1160" height="130" rx="12" fill="#d3f9d8" fill-opacity="0.5" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="32" y="447" font-size="14" font-weight="bold" fill="#15803d">Throughput Impact</text>
+
+  <rect x="30" y="455" width="360" height="60" rx="8" fill="#ffc9c9" stroke="#ef4444" stroke-width="2"/>
+  <text x="210" y="491" text-anchor="middle" font-size="17" font-weight="bold" fill="#991b1b">Without prefix cache: ~12 req/s</text>
+
+  <rect x="410" y="455" width="750" height="60" rx="8" fill="#b2f2bb" stroke="#22c55e" stroke-width="2"/>
+  <text x="785" y="491" text-anchor="middle" font-size="17" font-weight="bold" fill="#14532d">With prefix cache: ~47 req/s   (4x throughput improvement)</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4a9eed"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#8b5cf6"/>
+    </marker>
+  </defs>
+</svg>

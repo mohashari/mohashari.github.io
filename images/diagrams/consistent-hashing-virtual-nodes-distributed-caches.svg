@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" width="900" height="620" font-family="monospace, 'Courier New'">
+  <!-- Background -->
+  <rect width="900" height="620" fill="#ffffff"/>
+
+  <!-- Hash Ring -->
+  <circle cx="450" cy="300" r="200" fill="none" stroke="#495057" stroke-width="2.5"/>
+
+  <!-- Ring label -->
+  <text x="450" y="295" text-anchor="middle" font-size="13" fill="#868e96">Hash Ring</text>
+  <text x="450" y="313" text-anchor="middle" font-size="13" fill="#868e96">[0 … 2³²]</text>
+
+  <!-- Arrow head marker -->
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#868e96"/>
+    </marker>
+  </defs>
+
+  <!-- Clockwise direction arrow on ring -->
+  <path d="M 640,265 A 200,200 0 0,1 645,310" fill="none" stroke="#868e96" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="665" y="292" font-size="11" fill="#868e96">CW</text>
+
+  <!-- ===== Virtual Nodes on ring ===== -->
+
+  <!-- A-v1: top (0°) -->
+  <circle cx="450" cy="100" r="22" fill="#d0ebff" stroke="#1864ab" stroke-width="2"/>
+  <text x="450" y="97" text-anchor="middle" font-size="12" fill="#1864ab" font-weight="bold">A</text>
+  <text x="450" y="111" text-anchor="middle" font-size="10" fill="#1864ab">v1</text>
+
+  <!-- B-v1: top-right (~60°) -->
+  <circle cx="623" cy="200" r="22" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2"/>
+  <text x="623" y="197" text-anchor="middle" font-size="12" fill="#2b8a3e" font-weight="bold">B</text>
+  <text x="623" y="211" text-anchor="middle" font-size="10" fill="#2b8a3e">v1</text>
+
+  <!-- C-v1: bottom-right (~120°) -->
+  <circle cx="623" cy="400" r="22" fill="#f3d9fa" stroke="#862e9c" stroke-width="2"/>
+  <text x="623" y="397" text-anchor="middle" font-size="12" fill="#862e9c" font-weight="bold">C</text>
+  <text x="623" y="411" text-anchor="middle" font-size="10" fill="#862e9c">v1</text>
+
+  <!-- A-v2: bottom (~180°) -->
+  <circle cx="450" cy="500" r="22" fill="#d0ebff" stroke="#1864ab" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="450" y="497" text-anchor="middle" font-size="12" fill="#1864ab" font-weight="bold">A</text>
+  <text x="450" y="511" text-anchor="middle" font-size="10" fill="#1864ab">v2</text>
+
+  <!-- B-v2: bottom-left (~240°) -->
+  <circle cx="277" cy="400" r="22" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="277" y="397" text-anchor="middle" font-size="12" fill="#2b8a3e" font-weight="bold">B</text>
+  <text x="277" y="411" text-anchor="middle" font-size="10" fill="#2b8a3e">v2</text>
+
+  <!-- C-v2: top-left (~300°) -->
+  <circle cx="277" cy="200" r="22" fill="#f3d9fa" stroke="#862e9c" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="277" y="197" text-anchor="middle" font-size="12" fill="#862e9c" font-weight="bold">C</text>
+  <text x="277" y="211" text-anchor="middle" font-size="10" fill="#862e9c">v2</text>
+
+  <!-- ===== Key lookup example ===== -->
+  <!-- Key K dot on ring between B-v1 and C-v1 -->
+  <circle cx="660" cy="300" r="7" fill="#e67700" stroke="#e67700"/>
+  <text x="680" y="296" font-size="11" fill="#e67700">key K</text>
+  <text x="678" y="309" font-size="10" fill="#e67700">→ C-v1</text>
+  <!-- Arrow from K to C-v1 -->
+  <path d="M 651,290 Q 648,360 634,398" fill="none" stroke="#e67700" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+
+  <!-- ===== Physical Node Legend (left side) ===== -->
+  <text x="30" y="50" font-size="13" fill="#212529" font-weight="bold">Physical Nodes</text>
+
+  <!-- Node A box -->
+  <rect x="30" y="65" width="130" height="48" rx="6" fill="#d0ebff" stroke="#1864ab" stroke-width="2"/>
+  <text x="95" y="83" text-anchor="middle" font-size="13" fill="#1864ab" font-weight="bold">Node A</text>
+  <text x="95" y="103" text-anchor="middle" font-size="11" fill="#1864ab">vnodes: A-v1, A-v2</text>
+
+  <!-- Node B box -->
+  <rect x="30" y="128" width="130" height="48" rx="6" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2"/>
+  <text x="95" y="146" text-anchor="middle" font-size="13" fill="#2b8a3e" font-weight="bold">Node B</text>
+  <text x="95" y="166" text-anchor="middle" font-size="11" fill="#2b8a3e">vnodes: B-v1, B-v2</text>
+
+  <!-- Node C box -->
+  <rect x="30" y="191" width="130" height="48" rx="6" fill="#f3d9fa" stroke="#862e9c" stroke-width="2"/>
+  <text x="95" y="209" text-anchor="middle" font-size="13" fill="#862e9c" font-weight="bold">Node C</text>
+  <text x="95" y="229" text-anchor="middle" font-size="11" fill="#862e9c">vnodes: C-v1, C-v2</text>
+
+  <!-- Node removal annotation -->
+  <rect x="30" y="270" width="160" height="90" rx="6" fill="#fff9db" stroke="#f59f00" stroke-width="1.5"/>
+  <text x="110" y="288" text-anchor="middle" font-size="12" fill="#e67700" font-weight="bold">When Node B removed:</text>
+  <text x="40" y="307" font-size="11" fill="#495057">Only B's key ranges</text>
+  <text x="40" y="322" font-size="11" fill="#495057">redistribute to A and C.</text>
+  <text x="40" y="337" font-size="11" fill="#495057">Other ranges untouched.</text>
+  <text x="40" y="352" font-size="11" fill="#495057">~1/N keys move on avg.</text>
+
+  <!-- ===== Legend (right side) ===== -->
+  <rect x="730" y="130" width="150" height="120" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1.5"/>
+  <text x="805" y="150" text-anchor="middle" font-size="13" fill="#212529" font-weight="bold">Legend</text>
+
+  <circle cx="750" cy="170" r="10" fill="#d0ebff" stroke="#1864ab" stroke-width="2"/>
+  <text x="768" y="174" font-size="11" fill="#495057">primary vnode</text>
+
+  <circle cx="750" cy="198" r="10" fill="#d3f9d8" stroke="#2b8a3e" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="768" y="202" font-size="11" fill="#495057">replica vnode</text>
+
+  <circle cx="750" cy="226" r="7" fill="#e67700" stroke="#e67700"/>
+  <text x="768" y="230" font-size="11" fill="#495057">key lookup</text>
+
+  <!-- Title -->
+  <text x="450" y="590" text-anchor="middle" font-size="14" fill="#343a40" font-weight="bold">Consistent Hash Ring — Virtual Nodes per Physical Node</text>
+</svg>

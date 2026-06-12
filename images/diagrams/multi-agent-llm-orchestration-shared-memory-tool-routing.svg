@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 740" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="800" height="740" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e1e1e">Multi-Agent LLM Orchestration Architecture</text>
+
+  <!-- Orchestrator Agent -->
+  <rect x="300" y="60" width="200" height="60" rx="10" fill="#d0ebff" stroke="#1971c2" stroke-width="2"/>
+  <text x="400" y="94" text-anchor="middle" font-size="15" font-weight="bold" fill="#1971c2">Orchestrator Agent</text>
+
+  <!-- Arrow: Orchestrator -> Router -->
+  <line x1="400" y1="120" x2="400" y2="165" stroke="#1971c2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Tool Router (diamond) -->
+  <polygon points="400,165 475,205 400,245 325,205" fill="#fff3bf" stroke="#e67700" stroke-width="2"/>
+  <text x="400" y="210" text-anchor="middle" font-size="13" font-weight="bold" fill="#e67700">Tool Router</text>
+
+  <!-- Arrows: Router -> Agents -->
+  <line x1="355" y1="230" x2="130" y2="295" stroke="#e67700" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <line x1="375" y1="243" x2="300" y2="295" stroke="#e67700" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <line x1="425" y1="243" x2="500" y2="295" stroke="#e67700" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <line x1="445" y1="230" x2="670" y2="295" stroke="#e67700" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+
+  <!-- Search Agent -->
+  <rect x="50" y="295" width="160" height="55" rx="8" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="130" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#2f9e44">Search Agent</text>
+  <text x="130" y="336" text-anchor="middle" font-size="10" fill="#2f9e44">web retrieval</text>
+
+  <!-- Code Agent -->
+  <rect x="230" y="295" width="140" height="55" rx="8" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="300" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#2f9e44">Code Agent</text>
+  <text x="300" y="336" text-anchor="middle" font-size="10" fill="#2f9e44">execution sandbox</text>
+
+  <!-- Data Agent -->
+  <rect x="430" y="295" width="140" height="55" rx="8" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="500" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#2f9e44">Data Agent</text>
+  <text x="500" y="336" text-anchor="middle" font-size="10" fill="#2f9e44">SQL + analytics</text>
+
+  <!-- Summarizer Agent -->
+  <rect x="590" y="295" width="160" height="55" rx="8" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="670" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#2f9e44">Summarizer Agent</text>
+  <text x="670" y="336" text-anchor="middle" font-size="10" fill="#2f9e44">synthesis + output</text>
+
+  <!-- Bidirectional arrows: Agents <-> Shared Memory -->
+  <line x1="130" y1="350" x2="200" y2="415" stroke="#9c36b5" stroke-width="1.5" marker-end="url(#arrowPurple)" marker-start="url(#arrowPurpleStart)"/>
+  <line x1="300" y1="350" x2="330" y2="415" stroke="#9c36b5" stroke-width="1.5" marker-end="url(#arrowPurple)" marker-start="url(#arrowPurpleStart)"/>
+  <line x1="500" y1="350" x2="470" y2="415" stroke="#9c36b5" stroke-width="1.5" marker-end="url(#arrowPurple)" marker-start="url(#arrowPurpleStart)"/>
+  <line x1="670" y1="350" x2="600" y2="415" stroke="#9c36b5" stroke-width="1.5" marker-end="url(#arrowPurple)" marker-start="url(#arrowPurpleStart)"/>
+
+  <!-- Shared Memory -->
+  <rect x="120" y="415" width="560" height="65" rx="10" fill="#f3d9fa" stroke="#9c36b5" stroke-width="2"/>
+  <text x="400" y="440" text-anchor="middle" font-size="13" font-weight="bold" fill="#9c36b5">Shared Memory</text>
+  <text x="400" y="460" text-anchor="middle" font-size="11" fill="#9c36b5">pgvector (semantic retrieval)  ·  Redis (working context)  ·  TTL-scoped task state</text>
+
+  <!-- Arrow: Memory -> Tool Bus -->
+  <line x1="400" y1="480" x2="400" y2="530" stroke="#c92a2a" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- Tool Execution Bus -->
+  <rect x="120" y="530" width="560" height="50" rx="10" fill="#ffe3e3" stroke="#c92a2a" stroke-width="2"/>
+  <text x="400" y="552" text-anchor="middle" font-size="13" font-weight="bold" fill="#c92a2a">Tool Execution Bus</text>
+  <text x="400" y="569" text-anchor="middle" font-size="11" fill="#c92a2a">gRPC dispatch  ·  NATS pub/sub  ·  schema-validated JSON payloads</text>
+
+  <!-- Arrows: Bus -> Tools -->
+  <line x1="115" y1="580" x2="115" y2="625" stroke="#5c5f66" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+  <line x1="255" y1="580" x2="255" y2="625" stroke="#5c5f66" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+  <line x1="400" y1="580" x2="400" y2="625" stroke="#5c5f66" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+  <line x1="540" y1="580" x2="540" y2="625" stroke="#5c5f66" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+  <line x1="680" y1="580" x2="680" y2="625" stroke="#5c5f66" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+
+  <!-- Tool Boxes -->
+  <rect x="50" y="625" width="130" height="45" rx="6" fill="#f1f3f5" stroke="#5c5f66" stroke-width="1.5"/>
+  <text x="115" y="648" text-anchor="middle" font-size="11" fill="#343a40">Web Search API</text>
+  <text x="115" y="662" text-anchor="middle" font-size="10" fill="#868e96">Brave / Serper</text>
+
+  <rect x="190" y="625" width="130" height="45" rx="6" fill="#f1f3f5" stroke="#5c5f66" stroke-width="1.5"/>
+  <text x="255" y="648" text-anchor="middle" font-size="11" fill="#343a40">Code Executor</text>
+  <text x="255" y="662" text-anchor="middle" font-size="10" fill="#868e96">Docker sandbox</text>
+
+  <rect x="335" y="625" width="130" height="45" rx="6" fill="#f1f3f5" stroke="#5c5f66" stroke-width="1.5"/>
+  <text x="400" y="648" text-anchor="middle" font-size="11" fill="#343a40">SQL / Postgres</text>
+  <text x="400" y="662" text-anchor="middle" font-size="10" fill="#868e96">read-only replica</text>
+
+  <rect x="475" y="625" width="130" height="45" rx="6" fill="#f1f3f5" stroke="#5c5f66" stroke-width="1.5"/>
+  <text x="540" y="648" text-anchor="middle" font-size="11" fill="#343a40">Vector Retrieval</text>
+  <text x="540" y="662" text-anchor="middle" font-size="10" fill="#868e96">pgvector / Qdrant</text>
+
+  <rect x="615" y="625" width="130" height="45" rx="6" fill="#f1f3f5" stroke="#5c5f66" stroke-width="1.5"/>
+  <text x="680" y="648" text-anchor="middle" font-size="11" fill="#343a40">External APIs</text>
+  <text x="680" y="662" text-anchor="middle" font-size="10" fill="#868e96">rate-limited, retried</text>
+
+  <!-- Legend -->
+  <rect x="50" y="695" width="700" height="35" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+  <circle cx="80" cy="713" r="5" fill="#d0ebff" stroke="#1971c2"/>
+  <text x="92" y="717" font-size="10" fill="#555">Orchestrator</text>
+  <circle cx="170" cy="713" r="5" fill="#fff3bf" stroke="#e67700"/>
+  <text x="182" y="717" font-size="10" fill="#555">Router</text>
+  <circle cx="235" cy="713" r="5" fill="#d3f9d8" stroke="#2f9e44"/>
+  <text x="247" y="717" font-size="10" fill="#555">Agents</text>
+  <circle cx="300" cy="713" r="5" fill="#f3d9fa" stroke="#9c36b5"/>
+  <text x="312" y="717" font-size="10" fill="#555">Shared Memory</text>
+  <circle cx="400" cy="713" r="5" fill="#ffe3e3" stroke="#c92a2a"/>
+  <text x="412" y="717" font-size="10" fill="#555">Tool Bus</text>
+  <circle cx="460" cy="713" r="5" fill="#f1f3f5" stroke="#5c5f66"/>
+  <text x="472" y="717" font-size="10" fill="#555">Tools</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1971c2"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e67700"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9c36b5"/>
+    </marker>
+    <marker id="arrowPurpleStart" markerWidth="8" markerHeight="8" refX="2" refY="3" orient="auto-start-reverse">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9c36b5"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#c92a2a"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#5c5f66"/>
+    </marker>
+  </defs>
+</svg>

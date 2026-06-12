@@ -84,3 +84,12 @@ def test_generate_raises_after_two_failures():
     with patch("subprocess.run", return_value=bad_result):
         with pytest.raises(topic_generator.TopicGenerationError):
             gen.generate(past_slugs=[])
+
+
+def test_generate_includes_dangerously_skip_permissions():
+    gen = topic_generator.TopicGenerator(logger)
+    mock_result = MagicMock(returncode=0, stdout=json.dumps(VALID_TOPICS), stderr="")
+    with patch("subprocess.run", return_value=mock_result) as mock_run:
+        gen.generate(past_slugs=[])
+    args = mock_run.call_args[0][0]  # command list is first positional arg
+    assert "--dangerously-skip-permissions" in args

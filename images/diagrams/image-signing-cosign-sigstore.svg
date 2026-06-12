@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" font-family="'Segoe UI', Arial, sans-serif">
+  <!-- Background -->
+  <rect width="900" height="520" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-size="16" font-weight="700" fill="#1e293b">Image Signing with Cosign &amp; Sigstore — CI/CD Flow</text>
+
+  <!-- LANE BACKGROUNDS -->
+  <rect x="12" y="58" width="120" height="355" rx="8" fill="#e2e8f0"/>
+  <rect x="144" y="58" width="130" height="355" rx="8" fill="#eff6ff"/>
+  <rect x="286" y="58" width="130" height="355" rx="8" fill="#f0fdf4"/>
+  <rect x="428" y="58" width="130" height="355" rx="8" fill="#fdf4ff"/>
+  <rect x="570" y="58" width="130" height="355" rx="8" fill="#fff7ed"/>
+  <rect x="712" y="58" width="176" height="355" rx="8" fill="#fef2f2"/>
+
+  <!-- LANE LABELS -->
+  <text x="72" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#475569" transform="rotate(-90,72,230)">CI/CD Pipeline</text>
+  <text x="209" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#3b82f6" transform="rotate(-90,209,230)">Build &amp; Sign</text>
+  <text x="351" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#16a34a" transform="rotate(-90,351,230)">Sigstore</text>
+  <text x="493" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#9333ea" transform="rotate(-90,493,230)">OCI Registry</text>
+  <text x="635" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#ea580c" transform="rotate(-90,635,230)">Kubernetes</text>
+  <text x="800" y="205" text-anchor="middle" font-size="11" font-weight="600" fill="#dc2626" transform="rotate(-90,800,230)">Admission Policy</text>
+
+  <!-- NODES -->
+  <rect x="22" y="90" width="100" height="44" rx="7" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="72" y="107" text-anchor="middle" font-size="11" font-weight="700" fill="#f1f5f9">git push</text>
+  <text x="72" y="122" text-anchor="middle" font-size="10" fill="#94a3b8">developer commit</text>
+
+  <rect x="22" y="164" width="100" height="44" rx="7" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="72" y="181" text-anchor="middle" font-size="11" font-weight="700" fill="#f1f5f9">Trigger CI</text>
+  <text x="72" y="196" text-anchor="middle" font-size="10" fill="#94a3b8">GH Actions / GitLab</text>
+
+  <rect x="154" y="90" width="110" height="44" rx="7" fill="#1d4ed8" stroke="#1e40af" stroke-width="1.5"/>
+  <text x="209" y="107" text-anchor="middle" font-size="11" font-weight="700" fill="#eff6ff">docker build</text>
+  <text x="209" y="122" text-anchor="middle" font-size="10" fill="#bfdbfe">+ SBOM generate</text>
+
+  <rect x="154" y="164" width="110" height="44" rx="7" fill="#1d4ed8" stroke="#1e40af" stroke-width="1.5"/>
+  <text x="209" y="181" text-anchor="middle" font-size="11" font-weight="700" fill="#eff6ff">cosign sign</text>
+  <text x="209" y="196" text-anchor="middle" font-size="10" fill="#bfdbfe">keyless / KMS</text>
+
+  <rect x="154" y="238" width="110" height="44" rx="7" fill="#1d4ed8" stroke="#1e40af" stroke-width="1.5"/>
+  <text x="209" y="255" text-anchor="middle" font-size="11" font-weight="700" fill="#eff6ff">OIDC Token</text>
+  <text x="209" y="270" text-anchor="middle" font-size="10" fill="#bfdbfe">workload identity</text>
+
+  <rect x="296" y="164" width="110" height="44" rx="7" fill="#15803d" stroke="#166534" stroke-width="1.5"/>
+  <text x="351" y="181" text-anchor="middle" font-size="11" font-weight="700" fill="#f0fdf4">Fulcio CA</text>
+  <text x="351" y="196" text-anchor="middle" font-size="10" fill="#bbf7d0">short-lived cert</text>
+
+  <rect x="296" y="238" width="110" height="44" rx="7" fill="#15803d" stroke="#166534" stroke-width="1.5"/>
+  <text x="351" y="255" text-anchor="middle" font-size="11" font-weight="700" fill="#f0fdf4">Rekor</text>
+  <text x="351" y="270" text-anchor="middle" font-size="10" fill="#bbf7d0">transparency log</text>
+
+  <rect x="438" y="90" width="110" height="44" rx="7" fill="#7e22ce" stroke="#6b21a8" stroke-width="1.5"/>
+  <text x="493" y="107" text-anchor="middle" font-size="11" font-weight="700" fill="#fdf4ff">Push Image</text>
+  <text x="493" y="122" text-anchor="middle" font-size="10" fill="#e9d5ff">sig as OCI artifact</text>
+
+  <rect x="438" y="238" width="110" height="44" rx="7" fill="#7e22ce" stroke="#6b21a8" stroke-width="1.5"/>
+  <text x="493" y="255" text-anchor="middle" font-size="11" font-weight="700" fill="#fdf4ff">ECR / GCR / GHCR</text>
+  <text x="493" y="270" text-anchor="middle" font-size="10" fill="#e9d5ff">image + signature</text>
+
+  <rect x="580" y="90" width="110" height="44" rx="7" fill="#c2410c" stroke="#9a3412" stroke-width="1.5"/>
+  <text x="635" y="107" text-anchor="middle" font-size="11" font-weight="700" fill="#fff7ed">kubectl apply</text>
+  <text x="635" y="122" text-anchor="middle" font-size="10" fill="#fed7aa">deployment req</text>
+
+  <rect x="722" y="90" width="152" height="44" rx="7" fill="#b91c1c" stroke="#991b1b" stroke-width="1.5"/>
+  <text x="798" y="107" text-anchor="middle" font-size="11" font-weight="700" fill="#fef2f2">Admission Webhook</text>
+  <text x="798" y="122" text-anchor="middle" font-size="10" fill="#fecaca">Kyverno / Gatekeeper</text>
+
+  <rect x="722" y="164" width="152" height="44" rx="7" fill="#b91c1c" stroke="#991b1b" stroke-width="1.5"/>
+  <text x="798" y="181" text-anchor="middle" font-size="11" font-weight="700" fill="#fef2f2">cosign verify</text>
+  <text x="798" y="196" text-anchor="middle" font-size="10" fill="#fecaca">sig + Rekor inclusion</text>
+
+  <rect x="722" y="320" width="70" height="38" rx="7" fill="#166534" stroke="#14532d" stroke-width="1.5"/>
+  <text x="757" y="335" text-anchor="middle" font-size="11" font-weight="700" fill="#dcfce7">ALLOW</text>
+  <text x="757" y="350" text-anchor="middle" font-size="9" fill="#86efac">deploy pod</text>
+
+  <rect x="804" y="320" width="70" height="38" rx="7" fill="#9f1239" stroke="#881337" stroke-width="1.5"/>
+  <text x="839" y="335" text-anchor="middle" font-size="11" font-weight="700" fill="#ffe4e6">DENY</text>
+  <text x="839" y="350" text-anchor="middle" font-size="9" fill="#fda4af">unsigned image</text>
+
+  <!-- ARROWS -->
+  <defs>
+    <marker id="ag" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#64748b"/></marker>
+    <marker id="ab" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#3b82f6"/></marker>
+    <marker id="agn" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#16a34a"/></marker>
+    <marker id="ap" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#9333ea"/></marker>
+    <marker id="ao" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#ea580c"/></marker>
+    <marker id="ar" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#dc2626"/></marker>
+    <marker id="adk" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#166534"/></marker>
+    <marker id="adr" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="#9f1239"/></marker>
+  </defs>
+
+  <!-- git push -> trigger CI -->
+  <line x1="72" y1="134" x2="72" y2="164" stroke="#64748b" stroke-width="1.5" marker-end="url(#ag)"/>
+  <!-- trigger CI -> docker build -->
+  <path d="M122,186 Q138,186 154,112" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#ag)"/>
+  <!-- docker build -> cosign sign -->
+  <line x1="209" y1="134" x2="209" y2="164" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ab)"/>
+  <!-- cosign sign -> OIDC token -->
+  <line x1="209" y1="208" x2="209" y2="238" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#ab)"/>
+  <!-- OIDC -> Fulcio -->
+  <path d="M264,255 Q280,186 296,186" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ab)"/>
+  <!-- cosign sign -> Rekor (record sig) -->
+  <path d="M264,186 Q280,260 296,260" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#agn)"/>
+  <!-- cosign sign -> Push Image -->
+  <path d="M264,175 Q350,112 438,112" fill="none" stroke="#9333ea" stroke-width="1.5" marker-end="url(#ap)"/>
+  <!-- Push Image -> ECR -->
+  <line x1="493" y1="134" x2="493" y2="238" stroke="#9333ea" stroke-width="1.5" marker-end="url(#ap)"/>
+  <!-- Push Image -> kubectl apply -->
+  <line x1="548" y1="112" x2="580" y2="112" stroke="#ea580c" stroke-width="1.5" marker-end="url(#ao)"/>
+  <!-- kubectl apply -> Admission -->
+  <line x1="690" y1="112" x2="722" y2="112" stroke="#dc2626" stroke-width="1.5" marker-end="url(#ar)"/>
+  <!-- Admission -> cosign verify -->
+  <line x1="798" y1="134" x2="798" y2="164" stroke="#dc2626" stroke-width="1.5" marker-end="url(#ar)"/>
+  <!-- cosign verify -> Rekor (check) -->
+  <path d="M722,186 Q560,186 406,260" fill="none" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#agn)"/>
+  <!-- cosign verify -> ALLOW -->
+  <line x1="757" y1="208" x2="757" y2="320" stroke="#166534" stroke-width="1.5" marker-end="url(#adk)"/>
+  <!-- cosign verify -> DENY -->
+  <line x1="839" y1="208" x2="839" y2="320" stroke="#9f1239" stroke-width="1.5" marker-end="url(#adr)"/>
+
+  <!-- LEGEND -->
+  <rect x="12" y="430" width="876" height="68" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="32" y="448" font-size="11" font-weight="700" fill="#475569">Legend</text>
+  <line x1="32" y1="462" x2="60" y2="462" stroke="#3b82f6" stroke-width="2"/>
+  <text x="64" y="466" font-size="10" fill="#475569">signing flow</text>
+  <line x1="140" y1="462" x2="168" y2="462" stroke="#16a34a" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="172" y="466" font-size="10" fill="#475569">transparency log</text>
+  <line x1="270" y1="462" x2="298" y2="462" stroke="#9333ea" stroke-width="2"/>
+  <text x="302" y="466" font-size="10" fill="#475569">registry push</text>
+  <line x1="380" y1="462" x2="408" y2="462" stroke="#dc2626" stroke-width="2"/>
+  <text x="412" y="466" font-size="10" fill="#475569">policy enforcement</text>
+  <text x="32" y="488" font-size="10" fill="#64748b">Keyless signing: OIDC workload identity → Fulcio issues short-lived cert → Rekor stores immutable transparency log entry → no long-lived signing keys needed.</text>
+</svg>

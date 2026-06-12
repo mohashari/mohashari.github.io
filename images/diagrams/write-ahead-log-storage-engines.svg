@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="900" height="360" viewBox="0 0 900 360"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&amp;display=swap');
+      text { font-family: 'Caveat', 'Comic Sans MS', cursive; }
+    </style>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="3"
+                    seed="5" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.2"
+                         xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <marker id="arr" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+    </marker>
+    <marker id="arr-red" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-green" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#16a34a"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="10" markerHeight="7"
+            refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+    </marker>
+  </defs>
+  <rect width="900" height="360" fill="#fafaf8" rx="8"/>
+  <text x="450" y="32" text-anchor="middle" font-size="17" font-weight="700" fill="#1e1e2e">Write-Ahead Logging: Write Path &amp; Crash Recovery</text>
+  <line x1="40" y1="44" x2="860" y2="44" stroke="#e5e3de" stroke-width="1"/>
+  <text x="190" y="63" text-anchor="middle" font-size="12" fill="#6b7280" font-weight="600">WRITE PATH (normal operation)</text>
+  <text x="660" y="63" text-anchor="middle" font-size="12" fill="#6b7280" font-weight="600">CRASH RECOVERY (ARIES)</text>
+  <line x1="415" y1="50" x2="415" y2="345" stroke="#e5e3de" stroke-width="1" stroke-dasharray="4,4"/>
+  <g filter="url(#rough)">
+    <rect x="20" y="75" width="120" height="52" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2"/>
+  </g>
+  <text x="80" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">Transaction</text>
+  <text x="80" y="114" text-anchor="middle" font-size="11" fill="#374151">BEGIN / COMMIT</text>
+  <line x1="140" y1="101" x2="168" y2="101" stroke="#374151" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="154" y="95" text-anchor="middle" font-size="10" fill="#374151" font-weight="700">&#x2460;</text>
+  <g filter="url(#rough)">
+    <rect x="168" y="75" width="120" height="52" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  </g>
+  <text x="228" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">WAL Buffer</text>
+  <text x="228" y="113" text-anchor="middle" font-size="11" fill="#374151">in-memory ring</text>
+  <line x1="228" y1="127" x2="228" y2="158" stroke="#d97706" stroke-width="2.2" marker-end="url(#arr-orange)"/>
+  <text x="252" y="148" font-size="10" fill="#d97706" font-weight="700">fsync()</text>
+  <g filter="url(#rough)">
+    <rect x="168" y="158" width="120" height="60" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="2.5"/>
+  </g>
+  <text x="228" y="178" text-anchor="middle" font-size="13" font-weight="700" fill="#713f12">WAL Segment</text>
+  <text x="228" y="194" text-anchor="middle" font-size="11" fill="#374151">pg_wal/ sequential</text>
+  <text x="228" y="208" text-anchor="middle" font-size="10" fill="#6b7280">LSN advances monotonically</text>
+  <line x1="80" y1="127" x2="80" y2="248" stroke="#374151" stroke-width="1.6" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+  <text x="56" y="188" font-size="10" fill="#374151" font-weight="700">&#x2461;</text>
+  <text x="56" y="200" font-size="10" fill="#6b7280">(lazy)</text>
+  <g filter="url(#rough)">
+    <rect x="20" y="248" width="120" height="52" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  </g>
+  <text x="80" y="268" text-anchor="middle" font-size="13" font-weight="700" fill="#15803d">Buffer Pool</text>
+  <text x="80" y="286" text-anchor="middle" font-size="11" fill="#374151">dirty pages</text>
+  <line x1="140" y1="274" x2="168" y2="274" stroke="#16a34a" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <g filter="url(#rough)">
+    <rect x="168" y="248" width="120" height="52" rx="6" fill="#f0fdf4" stroke="#15803d" stroke-width="2.5"/>
+  </g>
+  <text x="228" y="268" text-anchor="middle" font-size="13" font-weight="700" fill="#14532d">Data Pages</text>
+  <text x="228" y="286" text-anchor="middle" font-size="11" fill="#374151">heap / random I/O</text>
+  <line x1="228" y1="218" x2="228" y2="248" stroke="#16a34a" stroke-width="1.6" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="248" y="237" font-size="10" fill="#16a34a" font-weight="700">CKPT</text>
+  <rect x="20" y="318" width="270" height="28" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="155" y="336" text-anchor="middle" font-size="11" font-weight="700" fill="#92400e">WAL flushed BEFORE data page leaves buffer</text>
+  <g filter="url(#rough)">
+    <rect x="430" y="75" width="120" height="52" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="2.5"/>
+  </g>
+  <text x="490" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">CRASH</text>
+  <text x="490" y="113" text-anchor="middle" font-size="11" fill="#374151">power / OOM / kill -9</text>
+  <line x1="490" y1="127" x2="490" y2="158" stroke="#dc2626" stroke-width="2" marker-end="url(#arr-red)"/>
+  <g filter="url(#rough)">
+    <rect x="430" y="158" width="120" height="58" rx="6" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  </g>
+  <text x="490" y="178" text-anchor="middle" font-size="13" font-weight="700" fill="#c2410c">&#x2460; Analysis</text>
+  <text x="490" y="195" text-anchor="middle" font-size="11" fill="#374151">scan from last CKPT</text>
+  <text x="490" y="209" text-anchor="middle" font-size="10" fill="#6b7280">build dirty page table</text>
+  <line x1="550" y1="187" x2="588" y2="187" stroke="#374151" stroke-width="1.8" marker-end="url(#arr)"/>
+  <g filter="url(#rough)">
+    <rect x="588" y="158" width="120" height="58" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+  </g>
+  <text x="648" y="178" text-anchor="middle" font-size="13" font-weight="700" fill="#15803d">&#x2461; Redo</text>
+  <text x="648" y="195" text-anchor="middle" font-size="11" fill="#374151">replay WAL forward</text>
+  <text x="648" y="209" text-anchor="middle" font-size="10" fill="#6b7280">all ops, committed or not</text>
+  <line x1="648" y1="216" x2="648" y2="248" stroke="#374151" stroke-width="1.8" marker-end="url(#arr)"/>
+  <g filter="url(#rough)">
+    <rect x="588" y="248" width="120" height="58" rx="6" fill="#faf5ff" stroke="#7c3aed" stroke-width="2"/>
+  </g>
+  <text x="648" y="268" text-anchor="middle" font-size="13" font-weight="700" fill="#6d28d9">&#x2462; Undo</text>
+  <text x="648" y="285" text-anchor="middle" font-size="11" fill="#374151">rollback uncommitted</text>
+  <text x="648" y="298" text-anchor="middle" font-size="10" fill="#6b7280">writes CLR to WAL</text>
+  <line x1="588" y1="277" x2="550" y2="277" stroke="#374151" stroke-width="1.8" marker-end="url(#arr)"/>
+  <g filter="url(#rough)">
+    <rect x="430" y="248" width="120" height="58" rx="6" fill="#eff6ff" stroke="#1d4ed8" stroke-width="2.5"/>
+  </g>
+  <text x="490" y="268" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">DB Open</text>
+  <text x="490" y="285" text-anchor="middle" font-size="11" fill="#374151">consistent state</text>
+  <text x="490" y="298" text-anchor="middle" font-size="10" fill="#16a34a">ACID guaranteed</text>
+  <g filter="url(#rough)">
+    <rect x="750" y="143" width="120" height="73" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="2.5"/>
+  </g>
+  <text x="810" y="163" text-anchor="middle" font-size="13" font-weight="700" fill="#713f12">WAL File</text>
+  <text x="810" y="179" text-anchor="middle" font-size="11" fill="#374151">survives crash</text>
+  <text x="810" y="195" text-anchor="middle" font-size="10" fill="#6b7280">000000010000...</text>
+  <text x="810" y="208" text-anchor="middle" font-size="10" fill="#713f12" font-weight="700">source of truth</text>
+  <line x1="750" y1="170" x2="550" y2="178" stroke="#ca8a04" stroke-width="1.8" stroke-dasharray="6,3" marker-end="url(#arr-orange)"/>
+  <text x="660" y="163" text-anchor="middle" font-size="10" fill="#d97706" font-weight="700">reads WAL records</text>
+  <rect x="430" y="318" width="440" height="28" rx="4" fill="#f0f9ff" stroke="#0891b2" stroke-width="1.2"/>
+  <text x="650" y="336" text-anchor="middle" font-size="11" font-weight="700" fill="#0c4a6e">Recovery time proportional to WAL records since last checkpoint</text>
+</svg>

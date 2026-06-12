@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="13">
+  <rect width="900" height="600" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e1e1e">Speculative Decoding + Continuous Batching</text>
+
+  <!-- ── SPECULATIVE DECODING ── -->
+  <text x="40" y="75" font-size="13" font-weight="bold" fill="#2f9e44">SPECULATIVE DECODING</text>
+
+  <!-- Input Prompt -->
+  <rect x="30" y="90" width="120" height="50" rx="8" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+  <text x="90" y="110" text-anchor="middle" font-size="12" fill="#1e1e1e">Input</text>
+  <text x="90" y="126" text-anchor="middle" font-size="12" fill="#1e1e1e">Prompt</text>
+
+  <!-- Arrow: Prompt → Draft -->
+  <line x1="152" y1="115" x2="205" y2="115" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Draft Model -->
+  <rect x="208" y="82" width="155" height="66" rx="8" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="285" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#2f9e44">Draft Model</text>
+  <text x="285" y="119" text-anchor="middle" font-size="11" fill="#2f9e44">(small, fast — ~7B)</text>
+  <text x="285" y="135" text-anchor="middle" font-size="11" fill="#2f9e44">runs k=4 steps</text>
+
+  <!-- Arrow: Draft Model → Draft Tokens -->
+  <line x1="285" y1="148" x2="285" y2="178" stroke="#2f9e44" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Draft Tokens -->
+  <rect x="208" y="180" width="155" height="36" rx="6" fill="#ebfbee" stroke="#2f9e44" stroke-width="1.5"/>
+  <text x="285" y="203" text-anchor="middle" font-size="12" fill="#2f9e44">k draft tokens (k=4)</text>
+
+  <!-- Arrow: Draft Tokens → Target -->
+  <line x1="363" y1="198" x2="410" y2="150" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Target Model -->
+  <rect x="414" y="82" width="155" height="66" rx="8" fill="#dbe4ff" stroke="#1971c2" stroke-width="2"/>
+  <text x="491" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#1971c2">Target Model</text>
+  <text x="491" y="119" text-anchor="middle" font-size="11" fill="#1971c2">(large, accurate — ~70B)</text>
+  <text x="491" y="135" text-anchor="middle" font-size="11" fill="#1971c2">1 forward pass</text>
+
+  <!-- Arrow: Target → Verify -->
+  <line x1="491" y1="148" x2="491" y2="178" stroke="#1971c2" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Verify Box -->
+  <rect x="414" y="180" width="155" height="36" rx="6" fill="#e7f5ff" stroke="#1971c2" stroke-width="1.5"/>
+  <text x="491" y="203" text-anchor="middle" font-size="12" fill="#1971c2">Verify all k tokens</text>
+
+  <!-- Arrow: Verify → Accept/Reject -->
+  <line x1="569" y1="198" x2="608" y2="198" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Accept/Reject -->
+  <rect x="610" y="175" width="145" height="60" rx="8" fill="#fff5f5" stroke="#e03131" stroke-width="2"/>
+  <text x="682" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#e03131">Accept / Reject</text>
+  <text x="682" y="215" text-anchor="middle" font-size="11" fill="#e03131">rollback at first mismatch</text>
+  <text x="682" y="228" text-anchor="middle" font-size="11" fill="#e03131">+ resample token</text>
+
+  <!-- Speedup note -->
+  <text x="208" y="248" font-size="11" fill="#e67700">★ 2–4× speedup when draft accept rate &gt; 80%  |  lossless output distribution guaranteed</text>
+
+  <!-- ── DIVIDER ── -->
+  <line x1="30" y1="270" x2="870" y2="270" stroke="#adb5bd" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- ── CONTINUOUS BATCHING ── -->
+  <text x="40" y="296" font-size="13" font-weight="bold" fill="#9c36b5">CONTINUOUS BATCHING</text>
+
+  <!-- Queue label -->
+  <text x="90" y="325" text-anchor="middle" font-size="12" fill="#1e1e1e">Request Queue</text>
+
+  <!-- Req A -->
+  <rect x="30" y="332" width="118" height="28" rx="5" fill="#f3d9fa" stroke="#9c36b5" stroke-width="1.5"/>
+  <text x="89" y="351" text-anchor="middle" font-size="11" fill="#9c36b5">Req A  (tok 12/200)</text>
+
+  <!-- Req B -->
+  <rect x="30" y="366" width="118" height="28" rx="5" fill="#f3d9fa" stroke="#9c36b5" stroke-width="1.5"/>
+  <text x="89" y="385" text-anchor="middle" font-size="11" fill="#9c36b5">Req B  (tok 5/50) ✓</text>
+
+  <!-- Req C -->
+  <rect x="30" y="400" width="118" height="28" rx="5" fill="#f3d9fa" stroke="#9c36b5" stroke-width="1.5"/>
+  <text x="89" y="419" text-anchor="middle" font-size="11" fill="#9c36b5">Req C  (tok 30/500)</text>
+
+  <!-- Req D (new) -->
+  <rect x="30" y="434" width="118" height="28" rx="5" fill="#d3f9d8" stroke="#2f9e44" stroke-width="1.5"/>
+  <text x="89" y="453" text-anchor="middle" font-size="11" fill="#2f9e44">Req D  (new, joins)</text>
+
+  <!-- Arrow: Queue → Engine -->
+  <line x1="150" y1="400" x2="198" y2="400" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Engine Box -->
+  <rect x="200" y="305" width="230" height="185" rx="10" fill="#f8f0fc" stroke="#9c36b5" stroke-width="2"/>
+  <text x="315" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#9c36b5">LLM Engine</text>
+  <text x="315" y="342" text-anchor="middle" font-size="11" fill="#9c36b5">(vLLM / TGI / SGLang)</text>
+
+  <rect x="212" y="352" width="206" height="28" rx="5" fill="#f1f3f5" stroke="#495057" stroke-width="1"/>
+  <text x="315" y="371" text-anchor="middle" font-size="11" fill="#495057">Iteration-level scheduling</text>
+
+  <rect x="212" y="386" width="206" height="28" rx="5" fill="#fff3bf" stroke="#f08c00" stroke-width="1"/>
+  <text x="315" y="405" text-anchor="middle" font-size="11" fill="#c67400">PagedAttention KV Cache</text>
+
+  <rect x="212" y="420" width="206" height="28" rx="5" fill="#fff5f5" stroke="#e03131" stroke-width="1"/>
+  <text x="315" y="439" text-anchor="middle" font-size="11" fill="#e03131">Preempt / swap long seqs</text>
+
+  <rect x="212" y="454" width="206" height="28" rx="5" fill="#e7f5ff" stroke="#1971c2" stroke-width="1"/>
+  <text x="315" y="473" text-anchor="middle" font-size="11" fill="#1971c2">Prefix caching (shared KV)</text>
+
+  <!-- Arrow: Engine → GPU -->
+  <line x1="432" y1="400" x2="478" y2="400" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- GPU Batch -->
+  <rect x="480" y="310" width="185" height="175" rx="10" fill="#ffe3e3" stroke="#e03131" stroke-width="2"/>
+  <text x="572" y="332" text-anchor="middle" font-size="13" font-weight="bold" fill="#e03131">GPU Batch (step N)</text>
+
+  <rect x="493" y="342" width="159" height="22" rx="4" fill="#f3d9fa" stroke="#9c36b5" stroke-width="1"/>
+  <text x="572" y="357" text-anchor="middle" font-size="11" fill="#9c36b5">A[t12]  B[t5]  C[t30]</text>
+
+  <rect x="493" y="370" width="159" height="22" rx="4" fill="#d3f9d8" stroke="#2f9e44" stroke-width="1"/>
+  <text x="572" y="385" text-anchor="middle" font-size="11" fill="#2f9e44">D[t1]  ← joined mid-flight</text>
+
+  <text x="572" y="416" text-anchor="middle" font-size="10" fill="#495057">B completes → slot freed</text>
+  <text x="572" y="430" text-anchor="middle" font-size="10" fill="#495057">D joins same decode step</text>
+  <text x="572" y="444" text-anchor="middle" font-size="10" fill="#495057">No head-of-line blocking</text>
+  <text x="572" y="462" text-anchor="middle" font-size="10" fill="#e03131">GPU util: ~85–95%</text>
+
+  <!-- Arrow: GPU → Output -->
+  <line x1="667" y1="400" x2="712" y2="400" stroke="#1e1e1e" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Output -->
+  <rect x="714" y="370" width="140" height="60" rx="8" fill="#e9ecef" stroke="#1e1e1e" stroke-width="2"/>
+  <text x="784" y="393" text-anchor="middle" font-size="12" fill="#1e1e1e">Streamed</text>
+  <text x="784" y="409" text-anchor="middle" font-size="12" fill="#1e1e1e">Responses</text>
+  <text x="784" y="424" text-anchor="middle" font-size="10" fill="#495057">(SSE / gRPC)</text>
+
+  <!-- Combined note -->
+  <rect x="30" y="510" width="840" height="50" rx="8" fill="#fff9db" stroke="#f08c00" stroke-width="1.5"/>
+  <text x="450" y="528" text-anchor="middle" font-size="12" font-weight="bold" fill="#c67400">Combined: Speculative Decoding inside Continuous Batching</text>
+  <text x="450" y="546" text-anchor="middle" font-size="11" fill="#495057">Draft model proposes k tokens per request · Target verifies entire batch in one pass · Accepted tokens reduce decode steps · GPU stays saturated</text>
+
+  <!-- Arrowhead markers -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1e1e1e"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2f9e44"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#1971c2"/>
+    </marker>
+  </defs>
+</svg>

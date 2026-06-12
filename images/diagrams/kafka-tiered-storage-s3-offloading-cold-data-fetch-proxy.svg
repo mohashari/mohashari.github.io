@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-30 -30 1260 960" width="1200" height="900" font-family="sans-serif">
+  <!-- Title -->
+  <text x="190" y="20" font-size="22" font-weight="bold" fill="#1e1e1e">Kafka Tiered Storage: Hot/Cold Data Flow</text>
+
+  <!-- HOT TIER zone -->
+  <rect x="20" y="60" width="520" height="560" rx="12" fill="#dbe4ff" fill-opacity="0.4" stroke="#4a9eed" stroke-width="2"/>
+  <text x="35" y="82" font-size="16" fill="#2563eb" font-weight="bold">HOT TIER (Local NVMe)</text>
+
+  <!-- COLD TIER zone -->
+  <rect x="700" y="60" width="440" height="300" rx="12" fill="#d3f9d8" fill-opacity="0.4" stroke="#22c55e" stroke-width="2"/>
+  <text x="715" y="82" font-size="16" fill="#15803d" font-weight="bold">COLD TIER (S3 / Object Store)</text>
+
+  <!-- Producer -->
+  <rect x="40" y="130" width="140" height="60" rx="10" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="110" y="165" font-size="16" text-anchor="middle" fill="#1e1e1e">Producer</text>
+
+  <!-- Kafka Broker -->
+  <rect x="240" y="100" width="260" height="220" rx="10" fill="#fff3bf" stroke="#f59e0b" stroke-width="2"/>
+  <text x="255" y="120" font-size="16" fill="#92400e" font-weight="bold">Kafka Broker</text>
+  <rect x="255" y="133" width="230" height="32" rx="6" fill="#ffd8a8" stroke="#f59e0b" stroke-width="1"/>
+  <text x="370" y="154" font-size="13" text-anchor="middle" fill="#1e1e1e">Segment 0001 (active)</text>
+  <rect x="255" y="171" width="230" height="32" rx="6" fill="#ffd8a8" stroke="#f59e0b" stroke-width="1"/>
+  <text x="370" y="192" font-size="13" text-anchor="middle" fill="#1e1e1e">Segment 0002</text>
+  <rect x="255" y="209" width="230" height="32" rx="6" fill="#ffd8a8" stroke="#f59e0b" stroke-width="1"/>
+  <text x="370" y="230" font-size="13" text-anchor="middle" fill="#1e1e1e">Segment 0003</text>
+  <text x="255" y="264" font-size="13" fill="#92400e">local.retention: 5 GB / 24h</text>
+
+  <!-- Arrow: Producer -> Broker -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4a9eed"/>
+    </marker>
+    <marker id="arr_purple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#8b5cf6"/>
+    </marker>
+    <marker id="arr_green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#22c55e"/>
+    </marker>
+    <marker id="arr_red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arr_pink" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#ec4899"/>
+    </marker>
+  </defs>
+  <line x1="180" y1="160" x2="238" y2="160" stroke="#4a9eed" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="209" y="152" font-size="13" text-anchor="middle" fill="#4a9eed">write</text>
+
+  <!-- Segment Uploader -->
+  <rect x="240" y="370" width="260" height="55" rx="10" fill="#d0bfff" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="370" y="402" font-size="15" text-anchor="middle" fill="#1e1e1e">Segment Uploader</text>
+
+  <!-- Arrow: Broker -> Uploader -->
+  <line x1="370" y1="320" x2="370" y2="368" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arr_purple)"/>
+  <text x="380" y="348" font-size="12" fill="#8b5cf6">rolled segment</text>
+
+  <!-- Arrow: Uploader -> S3 -->
+  <line x1="500" y1="388" x2="718" y2="200" stroke="#22c55e" stroke-width="2" marker-end="url(#arr_green)"/>
+  <text x="615" y="285" font-size="13" fill="#15803d" transform="rotate(-35,615,285)">upload</text>
+
+  <!-- S3 Bucket -->
+  <rect x="715" y="100" width="400" height="200" rx="10" fill="#c3fae8" stroke="#22c55e" stroke-width="2"/>
+  <text x="730" y="120" font-size="15" fill="#15803d" font-weight="bold">S3 Bucket (tiered-kafka/)</text>
+  <rect x="728" y="132" width="374" height="28" rx="6" fill="#b2f2bb" stroke="#22c55e" stroke-width="1"/>
+  <text x="915" y="151" font-size="12" text-anchor="middle" fill="#1e1e1e">topic/p0/00000000000001.log</text>
+  <rect x="728" y="166" width="374" height="28" rx="6" fill="#b2f2bb" stroke="#22c55e" stroke-width="1"/>
+  <text x="915" y="185" font-size="12" text-anchor="middle" fill="#1e1e1e">topic/p0/00000000000002.log</text>
+  <rect x="728" y="200" width="374" height="28" rx="6" fill="#b2f2bb" stroke="#22c55e" stroke-width="1"/>
+  <text x="915" y="219" font-size="12" text-anchor="middle" fill="#1e1e1e">topic/p0/00000000000003.log + .index</text>
+  <text x="730" y="256" font-size="13" fill="#15803d">remote.log.retention.ms: 30 days</text>
+
+  <!-- RemoteLogManager / Fetch Proxy -->
+  <rect x="240" y="460" width="280" height="58" rx="10" fill="#ffc9c9" stroke="#ef4444" stroke-width="2"/>
+  <text x="380" y="487" font-size="13" text-anchor="middle" fill="#1e1e1e">RemoteLogManager</text>
+  <text x="380" y="507" font-size="13" text-anchor="middle" fill="#1e1e1e">(Fetch Proxy)</text>
+
+  <!-- Consumer Group -->
+  <rect x="40" y="468" width="152" height="58" rx="10" fill="#a5d8ff" stroke="#4a9eed" stroke-width="2"/>
+  <text x="116" y="503" font-size="15" text-anchor="middle" fill="#1e1e1e">Consumer Group</text>
+
+  <!-- Arrow: Consumer -> Proxy -->
+  <line x1="192" y1="497" x2="238" y2="490" stroke="#4a9eed" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="215" y="480" font-size="12" fill="#4a9eed">FetchRequest</text>
+
+  <!-- Decision diamond -->
+  <polygon points="595,470 650,492 595,514 540,492" fill="#fff3bf" stroke="#f59e0b" stroke-width="2"/>
+  <text x="595" y="496" font-size="15" text-anchor="middle" fill="#1e1e1e">hot?</text>
+
+  <!-- Arrow: Proxy -> Decision -->
+  <line x1="520" y1="490" x2="538" y2="491" stroke="#ef4444" stroke-width="2" marker-end="url(#arr_red)"/>
+
+  <!-- Arrow: Decision yes -> back (local) -->
+  <path d="M540,491 Q490,460 370,460" stroke="#22c55e" stroke-width="2" fill="none" marker-end="url(#arr_green)"/>
+  <text x="455" y="450" font-size="13" fill="#15803d">yes: local disk</text>
+
+  <!-- Arrow: Decision no -> S3 -->
+  <path d="M650,490 Q740,400 730,220" stroke="#ef4444" stroke-width="2" fill="none" marker-end="url(#arr_red)"/>
+  <text x="720" y="380" font-size="13" fill="#ef4444">no: S3</text>
+
+  <!-- Metadata bar -->
+  <rect x="240" y="548" width="530" height="50" rx="10" fill="#eebefa" stroke="#ec4899" stroke-width="2"/>
+  <text x="505" y="578" font-size="13" text-anchor="middle" fill="#1e1e1e">Remote Log Metadata: segment offsets, S3 URIs (KRaft / ZK)</text>
+
+  <!-- Arrow: Proxy -> Metadata -->
+  <line x1="370" y1="518" x2="370" y2="546" stroke="#ec4899" stroke-width="1.5" marker-end="url(#arr_pink)"/>
+
+  <!-- Legend -->
+  <rect x="700" y="390" width="420" height="195" rx="8" fill="#f8f8f8" stroke="#999" stroke-width="1"/>
+  <text x="720" y="412" font-size="15" font-weight="bold" fill="#1e1e1e">Key Config Parameters</text>
+  <text x="720" y="435" font-size="13" fill="#555">remote.log.storage.system.enable=true</text>
+  <text x="720" y="455" font-size="13" fill="#555">log.local.retention.bytes=5368709120 (5 GB)</text>
+  <text x="720" y="475" font-size="13" fill="#555">log.retention.bytes=-1 (unlimited in S3)</text>
+  <text x="720" y="495" font-size="13" fill="#555">remote.log.manager.task.interval.ms=30000</text>
+  <text x="720" y="515" font-size="13" fill="#555">remote.log.metadata.custom.metadata.max.bytes=128</text>
+  <text x="720" y="535" font-size="13" fill="#555">kafka.tiered.fetch.max.wait.ms=500</text>
+  <text x="720" y="555" font-size="13" fill="#555">RemoteStorageManager: S3RemoteStorageManager</text>
+  <text x="720" y="575" font-size="13" fill="#555">RemoteLogMetadataManager: TopicBasedRLMM</text>
+</svg>

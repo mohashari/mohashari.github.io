@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" font-family="'Segoe UI', Arial, sans-serif">
+  <!-- Background -->
+  <rect width="1000" height="620" fill="#ffffff" rx="8"/>
+
+  <!-- Title -->
+  <text x="500" y="38" text-anchor="middle" font-size="20" font-weight="700" fill="#1e1e2e">LLM Quantization: Format Decision Tree</text>
+
+  <!-- Base model box -->
+  <rect x="325" y="58" width="350" height="60" rx="8" fill="#e0e7ff" stroke="#4f46e5" stroke-width="2"/>
+  <text x="500" y="81" text-anchor="middle" font-size="14" font-weight="600" fill="#1e1e2e">Base Model (FP16 / BF16)</text>
+  <text x="500" y="101" text-anchor="middle" font-size="12" fill="#3730a3">e.g. Llama-3 70B → 140 GB VRAM</text>
+
+  <!-- Arrows from base model -->
+  <line x1="420" y1="118" x2="210" y2="198" stroke="#6741d9" stroke-width="2" marker-end="url(#arrow-purple)"/>
+  <line x1="500" y1="118" x2="500" y2="198" stroke="#2f9e44" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <line x1="580" y1="118" x2="790" y2="198" stroke="#e03131" stroke-width="2" marker-end="url(#arrow-red)"/>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6741d9"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#2f9e44"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#e03131"/>
+    </marker>
+  </defs>
+
+  <!-- Arrow labels -->
+  <text x="270" y="162" text-anchor="middle" font-size="11" fill="#6741d9" font-weight="500">CPU/edge</text>
+  <text x="500" y="162" text-anchor="middle" font-size="11" fill="#2f9e44" font-weight="500">GPU cluster</text>
+  <text x="730" y="162" text-anchor="middle" font-size="11" fill="#e03131" font-weight="500">single-GPU</text>
+
+  <!-- GGUF box -->
+  <rect x="55" y="198" width="290" height="120" rx="8" fill="#ede9fe" stroke="#6741d9" stroke-width="2"/>
+  <text x="200" y="222" text-anchor="middle" font-size="15" font-weight="700" fill="#4c1d95">GGUF (llama.cpp)</text>
+  <text x="70" y="244" font-size="12" fill="#3b0764">• Q4_K_M: 140 GB → ~38 GB</text>
+  <text x="70" y="262" font-size="12" fill="#3b0764">• Q8_0: ~75 GB (near-lossless)</text>
+  <text x="70" y="280" font-size="12" fill="#3b0764">• CPU offload: layer-by-layer</text>
+  <text x="70" y="298" font-size="12" fill="#3b0764">• Targets: laptop, edge, Apple M*</text>
+
+  <!-- AWQ box -->
+  <rect x="375" y="198" width="250" height="120" rx="8" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="500" y="222" text-anchor="middle" font-size="15" font-weight="700" fill="#1a5e2a">AWQ (vLLM / TGI)</text>
+  <text x="390" y="244" font-size="12" fill="#1a4d26">• INT4 + activation-aware scale</text>
+  <text x="390" y="262" font-size="12" fill="#1a4d26">• W4A16: weights 4-bit, acts 16-bit</text>
+  <text x="390" y="280" font-size="12" fill="#1a4d26">• Throughput: 1.5–2× vs FP16</text>
+  <text x="390" y="298" font-size="12" fill="#1a4d26">• Targets: H100/A100, high QPS</text>
+
+  <!-- GPTQ box -->
+  <rect x="655" y="198" width="290" height="120" rx="8" fill="#ffe3e3" stroke="#e03131" stroke-width="2"/>
+  <text x="800" y="222" text-anchor="middle" font-size="15" font-weight="700" fill="#7d0000">GPTQ (AutoGPTQ)</text>
+  <text x="670" y="244" font-size="12" fill="#7d0000">• INT4/INT3 post-training quant</text>
+  <text x="670" y="262" font-size="12" fill="#7d0000">• Calibration: ~128 samples, GPU</text>
+  <text x="670" y="280" font-size="12" fill="#7d0000">• Quant time: 2–4 hrs (70B)</text>
+  <text x="670" y="298" font-size="12" fill="#7d0000">• Targets: single-GPU batch infer</text>
+
+  <!-- Trade-offs section header -->
+  <text x="500" y="348" text-anchor="middle" font-size="14" font-weight="600" fill="#495057">Production Trade-offs Comparison</text>
+  <line x1="60" y1="356" x2="940" y2="356" stroke="#adb5bd" stroke-width="1"/>
+
+  <!-- Table background -->
+  <rect x="60" y="362" width="880" height="185" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Table header row -->
+  <rect x="60" y="362" width="880" height="28" rx="6" fill="#e9ecef"/>
+  <text x="120" y="381" font-size="12" font-weight="700" font-family="monospace" fill="#212529">Dimension</text>
+  <text x="320" y="381" font-size="12" font-weight="700" font-family="monospace" fill="#6741d9">GGUF Q4_K_M</text>
+  <text x="550" y="381" font-size="12" font-weight="700" font-family="monospace" fill="#2f9e44">AWQ W4A16</text>
+  <text x="760" y="381" font-size="12" font-weight="700" font-family="monospace" fill="#e03131">GPTQ INT4</text>
+
+  <!-- Table rows -->
+  <line x1="60" y1="390" x2="940" y2="390" stroke="#dee2e6" stroke-width="1"/>
+  <text x="75" y="406" font-size="11.5" font-family="monospace" fill="#495057">Memory (70B)</text>
+  <text x="310" y="406" font-size="11.5" font-family="monospace" fill="#1e1e2e">~35–38 GB</text>
+  <text x="545" y="406" font-size="11.5" font-family="monospace" fill="#1e1e2e">~35 GB</text>
+  <text x="755" y="406" font-size="11.5" font-family="monospace" fill="#1e1e2e">~35 GB</text>
+
+  <line x1="60" y1="413" x2="940" y2="413" stroke="#dee2e6" stroke-width="1"/>
+  <text x="75" y="429" font-size="11.5" font-family="monospace" fill="#495057">Throughput</text>
+  <text x="310" y="429" font-size="11.5" font-family="monospace" fill="#1e1e2e">60–80 tok/s (CPU)</text>
+  <text x="545" y="429" font-size="11.5" font-family="monospace" fill="#1e1e2e">200–400 tok/s (H100)</text>
+  <text x="755" y="429" font-size="11.5" font-family="monospace" fill="#1e1e2e">150–250 tok/s (A100)</text>
+
+  <line x1="60" y1="436" x2="940" y2="436" stroke="#dee2e6" stroke-width="1"/>
+  <text x="75" y="452" font-size="11.5" font-family="monospace" fill="#495057">Perplexity delta</text>
+  <text x="310" y="452" font-size="11.5" font-family="monospace" fill="#1e1e2e">+0.5–1.2 vs FP16</text>
+  <text x="545" y="452" font-size="11.5" font-family="monospace" fill="#1e1e2e">+0.3–0.8 (best INT4)</text>
+  <text x="755" y="452" font-size="11.5" font-family="monospace" fill="#1e1e2e">+0.6–1.5</text>
+
+  <line x1="60" y1="459" x2="940" y2="459" stroke="#dee2e6" stroke-width="1"/>
+  <text x="75" y="475" font-size="11.5" font-family="monospace" fill="#495057">Hardware</text>
+  <text x="310" y="475" font-size="11.5" font-family="monospace" fill="#1e1e2e">CPU / Apple Silicon</text>
+  <text x="545" y="475" font-size="11.5" font-family="monospace" fill="#1e1e2e">NVIDIA Ampere+</text>
+  <text x="755" y="475" font-size="11.5" font-family="monospace" fill="#1e1e2e">NVIDIA Turing+</text>
+
+  <line x1="60" y1="482" x2="940" y2="482" stroke="#dee2e6" stroke-width="1"/>
+  <text x="75" y="498" font-size="11.5" font-family="monospace" fill="#495057">Quant time</text>
+  <text x="310" y="498" font-size="11.5" font-family="monospace" fill="#1e1e2e">Minutes (offline)</text>
+  <text x="545" y="498" font-size="11.5" font-family="monospace" fill="#1e1e2e">30–90 min</text>
+  <text x="755" y="498" font-size="11.5" font-family="monospace" fill="#1e1e2e">2–4 hrs (70B)</text>
+
+  <line x1="60" y1="505" x2="940" y2="505" stroke="#dee2e6" stroke-width="1"/>
+  <text x="75" y="521" font-size="11.5" font-family="monospace" fill="#495057">Serving stack</text>
+  <text x="310" y="521" font-size="11.5" font-family="monospace" fill="#1e1e2e">llama.cpp, ollama</text>
+  <text x="545" y="521" font-size="11.5" font-family="monospace" fill="#1e1e2e">vLLM, TGI, SGLang</text>
+  <text x="755" y="521" font-size="11.5" font-family="monospace" fill="#1e1e2e">AutoGPTQ, ExLlamaV2</text>
+
+  <!-- Recommendation bar -->
+  <rect x="60" y="560" width="880" height="48" rx="6" fill="#dbe4ff" stroke="#4263eb" stroke-width="2"/>
+  <text x="500" y="578" text-anchor="middle" font-size="12" font-weight="700" fill="#1864ab">Decision Rule</text>
+  <text x="500" y="597" text-anchor="middle" font-size="12" fill="#1864ab">GPU cluster + high QPS → AWQ  |  CPU / edge / hybrid → GGUF  |  Single-GPU batch + tuning control → GPTQ</text>
+</svg>

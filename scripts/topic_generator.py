@@ -62,7 +62,7 @@ class TopicGenerator:
         for attempt in range(2):
             self.logger.info(f"Generating topics (attempt {attempt + 1})")
             result = subprocess.run(
-                ["claude", "-p", prompt, "--output-format", "text"],
+                ["claude", "-p", prompt, "--output-format", "text", "--dangerously-skip-permissions"],
                 capture_output=True,
                 text=True,
                 timeout=config.TIMEOUT_TOPIC_GENERATION,

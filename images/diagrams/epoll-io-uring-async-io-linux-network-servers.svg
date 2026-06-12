@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 530" width="800" height="530" font-family="sans-serif">
+  <!-- Background -->
+  <rect width="800" height="530" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" font-size="22" font-weight="bold" fill="#1e1e2e">Epoll vs io_uring: Async I/O Models</text>
+
+  <!-- ===== EPOLL SIDE ===== -->
+  <text x="150" y="68" text-anchor="middle" font-size="17" font-weight="bold" fill="#1971c2">epoll Model</text>
+
+  <!-- App box -->
+  <rect x="40" y="80" width="220" height="50" rx="8" fill="#dbe4ff" stroke="#1971c2" stroke-width="2"/>
+  <text x="150" y="100" text-anchor="middle" font-size="13" fill="#1971c2">Application</text>
+  <text x="150" y="118" text-anchor="middle" font-size="12" fill="#1971c2">(User Space)</text>
+
+  <!-- Arrow down: epoll_wait syscall -->
+  <line x1="150" y1="130" x2="150" y2="175" stroke="#e03131" stroke-width="2" marker-end="url(#arrowRed)"/>
+  <text x="156" y="155" font-size="11" fill="#e03131">epoll_wait() syscall</text>
+
+  <!-- Kernel box -->
+  <rect x="40" y="180" width="220" height="60" rx="8" fill="#a5d8ff" stroke="#1971c2" stroke-width="2"/>
+  <text x="150" y="204" text-anchor="middle" font-size="13" fill="#1971c2">Kernel</text>
+  <text x="150" y="222" text-anchor="middle" font-size="12" fill="#1971c2">epoll_wait() blocks thread</text>
+
+  <!-- Arrow up: returns ready FDs -->
+  <line x1="118" y1="240" x2="118" y2="135" stroke="#2f9e44" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="38" y="215" font-size="11" fill="#2f9e44">returns</text>
+  <text x="33" y="228" font-size="11" fill="#2f9e44">ready FDs</text>
+
+  <!-- Arrow down to read/write -->
+  <line x1="150" y1="240" x2="150" y2="280" stroke="#e03131" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- read/write box -->
+  <rect x="40" y="285" width="220" height="55" rx="8" fill="#dbe4ff" stroke="#1971c2" stroke-width="2"/>
+  <text x="150" y="306" text-anchor="middle" font-size="12" fill="#1971c2">read() / write() per FD</text>
+  <text x="150" y="323" text-anchor="middle" font-size="12" fill="#1971c2">(1 blocking syscall per op)</text>
+
+  <!-- Arrow down to result -->
+  <line x1="150" y1="340" x2="150" y2="378" stroke="#e03131" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- Cost box -->
+  <rect x="40" y="383" width="220" height="55" rx="8" fill="#fff3bf" stroke="#e67700" stroke-width="2"/>
+  <text x="150" y="404" text-anchor="middle" font-size="12" fill="#e67700">N syscalls for N ready FDs</text>
+  <text x="150" y="421" text-anchor="middle" font-size="12" fill="#e67700">~1–3 μs overhead each</text>
+
+  <!-- Note -->
+  <text x="150" y="460" text-anchor="middle" font-size="11" fill="#555">Best for: ≤100K conns, mature</text>
+  <text x="150" y="475" text-anchor="middle" font-size="11" fill="#555">ecosystem (nginx, Redis, HAProxy)</text>
+
+  <!-- ===== DIVIDER ===== -->
+  <line x1="310" y1="60" x2="310" y2="510" stroke="#ccc" stroke-width="1" stroke-dasharray="6,4"/>
+  <text x="310" y="275" text-anchor="middle" font-size="22" font-weight="bold" fill="#aaa">vs</text>
+
+  <!-- ===== io_uring SIDE ===== -->
+  <text x="575" y="68" text-anchor="middle" font-size="17" font-weight="bold" fill="#2f9e44">io_uring Model</text>
+
+  <!-- App box -->
+  <rect x="340" y="80" width="270" height="50" rx="8" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="475" y="100" text-anchor="middle" font-size="13" fill="#2f9e44">Application</text>
+  <text x="475" y="118" text-anchor="middle" font-size="12" fill="#2f9e44">(User Space)</text>
+
+  <!-- Shared memory label -->
+  <text x="575" y="148" text-anchor="middle" font-size="11" fill="#555">Shared Memory (mmap, zero-copy)</text>
+
+  <!-- SQ Ring -->
+  <rect x="340" y="158" width="140" height="85" rx="8" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2"/>
+  <text x="410" y="182" text-anchor="middle" font-size="13" font-weight="bold" fill="#2f9e44">SQ Ring</text>
+  <text x="410" y="198" text-anchor="middle" font-size="12" fill="#2f9e44">Submission</text>
+  <text x="410" y="213" text-anchor="middle" font-size="12" fill="#2f9e44">Queue (SQEs)</text>
+  <text x="410" y="232" text-anchor="middle" font-size="11" fill="#555">app writes ops</text>
+
+  <!-- CQ Ring -->
+  <rect x="490" y="158" width="140" height="85" rx="8" fill="#b2f2bb" stroke="#2f9e44" stroke-width="2"/>
+  <text x="560" y="182" text-anchor="middle" font-size="13" font-weight="bold" fill="#2f9e44">CQ Ring</text>
+  <text x="560" y="198" text-anchor="middle" font-size="12" fill="#2f9e44">Completion</text>
+  <text x="560" y="213" text-anchor="middle" font-size="12" fill="#2f9e44">Queue (CQEs)</text>
+  <text x="560" y="232" text-anchor="middle" font-size="11" fill="#555">app reads results</text>
+
+  <!-- Arrow: SQ to kernel -->
+  <line x1="410" y1="243" x2="475" y2="298" stroke="#e03131" stroke-width="2" marker-end="url(#arrowRed)"/>
+  <text x="398" y="278" font-size="11" fill="#e03131">io_uring_enter()</text>
+  <text x="398" y="292" font-size="11" fill="#e03131">(optional)</text>
+
+  <!-- Arrow: kernel to CQ -->
+  <line x1="550" y1="298" x2="560" y2="243" stroke="#2f9e44" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="556" y="278" font-size="11" fill="#2f9e44">posts CQEs</text>
+
+  <!-- Kernel box -->
+  <rect x="340" y="305" width="290" height="65" rx="8" fill="#63e6be" stroke="#2f9e44" stroke-width="2"/>
+  <text x="485" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a7a4a">Kernel</text>
+  <text x="485" y="343" text-anchor="middle" font-size="12" fill="#1a7a4a">io_uring backend (SQPOLL thread</text>
+  <text x="485" y="359" text-anchor="middle" font-size="12" fill="#1a7a4a">or on-demand) — async ops</text>
+
+  <!-- Arrow down to result -->
+  <line x1="485" y1="370" x2="485" y2="403" stroke="#2f9e44" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Result box -->
+  <rect x="340" y="408" width="290" height="55" rx="8" fill="#d3f9d8" stroke="#2f9e44" stroke-width="2"/>
+  <text x="485" y="428" text-anchor="middle" font-size="12" fill="#2f9e44">Batch N ops → 1 syscall</text>
+  <text x="485" y="446" text-anchor="middle" font-size="12" fill="#2f9e44">SQPOLL: 0 syscalls at steady state</text>
+
+  <!-- Note -->
+  <text x="485" y="480" text-anchor="middle" font-size="11" fill="#555">Best for: high-throughput, NVMe I/O,</text>
+  <text x="485" y="495" text-anchor="middle" font-size="11" fill="#555">new stacks (Tokio/io-uring, glommio, monoio)</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e03131"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2f9e44"/>
+    </marker>
+  </defs>
+</svg>

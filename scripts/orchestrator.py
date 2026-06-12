@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Blog post generation orchestrator.
-Generates POSTS_PER_RUN technical posts daily using Claude, Gist, Unsplash, and Excalidraw.
+Generates POSTS_PER_RUN technical posts daily using Claude, Gist, Picsum, and Excalidraw.
 """
 
 import datetime
@@ -19,7 +19,7 @@ import history
 import topic_generator
 import post_generator
 import gist_manager
-import unsplash
+import images
 import publisher
 
 
@@ -93,7 +93,7 @@ class BlogOrchestrator:
         self.topic_gen = topic_generator.TopicGenerator(logger)
         self.post_gen = post_generator.PostGenerator(logger)
         self.gist_mgr = gist_manager.GistManager(config.GITHUB_USER, logger)
-        self.unsplash_client = unsplash.UnsplashClient(logger)
+        self.unsplash_client = images.PicsumClient(logger)
         self.git_pub = publisher.GitPublisher(config.BLOG_DIR, logger)
 
     def run(self) -> int:
