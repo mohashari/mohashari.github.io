@@ -49,5 +49,66 @@
     </footer>
 
     {% include analytics.html %}
+    <script>
+      (function() {
+        function initMermaid() {
+          const mermaidBlocks = [];
+          const elements = document.querySelectorAll('.language-mermaid, code.language-mermaid, pre.language-mermaid');
+          
+          elements.forEach(function(el) {
+            let container = el;
+            if (el.tagName === 'CODE') {
+              if (el.parentElement && el.parentElement.tagName === 'PRE') {
+                container = el.parentElement;
+                if (container.parentElement && container.parentElement.classList.contains('highlight')) {
+                  container = container.parentElement;
+                  if (container.parentElement && container.parentElement.classList.contains('language-mermaid')) {
+                    container = container.parentElement;
+                  }
+                }
+              }
+            } else if (el.tagName === 'PRE') {
+              if (el.parentElement && el.parentElement.classList.contains('language-mermaid')) {
+                container = el.parentElement;
+              }
+            }
+            
+            if (!mermaidBlocks.includes(container)) {
+              mermaidBlocks.push(container);
+            }
+          });
+
+          if (mermaidBlocks.length > 0) {
+            mermaidBlocks.forEach(function(container) {
+              const text = container.textContent || container.innerText;
+              const newEl = document.createElement('div');
+              newEl.className = 'mermaid';
+              newEl.textContent = text.trim();
+              container.parentNode.replaceChild(newEl, container);
+            });
+
+            const script = document.createElement('script');
+            script.type = 'module';
+            script.textContent = `
+              import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+              mermaid.initialize({
+                startOnLoad: true,
+                theme: 'default',
+                securityLevel: 'loose',
+                flowchart: { useMaxWidth: true, htmlLabels: true }
+              });
+              mermaid.run();
+            `;
+            document.body.appendChild(script);
+          }
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initMermaid);
+        } else {
+          initMermaid();
+        }
+      })();
+    </script>
   </body>
 </html>

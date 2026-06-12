@@ -977,3 +977,48 @@ table {
 .gmnoprint img { max-width: none; }
 
 @import "svg-icons";
+
+/* ============================================
+   MERMAID DIAGRAMS
+   ============================================ */
+
+.mermaid {
+  background: $white;
+  border: 1px solid $border;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  
+  // Custom font styling inside diagram
+  font-family: $sans;
+
+  svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
+// Prevent flash of unrendered text
+.mermaid:not([data-processed="true"]) {
+  visibility: hidden;
+  min-height: 120px;
+  position: relative;
+  border: 1px dashed $border;
+}
+
+.mermaid:not([data-processed="true"])::after {
+  content: "Loading diagram...";
+  visibility: visible;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $muted;
+  font-family: $sans;
+  font-size: 0.90rem;
+}
