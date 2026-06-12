@@ -8,7 +8,7 @@ layout: default
     {% if page.tags %}
     <div class="post-tags">
       {% for tag in page.tags %}
-        <span class="post-tag">{{ tag }}</span>
+        <a href="{{ site.baseurl }}/?tag={{ tag }}" class="post-tag">{{ tag }}</a>
       {% endfor %}
     </div>
     {% endif %}
@@ -72,7 +72,7 @@ layout: default
     {% if page.tags %}
     <div class="post-footer-tags">
       {% for tag in page.tags %}
-        <span class="post-tag">{{ tag }}</span>
+        <a href="{{ site.baseurl }}/?tag={{ tag }}" class="post-tag">{{ tag }}</a>
       {% endfor %}
     </div>
     {% endif %}

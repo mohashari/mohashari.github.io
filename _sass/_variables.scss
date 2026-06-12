@@ -5,17 +5,17 @@
 
 // Palette — White & Grey dominant, casual
 $white:       #FFFFFF;
-$bg:          #FFFFFF;
-$ink:         #1C1C1E;
-$inkLight:    #3A3A3C;
-$muted:       #6B7280;
-$subtle:      #9CA3AF;
-$border:      #E4E4E7;
-$borderLight: #F7F7F8;
-$separator:   #e5e5ea;
-$accent:      #52525B;
-$accentDark:  #3F3F46;
-$accentLight: #F4F4F5;
+$bg:          #F8FAFC; // Soft warm slate for comfortable reading background
+$ink:         #0F172A; // Slate-900 for high readability contrast
+$inkLight:    #334155; // Slate-700 for descriptions
+$muted:       #64748B; // Slate-500
+$subtle:      #94A3B8; // Slate-400
+$border:      #E2E8F0; // Slate-200
+$borderLight: #F1F5F9; // Slate-100
+$separator:   #E2E8F0;
+$accent:      #4F46E5; // Indigo-600 for modern interactive feel
+$accentDark:  #3730A3; // Indigo-800
+$accentLight: #EEF2FF; // Indigo-50
 
 // Legacy aliases
 $cream:       $bg;
@@ -29,7 +29,8 @@ $blue:        $accent;
 
 // Font stacks
 $display:     'Caveat', cursive;
-$sans:        'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+$sans:        'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$heading:     'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 $mono:        'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 
 // Legacy font aliases
