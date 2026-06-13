@@ -1512,6 +1512,39 @@ table {
     line-height: 1.7;
     border: none !important;
     border-radius: 0 !important;
+
+    /* Line Numbers Table Styling */
+    .hljs-ln {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0 !important;
+    }
+
+    .hljs-ln td {
+      padding: 0 !important;
+      border: none !important;
+    }
+
+    .hljs-ln-numbers {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      text-align: right;
+      color: #5a5f6c; /* Muted gray line numbers */
+      vertical-align: top;
+      padding-right: 1.25rem !important;
+      min-width: 1.5rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+    }
+
+    .hljs-ln-code {
+      padding-left: 1.25rem !important;
+      white-space: pre !important;
+    }
   }
 }
 

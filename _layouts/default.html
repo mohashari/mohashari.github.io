@@ -169,6 +169,13 @@
             codeEl.innerHTML = highlightedResult.value;
             codeEl.classList.add('hljs');
 
+            // Apply line numbers
+            if (typeof hljs.lineNumbersBlock === 'function') {
+              hljs.lineNumbersBlock(codeEl, {
+                singleLine: true
+              });
+            }
+
             // 3. Add Container, Header & Copy Button
             const preEl = codeEl.parentElement;
             if (preEl && preEl.tagName === 'PRE') {
@@ -248,7 +255,13 @@
           // Load JS
           const script = document.createElement('script');
           script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
-          script.onload = callback;
+          script.onload = function() {
+            // Load line numbers plugin
+            const lnScript = document.createElement('script');
+            lnScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js';
+            lnScript.onload = callback;
+            document.body.appendChild(lnScript);
+          };
           document.body.appendChild(script);
         }
 
