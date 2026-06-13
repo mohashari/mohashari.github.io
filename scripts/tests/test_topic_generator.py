@@ -60,7 +60,7 @@ def test_build_prompt_uses_config_values():
     assert "slug-b" in prompt
 
 
-def test_generate_calls_claude_once_on_success():
+def test_generate_calls_agy_once_on_success():
     gen = topic_generator.TopicGenerator(logger)
     mock_result = MagicMock(returncode=0, stdout=json.dumps(VALID_TOPICS), stderr="")
     with patch("subprocess.run", return_value=mock_result) as mock_run:
@@ -92,4 +92,5 @@ def test_generate_includes_dangerously_skip_permissions():
     with patch("subprocess.run", return_value=mock_result) as mock_run:
         gen.generate(past_slugs=[])
     args = mock_run.call_args[0][0]  # command list is first positional arg
+    assert "agy" == args[0]
     assert "--dangerously-skip-permissions" in args

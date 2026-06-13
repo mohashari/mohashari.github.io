@@ -7,7 +7,7 @@ LOG_DIR="${SCRIPTS_DIR}/logs"
 
 mkdir -p "${LOG_DIR}"
 
-# Ensure gh, git, and claude are discoverable
+# Ensure gh, git, and agy are discoverable
 export PATH="/usr/bin:/usr/local/bin:/home/muklis/.local/bin:${PATH}"
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting blog generation run" >> "${LOG_DIR}/generation.log"

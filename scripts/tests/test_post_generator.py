@@ -46,7 +46,7 @@ def test_build_prompt_includes_code_instructions_when_needed():
 
 def test_build_prompt_includes_diagram_instructions_when_needed():
     prompt = post_generator.build_prompt(SAMPLE_TOPIC, "2026-03-23")
-    assert "Excalidraw" in prompt
+    assert "DIAGRAM:" in prompt
 
 
 def test_build_prompt_no_code_when_not_needed():
@@ -58,7 +58,7 @@ def test_build_prompt_no_code_when_not_needed():
 def test_build_prompt_no_diagram_when_not_needed():
     topic = {**SAMPLE_TOPIC, "needs_diagram": False}
     prompt = post_generator.build_prompt(topic, "2026-03-23")
-    assert "Excalidraw" not in prompt
+    assert "DIAGRAM:" not in prompt
 
 
 def test_build_prompt_includes_image_thumbnail_placeholders():
@@ -87,7 +87,7 @@ def test_generate_returns_post_content():
     assert "PostgreSQL WAL Internals" in content
 
 
-def test_generate_raises_on_claude_failure():
+def test_generate_raises_on_agy_failure():
     gen = post_generator.PostGenerator(logger)
     mock_result = MagicMock(returncode=1, stdout="", stderr="error")
     with patch("subprocess.run", return_value=mock_result):
@@ -102,7 +102,7 @@ def test_generate_uses_diagram_timeout_for_diagram_posts():
     with patch("subprocess.run", return_value=mock_result) as mock_run:
         gen.generate(SAMPLE_TOPIC, "2026-03-23")  # SAMPLE_TOPIC has needs_diagram=True
     call_kwargs = mock_run.call_args[1]
-    assert call_kwargs["timeout"] == cfg.TIMEOUT_WITH_DIAGRAM
+    assert call_kwargs["timeout"] == cfg.TIMEOUT_WITH_DIAGRAM + 20
 
 
 def test_generate_uses_text_timeout_for_no_diagram_posts():
@@ -113,7 +113,7 @@ def test_generate_uses_text_timeout_for_no_diagram_posts():
     with patch("subprocess.run", return_value=mock_result) as mock_run:
         gen.generate(topic_no_diagram, "2026-03-23")
     call_kwargs = mock_run.call_args[1]
-    assert call_kwargs["timeout"] == cfg.TIMEOUT_TEXT_ONLY
+    assert call_kwargs["timeout"] == cfg.TIMEOUT_TEXT_ONLY + 20
 
 
 def test_generate_includes_dangerously_skip_permissions():
@@ -122,4 +122,5 @@ def test_generate_includes_dangerously_skip_permissions():
     with patch("subprocess.run", return_value=mock_result) as mock_run:
         gen.generate(SAMPLE_TOPIC, "2026-03-23")
     args = mock_run.call_args[0][0]  # command list is first positional arg
+    assert "agy" == args[0]
     assert "--dangerously-skip-permissions" in args

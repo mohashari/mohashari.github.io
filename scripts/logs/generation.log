@@ -1063,3 +1063,8 @@ post_generator.PostGenerationError: Output missing frontmatter delimiter
 2026-06-12 08:00:03,825 INFO [preflight] GitHub CLI auth: OK
 2026-06-12 08:00:03,830 INFO [preflight] git remote: OK
 2026-06-12 08:00:03,831 ERROR Pre-flight failed — aborting
+[2026-06-13 08:00:01] Starting blog generation run
+2026-06-13 08:00:01,929 ERROR [preflight] Claude CLI: NOT FOUND
+2026-06-13 08:00:03,098 INFO [preflight] GitHub CLI auth: OK
+2026-06-13 08:00:03,104 INFO [preflight] git remote: OK
+2026-06-13 08:00:03,104 ERROR Pre-flight failed — aborting

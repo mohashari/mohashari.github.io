@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Blog post generation orchestrator.
-Generates POSTS_PER_RUN technical posts daily using Claude, Gist, Picsum, and Excalidraw.
+Generates POSTS_PER_RUN technical posts daily using Gemini/AGY, Gist, Picsum, and SVG diagrams.
 """
 
 import datetime
@@ -54,9 +54,9 @@ def setup_logging() -> logging.Logger:
 # ---------------------------------------------------------------------------
 
 def preflight(logger: logging.Logger) -> bool:
-    """Check that required CLI tools are available. Returns False if Claude is missing."""
+    """Check that required CLI tools are available. Returns False if agy is missing."""
     checks = [
-        (["claude", "--version"], "Claude CLI", True),
+        (["agy", "--version"], "AGY CLI", True),
         (["gh", "auth", "status"], "GitHub CLI auth", False),
         (["git", "remote", "-v"], "git remote", False),
     ]

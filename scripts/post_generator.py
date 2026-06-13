@@ -29,9 +29,9 @@ CODE BLOCKS:
         svg_path = config.IMAGES_DIR / f"{topic['slug']}.svg"
         diagram_block = f"""
 DIAGRAM:
-- Include exactly one architecture diagram using the Excalidraw MCP tool
-- Call mcp__claude_ai_Excalidraw__export_to_excalidraw to create the diagram as JSON
-- Then use Bash to save the resulting SVG content to: {svg_path}
+- Include exactly one architecture diagram
+- You can generate the diagram SVG content directly using Python/Bash or any available drawing tools
+- Save the resulting SVG content to: {svg_path}
 - Reference the diagram in the post body as: ![{topic['title']} Diagram](/images/diagrams/{topic['slug']}.svg)
 - Place the diagram reference right after the opening paragraph
 """
@@ -89,32 +89,25 @@ class PostGenerator:
             else config.TIMEOUT_TEXT_ONLY
         )
 
-        allowed = (
-            config.ALLOWED_TOOLS_DIAGRAM
-            if topic.get("needs_diagram")
-            else config.ALLOWED_TOOLS_TEXT
-        )
+        cmd = ["agy", "-p", prompt, "--dangerously-skip-permissions", "--print-timeout", f"{timeout}s"]
+        if getattr(config, "MODEL", None):
+            cmd.extend(["--model", config.MODEL])
 
         result = subprocess.run(
-            [
-                "claude", "-p", prompt,
-                "--output-format", "text",
-                "--dangerously-skip-permissions",
-                "--allowedTools", allowed,
-            ],
+            cmd,
             capture_output=True,
             text=True,
-            timeout=timeout,
+            timeout=timeout + 20,
             cwd=str(config.BLOG_DIR),
         )
 
         if result.returncode != 0:
             raise PostGenerationError(
-                f"claude -p failed (exit {result.returncode}): {result.stderr[:300]}"
+                f"agy -p failed (exit {result.returncode}): {result.stderr[:300]}"
             )
 
-        output = result.stdout.strip()
-        if not output:
-            raise PostGenerationError("claude -p returned empty output")
+        cleaned_output = config.clean_agy_output(result.stdout)
+        if not cleaned_output:
+            raise PostGenerationError("agy -p returned empty output")
 
-        return strip_preamble(output)
+        return strip_preamble(cleaned_output)

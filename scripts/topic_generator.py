@@ -34,7 +34,7 @@ def build_prompt(past_slugs: list) -> str:
 
 
 def parse_topics(raw: str) -> list | None:
-    """Parse and validate JSON topic list from Claude output. Returns None on failure."""
+    """Parse and validate JSON topic list from agy CLI output. Returns None on failure."""
     # Strip markdown code fences if present
     raw = re.sub(r"^```[a-z]*\n?", "", raw.strip(), flags=re.MULTILINE)
     raw = re.sub(r"```$", "", raw.strip(), flags=re.MULTILINE)
@@ -61,17 +61,22 @@ class TopicGenerator:
         prompt = build_prompt(past_slugs)
         for attempt in range(2):
             self.logger.info(f"Generating topics (attempt {attempt + 1})")
+            cmd = ["agy", "-p", prompt, "--dangerously-skip-permissions", "--print-timeout", f"{config.TIMEOUT_TOPIC_GENERATION}s"]
+            if getattr(config, "MODEL", None):
+                cmd.extend(["--model", config.MODEL])
+
             result = subprocess.run(
-                ["claude", "-p", prompt, "--output-format", "text", "--dangerously-skip-permissions"],
+                cmd,
                 capture_output=True,
                 text=True,
-                timeout=config.TIMEOUT_TOPIC_GENERATION,
+                timeout=config.TIMEOUT_TOPIC_GENERATION + 10,
                 cwd=str(config.BLOG_DIR),
             )
             if result.returncode != 0:
-                self.logger.warning(f"claude -p failed: {result.stderr[:200]}")
+                self.logger.warning(f"agy -p failed: {result.stderr[:200]}")
                 continue
-            topics = parse_topics(result.stdout)
+            cleaned_output = config.clean_agy_output(result.stdout)
+            topics = parse_topics(cleaned_output)
             if topics is not None:
                 self.logger.info(f"Got {len(topics)} topics")
                 return topics

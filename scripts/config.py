@@ -24,3 +24,18 @@ ALLOWED_TOOLS_DIAGRAM = (
 )
 ALLOWED_TOOLS_TEXT = "Bash"
 ALLOWED_TOOLS = ALLOWED_TOOLS_DIAGRAM  # kept for reference
+
+# Model choice for agy CLI. If None, agy uses its default model.
+# Available models: "Gemini 3.5 Flash (Medium)", "Gemini 3.5 Flash (High)", "Gemini 3.1 Pro (High)", "Claude Sonnet 4.6 (Thinking)", etc.
+MODEL = "Gemini 3.5 Flash (Medium)"
+
+import re
+
+def clean_agy_output(stdout: str) -> str:
+    """Remove summary block appended by agy CLI:
+    \n***\n**Summary**:\n...
+    """
+    pattern = r'\n+\*\*\*\s*\n+\*?\*?summary\*?\*?:\s*[\s\S]*$'
+    cleaned = re.sub(pattern, '', stdout, flags=re.IGNORECASE)
+    return cleaned.strip()
+
