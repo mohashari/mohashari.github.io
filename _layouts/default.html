@@ -104,10 +104,163 @@
           }
         }
 
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initMermaid);
-        } else {
+        function initHighlighting() {
+          const codeBlocks = document.querySelectorAll('pre code');
+          codeBlocks.forEach(function(codeEl) {
+            // 1. Skip if it is a mermaid block or child of one
+            if (codeEl.classList.contains('language-mermaid') || 
+                codeEl.closest('.language-mermaid') || 
+                codeEl.closest('.mermaid')) {
+              return;
+            }
+
+            // Prevent double-highlighting
+            if (codeEl.classList.contains('hljs') || codeEl.dataset.highlighted) {
+              return;
+            }
+            codeEl.dataset.highlighted = 'true';
+
+            const rawCode = codeEl.textContent;
+            let lang = null;
+
+            // Extract language class name if specified (excluding plaintext)
+            const classList = codeEl.classList;
+            for (let i = 0; i < classList.length; i++) {
+              const cls = classList[i];
+              if (cls.startsWith('language-') && cls !== 'language-plaintext') {
+                lang = cls.replace('language-', '');
+                break;
+              }
+            }
+
+            // Check parent containers for class names if not found on codeEl
+            if (!lang) {
+              let parent = codeEl.parentElement;
+              while (parent && parent !== document.body) {
+                const pClasses = parent.classList;
+                for (let i = 0; i < pClasses.length; i++) {
+                  const cls = pClasses[i];
+                  if (cls.startsWith('language-') && cls !== 'language-plaintext') {
+                    lang = cls.replace('language-', '');
+                    break;
+                  }
+                }
+                if (lang) break;
+                parent = parent.parentElement;
+              }
+            }
+
+            // 2. Perform highlighting
+            let highlightedResult;
+            if (lang && hljs.getLanguage(lang)) {
+              highlightedResult = hljs.highlight(rawCode, { language: lang });
+            } else {
+              // Auto detect!
+              try {
+                highlightedResult = hljs.highlightAuto(rawCode);
+                lang = highlightedResult.language || 'code';
+              } catch (e) {
+                highlightedResult = { value: hljs.escapeHTML(rawCode) };
+                lang = 'code';
+              }
+            }
+
+            // Replace content and add class
+            codeEl.innerHTML = highlightedResult.value;
+            codeEl.classList.add('hljs');
+
+            // 3. Add Container, Header & Copy Button
+            const preEl = codeEl.parentElement;
+            if (preEl && preEl.tagName === 'PRE') {
+              const container = document.createElement('div');
+              container.className = 'code-block-container';
+
+              const header = document.createElement('div');
+              header.className = 'code-block-header';
+
+              const badge = document.createElement('span');
+              badge.className = 'code-block-lang';
+              badge.textContent = lang.toUpperCase();
+
+              const copyBtn = document.createElement('button');
+              copyBtn.className = 'code-block-copy-btn';
+              copyBtn.innerHTML = `
+                <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy</span>
+              `;
+
+              copyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(rawCode).then(function() {
+                  copyBtn.classList.add('copied');
+                  copyBtn.innerHTML = `
+                    <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>Copied!</span>
+                  `;
+                  setTimeout(function() {
+                    copyBtn.classList.remove('copied');
+                    copyBtn.innerHTML = `
+                      <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                      <span>Copy</span>
+                    `;
+                  }, 2000);
+                }).catch(function(err) {
+                  console.error('Could not copy text: ', err);
+                });
+              });
+
+              header.appendChild(badge);
+              header.appendChild(copyBtn);
+
+              // Find the element to wrap (outermost highlight wrapper or preEl itself)
+              let wrapper = preEl;
+              if (preEl.parentElement && preEl.parentElement.classList.contains('highlight')) {
+                wrapper = preEl.parentElement;
+              }
+
+              // Rearrange DOM: insert container before wrapper
+              wrapper.parentNode.insertBefore(container, wrapper);
+              container.appendChild(header);
+              container.appendChild(wrapper);
+            }
+          });
+        }
+
+        function loadHighlightJS(callback) {
+          if (typeof hljs !== 'undefined') {
+            callback();
+            return;
+          }
+          
+          // Load CSS
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/vs2015.min.css';
+          document.head.appendChild(link);
+
+          // Load JS
+          const script = document.createElement('script');
+          script.src = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+          script.onload = callback;
+          document.body.appendChild(script);
+        }
+
+        function initAll() {
           initMermaid();
+          loadHighlightJS(initHighlighting);
+        }
+
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initAll);
+        } else {
+          initAll();
         }
       })();
     </script>
