@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <!-- Definitions of styles and gradients -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    
+    <!-- Component Gradients -->
+    <linearGradient id="serverGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#3730a3" />
+    </linearGradient>
+    <linearGradient id="agentGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#115e59" />
+    </linearGradient>
+    <linearGradient id="podGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="appGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="envoyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+    
+    <!-- Highlights -->
+    <linearGradient id="accentCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="accentGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    
+    <!-- Drop Shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    
+    <!-- Markers for Arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#06b6d4" />
+    </marker>
+    <marker id="arrowIndigo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#818cf8" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" rx="12" fill="url(#bgGrad)" />
+  
+  <!-- Outer Title -->
+  <text x="30" y="40" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#f8fafc">
+    SPIFFE/SPIRE Zero-Trust Architecture &amp; Transparent mTLS in Kubernetes
+  </text>
+  
+  <!-- Divider -->
+  <line x1="30" y1="52" x2="970" y2="52" stroke="#334155" stroke-width="1" />
+
+  <!-- ================= CONTROL PLANE (SPIRE SERVER) ================= -->
+  <g transform="translate(380, 80)" filter="url(#shadow)">
+    <rect width="240" height="90" rx="8" fill="url(#serverGrad)" stroke="#818cf8" stroke-width="2" />
+    <rect width="6" height="90" rx="2" fill="#818cf8" />
+    <text x="20" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#f1f5f9">SPIRE Server (Control Plane)</text>
+    <text x="20" y="50" font-family="system-ui, sans-serif" font-size="11" fill="#c7d2fe">Trust Anchor &amp; CA</text>
+    <text x="20" y="68" font-family="system-ui, sans-serif" font-size="10" fill="#a5b4fc" font-weight="bold">Manages Trust Domain &amp; Attestation Entries</text>
+    <text x="20" y="80" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8">Validates Agents, Generates Trust Bundle</text>
+  </g>
+
+  <!-- ================= NODE 1 (WORKER NODE A) ================= -->
+  <g transform="translate(40, 220)" filter="url(#shadow)">
+    <rect width="420" height="380" rx="12" fill="#0f172a" stroke="#334155" stroke-width="2" />
+    <text x="20" y="28" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#64748b">KUBERNETES NODE A (IP: 10.244.1.45)</text>
+
+    <!-- Node Agent A -->
+    <g transform="translate(20, 50)">
+      <rect width="170" height="110" rx="8" fill="url(#agentGrad)" stroke="#14b8a6" stroke-width="1.5" />
+      <text x="15" y="25" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#f1f5f9">SPIRE Agent</text>
+      <text x="15" y="42" font-family="system-ui, sans-serif" font-size="10" fill="#99f6e4">DaemonSet (Node Local)</text>
+      <text x="15" y="65" font-family="system-ui, sans-serif" font-size="9" fill="#2dd4bf" font-weight="bold">Workload Attestation:</text>
+      <text x="15" y="77" font-family="system-ui, sans-serif" font-size="9" fill="#ccfbf1">• Query Kubelet / Pod API</text>
+      <text x="15" y="89" font-family="system-ui, sans-serif" font-size="9" fill="#ccfbf1">• Verify Namespace / SA</text>
+      <text x="15" y="101" font-family="system-ui, sans-serif" font-size="8" fill="#5eead4">Exposes Workload API via UDS</text>
+    </g>
+
+    <!-- Pod A (Client) -->
+    <g transform="translate(210, 50)">
+      <rect width="190" height="300" rx="8" fill="url(#podGrad)" stroke="#3b82f6" stroke-width="2" />
+      <text x="15" y="25" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">Pod: checkout-service</text>
+      <text x="15" y="40" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">SA: checkout-sa</text>
+
+      <!-- App Container A -->
+      <g transform="translate(15, 60)">
+        <rect width="160" height="90" rx="6" fill="url(#appGrad)" stroke="#60a5fa" stroke-width="1" />
+        <text x="12" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f8fafc">Checkout Container</text>
+        <text x="12" y="38" font-family="system-ui, sans-serif" font-size="9" fill="#bfdbfe">Go Backend</text>
+        <line x1="12" y1="45" x2="148" y2="45" stroke="#3b82f6" stroke-width="0.5" />
+        <text x="12" y="58" font-family="system-ui, sans-serif" font-size="9" fill="#93c5fd">HTTP POST /pay</text>
+        <text x="12" y="70" font-family="system-ui, sans-serif" font-size="8" fill="#dbeafe">Target: localhost:15001 (Envoy)</text>
+      </g>
+
+      <!-- Envoy Sidecar A -->
+      <g transform="translate(15, 170)">
+        <rect width="160" height="115" rx="6" fill="url(#envoyGrad)" stroke="#f97316" stroke-width="1.5" />
+        <text x="12" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f8fafc">Envoy Sidecar Proxy</text>
+        <text x="12" y="34" font-family="system-ui, sans-serif" font-size="9" fill="#ffedd5">Outbound / Inbound Interceptor</text>
+        <line x1="12" y1="40" x2="148" y2="40" stroke="#f97316" stroke-width="0.5" />
+        <text x="12" y="55" font-family="system-ui, sans-serif" font-size="9" fill="#fed7aa" font-weight="bold">Acquires X.509 SVID</text>
+        <text x="12" y="67" font-family="system-ui, sans-serif" font-size="8" fill="#ffedd5">Identity:</text>
+        <text x="12" y="79" font-family="system-ui, sans-serif" font-size="8" fill="#fdba74" font-family="monospace">spiffe://domain/ns/prod/sa/checkout-sa</text>
+        <text x="12" y="93" font-family="system-ui, sans-serif" font-size="8" fill="#fdbaf4">Validates peer against SPIFFE trust bundle</text>
+      </g>
+    </g>
+
+    <!-- HostPath UDS Socket Mount A -->
+    <path d="M 190 280 L 225 280" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-dasharray="4 2" marker-start="url(#arrowCyan)" marker-end="url(#arrowCyan)" />
+    <rect x="180" y="290" width="50" height="20" rx="3" fill="#1e293b" stroke="#14b8a6" stroke-width="1" />
+    <text x="205" y="302" font-family="system-ui, sans-serif" font-size="8" fill="#14b8a6" font-weight="bold" text-anchor="middle">UDS Socket</text>
+  </g>
+
+  <!-- ================= NODE 2 (WORKER NODE B) ================= -->
+  <g transform="translate(540, 220)" filter="url(#shadow)">
+    <rect width="420" height="380" rx="12" fill="#0f172a" stroke="#334155" stroke-width="2" />
+    <text x="20" y="28" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#64748b">KUBERNETES NODE B (IP: 10.244.2.89)</text>
+
+    <!-- Node Agent B -->
+    <g transform="translate(230, 50)">
+      <rect width="170" height="110" rx="8" fill="url(#agentGrad)" stroke="#14b8a6" stroke-width="1.5" />
+      <text x="15" y="25" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#f1f5f9">SPIRE Agent</text>
+      <text x="15" y="42" font-family="system-ui, sans-serif" font-size="10" fill="#99f6e4">DaemonSet (Node Local)</text>
+      <text x="15" y="65" font-family="system-ui, sans-serif" font-size="9" fill="#2dd4bf" font-weight="bold">Workload Attestation:</text>
+      <text x="15" y="77" font-family="system-ui, sans-serif" font-size="9" fill="#ccfbf1">• Query Kubelet / Pod API</text>
+      <text x="15" y="89" font-family="system-ui, sans-serif" font-size="9" fill="#ccfbf1">• Verify Namespace / SA</text>
+      <text x="15" y="101" font-family="system-ui, sans-serif" font-size="8" fill="#5eead4">Exposes Workload API via UDS</text>
+    </g>
+
+    <!-- Pod B (Server) -->
+    <g transform="translate(20, 50)">
+      <rect width="190" height="300" rx="8" fill="url(#podGrad)" stroke="#3b82f6" stroke-width="2" />
+      <text x="15" y="25" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#f8fafc">Pod: payment-service</text>
+      <text x="15" y="40" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">SA: payment-sa</text>
+
+      <!-- App Container B -->
+      <g transform="translate(15, 60)">
+        <rect width="160" height="90" rx="6" fill="url(#appGrad)" stroke="#60a5fa" stroke-width="1" />
+        <text x="12" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f8fafc">Payment Container</text>
+        <text x="12" y="38" font-family="system-ui, sans-serif" font-size="9" fill="#bfdbfe">Go Backend</text>
+        <line x1="12" y1="45" x2="148" y2="45" stroke="#3b82f6" stroke-width="0.5" />
+        <text x="12" y="58" font-family="system-ui, sans-serif" font-size="9" fill="#93c5fd">HTTP Listen :8080</text>
+        <text x="12" y="70" font-family="system-ui, sans-serif" font-size="8" fill="#dbeafe">Accepts plaintext from Envoy</text>
+      </g>
+
+      <!-- Envoy Sidecar B -->
+      <g transform="translate(15, 170)">
+        <rect width="160" height="115" rx="6" fill="url(#envoyGrad)" stroke="#f97316" stroke-width="1.5" />
+        <text x="12" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f8fafc">Envoy Sidecar Proxy</text>
+        <text x="12" y="34" font-family="system-ui, sans-serif" font-size="9" fill="#ffedd5">Outbound / Inbound Interceptor</text>
+        <line x1="12" y1="40" x2="148" y2="40" stroke="#f97316" stroke-width="0.5" />
+        <text x="12" y="55" font-family="system-ui, sans-serif" font-size="9" fill="#fed7aa" font-weight="bold">Acquires X.509 SVID</text>
+        <text x="12" y="67" font-family="system-ui, sans-serif" font-size="8" fill="#ffedd5">Identity:</text>
+        <text x="12" y="79" font-family="system-ui, sans-serif" font-size="8" fill="#fdba74" font-family="monospace">spiffe://domain/ns/prod/sa/payment-sa</text>
+        <text x="12" y="93" font-family="system-ui, sans-serif" font-size="8" fill="#fdbaf4">Enforces Peer mTLS Auth (SVID CN)</text>
+      </g>
+    </g>
+
+    <!-- HostPath UDS Socket Mount B -->
+    <path d="M 225 280 L 190 280" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-dasharray="4 2" marker-start="url(#arrowCyan)" marker-end="url(#arrowCyan)" />
+    <rect x="190" y="290" width="50" height="20" rx="3" fill="#1e293b" stroke="#14b8a6" stroke-width="1" />
+    <text x="215" y="302" font-family="system-ui, sans-serif" font-size="8" fill="#14b8a6" font-weight="bold" text-anchor="middle">UDS Socket</text>
+  </g>
+
+  <!-- ================= CONTROL PLANE CONNECTIONS ================= -->
+  <!-- Server -> Agent A -->
+  <path d="M 430 170 Q 300 175 190 270" fill="none" stroke="#818cf8" stroke-width="1.5" marker-end="url(#arrowIndigo)" />
+  <text x="260" y="195" font-family="system-ui, sans-serif" font-size="10" fill="#a5b4fc" text-anchor="middle">1. Node Attestation</text>
+  
+  <!-- Server -> Agent B -->
+  <path d="M 570 170 Q 700 175 810 270" fill="none" stroke="#818cf8" stroke-width="1.5" marker-end="url(#arrowIndigo)" />
+  <text x="740" y="195" font-family="system-ui, sans-serif" font-size="10" fill="#a5b4fc" text-anchor="middle">1. Node Attestation</text>
+
+  <!-- ================= DATA PATH: APP TO LOCAL ENVOY ================= -->
+  <!-- App A -> Envoy A -->
+  <path d="M 320 200 L 320 235" fill="none" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="325" y="220" font-family="system-ui, sans-serif" font-size="8" fill="#93c5fd">Localhost TCP</text>
+
+  <!-- Envoy B -> App B -->
+  <path d="M 670 235 L 670 200" fill="none" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="675" y="220" font-family="system-ui, sans-serif" font-size="8" fill="#93c5fd">Localhost TCP</text>
+
+  <!-- ================= DATA PATH: SECURE mTLS TUNNEL ================= -->
+  <!-- Envoy A -> Envoy B (mTLS Tunnel) -->
+  <path d="M 425 450 L 575 450" fill="none" stroke="#10b981" stroke-width="4" stroke-dasharray="6 3" marker-start="url(#arrowGreen)" marker-end="url(#arrowGreen)" />
+  <rect x="450" y="420" width="100" height="20" rx="3" fill="#111827" stroke="#10b981" stroke-width="1.5" />
+  <text x="500" y="433" font-family="system-ui, sans-serif" font-size="9" fill="#10b981" font-weight="bold" text-anchor="middle">Secure mTLS Tunnel</text>
+  <text x="500" y="470" font-family="system-ui, sans-serif" font-size="8" fill="#a7f3d0" text-anchor="middle">Validates SVIDs &amp; Cryptographic Proofs</text>
+  <text x="500" y="482" font-family="system-ui, sans-serif" font-size="7" fill="#64748b" text-anchor="middle">(Bypasses standard node network namespaces dynamically)</text>
+
+</svg>

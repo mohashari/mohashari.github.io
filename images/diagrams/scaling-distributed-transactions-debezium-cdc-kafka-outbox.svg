@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <!-- Definitions of styles and gradients -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    
+    <!-- Component Gradients -->
+    <linearGradient id="serviceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    
+    <!-- Highlights -->
+    <linearGradient id="accentCyan" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="accentOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+    <linearGradient id="accentGreen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    
+    <!-- Drop Shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    
+    <!-- Markers for Arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#06b6d4" />
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f97316" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="600" rx="12" fill="url(#bgGrad)" />
+  
+  <!-- Outer Title -->
+  <text x="30" y="40" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" fill="#f8fafc">
+    Scaling Distributed Transactions with Debezium CDC and Kafka Outbox
+  </text>
+  
+  <!-- Divider -->
+  <line x1="30" y1="52" x2="970" y2="52" stroke="#334155" stroke-width="1" />
+
+  <!-- 1. ORDER SERVICE -->
+  <g transform="translate(40, 180)" filter="url(#shadow)">
+    <rect width="180" height="90" rx="8" fill="url(#serviceGrad)" stroke="#3b82f6" stroke-width="2" />
+    <rect width="6" height="90" rx="2" fill="url(#accentCyan)" />
+    <text x="20" y="32" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#f1f5f9">Order Service</text>
+    <text x="20" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Golang Microservice</text>
+    <text x="20" y="70" font-family="system-ui, sans-serif" font-size="10" fill="#06b6d4" font-weight="bold">Writes to PostgreSQL</text>
+  </g>
+
+  <!-- 2. DATABASE SYSTEM (PostgreSQL) -->
+  <g transform="translate(300, 100)" filter="url(#shadow)">
+    <rect width="240" height="280" rx="8" fill="url(#dbGrad)" stroke="#475569" stroke-width="1.5" />
+    <text x="15" y="25" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#94a3b8">POSTGRESQL (PRIMARY)</text>
+
+    <!-- Domain Table: orders -->
+    <g transform="translate(20, 45)">
+      <rect width="200" height="50" rx="4" fill="#1e293b" stroke="#38bdf8" stroke-dasharray="2" stroke-width="1" />
+      <text x="15" y="22" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#e2e8f0">orders table</text>
+      <text x="15" y="38" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">id, customer_id, total, status</text>
+    </g>
+
+    <!-- Outbox Table: outbox -->
+    <g transform="translate(20, 115)">
+      <rect width="200" height="60" rx="4" fill="#1e293b" stroke="#06b6d4" stroke-width="1.5" />
+      <text x="15" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#e2e8f0">outbox table</text>
+      <text x="15" y="36" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">id, event_type, payload</text>
+      <text x="15" y="50" font-family="system-ui, sans-serif" font-size="9" fill="#06b6d4">CDC source table</text>
+    </g>
+
+    <!-- ACID Transaction Boundary -->
+    <rect x="10" y="38" width="220" height="145" rx="6" fill="none" stroke="#f59e0b" stroke-dasharray="6 4" stroke-width="1.5" />
+    <text x="15" y="195" font-family="system-ui, sans-serif" font-size="10" font-style="italic" fill="#f59e0b">Local ACID Transaction Boundary</text>
+
+    <!-- Write-Ahead Log (WAL) -->
+    <g transform="translate(20, 215)">
+      <rect width="200" height="45" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1.5" />
+      <text x="15" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#10b981">Write-Ahead Log (WAL)</text>
+      <text x="15" y="35" font-family="system-ui, sans-serif" font-size="9" fill="#64748b">Append-only updates log</text>
+    </g>
+  </g>
+
+  <!-- 3. DEBEZIUM CDC -->
+  <g transform="translate(600, 185)" filter="url(#shadow)">
+    <rect width="180" height="85" rx="8" fill="url(#serviceGrad)" stroke="#10b981" stroke-width="2" />
+    <rect width="6" height="85" rx="2" fill="url(#accentGreen)" />
+    <text x="20" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#f1f5f9">Debezium CDC</text>
+    <text x="20" y="48" font-family="system-ui, sans-serif" font-size="10" fill="#94a3b8">Kafka Connect Framework</text>
+    <text x="20" y="65" font-family="system-ui, sans-serif" font-size="9" fill="#10b981" font-weight="bold">Reads WAL, emits events</text>
+  </g>
+
+  <!-- 4. KAFKA CLUSTER -->
+  <g transform="translate(830, 100)" filter="url(#shadow)">
+    <rect width="140" height="250" rx="8" fill="url(#dbGrad)" stroke="#ef4444" stroke-width="1.5" />
+    <text x="15" y="25" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f87171">APACHE KAFKA</text>
+
+    <!-- Outbox Topic -->
+    <g transform="translate(15, 45)">
+      <rect width="110" height="180" rx="4" fill="#1e293b" stroke="#f97316" stroke-width="1" />
+      <text x="10" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#f97316">order-outbox</text>
+      <line x1="10" y1="28" x2="100" y2="28" stroke="#334155" />
+      <!-- Partitions -->
+      <rect x="10" y="35" width="90" height="35" rx="2" fill="#0f172a" stroke="#475569" />
+      <text x="15" y="48" font-family="system-ui, sans-serif" font-size="9" fill="#e2e8f0">Partition 0</text>
+      <text x="15" y="60" font-family="system-ui, sans-serif" font-size="8" fill="#94a3b8">Offset: 14592</text>
+
+      <rect x="10" y="78" width="90" height="35" rx="2" fill="#0f172a" stroke="#475569" />
+      <text x="15" y="91" font-family="system-ui, sans-serif" font-size="9" fill="#e2e8f0">Partition 1</text>
+      <text x="15" y="103" font-family="system-ui, sans-serif" font-size="8" fill="#94a3b8">Offset: 12480</text>
+
+      <rect x="10" y="121" width="90" height="35" rx="2" fill="#0f172a" stroke="#475569" />
+      <text x="15" y="134" font-family="system-ui, sans-serif" font-size="9" fill="#e2e8f0">Partition 2</text>
+      <text x="15" y="146" font-family="system-ui, sans-serif" font-size="8" fill="#94a3b8">Offset: 15301</text>
+    </g>
+  </g>
+
+  <!-- 5. INVENTORY SERVICE (Consumer) -->
+  <g transform="translate(680, 460)" filter="url(#shadow)">
+    <rect width="180" height="90" rx="8" fill="url(#serviceGrad)" stroke="#3b82f6" stroke-width="1.5" />
+    <rect width="6" height="90" rx="2" fill="url(#accentCyan)" />
+    <text x="20" y="32" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#f1f5f9">Inventory Service</text>
+    <text x="20" y="52" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8">Consumer microservice</text>
+    <text x="20" y="70" font-family="system-ui, sans-serif" font-size="10" fill="#38bdf8" font-weight="bold">Idempotency Checks</text>
+  </g>
+
+  <!-- 6. INVENTORY DB (PostgreSQL) -->
+  <g transform="translate(330, 445)" filter="url(#shadow)">
+    <rect width="210" height="120" rx="8" fill="url(#dbGrad)" stroke="#475569" stroke-width="1.5" />
+    <text x="15" y="22" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">INVENTORY DB</text>
+
+    <!-- Idempotency table -->
+    <g transform="translate(15, 35)">
+      <rect width="180" height="40" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="1" />
+      <text x="10" y="18" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#f59e0b">processed_events</text>
+      <text x="10" y="30" font-family="system-ui, sans-serif" font-size="8" fill="#94a3b8">event_id (PK), processed_at</text>
+    </g>
+
+    <!-- Inventory table -->
+    <g transform="translate(15, 80)">
+      <rect width="180" height="30" rx="4" fill="#1e293b" stroke="#e2e8f0" stroke-width="0.5" stroke-dasharray="2" />
+      <text x="10" y="18" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#e2e8f0">inventory_stock</text>
+    </g>
+  </g>
+
+  <!-- CONNECTIONS & LABELS -->
+
+  <!-- Connection 1: Order Service -> Postgres DB Tables (Split write) -->
+  <path d="M 220,225 L 260,225 L 260,170 L 312,170" fill="none" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrowCyan)" />
+  <path d="M 260,225 L 260,245 L 312,245" fill="none" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrowCyan)" />
+  <text x="260" y="135" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#f59e0b" text-anchor="middle">1. Write Domain + Outbox</text>
+  <text x="260" y="150" font-family="system-ui, sans-serif" font-size="9.5" fill="#94a3b8" text-anchor="middle">Single Local Transaction</text>
+
+  <!-- Connection 2: Outbox Table -> WAL -->
+  <path d="M 420,275 L 420,310" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="430" y="298" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8">2. Append updates</text>
+
+  <!-- Connection 3: WAL -> Debezium CDC -->
+  <path d="M 520,337.5 L 690,337.5 L 690,275" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrowGreen)" />
+  <text x="610" y="320" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#10b981">3. Tail WAL Log</text>
+  <text x="610" y="355" font-family="system-ui, sans-serif" font-size="9.5" fill="#94a3b8">Non-blocking log tailing</text>
+
+  <!-- Connection 4: Debezium -> Kafka -->
+  <path d="M 780,227.5 L 822,227.5" fill="none" stroke="#f97316" stroke-width="2" marker-end="url(#arrowOrange)" />
+  <text x="801" y="210" font-family="system-ui, sans-serif" font-size="9.5" font-weight="bold" fill="#f97316" text-anchor="middle">4. Publish</text>
+
+  <!-- Connection 5: Kafka -> Inventory Service -->
+  <path d="M 900,350 L 900,505 L 868,505" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="910" y="430" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#3b82f6">5. Consume Stream</text>
+  <text x="910" y="445" font-family="system-ui, sans-serif" font-size="9.5" fill="#94a3b8">At-Least-Once Delivery</text>
+
+  <!-- Connection 6: Inventory Service -> Inventory DB -->
+  <path d="M 680,505 L 548,505" fill="none" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrowCyan)" />
+  <text x="615" y="480" font-family="system-ui, sans-serif" font-size="10.5" font-weight="bold" fill="#f59e0b" text-anchor="middle">6. Idempotency Check</text>
+  <text x="615" y="495" font-family="system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Check unique event_id</text>
+
+</svg>
