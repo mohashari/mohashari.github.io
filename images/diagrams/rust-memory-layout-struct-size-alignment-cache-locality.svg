@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" width="100%" height="100%" style="background-color: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Definitions for gradients and shadows -->
+  <defs>
+    <!-- Card and Box Shadows -->
+    <filter id="drop-shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Gradients -->
+    <linearGradient id="header-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#58a6ff" />
+      <stop offset="100%" stop-color="#bc8cff" />
+    </linearGradient>
+    <linearGradient id="u8-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff7b72"/>
+      <stop offset="100%" stop-color="#ea4a3f"/>
+    </linearGradient>
+    <linearGradient id="u32-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#79c0ff"/>
+      <stop offset="100%" stop-color="#1f6feb"/>
+    </linearGradient>
+    <linearGradient id="u64-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#56d364"/>
+      <stop offset="100%" stop-color="#2ea043"/>
+    </linearGradient>
+    <linearGradient id="pad-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#484f58"/>
+      <stop offset="100%" stop-color="#30363d"/>
+    </linearGradient>
+    <linearGradient id="cache-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#161b22"/>
+      <stop offset="100%" stop-color="#0d1117"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title and Header -->
+  <text x="30" y="45" font-size="22" font-weight="bold" fill="url(#header-grad)">RUST STRUCT MEMORY LAYOUT &amp; CACHE ALIGNMENT</text>
+  <text x="30" y="70" font-size="13" fill="#8b949e">Visualizing Alignment Padding, Packing Optimization, and Cache Line Boundaries</text>
+
+  <!-- Legend -->
+  <g transform="translate(620, 35)">
+    <rect x="0" y="0" width="16" height="16" rx="3" fill="url(#u8-grad)"/>
+    <text x="24" y="13" font-size="12" fill="#c9d1d9">u8 (1B)</text>
+    
+    <rect x="80" y="0" width="16" height="16" rx="3" fill="url(#u32-grad)"/>
+    <text x="104" y="13" font-size="12" fill="#c9d1d9">u32 (4B)</text>
+    
+    <rect x="170" y="0" width="16" height="16" rx="3" fill="url(#u64-grad)"/>
+    <text x="194" y="13" font-size="12" fill="#c9d1d9">u64 (8B)</text>
+    
+    <rect x="250" y="0" width="16" height="16" rx="3" fill="url(#pad-grad)" stroke="#8b949e" stroke-dasharray="2,2"/>
+    <text x="274" y="13" font-size="12" fill="#8b949e">Padding (Wasted)</text>
+  </g>
+
+  <!-- SECTION 1: UNOPTIMIZED STRUCT (BadLayout) -->
+  <g transform="translate(30, 100)" filter="url(#drop-shadow)">
+    <!-- Container -->
+    <rect x="0" y="0" width="840" height="180" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="30" font-size="15" font-weight="bold" fill="#ff7b72">1. Unoptimized Layout (struct BadLayout) — Size: 24 Bytes</text>
+    <text x="20" y="48" font-size="12" fill="#8b949e">Fields defined as: a: u8, b: u64, c: u32, d: u8. Maximum alignment requirement is 8 bytes.</text>
+    
+    <!-- Code Box (Embedded Rust Code Snippet) -->
+    <rect x="20" y="65" width="220" height="100" rx="5" fill="#0d1117" stroke="#21262d"/>
+    <text x="35" y="85" font-size="11" font-family="Courier New, monospace" fill="#8b949e">struct <tspan fill="#ff7b72">BadLayout</tspan> {</text>
+    <text x="35" y="103" font-size="11" font-family="Courier New, monospace" fill="#8b949e">    a: <tspan fill="#ff7b72">u8</tspan>,   <tspan fill="#8b949e">// offset 0</tspan></text>
+    <text x="35" y="121" font-size="11" font-family="Courier New, monospace" fill="#8b949e">    b: <tspan fill="#56d364">u64</tspan>,  <tspan fill="#8b949e">// offset 8 (pad 7)</tspan></text>
+    <text x="35" y="139" font-size="11" font-family="Courier New, monospace" fill="#8b949e">    c: <tspan fill="#79c0ff">u32</tspan>,  <tspan fill="#8b949e">// offset 16</tspan></text>
+    <text x="35" y="157" font-size="11" font-family="Courier New, monospace" fill="#8b949e">    d: <tspan fill="#ff7b72">u8</tspan>,   <tspan fill="#8b949e">// offset 20 (pad 3)</tspan></text>
+    <text x="35" y="175" font-size="11" font-family="Courier New, monospace" fill="#8b949e">}</text>
+
+    <!-- Byte Visualizer Grid -->
+    <!-- Grid base -->
+    <g transform="translate(270, 75)">
+      <!-- 24 Bytes blocks -->
+      <!-- Byte 0 (u8) -->
+      <rect x="0" y="0" width="20" height="60" rx="2" fill="url(#u8-grad)" stroke="#30363d"/>
+      <text x="10" y="35" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">a</text>
+      
+      <!-- Bytes 1-7 (Padding) -->
+      <rect x="20" y="0" width="140" height="60" rx="2" fill="url(#pad-grad)" stroke="#30363d" stroke-dasharray="2,2"/>
+      <text x="90" y="35" font-size="11" fill="#8b949e" text-anchor="middle" font-style="italic">Padding (7 Bytes)</text>
+      
+      <!-- Bytes 8-15 (u64) -->
+      <rect x="160" y="0" width="160" height="60" rx="2" fill="url(#u64-grad)" stroke="#30363d"/>
+      <text x="240" y="35" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">b (u64)</text>
+      
+      <!-- Bytes 16-19 (u32) -->
+      <rect x="320" y="0" width="80" height="60" rx="2" fill="url(#u32-grad)" stroke="#30363d"/>
+      <text x="360" y="35" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">c (u32)</text>
+      
+      <!-- Byte 20 (u8) -->
+      <rect x="400" y="0" width="20" height="60" rx="2" fill="url(#u8-grad)" stroke="#30363d"/>
+      <text x="410" y="35" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">d</text>
+      
+      <!-- Bytes 21-23 (Padding) -->
+      <rect x="420" y="0" width="60" height="60" rx="2" fill="url(#pad-grad)" stroke="#30363d" stroke-dasharray="2,2"/>
+      <text x="450" y="35" font-size="11" fill="#8b949e" text-anchor="middle" font-style="italic">Pad (3B)</text>
+
+      <!-- Offset markers -->
+      <text x="0" y="75" font-size="10" fill="#8b949e" text-anchor="middle">0</text>
+      <text x="20" y="75" font-size="10" fill="#8b949e" text-anchor="middle">1</text>
+      <text x="160" y="75" font-size="10" fill="#8b949e" text-anchor="middle">8</text>
+      <text x="320" y="75" font-size="10" fill="#8b949e" text-anchor="middle">16</text>
+      <text x="400" y="75" font-size="10" fill="#8b949e" text-anchor="middle">20</text>
+      <text x="420" y="75" font-size="10" fill="#8b949e" text-anchor="middle">21</text>
+      <text x="480" y="75" font-size="10" fill="#8b949e" text-anchor="middle">24B</text>
+
+      <!-- Labels pointing to sections -->
+      <path d="M 10,-5 L 10,-15" stroke="#ff7b72" stroke-width="1"/>
+      <text x="10" y="-20" font-size="10" fill="#ff7b72" text-anchor="middle">Unaligned</text>
+
+      <path d="M 90,-5 L 90,-15" stroke="#8b949e" stroke-width="1"/>
+      <text x="90" y="-20" font-size="10" fill="#8b949e" text-anchor="middle">Alignment Gap</text>
+
+      <path d="M 240,-5 L 240,-15" stroke="#56d364" stroke-width="1"/>
+      <text x="240" y="-20" font-size="10" fill="#56d364" text-anchor="middle">Aligned to 8B</text>
+
+      <path d="M 450,-5 L 450,-15" stroke="#8b949e" stroke-width="1"/>
+      <text x="450" y="-20" font-size="10" fill="#8b949e" text-anchor="middle">Trailing Padding</text>
+      
+      <!-- Efficiency indicator -->
+      <g transform="translate(500, 10)">
+        <rect x="0" y="0" width="50" height="40" rx="4" fill="#21262d" stroke="#f25f5c"/>
+        <text x="25" y="18" font-size="12" font-weight="bold" fill="#ff7b72" text-anchor="middle">58%</text>
+        <text x="25" y="32" font-size="8" fill="#8b949e" text-anchor="middle">Efficiency</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- SECTION 2: OPTIMIZED STRUCT (GoodLayout) -->
+  <g transform="translate(30, 300)" filter="url(#drop-shadow)">
+    <!-- Container -->
+    <rect x="0" y="0" width="840" height="180" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="20" y="30" font-size="15" font-weight="bold" fill="#56d364">2. Optimized Layout (struct GoodLayout) — Size: 16 Bytes</text>
+    <text x="20" y="48" font-size="12" fill="#8b949e">Fields sorted descending: b: u64, c: u32, a: u8, d: u8. Internal padding is eliminated entirely.</text>
+    
+    <!-- Code Box -->
+    <rect x="20" y="65" width="220" height="100" rx="5" fill="#0d1117" stroke="#21262d"/>
+    <text x="35" y="85" font-size="11" font-family="Courier New, monospace" fill="#8b949e">struct <tspan fill="#56d364">GoodLayout</tspan> {</text>
+    <text x="35" y="103" font-size="11" font-family="Courier New, monospace" fill="#8b949e">    b: <tspan fill="#56d364">u64</tspan>,  <tspan fill="#8b949e">// offset 0</tspan></text>
+    <text x="35" y="121" font-size="11" font-family="Courier New, monospace" fill="#8b949e">    c: <tspan fill="#79c0ff">u32</tspan>,  <tspan fill="#8b949e">// offset 8</tspan></text>
+    <text x="35" y="139" font-size="11" font-family="Courier New, monospace" fill="#8b949e">    a: <tspan fill="#ff7b72">u8</tspan>,   <tspan fill="#8b949e">// offset 12</tspan></text>
+    <text x="35" y="157" font-size="11" font-family="Courier New, monospace" fill="#ff7b72">    d: <tspan fill="#ff7b72">u8</tspan>,   <tspan fill="#8b949e">// offset 13 (pad 2)</tspan></text>
+    <text x="35" y="175" font-size="11" font-family="Courier New, monospace" fill="#8b949e">}</text>
+
+    <!-- Byte Visualizer Grid -->
+    <g transform="translate(270, 75)">
+      <!-- 16 Bytes blocks -->
+      <!-- Bytes 0-7 (u64) -->
+      <rect x="0" y="0" width="160" height="60" rx="2" fill="url(#u64-grad)" stroke="#30363d"/>
+      <text x="80" y="35" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">b (u64)</text>
+      
+      <!-- Bytes 8-11 (u32) -->
+      <rect x="160" y="0" width="80" height="60" rx="2" fill="url(#u32-grad)" stroke="#30363d"/>
+      <text x="200" y="35" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">c (u32)</text>
+      
+      <!-- Byte 12 (u8) -->
+      <rect x="240" y="0" width="20" height="60" rx="2" fill="url(#u8-grad)" stroke="#30363d"/>
+      <text x="250" y="35" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">a</text>
+      
+      <!-- Byte 13 (u8) -->
+      <rect x="260" y="0" width="20" height="60" rx="2" fill="url(#u8-grad)" stroke="#30363d"/>
+      <text x="270" y="35" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">d</text>
+      
+      <!-- Bytes 14-15 (Padding) -->
+      <rect x="280" y="0" width="40" height="60" rx="2" fill="url(#pad-grad)" stroke="#30363d" stroke-dasharray="2,2"/>
+      <text x="300" y="35" font-size="11" fill="#8b949e" text-anchor="middle" font-style="italic">Pad (2B)</text>
+
+      <!-- Offset markers -->
+      <text x="0" y="75" font-size="10" fill="#8b949e" text-anchor="middle">0</text>
+      <text x="160" y="75" font-size="10" fill="#8b949e" text-anchor="middle">8</text>
+      <text x="240" y="75" font-size="10" fill="#8b949e" text-anchor="middle">12</text>
+      <text x="260" y="75" font-size="10" fill="#8b949e" text-anchor="middle">13</text>
+      <text x="280" y="75" font-size="10" fill="#8b949e" text-anchor="middle">14</text>
+      <text x="320" y="75" font-size="10" fill="#8b949e" text-anchor="middle">16B</text>
+
+      <!-- Labels pointing to sections -->
+      <path d="M 80,-5 L 80,-15" stroke="#56d364" stroke-width="1"/>
+      <text x="80" y="-20" font-size="10" fill="#56d364" text-anchor="middle">8B Alignment Met</text>
+
+      <path d="M 200,-5 L 200,-15" stroke="#79c0ff" stroke-width="1"/>
+      <text x="200" y="-20" font-size="10" fill="#79c0ff" text-anchor="middle">4B Alignment Met</text>
+
+      <path d="M 300,-5 L 300,-15" stroke="#8b949e" stroke-width="1"/>
+      <text x="300" y="-20" font-size="10" fill="#8b949e" text-anchor="middle">Tail Padding Only</text>
+      
+      <!-- Efficiency indicator -->
+      <g transform="translate(340, 10)">
+        <rect x="0" y="0" width="50" height="40" rx="4" fill="#21262d" stroke="#56d364"/>
+        <text x="25" y="18" font-size="12" font-weight="bold" fill="#56d364" text-anchor="middle">87%</text>
+        <text x="25" y="32" font-size="8" fill="#8b949e" text-anchor="middle">Efficiency</text>
+      </g>
+      
+      <!-- Saved Bytes tag -->
+      <g transform="translate(410, 10)">
+        <rect x="0" y="0" width="130" height="40" rx="4" fill="#1f6feb" fill-opacity="0.2" stroke="#58a6ff"/>
+        <text x="65" y="18" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">Saved 8 Bytes (33%)</text>
+        <text x="65" y="32" font-size="8" fill="#8b949e" text-anchor="middle">Per Struct Instance</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- CACHE LINE IMPACT EXPLANATION -->
+  <g transform="translate(30, 495)">
+    <line x1="0" y1="0" x2="840" y2="0" stroke="#30363d" stroke-width="1"/>
+    <!-- Icon/bullet -->
+    <circle cx="10" cy="18" r="4" fill="#58a6ff" filter="url(#glow)"/>
+    <text x="25" y="22" font-size="12" fill="#c9d1d9">
+      <tspan font-weight="bold">Cache Locality Benefit:</tspan> Reducing struct size from 24B to 16B increases L1/L2 cache capacity by 1.5x. A standard 64-byte L1 cache line holds 4 instances of GoodLayout instead of only 2 instances of BadLayout, drastically reducing cache misses in loops.
+    </text>
+  </g>
+</svg>
