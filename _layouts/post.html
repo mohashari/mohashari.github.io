@@ -26,9 +26,15 @@ layout: default
     </div>
   </header>
 
+  {% if page.image %}
+  <div class="post-featured-image-wrapper">
+    <img src="{{ page.image }}" alt="{{ page.title }}" class="post-featured-image" />
+  </div>
+  {% else %}
   <div class="post-divider">
     <span class="post-divider-ornament">&#10022;</span>
   </div>
+  {% endif %}
 
   {% if site.google_adsense_slots.post_top %}
     {% include adsense.html slot=site.google_adsense_slots.post_top slot_name="post-top" %}

@@ -451,6 +451,28 @@ table {
 
 .post-divider { display: none; }
 
+.post-featured-image-wrapper {
+  width: 100%;
+  margin: 0 auto 2.5rem;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.12);
+  border: 1px solid $border;
+}
+
+.post-featured-image {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    transform: scale(1.015);
+  }
+}
+
 /* Post body
    ============================================ */
 
@@ -1135,6 +1157,40 @@ table {
 
   &:hover::before {
     background: $accent;
+  }
+}
+
+.explorer-card.has-thumbnail {
+  padding: 0;
+  
+  .explorer-card-content {
+    padding: 1.5rem 1.75rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+  
+  .explorer-card-thumbnail-wrapper {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-bottom: 1px solid $border;
+    position: relative;
+  }
+  
+  .explorer-card-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  &:hover {
+    .explorer-card-thumbnail {
+      transform: scale(1.05);
+    }
   }
 }
 
