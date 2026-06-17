@@ -4,6 +4,8 @@ title: "Helm Deep Dive: Packaging and Managing Kubernetes Applications at Scale"
 date: 2026-03-15 07:00:00 +0700
 tags: [helm, kubernetes, devops, infrastructure, packaging]
 description: "Master Helm chart authoring, templating strategies, and release management to deploy complex Kubernetes applications reliably."
+image: "https://picsum.photos/seed/9805/1080/720"
+thumbnail: "https://picsum.photos/seed/9805/400/300"
 ---
 
 Managing Kubernetes applications manually — writing raw manifests, applying them with `kubectl`, tracking which version is deployed where — works fine for a single service. It falls apart the moment you have a dozen microservices, three environments, and a team of engineers all making changes. Configuration drifts. Rollbacks become archaeology. Sharing reusable infrastructure patterns means copy-pasting YAML and hoping nobody forgets to update the namespace. Helm exists to solve this class of problem: it brings packaging, templating, dependency management, and release lifecycle to Kubernetes, treating your application as a versioned artifact rather than a loose collection of files.

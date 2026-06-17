@@ -4,6 +4,8 @@ title: "Redis Streams: Building Reliable Event Pipelines with Consumer Groups"
 date: 2026-03-16 07:00:00 +0700
 tags: [redis, streaming, backend, distributed-systems, messaging]
 description: "Use Redis Streams and consumer groups to build durable, at-least-once event pipelines that rival Kafka for moderate-throughput workloads."
+image: "https://picsum.photos/seed/510/1080/720"
+thumbnail: "https://picsum.photos/seed/510/400/300"
 ---
 
 Every distributed system eventually faces the same unglamorous problem: you have work that needs to happen, but the service doing that work goes down mid-flight. Message acknowledged, database not updated, email never sent. You can reach for Kafka, but that means a ZooKeeper cluster, broker replication configuration, and a team willing to operate it. For many backend teams running moderate-throughput workloads — tens of thousands of messages per second or fewer — Redis Streams offers a compelling middle ground: persistent, consumer-group-aware event pipelines built on infrastructure you probably already have.

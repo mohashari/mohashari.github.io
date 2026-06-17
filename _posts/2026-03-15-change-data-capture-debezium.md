@@ -4,6 +4,8 @@ title: "Change Data Capture with Debezium: Real-Time Data Pipelines from Your Da
 date: 2026-03-15 07:00:00 +0700
 tags: [cdc, debezium, kafka, postgresql, data-pipelines]
 description: "Stream database changes to downstream systems in real time using Debezium and Kafka Connect for event-driven data synchronization."
+image: "https://picsum.photos/seed/4186/1080/720"
+thumbnail: "https://picsum.photos/seed/4186/400/300"
 ---
 
 Every time a row changes in your database, something downstream probably needs to know about it. Maybe it's a search index that needs reindexing, a cache that needs invalidation, an analytics warehouse that needs the update, or a microservice that reacts to customer state changes. The naive solution — polling on a schedule or firing events from application code — is brittle. Polling adds latency and load. Application-level events get lost during crashes, missed in batch imports, or simply forgotten when a new engineer writes a migration script directly against the database. Change Data Capture (CDC) solves this at the infrastructure level: instead of asking your app to emit events, you read the database's own write-ahead log and turn every committed change into a stream of facts. Debezium, built on top of Kafka Connect, is the production-grade open-source engine that makes this practical.

@@ -3,6 +3,8 @@ layout: post
 title: "Docker Containerization Best Practices for Production"
 tags: [docker, devops, backend]
 description: "Level up your Docker skills with proven patterns for writing lean, secure, and production-ready container images."
+image: "https://picsum.photos/seed/2332/1080/720"
+thumbnail: "https://picsum.photos/seed/2332/400/300"
 ---
 
 Docker has become the de-facto standard for packaging and shipping applications. But running containers in production requires more than just `docker run`. Here are the practices that separate hobby projects from production-grade deployments.

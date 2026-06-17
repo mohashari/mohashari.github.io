@@ -4,6 +4,8 @@ title: "Serverless Architecture Tradeoffs: When Functions Win and When They Fail
 date: 2026-03-17 07:00:00 +0700
 tags: [serverless, cloud, architecture, backend, aws]
 description: "Critically evaluate serverless trade-offs around cold starts, state management, observability, and cost to decide when Lambda-style functions belong in your stack."
+image: "https://picsum.photos/seed/2822/1080/720"
+thumbnail: "https://picsum.photos/seed/2822/400/300"
 ---
 
 Every backend engineer eventually faces the same pitch: "Just use Lambda — no servers to manage, infinite scale, pay only for what you use." It sounds too good to be true because, in many cases, it is. Serverless functions are a genuine architectural tool, not a universal solution. They shine brilliantly in the right context and fail in ways that are surprisingly hard to debug when you've picked the wrong one. This post is an honest accounting of where Lambda-style functions belong in your stack and where they'll quietly erode your reliability, your budget, or your sanity.

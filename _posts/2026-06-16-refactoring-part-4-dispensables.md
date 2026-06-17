@@ -4,6 +4,8 @@ title: "Code Smells: Dispensables — Cut the Clutter, Keep the Clarity"
 date: 2026-06-16
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Dispensable code smells are things that shouldn't exist at all. Learn to identify and eliminate excessive comments, duplicate code, lazy classes, data classes, dead code, and speculative generality in Go."
+image: "https://picsum.photos/seed/5653/1080/720"
+thumbnail: "https://picsum.photos/seed/5653/400/300"
 ---
 
 Picture a codebase as a house. Over the years, each developer who lived there left something behind — a broken lamp in the corner, furniture covered in dust sheets that "might be useful someday," a storage room full of appliances no one remembers buying. The house still functions, but navigating it is exhausting. Every new person who moves in spends half their time stepping around the junk before they can get anything done.

@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 1: Code Smells Bloaters, Kode yang Terlalu G
 date: 2026-06-13
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Kenali 5 jenis Bloater code smells — Long Method, Large Class, Primitive Obsession, Long Parameter List, dan Data Clumps — beserta cara memperbaikinya dengan Go."
+image: "https://picsum.photos/seed/2263/1080/720"
+thumbnail: "https://picsum.photos/seed/2263/400/300"
 ---
 
 Kamu pernah membuka file Go dan mendapati sebuah fungsi yang panjangnya 300 baris? Atau sebuah struct yang punya 40 method berbeda? Atau fungsi yang dipanggil dengan 8 argumen berurutan sehingga kamu harus terus scroll ke atas untuk mengingat urutan parameternya? Kalau ya, selamat — kamu baru saja bertemu dengan **Bloaters**.

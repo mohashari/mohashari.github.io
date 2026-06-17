@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 17: Memento"
 date: 2026-06-15
 tags: [design-patterns, behavioral, golang, best-practices]
 description: "Panduan mendalam implementasi design pattern Memento di Go (Golang), menampilkan analogi riwayat undo editor teks, diagram struktur, dan kode lengkap."
+image: "https://picsum.photos/seed/1204/1080/720"
+thumbnail: "https://picsum.photos/seed/1204/400/300"
 ---
 
 Memento adalah behavioral design pattern yang memungkinkan Anda menyimpan dan mengembalikan status (state) objek sebelumnya tanpa memaparkan detail implementasinya. Di Go, kita mengimplementasikan pola ini dengan membuat struct Memento yang menampung status privat dari Originator (objek yang statusnya ingin disimpan), dan Caretaker (penjaga riwayat) yang mengelola Memento tersebut.

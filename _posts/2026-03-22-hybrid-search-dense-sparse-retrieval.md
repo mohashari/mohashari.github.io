@@ -4,6 +4,8 @@ title: "Hybrid Search: Combining Dense and Sparse Retrieval for Better RAG"
 date: 2026-03-22 08:00:00 +0700
 tags: [rag, vector-search, information-retrieval, ai-engineering, python]
 description: "Implement reciprocal rank fusion to combine BM25 and dense vector search for RAG systems that handle both semantic queries and exact keyword matches."
+image: "https://picsum.photos/seed/9534/1080/720"
+thumbnail: "https://picsum.photos/seed/9534/400/300"
 ---
 
 Your RAG system works beautifully in demos. Users ask natural language questions, the embeddings find semantically similar chunks, the LLM synthesizes a coherent answer. Then you ship to production and someone searches for "CVE-2024-3094" or "error code E_CONN_REFUSED_7842" and your retriever returns completely unrelated documents because those exact strings don't exist in embedding space in any meaningful way. Pure vector search fails on rare terms, version numbers, error codes, product SKUs, and anything where exact lexical match matters more than semantic proximity. Meanwhile, if you swap to BM25-only, you lose the semantic understanding that made the demo impressive in the first place. The answer is hybrid search, and it's less complex than you probably think.

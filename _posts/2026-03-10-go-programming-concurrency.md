@@ -3,6 +3,8 @@ layout: post
 title: "Go Concurrency Patterns: Goroutines, Channels, and Beyond"
 tags: [golang, concurrency, backend]
 description: "Master Go's concurrency model — goroutines, channels, sync primitives, and production-ready patterns for building concurrent systems."
+image: "https://picsum.photos/seed/8900/1080/720"
+thumbnail: "https://picsum.photos/seed/8900/400/300"
 ---
 
 Go's concurrency model is one of its greatest strengths. Goroutines are cheap, channels make communication clean, and the standard library gives you everything you need. But getting it right requires understanding the patterns. Let's dig in.

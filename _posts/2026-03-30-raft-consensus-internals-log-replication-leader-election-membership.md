@@ -4,8 +4,8 @@ title: "Raft Consensus Internals: Log Replication, Leader Election, and Membersh
 date: 2026-03-30 08:00:00 +0700
 tags: [distributed-systems, consensus, raft, etcd, backend]
 description: "A deep dive into Raft's log replication, election mechanics, and membership change protocols — with production failure modes and real numbers."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/7437/1080/720"
+thumbnail: "https://picsum.photos/seed/7437/400/300"
 ---
 
 Your etcd cluster loses its leader at 3 AM. Within 300 milliseconds, one of the remaining two nodes has called an election, collected votes, and is already sending heartbeats. Your Kubernetes API server briefly pauses, then resumes without a single request lost. That recovery didn't happen by accident — it is the result of a carefully engineered consensus protocol whose internals most engineers who depend on it have never read. Raft is the algorithm inside etcd, CockroachDB, TiKV, Consul, and dozens of other systems you probably run in production. Understanding its internals is not academic exercise; it is the difference between diagnosing a split-brain incident in ten minutes and spending three hours staring at metrics.

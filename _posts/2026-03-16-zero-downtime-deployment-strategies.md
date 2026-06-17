@@ -4,6 +4,8 @@ title: "Zero-Downtime Deployments: Blue-Green, Canary, and Rolling Strategies Co
 date: 2026-03-16 07:00:00 +0700
 tags: [devops, deployment, kubernetes, reliability, backend]
 description: "A practical comparison of blue-green, canary, and rolling deployment strategies for shipping backend changes without service interruption."
+image: "https://picsum.photos/seed/4218/1080/720"
+thumbnail: "https://picsum.photos/seed/4218/400/300"
 ---
 
 Every backend engineer has felt that stomach-drop moment: a deployment goes out, a health check silently fails, and suddenly half your users are hitting 502s while you scramble to roll back. The business loses revenue, on-call engineers lose sleep, and trust in the deployment pipeline erodes a little more. Zero-downtime deployment isn't a luxury reserved for hyperscalers — it's a discipline built from choosing the right strategy for your workload, your team's risk tolerance, and your infrastructure constraints. Blue-green, canary, and rolling deployments each solve the same problem from a different angle, and understanding those angles is the difference between a Friday afternoon deploy that lands clean and one that ruins your weekend.

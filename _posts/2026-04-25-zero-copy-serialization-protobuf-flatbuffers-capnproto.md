@@ -4,8 +4,8 @@ title: "Zero-Copy Serialization: Protobuf, FlatBuffers, and Cap'n Proto Compared
 date: 2026-04-25 09:00:00 +0700
 tags: [serialization, performance, systems-programming, network, protobuf]
 description: "A deep dive into serialization performance. We compare Protocol Buffers' parsing overhead against the zero-copy architectures of FlatBuffers and Cap'n Proto."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/4536/1080/720"
+thumbnail: "https://picsum.photos/seed/4536/400/300"
 ---
 
 In distributed systems, data spends a significant portion of its life in transit. Before a data structure (like an object in memory) can be sent over a network card, it must be converted into a stream of bytes. This process is **Serialization**. On the receiving end, the reverse happens: **Deserialization**.

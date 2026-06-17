@@ -4,6 +4,8 @@ title: "Apache Flink for Backend Engineers: Stateful Stream Processing at Scale"
 date: 2026-03-16 07:00:00 +0700
 tags: [streaming, flink, distributed-systems, backend, data-engineering]
 description: "Learn how Apache Flink's stateful operators, event-time windows, and exactly-once semantics enable complex real-time aggregations that batch pipelines cannot match."
+image: "https://picsum.photos/seed/3965/1080/720"
+thumbnail: "https://picsum.photos/seed/3965/400/300"
 ---
 
 Every backend engineer eventually hits the wall where batch pipelines stop being enough. You're computing hourly fraud scores, but fraud happens in milliseconds. You're aggregating clickstream data every five minutes, but your product team wants session analytics in real time. You add more cron jobs, tighten the intervals, and suddenly you're running a pseudo-streaming system held together by Redis locks and prayer. Apache Flink was built precisely to escape this trap. It is a distributed stream processing engine that treats state as a first-class citizen, handles event-time semantics natively, and provides exactly-once guarantees across failures — capabilities that fundamentally change what you can build without stitching together five different systems.

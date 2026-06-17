@@ -4,8 +4,8 @@ title: "Epoll and io_uring: Async I/O Models Powering Modern Linux Network Serve
 date: 2026-03-28 08:00:00 +0700
 tags: [linux, performance, networking, systems, rust]
 description: "A deep technical comparison of epoll and io_uring for backend engineers building high-throughput Linux network servers."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/9014/1080/720"
+thumbnail: "https://picsum.photos/seed/9014/400/300"
 ---
 
 At 50,000 concurrent connections your nginx holds steady; at 500,000 it buckles—not because the CPU is saturated, but because each `epoll_wait` cycle is flushing TLB entries, churning through a ready-list, and then issuing a separate `read()` syscall per socket. That's the syscall-per-event tax, and it compounds at scale. The move from `select` to `epoll` in the early 2000s bought a decade of headroom. The move from `epoll` to `io_uring`—available since Linux 5.1 (2019), production-hardened by 5.10 LTS—is the next leap. Understanding *why* each model is designed the way it is will help you pick the right one, tune it properly, and avoid the landmines that production teaches you the hard way.

@@ -4,6 +4,8 @@ title: "Python Async Programming: asyncio Patterns for Backend Engineers"
 date: 2026-03-15 07:00:00 +0700
 tags: [python, asyncio, concurrency, backend, performance]
 description: "Master Python's asyncio event loop with practical patterns for building high-throughput, non-blocking backend services."
+image: "https://picsum.photos/seed/1846/1080/720"
+thumbnail: "https://picsum.photos/seed/1846/400/300"
 ---
 
 Every backend engineer eventually hits the wall: your service handles 50 requests per second just fine, then at 500 it starts dropping connections, latency spikes, and the on-call pager lights up. You throw more threads at it, but threads are expensive — each one consumes ~8MB of stack space on Linux, and context-switching overhead grows faster than your request rate. The real bottleneck isn't CPU; it's I/O. Your threads are sleeping, waiting on database queries, HTTP calls, and filesystem reads. Python's `asyncio` was built precisely for this scenario — a single-threaded, cooperative concurrency model that keeps your CPU busy while I/O is in flight. But `asyncio` is famously easy to use wrong. This post walks through the patterns that actually matter in production backend systems.

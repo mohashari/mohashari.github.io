@@ -1,16 +1,11 @@
 ---
-
-**File 1:** `_posts/2026-03-23-crdts-distributed-state-conflict-free.md`
-
-```markdown
----
 layout: post
 title: "CRDTs for Distributed State: Conflict-Free Replicated Data Types in Practice"
 date: 2026-03-23 08:00:00 +0700
 tags: [distributed-systems, databases, consistency, golang, architecture]
 description: "How CRDTs eliminate coordination overhead in distributed systems and where they break down in real production environments."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/571/1080/720"
+thumbnail: "https://picsum.photos/seed/571/400/300"
 ---
 
 You've instrumented your distributed shopping cart. Two users in different regions add items simultaneously. The network partitions for 8 seconds. When connectivity resumes, one cart wins and the other's additions silently vanish. You patch it with a last-write-wins register. Now concurrent adds from the same user on mobile and desktop cause random item loss. You add distributed locks. Now your 2ms add-to-cart operation takes 45ms and your lock service is a single point of failure. CRDTs — Conflict-Free Replicated Data Types — exist precisely for this failure mode: state that must be mutated concurrently across nodes without coordination, without data loss, and without consensus overhead.
@@ -151,12 +146,3 @@ Automerge's list merge uses a fractional indexing scheme: each element gets a un
 The biggest mistake teams make is reaching for CRDTs as a general-purpose solution to distributed state. They're not. They're a precise tool for a specific class of problem: state that must be replicated without coordination and where the merge semantics of the CRDT match the business semantics of the data. Get that alignment right and you eliminate an entire class of coordination bugs. Get it wrong and you trade lock contention for silent data anomalies that are considerably harder to debug.
 
 Start with the data structure, not the library. Draw out the merge operation for your specific use case. If you can express `merge(A, B)` as a commutative, associative, idempotent function over your data, you have a CRDT candidate. If you can't — if the merge requires application context or invariant checking — you don't, and you need a coordination protocol instead.
-```
-
----
-
-Please approve the write permissions when prompted — there are two files to save:
-1. `_posts/2026-03-23-crdts-distributed-state-conflict-free.md` — the blog post
-2. `images/diagrams/crdts-distributed-state-conflict-free.svg` — the architecture diagram
-
-Both are new files. If you'd like me to retry saving them now, just say the word.

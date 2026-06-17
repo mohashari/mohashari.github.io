@@ -4,6 +4,8 @@ title: "Database Connection Pooling: PgBouncer and Beyond"
 date: 2026-03-15 07:00:00 +0700
 tags: [postgresql, pgbouncer, performance, backend, database]
 description: "Understand why connection pooling is critical at scale and configure PgBouncer to handle thousands of concurrent database clients efficiently."
+image: "https://picsum.photos/seed/2324/1080/720"
+thumbnail: "https://picsum.photos/seed/2324/400/300"
 ---
 
 Every PostgreSQL connection spawns a dedicated backend process consuming roughly 5–10 MB of memory and requiring a full TCP handshake, authentication exchange, and process fork. At low scale this is invisible. But when your application deploys dozens of pods, each maintaining a connection pool of twenty clients, you're staring down hundreds of simultaneous database processes doing nothing but waiting. PostgreSQL starts thrashing under that pressure — context switching overhead climbs, shared memory contention grows, and the connection limit (`max_connections`) becomes a hard ceiling that walls off your entire system. PgBouncer exists precisely to absorb this mismatch between how applications want to connect and how databases can realistically serve them.

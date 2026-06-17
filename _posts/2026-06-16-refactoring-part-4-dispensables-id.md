@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 4: Code Smells Dispensables, Bersihkan Kode 
 date: 2026-06-16
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Dispensable code smells adalah bagian kode yang seharusnya tidak ada sama sekali. Pelajari cara mendeteksi dan menghapus komentar berlebih, kode duplikat, lazy class, data class, dead code, dan speculative generality dalam Go."
+image: "https://picsum.photos/seed/4506/1080/720"
+thumbnail: "https://picsum.photos/seed/4506/400/300"
 ---
 
 Bayangkan sebuah codebase seperti sebuah rumah. Selama bertahun-tahun, setiap developer yang tinggal di sana meninggalkan sesuatu — lampu rusak di sudut ruangan, furnitur yang ditutupi kain debu yang "mungkin berguna suatu hari nanti", atau gudang penuh peralatan yang tidak ada seorang pun ingat kapan membelinya. Rumah tersebut masih berfungsi, tetapi menavigasinya sangat melelahkan. Setiap orang baru yang pindah menghabiskan separuh waktu mereka untuk melangkahi barang-barang tidak berguna tersebut sebelum mereka bisa menyelesaikan pekerjaan apa pun.

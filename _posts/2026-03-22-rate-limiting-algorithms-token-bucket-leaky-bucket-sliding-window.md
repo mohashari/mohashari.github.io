@@ -4,6 +4,8 @@ title: "Rate Limiting Algorithms: Token Bucket, Leaky Bucket, Sliding Window"
 date: 2026-03-22 08:00:00 +0700
 tags: [backend, distributed-systems, redis, performance, api-design]
 description: "How to choose between token bucket, leaky bucket, and sliding window rate limiting — with real tradeoffs, Redis implementations, and a decision framework."
+image: "https://picsum.photos/seed/1910/1080/720"
+thumbnail: "https://picsum.photos/seed/1910/400/300"
 ---
 
 You deploy a new API endpoint, write a quick fixed-window rate limiter with Redis INCR, and call it done. Three weeks later your on-call gets paged at 2am: a single enterprise customer fires 1000 requests in the first millisecond of every minute, slamming the database with a coordinated burst that your fixed-window counter resets exactly never protects against. The counter hit zero at 00:00.000, the requests came in at 00:00.001, and the DB melted. You didn't choose the wrong _implementation_ — you chose the wrong _algorithm_ for the access pattern. This post is about making that choice deliberately.

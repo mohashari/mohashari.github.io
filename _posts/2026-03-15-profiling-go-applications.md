@@ -4,6 +4,8 @@ title: "Profiling Go Applications: Finding and Fixing CPU, Memory, and Goroutine
 date: 2026-03-15 07:00:00 +0700
 tags: [go, profiling, performance, pprof, observability]
 description: "Use pprof and flame graphs to identify and eliminate CPU, memory, and goroutine bottlenecks in Go services running in production."
+image: "https://picsum.photos/seed/8138/1080/720"
+thumbnail: "https://picsum.photos/seed/8138/400/300"
 ---
 
 Every Go service eventually hits a wall. Requests start taking longer, memory climbs without explanation, or the goroutine count balloons until the scheduler bogs down. The instinct is to look at logs, add more instances, or tune Kubernetes resource limits — but these are band-aids. The real answer is profiling: finding exactly which function, allocation pattern, or concurrency mistake is responsible. Go ships with one of the most capable profiling ecosystems in any language through `pprof`, and engineers who know how to use it can turn hours of guesswork into minutes of precise diagnosis.

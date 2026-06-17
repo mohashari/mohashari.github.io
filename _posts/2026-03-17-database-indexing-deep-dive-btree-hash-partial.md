@@ -4,6 +4,8 @@ title: "Database Indexing Deep Dive: B-Trees, Hash Indexes, and Partial Indexes"
 date: 2026-03-17 07:00:00 +0700
 tags: [databases, indexing, postgresql, performance, internals]
 description: "Explore how B-tree, hash, GIN, and partial indexes work under the hood and develop a systematic strategy for choosing the right index for every query pattern."
+image: "https://picsum.photos/seed/8073/1080/720"
+thumbnail: "https://picsum.photos/seed/8073/400/300"
 ---
 
 Every production database eventually hits the same wall: queries that ran in milliseconds during development suddenly take seconds under real load. You add an index, performance improves, and you move on — but most engineers never develop a mental model for *why* a particular index helps, when it hurts, or which type to reach for. The result is systems littered with unused indexes that slow down writes, missing indexes that kill reads, and a vague unease that the database is somehow working against you. Understanding how indexes are structured internally transforms indexing from guesswork into a deliberate engineering discipline.

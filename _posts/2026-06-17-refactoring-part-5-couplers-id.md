@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 5: Code Smells Couplers, Hubungan Antar Obje
 date: 2026-06-17
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Kenali 5 jenis Coupler code smells — Feature Envy, Inappropriate Intimacy, Message Chains, Middle Man, dan Incomplete Library Class — beserta cara mendeteksinya dan memperbaikinya dengan Go."
+image: "https://picsum.photos/seed/457/1080/720"
+thumbnail: "https://picsum.photos/seed/457/400/300"
 ---
 
 Bayangkan kamu sedang bekerja dalam sebuah tim di mana setiap kali ada satu orang ingin melakukan tugasnya, ia harus terus-menerus meminjam alat, menanyakan informasi sensitif, atau bahkan mengutak-atik barang milik anggota tim yang lain. Alih-alih bekerja secara mandiri dan fokus pada tugas masing-masing, setiap orang terus-menerus saling ketergantungan. Akibatnya, alur kerja menjadi lambat, kacau, dan ketika satu orang absen atau melakukan perubahan, alur kerja orang lain langsung terganggu.

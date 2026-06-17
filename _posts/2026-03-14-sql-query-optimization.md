@@ -3,6 +3,8 @@ layout: post
 title: "SQL Query Optimization: Writing Queries That Scale"
 tags: [database, sql, performance, postgresql, backend]
 description: "Practical SQL query optimization techniques — from understanding execution plans to rewriting slow queries for 100x speedups."
+image: "https://picsum.photos/seed/8454/1080/720"
+thumbnail: "https://picsum.photos/seed/8454/400/300"
 ---
 
 A poorly written query that works fine on 1,000 rows becomes a production nightmare at 10 million rows. SQL optimization is one of the highest-leverage skills a backend engineer can have. Here's the essential knowledge.

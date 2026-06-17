@@ -4,6 +4,8 @@ title: "JWT Deep Dive: Pitfalls, Best Practices, and Secure Token Lifecycles"
 date: 2026-03-17 07:00:00 +0700
 tags: [jwt, security, authentication, backend, api]
 description: "Examine JWT vulnerabilities like algorithm confusion and weak secrets, then implement a secure token lifecycle with rotation, revocation, and short expiry patterns."
+image: "https://picsum.photos/seed/9984/1080/720"
+thumbnail: "https://picsum.photos/seed/9984/400/300"
 ---
 
 JSON Web Tokens have become the default credential format for stateless APIs, yet they are routinely misconfigured in ways that hand attackers persistent, unforgeable access. The problem is not the specification itself — RFC 7519 is clear — it's that JWT libraries are designed for flexibility, and flexibility without discipline creates exploitable surface area. Algorithm confusion, weak signing secrets, missing claim validation, and absent revocation mechanisms are found in production systems at companies of every size. This post tears through the most dangerous pitfalls and shows how to build a token lifecycle that is actually secure: short-lived access tokens, rotating refresh tokens, and explicit revocation paths backed by a fast store.

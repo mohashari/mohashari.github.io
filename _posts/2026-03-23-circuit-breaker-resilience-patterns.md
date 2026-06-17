@@ -4,6 +4,8 @@ title: "Circuit Breakers and Resilience Patterns in Microservices"
 date: 2026-03-23 08:00:00 +0700
 tags: [microservices, resilience, distributed-systems, java, go]
 description: "Deep dive into circuit breakers, bulkheads, and retry patterns — with Resilience4j config and decision frameworks for production SLAs."
+image: "https://picsum.photos/seed/7805/1080/720"
+thumbnail: "https://picsum.photos/seed/7805/400/300"
 ---
 
 In November 2021, a single slow database query in Slack's channel membership service caused a 4-hour partial outage. The query didn't fail — it just took 30+ seconds instead of 30ms. Without a circuit breaker, every upstream caller kept waiting, holding threads, exhausting connection pools, and cascading the degradation across a dozen unrelated services. This is the failure mode circuit breakers were built for: not hard failures, but slowness. A service that returns 500 in 5ms is actually *easier* to handle than one that returns 200 in 35 seconds.

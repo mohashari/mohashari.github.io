@@ -4,6 +4,8 @@ title: "Embeddings Fine-Tuning: When Generic Models Are Not Enough"
 date: 2026-03-22 08:00:00 +0700
 tags: [ai-engineering, embeddings, machine-learning, search, nlp]
 description: "When off-the-shelf embedding models fail your domain-specific search or ranking tasks, fine-tuning is the lever that actually moves the needle."
+image: "https://picsum.photos/seed/3070/1080/720"
+thumbnail: "https://picsum.photos/seed/3070/400/300"
 ---
 
 Your semantic search works fine in demos. Users type "cardiac arrest protocol" and get "myocardial infarction treatment guidelines" back — close enough. But in production, with 2 million medical documents and real clinicians searching under pressure, "close enough" causes misses that matter. You spent weeks integrating `text-embedding-3-large` or `bge-large-en-v1.5`, and the retrieval precision at k=5 sits at 61%. Your legal team won't let you ship it. The model doesn't know that in your domain, "protocol" means a specific clinical document type, not a generic procedure. It doesn't know that "arrest" in your corpus almost never means crime. Generic models are trained on the internet — and your data isn't the internet.

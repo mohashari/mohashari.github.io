@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 11: Flyweight"
 date: 2026-06-14
 tags: [design-patterns, golang, best-practices]
 description: "Temukan bagaimana design pattern Flyweight mengoptimalkan penggunaan memori di Golang dengan membagikan state yang sama ke banyak objek. Pelajari lewat skenario game dev nyata."
+image: "https://picsum.photos/seed/655/1080/720"
+thumbnail: "https://picsum.photos/seed/655/400/300"
 ---
 
 Dalam pengembangan perangkat lunak, mengelola memori dan sumber daya secara efisien adalah salah satu ciri rekayasa perangkat lunak profesional. Seiring berkembangnya aplikasi, pembuatan jutaan objek secara bersamaan dapat menurunkan performa dengan cepat, menyebabkan overhead pada Garbage Collector (GC), atau bahkan memicu *out-of-memory error*.

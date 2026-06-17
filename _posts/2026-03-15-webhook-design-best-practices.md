@@ -4,6 +4,8 @@ title: "Webhook Design Best Practices: Reliability, Security, and Delivery Guara
 date: 2026-03-15 07:00:00 +0700
 tags: [webhooks, apis, backend, reliability, security]
 description: "Design robust webhook systems with guaranteed delivery, signature verification, retry logic, and consumer-friendly payloads."
+image: "https://picsum.photos/seed/8328/1080/720"
+thumbnail: "https://picsum.photos/seed/8328/400/300"
 ---
 
 Every distributed system eventually needs to push state changes to external consumers. Polling is wasteful, WebSockets are stateful, and message queues require shared infrastructure. Webhooks fill this gap elegantly — an HTTP POST fired when something happens. But the simplicity is deceptive. In production, webhooks fail silently, arrive out of order, get replayed by impatient consumers, and carry signatures that nobody verifies until after the breach. Building a webhook system that is reliable, secure, and genuinely useful to the engineers consuming it requires deliberate design across every layer: delivery semantics, payload shape, authentication, retry strategy, and observability. This post covers the patterns that separate toy webhook implementations from ones that survive real traffic.

@@ -4,6 +4,8 @@ title: "Clean Code with Go — Part 4: Comments Done Right"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Good comments explain WHY, not WHAT. Learn when to comment and when to let the code speak for itself."
+image: "https://picsum.photos/seed/3069/1080/720"
+thumbnail: "https://picsum.photos/seed/3069/400/300"
 ---
 
 Picture this: you've just joined a new team and need to fix a bug in the payment module. You open the file and are greeted by lines like these:

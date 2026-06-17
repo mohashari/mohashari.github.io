@@ -4,6 +4,8 @@ title: "Docker Multi-Stage Builds: Smaller, Faster, More Secure Images"
 date: 2026-03-15 07:00:00 +0700
 tags: [docker, devops, backend, containers, security]
 description: "Master Docker multi-stage builds to produce lean production images — reduce image size by 90%, eliminate build tools from runtime, and speed up CI pipelines."
+image: "https://picsum.photos/seed/4370/1080/720"
+thumbnail: "https://picsum.photos/seed/4370/400/300"
 ---
 
 The average developer Dockerfile copies source code, installs compilers, runs tests, and ships everything — including the Go compiler, npm cache, and build secrets — into the production image. Multi-stage builds fix this.

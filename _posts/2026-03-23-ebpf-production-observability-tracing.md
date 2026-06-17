@@ -4,8 +4,8 @@ title: "eBPF for Production Observability: Zero-Instrumentation Tracing"
 date: 2026-03-23 08:00:00 +0700
 tags: [ebpf, observability, linux, performance, backend]
 description: "How to use eBPF to get deep production traces, metrics, and network visibility across any language stack without touching application code."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/5885/1080/720"
+thumbnail: "https://picsum.photos/seed/5885/400/300"
 ---
 
 Your monitoring tells you p99 latency spiked to 800ms. Your Prometheus metrics show nothing obvious — CPU is fine, memory is stable, the service reports healthy. The distributed trace from your OpenTelemetry SDK covers 60% of the request path because the Python service three hops away was deployed six months ago by a team that's since been reorganized, and nobody instrumented it. You add a log statement, redeploy, wait for the next incident. This is the observability tax you pay when your visibility is tied to the application code itself: blind spots wherever instrumentation was skipped, missed, or intentionally omitted. eBPF eliminates that contract. It attaches directly to the kernel and observes every syscall, every network packet, every function call — across every language and runtime — without touching a single line of application code.

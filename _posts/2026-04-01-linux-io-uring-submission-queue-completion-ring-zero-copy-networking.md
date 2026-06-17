@@ -4,8 +4,8 @@ title: "Linux io_uring Deep Dive: Submission Queues, Completion Rings, and Zero-
 date: 2026-04-01 08:00:00 +0700
 tags: [linux, networking, performance, systems, io_uring]
 description: "How io_uring's lock-free ring buffers and fixed buffer registration eliminate syscall overhead and copies in high-throughput network servers."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/3200/1080/720"
+thumbnail: "https://picsum.photos/seed/3200/400/300"
 ---
 
 At 100k+ connections, the Linux epoll model starts showing cracks. Not because poll itself is slow — it isn't — but because everything surrounding it is: the `read()` and `write()` syscalls that follow each event, the user/kernel boundary crossings per I/O operation, the buffer copies on every receive. A busy proxy server doing 500k req/s can spend north of 30% of CPU time just on syscall overhead and buffer management. `io_uring`, introduced in Linux 5.1 and matured through 5.10–6.x, is the first serious attempt to fix this at the kernel interface level rather than papering over it in userspace.

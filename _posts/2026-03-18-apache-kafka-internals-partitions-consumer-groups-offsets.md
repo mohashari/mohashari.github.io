@@ -4,6 +4,8 @@ title: "Apache Kafka Internals: Partitions, Consumer Groups, and Offset Manageme
 date: 2026-03-18 07:00:00 +0700
 tags: [kafka, messaging, distributed-systems, streaming, backend]
 description: "Understand Kafka's partition assignment, replication protocol, consumer group rebalancing, and offset commit strategies to build reliable event-driven systems."
+image: "https://picsum.photos/seed/138/1080/720"
+thumbnail: "https://picsum.photos/seed/138/400/300"
 ---
 
 # Apache Kafka Internals: Partitions, Consumer Groups, and Offset Management

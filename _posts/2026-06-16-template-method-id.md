@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 21: Template Method"
 date: 2026-06-16
 tags: [design-patterns, behavioral, golang, best-practices]
 description: "Pelajari bagaimana mengimplementasikan Template Method pattern di Go. Temukan cara mendefinisikan kerangka kerja algoritma dan memberikan keleluasaan bagi tipe konkret untuk mengubah langkah tertentu tanpa merusak struktur utama."
+image: "https://picsum.photos/seed/485/1080/720"
+thumbnail: "https://picsum.photos/seed/485/400/300"
 ---
 
 Dalam rekayasa perangkat lunak, kita sering kali menemui situasi di mana kita perlu mengeksekusi serangkaian langkah dalam urutan yang pasti dan tidak boleh diubah, tetapi implementasi mendetail dari beberapa langkah tersebut bergantung pada konteksnya. Alih-alih menduplikasi seluruh kerangka kerja proses untuk setiap variasi, kita dapat memanfaatkan design pattern **Template Method**.

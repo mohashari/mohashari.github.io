@@ -4,6 +4,8 @@ title: "CRDTs: Conflict-Free Replicated Data Types for Distributed State"
 date: 2026-03-16 07:00:00 +0700
 tags: [distributed-systems, databases, consistency, algorithms, backend]
 description: "Learn how CRDTs enable eventually consistent, merge-friendly shared state across nodes without coordination or conflict resolution logic."
+image: "https://picsum.photos/seed/8092/1080/720"
+thumbnail: "https://picsum.photos/seed/8092/400/300"
 ---
 
 Distributed systems lie to you. Two nodes write to the same counter at the same time, and when they sync, one of those writes disappears. A user adds an item to a shared shopping cart on their phone while offline, then merges with the server — and the item vanishes because the server's version "won." These aren't edge cases; they're the default behavior when you build distributed state naively. The usual fixes — locking, consensus protocols, last-write-wins — either kill availability or destroy correctness. CRDTs (Conflict-Free Replicated Data Types) offer a third path: data structures mathematically designed so that concurrent updates from any number of nodes always merge into a deterministic, consistent result, with zero coordination required.

@@ -4,6 +4,8 @@ title: "Structured Logging at Scale: Patterns, Pipelines, and Best Practices"
 date: 2026-03-15 07:00:00 +0700
 tags: [observability, logging, backend, elk, structured-logs]
 description: "Design structured logging strategies that make logs queryable, correlatable, and actionable across distributed services."
+image: "https://picsum.photos/seed/713/1080/720"
+thumbnail: "https://picsum.photos/seed/713/400/300"
 ---
 
 Every on-call engineer has lived this nightmare: a production incident at 2 AM, a cascade of failures across five services, and a sea of log lines that look like `ERROR: something went wrong` scattered across four different log files, each formatted differently, none of them correlated. You grep, you tail, you squint. By the time you've assembled enough context to understand what happened, the SLA is already breached. Structured logging is the discipline that turns logs from a last-resort debugging tool into a first-class observability signal — one that you can query, correlate, and alert on with the same rigor you'd apply to metrics or traces.

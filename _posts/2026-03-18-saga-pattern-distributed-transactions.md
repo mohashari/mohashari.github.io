@@ -4,6 +4,8 @@ title: "Saga Pattern: Managing Distributed Transactions Without Two-Phase Commit
 date: 2026-03-18 07:00:00 +0700
 tags: [distributed-systems, microservices, patterns, transactions, reliability]
 description: "Implement choreography and orchestration-based sagas to maintain data consistency across microservices without locking or two-phase commit."
+image: "https://picsum.photos/seed/2249/1080/720"
+thumbnail: "https://picsum.photos/seed/2249/400/300"
 ---
 
 Every distributed system eventually confronts the same brutal reality: you need to update data across multiple services atomically, but you cannot lock rows in three different databases owned by three different teams. Two-phase commit (2PC) promises atomicity, but it comes with a coordinator that becomes a single point of failure, locks held across network round-trips, and a blocking protocol that crumbles under partial failures. The Saga pattern offers a different contract — instead of preventing inconsistency through locking, it embraces the possibility of intermediate states and provides compensating transactions to recover from them. It is not a compromise; it is an acknowledgment of how distributed systems actually behave.

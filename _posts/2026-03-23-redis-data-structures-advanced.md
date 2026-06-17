@@ -4,6 +4,8 @@ title: "Advanced Redis Data Structures for Backend Engineers"
 date: 2026-03-23 08:00:00 +0700
 tags: [redis, backend, distributed-systems, performance, architecture]
 description: "Move beyond key-value caching: Sorted Sets, HyperLogLog, Streams, and Bitmaps solve real backend bottlenecks most engineers handle wrong."
+image: "https://picsum.photos/seed/3473/1080/720"
+thumbnail: "https://picsum.photos/seed/3473/400/300"
 ---
 
 Your Redis cluster is running at 40% memory and your DBA is asking why the `user_activity` table has 800 million rows. You have a leaderboard query that does a full table scan every 30 seconds, a Kafka cluster running for a single event type with three consumers, and a feature flag service backed by Postgres that gets hit 50,000 times per minute. This is the production state that most teams end up in when they treat Redis as a dumb cache instead of a data structure server. The structures you need already exist in Redis—you just haven't reached for them.

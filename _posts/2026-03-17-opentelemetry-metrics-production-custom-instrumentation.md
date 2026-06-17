@@ -4,6 +4,8 @@ title: "OpenTelemetry Metrics in Production: Custom Instrumentation Beyond the B
 date: 2026-03-17 07:00:00 +0700
 tags: [opentelemetry, observability, metrics, backend, instrumentation]
 description: "Go beyond auto-instrumentation and build custom OpenTelemetry metric pipelines with exemplars, histograms, and multi-backend exporters for deep backend visibility."
+image: "https://picsum.photos/seed/3643/1080/720"
+thumbnail: "https://picsum.photos/seed/3643/400/300"
 ---
 
 ## OpenTelemetry Metrics in Production: Custom Instrumentation Beyond the Basics

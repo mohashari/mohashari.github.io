@@ -4,6 +4,8 @@ title: "Refactoring Techniques — Part 10: Dealing with Generalization"
 date: 2026-06-22
 tags: [refactoring, golang, refactoring-techniques, software-engineering, clean-code, refactoring-series]
 description: "Master generalization refactoring techniques in Go: Extract Interface, Replace Inheritance with Delegation, Form Template Method, Pull Up/Push Down Method, and more — all adapted for Go's composition-first philosophy."
+image: "https://picsum.photos/seed/4104/1080/720"
+thumbnail: "https://picsum.photos/seed/4104/400/300"
 ---
 
 In classical object-oriented languages like Java or C++, generalization refactoring is mostly about reshaping inheritance hierarchies — pulling code up to superclasses, pushing it down to subclasses, or collapsing a hierarchy that got too deep. Go doesn't have classical inheritance at all. Instead, Go gives us **interfaces**, **embedding**, and **composition** — and they turn out to be *better* tools for the same job.

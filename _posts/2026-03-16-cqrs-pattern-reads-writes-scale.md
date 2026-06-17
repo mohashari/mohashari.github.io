@@ -4,6 +4,8 @@ title: "CQRS Pattern: Separating Reads and Writes for Performance and Scale"
 date: 2026-03-16 07:00:00 +0700
 tags: [cqrs, architecture, databases, distributed-systems, backend]
 description: "Explore how Command Query Responsibility Segregation decouples read and write models to independently scale and optimize each path."
+image: "https://picsum.photos/seed/7944/1080/720"
+thumbnail: "https://picsum.photos/seed/7944/400/300"
 ---
 
 Every high-traffic application eventually hits the same wall: the database becomes a bottleneck because reads and writes compete for the same resources, use the same schema, and demand the same indexes. You add a read replica, but your ORM still issues `SELECT *` with twelve joins to render a dashboard. You optimize the write path, but now your reporting queries slow down inserts. The root cause is that you've modeled reads and writes identically — one schema, one model, one abstraction — when in reality they have completely different shapes, throughput requirements, and consistency needs. Command Query Responsibility Segregation (CQRS) addresses this directly by treating the write side and the read side as separate concerns, each with its own model, its own storage, and its own optimization strategy.

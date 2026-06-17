@@ -4,6 +4,8 @@ title: "Refactoring Techniques — Part 9: Menyederhanakan Pemanggilan Method"
 date: 2026-06-21
 tags: [refactoring, golang, refactoring-techniques, software-engineering, clean-code, refactoring-series]
 description: "Pemanggilan method atau fungsi yang rumit dan tidak jelas membuat kode sulit dipahami dan dirawat. Pelajari 7 teknik refactoring untuk menyederhanakan pemanggilan method di Go."
+image: "https://picsum.photos/seed/9247/1080/720"
+thumbnail: "https://picsum.photos/seed/9247/400/300"
 ---
 
 Saat kita menulis kode pertama kali, fokus utama kita adalah membuat kode tersebut berjalan sesuai kebutuhan. Namun, seiring berjalannya waktu dan berkembangnya sistem, cara kita memanggil fungsi dan method sering kali menjadi rumit. Parameter yang terlalu banyak, method yang melakukan dua hal sekaligus, atau inisialisasi objek secara manual yang tersebar di mana-mana adalah beberapa tanda bahwa antarmuka (API) kode kita mulai "berbau busuk" (*code smell*).

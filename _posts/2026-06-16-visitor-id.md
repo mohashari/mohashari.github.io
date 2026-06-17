@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 22: Visitor"
 date: 2026-06-16
 tags: [design-patterns, behavioral, golang, best-practices]
 description: "Pahami cara kerja Visitor pattern di Go (Golang). Pelajari bagaimana memisahkan algoritma dari objek tempat ia bekerja, sehingga Anda bisa menambahkan perilaku baru tanpa mengubah kode struct yang sudah ada."
+image: "https://picsum.photos/seed/6503/1080/720"
+thumbnail: "https://picsum.photos/seed/6503/400/300"
 ---
 
 Dalam arsitektur perangkat lunak, seiring berkembangnya suatu sistem, Anda sering kali perlu menambahkan operasi baru ke dalam hierarki struktur objek yang sudah ada. Mengubah kode struktur asli setiap kali ada tindakan baru melanggar prinsip **Open/Closed Principle** serta mengotori model domain dengan logika yang tidak saling berhubungan. Design pattern **Visitor** menawarkan solusi yang bersih untuk masalah ini.

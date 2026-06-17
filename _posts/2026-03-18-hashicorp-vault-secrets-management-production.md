@@ -4,6 +4,8 @@ title: "HashiCorp Vault: Secrets Management and Dynamic Credentials in Productio
 date: 2026-03-18 07:00:00 +0700
 tags: [security, vault, secrets, devops, cloud]
 description: "Configure HashiCorp Vault for static and dynamic secret leasing, PKI automation, and audit logging in production Kubernetes environments."
+image: "https://picsum.photos/seed/5505/1080/720"
+thumbnail: "https://picsum.photos/seed/5505/400/300"
 ---
 
 # HashiCorp Vault: Secrets Management and Dynamic Credentials in Production

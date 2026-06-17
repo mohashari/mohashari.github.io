@@ -3,6 +3,8 @@ layout: post
 title: "Load Balancing Techniques: Algorithms and Real-World Patterns"
 tags: [architecture, backend, devops, system-design]
 description: "A comprehensive guide to load balancing algorithms, Layer 4 vs Layer 7, session affinity, health checks, and when to use each approach."
+image: "https://picsum.photos/seed/8744/1080/720"
+thumbnail: "https://picsum.photos/seed/8744/400/300"
 ---
 
 Load balancing is how you turn one server into many — distributing traffic to achieve high availability and horizontal scalability. Understanding the algorithms and patterns helps you design systems that stay up when individual components fail.

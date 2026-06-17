@@ -4,6 +4,8 @@ title: "Graceful Shutdown in Go: Draining Connections and Handling OS Signals"
 date: 2026-03-16 07:00:00 +0700
 tags: [go, reliability, kubernetes, backend, devops]
 description: "Implement clean shutdown sequences in Go services that honor in-flight requests, close database pools, and cooperate with Kubernetes pod lifecycle hooks."
+image: "https://picsum.photos/seed/2046/1080/720"
+thumbnail: "https://picsum.photos/seed/2046/400/300"
 ---
 
 Every backend engineer has seen it: a deployment rolls out, Kubernetes sends `SIGTERM`, and somewhere in the logs you find a cascade of `connection reset by peer` errors, half-written database rows, and 502s that the load balancer politely blamed on your service. The process died mid-request. Users got errors. Your on-call rotation got a ping. The root cause is almost always the same — the application treated shutdown as a hard stop rather than a coordinated wind-down. Go's standard library gives you everything you need to do this correctly, but wiring it together properly requires understanding the full lifecycle: OS signals, in-flight HTTP requests, database connection pools, background workers, and the pod lifecycle hooks that Kubernetes uses to orchestrate the whole sequence. This post walks through each layer, building toward a production-ready shutdown sequence you can drop into any Go service.

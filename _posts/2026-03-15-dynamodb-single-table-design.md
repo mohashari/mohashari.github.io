@@ -4,6 +4,8 @@ title: "DynamoDB Design Patterns: Single-Table Design and Access Pattern Modelin
 date: 2026-03-15 07:00:00 +0700
 tags: [dynamodb, nosql, aws, databases, architecture]
 description: "Master single-table design in DynamoDB to model complex access patterns efficiently without sacrificing performance or cost."
+image: "https://picsum.photos/seed/6208/1080/720"
+thumbnail: "https://picsum.photos/seed/6208/400/300"
 ---
 
 Most engineers approaching DynamoDB for the first time make the same mistake: they model their data the way they would in PostgreSQL, creating one table per entity — a `users` table, an `orders` table, a `products` table — then watch their costs balloon and their latency spike as they scatter related data across separate tables and round-trips. DynamoDB is not a relational database with worse SQL. It is a fundamentally different tool, one that rewards you handsomely when you design around access patterns first and penalizes you severely when you design around entity normalization. Single-table design is the practice of collapsing your entire data model into one DynamoDB table, using carefully crafted partition keys and sort keys to serve every access pattern your application needs — with a single query, every time.

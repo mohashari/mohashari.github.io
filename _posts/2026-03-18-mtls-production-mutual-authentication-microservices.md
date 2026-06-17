@@ -4,6 +4,8 @@ title: "mTLS in Production: Mutual Authentication Between Microservices"
 date: 2026-03-18 07:00:00 +0700
 tags: [security, mtls, tls, microservices, networking]
 description: "Implement mutual TLS for service-to-service authentication using SPIFFE/SPIRE, certificate rotation, and zero-downtime rollout strategies in Kubernetes."
+image: "https://picsum.photos/seed/8204/1080/720"
+thumbnail: "https://picsum.photos/seed/8204/400/300"
 ---
 
 Every microservice mesh starts with good intentions: internal traffic is "trusted," the network perimeter is the boundary, and service-to-service calls are just HTTP. Then comes the first lateral movement incident, the compliance audit that asks how Service A proves it's actually talking to Service B and not a rogue process on a compromised pod, or the penetration test that trivially spoofs an internal service identity. The answer the industry has converged on is mutual TLS — where both the client and server present certificates and cryptographically prove who they are before a byte of application data flows. mTLS eliminates the assumption of trust based on IP address or network segment and replaces it with identity grounded in PKI. This post walks through the full production story: bootstrapping a SPIFFE/SPIRE-based certificate authority, writing the Go plumbing to consume SVID certificates, automating rotation without dropping connections, and rolling the change out to a live Kubernetes cluster.

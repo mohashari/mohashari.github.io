@@ -4,6 +4,8 @@ title: "Clean Code with Go — Part 7: Testing as Documentation"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Good tests are documentation that never lies. Learn table-driven tests and how to write meaningful tests in Go."
+image: "https://picsum.photos/seed/4934/1080/720"
+thumbnail: "https://picsum.photos/seed/4934/400/300"
 ---
 
 Imagine joining a team and being asked to do a "simple refactor" — changing how email validation works in `UserService`. "Easy enough," you think. Two hours later, you push to production. Five minutes after that, Slack explodes. The registration feature is broken. Login is broken. Email notifications aren't sending. Even the profile page is throwing errors.

@@ -1,6 +1,8 @@
 ---
 layout: post
 title: How to install Jmeter
+image: "https://picsum.photos/seed/6140/1080/720"
+thumbnail: "https://picsum.photos/seed/6140/400/300"
 ---
 **Apache JMeter** is an [Apache](https://en.wikipedia.org/wiki/Apache_Software_Foundation) [project](https://en.wikipedia.org/wiki/Project) that can be used as a [load testing](https://en.wikipedia.org/wiki/Load_testing) tool for analyzing and measuring the performance of a variety of services, with a focus on [web applications](https://en.wikipedia.org/wiki/Web_application).
 

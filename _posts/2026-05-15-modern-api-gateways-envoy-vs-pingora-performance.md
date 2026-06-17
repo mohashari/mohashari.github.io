@@ -4,8 +4,8 @@ title: "Modern API Gateways: Envoy vs. Pingora — Architecture and Performance 
 date: 2026-05-15 09:00:00 +0700
 tags: [networking, infrastructure, rust, envoy, pingora]
 description: "A deep architectural analysis of the modern API gateway landscape, comparing Envoy Proxy's C++ event-loop model against Cloudflare's new Rust-based Pingora framework."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/9692/1080/720"
+thumbnail: "https://picsum.photos/seed/9692/400/300"
 ---
 
 At the edge of every microservices architecture sits an **API Gateway**. The gateway is responsible for routing, rate limiting, SSL termination, and security. Historically, companies relied on Nginx or HAProxy. However, as dynamic configurations and service meshes became standard, **Envoy Proxy** became the industry-wide default.

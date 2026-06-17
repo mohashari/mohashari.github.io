@@ -4,6 +4,8 @@ title: "Protocol Buffers Deep Dive: Schema Design, Evolution, and Versioning"
 date: 2026-03-16 07:00:00 +0700
 tags: [protobuf, grpc, apis, serialization, backend]
 description: "Go beyond the basics to understand how to design backward-compatible Protobuf schemas that evolve safely across services and deployments."
+image: "https://picsum.photos/seed/4027/1080/720"
+thumbnail: "https://picsum.photos/seed/4027/400/300"
 ---
 
 Every backend engineer has faced this moment: you need to add a field to a message your service sends to three other services, and you're not sure which ones you can deploy first. Change the wrong thing, and you'll break a consumer. Deploy in the wrong order, and you have a window where serialization silently drops data. Protocol Buffers were designed to make schema evolution safe, but "safe" is only guaranteed if you understand the rules. Most engineers learn the happy path — define a `.proto` file, generate code, ship it — and never dig into the mechanics that make backward and forward compatibility work. This post is that dig.

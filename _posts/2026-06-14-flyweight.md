@@ -4,6 +4,8 @@ title: "Go Design Patterns — Part 11: Flyweight"
 date: 2026-06-14
 tags: [design-patterns, golang, best-practices]
 description: "Discover how the Flyweight design pattern optimizes memory in Golang by sharing common state across multiple objects. Learn through real-world game dev scenarios."
+image: "https://picsum.photos/seed/547/1080/720"
+thumbnail: "https://picsum.photos/seed/547/400/300"
 ---
 
 In software development, managing memory and resources efficiently is a hallmark of professional engineering. As applications scale, creating millions of objects can quickly degrade performance, leading to high garbage collection overhead or out-of-memory errors. 

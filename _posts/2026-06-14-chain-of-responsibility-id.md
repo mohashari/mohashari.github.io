@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 13: Chain of Responsibility"
 date: 2026-06-14
 tags: [design-patterns, golang, best-practices]
 description: "Pelajari pattern Chain of Responsibility di Golang. Temukan cara mengurangi ketergantungan antara pengirim dan penerima request dengan meneruskannya lewat rantai handler."
+image: "https://picsum.photos/seed/8173/1080/720"
+thumbnail: "https://picsum.photos/seed/8173/400/300"
 ---
 
 Dalam rekayasa perangkat lunak, kita sering kali perlu memproses sebuah request melalui beberapa tahap seperti validasi, pencatatan log, otentikasi, atau logika bisnis lainnya. Menulis sebuah fungsi monolitik raksasa yang menangani semua tahapan ini membuat kode menjadi rentan error, sulit diuji, dan memiliki ketergantungan yang ketat (*tight coupling*).

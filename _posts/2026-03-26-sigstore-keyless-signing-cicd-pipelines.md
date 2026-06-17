@@ -4,8 +4,8 @@ title: "Sigstore Keyless Signing in CI/CD Pipelines"
 date: 2026-03-26 08:00:00 +0700
 tags: [devsecops, ci-cd, supply-chain-security, containers, sigstore]
 description: "How to eliminate long-lived signing keys from your CI/CD pipeline using Sigstore's keyless signing workflow with OIDC-backed ephemeral credentials."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/6888/1080/720"
+thumbnail: "https://picsum.photos/seed/6888/400/300"
 ---
 
 Last year, a compromised npm package with a valid PGP signature made it to thousands of production systems before anyone noticed. The signature was legitimate — the private key had leaked months earlier, and nobody knew. That's the fundamental problem with traditional artifact signing: you're betting your entire supply chain on the secrecy of a long-lived private key stored somewhere in a secrets manager, rotated infrequently, and accessible to anyone with the right IAM role. One leaked key, one compromised CI runner, one misconfigured secret — and every signed artifact you've ever produced is now suspect.

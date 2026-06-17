@@ -4,6 +4,8 @@ title: "GitOps with ArgoCD: Declarative Continuous Delivery for Kubernetes"
 date: 2026-03-18 07:00:00 +0700
 tags: [gitops, argocd, kubernetes, devops, cicd]
 description: "Adopt GitOps principles with ArgoCD to manage Kubernetes deployments declaratively, enforce drift detection, and streamline multi-environment promotions."
+image: "https://picsum.photos/seed/6183/1080/720"
+thumbnail: "https://picsum.photos/seed/6183/400/300"
 ---
 
 Managing Kubernetes deployments through `kubectl apply` commands and ad-hoc scripts is a path that starts simple and ends in chaos. Who applied that change to production at 2am? Why does the staging cluster have a different image tag than what's in the repository? These questions have a common answer: your deployment process lacks a single source of truth. GitOps solves this by treating Git as the authoritative definition of your desired cluster state, and ArgoCD is the engine that continuously reconciles reality against that definition. The result is an audit trail built into every merge commit, automatic drift correction, and deployment pipelines that developers can reason about without reading runbook wikis.

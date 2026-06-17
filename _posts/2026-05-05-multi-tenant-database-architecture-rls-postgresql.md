@@ -4,8 +4,8 @@ title: "Architecting Multi-Tenant DBs: Row-Level Security (RLS) vs. Schema-per-T
 date: 2026-05-05 09:00:00 +0700
 tags: [architecture, saas, database, postgresql, multi-tenancy]
 description: "A deep architectural comparison of multi-tenant database designs in PostgreSQL: analyzing Row-Level Security (RLS) vs. Schema-per-Tenant models."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/5174/1080/720"
+thumbnail: "https://picsum.photos/seed/5174/400/300"
 ---
 
 When building a Software-as-a-Service (SaaS) application, one of the most critical foundational decisions you must make is: **How will we isolate tenant data?**

@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 6: Teknik Refactoring: Composing Methods"
 date: 2026-06-18
 tags: [refactoring, golang, refactoring-techniques, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Kuasai teknik composing methods di Go: pelajari cara menulis kode yang lebih bersih, terstruktur, dan mudah dibaca menggunakan teknik seperti Extract Method, Replace Temp with Query, dan Extract Variable."
+image: "https://picsum.photos/seed/7133/1080/720"
+thumbnail: "https://picsum.photos/seed/7133/400/300"
 ---
 
 Pernahkah kamu membuka sebuah file Go dan mendapati fungsi raksasa yang panjangnya memenuhi beberapa layar monitor? Kamu mulai membacanya, melacak belasan variabel lokal, nested loop, dan puluhan percabangan kondisi. Begitu sampai di akhir fungsi, kamu sudah lupa apa yang dilakukan di bagian awalnya.

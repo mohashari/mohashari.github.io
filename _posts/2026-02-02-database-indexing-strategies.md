@@ -3,6 +3,8 @@ layout: post
 title: "Database Indexing Strategies That Actually Matter"
 tags: [database, postgresql, performance, backend]
 description: "Understanding database indexes deeply — how they work, when to use them, and the common mistakes that kill performance."
+image: "https://picsum.photos/seed/3679/1080/720"
+thumbnail: "https://picsum.photos/seed/3679/400/300"
 ---
 
 Slow queries are responsible for more production incidents than almost anything else. And the solution is almost always the same: proper indexing. Let's go deep on how indexes work and how to use them effectively.

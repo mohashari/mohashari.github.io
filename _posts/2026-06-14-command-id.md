@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 14: Command"
 date: 2026-06-14
 tags: [design-patterns, golang, best-practices]
 description: "Pelajari design pattern Command di Golang. Temukan cara mengubah request menjadi objek mandiri untuk mendukung operasi undo/redo, antrean tugas, dan pemisahan logika."
+image: "https://picsum.photos/seed/7630/1080/720"
+thumbnail: "https://picsum.photos/seed/7630/400/300"
 ---
 
 Dalam arsitektur perangkat lunak, memisahkan objek yang memicu tindakan (*trigger*) dari objek yang benar-benar melakukan tindakan tersebut adalah praktik desain yang sangat krusial. Jika sebuah tombol UI harus mengetahui secara spesifik cara mengeksekusi kueri database, aplikasi Anda akan menjadi sangat kusut (*tightly coupled*) dan sulit dirawat.

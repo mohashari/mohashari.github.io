@@ -4,6 +4,8 @@ title: "Code Smells: Object-Orientation Abusers"
 date: 2026-06-14
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Switch statements, Temporary Fields, Refused Bequests, Alternative Classes — four code smells that quietly rot your OO design. Learn to spot them and fix them with clean Go examples."
+image: "https://picsum.photos/seed/7874/1080/720"
+thumbnail: "https://picsum.photos/seed/7874/400/300"
 ---
 
 You opened a pull request for a simple feature: add a new user role. Three hours later, you are still searching every `switch` statement scattered across eight files, updating case after case, terrified you missed one. Sound familiar? Or maybe you have a struct with a dozen fields, but each method only ever touches two or three of them — a quiet mystery that forces you to read the entire struct before understanding any single function.

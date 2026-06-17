@@ -4,6 +4,8 @@ title: "LLM Cost Optimization: Caching, Batching, and Model Routing"
 date: 2026-03-23 08:00:00 +0700
 tags: [llm, ai-engineering, cost-optimization, backend, architecture]
 description: "Three concrete strategies — semantic caching, request batching, and model routing — that eliminate 60-80% of production LLM spend without sacrificing quality."
+image: "https://picsum.photos/seed/3135/1080/720"
+thumbnail: "https://picsum.photos/seed/3135/400/300"
 ---
 
 Your LLM bill is a mirror of your architecture decisions, and most teams are staring at an ugly reflection. The typical trajectory looks like this: you prototype with GPT-4, ship to production, get real traffic, then watch your monthly invoice climb from hundreds to tens of thousands of dollars before anyone asks whether every single request actually needed your most expensive model. The answer is almost always no. A customer support classification task that routes tickets to departments does not need the same model as a nuanced legal document summarizer. A product description fetch that a thousand users requested in the last hour does not need a fresh inference call. Treating every LLM request as identical is the root cause — and fixing it requires three distinct architectural patterns that compound on each other.

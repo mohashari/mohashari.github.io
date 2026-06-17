@@ -4,6 +4,8 @@ title: "Safe Database Migrations in Production: Schema Changes Without Downtime"
 date: 2026-03-16 07:00:00 +0700
 tags: [databases, postgresql, devops, migrations, backend]
 description: "Master the techniques—expand-contract, online DDL, and shadow tables—that let you evolve your database schema safely in a live system."
+image: "https://picsum.photos/seed/9047/1080/720"
+thumbnail: "https://picsum.photos/seed/9047/400/300"
 ---
 
 Every backend engineer has felt that particular dread: a schema migration is running in production, the deployment is paused mid-flight, and somewhere upstream a queue of requests is building up against a table that's locked for an ALTER. Maybe the migration finishes in forty seconds. Maybe it takes twenty minutes on a 200-million-row table. You won't know until it's too late. The good news is that this entire class of problem is avoidable—not by avoiding schema changes, but by learning to make them safely. The techniques are not exotic; they're disciplined, incremental, and repeatable. This post walks through the ones that matter most: expand-contract, online DDL, and shadow tables with dual-write.

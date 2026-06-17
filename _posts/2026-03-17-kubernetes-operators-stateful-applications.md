@@ -4,6 +4,8 @@ title: "Kubernetes Operators: Extending the Control Plane for Stateful Applicati
 date: 2026-03-17 07:00:00 +0700
 tags: [kubernetes, operators, go, devops, cloud-native]
 description: "Build custom Kubernetes Operators with the controller-runtime SDK to automate lifecycle management of stateful, complex applications."
+image: "https://picsum.photos/seed/7251/1080/720"
+thumbnail: "https://picsum.photos/seed/7251/400/300"
 ---
 
 Managing stateful applications on Kubernetes has always been the hard part. Deployments work beautifully for stateless services, but when you need to run a database cluster, a message broker, or any system that carries state between restarts, you quickly discover that Kubernetes primitives alone aren't enough. You need something that understands your application's domain: how to bootstrap it, how to scale it safely, how to handle failover, and how to run backups. This is exactly the problem Kubernetes Operators were designed to solve. An Operator encodes operational knowledge into software, extending the control plane with custom resources and reconciliation loops that continuously drive your application toward its desired state — the same way Kubernetes manages its own built-in resources.

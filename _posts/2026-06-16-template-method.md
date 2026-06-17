@@ -4,6 +4,8 @@ title: "Go Design Patterns — Part 21: Template Method"
 date: 2026-06-16
 tags: [design-patterns, behavioral, golang, best-practices]
 description: "Discover how to implement the Template Method pattern in Go. Learn to define an algorithm's skeleton and allow concrete types to override specific steps without modifying the overarching workflow structure."
+image: "https://picsum.photos/seed/2627/1080/720"
+thumbnail: "https://picsum.photos/seed/2627/400/300"
 ---
 
 In software engineering, we often encounter scenarios where we need to execute a series of steps in a specific, immutable order, but the exact implementation of certain steps depends on the context. Instead of duplicating the entire process skeleton for each variation, we can leverage the **Template Method** design pattern.

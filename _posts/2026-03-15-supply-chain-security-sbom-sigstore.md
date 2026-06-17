@@ -4,6 +4,8 @@ title: "Supply Chain Security for Backend Engineers: SBOMs, Sigstore, and Depend
 date: 2026-03-15 07:00:00 +0700
 tags: [security, supply-chain, sbom, sigstore, devops]
 description: "Harden your software supply chain by generating SBOMs, signing artifacts with Sigstore, and automating dependency vulnerability scanning."
+image: "https://picsum.photos/seed/1443/1080/720"
+thumbnail: "https://picsum.photos/seed/1443/400/300"
 ---
 
 The SolarWinds breach did not compromise a single application vulnerability — it compromised the build pipeline. Attackers inserted malicious code into a legitimate software update, and thousands of organizations installed it trustingly because the artifact was signed by a trusted vendor. This is the core threat model of supply chain attacks: your code can be perfect and you can still ship malware. For backend engineers, this is no longer a theoretical concern. The 2021 Log4Shell incident, the 2022 colors.js sabotage, and the 2024 XZ Utils backdoor all demonstrate that the libraries, build tools, and CI systems you depend on are as much a part of your attack surface as the code you write. Hardening the supply chain means treating every dependency, every build artifact, and every deployment pipeline as a potential vector — and building systematic defenses around them.

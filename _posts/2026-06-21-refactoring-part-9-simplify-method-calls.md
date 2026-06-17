@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 9: Simplifying Method Calls"
 date: 2026-06-21
 tags: [refactoring, golang, refactoring-techniques, software-engineering, clean-code, refactoring-series]
 description: "Over-parameterized, ambiguous, or poorly structured method calls lead to fragile code. Learn how to simplify method calls in Go using idiomatic patterns."
+image: "https://picsum.photos/seed/2247/1080/720"
+thumbnail: "https://picsum.photos/seed/2247/400/300"
 ---
 
 Imagine you are called to debug a critical payment failure on a Tuesday morning. You locate the payment entrypoint in the code, and its signature looks like this:

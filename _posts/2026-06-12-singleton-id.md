@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 5: Singleton"
 date: 2026-06-12
 tags: [design-patterns, creational, golang, best-practices]
 description: "Panduan mendalam implementasi design pattern Singleton di Go (Golang), menampilkan analogi pool koneksi database, keamanan thread (thread safety) dengan sync.Once, dan kode lengkap."
+image: "https://picsum.photos/seed/5737/1080/720"
+thumbnail: "https://picsum.photos/seed/5737/400/300"
 ---
 
 Singleton adalah creational design pattern yang memungkinkan Anda memastikan bahwa sebuah struct hanya memiliki satu instance, sekaligus menyediakan titik akses global ke instance tersebut. Di Go, menerapkan Singleton memerlukan pertimbangan konkurensi yang cermat untuk mencegah terjadinya race condition selama inisialisasi.

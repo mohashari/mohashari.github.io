@@ -4,6 +4,8 @@ title: "Service Mesh with Istio: Traffic Control, Security, and Observability"
 date: 2026-03-15 07:00:00 +0700
 tags: [istio, service-mesh, kubernetes, observability, microservices]
 description: "Deploy Istio to gain fine-grained traffic control, mutual TLS, and built-in observability across your microservices without changing application code."
+image: "https://picsum.photos/seed/1930/1080/720"
+thumbnail: "https://picsum.photos/seed/1930/400/300"
 ---
 
 Running dozens of microservices in Kubernetes starts feeling manageable — until it doesn't. Suddenly you're debugging why Service A can't reach Service B, retrofitting retry logic into every HTTP client, manually rotating mTLS certificates across 40 services, and writing yet another middleware to emit traces. The real problem isn't any single service; it's that cross-cutting concerns like security, reliability, and observability are scattered across every codebase. Istio, a production-grade service mesh, solves this by injecting a sidecar proxy (Envoy) into every pod and intercepting all network traffic at the infrastructure layer — giving you traffic control, zero-trust security, and deep telemetry without touching a single line of application code.

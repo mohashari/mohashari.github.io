@@ -4,8 +4,8 @@ title: "LLM KV Cache Internals: Prefix Caching, PagedAttention, and Throughput O
 date: 2026-04-01 08:00:00 +0700
 tags: [ai-engineering, llm, vllm, inference, gpu]
 description: "How vLLM's KV cache management — prefix caching and PagedAttention — works under the hood, and why it matters for production LLM serving throughput."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/6064/1080/720"
+thumbnail: "https://picsum.photos/seed/6064/400/300"
 ---
 
 You deploy a 70B LLaMA model on an A100 80GB. You give every request the same 512-token system prompt describing your assistant's persona and a few-shot example. Each new request recomputes the key-value projections for that prompt from scratch — 512 tokens × 80 transformer layers × 128 KV head dimensions × float16 = ~10MB of KV state per request, before the user even types a word. At 50 concurrent requests you've burned 500MB on redundant computation you've already done thousands of times before. This is the problem prefix caching solves. Combined with PagedAttention's non-contiguous memory management, vLLM can serve 3–4x more requests per second on the same hardware with zero model changes.

@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 6: Adapter"
 date: 2026-06-13
 tags: [design-patterns, structural, golang, best-practices]
 description: "Pelajari cara menyatukan interface yang tidak kompatibel agar dapat bekerja sama menggunakan Adapter pattern di Go dengan contoh kasus dunia nyata."
+image: "https://picsum.photos/seed/3657/1080/720"
+thumbnail: "https://picsum.photos/seed/3657/400/300"
 ---
 
 Bayangkan kamu sedang bepergian dari Indonesia ke Amerika Serikat. Kamu membawa laptop kesayanganmu, tetapi setibanya di hotel, kamu menyadari bahwa kamu tidak bisa mencolokkan chargermu ke stopkontak di dinding. Stopkontak di hotel tersebut menggunakan slot pipih khas Amerika, sedangkan colokan chargermu berkaki bulat standar Indonesia (stopkontak tipe C/F).

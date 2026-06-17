@@ -4,8 +4,8 @@ title: "Demystifying HTTP/3 and QUIC: Performance Benefits and Backend Implement
 date: 2026-05-23 08:00:00 +0700
 tags: [networking, http3, quic, performance, backend]
 description: "A deep dive into the QUIC protocol and HTTP/3, analyzing head-of-line blocking elimination and the practical hurdles of production deployment."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/867/1080/720"
+thumbnail: "https://picsum.photos/seed/867/400/300"
 ---
 
 For nearly three decades, the Internet has relied on the combination of **HTTP** at the application layer and **TCP** at the transport layer. While HTTP/2 brought revolutionary changes in 2015 by introducing multiplexing over a single connection, it remained fundamentally limited by TCP. 

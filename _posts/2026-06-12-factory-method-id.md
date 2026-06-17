@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 1: Factory Method"
 date: 2026-06-12
 tags: [design-patterns, creational, golang, best-practices]
 description: "Panduan mendalam implementasi design pattern Factory Method di Go (Golang), menampilkan analogi logistik dunia nyata, diagram struktur, dan kode lengkap."
+image: "https://picsum.photos/seed/7754/1080/720"
+thumbnail: "https://picsum.photos/seed/7754/400/300"
 ---
 
 Factory Method adalah creational design pattern yang menyediakan interface untuk membuat objek di superclass, tetapi memungkinkan subclass atau implementasi konkret untuk mengubah jenis objek yang akan dibuat. Di Go, karena kita tidak memiliki pewarisan kelas (inheritance) tradisional, kita mengimplementasikan pola ini menggunakan interface, struct, dan fungsi factory.

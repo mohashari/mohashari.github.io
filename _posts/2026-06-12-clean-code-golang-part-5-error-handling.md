@@ -4,6 +4,8 @@ title: "Clean Code with Go — Part 5: Error Handling Done Right"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Errors are first-class citizens in Go. Learn how to handle errors properly: wrapping, sentinel errors, and clean propagation."
+image: "https://picsum.photos/seed/2830/1080/720"
+thumbnail: "https://picsum.photos/seed/2830/400/300"
 ---
 
 Picture this: your system is running fine in production, but users start reporting that their data isn't being saved. The team panics. You open the logs — silence. Not a single error in sight. After two days of intense investigation, someone finally finds the culprit — a single line of code:

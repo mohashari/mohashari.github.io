@@ -4,6 +4,8 @@ title: "Go Generics in Production: Patterns, Pitfalls, and Performance"
 date: 2026-03-15 07:00:00 +0700
 tags: [go, generics, backend, performance, patterns]
 description: "Leverage Go generics to write reusable, type-safe code while avoiding common performance traps and over-abstraction."
+image: "https://picsum.photos/seed/1571/1080/720"
+thumbnail: "https://picsum.photos/seed/1571/400/300"
 ---
 
 Go 1.18 shipped generics in 2022, and the backend community responded with a mix of excitement and skepticism. Two years into production usage, the picture is clearer: generics solve real problems elegantly, but they also invite a class of mistakes that didn't exist before. If you've been writing Go for any length of time, you've felt the friction — duplicate code for `int` and `int64`, type-asserting everything out of `interface{}`, utility functions that silently accept the wrong type. Generics fix these, but they introduce new traps around instantiation cost, constraint design, and the temptation to abstract everything. This post covers the patterns that actually work in production, the pitfalls to watch for, and what the performance story really looks like.

@@ -4,6 +4,8 @@ title: "Concurrency Patterns for Backend Engineers"
 date: 2026-03-18 07:00:00 +0700
 tags: [concurrency, go, backend, performance, patterns]
 description: "Worker pools, fan-out/fan-in, pipelines, semaphores — practical concurrency patterns every backend engineer needs to handle high-throughput workloads."
+image: "https://picsum.photos/seed/8501/1080/720"
+thumbnail: "https://picsum.photos/seed/8501/400/300"
 ---
 
 Concurrency is one of the highest-leverage tools in backend engineering. Done right, it makes your system handle more load with the same hardware. Done wrong, it introduces race conditions and deadlocks that only appear in production. Here are the patterns that work.

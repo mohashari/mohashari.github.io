@@ -4,8 +4,8 @@ title: "Advanced Postgres Indexing: Mastering BRIN, GIN, and Partial Indexes for
 date: 2026-04-30 09:00:00 +0700
 tags: [postgresql, databases, query-optimization, system-tuning, index]
 description: "Mastering advanced indexing in PostgreSQL. We dive deep into BRIN, GIN, and Partial indexes—how they work under the hood and when to use them."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/6266/1080/720"
+thumbnail: "https://picsum.photos/seed/6266/400/300"
 ---
 
 Almost every database developer understands the basics of **B-Tree indexes**. They are the default index type in PostgreSQL, structured as balanced trees that make searching, updating, and deleting individual rows incredibly efficient ($O(\log N)$ complexity).

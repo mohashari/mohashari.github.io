@@ -4,8 +4,8 @@ title: "Rust Async Runtime Internals: Tokio Task Scheduling and Waker Mechanics"
 date: 2026-03-24 08:00:00 +0700
 tags: [rust, async, tokio, performance, systems]
 description: "How Tokio's task scheduler and Waker mechanics actually work under the hood, and why getting this wrong tanks production throughput."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/56/1080/720"
+thumbnail: "https://picsum.photos/seed/56/400/300"
 ---
 
 You've tuned your connection pools, profiled your hot paths, and still can't explain why your Tokio service saturates at 40k RPS when the hardware should support 200k. The answer is almost always in how you're interacting with the async runtime—not the business logic. Futures that hold locks across `.await` points, tasks spawned without understanding work-stealing semantics, and Waker implementations that cause spurious polls are the category of bugs that don't show up in unit tests and only manifest under production load. Understanding what Tokio actually does when you call `.await` transforms you from someone who uses async Rust to someone who can reason about it when it misbehaves.

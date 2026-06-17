@@ -4,6 +4,8 @@ title: "eBPF for Backend Engineers: Deep Observability Without Instrumentation"
 date: 2026-03-15 07:00:00 +0700
 tags: [ebpf, observability, linux, performance, networking]
 description: "Leverage eBPF to trace system calls, profile applications, and debug network issues at the kernel level with zero application changes."
+image: "https://picsum.photos/seed/4197/1080/720"
+thumbnail: "https://picsum.photos/seed/4197/400/300"
 ---
 
 Every backend engineer has faced the same nightmare: production is slow, your dashboards show nothing obviously wrong, and adding more logging means redeploying services that are already struggling. Traditional observability requires you to instrument your code in advance, predict what you'll need to know, and redeploy when you're wrong. eBPF (Extended Berkeley Packet Filter) breaks this constraint entirely. It lets you attach small, sandboxed programs directly to the Linux kernel, tracing system calls, network events, and function calls in running processes — no recompilation, no restarts, no application changes whatsoever. For backend engineers debugging production systems, this is transformative.

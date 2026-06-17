@@ -4,8 +4,8 @@ title: "PostgreSQL Query Planner Internals: Statistics, Costs, and Plan Forcing"
 date: 2026-03-24 08:00:00 +0700
 tags: [postgresql, databases, performance, backend, sql]
 description: "How PostgreSQL's query planner makes decisions, why it gets them wrong, and how to force better plans in production."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/4913/1080/720"
+thumbnail: "https://picsum.photos/seed/4913/400/300"
 ---
 
 You're three weeks post-launch. A query that ran in 8ms during staging is now taking 4 seconds in production. The schema is identical. The indexes are identical. The query is identical. What changed? Data. The planner made a cost estimate based on stale statistics, chose a nested loop join over a hash join, and your users are staring at a spinner. This is not a hypothetical — it's the most common class of production performance regression I've seen in Postgres-backed systems, and understanding the planner's internals is the only reliable way to diagnose and fix it.

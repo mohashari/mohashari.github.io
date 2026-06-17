@@ -4,6 +4,8 @@ title: "Database Replication Internals: WAL, Logical Replication, and Read Scali
 date: 2026-03-17 07:00:00 +0700
 tags: [postgresql, databases, replication, scalability, internals]
 description: "Demystify WAL-based and logical replication in PostgreSQL to build read replicas, CDC pipelines, and zero-downtime migration strategies."
+image: "https://picsum.photos/seed/9790/1080/720"
+thumbnail: "https://picsum.photos/seed/9790/400/300"
 ---
 
 Every time your primary PostgreSQL instance starts sweating under read-heavy traffic, the instinct is to throw more hardware at it. But before you vertically scale your way into a budget crisis, there's a more elegant path: understanding how PostgreSQL actually moves data between nodes, and using that machinery intentionally. WAL-based replication is not just a high-availability feature — it's a fundamental primitive for read scaling, change data capture, and zero-downtime migrations. Most engineers treat it as infrastructure someone else configured. This post is about understanding it deeply enough to use it as a tool.

@@ -4,8 +4,8 @@ title: "Implementing Tool Use and Function Calling in Production LLM Agents"
 date: 2026-03-23 08:00:00 +0700
 tags: [ai-engineering, llm, backend, python, production]
 description: "A production engineer's guide to tool use and function calling in LLM agents — retry logic, schema design, and failure modes that will burn you."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/2355/1080/720"
+thumbnail: "https://picsum.photos/seed/2355/400/300"
 ---
 
 The first time you ship an LLM agent with tool use to production, it works great in staging. The model calls `get_order_status`, returns the right JSON, and everything chains together cleanly. Then at 2am you get paged because the model started passing `order_id` as an integer instead of a string, your validation layer threw a 422, the agent retried three times with the same bad input, and now you have 400 failed sessions sitting in the queue and a confused on-call engineer staring at logs. Tool use in LLMs is not a feature — it's a contract between your model and your backend services. Break the contract and you break your users. This post is about engineering that contract to be durable under real production conditions.

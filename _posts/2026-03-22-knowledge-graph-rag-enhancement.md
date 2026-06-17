@@ -4,6 +4,8 @@ title: "Knowledge Graphs for RAG: Enhancing Retrieval with Graph Context"
 date: 2026-03-22 08:00:00 +0700
 tags: [rag, knowledge-graph, vector-search, llm, ai-engineering]
 description: "How to augment a vector RAG pipeline with a knowledge graph layer to answer multi-hop questions without sacrificing latency."
+image: "https://picsum.photos/seed/9338/1080/720"
+thumbnail: "https://picsum.photos/seed/9338/400/300"
 ---
 
 You're building a RAG system for an internal knowledge base. Isolated factual questions work fine—"what's the retention policy for PII data?"—but the moment a user asks something like "which teams are affected by the GDPR changes we made last quarter and what systems do they own?", the system halves. Not because the answer isn't in your corpus. It's there—scattered across a compliance doc, an org chart, and three architecture ADRs. Pure vector search retrieves whichever chunk is most semantically similar to the query. It doesn't *connect* those chunks. The LLM gets partial context, fills in the gap with plausible-sounding nonsense, and your system confidently gives a wrong answer.

@@ -4,6 +4,8 @@ title: "Clean Code with Go — Part 6: Code Structure & Organization"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Good project structure is the foundation of maintainable code. Learn how to organize your Go project with clean architecture."
+image: "https://picsum.photos/seed/5907/1080/720"
+thumbnail: "https://picsum.photos/seed/5907/400/300"
 ---
 
 Imagine joining a new team and being asked to fix a bug in a Go project that's been running for two years. You open the repository and find a single `main` package containing 50+ files — `handler_user.go`, `db_query.go`, `business_logic.go`, `utils.go` — all sitting side by side with no clear organization. HTTP handlers call the database directly. Business logic is scattered everywhere. No interfaces, no separation of concerns.

@@ -4,6 +4,8 @@ title: "Event Sourcing in Practice: Building an Audit-Ready System of Record"
 date: 2026-03-16 07:00:00 +0700
 tags: [event-sourcing, distributed-systems, databases, architecture, backend]
 description: "Learn how to model application state as an immutable sequence of events, enabling full audit trails, temporal queries, and reliable projections."
+image: "https://picsum.photos/seed/4667/1080/720"
+thumbnail: "https://picsum.photos/seed/4667/400/300"
 ---
 
 Every production system eventually faces the same uncomfortable question: *what exactly happened, and when?* A bug corrupts account balances at 2 AM, a compliance team needs a full history of a user's consent changes, or you need to replay a week of transactions against a new pricing model. Traditional CRUD systems — where writes overwrite state in place — cannot answer these questions without bolting on fragile audit tables or digging through application logs. Event sourcing inverts this design: instead of storing the current state, you store the sequence of events that *produced* that state. Current state becomes a derived view, reconstructed on demand. The log is the truth.

@@ -4,6 +4,8 @@ title: "Fine-Tuning LLMs for Domain-Specific Tasks: When and How"
 date: 2026-03-23 08:00:00 +0700
 tags: [ai-engineering, llm, fine-tuning, machine-learning, production]
 description: "A practical decision framework for senior engineers: when fine-tuning LLMs actually wins over RAG, prompting, or function calling."
+image: "https://picsum.photos/seed/7279/1080/720"
+thumbnail: "https://picsum.photos/seed/7279/400/300"
 ---
 
 Your team just spent three weeks fine-tuning GPT-3.5 on 50,000 internal support tickets. The model now hallucinates your product's pricing in a slightly more confident tone. Meanwhile, a junior engineer added a 200-token system prompt with five examples and hit 89% accuracy on the same benchmark—in an afternoon. This story repeats itself constantly in engineering organizations right now, driven by the intuition that "more training = better results." Fine-tuning is real, powerful, and absolutely the right tool in specific circumstances. It is also the wrong tool in most of the circumstances where people reach for it.

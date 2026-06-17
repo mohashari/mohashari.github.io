@@ -4,6 +4,8 @@ title: "TimescaleDB: Time-Series Data at Scale on Top of PostgreSQL"
 date: 2026-03-15 07:00:00 +0700
 tags: [timescaledb, postgresql, time-series, databases, performance]
 description: "Store, query, and compress time-series data efficiently using TimescaleDB hypertables, continuous aggregates, and retention policies."
+image: "https://picsum.photos/seed/9157/1080/720"
+thumbnail: "https://picsum.photos/seed/9157/400/300"
 ---
 
 Every backend engineer eventually hits the wall with time-series data. You start with a simple `events` table in PostgreSQL, add a timestamp index, and everything feels fine — until you're ingesting millions of rows per day from IoT sensors, application metrics, or financial ticks. Queries that once took milliseconds now crawl. Your storage costs balloon. `DELETE` statements for old data lock the table. You consider migrating to InfluxDB or Prometheus, but then you lose the relational model, JOINs, and the rich PostgreSQL ecosystem you rely on. TimescaleDB solves this without making you abandon PostgreSQL. It's a PostgreSQL extension that adds time-series superpowers — automatic partitioning, columnar compression, continuous aggregates, and data retention — while keeping everything fully SQL-compatible.

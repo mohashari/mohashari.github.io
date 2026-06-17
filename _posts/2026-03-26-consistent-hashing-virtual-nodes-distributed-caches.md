@@ -4,8 +4,8 @@ title: "Consistent Hashing with Virtual Nodes: Load Distribution in Distributed 
 date: 2026-03-26 08:00:00 +0700
 tags: [distributed-systems, caching, redis, architecture, backend]
 description: "How virtual nodes in consistent hashing prevent hotspots and minimize key redistribution when your cache cluster changes."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/3592/1080/720"
+thumbnail: "https://picsum.photos/seed/3592/400/300"
 ---
 
 You have a 12-node Redis Cluster. One node takes a hardware failure at 2 AM. Your on-call gets paged because 8% of your cache misses spike to 100% — not 8%, not even 16%, but 100% — for a narrow slice of your keyspace. Every key that was hashed to that node is now a miss, and a thundering herd of database queries follows. You add a replacement node. Now the cluster rebalances, and for the next 40 minutes, key routing is in flux. The incident stretches to three hours. The root cause wasn't the hardware failure. It was naive modular hashing: `node = hash(key) % N`. When N changes, almost every key maps to a different node.

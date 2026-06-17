@@ -4,6 +4,8 @@ title: "Clean Code with Go — Part 8: Refactoring — Improve Without Breaking"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Refactoring without tests is gambling. Learn safe refactoring techniques and apply the Boy Scout Rule in every commit."
+image: "https://picsum.photos/seed/5170/1080/720"
+thumbnail: "https://picsum.photos/seed/5170/400/300"
 ---
 
 It was a Friday afternoon. Sprint deadline had already passed two days ago. Alex, a senior backend engineer at a fintech startup, opened `order.go` — a file untouched for years. One function. Three hundred lines. Variable names like `x`, `tmp`, `d2`. He shook his head. *"This needs to be cleaned up."* Feeling confident, he dove straight into refactoring without writing a single unit test.

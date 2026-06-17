@@ -4,6 +4,8 @@ title: "OAuth 2.0 and OpenID Connect: A Backend Engineer's Complete Guide"
 date: 2026-03-16 07:00:00 +0700
 tags: [security, oauth, authentication, apis, backend]
 description: "Understand the flows, token types, and implementation pitfalls of OAuth 2.0 and OIDC so you can build secure, standards-compliant authorization into your services."
+image: "https://picsum.photos/seed/6261/1080/720"
+thumbnail: "https://picsum.photos/seed/6261/400/300"
 ---
 
 `★ Insight ─────────────────────────────────────`

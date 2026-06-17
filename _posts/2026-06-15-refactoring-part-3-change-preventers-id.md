@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 3: Code Smells Change Preventers"
 date: 2026-06-15
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Tiga code smells yang membuat codebase Anda kaku dan sulit diubah: Divergent Change, Shotgun Surgery, dan Parallel Inheritance Hierarchies — lengkap dengan contoh nyata dalam Go dan strategi refactoring."
+image: "https://picsum.photos/seed/5856/1080/720"
+thumbnail: "https://picsum.photos/seed/5856/400/300"
 ---
 
 Kamu pernah melakukan perubahan kecil pada satu baris kode, lalu tiba-tiba compiler atau IDE milikmu menunjukkan error di lima file yang berbeda? Atau saat kamu ingin mengubah cara sistem melakukan otentikasi user, kamu juga terpaksa harus menyentuh kode untuk template email dan reporting di file yang sama? Jika skenario ini terasa familiar, selamat — kamu sedang berhadapan dengan **Change Preventers** (Pencegah Perubahan). 

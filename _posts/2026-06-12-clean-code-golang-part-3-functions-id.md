@@ -4,6 +4,8 @@ title: "Clean Code dengan Go — Part 3: Fungsi Bersih & Tanggung Jawab Tunggal"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Fungsi yang baik hanya melakukan satu hal. Pelajari cara menulis fungsi Go yang kecil, fokus, dan mudah diuji."
+image: "https://picsum.photos/seed/3968/1080/720"
+thumbnail: "https://picsum.photos/seed/3968/400/300"
 ---
 
 Bayangkan kamu baru bergabung di sebuah tim dan diminta memperbaiki sebuah bug di fitur registrasi pengguna. Kamu buka file-nya, gulir ke bawah, dan menemukan sebuah fungsi bernama `processUserRegistration` — sepanjang **200 baris**. Nafas tertahan sebentar. Di dalamnya ada validasi input, hashing password, penyimpanan ke database, pengiriman email, penulisan log, dan masih banyak lagi — semuanya bercampur dalam satu fungsi monolitik yang mustahil untuk dipahami secara utuh dalam sekali baca.

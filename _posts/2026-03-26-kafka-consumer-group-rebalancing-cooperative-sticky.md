@@ -4,8 +4,8 @@ title: "Kafka Consumer Group Rebalancing: Cooperative Sticky Assignor Internals"
 date: 2026-03-26 08:00:00 +0700
 tags: [kafka, distributed-systems, streaming, java, backend]
 description: "How the Cooperative Sticky Assignor eliminates stop-the-world rebalances by incrementally revoking only the partitions that need to move."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/693/1080/720"
+thumbnail: "https://picsum.photos/seed/693/400/300"
 ---
 
 You deploy a new version of your consumer service. A rolling restart begins — pods spin down one at a time. What you expect is a brief lag spike per pod. What you get is a cascade: every restart triggers a full rebalance, every rebalance pauses all consumers for 10–30 seconds while partitions are redistributed, and your consumer lag graph looks like a heartbeat monitor on a bad day...

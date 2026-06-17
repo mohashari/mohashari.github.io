@@ -4,6 +4,8 @@ title: "Serverless on AWS Lambda: Cold Starts, Concurrency, and Production Patte
 date: 2026-03-15 07:00:00 +0700
 tags: [serverless, aws, lambda, performance, cloud]
 description: "Optimize AWS Lambda functions for cold start latency, manage concurrency limits, and apply production-grade patterns for event-driven workloads."
+image: "https://picsum.photos/seed/3944/1080/720"
+thumbnail: "https://picsum.photos/seed/3944/400/300"
 ---
 
 You've shipped your service to Lambda, the dashboards look clean, and then a Monday morning spike hits — users report 3–5 second delays on the first request, your concurrency limit surfaces as a throttling error, and a downstream DynamoDB call that worked fine in staging starts timing out under load. Serverless abstracts away servers, but it doesn't abstract away distributed systems complexity. To run Lambda reliably in production, you need to internalize how the runtime lifecycle works, where latency actually comes from, and how to design around the platform's hard edges rather than discovering them at 2 AM.

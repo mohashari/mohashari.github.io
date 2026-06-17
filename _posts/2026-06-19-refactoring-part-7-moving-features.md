@@ -4,6 +4,8 @@ title: "Refactoring Techniques — Part 7: Moving Features between Objects"
 date: 2026-06-19
 tags: [refactoring, golang, refactoring-techniques, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Learn the 8 essential refactoring techniques for moving features between objects in Go: Move Method, Move Field, Extract Class, Inline Class, Hide Delegate, Remove Middle Man, Introduce Foreign Method, and Introduce Local Extension."
+image: "https://picsum.photos/seed/823/1080/720"
+thumbnail: "https://picsum.photos/seed/823/400/300"
 ---
 
 How many times have you opened a Go source file only to find a service struct that acts like an octopus, stretching its tentacles deep into the fields of other structs? Or perhaps you've encountered a method that spends more time querying and manipulating data from another struct than managing its own. Conversely, you might have seen a tiny struct that does almost nothing but delegate every single call to another one.

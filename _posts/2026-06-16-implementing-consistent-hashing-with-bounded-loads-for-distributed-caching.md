@@ -4,8 +4,8 @@ title: "Implementing Consistent Hashing with Bounded Loads for Distributed Cachi
 date: 2026-06-16 08:00:00 +0700
 tags: [distributed-systems, caching, go, load-balancing]
 description: "Learn how Consistent Hashing with Bounded Loads prevents cache node overloading under skewed Zipfian traffic patterns using a production-ready Go implementation."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/4629/1080/720"
+thumbnail: "https://picsum.photos/seed/4629/400/300"
 ---
 
 You have built a distributed cache cluster of 16 Redis nodes, using standard consistent hashing with 256 virtual nodes per node to guarantee a uniform key distribution. CPU utilization sits at a comfortable 15% across the cluster. Suddenly, a flash sale begins, or a celebrity mentions a specific item ID. Within seconds, a single cache node spikes to 100% CPU, drops connections, and crashes. Your caching proxy triggers failovers, but the next node in the ring receives the same hot key and immediately melts under the load, followed by the next. Standard consistent hashing is excellent at distributing keys, but it is fundamentally blind to the *request rate* (load) of those keys. When key popularity follows a power-law (Zipfian) distribution, standard consistent hashing cannot prevent a single cache shard from becoming a bottleneck and triggering a cascading cluster collapse. To solve this, we must implement Consistent Hashing with Bounded Loads—an algorithm that caps the maximum request load on any single node to a defined threshold and gracefully spills overflow traffic clockwise to adjacent nodes.

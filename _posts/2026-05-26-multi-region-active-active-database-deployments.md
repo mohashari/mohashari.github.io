@@ -4,8 +4,8 @@ title: "Architecting a Scalable Multi-Region Active-Active Database Deployment"
 date: 2026-05-26 08:00:00 +0700
 tags: [database, system-design, distributed-systems, high-availability]
 description: "A comprehensive design review of active-active database architectures, examining conflict resolution, write-path replication, and network partitioning."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/8565/1080/720"
+thumbnail: "https://picsum.photos/seed/8565/400/300"
 ---
 
 When building global applications, minimizing latency is paramount. If a user in Singapore attempts to load an application hosted entirely in North Virginia, the physics of fiber-optic light propagation dictate a minimum round-trip time (RTT) latency of ~180 milliseconds. For an application performing multiple database queries per page, this latency makes the user experience feel sluggish.

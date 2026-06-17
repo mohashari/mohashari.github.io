@@ -4,6 +4,8 @@ title: "Async Python in Production: Event Loops, Tasks, and Backpressure"
 date: 2026-03-18 07:00:00 +0700
 tags: [python, asyncio, concurrency, backend, performance]
 description: "Build high-throughput async Python services using asyncio primitives, task management, structured concurrency, and backpressure control in real-world systems."
+image: "https://picsum.photos/seed/7129/1080/720"
+thumbnail: "https://picsum.photos/seed/7129/400/300"
 ---
 
 Most Python services don't fail because of slow algorithms or bad database queries — they fail because async code is misused at the architectural level. Engineers reach for `asyncio` to handle thousands of concurrent connections, then discover their event loop is stalling on blocking calls, their task queues have no depth limits, and a single slow downstream service cascades into a full process hang. Understanding how CPython's event loop actually schedules work, how tasks are created and cancelled, and how to implement backpressure separates services that survive production traffic from ones that fall apart under load.

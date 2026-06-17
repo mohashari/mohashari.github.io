@@ -4,6 +4,8 @@ title: "PostgreSQL Partitioning: Managing Billions of Rows Efficiently"
 date: 2026-03-15 07:00:00 +0700
 tags: [postgresql, database, performance, partitioning, backend]
 description: "Use PostgreSQL table partitioning to dramatically improve query performance and manageability on tables with billions of rows."
+image: "https://picsum.photos/seed/9105/1080/720"
+thumbnail: "https://picsum.photos/seed/9105/400/300"
 ---
 
 When your PostgreSQL table crosses the hundred-million-row threshold, queries that once returned in milliseconds start crawling. Indexes balloon in memory, VACUUM struggles to keep up, and your on-call rotation starts getting paged at 3am. The instinct is to throw more hardware at the problem — bigger instances, faster disks — but the real lever is architectural: table partitioning. PostgreSQL's native declarative partitioning, mature since version 10 and significantly improved through versions 12–15, lets you split a single logical table into physical child tables while keeping your application queries unchanged. Done right, it can turn a 45-second analytical query into a 400-millisecond one by eliminating entire partitions before the planner even touches an index.

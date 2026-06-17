@@ -4,8 +4,8 @@ title: "CPU Cache Effects in Go: Writing Cache-Friendly and High-Performance Con
 date: 2026-05-20 08:00:00 +0700
 tags: [go, performance, hardware-concurrency, memory-management]
 description: "An exploration of CPU cache line effects in Go, focusing on false sharing, cache-locality, and how to optimize concurrent structures."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/9296/1080/720"
+thumbnail: "https://picsum.photos/seed/9296/400/300"
 ---
 
 In modern systems programming, the CPU is no longer the primary bottleneck for many highly concurrent backend applications. Instead, the latency bottleneck has shifted to the **memory subsystem**. While a modern CPU core can execute instructions in a fraction of a nanosecond, fetching data from main memory (DRAM) takes approximately 50 to 100 nanoseconds—hundreds of times slower. 

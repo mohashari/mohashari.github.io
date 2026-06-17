@@ -4,6 +4,8 @@ title: "Prometheus and Grafana: Building Production-Grade Metrics Pipelines"
 date: 2026-03-18 07:00:00 +0700
 tags: [observability, prometheus, grafana, monitoring, sre]
 description: "Design a scalable metrics pipeline with Prometheus remote write, recording rules, alerting, and Grafana dashboards for production backends."
+image: "https://picsum.photos/seed/3844/1080/720"
+thumbnail: "https://picsum.photos/seed/3844/400/300"
 ---
 
 Production backends fail silently. A service degrading under load rarely throws an exception — it just gets slower, queues back up, and by the time an engineer notices, users have already churned. The teams that catch these regressions early share a common trait: they've invested in a metrics pipeline that doesn't just collect data, but actively surfaces anomalies before they become incidents. Prometheus and Grafana have become the de facto standard for this in cloud-native environments, but most teams use only a fraction of their capability — scraping metrics and building a few dashboards, then wondering why their on-call rotation is still painful. This post walks through building a production-grade metrics pipeline: from instrumentation and remote write, through recording rules and alerting, to Grafana dashboards that tell a coherent story about your system's health.

@@ -4,6 +4,8 @@ title: "NATS JetStream: Lightweight Persistent Messaging for Cloud-Native System
 date: 2026-03-16 07:00:00 +0700
 tags: [messaging, nats, distributed-systems, backend, devops]
 description: "Explore NATS JetStream as a lightweight alternative to Kafka for durable pub-sub, work queues, and key-value storage in cloud-native architectures."
+image: "https://picsum.photos/seed/6697/1080/720"
+thumbnail: "https://picsum.photos/seed/6697/400/300"
 ---
 
 When Kafka enters the room, it brings its entire entourage: ZooKeeper (or KRaft), schema registries, complex partition strategies, and a JVM runtime that hungers for memory. For many backend teams, this is the right trade-off — Kafka's throughput and ecosystem are unmatched at scale. But for a growing class of cloud-native services that need durable messaging, ordered delivery, and consumer group semantics without operating a small data center, NATS JetStream offers a compelling alternative. It runs as a single binary under 20MB, survives restarts with full message persistence, and speaks a protocol so lean that a client handshake fits in a UDP packet. This post walks through JetStream's core primitives with working code so you can evaluate it against your own operational appetite.

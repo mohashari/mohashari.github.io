@@ -4,6 +4,8 @@ title: "Distributed Consensus: Raft Explained from First Principles"
 date: 2026-03-15 07:00:00 +0700
 tags: [distributed-systems, raft, consensus, databases, backend]
 description: "Understand how the Raft consensus algorithm achieves fault-tolerant agreement in distributed systems, from leader election to log replication."
+image: "https://picsum.photos/seed/2027/1080/720"
+thumbnail: "https://picsum.photos/seed/2027/400/300"
 ---
 
 Distributed systems fail in fascinating ways. A network partition splits your cluster in two; a leader crashes mid-write; a slow disk stalls a follower just long enough for it to fall behind. Without a principled approach to agreement, you end up with split-brain scenarios where two nodes both believe they are authoritative, silently diverging until your data is irrecoverably inconsistent. This is the consensus problem: how do a group of nodes agree on a sequence of values, even when some of them crash or messages are delayed? Raft is the answer that prioritizes understandability without sacrificing correctness, and understanding it from first principles will change how you reason about every distributed database, message queue, and coordination service you touch.

@@ -4,6 +4,8 @@ title: "mTLS in Practice: Securing Service-to-Service Communication"
 date: 2026-03-15 07:00:00 +0700
 tags: [mtls, tls, security, microservices, certificates]
 description: "Implement mutual TLS to authenticate and encrypt traffic between backend services, from certificate management to rotation."
+image: "https://picsum.photos/seed/8014/1080/720"
+thumbnail: "https://picsum.photos/seed/8014/400/300"
 ---
 
 In distributed systems, trusting a service just because it knows a password is a gamble that has ended badly for too many production environments. Traditional one-way TLS verifies the server to the client, but leaves the server with no cryptographic way to prove who it's talking to on the other side. When your payment service calls your fraud-detection service, you want both parties to prove their identity before a single byte of business data is exchanged. Mutual TLS (mTLS) closes this gap by requiring both sides of a connection to present valid X.509 certificates signed by a shared Certificate Authority. It's not new technology, but getting it right in a real microservices deployment — managing certificate lifecycles, rotating certs without downtime, and threading it through your infrastructure — is where most teams stumble. This post walks through a production-grade mTLS setup end-to-end.

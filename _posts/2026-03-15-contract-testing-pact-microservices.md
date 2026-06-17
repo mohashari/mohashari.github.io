@@ -4,6 +4,8 @@ title: "Contract Testing with Pact: Preventing API Breakage Between Microservice
 date: 2026-03-15 07:00:00 +0700
 tags: [testing, pact, microservices, apis, consumer-driven]
 description: "Implement consumer-driven contract testing with Pact to catch breaking API changes before they reach production."
+image: "https://picsum.photos/seed/4626/1080/720"
+thumbnail: "https://picsum.photos/seed/4626/400/300"
 ---
 
 In a microservices architecture, the silent killer isn't the bug you can see — it's the API change you didn't know broke your downstream consumer. A team ships a refactored `GET /orders/{id}` response that renames `customer_id` to `customerId`, all tests pass, the PR merges, and three hours later an on-call engineer is paged because the payment service is throwing null pointer exceptions in production. Integration test suites that mock everything give false confidence. End-to-end test environments are expensive, flaky, and slow. Contract testing with Pact offers a third path: each service independently verifies its assumptions about the other, without needing them both running at the same time.

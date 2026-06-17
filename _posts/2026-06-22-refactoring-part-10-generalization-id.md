@@ -4,6 +4,8 @@ title: "Refactoring Techniques — Part 10: Menangani Generalisasi"
 date: 2026-06-22
 tags: [refactoring, golang, refactoring-techniques, software-engineering, clean-code, refactoring-series]
 description: "Kuasai teknik refactoring generalisasi di Go: Extract Interface, Replace Inheritance with Delegation, Form Template Method, Pull Up/Push Down Method, dan lainnya — disesuaikan dengan filosofi composition-first di Go."
+image: "https://picsum.photos/seed/6335/1080/720"
+thumbnail: "https://picsum.photos/seed/6335/400/300"
 ---
 
 Dalam bahasa pemrograman berorientasi objek klasik seperti Java atau C++, refactoring generalisasi sebagian besar adalah tentang membentuk kembali hierarki pewarisan (inheritance hierarchy) — menarik kode ke superclass (pull up), mendorongnya ke subclass (push down), atau meruntuhkan hierarki yang sudah terlalu dalam. Go tidak memiliki pewarisan klasik sama sekali. Sebagai gantinya, Go memberikan kita **interface**, **embedding**, dan **komposisi** (composition) — yang ternyata merupakan alat yang *lebih baik* untuk pekerjaan yang sama.

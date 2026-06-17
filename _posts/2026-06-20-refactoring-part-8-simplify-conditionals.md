@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 8: Simplifying Conditional Expressions"
 date: 2026-06-20
 tags: [refactoring, golang, refactoring-techniques, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Confusing and deeply nested conditionals are among the most common code smells. Learn eight key refactoring techniques—from Guard Clauses to Null Objects—to write clean, readable, and idiomatic Go."
+image: "https://picsum.photos/seed/1142/1080/720"
+thumbnail: "https://picsum.photos/seed/1142/400/300"
 ---
 
 It’s 4:30 PM on a Friday. You are tasked with fixing a bug in your team’s checkout service. You open `payment.go` and find yourself staring at a screen-wide block of nested `if-else` blocks that handles promos, user status checks, credit limit validation, and payment provider routing. You try to trace the execution path in your head, but after the fourth level of indentation, your brain stalls. Every new requirement has been piled on top of the old ones, resulting in a fragile "Pyramid of Doom" that everyone on the team is afraid to touch.

@@ -4,6 +4,8 @@ title: "ClickHouse for Backend Engineers: Analytical Queries at Billions of Rows
 date: 2026-03-15 07:00:00 +0700
 tags: [clickhouse, olap, databases, performance, analytics]
 description: "Design schemas, optimize queries, and operate ClickHouse to power real-time analytics workloads at massive scale."
+image: "https://picsum.photos/seed/4436/1080/720"
+thumbnail: "https://picsum.photos/seed/4436/400/300"
 ---
 
 Your PostgreSQL dashboard query takes 4.2 seconds to return when the table has 500 million rows. You've added indexes, partitioned the table, thrown read replicas at it, and still your product manager is complaining that the analytics page is "too slow to be useful." This is not a PostgreSQL problem — it's a workload mismatch. Transactional databases are built for point lookups and short writes; analytical queries scanning billions of rows, grouping by dozens of dimensions, and computing aggregates across months of data are a fundamentally different beast. ClickHouse is built for exactly this: columnar storage, vectorized query execution, and aggressive compression that makes scanning 10 billion rows in under a second a realistic production target, not a benchmark trick.

@@ -4,8 +4,8 @@ title: "Mastering PostgreSQL Locks: Row-Level, Table-Level, and Avoiding Deadloc
 date: 2026-05-21 08:00:00 +0700
 tags: [postgresql, database, locks, concurrency, backend]
 description: "A deep dive into PostgreSQL locking mechanisms, comparing exclusive, shared, and advisory locks, with concrete strategies to prevent deadlocks."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/6910/1080/720"
+thumbnail: "https://picsum.photos/seed/6910/400/300"
 ---
 
 At low traffic, relational databases operate smoothly without developers worrying about concurrency. But as your application scales, more concurrent requests hit the database, attempting to modify the same resources simultaneously. At this point, **locks** become both your best friend (preventing data corruption) and your worst enemy (causing query timeouts, latency spikes, and deadlocks).

@@ -4,6 +4,8 @@ title: "Cache Invalidation Strategies: Solving the Hardest Problem in Computer S
 date: 2026-03-15 07:00:00 +0700
 tags: [caching, redis, backend, architecture, performance]
 description: "Compare write-through, write-behind, cache-aside, and event-driven invalidation patterns to keep caches consistent at scale."
+image: "https://picsum.photos/seed/4497/1080/720"
+thumbnail: "https://picsum.photos/seed/4497/400/300"
 ---
 
 There's an old joke in computer science: the two hardest problems are cache invalidation, naming things, and off-by-one errors. The joke is tired, but the problem isn't. Every distributed system eventually runs into a moment where a user sees stale data — a product price that was updated three minutes ago, a profile picture that still shows the old one, a permissions change that hasn't propagated yet. These aren't just embarrassing bugs; in financial or security-sensitive systems, they're liabilities. Cache invalidation is hard not because the individual patterns are complex, but because each one makes a different trade-off between consistency, latency, throughput, and operational complexity. Understanding when to use which strategy — and why — separates engineers who bolt Redis onto a system from engineers who design systems that stay correct under pressure.

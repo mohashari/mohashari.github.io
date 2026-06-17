@@ -4,6 +4,8 @@ title: "Code Smells: Change Preventers — Divergent Change, Shotgun Surgery & P
 date: 2026-06-15
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Three code smells that make your codebase resist change: Divergent Change, Shotgun Surgery, and Parallel Inheritance Hierarchies — with real Go examples and refactoring strategies."
+image: "https://picsum.photos/seed/2400/1080/720"
+thumbnail: "https://picsum.photos/seed/2400/400/300"
 ---
 
 You push a small feature. You update one file — and then your IDE starts highlighting six others that need touching too. You fix those, and suddenly three tests are broken in a completely unrelated package. Sound familiar? This experience has a name: **Change Preventers**. These are a category of code smells identified by Martin Fowler that don't just make code ugly — they actively *fight back* every time you try to evolve the system. In a production Go codebase, Change Preventers are some of the most costly technical debt you can carry, because they multiply the blast radius of every change and turn routine feature additions into multi-day refactoring adventures.

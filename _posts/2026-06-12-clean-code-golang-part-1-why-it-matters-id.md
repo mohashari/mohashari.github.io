@@ -4,6 +4,8 @@ title: "Clean Code dengan Go — Part 1: Mengapa Clean Code Itu Penting?"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices, tutorial]
 description: "Pelajari mengapa clean code bukan sekadar estetika, tapi investasi jangka panjang. Dengan contoh nyata menggunakan Golang."
+image: "https://picsum.photos/seed/6337/1080/720"
+thumbnail: "https://picsum.photos/seed/6337/400/300"
 ---
 
 Bayangkan kamu baru bergabung di sebuah tim dan hari pertama langsung dapat tugas: *"Tolong fix bug di endpoint registrasi user, harusnya cepat."* Kamu buka file-nya, dan di sana ada satu fungsi sepanjang 200 baris — validasi, query database, kirim email, logging, semua tercampur aduk tanpa komentar berarti. Nama variabelnya `d`, `tmp`, `x2`. Tidak ada test. Tidak ada dokumentasi.

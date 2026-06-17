@@ -1,14 +1,11 @@
 ---
-
-```markdown
----
 layout: post
 title: "Write-Ahead Log Internals: How PostgreSQL Guarantees Durability"
 date: 2026-03-23 08:00:00 +0700
 tags: [postgresql, databases, storage-engines, internals, backend]
 description: "A deep dive into PostgreSQL WAL mechanics: LSNs, checkpoint cycles, recovery paths, and the exact knobs that prevent data loss in production."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/8490/1080/720"
+thumbnail: "https://picsum.photos/seed/8490/400/300"
 ---
 
 Your database server hard-restarted at 3:47 AM — kernel OOM killer, rogue `cp -r` from a misconfigured backup script, EC2 spot reclaim, pick your favorite. The on-call engineer reopens the application, connections start flowing, and every single committed transaction is there. Nothing was lost. Most engineers treat this as magic. It isn't — it's the Write-Ahead Log, and understanding exactly how it works is the difference between a DBA who configures PostgreSQL by cargo-culting Stack Overflow answers and one who can reason about durability guarantees from first principles.
@@ -167,12 +164,3 @@ For any PostgreSQL production deployment, verify these before it matters:
 - Monitor `pg_stat_archiver.failed_count` and alert on non-zero values
 
 WAL is the foundation everything else in PostgreSQL builds on — replication, logical decoding, PITR, even `pg_upgrade`'s binary compatibility checks. Getting comfortable with LSNs, checkpoint mechanics, and recovery paths pays compounding dividends across every other database reliability concern.
-```
-
----
-
-Two files need to be written (both were blocked by permissions):
-1. `_posts/2026-03-23-write-ahead-log-postgresql-durability.md` — the post above
-2. `images/diagrams/postgresql-wal-internals-durability.svg` — the WAL architecture diagram
-
-Approve both writes and they'll be saved to disk. The diagram shows the full write path (Client → Shared Buffers → WAL Buffers → WAL Segments → fsync → COMMIT ACK) plus the checkpointer, WAL archiver, streaming replication sender, and the 4-step crash recovery sequence at the bottom.

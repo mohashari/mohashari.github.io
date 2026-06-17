@@ -4,6 +4,8 @@ title: "Structured Logging in Go: Context Propagation, Sampling, and Log Pipelin
 date: 2026-03-17 07:00:00 +0700
 tags: [go, logging, observability, backend, structured-logs]
 description: "Build a production logging system in Go with slog, trace-context propagation, adaptive sampling, and exporters that feed Loki or Elasticsearch pipelines."
+image: "https://picsum.photos/seed/3834/1080/720"
+thumbnail: "https://picsum.photos/seed/3834/400/300"
 ---
 
 Most backend engineers have been there: a production incident at 2am, logs scattered across services, no trace IDs tying requests together, and half the log lines missing fields that would have made the root cause obvious in seconds. Go's standard library logging has historically been a blunt instrument — unstructured, context-unaware, and pipeline-hostile. With `slog` landing in Go 1.21 as a first-class structured logging API, there's finally a clear path to building logging infrastructure that's observable at scale. This post walks through the full stack: wiring `slog` for context propagation, implementing adaptive sampling to control log volume, and building exporters that feed real pipelines like Loki and Elasticsearch.

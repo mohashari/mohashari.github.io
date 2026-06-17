@@ -4,6 +4,8 @@ title: "Reranking in RAG: Improving Retrieval Precision with Cross-Encoders"
 date: 2026-03-22 08:00:00 +0700
 tags: [rag, vector-search, llm, ai-engineering, retrieval]
 description: "How cross-encoder rerankers fix the precision gap in bi-encoder RAG retrieval, with benchmarks and a practical decision framework."
+image: "https://picsum.photos/seed/658/1080/720"
+thumbnail: "https://picsum.photos/seed/658/400/300"
 ---
 
 Your vector search returns 20 chunks. Your LLM gets the top 5. The user asks "what's the refund policy for international orders?" and chunk rank 1 is about domestic shipping, rank 2 is a general FAQ header, and rank 3 is the actual answer—buried. The LLM either hallucinates a policy or hedges with "I don't have enough information." This isn't a chunking problem or an embedding model problem. It's a retrieval precision problem, and it happens because bi-encoders—the cosine similarity engines powering most RAG systems—are optimized for speed at the cost of nuanced relevance judgment. A cross-encoder reranker doesn't replace your vector index. It sits in front of your context window and makes the decision your bi-encoder couldn't afford to make.

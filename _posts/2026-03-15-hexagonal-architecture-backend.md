@@ -4,6 +4,8 @@ title: "Hexagonal Architecture in Practice: Decoupling Your Backend from Framewo
 date: 2026-03-15 07:00:00 +0700
 tags: [architecture, hexagonal, clean-architecture, backend, design-patterns]
 description: "Apply hexagonal (ports and adapters) architecture to isolate your core domain logic from infrastructure concerns, improving testability and flexibility."
+image: "https://picsum.photos/seed/4794/1080/720"
+thumbnail: "https://picsum.photos/seed/4794/400/300"
 ---
 
 Most backend applications start simple: a handler calls a service, the service calls the database, done. Then the requirements grow. You swap Postgres for DynamoDB, or you need to run the same logic via HTTP *and* a message queue, or your unit tests start spinning up real databases and taking 40 seconds to run. The core business logic — the thing that actually matters — becomes buried under layers of framework glue, ORM magic, and infrastructure assumptions. Hexagonal architecture, also called Ports and Adapters, was designed precisely for this problem: draw a hard boundary around your domain, define the interfaces it needs, and let infrastructure plug in from the outside.

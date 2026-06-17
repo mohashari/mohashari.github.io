@@ -4,6 +4,8 @@ title: "Design Patterns Every Backend Engineer Should Know (in Go)"
 date: 2026-03-15 07:00:00 +0700
 tags: [go, design-patterns, backend, software-engineering]
 description: "Practical implementation of the most impactful design patterns — Singleton, Factory, Observer, Strategy, and more — with real Go code."
+image: "https://picsum.photos/seed/8520/1080/720"
+thumbnail: "https://picsum.photos/seed/8520/400/300"
 ---
 
 Design patterns are reusable solutions to common software problems. They're not copy-paste templates — they're blueprints for structuring your thinking. Here are the most useful ones for backend engineers, implemented in Go.

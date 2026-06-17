@@ -4,6 +4,8 @@ title: "Background Job Processing: Patterns for Reliable Async Work in Go"
 date: 2026-03-16 07:00:00 +0700
 tags: [go, async, queues, reliability, backend]
 description: "Design robust background job systems in Go using worker pools, dead-letter queues, retries, and observability to handle async workloads reliably."
+image: "https://picsum.photos/seed/659/1080/720"
+thumbnail: "https://picsum.photos/seed/659/400/300"
 ---
 
 Every backend system eventually needs to do work outside the request-response cycle. Sending emails, resizing images, processing payments, syncing data to third-party APIs — these are tasks that are too slow, too risky, or too retry-heavy to run inline. Yet background job systems are where reliability bugs hide: jobs that silently disappear, workers that deadlock under load, retries that hammer a downstream service into the ground. Getting this right requires more than spinning up a goroutine and hoping for the best. This post walks through building a production-grade background job system in Go, covering worker pools, retry strategies, dead-letter queues, and observability.

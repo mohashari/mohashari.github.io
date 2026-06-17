@@ -4,6 +4,8 @@ title: "Open Policy Agent: Fine-Grained Authorization for Microservices"
 date: 2026-03-18 07:00:00 +0700
 tags: [security, opa, authorization, microservices, policy]
 description: "Decouple authorization logic from application code using OPA Rego policies, sidecar injection, and bundle servers for large-scale enforcement."
+image: "https://picsum.photos/seed/6400/1080/720"
+thumbnail: "https://picsum.photos/seed/6400/400/300"
 ---
 
 Authorization is one of those problems that starts simple and quietly becomes a distributed systems nightmare. Early in a microservices architecture, teams embed permission checks directly in service code — a handful of `if user.role == "admin"` guards scattered across handlers. Then the org grows. New services appear. A compliance requirement mandates attribute-based access control. Suddenly you have authorization logic duplicated across twelve services, implemented slightly differently in each one, and nobody can answer the question "who can access what?" without reading source code across four repositories. Open Policy Agent (OPA) solves this by treating authorization as a dedicated concern: a policy engine you query over a network or embed in-process, with policies written in a declarative language called Rego that can be versioned, tested, and deployed independently of your application code.

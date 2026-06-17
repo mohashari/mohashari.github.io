@@ -4,6 +4,8 @@ title: "Go Design Patterns — Part 4: Prototype"
 date: 2026-06-12
 tags: [design-patterns, creational, golang, best-practices]
 description: "An in-depth guide to implementing the Prototype design pattern in Go (Golang), featuring biological cell division analogy, deep vs shallow copying, and complete code."
+image: "https://picsum.photos/seed/9175/1080/720"
+thumbnail: "https://picsum.photos/seed/9175/400/300"
 ---
 
 The Prototype is a creational design pattern that lets you copy existing objects without making your code dependent on their classes. In Go, we implement this pattern by exposing a `Clone()` method on an interface, allowing objects to return a duplicate of themselves.

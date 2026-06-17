@@ -4,6 +4,8 @@ title: "Vector Search with Metadata Filtering: Making RAG Actually Precise"
 date: 2026-03-22 08:00:00 +0700
 tags: [rag, vector-search, ai-engineering, databases, backend]
 description: "Why vector similarity alone breaks RAG in production, and how metadata filtering at query time fixes retrieval precision without wrecking latency."
+image: "https://picsum.photos/seed/1944/1080/720"
+thumbnail: "https://picsum.photos/seed/1944/400/300"
 ---
 
 Your RAG pipeline returns semantically correct documents from the wrong tenant. Or from three years ago when the user asked about current pricing. Or from a knowledge base section the requesting user isn't authorized to see. The embedding similarity score was 0.94—excellent by any measure—but the answer was wrong, stale, or a security violation. This is the failure mode that bites teams after they've already celebrated "RAG is working." Vector similarity finds *related* content; metadata filtering is what makes it find the *right* content. They're not the same problem, and conflating them is why production RAG systems have precision ceilings that better embeddings will never fix.

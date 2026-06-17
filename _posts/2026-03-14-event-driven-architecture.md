@@ -3,6 +3,8 @@ layout: post
 title: "Event-Driven Architecture: Building Reactive Backend Systems"
 tags: [architecture, backend, event-driven, messaging]
 description: "Learn how event-driven architecture works, its patterns, benefits, and how to avoid the common pitfalls that sink EDA implementations."
+image: "https://picsum.photos/seed/1752/1080/720"
+thumbnail: "https://picsum.photos/seed/1752/400/300"
 ---
 
 Event-driven architecture (EDA) is a paradigm shift in how services communicate. Instead of direct calls ("do this now"), services emit events ("this happened") and other services react. The result: systems that are more resilient, scalable, and evolvable.

@@ -4,6 +4,8 @@ title: "WebSockets at Scale: Building Real-Time Backends That Handle Millions of
 date: 2026-03-17 07:00:00 +0700
 tags: [websockets, real-time, backend, scalability, go]
 description: "Design and operate WebSocket servers that sustain millions of concurrent connections using fan-out architectures, sticky sessions, and horizontal scaling patterns."
+image: "https://picsum.photos/seed/3972/1080/720"
+thumbnail: "https://picsum.photos/seed/3972/400/300"
 ---
 
 Most backend engineers first encounter WebSockets in a toy chat app, where a single server handles a few dozen connections with no drama. Then production arrives: a live sports platform expects 400,000 concurrent users during a championship game, or a trading dashboard needs to push price ticks to every subscriber within 50 milliseconds. Suddenly the comfortable assumptions collapse — the stateful nature of WebSocket connections fights against stateless horizontal scaling, fan-out to millions of subscribers saturates a single node's memory, and a naive restart strategy drops every live session at once. Scaling WebSockets is not simply "add more servers." It requires rethinking connection lifetime, message routing, and infrastructure topology from the ground up.

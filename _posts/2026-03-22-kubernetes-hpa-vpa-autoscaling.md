@@ -4,6 +4,8 @@ title: "Kubernetes HPA and VPA: Autoscaling That Actually Works"
 date: 2026-03-22 08:00:00 +0700
 tags: [kubernetes, devops, backend, infrastructure, performance]
 description: "A production engineer's guide to HPA and VPA — configuration patterns, failure modes, and how to combine both without shooting yourself in the foot."
+image: "https://picsum.photos/seed/412/1080/720"
+thumbnail: "https://picsum.photos/seed/412/400/300"
 ---
 
 Your pod is OOMKilled at 2 AM because traffic spiked and your resource requests were set by whoever wrote the initial Helm chart six months ago based on local load tests. Meanwhile, your on-call engineer is manually scaling deployments, your Slack is on fire, and your SLA is bleeding. This is the exact problem Kubernetes autoscaling is supposed to prevent — but most teams use HPA and VPA in ways that make the situation worse, not better. Misconfigured cooldown periods cause thrashing. VPA restarts pods mid-traffic. HPA scales on the wrong metric. This post covers how to configure both to actually work in production.

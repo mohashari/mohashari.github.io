@@ -4,6 +4,8 @@ title: "Terraform for Backend Engineers: Infrastructure as Code That Actually Wo
 date: 2026-03-15 07:00:00 +0700
 tags: [terraform, devops, infrastructure, cloud, backend]
 description: "Learn Terraform from the ground up — providers, state management, modules, workspaces, and production patterns for managing cloud infrastructure safely."
+image: "https://picsum.photos/seed/370/1080/720"
+thumbnail: "https://picsum.photos/seed/370/400/300"
 ---
 
 Manual infrastructure creates snowflake servers — nobody knows exactly what's configured, changes aren't reviewed, and rollbacks are impossible. Terraform solves this by treating infrastructure like application code: versioned, reviewable, and reproducible.

@@ -4,6 +4,8 @@ title: "Distributed Tracing with OpenTelemetry: From Zero to Production"
 date: 2026-03-15 07:00:00 +0700
 tags: [observability, opentelemetry, tracing, microservices, backend]
 description: "Set up distributed tracing with OpenTelemetry in Go — instrument your services, propagate context across network boundaries, and visualize traces in Jaeger."
+image: "https://picsum.photos/seed/2711/1080/720"
+thumbnail: "https://picsum.photos/seed/2711/400/300"
 ---
 
 In a microservices system, a single user request touches 5–10 services. When something is slow or broken, how do you know which service is responsible? Distributed tracing gives you the complete picture.

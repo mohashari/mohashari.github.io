@@ -4,6 +4,8 @@ title: "Kubernetes HPA and VPA: Autoscaling That Actually Works"
 date: 2026-03-23 08:00:00 +0700
 tags: [kubernetes, infrastructure, devops, backend, scaling]
 description: "Cut through HPA/VPA defaults with custom metrics, stabilization windows, and a concrete strategy for running both without conflicts."
+image: "https://picsum.photos/seed/412/1080/720"
+thumbnail: "https://picsum.photos/seed/412/400/300"
 ---
 
 Your service gets 10x traffic during a flash sale, HPA kicks in, but the new pods die immediately because their memory requests are 128Mi while the actual working set is 600Mi. Or the opposite: you've got 40 replicas serving 20 RPS because the cooldown window is too aggressive and scaling-down never completes before the next scale-up event. Both are symptoms of the same problem—autoscaling configured at the surface level, not tuned to how your workload actually behaves.

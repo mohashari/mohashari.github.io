@@ -4,8 +4,8 @@ title: "Write-Ahead Logging Across Storage Engines: RocksDB, LevelDB, and Postgr
 date: 2026-03-24 08:00:00 +0700
 tags: [storage-engines, rocksdb, postgresql, databases, durability]
 description: "How RocksDB, LevelDB, and PostgreSQL implement WAL differently — and why those differences matter when your node crashes at 3am."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/2371/1080/720"
+thumbnail: "https://picsum.photos/seed/2371/400/300"
 ---
 
 Your node crashes mid-transaction. The OS reboots. Your storage engine replays its write-ahead log, and either your data is whole or it isn't. That moment — the first few seconds after `systemd` brings your database back up — is where WAL design differences stop being academic. I've worked on systems where a misconfigured `sync_wal` in RocksDB caused silent data loss after a kernel panic, and watched Postgres recover a 50GB database cleanly from a WAL-replayed checkpoint while a co-located LevelDB-backed service had to rebuild its state from scratch because the log got corrupted during an unclean shutdown. WAL is not a background detail — it's the contract your storage engine makes with you about what "committed" actually means.

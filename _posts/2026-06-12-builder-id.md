@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 3: Builder"
 date: 2026-06-12
 tags: [design-patterns, creational, golang, best-practices]
 description: "Panduan mendalam implementasi design pattern Builder di Go (Golang), menampilkan analogi konstruksi rumah, diagram struktur, dan kode lengkap."
+image: "https://picsum.photos/seed/1238/1080/720"
+thumbnail: "https://picsum.photos/seed/1238/400/300"
 ---
 
 Builder adalah creational design pattern yang memungkinkan Anda membangun objek kompleks langkah demi langkah. Tidak seperti pola pembuatan lainnya, Builder tidak memerlukan produk untuk memiliki interface yang sama. Hal ini memungkinkan pembuatan produk yang berbeda menggunakan proses konstruksi yang sama.

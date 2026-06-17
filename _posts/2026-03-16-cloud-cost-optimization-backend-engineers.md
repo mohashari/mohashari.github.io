@@ -4,6 +4,8 @@ title: "Cloud Cost Optimization for Backend Engineers: Profiling and Reducing In
 date: 2026-03-16 07:00:00 +0700
 tags: [cloud, devops, cost, performance, backend]
 description: "Identify and eliminate waste in compute, storage, and data transfer costs using rightsizing, spot instances, and FinOps practices tailored for backend teams."
+image: "https://picsum.photos/seed/6146/1080/720"
+thumbnail: "https://picsum.photos/seed/6146/400/300"
 ---
 
 Cloud bills have a way of quietly compounding. What starts as a few hundred dollars a month in compute and storage becomes a five-figure monthly invoice before anyone notices — not because the infrastructure grew dramatically, but because waste accumulated in the gaps between engineering decisions. Overprovisioned EC2 instances running at 8% CPU utilization, S3 buckets storing terabytes of logs nobody reads, RDS databases with provisioned IOPS that never spike above 10% — these are not edge cases. They are the norm in backend systems that were built for correctness and speed, not cost efficiency. For backend engineers, cloud cost optimization is less about finance and more about applying the same profiling discipline you'd use on a slow endpoint to the infrastructure budget itself.

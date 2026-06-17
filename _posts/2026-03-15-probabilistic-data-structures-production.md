@@ -4,6 +4,8 @@ title: "Probabilistic Data Structures: Bloom Filters, HyperLogLog, and Count-Min
 date: 2026-03-15 07:00:00 +0700
 tags: [data-structures, algorithms, redis, backend, performance]
 description: "Apply Bloom filters, HyperLogLog, and Count-Min Sketch to solve large-scale membership, cardinality, and frequency problems with minimal memory."
+image: "https://picsum.photos/seed/4064/1080/720"
+thumbnail: "https://picsum.photos/seed/4064/400/300"
 ---
 
 At a certain scale, exact answers become a luxury you can't afford. When your Redis cluster is tracking whether a URL has been crawled, your fraud detection system is checking if an IP has been seen before, or your analytics pipeline is counting unique visitors across billions of events — the memory cost of perfect accuracy becomes prohibitive. A hash set of 100 million strings might consume gigabytes of RAM. Yet for many of these problems, a confident "probably yes" or a count that's 99.5% accurate is operationally indistinguishable from the truth. Probabilistic data structures exploit this insight ruthlessly: by accepting a small, mathematically bounded error rate, they achieve orders-of-magnitude better space efficiency than their exact counterparts. This post walks through three battle-tested structures — Bloom filters, HyperLogLog, and Count-Min Sketch — with practical Go and Redis examples you can drop into production systems today.

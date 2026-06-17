@@ -4,8 +4,8 @@ title: "Designing a Resilient S3 Multipart Upload Strategy for Large Files"
 date: 2026-05-22 08:00:00 +0700
 tags: [aws, s3, storage, reliability, backend]
 description: "How to build a highly reliable and performant file upload system using S3 Multipart Upload APIs with resume-on-failure capabilities."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/9466/1080/720"
+thumbnail: "https://picsum.photos/seed/9466/400/300"
 ---
 
 Handling file uploads is a routine requirement for backend developers. At low volumes and small file sizes (under 100MB), a simple, single-part HTTP `PUT` request directly to Amazon S3 (using presigned URLs) works flawlessly. 

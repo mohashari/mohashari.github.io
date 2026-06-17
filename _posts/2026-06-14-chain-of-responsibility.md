@@ -4,6 +4,8 @@ title: "Go Design Patterns — Part 13: Chain of Responsibility"
 date: 2026-06-14
 tags: [design-patterns, golang, best-practices]
 description: "Explore the Chain of Responsibility pattern in Golang. Learn how to decouple request senders and receivers by passing requests through a chain of processing handlers."
+image: "https://picsum.photos/seed/8983/1080/720"
+thumbnail: "https://picsum.photos/seed/8983/400/300"
 ---
 
 In software engineering, we often need to process a single request through multiple validation, logging, authentication, or business logic steps. Writing a monolithic function that handles all these steps makes the code brittle, hard to test, and tightly coupled. 

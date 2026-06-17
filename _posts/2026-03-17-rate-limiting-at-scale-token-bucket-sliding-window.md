@@ -4,6 +4,8 @@ title: "Rate Limiting at Scale: Token Buckets, Sliding Windows, and Redis-Based 
 date: 2026-03-17 07:00:00 +0700
 tags: [rate-limiting, redis, backend, api, distributed-systems]
 description: "Compare rate limiting algorithms and implement distributed, Redis-backed strategies that protect your APIs under real-world traffic bursts."
+image: "https://picsum.photos/seed/5439/1080/720"
+thumbnail: "https://picsum.photos/seed/5439/400/300"
 ---
 
 Every API you've ever shipped is one viral moment away from becoming unusable. A single high-traffic partner, a misbehaving client, or a coordinated scraping campaign can saturate your backend faster than any autoscaling policy can react. Rate limiting is the circuit breaker that stands between a normal Tuesday and a 3 AM incident. Yet most engineers reach for the first algorithm they find, bolt it onto a single Redis key, and call it done — only to discover edge cases in production: burst traffic that slips through, thundering herds after a limit resets, or limits that aren't actually shared across your fleet of API servers. Building rate limiting that works at scale means choosing the right algorithm for your traffic shape, understanding the tradeoffs of each approach, and implementing them correctly against a distributed store.

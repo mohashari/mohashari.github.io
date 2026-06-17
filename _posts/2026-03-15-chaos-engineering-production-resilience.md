@@ -4,6 +4,8 @@ title: "Chaos Engineering: Building Confidence Through Controlled Failure"
 date: 2026-03-15 07:00:00 +0700
 tags: [chaos-engineering, reliability, sre, distributed-systems, resilience]
 description: "Design and run chaos experiments to proactively expose weaknesses in your distributed system before they become production incidents."
+image: "https://picsum.photos/seed/4804/1080/720"
+thumbnail: "https://picsum.photos/seed/4804/400/300"
 ---
 
 Production systems don't fail on schedule. They fail at 2 AM during a holiday weekend, under a load pattern you didn't anticipate, after a dependency you forgot about silently degrades. Traditional testing validates that your system works under expected conditions — chaos engineering asks the harder question: does your system *survive* when conditions are not expected? The discipline, pioneered at Netflix and now practiced across the industry, is not about breaking things for sport. It is about building confidence by designing controlled, hypothesis-driven experiments that expose real weaknesses before your users do. If you have never deliberately injected failure into your production-adjacent environment, you don't actually know how your system behaves under failure — you only believe you do.

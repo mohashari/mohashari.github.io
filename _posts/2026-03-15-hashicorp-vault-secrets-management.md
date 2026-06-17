@@ -4,6 +4,8 @@ title: "HashiCorp Vault: Secrets Management for Production Systems"
 date: 2026-03-15 07:00:00 +0700
 tags: [security, vault, secrets, devops, backend]
 description: "Integrate HashiCorp Vault into your backend stack to dynamically manage secrets, rotate credentials, and eliminate hardcoded keys."
+image: "https://picsum.photos/seed/4676/1080/720"
+thumbnail: "https://picsum.photos/seed/4676/400/300"
 ---
 
 Every production system has a secrets problem. Database passwords buried in `.env` files, API keys committed to git history "just temporarily," service credentials copy-pasted into CI/CD dashboards — the attack surface grows quietly until a breach makes it impossible to ignore. HashiCorp Vault is the industry-standard answer: a unified secrets management system that centralizes credential storage, enforces access policies, and — critically — rotates secrets dynamically so that compromised credentials expire before they can be weaponized. This post walks through integrating Vault into a real backend stack, from bootstrapping to dynamic database credentials to application-side consumption in Go.

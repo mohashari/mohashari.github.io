@@ -3,6 +3,8 @@ layout: post
 title: "PostgreSQL Performance Tuning: From Slow to Lightning Fast"
 tags: [postgresql, database, performance, backend]
 description: "Practical PostgreSQL performance tuning — configuration, query optimization, and monitoring techniques that actually move the needle."
+image: "https://picsum.photos/seed/121/1080/720"
+thumbnail: "https://picsum.photos/seed/121/400/300"
 ---
 
 PostgreSQL out-of-the-box is configured for broad compatibility, not maximum performance. With the right tuning, you can dramatically improve throughput and latency. Here's what to actually do.

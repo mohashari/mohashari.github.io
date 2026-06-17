@@ -3,6 +3,8 @@ layout: post
 title: "Message Queues: When to Use Kafka vs RabbitMQ"
 tags: [kafka, rabbitmq, messaging, backend, architecture]
 description: "A practical comparison of Kafka and RabbitMQ to help you choose the right message broker for your use case."
+image: "https://picsum.photos/seed/5054/1080/720"
+thumbnail: "https://picsum.photos/seed/5054/400/300"
 ---
 
 Message queues are the backbone of resilient, decoupled systems. But choosing between Kafka and RabbitMQ can feel overwhelming. This guide cuts through the marketing to give you a practical decision framework.

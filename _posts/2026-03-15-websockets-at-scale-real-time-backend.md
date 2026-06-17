@@ -4,6 +4,8 @@ title: "WebSockets at Scale: Real-Time Backend Architecture"
 date: 2026-03-15 07:00:00 +0700
 tags: [websockets, real-time, backend, architecture, scalability]
 description: "Design and scale WebSocket servers that handle millions of concurrent connections without dropping a message."
+image: "https://picsum.photos/seed/7236/1080/720"
+thumbnail: "https://picsum.photos/seed/7236/400/300"
 ---
 
 Real-time applications have fundamentally changed user expectations. Chat systems, collaborative editors, live dashboards, and multiplayer games all demand persistent, bidirectional communication that HTTP's request-response model was never designed to handle. When you first wire up a WebSocket server, it feels almost magical — the connection stays open, messages flow freely, and everything works. Then your user base grows. At ten thousand concurrent connections, you notice memory pressure. At one hundred thousand, your single server becomes a bottleneck. At one million, you realize that naive WebSocket architecture is a liability, not an asset. This post walks through the architecture decisions, connection management patterns, and infrastructure choices that let you scale WebSocket systems to millions of concurrent connections without losing messages or sleep.

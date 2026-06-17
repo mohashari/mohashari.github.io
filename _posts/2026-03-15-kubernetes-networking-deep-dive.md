@@ -4,6 +4,8 @@ title: "Kubernetes Networking Deep Dive: Services, Ingress & Network Policies"
 date: 2026-03-17 07:00:00 +0700
 tags: [kubernetes, networking, devops, backend, cloud]
 description: "Understand how Kubernetes networking works under the hood — ClusterIP, NodePort, LoadBalancer, Ingress controllers, and securing traffic with Network Policies."
+image: "https://picsum.photos/seed/3880/1080/720"
+thumbnail: "https://picsum.photos/seed/3880/400/300"
 ---
 
 Kubernetes networking trips up even experienced engineers. Pod IPs are ephemeral, Services are virtual IPs, and Ingress is yet another abstraction layer. Let's untangle all of it.

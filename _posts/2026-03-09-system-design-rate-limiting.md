@@ -3,6 +3,8 @@ layout: post
 title: "System Design: Rate Limiting Algorithms Explained"
 tags: [system-design, backend, architecture, performance]
 description: "A deep dive into rate limiting algorithms — fixed window, sliding window, token bucket, and leaky bucket — with implementation examples."
+image: "https://picsum.photos/seed/2632/1080/720"
+thumbnail: "https://picsum.photos/seed/2632/400/300"
 ---
 
 Rate limiting is one of those topics that appears in every system design interview — and for good reason. Every production API needs it. Let's explore the algorithms and implementation strategies.

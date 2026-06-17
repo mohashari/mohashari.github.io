@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 8: Composite"
 date: 2026-06-13
 tags: [design-patterns, structural, golang, best-practices]
 description: "Satukan objek-objek ke dalam struktur pohon untuk merepresentasikan hierarki bagian-keseluruhan. Pelajari Composite pattern di Go."
+image: "https://picsum.photos/seed/3015/1080/720"
+thumbnail: "https://picsum.photos/seed/3015/400/300"
 ---
 
 Bayangkan kamu sedang melihat file explorer di komputermu. Kamu memiliki folder bernama `Documents`. Di dalam folder ini, terdapat beberapa file individu seperti `resume.pdf` dan `photo.png`. Kamu juga memiliki folder lain bernama `Projects`, yang berisi file kode bernama `main.go`.

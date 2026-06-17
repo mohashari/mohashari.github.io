@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 2: Abstract Factory"
 date: 2026-06-12
 tags: [design-patterns, creational, golang, best-practices]
 description: "Panduan mendalam implementasi design pattern Abstract Factory di Go (Golang), menampilkan analogi pabrik furnitur, diagram struktur, dan kode lengkap."
+image: "https://picsum.photos/seed/43/1080/720"
+thumbnail: "https://picsum.photos/seed/43/400/300"
 ---
 
 Abstract Factory adalah creational design pattern yang memungkinkan Anda menghasilkan keluarga objek yang terkait tanpa menentukan kelas konkretnya. Pola ini sangat berguna ketika kode Anda perlu bekerja dengan berbagai keluarga produk terkait, tetapi Anda tidak ingin kode tersebut bergantung pada kelas konkret dari produk-produk tersebut.

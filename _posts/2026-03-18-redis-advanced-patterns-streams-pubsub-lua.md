@@ -4,6 +4,8 @@ title: "Redis Advanced Patterns: Streams, Pub/Sub, and Lua Scripting"
 date: 2026-03-18 07:00:00 +0700
 tags: [redis, caching, streaming, backend, performance]
 description: "Go beyond key-value storage with Redis Streams for event logs, Pub/Sub for fan-out messaging, and atomic Lua scripts for complex operations."
+image: "https://picsum.photos/seed/8344/1080/720"
+thumbnail: "https://picsum.photos/seed/8344/400/300"
 ---
 
 Most engineers treat Redis as a fast key-value store — a place to cache database results, store session tokens, and call it a day. That mental model is leaving serious capability on the table. Redis ships with primitives powerful enough to replace entire categories of infrastructure: message queues, event logs, real-time fan-out pipelines, and transactional workflows. The three features that unlock this are Streams, Pub/Sub, and Lua scripting. Together, they let you build systems that are not only fast but architecturally simpler — fewer moving parts, fewer failure modes, and a single operational surface to monitor. This post digs into each one with production-oriented examples, showing when to reach for each and what pitfalls to avoid.

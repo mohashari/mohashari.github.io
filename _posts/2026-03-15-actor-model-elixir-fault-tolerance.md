@@ -4,6 +4,8 @@ title: "The Actor Model with Erlang/Elixir: Fault-Tolerant Concurrency by Design
 date: 2026-03-15 07:00:00 +0700
 tags: [elixir, actor-model, concurrency, fault-tolerance, distributed-systems]
 description: "Explore how the actor model and OTP supervision trees in Elixir enable highly concurrent, self-healing backend systems."
+image: "https://picsum.photos/seed/6386/1080/720"
+thumbnail: "https://picsum.photos/seed/6386/400/300"
 ---
 
 # The Actor Model with Erlang/Elixir: Fault-Tolerant Concurrency by Design

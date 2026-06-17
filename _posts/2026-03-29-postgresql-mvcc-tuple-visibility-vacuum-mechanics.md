@@ -4,8 +4,8 @@ title: "PostgreSQL MVCC Internals: Tuple Visibility, Dead Rows, and VACUUM Mecha
 date: 2026-03-29 08:00:00 +0700
 tags: [postgresql, databases, internals, performance, backend]
 description: "Deep dive into how PostgreSQL MVCC creates dead tuples, how visibility checks work at the byte level, and what VACUUM actually does to reclaim space."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/3499/1080/720"
+thumbnail: "https://picsum.photos/seed/3499/400/300"
 ---
 
 A production system I worked on hit a wall at around 80 million orders. Queries that used to take 5ms started taking 400ms. `EXPLAIN ANALYZE` showed seq scans on a table that should have been index-scanned. The culprit wasn't missing indexes—the indexes were there. It was table bloat: 60% of rows in the orders table were dead tuples that PostgreSQL couldn't reclaim fast enough because autovacuum was tuned with factory defaults on a 200GB table. Understanding why this happens—at the storage level—is the difference between cargo-culting `VACUUM FULL` every week and actually fixing the root cause.

@@ -3,6 +3,8 @@ layout: post
 title: "Microservices Architecture Patterns Every Engineer Should Know"
 tags: [microservices, architecture, backend]
 description: "The essential microservices patterns — from service decomposition to inter-service communication and fault tolerance."
+image: "https://picsum.photos/seed/8606/1080/720"
+thumbnail: "https://picsum.photos/seed/8606/400/300"
 ---
 
 Microservices aren't a silver bullet. They solve real problems while creating new ones. This post covers the patterns that make microservices work in practice — and the pitfalls that bring them down.

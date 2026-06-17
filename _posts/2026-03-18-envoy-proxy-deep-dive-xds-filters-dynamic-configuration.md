@@ -4,6 +4,8 @@ title: "Envoy Proxy Deep Dive: xDS API, Filters, and Dynamic Configuration"
 date: 2026-03-18 07:00:00 +0700
 tags: [envoy, proxy, service-mesh, networking, microservices]
 description: "Configure Envoy as an edge and sidecar proxy using the xDS management API, HTTP filters, circuit breaking, and dynamic cluster discovery for cloud-native architectures."
+image: "https://picsum.photos/seed/3549/1080/720"
+thumbnail: "https://picsum.photos/seed/3549/400/300"
 ---
 
 Modern microservice architectures push routing, observability, and resilience logic out of application code and into the network layer — but that shift only pays off if the proxy sitting in front of your services is as programmable as your services themselves. Nginx and HAProxy are battle-tested, yet their configuration models are fundamentally static: you write a file, reload the process, and hope nothing races. Envoy Proxy takes a different stance. Its entire runtime — listeners, routes, clusters, endpoints, secrets — is driven by a family of gRPC streaming APIs called xDS. This means a control plane can push changes to thousands of sidecar proxies simultaneously, without a single restart, without dropped connections, and with precise observability at every hop. This post walks through the xDS API surface, Envoy's HTTP filter chain, circuit-breaking configuration, and how to wire a minimal Go control plane that serves dynamic cluster discovery.

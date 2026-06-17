@@ -4,6 +4,8 @@ title: "LSM Trees vs B-Trees: Understanding Storage Engine Trade-offs"
 date: 2026-03-18 07:00:00 +0700
 tags: [databases, internals, storage, performance, backend]
 description: "Compare Log-Structured Merge Trees and B-Tree storage engines to make informed decisions when choosing or tuning databases like RocksDB, LevelDB, and PostgreSQL."
+image: "https://picsum.photos/seed/2936/1080/720"
+thumbnail: "https://picsum.photos/seed/2936/400/300"
 ---
 
 Every time you insert a row into PostgreSQL or write a key to RocksDB, a fundamentally different machine is doing the work underneath. PostgreSQL reaches into a balanced tree, finds the right page, and modifies it in place. RocksDB writes your data sequentially to a log, then lets a background process sort and merge it later. These aren't just implementation details — they're architectural commitments that cascade into real-world behavior: how fast your writes land, how much disk amplification you absorb, and whether your read latencies stay predictable under load. Understanding the internal mechanics of B-Trees and LSM Trees gives you a mental model for choosing the right database, tuning the right knobs, and diagnosing the right bottlenecks.

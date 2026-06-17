@@ -4,6 +4,8 @@ title: "Consistent Hashing: Load Distribution, Node Churn, and Practical Impleme
 date: 2026-03-17 07:00:00 +0700
 tags: [distributed-systems, hashing, load-balancing, caching, algorithms]
 description: "Understand consistent hashing ring topology and virtual nodes to minimize data movement during cache cluster scaling and service discovery changes."
+image: "https://picsum.photos/seed/6844/1080/720"
+thumbnail: "https://picsum.photos/seed/6844/400/300"
 ---
 
 # Consistent Hashing: Load Distribution, Node Churn, and Practical Implementations

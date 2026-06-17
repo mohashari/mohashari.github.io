@@ -1,11 +1,15 @@
 ---
+layout: post
+title: "SLSA Supply Chain Security: Provenance, Attestations, and Build Integrity"
+date: 2026-03-24 08:00:00 +0700
+tags: [devsecops, supply-chain-security, slsa, kubernetes, ci-cd]
+description: "How SLSA provenance and attestations close the gap between 'we signed the image' and 'we can prove exactly what built it.'"
+image: "https://picsum.photos/seed/2090/1080/720"
+thumbnail: "https://picsum.photos/seed/2090/400/300"
+---
 
-**Frontmatter:**
-- Title: "SLSA Supply Chain Security: Provenance, Attestations, and Build Integrity"
-- Tags: `[devsecops, supply-chain-security, slsa, kubernetes, ci-cd]`
-- Description: "How SLSA provenance and attestations close the gap between 'we signed the image' and 'we can prove exactly what built it.'"
+## SLSA Supply Chain Security Outline
 
-**Post structure (~2,200 words):**
 1. Opens with the 2023 PyPI typosquatting campaign (450+ malicious packages) as the hook
 2. References the existing SVG diagram
 3. **What SLSA Actually Is** — the 4 levels, and the critical L2 vs L3 distinction (who can forge provenance)

@@ -4,8 +4,8 @@ title: "Kafka Tiered Storage: S3 Offloading, Fetch Proxying, and Cold Data Acces
 date: 2026-03-31 08:00:00 +0700
 tags: [kafka, distributed-systems, s3, storage, backend]
 description: "How Kafka's tiered storage (KIP-405) offloads cold segments to S3 while keeping fetch semantics transparent to consumers."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/5986/1080/720"
+thumbnail: "https://picsum.photos/seed/5986/400/300"
 ---
 
 You've been running Kafka in production for three years. Storage costs are a line item that keeps growing on the infrastructure bill, and every time you try to extend retention beyond 7 days, you're provisioning more NVMe across the entire broker fleet — even though 95% of that data is never accessed after the first 48 hours. The problem isn't that Kafka is expensive. The problem is that Kafka historically treats all data the same: bytes on local disk, with the same replication, the same IOPS budget, the same hardware tier. Tiered storage, introduced in KIP-405 and made production-ready in Kafka 3.6, breaks this model. Cold segments live in S3 at roughly $0.023/GB-month; hot segments stay on local NVMe where millisecond-latency reads actually matter. You extend retention from 7 days to 90 days without touching broker disk capacity, and consumers see no difference in the fetch API — the broker proxies S3 reads transparently.

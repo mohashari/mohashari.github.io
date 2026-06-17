@@ -4,6 +4,8 @@ title: "Clean Code with Go — Part 2: Naming — Code That Speaks for Itself"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Good names are the best documentation. Learn Go naming conventions and how to write self-documenting code."
+image: "https://picsum.photos/seed/3233/1080/720"
+thumbnail: "https://picsum.photos/seed/3233/400/300"
 ---
 
 Picture this: you've just joined a new team and you're asked to investigate a bug. You open the file, and this is what greets you:

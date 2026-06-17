@@ -4,8 +4,8 @@ title: "Go Garbage Collector Tuning: GOGC, GOMEMLIMIT, and Avoidance of OOM Kill
 date: 2026-05-10 09:00:00 +0700
 tags: [go, performance, systems-programming, runtime, garbage-collection]
 description: "An in-depth look at the Go runtime's garbage collector. We explore how to tune GOGC and leverage GOMEMLIMIT to eliminate OOM kills and GC thrashing."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/1379/1080/720"
+thumbnail: "https://picsum.photos/seed/1379/400/300"
 ---
 
 For backend engineers running Go services in production, memory management is usually a hands-off affair. Go's runtime features a highly efficient, low-latency garbage collector (GC) that manages heap allocation automatically, keeping pause times under 1 millisecond.

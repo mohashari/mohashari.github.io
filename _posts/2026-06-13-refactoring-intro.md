@@ -4,6 +4,8 @@ title: "Refactoring in Go — The Complete Series Guide (Based on 'Dive Into Ref
 date: 2026-06-13
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "A comprehensive introduction to the Refactoring series: what refactoring is, why it matters, and a 10-part roadmap covering Code Smells & Refactoring Techniques with Go examples."
+image: "https://picsum.photos/seed/2358/1080/720"
+thumbnail: "https://picsum.photos/seed/2358/400/300"
 ---
 
 Have you ever opened a codebase you wrote just six months ago and found yourself thinking: *"Who wrote this garbage?"* only to realize it was you? Or perhaps you've heard the dreaded words *"don't touch that module, it'll break everything"* during a sprint planning meeting. If this sounds familiar, you are not alone. Bad code isn't usually the result of lazy developers; it is born from deadline pressure, changing requirements, and short-term hacks that gradually pile up into a massive mountain of **technical debt**. This is where **Refactoring** comes in—not as a magic wand, but as a disciplined, systematic way to clean up your code without changing its external behavior.

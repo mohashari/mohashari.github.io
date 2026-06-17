@@ -4,6 +4,8 @@ title: "Canary Deployments and Progressive Delivery: Reducing Risk at Every Rele
 date: 2026-03-18 07:00:00 +0700
 tags: [devops, deployments, kubernetes, reliability, cicd]
 description: "Implement canary releases and automated rollbacks with Flagger, Argo Rollouts, and traffic weighting to ship features safely without downtime."
+image: "https://picsum.photos/seed/8587/1080/720"
+thumbnail: "https://picsum.photos/seed/8587/400/300"
 ---
 
 Every engineer has felt that cold sweat moment — you've just deployed a new version of a critical service, traffic is flowing, and something is quietly wrong. Error rates are climbing. A database query that worked fine in staging is timing out under real load. By the time your monitors page you, thousands of users have already hit the bug. The old answer was "deploy during off-hours and pray." The modern answer is canary deployments and progressive delivery: the practice of routing a small slice of real traffic to new code, watching what happens, and only proceeding when the data says it's safe. This post walks through the tools and patterns that make this work in production — not just the theory, but the YAML, the metrics checks, and the automated rollback logic that actually saves you at 2am.

@@ -4,6 +4,8 @@ title: "Go Profiling in Production: CPU, Memory, and Goroutine Leak Detection"
 date: 2026-03-17 07:00:00 +0700
 tags: [go, profiling, performance, observability, debugging]
 description: "Use pprof, trace, and continuous profiling tools to identify CPU hot paths, memory leaks, and goroutine starvation in live Go services."
+image: "https://picsum.photos/seed/4402/1080/720"
+thumbnail: "https://picsum.photos/seed/4402/400/300"
 ---
 
 Production Go services have a way of misbehaving at the worst possible moments. A service that hummed along during load testing suddenly pegs a CPU core at 100% under real traffic, or memory climbs steadily until the OOM killer arrives. The instinct is to add more logging, stare at dashboards, and guess. But Go ships with one of the most powerful profiling ecosystems in any language, and most engineers barely scratch its surface. This post walks through using `pprof`, the execution tracer, and continuous profiling to diagnose CPU hot paths, memory leaks, and goroutine starvation in services that are already running in production — without restarting them.

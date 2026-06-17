@@ -4,6 +4,8 @@ title: "Object Storage Internals: S3-Compatible Systems and When to Use Them"
 date: 2026-03-15 07:00:00 +0700
 tags: [object-storage, s3, cloud, architecture, backend]
 description: "Understand the architecture of S3-compatible object storage, consistency models, and patterns for storing large-scale unstructured data."
+image: "https://picsum.photos/seed/3534/1080/720"
+thumbnail: "https://picsum.photos/seed/3534/400/300"
 ---
 
 # Object Storage Internals: S3-Compatible Systems and When to Use Them

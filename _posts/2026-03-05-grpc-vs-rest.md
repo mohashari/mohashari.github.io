@@ -3,6 +3,8 @@ layout: post
 title: "gRPC vs REST: The Complete Comparison for Backend Engineers"
 tags: [grpc, rest, api, backend, performance]
 description: "A deep-dive comparison of gRPC and REST — performance, tooling, use cases, and when to pick each."
+image: "https://picsum.photos/seed/2251/1080/720"
+thumbnail: "https://picsum.photos/seed/2251/400/300"
 ---
 
 gRPC has been gaining serious traction in the microservices world. Built on HTTP/2 and Protocol Buffers, it promises better performance and stronger contracts than REST. But should you switch? Let's compare honestly.

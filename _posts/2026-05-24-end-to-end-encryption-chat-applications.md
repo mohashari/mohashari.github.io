@@ -4,8 +4,8 @@ title: "Implementing End-to-End Encryption (E2EE) in Web Chat Applications"
 date: 2026-05-24 08:00:00 +0700
 tags: [security, cryptography, e2ee, signal-protocol, web-security]
 description: "A step-by-step guide to building a secure end-to-end encrypted messaging pipeline using modern cryptographic primitives."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/4867/1080/720"
+thumbnail: "https://picsum.photos/seed/4867/400/300"
 ---
 
 In modern application security, protecting data in transit (via TLS) and at rest (via database encryption) is no longer sufficient for high-privacy environments like chat or financial communication. If your messaging server is compromised, an attacker can access the plaintext database or intercept active messages.

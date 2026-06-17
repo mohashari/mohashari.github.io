@@ -4,6 +4,8 @@ title: "Building Resilient Systems with the Circuit Breaker Pattern"
 date: 2026-03-15 07:00:00 +0700
 tags: [circuit-breaker, resilience, microservices, patterns, go]
 description: "Implement the Circuit Breaker pattern to prevent cascading failures and gracefully degrade when downstream services become unavailable."
+image: "https://picsum.photos/seed/1275/1080/720"
+thumbnail: "https://picsum.photos/seed/1275/400/300"
 ---
 
 # Building Resilient Systems with the Circuit Breaker Pattern

@@ -4,8 +4,8 @@ title: "LLM Structured Extraction at Scale: Batching, Retries, and Schema Versio
 date: 2026-03-24 08:00:00 +0700
 tags: [ai-engineering, llm, python, backend, production]
 description: "How to build reliable LLM-powered extraction pipelines that handle batching, schema drift, and failure modes at production scale."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/4362/1080/720"
+thumbnail: "https://picsum.photos/seed/4362/400/300"
 ---
 
 You ship an LLM-powered extraction pipeline on a Monday. It works beautifully in testing — you feed it messy invoice PDFs and out comes clean, structured JSON. By Thursday it's silently returning `null` for a field that legal depends on, the model started hallucinating a new key you never defined, and your retry logic is hammering the API with identical failed requests in a tight loop. This isn't a hypothetical. It's the standard arc of putting LLM extraction into production without treating it with the same rigor you'd give a database migration or a queue consumer.

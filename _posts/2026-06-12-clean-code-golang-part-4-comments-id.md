@@ -4,6 +4,8 @@ title: "Clean Code dengan Go — Part 4: Komentar yang Tepat Guna"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Komentar yang baik menjelaskan MENGAPA, bukan APA. Pelajari kapan harus komentar dan kapan membiarkan kode berbicara sendiri."
+image: "https://picsum.photos/seed/4776/1080/720"
+thumbnail: "https://picsum.photos/seed/4776/400/300"
 ---
 
 Bayangkan kamu baru bergabung di sebuah tim dan harus memperbaiki bug di modul pembayaran. Kamu membuka file-nya, dan disambut oleh baris seperti ini:

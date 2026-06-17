@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 9: Decorator"
 date: 2026-06-13
 tags: [design-patterns, structural, golang, best-practices]
 description: "Tambahkan tanggung jawab baru ke dalam objek secara dinamis dengan membungkusnya di dalam objek wrapper khusus. Pelajari Decorator pattern di Go."
+image: "https://picsum.photos/seed/5663/1080/720"
+thumbnail: "https://picsum.photos/seed/5663/400/300"
 ---
 
 Bayangkan kamu sedang memesan secangkir kopi di kafe lokal. Kamu memulai dengan memesan **Kopi Hitam** polos. Kemudian, kamu ingin menyesuaikannya dengan seleramu: kamu menambahkan **Susu** agar lebih creamy, lalu menambahkan **Sirup Caramel** untuk rasa manis ekstra.

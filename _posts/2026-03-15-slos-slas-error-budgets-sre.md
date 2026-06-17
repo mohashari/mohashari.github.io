@@ -4,6 +4,8 @@ title: "SLOs, SLAs, and Error Budgets: The SRE Approach to Reliability"
 date: 2026-03-15 07:00:00 +0700
 tags: [sre, observability, reliability, devops, backend]
 description: "Define meaningful SLOs and error budgets to balance feature velocity with system reliability using Google's proven SRE methodology."
+image: "https://picsum.photos/seed/111/1080/720"
+thumbnail: "https://picsum.photos/seed/111/400/300"
 ---
 
 Every production system will fail. The question isn't whether your service will have downtime — it's how much downtime is acceptable, who decides that threshold, and what happens when you cross it. Most engineering teams discover this the hard way: either they over-engineer reliability at the cost of shipping features, or they ship too fast and erode user trust through repeated incidents. Google's Site Reliability Engineering discipline offers a principled middle path through Service Level Objectives, Service Level Agreements, and Error Budgets — a framework that turns the abstract goal of "reliability" into a measurable, negotiable contract between engineering and the business.

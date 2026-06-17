@@ -3,6 +3,8 @@ layout: post
 title: "REST API Design Principles That Stand the Test of Time"
 tags: [api, backend, rest]
 description: "Practical REST API design principles that make your APIs intuitive, maintainable, and developer-friendly."
+image: "https://picsum.photos/seed/6863/1080/720"
+thumbnail: "https://picsum.photos/seed/6863/400/300"
 ---
 
 A good REST API is a joy to use. A bad one is a daily source of frustration. After building and consuming dozens of APIs, here are the principles that consistently produce great results.

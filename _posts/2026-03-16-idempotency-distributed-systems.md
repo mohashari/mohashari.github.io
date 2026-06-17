@@ -4,6 +4,8 @@ title: "Idempotency in Distributed Systems: APIs That Can Be Safely Retried"
 date: 2026-03-16 07:00:00 +0700
 tags: [distributed-systems, apis, reliability, backend, patterns]
 description: "Design idempotent APIs and background jobs that tolerate duplicate requests without corrupting state or triggering side effects."
+image: "https://picsum.photos/seed/2533/1080/720"
+thumbnail: "https://picsum.photos/seed/2533/400/300"
 ---
 
 # Idempotency in Distributed Systems: APIs That Can Be Safely Retried

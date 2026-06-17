@@ -4,6 +4,8 @@ title: "GraphQL for Backend Engineers: Schema Design, DataLoader, and Performanc
 date: 2026-03-17 07:00:00 +0700
 tags: [graphql, api, performance, backend, n+1]
 description: "Master GraphQL schema design, eliminate N+1 query problems with DataLoader, and tune resolver performance for production-grade backends."
+image: "https://picsum.photos/seed/6050/1080/720"
+thumbnail: "https://picsum.photos/seed/6050/400/300"
 ---
 
 Every backend engineer eventually faces the same rude awakening: you've built a REST API, your mobile team wants to fetch a user with their orders and each order's line items, and suddenly you're making seventeen round trips or returning a bloated payload that transfers half a megabyte for what should be a simple screen. GraphQL promises to fix this. But adopting it naively—slapping resolvers on top of an ORM and calling it a day—trades your REST performance problems for a new set of GraphQL-shaped ones. This post is about doing it right: designing schemas that scale, eliminating the N+1 problem with DataLoader, and tuning resolvers for production workloads.

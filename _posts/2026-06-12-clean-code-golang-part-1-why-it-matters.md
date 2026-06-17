@@ -4,6 +4,8 @@ title: "Clean Code with Go — Part 1: Why Clean Code Matters"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices, tutorial]
 description: "Learn why clean code is not just aesthetics but a long-term investment. With real examples using Golang."
+image: "https://picsum.photos/seed/734/1080/720"
+thumbnail: "https://picsum.photos/seed/734/400/300"
 ---
 
 Imagine joining a new team and getting assigned your very first task: *"Just fix the bug in the user registration endpoint — shouldn't take long."* You open the file, and there it is: a single function, 200 lines long — validation, database queries, email sending, logging, all tangled together without a meaningful comment in sight. Variable names like `d`, `tmp`, and `x2`. No tests. No documentation.

@@ -4,8 +4,8 @@ title: "Multi-Agent LLM Orchestration with Shared Memory and Tool Routing"
 date: 2026-03-26 08:00:00 +0700
 tags: [ai-engineering, llm, distributed-systems, python, architecture]
 description: "How to build production-grade multi-agent LLM systems with shared memory, deterministic tool routing, and failure isolation."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/8087/1080/720"
+thumbnail: "https://picsum.photos/seed/8087/400/300"
 ---
 
 Single-agent LLM pipelines hit a wall somewhere around 15-20 tool calls per request. The context window bloats, the model starts hallucinating tool arguments, and latency climbs past anything a user will tolerate. The real problem isn't the model—it's the architecture. Cramming search, code execution, data retrieval, and synthesis into one context means every capability competes for attention, and the model loses track of what it was supposed to do three steps ago. Multi-agent systems with shared memory and explicit tool routing are the production answer to this, and building them correctly requires a different mental model than chaining LLM calls together.

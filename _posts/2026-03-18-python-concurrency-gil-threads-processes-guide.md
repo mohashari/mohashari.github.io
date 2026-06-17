@@ -4,6 +4,8 @@ title: "Python Concurrency Under the Hood: GIL, Threads, Processes, and the Righ
 date: 2026-03-18 07:00:00 +0700
 tags: [python, concurrency, performance, backend, threading]
 description: "Demystify the Python GIL, understand when to use threading vs multiprocessing vs asyncio, and profile real-world workloads to pick the right concurrency model."
+image: "https://picsum.photos/seed/9771/1080/720"
+thumbnail: "https://picsum.photos/seed/9771/400/300"
 ---
 
 Every Python backend engineer eventually hits the same wall: you've got a CPU-bound data pipeline eating 100% of one core while seven others sit idle, or an I/O-heavy service that blocks on database queries one at a time despite having hundreds of idle threads. You reach for threads, then discover the GIL. You reach for processes, then discover the overhead. You reach for asyncio, then discover it doesn't help with CPU work. The truth is Python offers three distinct concurrency models — each with a different purpose, different costs, and different failure modes. Choosing the wrong one doesn't just leave performance on the table; it introduces race conditions, deadlocks, and resource exhaustion that only show up under production load. This post cuts through the confusion, explains what's actually happening at the interpreter level, and gives you a decision framework backed by profiled examples.

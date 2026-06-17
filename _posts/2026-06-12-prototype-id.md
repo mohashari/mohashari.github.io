@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 4: Prototype"
 date: 2026-06-12
 tags: [design-patterns, creational, golang, best-practices]
 description: "Panduan mendalam implementasi design pattern Prototype di Go (Golang), menampilkan analogi pembelahan sel biologi, penyalinan mendalam (deep copy) vs dangkal (shallow copy), dan kode lengkap."
+image: "https://picsum.photos/seed/6058/1080/720"
+thumbnail: "https://picsum.photos/seed/6058/400/300"
 ---
 
 Prototype adalah creational design pattern yang memungkinkan Anda menyalin objek yang ada tanpa membuat kode Anda bergantung pada kelas objek tersebut. Di Go, kita mengimplementasikan pola ini dengan mengekspos metode `Clone()` pada suatu interface, memungkinkan objek mengembalikan salinan dari diri mereka sendiri.

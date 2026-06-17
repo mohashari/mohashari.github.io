@@ -4,6 +4,8 @@ title: "GitOps with ArgoCD: Declarative Continuous Delivery for Kubernetes"
 date: 2026-03-15 07:00:00 +0700
 tags: [gitops, argocd, kubernetes, devops, cicd]
 description: "Implement GitOps workflows with ArgoCD to automate Kubernetes deployments using Git as the single source of truth."
+image: "https://picsum.photos/seed/6183/1080/720"
+thumbnail: "https://picsum.photos/seed/6183/400/300"
 ---
 
 Managing Kubernetes deployments manually is a recipe for configuration drift, deployment anxiety, and 3 AM incidents. When your cluster state diverges from what you *think* it is, debugging becomes an archaeological dig through `kubectl apply` history and Slack messages. GitOps solves this by making Git the single source of truth for your infrastructure: if it's not in a repository, it doesn't exist. ArgoCD implements this pattern natively for Kubernetes, continuously reconciling your cluster state with what's declared in Git. This post walks through setting up a production-grade GitOps pipeline with ArgoCD, covering application definitions, sync policies, health checks, and multi-environment promotion.

@@ -4,8 +4,8 @@ title: "Designing an Idempotent API: Header Specs, Distributed Locking, and Race
 date: 2026-05-18 09:00:00 +0700
 tags: [api-design, system-design, backend, reliability, concurrency]
 description: "A comprehensive guide to building bulletproof idempotent APIs: covering draft IETF header specs, Redis distributed locks, and handling concurrent in-flight requests."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/429/1080/720"
+thumbnail: "https://picsum.photos/seed/429/400/300"
 ---
 
 In network programming, failures are an inevitability. Sockets timeout, connections blip, and routers restart. When a client sends a request to make a payment or book a flight and receives a network timeout, it faces a dilemma: **Did the server process the request before the timeout, or did it fail entirely?**

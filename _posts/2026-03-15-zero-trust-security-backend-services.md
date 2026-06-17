@@ -4,6 +4,8 @@ title: "Zero Trust Security for Backend Services: Beyond the Perimeter"
 date: 2026-03-15 07:00:00 +0700
 tags: [security, zero-trust, mtls, backend, devops]
 description: "Implement Zero Trust principles in your backend — mTLS between services, identity-based access, and continuous verification at every hop."
+image: "https://picsum.photos/seed/6107/1080/720"
+thumbnail: "https://picsum.photos/seed/6107/400/300"
 ---
 
 The castle-and-moat model of network security has been dying for years, but most backend architectures still quietly depend on it. Services trust each other because they share a private subnet. An internal IP address is treated as proof of identity. Once an attacker — or a misconfigured service, or a compromised container — gets past the edge, they move laterally with almost no friction. Zero Trust rejects this assumption entirely: no request is trusted by default, every connection must be authenticated, and authorization is re-evaluated continuously, not just at the front door.

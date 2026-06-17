@@ -4,6 +4,8 @@ title: "GraphQL for Backend Engineers: Schema Design, Federation, and Performanc
 date: 2026-03-18 07:00:00 +0700
 tags: [graphql, api, backend, federation, performance]
 description: "Master GraphQL schema design, Apollo Federation for microservices, N+1 query mitigation with DataLoader, and production performance tuning."
+image: "https://picsum.photos/seed/7184/1080/720"
+thumbnail: "https://picsum.photos/seed/7184/400/300"
 ---
 
 # GraphQL for Backend Engineers: Schema Design, Federation, and Performance

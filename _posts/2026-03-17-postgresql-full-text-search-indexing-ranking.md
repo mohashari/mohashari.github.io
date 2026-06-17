@@ -4,6 +4,8 @@ title: "PostgreSQL Full-Text Search: Indexing, Ranking, and Going Beyond LIKE Qu
 date: 2026-03-17 07:00:00 +0700
 tags: [postgresql, search, databases, performance, indexing]
 description: "Replace slow LIKE queries with PostgreSQL's native full-text search engine, leveraging tsvector, tsquery, GIN indexes, and ranking functions for fast, relevant results."
+image: "https://picsum.photos/seed/4844/1080/720"
+thumbnail: "https://picsum.photos/seed/4844/400/300"
 ---
 
 # PostgreSQL Full-Text Search: Indexing, Ranking, and Going Beyond LIKE Queries

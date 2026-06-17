@@ -4,6 +4,8 @@ title: "Circuit Breaker and Bulkhead Patterns: Resilience in Distributed Systems
 date: 2026-03-17 07:00:00 +0700
 tags: [resilience, distributed-systems, microservices, patterns, fault-tolerance]
 description: "Implement circuit breakers and bulkheads to isolate failures, prevent cascade outages, and keep your distributed system operational under partial degradation."
+image: "https://picsum.photos/seed/7747/1080/720"
+thumbnail: "https://picsum.photos/seed/7747/400/300"
 ---
 
 Your payment service calls an inventory service, which calls a pricing service, which calls a third-party tax API that happens to be having a bad day. One slow external dependency cascades into thread pool exhaustion, timeouts ripple upstream, and suddenly your entire checkout flow is down — not because your code is broken, but because you had no way to contain the blast radius of a single failing component. This is the fundamental fragility of distributed systems: tight coupling means one struggling dependency can drag everything else down with it. Circuit breakers and bulkheads are the two most effective patterns for building systems that degrade gracefully instead of collapsing completely.

@@ -4,6 +4,8 @@ title: "Rust for Backend Engineers: Memory Safety, Async, and High-Performance S
 date: 2026-03-17 07:00:00 +0700
 tags: [rust, backend, async, performance, systems]
 description: "Adopt Rust for backend services, exploring ownership semantics, async runtimes like Tokio, and the performance wins over GC-based languages."
+image: "https://picsum.photos/seed/9362/1080/720"
+thumbnail: "https://picsum.photos/seed/9362/400/300"
 ---
 
 The languages most backend engineers reach for — Go, Java, Python, Node.js — all share one thing in common: a garbage collector standing between your code and the metal. For most services this is an acceptable trade. But when you're building systems where latency spikes are unacceptable, where memory usage at scale matters, or where you need to squeeze every cycle from a tight budget, the GC pause becomes the enemy. Rust offers a different contract: memory safety without a garbage collector, enforced at compile time through an ownership system that eliminates entire categories of bugs before your binary ever ships. The learning curve is real, but for backend engineers willing to invest, Rust unlocks a class of performance and reliability that GC-based runtimes simply cannot match.

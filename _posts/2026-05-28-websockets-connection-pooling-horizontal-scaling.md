@@ -4,8 +4,8 @@ title: "Advanced WebSockets: Connection Pooling, Backpressure, and Horizontal Sc
 date: 2026-05-28 08:00:00 +0700
 tags: [websockets, scalability, backend, concurrency, system-design]
 description: "Strategies for scaling WebSocket connections to hundreds of thousands of concurrent users using Redis Pub/Sub, connection pools, and load balancers."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/4099/1080/720"
+thumbnail: "https://picsum.photos/seed/4099/400/300"
 ---
 
 Building real-time features like chat applications, collaborative dashboards, or live trading feeds requires a bi-directional communication protocol. **WebSockets** (standardized in RFC 6455) are the industry standard, allowing servers to push data to clients instantly without the overhead of HTTP polling.

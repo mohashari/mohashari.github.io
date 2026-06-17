@@ -4,6 +4,8 @@ title: "SQLite in Production: When the Simplest Database Is the Right Choice"
 date: 2026-03-16 07:00:00 +0700
 tags: [databases, sqlite, backend, performance, architecture]
 description: "Understand when SQLite's single-file, zero-configuration model outperforms client-server databases and how to run it reliably at scale with Litestream and read replicas."
+image: "https://picsum.photos/seed/6249/1080/720"
+thumbnail: "https://picsum.photos/seed/6249/400/300"
 ---
 
 # SQLite in Production: When the Simplest Database Is the Right Choice

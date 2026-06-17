@@ -4,8 +4,8 @@ title: "Image Signing with Cosign and Sigstore in CI/CD Pipelines"
 date: 2026-03-23 08:00:00 +0700
 tags: [devsecops, kubernetes, containers, supply-chain-security, ci-cd]
 description: "How to harden container supply chains using Cosign and Sigstore to ensure only verified, signed images reach your Kubernetes clusters."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/5595/1080/720"
+thumbnail: "https://picsum.photos/seed/5595/400/300"
 ---
 
 In late 2020, attackers compromised the SolarWinds build pipeline and shipped malicious updates to 18,000 customers. The images were signed — just with a key the attackers had stolen. Three years later, the XZ Utils backdoor sat quietly in build infrastructure for months before a Microsoft engineer noticed. These aren't exotic attacks. They're the predictable result of treating container images as tamper-evident when they're actually tamper-invisible: by default, nothing in your Kubernetes cluster checks whether that `nginx:1.25.3` you pulled was actually built by your CI pipeline, not a compromised registry mirror or a supply chain attacker who pivoted from your dependency tree. Cosign and Sigstore close this gap — not by adding more keys to manage, but by replacing keys with cryptographic identity tied to your CI/CD workload identity. This post walks through production-grade implementation: keyless signing in GitHub Actions, KMS-backed signing for air-gapped environments, verification in admission controllers, and the operational failure modes you need to handle before rolling this to production.

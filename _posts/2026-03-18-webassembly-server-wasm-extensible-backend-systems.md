@@ -4,6 +4,8 @@ title: "WebAssembly on the Server: WASM for Extensible Backend Systems"
 date: 2026-03-18 07:00:00 +0700
 tags: [wasm, webassembly, backend, plugins, performance]
 description: "Run untrusted plugin code safely and polyglot compute workloads server-side using WASI, Wasmtime, and Extism in production backend architectures."
+image: "https://picsum.photos/seed/7137/1080/720"
+thumbnail: "https://picsum.photos/seed/7137/400/300"
 ---
 
 # WebAssembly on the Server: WASM for Extensible Backend Systems

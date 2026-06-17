@@ -4,6 +4,8 @@ title: "REST API Design: Principles Senior Engineers Follow"
 date: 2026-03-22 08:00:00 +0700
 tags: [api-design, backend, rest, versioning, architecture]
 description: "Beyond CRUD: versioning strategies, idempotency guarantees, and backward compatibility patterns that keep APIs maintainable at scale."
+image: "https://picsum.photos/seed/5480/1080/720"
+thumbnail: "https://picsum.photos/seed/5480/400/300"
 ---
 
 The breaking change that woke you up at 2am probably wasn't a bug — it was a design decision made months earlier when someone renamed a field, removed a status enum value, or changed a 200 to a 201 without thinking about the 40 clients already in production. REST APIs accrue breaking changes the way legacy codebases accrue technical debt: slowly, then suddenly. The difference between an API that scales across teams and one that requires a migration guide every quarter isn't framework choice or documentation quality. It's a handful of concrete design decisions made before the first endpoint ships.

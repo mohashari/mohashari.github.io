@@ -4,6 +4,8 @@ title: "Clean Code dengan Go — Part 6: Struktur & Organisasi Kode"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Struktur proyek yang baik adalah fondasi dari kode yang maintainable. Pelajari cara mengorganisasi proyek Go dengan clean architecture."
+image: "https://picsum.photos/seed/1038/1080/720"
+thumbnail: "https://picsum.photos/seed/1038/400/300"
 ---
 
 Bayangkan kamu bergabung dengan sebuah tim dan diminta untuk memperbaiki bug di proyek Go yang sudah berjalan selama dua tahun. Kamu membuka repositori, dan menemukan satu folder `main` berisi 50+ file — `handler_user.go`, `db_query.go`, `business_logic.go`, `utils.go`, semuanya berdampingan tanpa struktur yang jelas. Fungsi HTTP handler langsung memanggil query database. Logika bisnis tersebar di mana-mana. Tidak ada interface, tidak ada pemisahan tanggung jawab.

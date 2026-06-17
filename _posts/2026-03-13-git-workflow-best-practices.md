@@ -3,6 +3,8 @@ layout: post
 title: "Git Workflow Best Practices for Engineering Teams"
 tags: [git, devops, engineering, best-practices]
 description: "Practical Git workflows, branching strategies, and commit hygiene that make collaboration smoother and history readable."
+image: "https://picsum.photos/seed/8873/1080/720"
+thumbnail: "https://picsum.photos/seed/8873/400/300"
 ---
 
 Git is the most powerful tool most engineers use poorly. Good Git hygiene makes code reviews better, debugging easier, and rollbacks safer. Here's how to level up your Git game.

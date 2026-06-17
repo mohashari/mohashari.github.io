@@ -4,6 +4,8 @@ title: "Streaming LLM Responses with SSE: Real-Time UX Without Complexity"
 date: 2026-03-22 08:00:00 +0700
 tags: [ai-engineering, streaming, sse, go, llm]
 description: "Build production-ready LLM token streaming with SSE: backpressure, error handling, and connection lifecycle without WebSockets or extra libraries."
+image: "https://picsum.photos/seed/8666/1080/720"
+thumbnail: "https://picsum.photos/seed/8666/400/300"
 ---
 
 Your LLM endpoint takes 8 seconds to return a response. Users are staring at a spinner. Some give up and refresh. Some open tickets. Your P95 latency graph looks like a cliff face. You know the model is streaming tokens almost immediately — both the Anthropic and OpenAI APIs start emitting within 200-400ms of receiving a request — but your architecture is buffering the entire response before sending it downstream, because that's how your HTTP handler was written. The fix is obvious in retrospect: stream tokens as they arrive. The question is how to do it without bolting WebSockets, a pub/sub layer, or a dedicated streaming library onto your stack.

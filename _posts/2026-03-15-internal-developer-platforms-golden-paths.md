@@ -4,6 +4,8 @@ title: "Internal Developer Platforms: Building Golden Paths for Engineering Team
 date: 2026-03-15 07:00:00 +0700
 tags: [platform-engineering, devops, dx, kubernetes, backstage]
 description: "Design internal developer platforms that reduce cognitive load and standardize deployment, observability, and provisioning workflows across engineering teams."
+image: "https://picsum.photos/seed/2606/1080/720"
+thumbnail: "https://picsum.photos/seed/2606/400/300"
 ---
 
 Every engineering org hits the same wall eventually: a senior engineer spends two days onboarding a new hire just to get a service deployed, teams reinvent CI pipelines from scratch because there's no canonical template, and the path from "I wrote the code" to "it's running in production" is a treacherous maze of Slack threads, tribal knowledge, and undocumented Terraform modules. This isn't a people problem — it's a platform problem. Internal Developer Platforms (IDPs) exist to pave that maze into a golden path: a well-lit, opinionated, but not rigid set of workflows that let product engineers focus on business logic instead of infrastructure archaeology.

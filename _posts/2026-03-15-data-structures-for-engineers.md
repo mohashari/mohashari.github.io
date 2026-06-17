@@ -4,6 +4,8 @@ title: "Data Structures Every Software Engineer Uses in Production"
 date: 2026-03-15 07:00:00 +0700
 tags: [algorithms, data-structures, backend, performance, computer-science]
 description: "Beyond arrays and hash maps — bloom filters, skip lists, LRU caches, tries, and the data structures that power real production systems."
+image: "https://picsum.photos/seed/145/1080/720"
+thumbnail: "https://picsum.photos/seed/145/400/300"
 ---
 
 CS courses teach arrays, linked lists, and binary trees. Production systems use bloom filters, skip lists, and consistent hash rings. Here's what actually matters.

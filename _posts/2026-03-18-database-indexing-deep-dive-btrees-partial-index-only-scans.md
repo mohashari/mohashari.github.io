@@ -4,6 +4,8 @@ title: "Database Indexing Deep Dive: B-Trees, Partial Indexes, and Index-Only Sc
 date: 2026-03-18 07:00:00 +0700
 tags: [databases, postgresql, indexing, performance, sql]
 description: "Understand how PostgreSQL index types work internally, when to use partial and covering indexes, and how to diagnose missing or bloated indexes in production."
+image: "https://picsum.photos/seed/6581/1080/720"
+thumbnail: "https://picsum.photos/seed/6581/400/300"
 ---
 
 Every backend engineer has debugged a slow query at 2am, staring at a `EXPLAIN ANALYZE` output that reveals a sequential scan across 50 million rows. You add an index, the query drops from 4 seconds to 8 milliseconds, and you feel like a wizard. But most engineers stop there — they treat indexes as magic switches rather than data structures with real costs, tradeoffs, and failure modes. Understanding *how* indexes work internally transforms you from someone who cargo-cults `CREATE INDEX` to someone who designs schemas that stay fast under production load.

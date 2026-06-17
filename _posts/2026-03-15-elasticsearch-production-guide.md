@@ -4,6 +4,8 @@ title: "ElasticSearch in Production: Indexing, Querying, and Tuning"
 date: 2026-03-15 07:00:00 +0700
 tags: [elasticsearch, search, backend, performance, indexing]
 description: "Build and tune Elasticsearch clusters for production — covering index design, query optimization, and cluster sizing."
+image: "https://picsum.photos/seed/5863/1080/720"
+thumbnail: "https://picsum.photos/seed/5863/400/300"
 ---
 
 Most backend engineers reach for Elasticsearch when a SQL `LIKE` query starts crawling and full-text search becomes a product requirement. But standing up a cluster that actually survives production — with consistent query latency under load, no runaway JVM heap, and indices that don't fragment into chaos — is a different discipline entirely. The gap between "it works in staging" and "it works at 3 AM on Black Friday" is filled with index mapping mistakes, over-allocated shards, and queries that bypass caches at exactly the wrong moment. This post walks through the decisions that matter: mapping design before you write a single document, query patterns that scale, and the operational knobs that keep clusters healthy.

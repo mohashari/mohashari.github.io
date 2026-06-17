@@ -4,6 +4,8 @@ title: "Go Design Patterns — Part 5: Singleton"
 date: 2026-06-12
 tags: [design-patterns, creational, golang, best-practices]
 description: "An in-depth guide to implementing the Singleton design pattern in Go (Golang), featuring a database connection pool analogy, sync.Once thread safety, and complete code."
+image: "https://picsum.photos/seed/4017/1080/720"
+thumbnail: "https://picsum.photos/seed/4017/400/300"
 ---
 
 The Singleton is a creational design pattern that lets you ensure that a class (or struct) has only one instance, while providing a global access point to this instance. In Go, implementing a Singleton requires careful consideration of concurrency to prevent race conditions during initialization.

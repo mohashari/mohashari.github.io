@@ -4,6 +4,8 @@ title: "Clean Code dengan Go — Part 5: Error Handling yang Bermartabat"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Error adalah warga kelas satu di Go. Pelajari cara handle error dengan benar: wrapping, sentinel errors, dan propagasi yang bersih."
+image: "https://picsum.photos/seed/1824/1080/720"
+thumbnail: "https://picsum.photos/seed/1824/400/300"
 ---
 
 Bayangkan ini: sistem kamu berjalan normal di production, tapi ada laporan dari beberapa user yang bilang data mereka tidak tersimpan. Tim mulai panik. Kamu buka log — sepi. Tidak ada error sama sekali. Setelah dua hari penyelidikan intensif, akhirnya ditemukan satu baris kode yang menjadi biang kerok:

@@ -3,6 +3,8 @@ layout: post
 title: "Monitoring Your Backend with Prometheus and Grafana"
 tags: [monitoring, prometheus, grafana, devops, backend]
 description: "Set up production-grade observability for your backend services using Prometheus metrics and Grafana dashboards."
+image: "https://picsum.photos/seed/2165/1080/720"
+thumbnail: "https://picsum.photos/seed/2165/400/300"
 ---
 
 You can't improve what you can't measure. Prometheus + Grafana is the gold standard for backend observability. This guide gets you from zero to a production-ready monitoring stack.

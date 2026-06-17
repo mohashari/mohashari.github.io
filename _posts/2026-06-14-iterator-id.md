@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 15: Iterator"
 date: 2026-06-14
 tags: [design-patterns, golang, best-practices]
 description: "Pelajari design pattern Iterator di Golang. Temukan cara mengakses dan menelusuri elemen koleksi data yang rumit tanpa mengekspos struktur internalnya."
+image: "https://picsum.photos/seed/8297/1080/720"
+thumbnail: "https://picsum.photos/seed/8297/400/300"
 ---
 
 Dalam rekayasa perangkat lunak, kita selalu berhadapan dengan koleksi data (*collections*). Baik itu berupa array sederhana, linked list, binary tree, hingga graf yang rumit, kita sering kali perlu mengakses dan menelusuri (*traversing*) elemen-elemen yang disimpan di dalam struktur data tersebut.

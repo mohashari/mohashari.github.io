@@ -4,8 +4,8 @@ title: "gRPC Bidirectional Streaming: Backpressure, Flow Control, and Production
 date: 2026-03-23 08:00:00 +0700
 tags: [grpc, go, distributed-systems, backend, performance]
 description: "How HTTP/2 flow control works in gRPC bidi streams, why slow consumers will OOM your server, and the patterns that actually hold up in production."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/405/1080/720"
+thumbnail: "https://picsum.photos/seed/405/400/300"
 ---
 
 You deploy a gRPC bidirectional streaming service for real-time event delivery. Load testing looks clean. Then production traffic arrives, a handful of mobile clients on flaky 4G connections slow down, and within 20 minutes your server process is consuming 14 GB of heap and climbing. No alerts fire because throughput looks fine — messages are queuing, not dropping. This is the backpressure problem, and gRPC's default behavior makes it easy to stumble into.

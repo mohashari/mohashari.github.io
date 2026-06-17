@@ -4,8 +4,8 @@ title: "Linux eBPF Internals: How TC and XDP Programs Accelerate Container Netwo
 date: 2026-04-05 09:00:00 +0700
 tags: [linux, ebpf, networking, kubernetes, performance]
 description: "A deep dive into how eBPF bypasses the standard Linux network stack using TC (Traffic Control) and XDP (eXpress Data Path) to achieve near-wire-speed container communication."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/7810/1080/720"
+thumbnail: "https://picsum.photos/seed/7810/400/300"
 ---
 
 In traditional container networking, a packet sent from one container to another on the same host traverses a labyrinth of virtual devices: veth pairs, network namespaces, IP tables, and bridge devices. Each hop involves copying memory, allocating `sk_buff` structs, and context-switching through the kernel's network stack. Under heavy loads, these overheads degrade throughput and increase latency. 

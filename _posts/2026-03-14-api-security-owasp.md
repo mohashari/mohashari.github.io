@@ -3,6 +3,8 @@ layout: post
 title: "API Security: Defending Against the OWASP API Top 10"
 tags: [security, api, backend, owasp]
 description: "Practical defenses against the OWASP API Security Top 10 with real code examples for building secure backend APIs."
+image: "https://picsum.photos/seed/1415/1080/720"
+thumbnail: "https://picsum.photos/seed/1415/400/300"
 ---
 
 APIs are the attack surface of modern applications. The OWASP API Security Top 10 documents the most critical risks. Let's work through each one with practical defenses.

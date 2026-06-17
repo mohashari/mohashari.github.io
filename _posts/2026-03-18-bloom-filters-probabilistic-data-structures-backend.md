@@ -4,6 +4,8 @@ title: "Bloom Filters and Probabilistic Data Structures for Backend Engineers"
 date: 2026-03-18 07:00:00 +0700
 tags: [data-structures, algorithms, performance, backend, caching]
 description: "Apply Bloom filters, HyperLogLog, Count-Min Sketch, and T-Digest to solve large-scale deduplication, cardinality estimation, and frequency tracking problems efficiently."
+image: "https://picsum.photos/seed/1915/1080/720"
+thumbnail: "https://picsum.photos/seed/1915/400/300"
 ---
 
 # Bloom Filters and Probabilistic Data Structures for Backend Engineers

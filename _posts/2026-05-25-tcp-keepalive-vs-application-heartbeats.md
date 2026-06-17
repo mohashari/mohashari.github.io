@@ -4,8 +4,8 @@ title: "Under the Hood: TCP Keepalive vs. Application-Level Heartbeats in Distri
 date: 2026-05-25 08:00:00 +0700
 tags: [networking, tcp, distributed-systems, reliability, backend]
 description: "Analyzing the differences, configurations, and trade-offs of using TCP keepalives versus custom application heartbeats for connection management."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/8179/1080/720"
+thumbnail: "https://picsum.photos/seed/8179/400/300"
 ---
 
 In distributed systems, knowing when a connection is dead is surprisingly difficult. By design, TCP is quiet. If two nodes establish a connection and stop sending data, **no packets are exchanged**. If one node crashes, or an intermediate stateful NAT firewall discards the connection's translation entry, the other node will remain completely unaware of the disconnection. 

@@ -4,8 +4,8 @@ title: "Speculative Decoding and Continuous Batching for High-Throughput LLM Ser
 date: 2026-03-30 08:00:00 +0700
 tags: [llm, inference, gpu, vllm, ai-engineering]
 description: "How speculative decoding and continuous batching eliminate GPU idle time and latency bubbles in production LLM serving."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/2875/1080/720"
+thumbnail: "https://picsum.photos/seed/2875/400/300"
 ---
 
 You deploy a 70B LLM behind an API. Peak traffic hits, GPU utilization reads a healthy 90%, but p99 latency is 12 seconds for a 200-token response. You dig in and find two separate problems: the GPU spends most of its time waiting on autoregressive decode steps that are inherently serial (one token per forward pass), and your batching strategy stalls new requests behind long-running ones. These are not the same problem, but they compound each other badly. Speculative decoding attacks the first by amortizing forward passes; continuous batching attacks the second by eliminating batch-level head-of-line blocking. Together they can push a well-configured vLLM deployment to 3–5× the throughput of a naive FastAPI + HuggingFace `generate()` setup, at lower latency.

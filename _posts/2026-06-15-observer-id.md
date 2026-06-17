@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 18: Observer"
 date: 2026-06-15
 tags: [design-patterns, behavioral, golang, best-practices]
 description: "Panduan mendalam implementasi design pattern Observer di Go (Golang), menampilkan analogi notifikasi stok e-commerce, diagram struktur, dan kode lengkap."
+image: "https://picsum.photos/seed/2496/1080/720"
+thumbnail: "https://picsum.photos/seed/2496/400/300"
 ---
 
 Observer adalah behavioral design pattern yang memungkinkan Anda mendefinisikan mekanisme berlangganan (subscription) untuk memberi tahu banyak objek tentang peristiwa (event) apa pun yang terjadi pada objek yang sedang mereka amati. Di Go, kita mengimplementasikan pola ini menggunakan interface untuk Subject (Observable) dan Observers, memungkinkan keterikatan yang longgar (loose coupling) yang fleksibel antara penghasil event (producer) dan konsumen (consumer).

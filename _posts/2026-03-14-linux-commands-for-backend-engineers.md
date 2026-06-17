@@ -3,6 +3,8 @@ layout: post
 title: "Linux Commands Every Backend Engineer Must Know"
 tags: [linux, devops, backend, tools]
 description: "The essential Linux commands for backend engineers — process management, networking, file operations, and debugging in production."
+image: "https://picsum.photos/seed/8659/1080/720"
+thumbnail: "https://picsum.photos/seed/8659/400/300"
 ---
 
 Production issues don't wait for business hours. When you're SSH'd into a server at 2am during an incident, you need these commands by muscle memory. Here's the survival guide.

@@ -4,6 +4,8 @@ title: "Redis Cluster and Sharding: Horizontal Scaling Without Data Loss"
 date: 2026-03-22 08:00:00 +0700
 tags: [redis, distributed-systems, backend, infrastructure, database]
 description: "How Redis Cluster hash slots, replica promotion, and keyspace design decisions affect data safety at scale."
+image: "https://picsum.photos/seed/2004/1080/720"
+thumbnail: "https://picsum.photos/seed/2004/400/300"
 ---
 
 You're running a single Redis instance at 60GB memory, 80% CPU, and 150k ops/sec. You've tuned `maxmemory-policy`, scaled the VM vertically twice, and the ops team is starting to ask uncomfortable questions about your runbooks. The obvious answer is Redis Cluster — but "obvious" is doing a lot of work there. Clusters introduce failure modes that don't exist on single nodes: cross-slot multi-key operations silently fail, hash tag abuse concentrates load onto a single shard, and misconfigured replication means a partition event can permanently lose writes you were told were acknowledged. This post is about understanding the mechanics well enough to avoid those failure modes before they happen in production.

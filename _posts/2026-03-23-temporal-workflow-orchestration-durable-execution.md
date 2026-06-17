@@ -4,8 +4,8 @@ title: "Temporal Workflow Orchestration: Durable Execution at Scale"
 date: 2026-03-23 08:00:00 +0700
 tags: [backend, distributed-systems, workflow, golang, reliability]
 description: "How Temporal's durable execution model eliminates the distributed systems failure modes that kill complex business processes in production."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/3645/1080/720"
+thumbnail: "https://picsum.photos/seed/3645/400/300"
 ---
 
 Your payment processing pipeline spans six microservices, three external APIs, and a database transaction that must roll back cleanly on any failure. You've implemented retry logic at every layer, added dead-letter queues, and written a compensation saga that took two sprints to get right. Then production hits you: a network partition mid-saga leaves half your transactions in an unknown state, your retry logic floods a recovering downstream service, and your on-call engineer is manually reconciling database records at 2 AM. This is the distributed systems tax — and most teams pay it indefinitely, adding complexity on top of complexity.

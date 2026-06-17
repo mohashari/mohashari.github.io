@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 2: Code Smells Object-Orientation Abusers"
 date: 2026-06-14
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Switch statement di mana-mana, field yang cuma dipakai di satu method, inheritance yang diabaikan — semua adalah tanda bahwa OOP tidak digunakan dengan benar. Pelajari cara mendeteksi dan memperbaiki Object-Orientation Abusers dengan Go."
+image: "https://picsum.photos/seed/9618/1080/720"
+thumbnail: "https://picsum.photos/seed/9618/400/300"
 ---
 
 Bayangkan Anda bergabung ke sebuah tim baru. Hari pertama, Anda membuka kode sumber aplikasi utama mereka. Semua terlihat wajar di awal — struct, interface, method. Tapi semakin dalam Anda masuk, semakin aneh rasanya: ada `switch` yang sama persis di lima tempat berbeda, ada struct dengan field `tempDiscount` yang hanya disentuh oleh satu method tertentu, ada struct yang "mewarisi" banyak hal tapi tidak pernah menggunakannya. Anda mulai merasa ada yang salah — dan memang betul.

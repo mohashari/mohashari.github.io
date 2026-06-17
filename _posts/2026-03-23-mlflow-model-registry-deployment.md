@@ -4,6 +4,8 @@ title: "MLflow Model Registry: From Experiment to Production Deployment"
 date: 2026-03-23 08:00:00 +0700
 tags: [mlflow, mlops, model-serving, ci-cd, ai-engineering]
 description: "How to use MLflow Model Registry to enforce reproducibility, staged promotion, and safe rollbacks in production ML pipelines."
+image: "https://picsum.photos/seed/6872/1080/720"
+thumbnail: "https://picsum.photos/seed/6872/400/300"
 ---
 
 Every ML team eventually hits the same wall: a data scientist trains a model that beats the baseline by 4%, drops a `.pkl` file in a shared S3 bucket, Slacks the platform team a path, and calls it a handoff. Six weeks later, production is serving a model nobody can reproduce, the training code has diverged from what generated it, and rollback means restoring from a backup nobody labeled. MLflow Model Registry exists to prevent exactly this. It's not glamorous infrastructure, but it's the difference between a team that ships models confidently and one that treats every deployment like defusing a bomb.

@@ -4,6 +4,8 @@ title: "API Versioning Strategies: Evolving APIs Without Breaking Clients"
 date: 2026-03-15 07:00:00 +0700
 tags: [api, rest, backend, architecture, versioning]
 description: "Compare URI, header, and query-param versioning strategies and learn how to deprecate API versions without breaking existing consumers."
+image: "https://picsum.photos/seed/7336/1080/720"
+thumbnail: "https://picsum.photos/seed/7336/400/300"
 ---
 
 Every backend engineer eventually faces the same uncomfortable moment: a breaking change is needed in an API that dozens of clients depend on. Maybe a field needs to be renamed, a resource restructured, or an entire endpoint redesigned. The instinct is to just make the change and notify consumers — but in practice, clients update on their own timeline, mobile apps sit in app stores for months, and third-party integrations go unmaintained for years. API versioning is the discipline of evolving your service without pulling the rug out from under anyone. Done well, it buys you the freedom to iterate; done poorly, it becomes a graveyard of half-dead version branches nobody dares to delete.

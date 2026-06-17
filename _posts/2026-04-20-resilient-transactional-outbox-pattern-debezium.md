@@ -4,8 +4,8 @@ title: "Designing a Resilient Outbox Pattern: Dealing with Dual-Writes in Micros
 date: 2026-04-20 09:00:00 +0700
 tags: [microservices, system-design, cdc, debezium, kafka]
 description: "How to avoid the microservices dual-write problem. A deep dive into designing the Transactional Outbox Pattern with Change Data Capture (CDC), Debezium, and Kafka."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/1421/1080/720"
+thumbnail: "https://picsum.photos/seed/1421/400/300"
 ---
 
 In a microservices architecture, operations frequently cross service boundaries. A common requirement is for a service to update its local database *and* notify other services by publishing an event to a message broker (like Apache Kafka or RabbitMQ).

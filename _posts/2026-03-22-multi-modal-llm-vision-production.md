@@ -4,6 +4,8 @@ title: "Multi-Modal LLMs in Production: Vision, Text, and Data Pipelines"
 date: 2026-03-22 08:00:00 +0700
 tags: [ai-engineering, llm, python, machine-learning, backend]
 description: "How to build production-grade multi-modal LLM pipelines that handle vision, text, and structured data without collapsing under real load."
+image: "https://picsum.photos/seed/8390/1080/720"
+thumbnail: "https://picsum.photos/seed/8390/400/300"
 ---
 
 Your document processing pipeline works great in the demo. You feed it a PDF invoice, the model extracts line items, totals match, product manager is thrilled. Then you hit production: scanned invoices with skewed text, handwritten annotations, mixed-language documents, images embedded inside PDFs, and throughput requirements of 500 documents per minute. The model starts hallucinating totals, latency spikes to 12 seconds per document, and your GPU bill triples. Multi-modal LLMs in production are not about calling an API with an image URL — they are about building pipelines that stay accurate under adversarial real-world inputs, scale without burning money, and fail gracefully when models do what models do.

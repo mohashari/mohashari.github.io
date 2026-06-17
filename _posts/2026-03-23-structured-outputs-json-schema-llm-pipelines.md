@@ -4,8 +4,8 @@ title: "Structured Outputs and JSON Schema Enforcement in LLM Pipelines"
 date: 2026-03-23 08:00:00 +0700
 tags: [llm, ai-engineering, backend, python, reliability]
 description: "How to enforce JSON Schema contracts in LLM pipelines so you stop parsing free-text garbage at 3 AM."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/7400/1080/720"
+thumbnail: "https://picsum.photos/seed/7400/400/300"
 ---
 
 You're running an LLM extraction pipeline in production. It worked perfectly in staging. Then at 2:47 AM your alerts fire: downstream consumers are throwing `KeyError: 'confidence_score'` and `ValueError: invalid literal for int() with base 10: 'high'`. The model returned valid prose instead of valid JSON—and your pipeline swallowed it. This isn't a hypothetical. It happens to every team that ships LLM output directly to structured consumers without enforcement. The fix isn't prompt engineering harder. It's treating the LLM like any other unreliable external service: define a contract, validate at the boundary, fail fast when it's violated.

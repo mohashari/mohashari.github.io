@@ -4,6 +4,8 @@ title: "Code Smells: Couplers — Untangling Your Dependencies in Go"
 date: 2026-06-17
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Couplers are code smells that represent excessive coupling between structs and components, making changes fragile and difficult. Explore Feature Envy, Inappropriate Intimacy, Message Chains, Middle Man, and Incomplete Library Class in Go."
+image: "https://picsum.photos/seed/5258/1080/720"
+thumbnail: "https://picsum.photos/seed/5258/400/300"
 ---
 
 Imagine trying to build a complex Lego model, but instead of the bricks snapping together nicely, someone has superglued half of them together. If you want to replace a single red brick, you now have to disassemble the entire left wing, soak it in solvent, and rebuild three unrelated sections. In software engineering, this superglue is called **tight coupling**. 

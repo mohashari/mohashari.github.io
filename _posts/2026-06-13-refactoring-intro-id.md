@@ -4,6 +4,8 @@ title: "Refactoring dengan Go — Panduan Lengkap Seri (Berdasarkan 'Dive Into R
 date: 2026-06-13
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Pengantar lengkap seri Refactoring: apa itu refactoring, mengapa penting, dan peta jalan 10 bagian yang mencakup Code Smells & Teknik Refactoring dengan contoh Golang."
+image: "https://picsum.photos/seed/8095/1080/720"
+thumbnail: "https://picsum.photos/seed/8095/400/300"
 ---
 
 Pernahkah kamu membuka kode yang kamu tulis sendiri enam bulan lalu, lalu terdiam dan berpikir: *"Siapa yang menulis ini?!"* — padahal kamu tahu itu dirimu sendiri. Atau mungkin kamu sudah berulang kali mendengar frasa *"jangan sentuh dulu, nanti rusak"* saat diskusi sprint planning. Kalau pernah, selamat datang di klub yang sangat ramai.

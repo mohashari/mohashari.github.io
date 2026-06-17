@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 1: Code Smells: Bloaters"
 date: 2026-06-13
 tags: [refactoring, golang, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Learn how to spot and eliminate the 5 types of Bloater code smells — Long Method, Large Class, Primitive Obsession, Long Parameter List, and Data Clumps — using Go."
+image: "https://picsum.photos/seed/9895/1080/720"
+thumbnail: "https://picsum.photos/seed/9895/400/300"
 ---
 
 Have you ever opened a Go file only to find a 300-line function staring back at you? Or a struct with 40 distinct methods? How about a function that requires eight arguments in a row, forcing you to scroll back and forth just to check the parameter order? If any of this sounds familiar, welcome to the world of **Bloaters**.

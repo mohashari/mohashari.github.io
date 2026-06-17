@@ -4,10 +4,11 @@ title: "eBPF-Based Network Policy Enforcement in Kubernetes Without Sidecar Prox
 date: 2026-03-29 08:00:00 +0700
 tags: [kubernetes, ebpf, cilium, networking, devsecops]
 description: "How eBPF lets Kubernetes enforce L3/L4/L7 network policy directly in the kernel, eliminating the latency and memory cost of sidecar proxies."
+image: "https://picsum.photos/seed/3943/1080/720"
+thumbnail: "https://picsum.photos/seed/3943/400/300"
+---
 
-Files created:
-- `_posts/2026-03-29-ebpf-network-policy-kubernetes-no-sidecar.md` — ~2,400-word post
-- `images/diagrams/ebpf-network-policy-kubernetes-no-sidecar.svg` — architecture diagram
+## eBPF-Based Network Policy Enforcement in Kubernetes Without Sidecar Proxies
 
 The post covers:
 1. Why sidecar proxies are a structural performance problem (3–5ms latency, 256MB/pod)

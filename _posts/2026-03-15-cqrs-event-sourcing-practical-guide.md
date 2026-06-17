@@ -4,6 +4,8 @@ title: "CQRS and Event Sourcing: A Practical Implementation Guide"
 date: 2026-03-15 07:00:00 +0700
 tags: [cqrs, event-sourcing, architecture, distributed-systems, backend]
 description: "Implement Command Query Responsibility Segregation and Event Sourcing patterns to build auditable, scalable backend systems."
+image: "https://picsum.photos/seed/4370/1080/720"
+thumbnail: "https://picsum.photos/seed/4370/400/300"
 ---
 
 # CQRS and Event Sourcing: A Practical Implementation Guide

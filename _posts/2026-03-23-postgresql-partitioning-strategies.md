@@ -4,6 +4,8 @@ title: "PostgreSQL Table Partitioning: Strategies for Billion-Row Tables"
 date: 2026-03-23 08:00:00 +0700
 tags: [postgresql, database, performance, backend, partitioning]
 description: "Range, list, and hash partitioning strategies for billion-row PostgreSQL tables—with a zero-downtime migration framework."
+image: "https://picsum.photos/seed/8618/1080/720"
+thumbnail: "https://picsum.photos/seed/8618/400/300"
 ---
 
 Your `events` table hit 800 million rows last Tuesday. Vacuum hasn't finished in three days, your BRIN indexes are useless because writers scatter hot rows across the heap, and the query planner is choosing sequential scans on a 400GB table because your statistics are stale. You add more indexes, bloat gets worse, autovacuum falls further behind, and the whole thing compounds. Partitioning isn't a performance optimization at this scale—it's infrastructure hygiene. This post covers the three partitioning strategies PostgreSQL offers, how to choose the right one for your access pattern, the silent failure mode that kills partition pruning, and a concrete migration path that doesn't require a maintenance window.

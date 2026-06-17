@@ -1,4 +1,15 @@
+---
+layout: post
+title: "Redis PubSub"
+date: 2022-01-01
+tags: [redis, pubsub]
+description: "Belajar salah satu feature dalam REDIS yaitu pubsub."
+image: "https://picsum.photos/seed/8017/1080/720"
+thumbnail: "https://picsum.photos/seed/8017/400/300"
+---
+
 # Redis PubSub
+
 
 # Intro
 

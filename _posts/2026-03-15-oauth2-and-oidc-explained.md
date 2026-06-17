@@ -4,6 +4,8 @@ title: "OAuth 2.0 and OIDC Explained: The Complete Backend Guide"
 date: 2026-03-15 07:00:00 +0700
 tags: [security, oauth, authentication, authorization, backend]
 description: "Demystify OAuth 2.0 and OpenID Connect — authorization flows, token types, PKCE, and how to implement secure auth in your backend services."
+image: "https://picsum.photos/seed/4080/1080/720"
+thumbnail: "https://picsum.photos/seed/4080/400/300"
 ---
 
 OAuth 2.0 confuses even experienced engineers because it's an authorization framework, not a protocol — it defines roles and token exchange, but leaves implementation details open. Let's fix the mental model.

@@ -4,6 +4,8 @@ title: "Clean Code with Go — Part 3: Clean Functions & Single Responsibility"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "A good function does one thing. Learn how to write small, focused, and testable Go functions."
+image: "https://picsum.photos/seed/1867/1080/720"
+thumbnail: "https://picsum.photos/seed/1867/400/300"
 ---
 
 Picture this: you've just joined a team and you're asked to fix a bug in the user registration feature. You open the file, scroll down, and find a function called `processUserRegistration` — **200 lines long**. Your stomach drops. Inside, there's input validation, password hashing, database writes, email sending, log writing, and more — all tangled together in one monolithic function that's impossible to fully grasp in a single read.

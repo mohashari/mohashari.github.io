@@ -4,8 +4,8 @@ title: "PostgreSQL Logical Replication: Slot Management and Backpressure"
 date: 2026-03-26 08:00:00 +0700
 tags: [postgresql, replication, database, reliability, backend]
 description: "How PostgreSQL logical replication slots accumulate WAL and silently fill your disk — and what to actually do about it in production."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/2693/1080/720"
+thumbnail: "https://picsum.photos/seed/2693/400/300"
 ---
 
 At 2 AM, your on-call engineer gets paged: the primary Postgres node is out of disk. The application is still writing, but now it's throwing errors. The culprit isn't a runaway query or a forgotten backup job — it's a logical replication slot that was created six weeks ago for a CDC pipeline, whose consumer died three days ago. The slot kept accumulating WAL, retained every single change since the consumer last confirmed receipt, and quietly ate 800 GB of your 1 TB disk while nobody was looking.

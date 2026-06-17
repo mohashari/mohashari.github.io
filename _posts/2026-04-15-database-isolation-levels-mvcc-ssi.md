@@ -4,8 +4,8 @@ title: "Database Isolation Levels Under the Hood: MVCC and Serializable Snapshot
 date: 2026-04-15 09:00:00 +0700
 tags: [databases, postgresql, mvcc, transactions, systems]
 description: "How databases enforce transaction isolation. A deep dive into MVCC internals, transaction anomalies like write skew, and how PostgreSQL implements lock-free Serializable Snapshot Isolation (SSI)."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/9274/1080/720"
+thumbnail: "https://picsum.photos/seed/9274/400/300"
 ---
 
 In relational databases, the **I** in ACID stands for **Isolation**. Ideally, isolation means that even if thousands of transactions run concurrently, the end state of the database is exactly the same as if they had run sequentially (one after another). This ideal is called **Serializability**.

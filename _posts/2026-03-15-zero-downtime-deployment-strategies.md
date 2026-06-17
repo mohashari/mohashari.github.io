@@ -4,6 +4,8 @@ title: "Zero-Downtime Deployments: Blue-Green, Canary, and Rolling Strategies"
 date: 2026-03-15 07:00:00 +0700
 tags: [devops, deployment, kubernetes, ci-cd, reliability]
 description: "Master blue-green, canary, and rolling deployment patterns to ship code continuously without disrupting production traffic."
+image: "https://picsum.photos/seed/152/1080/720"
+thumbnail: "https://picsum.photos/seed/152/400/300"
 ---
 
 Every engineer has been there: a Friday afternoon deploy goes sideways, traffic spikes against a half-initialized service, and the on-call phone starts ringing. The root cause isn't bad code — it's a deployment strategy that treats production like a light switch. Flip it off, swap the binary, flip it back on. In the era of distributed systems and user expectations measured in milliseconds of availability, that approach is a liability. Zero-downtime deployment isn't a luxury reserved for FAANG-scale teams; it's an operational discipline that any backend engineer can implement with the right patterns and tooling.

@@ -3,6 +3,8 @@ layout: post
 title: "Clean Code Principles That Make Your Team Love You"
 tags: [clean-code, best-practices, engineering]
 description: "Practical clean code principles with real before/after examples that make code easier to read, maintain, and extend."
+image: "https://picsum.photos/seed/4425/1080/720"
+thumbnail: "https://picsum.photos/seed/4425/400/300"
 ---
 
 Code is written once but read hundreds of times. Clean code isn't about aesthetics — it's about reducing the cognitive load of everyone who reads it, including future you. Here are the principles that actually matter.

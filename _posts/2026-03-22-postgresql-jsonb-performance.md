@@ -4,6 +4,8 @@ title: "PostgreSQL JSONB: When to Use It and When to Avoid It"
 date: 2026-03-22 08:00:00 +0700
 tags: [postgresql, database, backend, performance, data-modeling]
 description: "JSONB is a sharp tool for genuine schema uncertainty — not a shortcut around proper data modeling."
+image: "https://picsum.photos/seed/9910/1080/720"
+thumbnail: "https://picsum.photos/seed/9910/400/300"
 ---
 
 You've seen it before: a PR that adds a `metadata JSONB` column to a core table because the requirements are "still fluid." Six months later, that column contains 47 different shapes of data, three downstream services parse it differently, and a query filtering on `metadata->>'tenant_id'` is doing a sequential scan across 80 million rows. JSONB didn't cause that mess — the decision to use it as a crutch did. This post is about knowing the difference between a legitimate use case and a slow-moving disaster.

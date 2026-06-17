@@ -4,8 +4,8 @@ title: "Understanding Git Internals: Objects, Content-Addressable Storage, and P
 date: 2026-05-27 08:00:00 +0700
 tags: [git, systems-programming, under-the-hood, development-tools]
 description: "A deep dive into Git's underlying data model, exploring blobs, trees, commits, references, and how packfiles optimize disk storage."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/8340/1080/720"
+thumbnail: "https://picsum.photos/seed/8340/400/300"
 ---
 
 Almost every software engineer uses Git daily to manage source code. Yet, to many, Git remains a black box. Commands like `git rebase`, `git merge`, or resolving a detached `HEAD` can feel like magic or a recipe for disaster.

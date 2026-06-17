@@ -3,6 +3,8 @@ layout: post
 title: "TypeScript for Backend Engineers: Beyond the Basics"
 tags: [typescript, nodejs, backend]
 description: "Advanced TypeScript patterns for building robust, maintainable backend services — type guards, discriminated unions, generic utilities, and more."
+image: "https://picsum.photos/seed/9331/1080/720"
+thumbnail: "https://picsum.photos/seed/9331/400/300"
 ---
 
 TypeScript's type system is far more powerful than most engineers use. If you're still just writing `interface Foo { bar: string }`, there's a whole world of type-level programming that can make your backend code safer and more expressive. Let's explore it.

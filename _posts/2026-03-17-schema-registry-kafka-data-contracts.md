@@ -4,6 +4,8 @@ title: "Schema Registry and Kafka: Enforcing Data Contracts in Event-Driven Syst
 date: 2026-03-17 07:00:00 +0700
 tags: [kafka, schema-registry, avro, event-driven, backend]
 description: "Integrate Confluent Schema Registry with Kafka producers and consumers to enforce backward-compatible Avro or Protobuf schemas and prevent silent data breakage."
+image: "https://picsum.photos/seed/7133/1080/720"
+thumbnail: "https://picsum.photos/seed/7133/400/300"
 ---
 
 In event-driven systems, the schema of a Kafka message is an implicit contract between producers and consumers. Unlike an HTTP API where a breaking change immediately throws a 4xx error that someone notices, a Kafka producer quietly emitting a renamed field or a dropped column will silently corrupt every downstream consumer — often hours or days before anyone realizes something is wrong. This is the schema drift problem, and it's one of the most insidious failure modes in distributed systems. Confluent Schema Registry solves it by centralizing schema definitions, enforcing compatibility rules at publish time, and giving consumers a stable, versioned contract to deserialize against. This post walks through integrating Schema Registry with Kafka producers and consumers using Avro, enforcing backward compatibility, and building a workflow that catches breaking changes before they reach production.

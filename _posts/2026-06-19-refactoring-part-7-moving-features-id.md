@@ -4,6 +4,8 @@ title: "Refactoring Techniques — Part 7: Memindahkan Fitur Antar Object"
 date: 2026-06-19
 tags: [refactoring, golang, refactoring-techniques, software-engineering, clean-code, refactoring-series]
 description: "Pelajari 8 teknik refactoring untuk memindahkan fitur antar object: Move Method, Move Field, Extract Class, Inline Class, Hide Delegate, Remove Middle Man, Introduce Foreign Method, dan Introduce Local Extension — lengkap dengan contoh Go."
+image: "https://picsum.photos/seed/2237/1080/720"
+thumbnail: "https://picsum.photos/seed/2237/400/300"
 ---
 
 Pernahkah kamu melihat sebuah `struct` yang seperti gurita — tangannya mencengkeram ke mana-mana? Atau sebuah method yang lebih banyak membicarakan data dari `struct` lain daripada miliknya sendiri? Atau justru sebaliknya: sebuah `struct` kecil mungil yang tugasnya hanya meneruskan panggilan ke `struct` lain?

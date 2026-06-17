@@ -4,6 +4,8 @@ title: "Refactoring Series — Part 6: Refactoring Techniques: Composing Methods
 date: 2026-06-18
 tags: [refactoring, golang, refactoring-techniques, code-smells, software-engineering, clean-code, refactoring-series]
 description: "Master composing methods in Go: learn how to write cleaner, more readable code using techniques like Extract Method, Replace Temp with Query, and Extract Variable."
+image: "https://picsum.photos/seed/4195/1080/720"
+thumbnail: "https://picsum.photos/seed/4195/400/300"
 ---
 
 Have you ever opened a Go file only to find a monolithic function that spans multiple screens? You start reading it, tracking several local variables, nested loops, and conditional statements. By the time you reach the end, you’ve forgotten what the beginning was doing. 

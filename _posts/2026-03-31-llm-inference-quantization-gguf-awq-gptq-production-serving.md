@@ -4,8 +4,8 @@ title: "LLM Inference Quantization: GGUF, AWQ, and GPTQ Trade-offs for Productio
 date: 2026-03-31 08:00:00 +0700
 tags: [llm, inference, quantization, production, ai-engineering]
 description: "A production-focused breakdown of GGUF, AWQ, and GPTQ quantization formats — when to use each, real throughput numbers, and failure modes to avoid."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/6327/1080/720"
+thumbnail: "https://picsum.photos/seed/6327/400/300"
 ---
 
 You get a 70B model approved for production. It's 140 GB in FP16. Your A100 cluster has 80 GB cards. You can't fit it on a single GPU, and spinning up a two-card NVLink setup triples your serving cost per request. Quantization is the answer — but which format? GGUF, AWQ, and GPTQ all promise to get you to 4-bit, all hover around the same ~35–38 GB footprint, and all lose a measurable but manageable amount of quality. The difference is where they run well, how fast they are, and which failure modes they hide from you until 3 AM.

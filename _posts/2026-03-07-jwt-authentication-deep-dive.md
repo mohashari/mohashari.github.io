@@ -3,6 +3,8 @@ layout: post
 title: "JWT Authentication: A Complete Deep Dive"
 tags: [security, authentication, jwt, backend]
 description: "Everything you need to know about JWT — how it works, common vulnerabilities, and how to implement it securely."
+image: "https://picsum.photos/seed/3597/1080/720"
+thumbnail: "https://picsum.photos/seed/3597/400/300"
 ---
 
 JSON Web Tokens (JWT) are everywhere. But they're also widely misimplemented. This guide covers how JWT actually works, the mistakes that create security vulnerabilities, and how to do it right.

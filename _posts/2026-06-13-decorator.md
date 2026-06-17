@@ -4,6 +4,8 @@ title: "Go Design Patterns — Part 9: Decorator"
 date: 2026-06-13
 tags: [design-patterns, structural, golang, best-practices]
 description: "Attach new behaviors to objects dynamically by placing these objects inside special wrapper objects. Master the Decorator pattern in Go."
+image: "https://picsum.photos/seed/7783/1080/720"
+thumbnail: "https://picsum.photos/seed/7783/400/300"
 ---
 
 Imagine you want to buy a cup of coffee at a local cafe. You start with a plain **Black Coffee**. Then, you decide to customize it: you add **Milk** to make it creamier, and then you add **Syrup** for extra sweetness. 

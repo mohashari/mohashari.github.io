@@ -4,6 +4,8 @@ title: "Temporal Workflow Engine: Durable Execution for Complex Business Logic"
 date: 2026-03-18 07:00:00 +0700
 tags: [temporal, workflows, distributed-systems, reliability, backend]
 description: "Model long-running, fault-tolerant workflows with Temporal's durable execution model, activity retries, and saga compensation without custom state machines."
+image: "https://picsum.photos/seed/3238/1080/720"
+thumbnail: "https://picsum.photos/seed/3238/400/300"
 ---
 
 Building reliable, long-running business processes on distributed infrastructure is one of the hardest problems in backend engineering. You start with a simple order fulfillment flow—charge the customer, reserve inventory, notify the warehouse, send a confirmation email—and within weeks you have a rats' nest of Kafka consumers, Redis state flags, cron jobs that re-drive stuck orders, and dead-letter queues nobody fully understands. Every engineer on the team is afraid to touch it. Temporal solves this class of problem at the foundation: instead of you managing distributed state and failure recovery, the runtime does it for you through a model called durable execution. Your workflow code runs as if it were a simple sequential program, but Temporal's event sourcing engine makes it fault-tolerant, restartable, and observable by default.

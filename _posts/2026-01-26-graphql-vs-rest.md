@@ -3,6 +3,8 @@ layout: post
 title: "GraphQL vs REST: Choosing the Right API Paradigm"
 tags: [api, graphql, rest, backend]
 description: "An honest comparison of GraphQL and REST to help you pick the right tool for your use case."
+image: "https://picsum.photos/seed/2258/1080/720"
+thumbnail: "https://picsum.photos/seed/2258/400/300"
 ---
 
 GraphQL exploded in popularity after Facebook open-sourced it in 2015. But does that mean you should replace your REST APIs? Let's look at this honestly.

@@ -4,6 +4,8 @@ title: "CDN Strategy for Backend Engineers: Cache-Control, Purging, and Edge Log
 date: 2026-03-17 07:00:00 +0700
 tags: [cdn, caching, performance, backend, cloud]
 description: "Design an effective CDN strategy using precise Cache-Control headers, surrogate keys for instant purging, and edge compute for latency-sensitive backend logic."
+image: "https://picsum.photos/seed/622/1080/720"
+thumbnail: "https://picsum.photos/seed/622/400/300"
 ---
 
 Most backend engineers treat the CDN as someone else's problem — a layer ops teams configure once and forget. That works until a cache stampede takes down your origin at 2 AM, or a bad deploy serves stale HTML to users for forty minutes because nobody thought about purging. CDNs are not passive caches sitting in front of your app. They are a distributed execution layer you can program, and getting them wrong is expensive in both performance and correctness. This post covers the three levers that matter most: precise `Cache-Control` headers, surrogate-key-based purging, and edge compute for latency-sensitive logic.

@@ -4,6 +4,8 @@ title: "Dependency Injection in Go: Patterns, Wire, and Testing Without Mocks"
 date: 2026-03-16 07:00:00 +0700
 tags: [go, architecture, testing, backend, patterns]
 description: "Structure Go applications with explicit dependency injection—using manual wiring and Google Wire—to improve testability, modularity, and compile-time safety."
+image: "https://picsum.photos/seed/3995/1080/720"
+thumbnail: "https://picsum.photos/seed/3995/400/300"
 ---
 
 Most Go applications start simple: a main function, a database connection, a handler. Then the codebase grows. Handlers need services, services need repositories, repositories need database pools, and suddenly `main.go` is a 300-line initialization maze where everything is wired together with global variables and `init()` functions. Tests become nightmares because you can't swap a real database for a test double without reaching into package-level state. This is the problem dependency injection solves—not by adding magic or a heavyweight framework, but by making dependencies explicit, visible, and replaceable at every layer of your application.

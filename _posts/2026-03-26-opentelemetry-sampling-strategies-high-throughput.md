@@ -5,8 +5,8 @@ title: "OpenTelemetry Sampling Strategies for High-Throughput Services"
 date: 2026-03-26 08:00:00 +0700
 tags: [opentelemetry, observability, distributed-tracing, backend, performance]
 description: "A production-focused breakdown of OTel sampling strategies — head, tail, and adaptive — for services processing millions of requests per day."
-image: "https://images.unsplash.com/photo-1717501217912-933d2792d493?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMTE1NTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ1MDE2Mjd8&ixlib=rb-4.1.0&q=80&w=1080"
-thumbnail: "https://images.unsplash.com/photo-1717501217912-933d2792d493?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMTE1NTV8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzQ1MDE2Mjd8&ixlib=rb-4.1.0&q=80&w=400"
+image: "https://picsum.photos/seed/3760/1080/720"
+thumbnail: "https://picsum.photos/seed/3760/400/300"
 ---
 
 At 50,000 requests per second, exporting every trace to your backend will either bankrupt you or melt your Jaeger cluster. Most teams discover this the hard way: they instrument everything correctly, deploy to production, watch their observability bill spike by 10x, then gut their tracing entirely and go back to logs. That's the wrong lesson. The problem isn't tracing — it's sampling, and specifically the absence of a deliberate sampling strategy. OpenTelemetry gives you the machinery to sample intelligently, but the defaults will hurt you, and the documentation won't save you. This post covers what actually works at scale.

@@ -3,6 +3,8 @@ layout: post
 title: "Kubernetes for Backend Engineers: From Zero to Deployed"
 tags: [kubernetes, devops, backend]
 description: "A practical Kubernetes guide for backend engineers who want to deploy, scale, and manage their services like a pro."
+image: "https://picsum.photos/seed/5290/1080/720"
+thumbnail: "https://picsum.photos/seed/5290/400/300"
 ---
 
 Kubernetes (K8s) can feel overwhelming at first. Pods, Services, Deployments, Ingress — it's a lot. But once you understand the mental model, everything clicks. This guide cuts through the noise and gives you what you actually need as a backend engineer.

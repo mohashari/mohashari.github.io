@@ -4,8 +4,8 @@ title: "Distributed Lock Internals: Redlock vs. Etcd/Consul Raft-based Locks"
 date: 2026-04-10 09:00:00 +0700
 tags: [distributed-systems, redis, etcd, raft, concurrency]
 description: "An in-depth analysis of distributed lock guarantees, comparing the Redlock algorithm's clock-dependent heuristic against Raft-backed consensus leases in Etcd and Consul."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/4246/1080/720"
+thumbnail: "https://picsum.photos/seed/4246/400/300"
 ---
 
 In distributed systems, managing concurrent access to shared resources is notoriously difficult. If two nodes attempt to modify the same database record or file simultaneously, it can lead to state corruption. Distributed locks solve this by ensuring mutual exclusion across multiple independent processes.

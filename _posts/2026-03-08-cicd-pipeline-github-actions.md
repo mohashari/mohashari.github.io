@@ -3,6 +3,8 @@ layout: post
 title: "Building Production-Grade CI/CD Pipelines with GitHub Actions"
 tags: [cicd, devops, github-actions, backend]
 description: "Build a robust CI/CD pipeline with GitHub Actions — automated testing, Docker builds, and zero-downtime deployments."
+image: "https://picsum.photos/seed/9583/1080/720"
+thumbnail: "https://picsum.photos/seed/9583/400/300"
 ---
 
 A great CI/CD pipeline is your team's safety net and productivity multiplier. This guide shows how to build one with GitHub Actions that actually works in production.

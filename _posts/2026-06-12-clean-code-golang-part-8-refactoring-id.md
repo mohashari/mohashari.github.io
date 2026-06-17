@@ -4,6 +4,8 @@ title: "Clean Code dengan Go — Part 8: Refactoring — Perbaiki Tanpa Merusak"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Refactoring tanpa test adalah judi. Pelajari teknik refactoring yang aman dan terapkan Boy Scout Rule di setiap commit Anda."
+image: "https://picsum.photos/seed/2195/1080/720"
+thumbnail: "https://picsum.photos/seed/2195/400/300"
 ---
 
 Jumat sore, jam 4 lebih. Deadline sprint sudah lewat dua hari yang lalu. Arif, seorang backend engineer senior di sebuah startup fintech, membuka file `order.go` yang sudah bertahun-tahun tidak disentuh. Fungsinya? Satu fungsi, 300 baris, nama variabel `x`, `tmp`, `d2`. Dia menggeleng — "ini harus dirapikan." Dan karena percaya diri, dia langsung refactor tanpa membuat satu pun unit test.

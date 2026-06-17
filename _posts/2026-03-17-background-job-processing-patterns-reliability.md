@@ -4,6 +4,8 @@ title: "Background Job Processing: Patterns, Queues, and Reliability in Producti
 date: 2026-03-17 07:00:00 +0700
 tags: [background-jobs, queues, reliability, backend, workers]
 description: "Design robust background job systems with at-least-once delivery, idempotent workers, dead-letter queues, and observable retry strategies."
+image: "https://picsum.photos/seed/1930/1080/720"
+thumbnail: "https://picsum.photos/seed/1930/400/300"
 ---
 
 Every distributed system eventually accumulates work that shouldn't block the request-response cycle. Sending an email, resizing an uploaded image, syncing data to a third-party API, generating a report — these are tasks that users trigger but don't need to wait on. The naive solution is a goroutine or a thread pool, which works until it doesn't: process restarts lose in-flight jobs, spikes overwhelm workers, failures vanish silently, and nobody knows the queue depth until customers complain. Building background job processing that survives production requires thinking carefully about delivery guarantees, worker design, failure handling, and observability — none of which are free.

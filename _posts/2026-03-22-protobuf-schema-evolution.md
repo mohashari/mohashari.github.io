@@ -4,6 +4,8 @@ title: "Protobuf Schema Evolution: Backward and Forward Compatibility"
 date: 2026-03-22 08:00:00 +0700
 tags: [protobuf, grpc, schema-evolution, backend, distributed-systems]
 description: "A decision matrix for categorizing Protobuf schema changes as safe, conditionally safe, or breaking — so you can evolve contracts without coordinated deployments."
+image: "https://picsum.photos/seed/7938/1080/720"
+thumbnail: "https://picsum.photos/seed/7938/400/300"
 ---
 
 You're running a gRPC service with 12 downstream consumers. A product requirement lands: add a new field to the response. You add it, deploy, and everything looks fine — until one service that hasn't upgraded yet starts returning zeros instead of the expected default, silently corrupting a billing calculation. No error. No log line. Just wrong data flowing through your system for six hours before someone notices. This is the Protobuf compatibility trap: the wire format is designed for evolution, but it will not protect you from your own misunderstanding of its rules. Knowing exactly which changes are safe, which are conditional, and which will destroy data in flight is the difference between rolling deployments and emergency rollbacks.

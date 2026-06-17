@@ -4,6 +4,8 @@ title: "Vector Databases: Powering Semantic Search in Backend Systems"
 date: 2026-03-16 07:00:00 +0700
 tags: [databases, ai, search, performance, backend]
 description: "Understand how vector databases like pgvector, Qdrant, and Weaviate store and query high-dimensional embeddings for semantic search and RAG applications."
+image: "https://picsum.photos/seed/5408/1080/720"
+thumbnail: "https://picsum.photos/seed/5408/400/300"
 ---
 
 Traditional keyword search breaks down the moment users start searching the way they think. A user querying "affordable places to stay near the beach" won't match a document titled "budget coastal accommodations" — the words don't overlap, but the meaning is identical. This semantic gap is where vector databases shine. Instead of indexing tokens, they index *meaning* as high-dimensional numeric vectors called embeddings, enabling queries that find conceptually similar content regardless of exact wording. For backend engineers building recommendation engines, document retrieval systems, or retrieval-augmented generation (RAG) pipelines, understanding how to store, index, and query embeddings efficiently is now a core skill.

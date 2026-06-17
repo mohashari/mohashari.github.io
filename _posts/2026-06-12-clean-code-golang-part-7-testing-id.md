@@ -4,6 +4,8 @@ title: "Clean Code dengan Go — Part 7: Testing sebagai Dokumentasi"
 date: 2026-06-12
 tags: [clean-code, golang, software-engineering, best-practices]
 description: "Test yang baik adalah dokumentasi yang tidak pernah berbohong. Pelajari table-driven tests dan cara menulis test yang bermakna di Go."
+image: "https://picsum.photos/seed/9150/1080/720"
+thumbnail: "https://picsum.photos/seed/9150/400/300"
 ---
 
 Bayangkan kamu bergabung ke sebuah tim dan diminta melakukan *refactor* sederhana — mengubah cara validasi email di `UserService`. "Gampang," pikirmu. Dua jam kemudian, kamu *push* ke production. Lima menit kemudian, Slack meledak. Fitur registrasi rusak. Fitur login rusak. Notifikasi email tidak terkirim. Bahkan halaman profil ikut error.

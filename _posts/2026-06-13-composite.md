@@ -4,6 +4,8 @@ title: "Go Design Patterns — Part 8: Composite"
 date: 2026-06-13
 tags: [design-patterns, structural, golang, best-practices]
 description: "Compose objects into tree structures to represent part-whole hierarchies. Learn the Composite pattern in Go."
+image: "https://picsum.photos/seed/6898/1080/720"
+thumbnail: "https://picsum.photos/seed/6898/400/300"
 ---
 
 Imagine you are looking at your computer's file explorer. You have a folder named `Documents`. Inside this folder, you have a few individual files like `resume.pdf` and `photo.png`. You also have another folder named `Projects`, which contains a code file named `main.go`. 

@@ -4,8 +4,8 @@ title: "A Pragmatic Guide to Database Cache Warming: Strategies, Pitfalls, and B
 date: 2026-05-29 08:00:00 +0700
 tags: [caching, performance, database, production, system-design]
 description: "How to prevent database thrashing and latency spikes after restarts or deployments using intelligent cache-warming techniques."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/8034/1080/720"
+thumbnail: "https://picsum.photos/seed/8034/400/300"
 ---
 
 In modern backend architectures, high performance is achieved through layering. We place in-memory caches (like Redis, Memcached, or local heap caches) in front of relational databases (like PostgreSQL or MySQL) to shield them from high-frequency read traffic. Under normal operations, cache hit rates are high (90%+), and database CPU utilization remains comfortably low.

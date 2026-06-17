@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 20: Strategy"
 date: 2026-06-15
 tags: [design-patterns, behavioral, golang, best-practices]
 description: "Panduan mendalam implementasi design pattern Strategy di Go (Golang), menampilkan analogi pembayaran checkout, diagram struktur, dan kode lengkap."
+image: "https://picsum.photos/seed/5454/1080/720"
+thumbnail: "https://picsum.photos/seed/5454/400/300"
 ---
 
 Strategy adalah behavioral design pattern yang memungkinkan Anda mendefinisikan keluarga algoritma, menempatkan masing-masing algoritma ke dalam struct terpisah, dan membuat objek mereka saling bertukar (interchangeable). Di Go, kita mengimplementasikan pola ini menggunakan interface untuk mewakili strategi umum, struct konkret untuk mendefinisikan masing-masing algoritma, dan struct context yang menyimpan referensi ke interface strategi dan mendelegasikan pekerjaan kepadanya.

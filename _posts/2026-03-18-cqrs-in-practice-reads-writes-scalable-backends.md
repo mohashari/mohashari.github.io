@@ -4,6 +4,8 @@ title: "CQRS in Practice: Separating Reads and Writes for Scalable Backends"
 date: 2026-03-18 07:00:00 +0700
 tags: [cqrs, architecture, patterns, scalability, backend]
 description: "Apply Command Query Responsibility Segregation to decouple read and write models, enabling independent scaling and optimized query performance."
+image: "https://picsum.photos/seed/7464/1080/720"
+thumbnail: "https://picsum.photos/seed/7464/400/300"
 ---
 
 Most backend systems start with a single database model that handles everything: writes from API mutations, reads from dashboards, reports, and search endpoints. This works fine at low scale, but as traffic grows, the model breaks down. Writes need strong consistency and transactional guarantees. Reads need speed, denormalization, and complex joins. Trying to serve both from one model creates index bloat, lock contention, and query plans that optimize for neither. Command Query Responsibility Segregation (CQRS) solves this by splitting your application into two explicit paths: one that mutates state, one that queries it. Each side can be modeled, optimized, and scaled independently.

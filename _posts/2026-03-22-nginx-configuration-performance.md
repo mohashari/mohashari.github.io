@@ -4,6 +4,8 @@ title: "NGINX Configuration for High-Performance Backend Services"
 date: 2026-03-22 08:00:00 +0700
 tags: [nginx, backend, performance, infrastructure, devops]
 description: "Stop leaving performance on the table — tune NGINX worker processes, keepalives, buffers, and rate limiting for real production traffic."
+image: "https://picsum.photos/seed/1478/1080/720"
+thumbnail: "https://picsum.photos/seed/1478/400/300"
 ---
 
 You deployed NGINX, pointed it at your upstream, and called it done. Traffic is fine at 500 req/s. Then a flash sale hits, upstream latency creeps to 200ms, and suddenly NGINX is refusing connections with `connect() failed (111: Connection refused)` — except your upstream is still alive. What happened? NGINX ran out of keepalive connections in the pool, started spawning new TCP connections for every request, the upstream's connection table filled up, and everything fell over. This isn't a rare edge case. It's what happens when you deploy NGINX with defaults and assume it'll scale.

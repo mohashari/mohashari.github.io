@@ -4,6 +4,8 @@ title: "Design Patterns dengan Go — Part 16: Mediator"
 date: 2026-06-15
 tags: [design-patterns, behavioral, golang, best-practices]
 description: "Panduan mendalam implementasi design pattern Mediator di Go (Golang), menampilkan analogi kontrol lalu lintas udara dunia nyata, diagram struktur, dan kode lengkap."
+image: "https://picsum.photos/seed/3436/1080/720"
+thumbnail: "https://picsum.photos/seed/3436/400/300"
 ---
 
 Mediator adalah behavioral design pattern yang mengurangi ketergantungan yang kacau antar-objek. Pola ini membatasi komunikasi langsung antar-objek dan memaksa mereka untuk berkolaborasi hanya melalui objek mediator. Di Go, kita mengimplementasikan pola ini dengan mendefinisikan interface Mediator, struct mediator konkret, serta komponen (seperti pesawat) yang berkomunikasi satu sama lain melalui mediator alih-alih secara langsung.

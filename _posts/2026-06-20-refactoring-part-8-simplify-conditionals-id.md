@@ -4,6 +4,8 @@ title: "Refactoring Techniques — Part 8: Menyederhanakan Ekspresi Kondisional"
 date: 2026-06-20
 tags: [refactoring, golang, refactoring-techniques, software-engineering, clean-code, refactoring-series]
 description: "Kondisional yang berlapis dan membingungkan adalah salah satu code smell paling umum. Pelajari enam teknik refactoring — dari Decompose Conditional hingga Introduce Null Object — untuk menulis logika yang bersih dan mudah dibaca, khususnya di Go."
+image: "https://picsum.photos/seed/1081/1080/720"
+thumbnail: "https://picsum.photos/seed/1081/400/300"
 ---
 
 Bayangkan kamu baru bergabung dengan tim dan ditugaskan untuk memperbaiki bug di modul `checkout`. Kamu membuka file-nya, dan disambut oleh ini:

@@ -4,6 +4,8 @@ title: "WebAssembly on the Server: Running WASM Modules in Backend Systems"
 date: 2026-03-16 07:00:00 +0700
 tags: [wasm, performance, go, security, backend]
 description: "Discover how server-side WebAssembly enables portable, sandboxed plugin systems and polyglot compute in modern backend architectures."
+image: "https://picsum.photos/seed/1332/1080/720"
+thumbnail: "https://picsum.photos/seed/1332/400/300"
 ---
 
 The backend engineer's dream has always been the same: run arbitrary, untrusted code safely, without spinning up a VM for every request or wrestling with language runtimes that fight your host process. Docker helped enormously, but container cold-start times and per-process overhead still make fine-grained plugin systems feel expensive. WebAssembly on the server — WASM outside the browser — is a compelling answer to this problem. With runtimes like Wasmtime, WasmEdge, and the WASI (WebAssembly System Interface) standard, you can execute sandboxed modules written in any compiled language (Rust, Go, C, Zig, even Python via compilation) in the same process as your backend, with near-native speed and cryptographic capability isolation. This post is a practical walkthrough of how that actually works in production backend systems.

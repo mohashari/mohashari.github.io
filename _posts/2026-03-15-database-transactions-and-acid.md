@@ -4,6 +4,8 @@ title: "Database Transactions & ACID: What Every Engineer Must Know"
 date: 2026-03-16 07:00:00 +0700
 tags: [database, sql, transactions, backend, reliability]
 description: "Deep dive into ACID properties, isolation levels, deadlocks, and how to write safe transactional code in production systems."
+image: "https://picsum.photos/seed/5723/1080/720"
+thumbnail: "https://picsum.photos/seed/5723/400/300"
 ---
 
 Database transactions are the backbone of data integrity. Yet many engineers use them without truly understanding what guarantees they provide — or don't provide.

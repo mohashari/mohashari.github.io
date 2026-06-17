@@ -4,6 +4,8 @@ title: "Zero Trust Networking: Never Trust, Always Verify in Microservices"
 date: 2026-03-16 07:00:00 +0700
 tags: [security, networking, microservices, devops, backend]
 description: "Apply zero trust principles—workload identity, least-privilege policies, and continuous verification—to secure east-west traffic between your services."
+image: "https://picsum.photos/seed/2846/1080/720"
+thumbnail: "https://picsum.photos/seed/2846/400/300"
 ---
 
 In a traditional perimeter-based security model, everything inside your network is implicitly trusted. Once a service reaches the internal network—whether legitimately or through a compromised container—it can freely talk to any other service. This worked when you had a handful of monolithic apps behind a firewall. In modern microservices architectures, where you might have hundreds of services deployed across multiple clusters, clouds, and availability zones, that assumption is catastrophically dangerous. A single compromised pod becomes a pivot point for lateral movement across your entire system. Zero trust networking inverts this model: every connection must be authenticated, every request must be authorized, and trust is never assumed—only continuously verified.

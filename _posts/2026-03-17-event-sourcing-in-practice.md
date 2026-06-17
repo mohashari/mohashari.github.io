@@ -4,6 +4,8 @@ title: "Event Sourcing in Practice: Modeling State as an Immutable Log"
 date: 2026-03-17 07:00:00 +0700
 tags: [event-sourcing, distributed-systems, architecture, databases, cqrs]
 description: "Implement event sourcing to capture every state change as an immutable event, enabling full audit trails, time-travel debugging, and reliable projections."
+image: "https://picsum.photos/seed/2510/1080/720"
+thumbnail: "https://picsum.photos/seed/2510/400/300"
 ---
 
 Every time a user updates their shipping address in your e-commerce platform, you overwrite the old one. When a payment fails and then succeeds after a retry, you update a status column. When an order is cancelled, you set a flag. Three months later, your support team asks: "Why did this order ship to the wrong address?" You have no answer. The database reflects the current state of the world, but the history — the *why* and *how* you got there — is gone forever. This is the fundamental limitation of state-oriented persistence, and it's the problem that event sourcing was designed to solve.

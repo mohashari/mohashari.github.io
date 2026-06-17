@@ -4,6 +4,8 @@ title: "Database Sharding Strategies: Horizontal Scaling Done Right"
 date: 2026-03-15 07:00:00 +0700
 tags: [database, sharding, scalability, postgresql, backend]
 description: "Choose and implement the right sharding strategy — range, hash, or directory-based — to scale your database beyond a single node."
+image: "https://picsum.photos/seed/4658/1080/720"
+thumbnail: "https://picsum.photos/seed/4658/400/300"
 ---
 
 `★ Insight ─────────────────────────────────────`

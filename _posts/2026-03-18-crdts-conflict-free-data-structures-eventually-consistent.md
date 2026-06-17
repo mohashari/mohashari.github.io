@@ -4,6 +4,8 @@ title: "CRDTs: Conflict-Free Data Structures for Eventually Consistent Systems"
 date: 2026-03-18 07:00:00 +0700
 tags: [distributed-systems, crdts, consistency, databases, backend]
 description: "Explore G-Counters, LWW-Registers, and OR-Sets to build collaborative features and multi-region state that merges automatically without coordination."
+image: "https://picsum.photos/seed/7604/1080/720"
+thumbnail: "https://picsum.photos/seed/7604/400/300"
 ---
 
 Building collaborative features across distributed systems is one of those problems that looks deceptively simple until you hit it in production. Two users edit the same document simultaneously, two data centers accept writes during a network partition, a mobile client queues offline mutations — and suddenly you're staring at conflicting state with no obvious winner. The naive answer is locking, but locks require coordination, and coordination is the enemy of availability. A more elegant answer is to design your data structures so conflicts simply cannot occur: enter Conflict-Free Replicated Data Types (CRDTs), mathematical structures whose merge operations are commutative, associative, and idempotent, meaning any two replicas can merge in any order and always converge to the same result.

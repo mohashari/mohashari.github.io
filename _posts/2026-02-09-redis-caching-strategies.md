@@ -3,6 +3,8 @@ layout: post
 title: "Redis Caching Strategies for High-Performance Applications"
 tags: [redis, caching, backend, performance]
 description: "Master Redis caching patterns — from simple key-value caching to advanced strategies like cache-aside, write-through, and cache stampede prevention."
+image: "https://picsum.photos/seed/7738/1080/720"
+thumbnail: "https://picsum.photos/seed/7738/400/300"
 ---
 
 Redis is the Swiss Army knife of backend engineering. At its core it's a blazing-fast in-memory data store, but the real power is in how you design your caching strategy. Let's explore the patterns that matter.

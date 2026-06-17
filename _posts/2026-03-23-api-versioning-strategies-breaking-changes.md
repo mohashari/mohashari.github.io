@@ -4,6 +4,8 @@ title: "API Versioning Strategies: Breaking Changes Without Breaking Clients"
 date: 2026-03-23 08:00:00 +0700
 tags: [api-design, backend, versioning, distributed-systems, platform-engineering]
 description: "A production playbook for URL versioning, header negotiation, and consumer-driven contracts that lets you retire old API versions without incident."
+image: "https://picsum.photos/seed/8357/1080/720"
+thumbnail: "https://picsum.photos/seed/8357/400/300"
 ---
 
 The moment you deprecate `/api/v1/users` is not the moment you shut it down. The gap between those two events—measured in months, sometimes years—is where most platform teams fail. They announce a sunset, publish a migration guide, and then watch helplessly as 40% of their consumers still call the old endpoint on the day they flip the switch, because no one on those teams saw the announcement, the headers weren't being logged, and the internal SDK everyone uses still hardcodes `v1`. A versioning strategy that lacks a compulsory deprecation lifecycle isn't a strategy; it's a wish.

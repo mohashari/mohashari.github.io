@@ -4,8 +4,8 @@ title: "ClickHouse MergeTree Internals: Sparse Indexes, Part Merges, and Query E
 date: 2026-03-28 08:00:00 +0700
 tags: [clickhouse, databases, olap, internals, performance]
 description: "A deep dive into how ClickHouse MergeTree stores data, builds sparse indexes, merges parts, and executes analytical queries at billion-row scale."
-image: ""
-thumbnail: ""
+image: "https://picsum.photos/seed/9231/1080/720"
+thumbnail: "https://picsum.photos/seed/9231/400/300"
 ---
 
 You have a query scanning 500 million rows. In Postgres it's a timeout. In BigQuery it's a $4 bill waiting to happen. In ClickHouse — on a single 32-core node with NVMe — it finishes in 800ms and reads 2.1 GB off disk instead of 180 GB. That gap isn't magic; it's the result of a storage engine purpose-built for analytical workloads. Understanding how MergeTree actually works — not just "it's columnar and fast" — is the difference between using ClickHouse well and fighting it for months while your query plans stay broken.
