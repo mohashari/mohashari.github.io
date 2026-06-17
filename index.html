@@ -188,7 +188,7 @@ layout: default
 
         const thumbnailMarkup = hasThumbnail
           ? `<div class="explorer-card-thumbnail-wrapper">
-               <img src="${post.thumbnail}" alt="${post.title}" class="explorer-card-thumbnail" loading="lazy" />
+               <img src="${post.thumbnail}" alt="${post.title}" class="explorer-card-thumbnail" loading="lazy" onerror="this.onerror=null; this.src='{{ site.baseurl }}/images/placeholder.svg';" />
              </div>`
           : '';
 

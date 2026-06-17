@@ -4,8 +4,8 @@ title: "RocksDB Internals: Compaction Strategies, Block Cache Tuning, and Write 
 date: 2026-03-30 08:00:00 +0700
 tags: [rocksdb, storage-engines, performance, databases, systems]
 description: "A production-focused deep dive into RocksDB compaction strategies, block cache configuration, and write path tuning for high-throughput workloads."
-image: "https://picsum.photos/1080/720?random=5313"
-thumbnail: "https://picsum.photos/400/300?random=5313"
+image: "https://picsum.photos/seed/5313/1080/720"
+thumbnail: "https://picsum.photos/seed/5313/400/300"
 ---
 
 You're three weeks into production with your new metadata store. Write throughput looks fine in staging. Then your on-call fires at 2 AM: p99 read latency is 800ms, disk I/O is pegged at 100%, and your RocksDB-backed service is thrashing. The culprit is almost always the same: compaction is either too aggressive, consuming disk bandwidth you need for writes, or too lazy, letting SST file counts balloon until read amplification kills you. Understanding RocksDB's internals isn't academic—it's what separates a storage layer that holds up at 200K writes/sec from one that melts under sustained load.

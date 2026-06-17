@@ -4,8 +4,8 @@ title: "Go Memory Model and Happens-Before Guarantees for Concurrent Data Struct
 date: 2026-03-26 08:00:00 +0700
 tags: [go, concurrency, distributed-systems, backend, performance]
 description: "How the Go memory model's happens-before guarantees determine what your concurrent code actually does in production."
-image: "https://picsum.photos/1080/720?random=2013"
-thumbnail: "https://picsum.photos/400/300?random=2013"
+image: "https://picsum.photos/seed/2013/1080/720"
+thumbnail: "https://picsum.photos/seed/2013/400/300"
 ---
 
 You've seen it: a cache that returns stale data under load, a counter that loses increments in bursts, a map that panics with `concurrent map read and map write` on a Tuesday at 3am. The Go race detector finds some of it, but not all. Production systems fail in ways your unit tests never surface because your mental model of concurrency doesn't match what the CPU and compiler actually do. The Go memory model tells you exactly what guarantees you have — and if you haven't read it recently, the 2022 revision changed things you probably assumed were safe.

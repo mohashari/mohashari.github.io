@@ -4,8 +4,8 @@ title: "OPA Rego Policy Enforcement in Kubernetes Admission Controllers"
 date: 2026-03-26 08:00:00 +0700
 tags: [kubernetes, devsecops, opa, policy-as-code, admission-controllers]
 description: "How to enforce OPA Rego policies in Kubernetes admission controllers to catch misconfigurations before they reach production."
-image: "https://picsum.photos/1080/720?random=7652"
-thumbnail: "https://picsum.photos/400/300?random=7652"
+image: "https://picsum.photos/seed/7652/1080/720"
+thumbnail: "https://picsum.photos/seed/7652/400/300"
 ---
 
 Three weeks before a PCI audit, a developer pushed a Deployment with `privileged: true` to production because nothing stopped them. The container ran as root, mounted the host filesystem, and sat next to payment processing workloads for 72 hours before a security engineer caught it during a manual review. The fix was one line of YAML. The exposure window was three days. The audit finding cost two weeks of remediation work. This is the problem OPA Rego solves — not after the fact, but at admission time, before the object ever lands in etcd.

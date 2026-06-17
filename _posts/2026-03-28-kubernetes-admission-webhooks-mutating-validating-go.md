@@ -4,8 +4,8 @@ title: "Kubernetes Admission Webhooks: Building Mutating and Validating Controll
 date: 2026-03-28 08:00:00 +0700
 tags: [kubernetes, go, devsecops, platform-engineering, admission-webhooks]
 description: "Build production-grade mutating and validating admission webhooks in Go to enforce security policies and inject sidecars at scale."
-image: "https://picsum.photos/1080/720?random=4906"
-thumbnail: "https://picsum.photos/400/300?random=4906"
+image: "https://picsum.photos/seed/4906/1080/720"
+thumbnail: "https://picsum.photos/seed/4906/400/300"
 ---
 
 Three weeks before a SOC 2 audit, you discover that 40% of your production pods are running as root. No resource limits. No readiness probes. Some with `hostNetwork: true` that nobody remembers adding. The team has grown to 15 engineers deploying across 6 namespaces, and no amount of documentation or Slack reminders has kept the manifests clean. The real fix isn't a process — it's making the API server reject bad configs before they land.

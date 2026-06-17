@@ -4,8 +4,8 @@ title: "Secrets Rotation Zero-Downtime: Vault Dynamic Credentials with Lease Ren
 date: 2026-03-28 08:00:00 +0700
 tags: [vault, devsecops, secrets-management, golang, kubernetes]
 description: "How to use HashiCorp Vault dynamic credentials with lease renewal to rotate database secrets without dropping a single connection."
-image: "https://picsum.photos/1080/720?random=5941"
-thumbnail: "https://picsum.photos/400/300?random=5941"
+image: "https://picsum.photos/seed/5941/1080/720"
+thumbnail: "https://picsum.photos/seed/5941/400/300"
 ---
 
 The 3am page is always the same: "Database authentication errors, 503s spiking, on-call is investigating." Root cause, two hours later: a static database password was rotated by the security team, the secret in Kubernetes wasn't updated fast enough, and every pod restarted simultaneously when the new secret finally propagated. That's not a security improvement — it's a self-inflicted outage. The team traded a theoretical breach risk for a guaranteed availability incident.

@@ -4,8 +4,8 @@ title: "PgBouncer Internals: Transaction vs Session Pooling, Prepared Statements
 date: 2026-03-31 08:00:00 +0700
 tags: [postgresql, pgbouncer, database, backend, performance]
 description: "A deep dive into PgBouncer's pooling modes, prepared statement pitfalls, and how connection multiplexing actually works under load."
-image: "https://picsum.photos/1080/720?random=8018"
-thumbnail: "https://picsum.photos/400/300?random=8018"
+image: "https://picsum.photos/seed/8018/1080/720"
+thumbnail: "https://picsum.photos/seed/8018/400/300"
 ---
 
 Your PostgreSQL server is sitting at 800 idle connections, each consuming ~5–10 MB of memory, while your application servers are timing out waiting for a slot. You scale the instance, the connections spike again, and you're back where you started. This is the `max_connections` death spiral, and it's one of the most predictable capacity failure modes in production Postgres deployments. PgBouncer exists to break that spiral — but reaching for it without understanding its internals is how you trade a connection problem for a correctness problem.

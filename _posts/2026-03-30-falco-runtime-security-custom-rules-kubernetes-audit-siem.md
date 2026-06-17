@@ -4,8 +4,8 @@ title: "Falco Runtime Security: Custom Rules, Kubernetes Audit Logs, and SIEM In
 date: 2026-03-30 08:00:00 +0700
 tags: [devsecops, kubernetes, security, falco, siem]
 description: "How to deploy Falco with custom detection rules, wire Kubernetes audit logs, and ship alerts into your SIEM without drowning in noise."
-image: "https://picsum.photos/1080/720?random=5978"
-thumbnail: "https://picsum.photos/400/300?random=5978"
+image: "https://picsum.photos/seed/5978/1080/720"
+thumbnail: "https://picsum.photos/seed/5978/400/300"
 ---
 
 At 2:47 AM your on-call phone fires. A cryptominer has been running inside your Kubernetes cluster for six hours — not because your perimeter failed, but because a dev accidentally pushed an image with a compromised dependency that spawned a child process the moment the pod reached Running state. Your WAF saw nothing. Your network policies were fine. Your image scanner passed the image because the malicious binary was downloaded at runtime. The only layer that could have caught this is runtime behavioral detection, and if you don't have it, you're flying blind.

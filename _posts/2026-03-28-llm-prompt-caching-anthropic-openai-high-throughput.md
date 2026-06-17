@@ -4,8 +4,8 @@ title: "LLM Prompt Caching: Anthropic and OpenAI Cache Semantics for High-Throug
 date: 2026-03-28 08:00:00 +0700
 tags: [ai-engineering, llm, performance, inference, cost-optimization]
 description: "A production-focused breakdown of prompt caching on Anthropic and OpenAI APIs — semantics, gotchas, and patterns for high-throughput systems."
-image: "https://picsum.photos/1080/720?random=6745"
-thumbnail: "https://picsum.photos/400/300?random=6745"
+image: "https://picsum.photos/seed/6745/1080/720"
+thumbnail: "https://picsum.photos/seed/6745/400/300"
 ---
 
 At $15 per million input tokens, a RAG pipeline that prepends 50k tokens of context to every user query burns through budget in hours. That's the problem prompt caching solves — not elegantly, not transparently, but with enough nuance that getting it wrong leaves you paying full price while thinking you're hitting cache. I've seen systems where 80% of API spend was on tokens that should have been cached but weren't, purely because of prefix ordering mistakes and TTL misunderstandings. This post covers how caching actually works across Anthropic and OpenAI, where the semantics diverge, and the production patterns that make the difference.

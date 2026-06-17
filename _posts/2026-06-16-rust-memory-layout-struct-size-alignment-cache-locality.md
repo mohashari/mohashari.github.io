@@ -4,8 +4,8 @@ title: "Rust Memory Layout: Optimizing Struct Size and Alignment for Cache Local
 date: 2026-06-16 08:00:00 +0700
 tags: [rust, systems-programming, performance, memory-layout]
 description: "Learn how to optimize Rust struct layout, alignment, and padding to maximize L1/L2 cache locality, prevent split loads, and eliminate false sharing in production."
-image: "https://picsum.photos/1080/720?random=1870"
-thumbnail: "https://picsum.photos/400/300?random=1870"
+image: "https://picsum.photos/seed/1870/1080/720"
+thumbnail: "https://picsum.photos/seed/1870/400/300"
 ---
 
 During a high-throughput production incident at a payment gateway, our transaction processing service hit a wall at 85,000 transactions per second (TPS). CPU utilization was pegged at 100%, but profiling with `perf` revealed that the CPU cores were spending 42% of their cycles stalled on memory fetches (`L1-dcache-load-misses`). The root cause was not database latency or network serialization, but a poorly aligned internal state struct that straddled L1/L2 cache line boundaries. By reordering the struct fields and enforcing strict cache alignment, we reduced the struct size by 33%, eliminated cache line split loads, and saw throughput immediately scale to 125,000 TPS with a 30% reduction in CPU consumption.

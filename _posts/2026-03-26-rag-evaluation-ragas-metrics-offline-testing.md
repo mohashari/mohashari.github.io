@@ -4,8 +4,8 @@ title: "RAG Pipeline Evaluation: RAGAS Metrics, Faithfulness, and Offline Test H
 date: 2026-03-26 08:00:00 +0700
 tags: [ai-engineering, rag, llm, evaluation, python]
 description: "How to measure whether your RAG pipeline actually works using RAGAS metrics, faithfulness scoring, and reproducible offline test harnesses."
-image: "https://picsum.photos/1080/720?random=3076"
-thumbnail: "https://picsum.photos/400/300?random=3076"
+image: "https://picsum.photos/seed/3076/1080/720"
+thumbnail: "https://picsum.photos/seed/3076/400/300"
 ---
 
 You shipped a RAG pipeline. Retrieval looks reasonable in manual spot-checks, the LLM responses seem coherent, and stakeholders are happy with the demo. Then production happens: users ask questions your retrieval misses, the model starts hallucinating facts that are technically adjacent to retrieved context, and you have no way to tell whether a new embedding model or chunking strategy actually improved things — because you never established a baseline. This is the RAG evaluation trap, and most teams fall into it. The fix isn't more vibe-checking; it's a repeatable offline test harness with metrics that actually correlate with downstream quality.

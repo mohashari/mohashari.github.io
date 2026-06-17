@@ -61,7 +61,17 @@
     "multi-region-active-active-database-deployments",
     "git-internals-objects-packfiles",
     "websockets-connection-pooling-horizontal-scaling",
-    "database-cache-warming-strategies"
+    "database-cache-warming-strategies",
+    "scaling-distributed-transactions-debezium-cdc-kafka-outbox",
+    "optimizing-go-http-middleware-memory-allocations-sync-pool",
+    "securing-microservices-spiffe-spire-mtls-kubernetes",
+    "semantic-caching-llm-gateways-redis-vector-similarity-search",
+    "building-real-time-agentic-workflows-langgraph-websockets",
+    "consistent-hashing-bounded-loads-distributed-caching",
+    "tuning-go-garbage-collector-gogc-gomemlimit-microservices",
+    "hardening-kubernetes-container-runtimes-gvisor-sandbox-isolation",
+    "optimizing-pgvector-hnsw-index-tuning-vector-search",
+    "rust-memory-layout-struct-size-alignment-cache-locality"
   ],
-  "last_updated": "2026-05-21"
+  "last_updated": "2026-06-16"
 }

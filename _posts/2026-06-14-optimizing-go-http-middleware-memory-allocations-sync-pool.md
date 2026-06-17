@@ -4,8 +4,8 @@ title: "Optimizing Go HTTP Middleware Memory Allocations with sync.Pool"
 date: 2026-06-14 08:00:00 +0700
 tags: [go, performance, memory, middleware, backend]
 description: "Reduce garbage collection overhead and latency spikes in high-throughput Go APIs by optimizing HTTP middleware memory allocations using sync.Pool."
-image: "https://picsum.photos/1080/720?random=8831"
-thumbnail: "https://picsum.photos/400/300?random=8831"
+image: "https://picsum.photos/seed/8831/1080/720"
+thumbnail: "https://picsum.photos/seed/8831/400/300"
 ---
 
 At a modest 1,000 requests per second, a Go HTTP service allocating 2 KB of memory per request generates roughly 2 MB of garbage per second. This is negligible. But scale that same service to 50,000 requests per second, and the allocator is suddenly churned at 100 MB per second. In containerized environments with strict CPU limits (e.g., Kubernetes CFS quotas), the Go runtime's garbage collector (GC) will frequently step in to execute concurrent sweep and mark phases. This background GC work steals cycles directly from your application's execution threads. The symptom is classic: your CPU utilization spikes, your p99 latency climbs from 5ms to 120ms, and your service experiences latency jitter. Often, this allocation footprint does not originate from your business logic, but from HTTP middleware running on every single incoming request. 

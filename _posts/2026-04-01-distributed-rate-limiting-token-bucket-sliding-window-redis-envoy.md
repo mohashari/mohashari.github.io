@@ -4,8 +4,8 @@ title: "Distributed Rate Limiting at Scale: Token Bucket vs Sliding Window in Re
 date: 2026-04-01 08:00:00 +0700
 tags: [redis, distributed-systems, rate-limiting, envoy, backend]
 description: "A production engineer's guide to token bucket vs sliding window rate limiting in Redis and Envoy, with real failure modes and concrete implementation tradeoffs."
-image: "https://picsum.photos/1080/720?random=1396"
-thumbnail: "https://picsum.photos/400/300?random=1396"
+image: "https://picsum.photos/seed/1396/1080/720"
+thumbnail: "https://picsum.photos/seed/1396/400/300"
 ---
 
 Your payment service just got hammered by a retry storm from a misbehaving mobile client: 40,000 requests per second against an endpoint designed for 200. Your database connection pool exhausted in 11 seconds, cascading into a full outage that took 45 minutes to recover. The worst part? You had rate limiting configured — a simple in-memory counter per pod, which meant each of your 20 API server instances allowed 200 req/s independently, effectively permitting 4,000 req/s through. Distributed rate limiting isn't just about counting requests; it's about enforcing coherent, cluster-wide policies across stateless processes that share no memory.

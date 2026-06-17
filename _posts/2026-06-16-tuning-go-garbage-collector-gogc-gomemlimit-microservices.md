@@ -4,8 +4,8 @@ title: "Tuning Go Garbage Collector: Optimizing GOGC and GOMEMLIMIT for Microser
 date: 2026-06-16 08:00:00 +0700
 tags: [go, garbage-collection, performance, microservices]
 description: "Master Go's runtime memory settings to eliminate Kubernetes OOM kills (Exit Code 137), slash p99 tail latencies, and reclaim valuable CPU cycles under heavy load."
-image: "https://picsum.photos/1080/720?random=9835"
-thumbnail: "https://picsum.photos/400/300?random=9835"
+image: "https://picsum.photos/seed/9835/1080/720"
+thumbnail: "https://picsum.photos/seed/9835/400/300"
 ---
 
 It is 3:00 AM, and your pager is screaming. A high-throughput Go microservice running in your Kubernetes cluster is dropping traffic, p99 latency has spiked from a clean 25ms to over 5,000ms, and pods are systematically restarting with `Exit Code 137`. You check your dashboards: the Linux kernel Out-Of-Memory (OOM) killer is terminating your application containers. Looking closely at the memory metrics, you observe a transient sawtooth allocation pattern that suddenly clips the container's hard memory limit, bypassing your garbage collection triggers entirely. This is the container paradox: by default, the Go garbage collector is blind to the resource constraints imposed by your container runtime, forcing platform engineers to over-provision memory by 2x or 3x just to absorb transient traffic spikes and avoid catastrophic service disruptions.

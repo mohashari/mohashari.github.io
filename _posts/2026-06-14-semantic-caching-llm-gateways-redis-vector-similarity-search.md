@@ -4,8 +4,8 @@ title: "Semantic Caching for LLM Gateways using Redis Vector Similarity Search"
 date: 2026-06-14 08:00:00 +0700
 tags: [ai-engineering, redis, vector-search, go, caching]
 description: "Build a high-performance, low-latency semantic cache for LLM gateways using Redis VSS to slash API costs and achieve sub-15ms response times."
-image: "https://picsum.photos/1080/720?random=9231"
-thumbnail: "https://picsum.photos/400/300?random=9231"
+image: "https://picsum.photos/seed/9231/1080/720"
+thumbnail: "https://picsum.photos/seed/9231/400/300"
 ---
 
 In high-throughput conversational AI architectures and automated customer-facing agents, redundant LLM queries represent a major source of financial drain and latency degradation. A typical LLM invocation to an external model like OpenAI’s GPT-4o or Anthropic’s Claude 3.5 Sonnet costs anywhere from $0.01 to $0.05 per request and adds 1,000ms to 3,000ms of latency to user interfaces. In production systems serving thousands of active users, a massive proportion of these queries are semantically identical (e.g., "How do I reset my password?", "Help me reset password", "Forgotten password steps"). Traditional exact-match key-value caching (such as hashing the exact prompt string to MD5) fails completely here, yielding cache hit rates below 5% because users express the same intent in infinitely varied phrasing. To achieve real cost reductions and deliver sub-15ms response times on repetitive requests, gateways must bridge the semantic gap. Using Redis Vector Similarity Search (VSS) configured with a Hierarchical Navigable Small World (HNSW) index, we can build a production-grade semantic cache that matches queries based on vector embeddings, intercepting redundant traffic before it hits the LLM provider.

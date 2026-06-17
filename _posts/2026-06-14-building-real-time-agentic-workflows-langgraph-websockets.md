@@ -4,8 +4,8 @@ title: "Building Real-Time Agentic Workflows with LangGraph and WebSockets"
 date: 2026-06-14 08:00:00 +0700
 tags: [ai-engineering, langgraph, websockets, python, fastapi]
 description: "Design and implement production-grade, real-time agentic workflows using LangGraph and WebSockets for streaming graph execution, tokens, and human-in-the-loop approvals."
-image: "https://picsum.photos/1080/720?random=5164"
-thumbnail: "https://picsum.photos/400/300?random=5164"
+image: "https://picsum.photos/seed/5164/1080/720"
+thumbnail: "https://picsum.photos/seed/5164/400/300"
 ---
 
 In high-throughput enterprise systems, deploying autonomous multi-agent systems via traditional REST APIs is a recipe for operational failure. When an LLM agent orchestrates complex multi-step reasoning—running search tools, generating code, writing SQL queries, and cross-checking facts—the total request duration routinely scales from 15 seconds to over 2 minutes. Forcing frontend applications to poll unary HTTP endpoints or hold open HTTP connections invites gateway timeouts (like Cloudflare's 100-second edge timeout), database connection pool exhaustion, and a sluggish, opaque user experience where users stare at generic loading spinners. To make multi-agent orchestration usable at scale, you must build stateful, bi-directional communication channels. Combining LangGraph’s cyclic graph engine with FastAPI WebSockets allows you to stream LLM generation tokens in real-time, broadcast graph state transitions (telling the user exactly which node is executing), and handle interactive human-in-the-loop (HITL) manual interventions without losing the thread's execution context.

@@ -4,8 +4,8 @@ title: "PostgreSQL Index Types: B-tree, GIN, GiST, and BRIN Selection Strategies
 date: 2026-03-26 08:00:00 +0700
 tags: [postgresql, database, performance, indexing, backend]
 description: "A production-focused guide to choosing between B-tree, GIN, GiST, and BRIN indexes in PostgreSQL based on query patterns and data characteristics."
-image: "https://picsum.photos/1080/720?random=589"
-thumbnail: "https://picsum.photos/400/300?random=589"
+image: "https://picsum.photos/seed/589/1080/720"
+thumbnail: "https://picsum.photos/seed/589/400/300"
 ---
 
 You're staring at a query that's doing a sequential scan on a 200-million-row table. You've already added an index — a B-tree, because that's what everyone adds — but `EXPLAIN ANALYZE` still shows Seq Scan. The planner isn't using your index. You check cardinality, check statistics, re-run `ANALYZE`, and it still won't budge. Three hours later you discover the column is a `tsvector` and B-tree can't index it at all. You needed GIN. This kind of mismatch between index type and workload is one of the most common causes of performance regressions in PostgreSQL-backed systems, and it's almost always invisible until you're on-call at 2 AM.

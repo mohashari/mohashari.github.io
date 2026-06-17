@@ -4,8 +4,8 @@ title: "Kafka Exactly-Once Semantics: Transactions, Idempotent Producers, and EO
 date: 2026-03-29 08:00:00 +0700
 tags: [kafka, distributed-systems, messaging, backend, reliability]
 description: "How Kafka's EOS guarantees work under the hood, where they break in production, and what you actually need to configure to ship reliable pipelines."
-image: "https://picsum.photos/1080/720?random=8013"
-thumbnail: "https://picsum.photos/400/300?random=8013"
+image: "https://picsum.photos/seed/8013/1080/720"
+thumbnail: "https://picsum.photos/seed/8013/400/300"
 ---
 
 Your payment processing pipeline has been running clean for months. Then one Tuesday at 2 AM, a broker leader election takes 12 seconds instead of the usual 2. The producer retries. The message lands twice. You've charged a customer twice, your deduplication table misses it because the idempotency key was partitioned to a different shard, and now you're spending Friday writing an incident report instead of shipping features.

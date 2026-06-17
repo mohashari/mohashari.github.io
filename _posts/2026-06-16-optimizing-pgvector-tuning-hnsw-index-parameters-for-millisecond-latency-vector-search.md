@@ -109,7 +109,29 @@ Always isolate your vector columns in tables that contain minimal metadata. Larg
 
 Below is a production-ready DDL script showing table creation and HNSW index optimization.
 
-<script src="https://gist.github.com/mohashari/e701cb6ac29fdcd120a0288055b2d175.js?file=snippet-1.sql"></script>
+```sql
+// snippet-1
+-- Ensure the pgvector extension is loaded
+CREATE EXTENSION IF NOT EXISTS vector;
+
+-- Core vector table keeping metadata footprint minimal
+CREATE TABLE document_embeddings (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    document_id UUID NOT NULL,
+    metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+    embedding vector(1536) NOT NULL
+);
+
+-- Index the document relation for fast join resolutions
+CREATE INDEX idx_doc_embeddings_doc_id ON document_embeddings(document_id);
+
+-- Create HNSW index optimized for cosine similarity.
+-- We use m=24 and ef_construction=100 as a solid production middle ground
+CREATE INDEX idx_document_embeddings_hnsw_cosine 
+ON document_embeddings 
+USING hnsw (embedding vector_cosine_ops)
+WITH (m = 24, ef_construction = 100);
+```
 
 ### Step 2: Dynamic Query Configuration
 
@@ -117,19 +139,172 @@ In production, you should never rely on the global default for `hnsw.ef_search` 
 
 Set the parameter inside a transaction block to isolate its scope, preventing other concurrent queries from being impacted.
 
-<script src="https://gist.github.com/mohashari/e701cb6ac29fdcd120a0288055b2d175.js?file=snippet-2.sql"></script>
+```sql
+// snippet-2
+-- Start a transaction to localize configuration changes
+BEGIN;
+
+-- Restrict the search window size to balance recall and latency locally
+SET LOCAL hnsw.ef_search = 80;
+
+-- Execute query using EXPLAIN ANALYZE to monitor page reads and execution cost
+EXPLAIN (ANALYZE, BUFFERS, VERBOSE)
+SELECT 
+    id, 
+    document_id,
+    1 - (embedding <=> $1) AS cosine_similarity
+FROM document_embeddings
+ORDER BY embedding <=> $1
+LIMIT 10;
+
+COMMIT;
+```
 
 ### Step 3: Go Implementation (Using pgx)
 
 For backend microservices written in Go, managing these transaction-scoped session variables requires a clean abstraction. Using the `pgx` driver, you must use a transaction (`pgx.Tx`) to ensure the `SET LOCAL` command binds to the specific connection handling the vector query, rather than leaking to other threads in your pool.
 
-<script src="https://gist.github.com/mohashari/e701cb6ac29fdcd120a0288055b2d175.js?file=snippet-3.go"></script>
+```go
+// snippet-3
+package repository
+
+import (
+	"context"
+	"fmt"
+
+	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
+)
+
+type VectorSearchResult struct {
+	ID         uuid.UUID
+	DocumentID uuid.UUID
+	Similarity float64
+}
+
+type PostgresVectorRepo struct {
+	dbPool *pgxpool.Pool
+}
+
+func NewPostgresVectorRepo(pool *pgxpool.Pool) *PostgresVectorRepo {
+	return &PostgresVectorRepo{dbPool: pool}
+}
+
+// SearchSimilarDocuments searches for similar embeddings with dynamic query-time parameters
+func (r *PostgresVectorRepo) SearchSimilarDocuments(
+	ctx context.Context, 
+	queryVector []float32, 
+	efSearch int, 
+	limit int,
+) ([]VectorSearchResult, error) {
+	// Acquire a dedicated connection from pool via a transaction
+	tx, err := r.dbPool.Begin(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("failed to begin vector search tx: %w", err)
+	}
+	defer tx.Rollback(ctx)
+
+	// Set local transaction-scoped search window size
+	_, err = tx.Exec(ctx, "SET LOCAL hnsw.ef_search = $1", efSearch)
+	if err != nil {
+		return nil, fmt.Errorf("failed to execute SET LOCAL hnsw.ef_search: %w", err)
+	}
+
+	// Executing cosine similarity similarity query (<=> operator is cosine distance)
+	query := `
+		SELECT id, document_id, 1 - (embedding <=> $1) AS similarity
+		FROM document_embeddings
+		ORDER BY embedding <=> $1
+		LIMIT $2;
+	`
+	rows, err := tx.Query(ctx, query, queryVector, limit)
+	if err != nil {
+		return nil, fmt.Errorf("vector similarity query execution failed: %w", err)
+	}
+	defer rows.Close()
+
+	var results []VectorSearchResult
+	for rows.Next() {
+		var res VectorSearchResult
+		if err := rows.Scan(&res.ID, &res.DocumentID, &res.Similarity); err != nil {
+			return nil, fmt.Errorf("failed to scan vector row: %w", err)
+		}
+		results = append(results, res)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, fmt.Errorf("error during row iteration: %w", err)
+	}
+
+	// Commit releases connection and restores default ef_search
+	if err = tx.Commit(ctx); err != nil {
+		return nil, fmt.Errorf("failed to commit vector search tx: %w", err)
+	}
+
+	return results, nil
+}
+```
 
 ### Step 4: Python Implementation (Using SQLAlchemy)
 
 For teams running Python search wrappers, ensure you are utilizing the session model correctly to isolate parameter settings. Here is how to write a thread-safe implementation using SQLAlchemy.
 
-<script src="https://gist.github.com/mohashari/e701cb6ac29fdcd120a0288055b2d175.js?file=snippet-4.py"></script>
+```python
+// snippet-4
+import uuid
+from typing import List, Tuple
+from sqlalchemy import text
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import SQLAlchemyError
+
+class DocumentSearchService:
+    def __init__(self, session_factory: sessionmaker):
+        self.session_factory = session_factory
+
+    def search_embeddings(
+        self, 
+        query_embedding: List[float], 
+        ef_search: int = 64, 
+        limit: int = 10
+    ) -> List[Tuple[uuid.UUID, uuid.UUID, float]]:
+        """
+        Executes an HNSW vector query using transaction-scoped ef_search configurations.
+        """
+        session = self.session_factory()
+        try:
+            # Enforce local search limits
+            session.execute(
+                text("SET LOCAL hnsw.ef_search = :ef_search"), 
+                {"ef_search": ef_search}
+            )
+
+            # Query using cosine similarity operator
+            stmt = text("""
+                SELECT id, document_id, 1 - (embedding <=> :embedding) AS similarity
+                FROM document_embeddings
+                ORDER BY embedding <=> :embedding
+                LIMIT :limit
+            """)
+
+            result = session.execute(
+                stmt, 
+                {"embedding": query_embedding, "limit": limit}
+            )
+            
+            # Extract and return mapped elements
+            search_results = [
+                (row[0], row[1], float(row[2])) 
+                for row in result
+            ]
+            session.commit()
+            return search_results
+        except SQLAlchemyError as e:
+            session.rollback()
+            raise RuntimeError(f"Database error during similarity search: {str(e)}")
+        finally:
+            session.close()
+```
 
 ---
 
@@ -137,7 +312,33 @@ For teams running Python search wrappers, ensure you are utilizing the session m
 
 You cannot tune what you do not measure. Monitoring index health and memory page hits is critical. The system views `pg_relation_size` and `pg_statio_user_indexes` help verify if HNSW graphs are page-faulting to disk.
 
-<script src="https://gist.github.com/mohashari/e701cb6ac29fdcd120a0288055b2d175.js?file=snippet-5.sql"></script>
+```sql
+// snippet-5
+-- Monitor physical disk size and memory allocation metrics for pgvector indexes
+SELECT
+    c.relname AS index_name,
+    pg_size_pretty(pg_relation_size(c.oid)) AS index_size_on_disk,
+    pg_size_pretty(pg_total_relation_size(c.oid)) AS index_total_allocated_size
+FROM pg_class c
+JOIN pg_namespace n ON n.oid = c.relnamespace
+WHERE c.relkind = 'i' 
+  AND c.relname LIKE '%hnsw%';
+
+-- Calculate cache hit rates for HNSW indexes. 
+-- A cache hit ratio below 95% indicates the index is cold or shared_buffers is undersized.
+SELECT 
+    schemaname,
+    relname,
+    indexrelname,
+    idx_blks_read AS disk_pages_read,
+    idx_blks_hit AS shared_buffer_pages_hit,
+    CASE 
+        WHEN (idx_blks_read + idx_blks_hit) = 0 THEN 0.00
+        ELSE round(100.0 * idx_blks_hit / (idx_blks_read + idx_blks_hit), 2)
+    END AS buffer_cache_hit_ratio
+FROM pg_statio_user_indexes
+WHERE indexrelname LIKE '%hnsw%';
+```
 
 ---
 
@@ -147,7 +348,37 @@ Building HNSW graphs requires significant memory. During index creation, Postgre
 
 Configure your database with the following minimum properties:
 
-<script src="https://gist.github.com/mohashari/e701cb6ac29fdcd120a0288055b2d175.js?file=snippet-6.yaml"></script>
+```yaml
+// snippet-6
+# docker-compose.production.yml
+version: '3.8'
+
+services:
+  database:
+    image: pgvector/pgvector:pg16
+    container_name: postgres_vector_prod
+    environment:
+      POSTGRES_USER: backend_engineer
+      POSTGRES_PASSWORD: secure_database_credentials
+      POSTGRES_DB: knowledge_base
+    ports:
+      - "5432:5432"
+    shm_size: '4gb' # Shared memory size must accommodate large maintenance allocations
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: >
+      postgres
+      -c shared_buffers=8GB
+      -c work_mem=128MB
+      -c maintenance_work_mem=4GB
+      -c max_parallel_maintenance_workers=4
+      -c max_worker_processes=12
+      -c hnsw.ef_search=40
+      -c max_connections=200
+
+volumes:
+  postgres_data:
+```
 
 ---
 

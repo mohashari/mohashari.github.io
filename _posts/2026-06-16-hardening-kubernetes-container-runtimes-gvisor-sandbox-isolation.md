@@ -4,8 +4,8 @@ title: "Hardening Kubernetes Container Runtimes: Implementing gVisor for Sandbox
 date: 2026-06-16 08:00:00 +0700
 tags: [kubernetes, security, gvisor, devsecops, container-security]
 description: "Protect host kernels and enforce strong multi-tenant sandbox isolation in Kubernetes using gVisor (runsc) to prevent container breakout exploits."
-image: "https://picsum.photos/1080/720?random=1673"
-thumbnail: "https://picsum.photos/400/300?random=1673"
+image: "https://picsum.photos/seed/1673/1080/720"
+thumbnail: "https://picsum.photos/seed/1673/400/300"
 ---
 
 Imagine running a multi-tenant SaaS platform where users submit untrusted scripts to be executed dynamically on your Kubernetes cluster. One script, disguised as a PDF generator, exploits a zero-day use-after-free vulnerability in the host Linux kernel's namespace management. Because the container runs on a default OCI runtime like `runc`, it shares the host kernel directly. Within milliseconds, the attacker escapes container namespaces, gains root access on the worker node, and extracts the cloud provider's IAM metadata credentials—compromising the entire infrastructure. While security profiles like `seccomp`, `AppArmor`, and running as a non-root user raise the bar, they are ultimately soft gates. They restrict which system calls can be made, but do not prevent a malicious actor from exploiting bugs in permitted syscalls. To build a resilient multi-tenant environment, you must decouple container execution from the host kernel. Hardening your runtime environment requires migrating from a shared-kernel model to an emulated sandbox model like gVisor (`runsc`), which intercepts and emulates system calls in user-space, shielding the host kernel from direct execution.

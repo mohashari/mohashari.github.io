@@ -3,9 +3,6 @@ import hashlib
 import logging
 import re
 
-PICSUM_REGULAR = "https://picsum.photos/1080/720"
-PICSUM_SMALL = "https://picsum.photos/400/300"
-
 
 def _seed(title: str) -> int:
     return int(hashlib.md5(title.encode()).hexdigest(), 16) % 10_000
@@ -25,7 +22,7 @@ class PicsumClient:
     def fetch_photo(self, title: str) -> tuple:
         """Return (regular_url, small_url) tuple derived from title seed."""
         seed = _seed(title)
-        return f"{PICSUM_REGULAR}?random={seed}", f"{PICSUM_SMALL}?random={seed}"
+        return f"https://picsum.photos/seed/{seed}/1080/720", f"https://picsum.photos/seed/{seed}/400/300"
 
     def enrich_post(self, content: str, title: str) -> str:
         """Inject Picsum URLs into post content."""

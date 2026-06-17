@@ -1068,3 +1068,57 @@ post_generator.PostGenerationError: Output missing frontmatter delimiter
 2026-06-13 08:00:03,098 INFO [preflight] GitHub CLI auth: OK
 2026-06-13 08:00:03,104 INFO [preflight] git remote: OK
 2026-06-13 08:00:03,104 ERROR Pre-flight failed — aborting
+[2026-06-14 08:00:02] Starting blog generation run
+2026-06-14 08:00:02,396 INFO [preflight] AGY CLI: OK
+2026-06-14 08:00:03,279 INFO [preflight] GitHub CLI auth: OK
+2026-06-14 08:00:03,285 INFO [preflight] git remote: OK
+2026-06-14 08:00:03,286 INFO === Blog generation run: 2026-06-14 ===
+2026-06-14 08:00:03,288 INFO Generating topics (attempt 1)
+2026-06-14 08:00:18,899 INFO Got 5 topics
+2026-06-14 08:00:18,899 INFO Topics selected: 5
+2026-06-14 08:00:18,899 INFO [1/5] scaling-distributed-transactions-debezium-cdc-kafka-outbox
+2026-06-14 08:00:18,899 INFO Generating post: scaling-distributed-transactions-debezium-cdc-kafka-outbox
+2026-06-14 08:01:41,163 INFO Written: 2026-06-14-scaling-distributed-transactions-debezium-cdc-kafka-outbox.md
+2026-06-14 08:01:41,164 INFO [2/5] optimizing-go-http-middleware-memory-allocations-sync-pool
+2026-06-14 08:01:41,164 INFO Generating post: optimizing-go-http-middleware-memory-allocations-sync-pool
+2026-06-14 08:02:37,175 INFO Written: 2026-06-14-optimizing-go-http-middleware-memory-allocations-sync-pool.md
+2026-06-14 08:02:37,176 INFO [3/5] securing-microservices-spiffe-spire-mtls-kubernetes
+2026-06-14 08:02:37,176 INFO Generating post: securing-microservices-spiffe-spire-mtls-kubernetes
+2026-06-14 08:03:57,977 INFO Written: 2026-06-14-securing-microservices-spiffe-spire-mtls-kubernetes.md
+2026-06-14 08:03:57,979 INFO [4/5] semantic-caching-llm-gateways-redis-vector-similarity-search
+2026-06-14 08:03:57,979 INFO Generating post: semantic-caching-llm-gateways-redis-vector-similarity-search
+2026-06-14 08:05:19,750 INFO Written: 2026-06-14-semantic-caching-llm-gateways-redis-vector-similarity-search.md
+2026-06-14 08:05:19,751 INFO [5/5] building-real-time-agentic-workflows-langgraph-websockets
+2026-06-14 08:05:19,752 INFO Generating post: building-real-time-agentic-workflows-langgraph-websockets
+2026-06-14 08:06:38,462 INFO Written: 2026-06-14-building-real-time-agentic-workflows-langgraph-websockets.md
+2026-06-14 08:06:38,463 INFO Generation complete: 5/5 succeeded, 0 failed
+2026-06-14 08:06:38,513 INFO Committed: Auto-generate 5 posts for 2026-06-14
+2026-06-14 08:06:40,560 INFO Pushed to origin/master
+[2026-06-14 08:06:40] Run finished with exit code 0
+[2026-06-16 08:00:02] Starting blog generation run
+2026-06-16 08:00:02,270 INFO [preflight] AGY CLI: OK
+2026-06-16 08:00:02,810 INFO [preflight] GitHub CLI auth: OK
+2026-06-16 08:00:02,819 INFO [preflight] git remote: OK
+2026-06-16 08:00:02,819 INFO === Blog generation run: 2026-06-16 ===
+2026-06-16 08:00:02,820 INFO Generating topics (attempt 1)
+2026-06-16 08:00:15,704 INFO Got 5 topics
+2026-06-16 08:00:15,704 INFO Topics selected: 5
+2026-06-16 08:00:15,705 INFO [1/5] consistent-hashing-bounded-loads-distributed-caching
+2026-06-16 08:00:15,705 INFO Generating post: consistent-hashing-bounded-loads-distributed-caching
+2026-06-16 08:01:29,783 INFO Written: 2026-06-16-consistent-hashing-bounded-loads-distributed-caching.md
+2026-06-16 08:01:29,785 INFO [2/5] tuning-go-garbage-collector-gogc-gomemlimit-microservices
+2026-06-16 08:01:29,785 INFO Generating post: tuning-go-garbage-collector-gogc-gomemlimit-microservices
+2026-06-16 08:03:31,486 INFO Written: 2026-06-16-tuning-go-garbage-collector-gogc-gomemlimit-microservices.md
+2026-06-16 08:03:31,486 INFO [3/5] hardening-kubernetes-container-runtimes-gvisor-sandbox-isolation
+2026-06-16 08:03:31,486 INFO Generating post: hardening-kubernetes-container-runtimes-gvisor-sandbox-isolation
+2026-06-16 08:05:04,387 INFO Written: 2026-06-16-hardening-kubernetes-container-runtimes-gvisor-sandbox-isolation.md
+2026-06-16 08:05:04,387 INFO [4/5] optimizing-pgvector-hnsw-index-tuning-vector-search
+2026-06-16 08:05:04,387 INFO Generating post: optimizing-pgvector-hnsw-index-tuning-vector-search
+2026-06-16 08:06:10,774 INFO Written: 2026-06-16-optimizing-pgvector-hnsw-index-tuning-vector-search.md
+2026-06-16 08:06:10,775 INFO [5/5] rust-memory-layout-struct-size-alignment-cache-locality
+2026-06-16 08:06:10,776 INFO Generating post: rust-memory-layout-struct-size-alignment-cache-locality
+2026-06-16 08:07:06,067 INFO Written: 2026-06-16-rust-memory-layout-struct-size-alignment-cache-locality.md
+2026-06-16 08:07:06,069 INFO Generation complete: 5/5 succeeded, 0 failed
+2026-06-16 08:07:06,138 INFO Committed: Auto-generate 5 posts for 2026-06-16
+2026-06-16 08:07:09,749 INFO Pushed to origin/master
+[2026-06-16 08:07:09] Run finished with exit code 0

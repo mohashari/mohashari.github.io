@@ -4,8 +4,8 @@ title: "Securing Microservices with SPIFFE/SPIRE and mTLS in Kubernetes"
 date: 2026-06-14 08:00:00 +0700
 tags: [kubernetes, security, spiffe, spire, mtls]
 description: "Implement zero-trust workload identity and cryptographic mTLS in Kubernetes using SPIFFE/SPIRE without service mesh overhead."
-image: "https://picsum.photos/1080/720?random=8192"
-thumbnail: "https://picsum.photos/400/300?random=8192"
+image: "https://picsum.photos/seed/8192/1080/720"
+thumbnail: "https://picsum.photos/seed/8192/400/300"
 ---
 
 In a massive, high-throughput Kubernetes cluster running hundreds of microservices, traditional IP-based network policies and static credential exchanges are a security facade. Pod IPs are highly ephemeral, network namespaces are easily bypassed or misconfigured, and static secrets (such as Kubernetes Secret resources) are stored on disk as base64-encoded strings that are rarely rotated and highly vulnerable to RBAC bypasses. When an attacker gains remote code execution (RCE) on a single compromised service pod, they can easily lateral-move across the cluster because internal traffic is treated as trusted by default. Achieving true Zero Trust security requires decoupling network topology from identity: assigning every single workload a cryptographically verifiable, short-lived identity document (SVID) that is continuously issued, rotated on the fly, and validated at the application layer via mutual TLS (mTLS). SPIFFE (Secure Production Identity Framework for Everyone) and its reference implementation, SPIRE, solve this problem at scale by automating identity attestation and certificate distribution, rendering compromised credentials and network lateral movement obsolete.

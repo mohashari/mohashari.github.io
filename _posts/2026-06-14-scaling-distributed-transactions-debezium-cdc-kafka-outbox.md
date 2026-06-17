@@ -4,8 +4,8 @@ title: "Scaling Distributed Transactions with Debezium CDC and Kafka Outbox"
 date: 2026-06-14 08:00:00 +0700
 tags: [microservices, system-design, cdc, kafka, go]
 description: "Solve the dual-write problem and scale distributed transactions to 20k+ TPS with Debezium CDC, Kafka Outbox, and idempotent Go consumers."
-image: "https://picsum.photos/1080/720?random=6158"
-thumbnail: "https://picsum.photos/400/300?random=6158"
+image: "https://picsum.photos/seed/6158/1080/720"
+thumbnail: "https://picsum.photos/seed/6158/400/300"
 ---
 
 In modern high-throughput microservices architectures, updating a relational database and publishing corresponding events to Apache Kafka is a fundamental necessity. Yet, performing this dual-write operations naively introduces a critical distributed systems trap: there is no shared transaction coordinator, and a failure on either side leads to silent data corruption, orphaned records, or missed event notifications. When handling over 20,000 transactions per second (TPS), attempting to solve this with heavy, blocking two-phase commits (2PC) destroys throughput and introduces catastrophic single-point-of-failures. Scaling distributed transactions without compromising database sanity or broker reliability requires decoupling the process entirely: using the Transactional Outbox pattern backed by low-latency Change Data Capture (CDC) via Debezium to bridge the gap asynchronously and with zero lock contention.

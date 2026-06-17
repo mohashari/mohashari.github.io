@@ -28,7 +28,7 @@ layout: default
 
   {% if page.image %}
   <div class="post-featured-image-wrapper">
-    <img src="{{ page.image }}" alt="{{ page.title }}" class="post-featured-image" />
+    <img src="{{ page.image }}" alt="{{ page.title }}" class="post-featured-image" onerror="this.onerror=null; this.src='{{ site.baseurl }}/images/placeholder.svg';" />
   </div>
   {% else %}
   <div class="post-divider">

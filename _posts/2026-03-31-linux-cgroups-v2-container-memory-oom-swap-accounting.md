@@ -4,8 +4,8 @@ title: "Linux cgroups v2 and Container Memory Pressure: OOM Scoring, Memory Limi
 date: 2026-03-31 08:00:00 +0700
 tags: [linux, containers, kubernetes, performance, systems]
 description: "How cgroups v2 memory accounting actually works, why your containers OOM at the wrong time, and how to fix it."
-image: "https://picsum.photos/1080/720?random=6810"
-thumbnail: "https://picsum.photos/400/300?random=6810"
+image: "https://picsum.photos/seed/6810/1080/720"
+thumbnail: "https://picsum.photos/seed/6810/400/300"
 ---
 
 Your container gets OOM-killed at 400MB when the limit is 512MB. You've seen this. The app is healthy, GC hasn't run yet, the heap is nowhere near full — but the kernel disagrees. You crank the limit up, redeploy, and it happens again at 600MB. You're fighting a system you don't fully understand, and the stakes are a 3am page when the wrong pod dies in production. Linux cgroups v2 changed memory accounting significantly from v1, and most of the tribal knowledge engineers carry around — memory limits, OOM scoring, swap behavior — is either wrong or outdated. This post covers how the memory subsystem actually works in cgroups v2, where containers get it wrong, and how to instrument and tune it properly.

@@ -4,8 +4,8 @@ title: "Implementing Consistent Hashing with Bounded Loads for Distributed Cachi
 date: 2026-06-16 08:00:00 +0700
 tags: [distributed-systems, caching, go, load-balancing]
 description: "Learn how Consistent Hashing with Bounded Loads prevents cache node overloading under skewed Zipfian traffic patterns using a production-ready Go implementation."
-image: "https://picsum.photos/seed/4629/1080/720"
-thumbnail: "https://picsum.photos/seed/4629/400/300"
+image: ""
+thumbnail: ""
 ---
 
 You have built a distributed cache cluster of 16 Redis nodes, using standard consistent hashing with 256 virtual nodes per node to guarantee a uniform key distribution. CPU utilization sits at a comfortable 15% across the cluster. Suddenly, a flash sale begins, or a celebrity mentions a specific item ID. Within seconds, a single cache node spikes to 100% CPU, drops connections, and crashes. Your caching proxy triggers failovers, but the next node in the ring receives the same hot key and immediately melts under the load, followed by the next. Standard consistent hashing is excellent at distributing keys, but it is fundamentally blind to the *request rate* (load) of those keys. When key popularity follows a power-law (Zipfian) distribution, standard consistent hashing cannot prevent a single cache shard from becoming a bottleneck and triggering a cascading cluster collapse. To solve this, we must implement Consistent Hashing with Bounded Loads—an algorithm that caps the maximum request load on any single node to a defined threshold and gracefully spills overflow traffic clockwise to adjacent nodes.
@@ -63,15 +63,150 @@ Let's implement this ring from scratch. We will write a clean, thread-safe Go im
 
 First, we define our structures: Node, Ring, and the initialization function.
 
-<script src="https://gist.github.com/mohashari/76d9829a44bf523f2efa297a7939fec2.js?file=snippet-1.go"></script>
+```go
+// snippet-1
+package consistent
+
+import (
+	"crypto/fnv"
+	"errors"
+	"fmt"
+	"math"
+	"sort"
+	"sync"
+	"sync/atomic"
+)
+
+// Node represents a physical cache server.
+type Node struct {
+	ID       string
+	Address  string
+	Active   int64 // Atomic counter for current active load (QPS or connections)
+	Capacity int64 // Maximum load this node is allowed to handle
+}
+
+// Ring represents the consistent hash ring.
+type Ring struct {
+	mu       sync.RWMutex
+	vnodes   []uint32          // Sorted list of virtual node hashes
+	nodeMap  map[uint32]*Node  // Map from vnode hash to actual Node
+	nodes    map[string]*Node  // Map from Node ID to Node struct
+	replicas int               // Number of virtual nodes per physical node
+}
+
+// NewRing creates a new Ring instance.
+func NewRing(replicas int) *Ring {
+	return &Ring{
+		nodeMap:  make(map[uint32]*Node),
+		nodes:    make(map[string]*Node),
+		replicas: replicas,
+	}
+}
+```
 
 Next, we implement the ring initialization, node addition, and virtual node distribution logic. We use FNV-1a from Go's standard library to hash node IDs and create a deterministic ring layout.
 
-<script src="https://gist.github.com/mohashari/76d9829a44bf523f2efa297a7939fec2.js?file=snippet-2.go"></script>
+```go
+// snippet-2
+// AddNode registers a physical node on the ring with a specific capacity.
+func (r *Ring) AddNode(nodeID string, address string, capacity int64) {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
+	node := &Node{
+		ID:       nodeID,
+		Address:  address,
+		Capacity: capacity,
+	}
+	r.nodes[nodeID] = node
+
+	for i := 0; i < r.replicas; i++ {
+		hash := r.hash(fmt.Sprintf("%s#%d", nodeID, i))
+		r.vnodes = append(r.vnodes, hash)
+		r.nodeMap[hash] = node
+	}
+	sort.Slice(r.vnodes, func(i, j int) bool {
+		return r.vnodes[i] < r.vnodes[j]
+	})
+}
+
+// hash generates an FNV-1a 32-bit hash.
+func (r *Ring) hash(key string) uint32 {
+	h := fnv.New32a()
+	_, _ = h.Write([]byte(key))
+	return h.Sum32()
+}
+```
 
 Now, we implement the core routing algorithm. The `Get` function finds the primary node, computes the dynamic capacity bound, and traverses the ring clockwise if the node is at capacity. We also track the node with the absolute lowest load as a fallback in case the cluster is completely saturated.
 
-<script src="https://gist.github.com/mohashari/76d9829a44bf523f2efa297a7939fec2.js?file=snippet-3.go"></script>
+```go
+// snippet-3
+// Get routes a key to a node on the ring while respecting the bounded load constraint.
+// epsilon is the balance factor (e.g., 0.25 for 25% max load overhead).
+func (r *Ring) Get(key string, epsilon float64) (*Node, error) {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
+
+	if len(r.nodes) == 0 {
+		return nil, errors.New("empty ring")
+	}
+
+	hash := r.hash(key)
+	idx := sort.Search(len(r.vnodes), func(i int) bool {
+		return r.vnodes[i] >= hash
+	})
+	if idx == len(r.vnodes) {
+		idx = 0
+	}
+
+	// Calculate total and average load to compute the capacity bound dynamically
+	var totalLoad int64
+	for _, node := range r.nodes {
+		totalLoad += atomic.LoadInt64(&node.Active)
+	}
+
+	numNodes := int64(len(r.nodes))
+	avgLoad := float64(totalLoad) / float64(numNodes)
+	
+	// Bounded capacity formula: Max(1, ceil((1 + epsilon) * avgLoad))
+	maxCapacity := int64(1)
+	if avgLoad > 0 {
+		maxCapacity = int64(math.Ceil((1.0 + epsilon) * avgLoad))
+	}
+
+	// Traverse the ring clockwise starting from idx
+	var bestNode *Node
+	minLoad := int64(^uint64(0) >> 1) // Max int64
+
+	for i := 0; i < len(r.vnodes); i++ {
+		currIdx := (idx + i) % len(r.vnodes)
+		node := r.nodeMap[r.vnodes[currIdx]]
+
+		load := atomic.LoadInt64(&node.Active)
+		if load < maxCapacity {
+			// Found a node under capacity. Increment active load atomically and return.
+			atomic.AddInt64(&node.Active, 1)
+			return node, nil
+		}
+
+		// Keep track of the node with the lowest load as a fallback if all nodes are full
+		if load < minLoad {
+			minLoad = load
+			bestNode = node
+		}
+	}
+
+	// Fallback: if all nodes are over their capacity bound, route to the node with the least load
+	atomic.AddInt64(&bestNode.Active, 1)
+	return bestNode, nil
+}
+
+// Release decrements the active load count on a node.
+func (n *Node) Release() {
+	atomic.AddInt64(&n.Active, -1)
+}
+```
 
 ## Building a Production-Grade Caching Proxy with Singleflight
 
@@ -79,7 +214,69 @@ To see how this works in a real backend service, let's build an HTTP caching pro
 
 We will also integrate Go's `golang.org/x/sync/singleflight` package. If a cache node fails, or if a key is displaced and causes a cache miss, we want to ensure only a single upstream query is made to the database, preventing a thundering herd on our database layer.
 
-<script src="https://gist.github.com/mohashari/76d9829a44bf523f2efa297a7939fec2.js?file=snippet-4.go"></script>
+```go
+// snippet-4
+package proxy
+
+import (
+	"context"
+	"io"
+	"net/http"
+	"time"
+
+	"golang.org/x/sync/singleflight"
+)
+
+type CacheProxy struct {
+	ring *Ring
+	sf   *singleflight.Group
+}
+
+func NewCacheProxy(ring *Ring) *CacheProxy {
+	return &CacheProxy{
+		ring: ring,
+		sf:   &singleflight.Group{},
+	}
+}
+
+func (p *CacheProxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	key := r.URL.Query().Get("key")
+	if key == "" {
+		http.Error(w, "missing key parameter", http.StatusBadRequest)
+		return
+	}
+
+	// Route the request using Bounded Loads Hashing (epsilon = 0.2)
+	node, err := p.ring.Get(key, 0.2)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer node.Release() // Release load slot when request finishes
+
+	// Forward request to the cache node
+	ctx, cancel := context.WithTimeout(r.Context(), 500*time.Millisecond)
+	defer cancel()
+
+	resp, err := p.forwardRequest(ctx, node.Address, key)
+	if err != nil {
+		// Fallback: If cache node is dead, fetch from origin directly using singleflight
+		val, err, _ := p.sf.Do(key, func() (interface{}, error) {
+			return p.fetchFromDB(key)
+		})
+		if err != nil {
+			http.Error(w, "internal server error", http.StatusInternalServerError)
+			return
+		}
+		w.Write(val.([]byte))
+		return
+	}
+	defer resp.Body.Close()
+
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
+}
+```
 
 ## Telemetry and Metrics Instrumentation
 
@@ -89,7 +286,42 @@ In a production environment, you cannot fly blind. You must monitor:
 
 Let's implement a Prometheus metric tracking wrapper for our ring.
 
-<script src="https://gist.github.com/mohashari/76d9829a44bf523f2efa297a7939fec2.js?file=snippet-5.go"></script>
+```go
+// snippet-5
+package metrics
+
+import (
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promauto"
+)
+
+var (
+	CacheRoutingRequests = promauto.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "cache_routing_requests_total",
+			Help: "Total cache routing requests tracked by status",
+		},
+		[]string{"node_id", "status"}, // status: "primary" or "displaced"
+	)
+
+	NodeActiveLoad = promauto.NewGaugeVec(
+		prometheus.GaugeOpts{
+			Name: "cache_node_active_load",
+			Help: "Current active load concurrent requests per node",
+		},
+		[]string{"node_id"},
+	)
+)
+
+// TrackRouting logs telemetry data to monitor spillover rates.
+func TrackRouting(primaryID, routedID string) {
+	if primaryID == routedID {
+		CacheRoutingRequests.WithLabelValues(routedID, "primary").Inc()
+	} else {
+		CacheRoutingRequests.WithLabelValues(routedID, "displaced").Inc()
+	}
+}
+```
 
 ## Deep Dive: Real-World Failure Modes & Mitigation
 

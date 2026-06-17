@@ -4,8 +4,8 @@ title: "Go pprof in Production: Continuous Profiling, Flamegraphs, and Memory Le
 date: 2026-03-30 08:00:00 +0700
 tags: [go, performance, observability, profiling, backend]
 description: "How to use Go's pprof toolchain for continuous profiling, flamegraph analysis, and tracking down memory leaks before they page you at 3am."
-image: "https://picsum.photos/1080/720?random=1394"
-thumbnail: "https://picsum.photos/400/300?random=1394"
+image: "https://picsum.photos/seed/1394/1080/720"
+thumbnail: "https://picsum.photos/seed/1394/400/300"
 ---
 
 Your Go service has been running for six days. RSS is at 4.2 GB and climbing. GC pause latency crossed 80ms an hour ago. You have zero profiling data from before the OOM kill. You are flying blind into a post-mortem with nothing but heap dumps you took too late and a gut feeling it's somewhere in the connection pool. This is the situation pprof exists to prevent — not just as a break-glass tool you run when things are already on fire, but as a continuous signal you mine before the incident starts.
