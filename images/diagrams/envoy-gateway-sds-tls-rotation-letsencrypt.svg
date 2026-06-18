@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 580" width="880" height="580" font-family="system-ui, -apple-system, sans-serif">
+  <!-- Background -->
+  <rect width="880" height="580" fill="#0b0f19" rx="12"/>
+
+  <!-- Grid lines for subtle background structure -->
+  <g stroke="#1e293b" stroke-width="0.5" opacity="0.3">
+    <line x1="100" y1="0" x2="100" y2="580"/>
+    <line x1="200" y1="0" x2="200" y2="580"/>
+    <line x1="300" y1="0" x2="300" y2="580"/>
+    <line x1="400" y1="0" x2="400" y2="580"/>
+    <line x1="500" y1="0" x2="500" y2="580"/>
+    <line x1="600" y1="0" x2="600" y2="580"/>
+    <line x1="700" y1="0" x2="700" y2="580"/>
+    <line x1="800" y1="0" x2="800" y2="580"/>
+    <line x1="0" y1="100" x2="880" y2="100"/>
+    <line x1="0" y1="200" x2="880" y2="200"/>
+    <line x1="0" y1="300" x2="880" y2="300"/>
+    <line x1="0" y1="400" x2="880" y2="400"/>
+    <line x1="0" y1="500" x2="880" y2="500"/>
+  </g>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrow-cyan" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#06b6d4"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f43f5e"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#a855f7"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#f97316"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#94a3b8"/>
+    </marker>
+    
+    <!-- Linear Gradients -->
+    <linearGradient id="acme-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="cert-manager-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2e1065"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="secret-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#450a0a"/>
+      <stop offset="100%" stop-color="#180000"/>
+    </linearGradient>
+    <linearGradient id="eg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#115e59"/>
+      <stop offset="100%" stop-color="#042f2e"/>
+    </linearGradient>
+    <linearGradient id="envoy-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#022c22"/>
+    </linearGradient>
+    <linearGradient id="client-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="440" y="35" text-anchor="middle" fill="#f8fafc" font-size="16" font-weight="800" letter-spacing="0.5">AUTOMATING TLS ROTATION AT THE EDGE</text>
+  <text x="440" y="55" text-anchor="middle" fill="#64748b" font-size="11" font-weight="500">Envoy Gateway Secret Discovery Service (SDS) Integration with cert-manager and Let's Encrypt</text>
+
+  <!-- ==================== LET'S ENCRYPT CA (EXTERNAL) ==================== -->
+  <g transform="translate(40, 100)">
+    <rect width="200" height="110" rx="8" fill="url(#acme-gradient)" stroke="#3b82f6" stroke-width="2"/>
+    <rect x="15" y="15" width="170" height="25" rx="4" fill="#3b82f6" opacity="0.15"/>
+    <text x="100" y="32" text-anchor="middle" fill="#60a5fa" font-size="11" font-weight="bold">LET'S ENCRYPT (ACME CA)</text>
+    <text x="20" y="65" fill="#94a3b8" font-size="9" font-weight="bold">Challenges:</text>
+    <text x="90" y="65" fill="#e2e8f0" font-size="9">HTTP-01 or DNS-01</text>
+    <text x="20" y="85" fill="#94a3b8" font-size="9" font-weight="bold">API Endpoint:</text>
+    <text x="90" y="85" fill="#e2e8f0" font-size="9">acme-v02.api.org</text>
+  </g>
+
+  <!-- ==================== CERT-MANAGER (KUBERNETES) ==================== -->
+  <g transform="translate(40, 250)">
+    <rect width="200" height="280" rx="8" fill="url(#cert-manager-gradient)" stroke="#a855f7" stroke-width="2"/>
+    <rect x="15" y="15" width="170" height="25" rx="4" fill="#a855f7" opacity="0.15"/>
+    <text x="100" y="32" text-anchor="middle" fill="#c084fc" font-size="11" font-weight="bold">CERT-MANAGER OPERATOR</text>
+    
+    <rect x="15" y="55" width="170" height="65" rx="4" fill="#1e1b4b" stroke="#4c1d95"/>
+    <text x="22" y="70" fill="#a855f7" font-size="9" font-weight="bold">ACME Client &amp; Solver</text>
+    <text x="22" y="85" fill="#cbd5e1" font-size="9">1. Detects expired/new certs</text>
+    <text x="22" y="98" fill="#cbd5e1" font-size="9">2. Solves ACME challenge</text>
+    
+    <rect x="15" y="130" width="170" height="65" rx="4" fill="#1e1b4b" stroke="#4c1d95"/>
+    <text x="22" y="145" fill="#a855f7" font-size="9" font-weight="bold">Certificate CRD Watcher</text>
+    <text x="22" y="160" fill="#cbd5e1" font-size="9">Watches Gateway TLS specs</text>
+    <text x="22" y="173" fill="#cbd5e1" font-size="9">Triggers auto-renewal at 60d</text>
+
+    <rect x="15" y="205" width="170" height="60" rx="4" fill="#1e1b4b" stroke="#4c1d95"/>
+    <text x="22" y="220" fill="#a855f7" font-size="9" font-weight="bold">Secret Writer</text>
+    <text x="22" y="235" fill="#cbd5e1" font-size="9">Generates/updates K8s Secret</text>
+    <text x="22" y="248" fill="#cbd5e1" font-size="9">with tls.crt &amp; tls.key</text>
+  </g>
+
+  <!-- ==================== KUBERNETES SECRET ==================== -->
+  <g transform="translate(320, 100)">
+    <rect width="240" height="120" rx="8" fill="url(#secret-gradient)" stroke="#f43f5e" stroke-width="2"/>
+    <rect x="15" y="15" width="210" height="25" rx="4" fill="#f43f5e" opacity="0.15"/>
+    <text x="120" y="32" text-anchor="middle" fill="#f43f5e" font-size="11" font-weight="bold">KUBERNETES SECRET (TLS)</text>
+    
+    <rect x="15" y="50" width="210" height="55" rx="4" fill="#180000" stroke="#7f1d1d"/>
+    <text x="25" y="65" fill="#fda4af" font-size="9" font-weight="bold">Data Payload (Base64):</text>
+    <text x="25" y="78" fill="#94a3b8" font-size="8">tls.crt: [Signed Let's Encrypt Chain]</text>
+    <text x="25" y="90" fill="#94a3b8" font-size="8">tls.key: [RSA/ECDSA Private Key]</text>
+  </g>
+
+  <!-- ==================== ENVOY GATEWAY CONTROLLER ==================== -->
+  <g transform="translate(320, 260)">
+    <rect width="240" height="270" rx="8" fill="url(#eg-gradient)" stroke="#0d9488" stroke-width="2"/>
+    <rect x="15" y="15" width="210" height="25" rx="4" fill="#0d9488" opacity="0.15"/>
+    <text x="120" y="32" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="bold">ENVOY GATEWAY CONTROLLER</text>
+    
+    <rect x="15" y="55" width="210" height="60" rx="4" fill="#042f2e" stroke="#115e59"/>
+    <text x="22" y="70" fill="#2dd4bf" font-size="9" font-weight="bold">K8s API Watcher</text>
+    <text x="22" y="85" fill="#cbd5e1" font-size="9">Watches Secrets &amp; Gateway API</text>
+    <text x="22" y="98" fill="#cbd5e1" font-size="9">Detects TLS Secret updates</text>
+
+    <rect x="15" y="125" width="210" height="60" rx="4" fill="#042f2e" stroke="#115e59"/>
+    <text x="22" y="140" fill="#2dd4bf" font-size="9" font-weight="bold">xDS Translator</text>
+    <text x="22" y="155" fill="#cbd5e1" font-size="9">Converts K8s specs to xDS models</text>
+    <text x="22" y="168" fill="#cbd5e1" font-size="9">Defines dynamic TLS context</text>
+
+    <rect x="15" y="195" width="210" height="60" rx="4" fill="#042f2e" stroke="#115e59"/>
+    <text x="22" y="210" fill="#2dd4bf" font-size="9" font-weight="bold">SDS Server (gRPC)</text>
+    <text x="22" y="225" fill="#cbd5e1" font-size="9">Serves Secret Discovery Service</text>
+    <text x="22" y="238" fill="#cbd5e1" font-size="9">Pushes updates directly to Envoy</text>
+  </g>
+
+  <!-- ==================== ENVOY PROXY (DATA PLANE) ==================== -->
+  <g transform="translate(620, 100)">
+    <rect width="220" height="340" rx="8" fill="url(#envoy-gradient)" stroke="#10b981" stroke-width="2"/>
+    <rect x="15" y="15" width="190" height="25" rx="4" fill="#10b981" opacity="0.15"/>
+    <text x="110" y="32" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">ENVOY PROXY (EDGE)</text>
+    
+    <rect x="15" y="55" width="190" height="70" rx="4" fill="#022c22" stroke="#065f46"/>
+    <text x="22" y="70" fill="#34d399" font-size="9" font-weight="bold">SDS Client Interface</text>
+    <text x="22" y="85" fill="#cbd5e1" font-size="8">Establishes gRPC stream to Server</text>
+    <text x="22" y="98" fill="#cbd5e1" font-size="8">Receives secret resources: tls.crt</text>
+    <text x="22" y="111" fill="#cbd5e1" font-size="8">Without writing to Envoy local disk</text>
+
+    <rect x="15" y="140" width="190" height="75" rx="4" fill="#022c22" stroke="#065f46"/>
+    <text x="22" y="155" fill="#34d399" font-size="9" font-weight="bold">Dynamic TLS Context</text>
+    <text x="22" y="170" fill="#cbd5e1" font-size="8">Loads new keys in memory</text>
+    <text x="22" y="183" fill="#cbd5e1" font-size="8">Active connections: Unaffected</text>
+    <text x="22" y="196" fill="#cbd5e1" font-size="8">New handshakes: Use new certs</text>
+
+    <rect x="15" y="230" width="190" height="85" rx="4" fill="#022c22" stroke="#065f46"/>
+    <text x="22" y="245" fill="#34d399" font-size="9" font-weight="bold">TLS Session Termination</text>
+    <text x="22" y="260" fill="#cbd5e1" font-size="8">Handles TLS Handshakes at Edge</text>
+    <text x="22" y="273" fill="#cbd5e1" font-size="8">Validates cipher suites &amp; ALPN</text>
+    <text x="22" y="286" fill="#cbd5e1" font-size="8">Forwards plaintext to backends</text>
+    <text x="22" y="299" fill="#cbd5e1" font-size="8">Downstream target: backend-svc</text>
+  </g>
+
+  <!-- ==================== CLIENT BROWSER ==================== -->
+  <g transform="translate(620, 470)">
+    <rect width="220" height="70" rx="8" fill="url(#client-gradient)" stroke="#3b82f6" stroke-width="1.5"/>
+    <rect x="15" y="12" width="190" height="20" rx="4" fill="#3b82f6" opacity="0.1"/>
+    <text x="110" y="25" text-anchor="middle" fill="#60a5fa" font-size="10" font-weight="bold">CLIENT APPLICATION / BROWSER</text>
+    <text x="22" y="48" fill="#e2e8f0" font-size="9">Performs HTTPS handshakes</text>
+    <text x="22" y="60" fill="#94a3b8" font-size="8">Verifies domain against Let's Encrypt chain</text>
+  </g>
+
+  <!-- ==================== INTERACTION FLOWS (ARROWS) ==================== -->
+
+  <!-- cert-manager <-> Let's Encrypt Challenge -->
+  <path d="M 120, 250 L 120, 210" fill="none" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <path d="M 160, 210 L 160, 250" fill="none" stroke="#a855f7" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+  <rect x="90" y="218" width="100" height="24" rx="3" fill="#0b0f19" stroke="#1e293b"/>
+  <text x="140" y="228" text-anchor="middle" fill="#94a3b8" font-size="7" font-weight="bold">1. ACME challenge</text>
+  <text x="140" y="236" text-anchor="middle" fill="#60a5fa" font-size="7">Verify &amp; Issue Cert</text>
+
+  <!-- cert-manager -> K8s Secret: Write -->
+  <path d="M 240, 310 C 270, 290 270, 200 320, 180" fill="none" stroke="#f43f5e" stroke-width="1.5" marker-end="url(#arrow-red)"/>
+  <rect x="235" y="210" width="75" height="24" rx="3" fill="#0b0f19" stroke="#1e293b"/>
+  <text x="272" y="222" text-anchor="middle" fill="#fda4af" font-size="7" font-weight="bold">2. Write/Update</text>
+  <text x="272" y="230" text-anchor="middle" fill="#cbd5e1" font-size="7">Secret Resource</text>
+
+  <!-- Envoy Gateway -> K8s Secret: Watch -->
+  <path d="M 440, 260 L 440, 220" fill="none" stroke="#0d9488" stroke-width="1.5" marker-end="url(#arrow-cyan)"/>
+  <rect x="402" y="228" width="75" height="24" rx="3" fill="#0b0f19" stroke="#1e293b"/>
+  <text x="440" y="238" text-anchor="middle" fill="#2dd4bf" font-size="7" font-weight="bold">3. Watch Secret</text>
+  <text x="440" y="246" text-anchor="middle" fill="#cbd5e1" font-size="7">Read Base64 Data</text>
+
+  <!-- Envoy Gateway -> Envoy Proxy: SDS gRPC Stream -->
+  <path d="M 560, 395 C 585, 395 595, 270 620, 270" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <rect x="560" y="315" width="60" height="24" rx="3" fill="#0b0f19" stroke="#1e293b"/>
+  <text x="590" y="325" text-anchor="middle" fill="#34d399" font-size="7" font-weight="bold">4. SDS Push</text>
+  <text x="590" y="333" text-anchor="middle" fill="#cbd5e1" font-size="7">gRPC Stream</text>
+
+  <!-- Client -> Envoy Proxy: HTTPS -->
+  <path d="M 730, 470 L 730, 440" fill="none" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <rect x="735" y="445" width="75" height="20" rx="3" fill="#0b0f19" stroke="#1e293b"/>
+  <text x="772" y="457" text-anchor="middle" fill="#60a5fa" font-size="7" font-weight="bold">5. TLS Handshake</text>
+
+</svg>

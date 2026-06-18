@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="100%" height="100%" style="background-color: #0B0F19; font-family: 'Inter', system-ui, -apple-system, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="coordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="partGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#6D28D9" />
+    </linearGradient>
+    
+    <!-- Shadows & Filters -->
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    
+    <!-- Markers for Arrows -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3B82F6" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#10B981" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8B5CF6" />
+    </marker>
+  </defs>
+
+  <!-- Title / Legend -->
+  <text x="480" y="35" text-anchor="middle" fill="#F8FAFC" font-size="22" font-weight="800" letter-spacing="0.5">Distributed 2PL + 2PC Architecture &amp; Protocol Flow</text>
+  <text x="480" y="55" text-anchor="middle" fill="#94A3B8" font-size="13">Strict Two-Phase Locking (Isolation) &amp; Two-Phase Commit (Atomicity)</text>
+
+  <!-- Client Node -->
+  <g transform="translate(60, 100)" filter="url(#shadow)">
+    <rect width="180" height="80" rx="8" fill="url(#clientGrad)" stroke="#A78BFA" stroke-width="1.5" />
+    <text x="90" y="35" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Client / Application</text>
+    <text x="90" y="55" text-anchor="middle" fill="#DDD6FE" font-size="11">Initiates Txn &amp; Operations</text>
+  </g>
+
+  <!-- Transaction Coordinator (Raft-Replicated) -->
+  <g transform="translate(360, 80)" filter="url(#shadow)">
+    <rect width="260" height="120" rx="12" fill="url(#coordGrad)" stroke="#60A5FA" stroke-width="2" />
+    <!-- WAL Subcomponent inside Coordinator -->
+    <rect x="15" y="65" width="230" height="40" rx="6" fill="#1E293B" stroke="#3B82F6" stroke-dasharray="3,3" />
+    <text x="130" y="32" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="800">Transaction Coordinator</text>
+    <text x="130" y="50" text-anchor="middle" fill="#93C5FD" font-size="11">Drives 2PC State Machine</text>
+    <text x="130" y="89" text-anchor="middle" fill="#38BDF8" font-size="11" font-weight="600">WAL (Txn State: PREPARED/COMMITTED)</text>
+  </g>
+  
+  <!-- HA / Raft replica group background indicator for Coordinator -->
+  <path d="M 630 110 L 650 110 L 650 170 L 630 170" fill="none" stroke="#3B82F6" stroke-width="1.5" stroke-dasharray="2,4" />
+  <text x="660" y="145" fill="#60A5FA" font-size="11" font-weight="600">Raft Consensus Group</text>
+
+  <!-- Participant Node A (Shard 1) -->
+  <g transform="translate(80, 420)" filter="url(#shadow)">
+    <rect width="320" height="170" rx="12" fill="#0F172A" stroke="#10B981" stroke-width="2" />
+    <!-- Title Area -->
+    <rect width="320" height="40" rx="12" fill="url(#partGrad)" />
+    <text x="160" y="25" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Participant Node A (Shard 1)</text>
+    
+    <!-- Lock Manager -->
+    <rect x="15" y="55" width="135" height="100" rx="6" fill="#1E293B" stroke="#059669" />
+    <text x="82" y="75" text-anchor="middle" fill="#A7F3D0" font-size="12" font-weight="700">Lock Manager (2PL)</text>
+    <text x="82" y="95" text-anchor="middle" fill="#64748B" font-size="10">Locks: X(K1), S(K2)</text>
+    <text x="82" y="115" text-anchor="middle" fill="#34D399" font-size="10" font-weight="600">Wound-Wait Prevention</text>
+    <rect x="25" y="130" width="114" height="18" rx="3" fill="#064E3B" />
+    <text x="82" y="142" text-anchor="middle" fill="#10B981" font-size="9" font-weight="600">Locks Held Until Commit</text>
+
+    <!-- WAL + Storage Engine -->
+    <rect x="170" y="55" width="135" height="100" rx="6" fill="#1E293B" stroke="#059669" />
+    <text x="237" y="75" text-anchor="middle" fill="#A7F3D0" font-size="12" font-weight="700">Storage &amp; WAL</text>
+    <text x="237" y="95" text-anchor="middle" fill="#F8FAFC" font-size="10" font-weight="600">Local MVCC Store</text>
+    <text x="237" y="115" text-anchor="middle" fill="#64748B" font-size="10">WAL: Prepared Record</text>
+    <rect x="180" y="130" width="115" height="18" rx="3" fill="#064E3B" />
+    <text x="237" y="142" text-anchor="middle" fill="#10B981" font-size="9" font-weight="600">Fsync on PREPARE</text>
+  </g>
+
+  <!-- Participant Node B (Shard 2) -->
+  <g transform="translate(560, 420)" filter="url(#shadow)">
+    <rect width="320" height="170" rx="12" fill="#0F172A" stroke="#10B981" stroke-width="2" />
+    <!-- Title Area -->
+    <rect width="320" height="40" rx="12" fill="url(#partGrad)" />
+    <text x="160" y="25" text-anchor="middle" fill="#FFFFFF" font-size="14" font-weight="700">Participant Node B (Shard 2)</text>
+    
+    <!-- Lock Manager -->
+    <rect x="15" y="55" width="135" height="100" rx="6" fill="#1E293B" stroke="#059669" />
+    <text x="82" y="75" text-anchor="middle" fill="#A7F3D0" font-size="12" font-weight="700">Lock Manager (2PL)</text>
+    <text x="82" y="95" text-anchor="middle" fill="#64748B" font-size="10">Locks: X(K3)</text>
+    <text x="82" y="115" text-anchor="middle" fill="#34D399" font-size="10" font-weight="600">Wound-Wait Prevention</text>
+    <rect x="25" y="130" width="114" height="18" rx="3" fill="#064E3B" />
+    <text x="82" y="142" text-anchor="middle" fill="#10B981" font-size="9" font-weight="600">Locks Held Until Commit</text>
+
+    <!-- WAL + Storage Engine -->
+    <rect x="170" y="55" width="135" height="100" rx="6" fill="#1E293B" stroke="#059669" />
+    <text x="237" y="75" text-anchor="middle" fill="#A7F3D0" font-size="12" font-weight="700">Storage &amp; WAL</text>
+    <text x="237" y="95" text-anchor="middle" fill="#F8FAFC" font-size="10" font-weight="600">Local MVCC Store</text>
+    <text x="237" y="115" text-anchor="middle" fill="#64748B" font-size="10">WAL: Prepared Record</text>
+    <rect x="180" y="130" width="115" height="18" rx="3" fill="#064E3B" />
+    <text x="237" y="142" text-anchor="middle" fill="#10B981" font-size="9" font-weight="600">Fsync on PREPARE</text>
+  </g>
+
+  <!-- PROTOCOL CONNECTIONS AND FLOWS -->
+
+  <!-- Client to Coordinator (Txn Start & Write Operations) -->
+  <path d="M 240 140 L 350 140" fill="none" stroke="#8B5CF6" stroke-width="2.5" marker-end="url(#arrow-purple)" />
+  <text x="295" y="130" text-anchor="middle" fill="#C084FC" font-size="11" font-weight="700">1. Begin &amp; Writes</text>
+
+  <!-- Phase 1: Prepare (Downwards Blue Arrows) -->
+  <!-- Coordinator to Participant A -->
+  <path d="M 400 200 L 260 410" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-dasharray="1" marker-end="url(#arrow-blue)" />
+  <text x="285" y="270" text-anchor="middle" fill="#93C5FD" font-size="12" font-weight="700">2. PREPARE</text>
+
+  <!-- Coordinator to Participant B -->
+  <path d="M 580 200 L 700 410" fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-dasharray="1" marker-end="url(#arrow-blue)" />
+  <text x="680" y="270" text-anchor="middle" fill="#93C5FD" font-size="12" font-weight="700">2. PREPARE</text>
+
+  <!-- Lock & Write Phase Details during Prepare -->
+  <g transform="translate(420, 260)">
+    <rect width="120" height="60" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1" />
+    <text x="60" y="20" text-anchor="middle" fill="#E2E8F0" font-size="10" font-weight="700">Participant Actions:</text>
+    <text x="60" y="35" text-anchor="middle" fill="#34D399" font-size="9">1. Lock keys (Strict 2PL)</text>
+    <text x="60" y="48" text-anchor="middle" fill="#38BDF8" font-size="9">2. Append PREPARE to WAL</text>
+  </g>
+
+  <!-- Phase 1: Votes (Upwards Green Arrows) -->
+  <!-- Participant A to Coordinator -->
+  <path d="M 285 410 L 425 200" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="390" y="325" text-anchor="middle" fill="#34D399" font-size="11" font-weight="700">3. VOTE_COMMIT</text>
+
+  <!-- Participant B to Coordinator -->
+  <path d="M 725 410 L 605 200" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="635" y="325" text-anchor="middle" fill="#34D399" font-size="11" font-weight="700">3. VOTE_COMMIT</text>
+
+  <!-- Phase 2: Decision and Commit -->
+  <!-- Coordinator to A -->
+  <path d="M 460 200 L 320 410" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-purple)" />
+  <text x="365" y="225" text-anchor="middle" fill="#C084FC" font-size="11" font-weight="700">4. COMMIT</text>
+
+  <!-- Coordinator to B -->
+  <path d="M 520 200 L 640 410" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrow-purple)" />
+  <text x="615" y="225" text-anchor="middle" fill="#C084FC" font-size="11" font-weight="700">4. COMMIT</text>
+  
+  <!-- Release locks step indicator -->
+  <g transform="translate(180, 350)">
+    <rect width="100" height="25" rx="3" fill="#022C22" stroke="#059669" stroke-width="0.5" />
+    <text x="50" y="15" text-anchor="middle" fill="#10B981" font-size="9" font-weight="700">Release Locks on Commit</text>
+  </g>
+  <g transform="translate(680, 350)">
+    <rect width="100" height="25" rx="3" fill="#022C22" stroke="#059669" stroke-width="0.5" />
+    <text x="50" y="15" text-anchor="middle" fill="#10B981" font-size="9" font-weight="700">Release Locks on Commit</text>
+  </g>
+</svg>

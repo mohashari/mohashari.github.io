@@ -1,0 +1,283 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#070a13" />
+    </linearGradient>
+
+    <!-- GPU Card Gradient -->
+    <linearGradient id="gpu-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#111827" stop-opacity="0.9" />
+    </linearGradient>
+
+    <!-- Accent Gradients -->
+    <linearGradient id="blue-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+
+    <linearGradient id="green-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <linearGradient id="orange-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <linearGradient id="purple-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+
+    <linearGradient id="red-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+
+    <!-- Filters for Glow Effects -->
+    <filter id="glow-strong" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-subtle" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Canvas Background -->
+  <rect width="1000" height="650" fill="url(#bg-grad)" rx="16" />
+  
+  <!-- Subtle Grid Overlay -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 1000,50 M 0,100 L 1000,100 M 0,150 L 1000,150 M 0,200 L 1000,200 M 0,250 L 1000,250 M 0,300 L 1000,300 M 0,350 L 1000,350 M 0,400 L 1000,400 M 0,450 L 1000,450 M 0,500 L 1000,500 M 0,550 L 1000,550 M 0,600 L 1000,600" stroke="#ffffff" stroke-width="1" />
+    <path d="M 100,0 L 100,650 M 200,0 L 200,650 M 300,0 L 300,650 M 400,0 L 400,650 M 500,0 L 500,650 M 600,0 L 600,650 M 700,0 L 700,650 M 800,0 L 800,650 M 900,0 L 900,650" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title / Legend Block -->
+  <g transform="translate(40, 40)">
+    <text x="0" y="0" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" letter-spacing="0.5">LoRA Fine-Tuning Multi-GPU Memory Layout (DeepSpeed ZeRO-3)</text>
+    <text x="0" y="22" fill="#9ca3af" font-family="system-ui, -apple-system, sans-serif" font-size="13">Finetuning a 70B parameter model using LoRA adapters partitioned across 4x GPUs</text>
+  </g>
+
+  <!-- Color/State Legend -->
+  <g transform="translate(680, 35)" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500">
+    <g transform="translate(0, 0)">
+      <rect width="12" height="12" rx="3" fill="url(#red-glow)" />
+      <text x="18" y="10" fill="#cbd5e1">Frozen Base Model (W_0)</text>
+    </g>
+    <g transform="translate(160, 0)">
+      <rect width="12" height="12" rx="3" fill="url(#blue-glow)" />
+      <text x="18" y="10" fill="#cbd5e1">LoRA Adapters (A, B)</text>
+    </g>
+    <g transform="translate(0, 20)">
+      <rect width="12" height="12" rx="3" fill="url(#orange-glow)" />
+      <text x="18" y="10" fill="#cbd5e1">Optimizer States (ZeRO-3)</text>
+    </g>
+    <g transform="translate(160, 20)">
+      <rect width="12" height="12" rx="3" fill="url(#green-glow)" />
+      <text x="18" y="10" fill="#cbd5e1">Gradients (ZeRO-3)</text>
+    </g>
+  </g>
+
+  <!-- ================= GPU 0 (RANK 0) ================= -->
+  <g transform="translate(40, 100)">
+    <!-- GPU Card Frame -->
+    <rect width="200" height="430" rx="12" fill="url(#gpu-grad)" stroke="#374151" stroke-width="1.5" />
+    <rect width="200" height="40" rx="12" fill="#1f2937" opacity="0.5" />
+    <text x="100" y="25" fill="#f3f4f6" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">GPU 0 (Rank 0)</text>
+
+    <!-- GPU Memory Visualizer Stack -->
+    <!-- 1. Frozen Base Weights (Partitioned under ZeRO-3) -->
+    <g transform="translate(15, 60)">
+      <rect width="170" height="80" rx="8" fill="#1e1b1b" stroke="#7f1d1d" stroke-width="1.5" />
+      <text x="85" y="25" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Base Model W₀ (Part 1/4)</text>
+      <text x="85" y="45" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" text-anchor="middle" opacity="0.8">Frozen Parameters (FP16/BF16)</text>
+      <rect x="15" y="55" width="140" height="14" rx="3" fill="url(#red-glow)" opacity="0.8" />
+      <text x="85" y="65" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">17.5B Params (35 GB)</text>
+    </g>
+
+    <!-- 2. LoRA Adapters (Partitioned or Replicated - showing Partitioned under ZeRO-3) -->
+    <g transform="translate(15, 155)">
+      <rect width="170" height="85" rx="8" fill="#172554" stroke="#1d4ed8" stroke-width="1.5" />
+      <text x="85" y="22" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">LoRA Adapters (A, B)</text>
+      <text x="85" y="40" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" text-anchor="middle" opacity="0.8">Trainable Weights (FP32)</text>
+      <rect x="15" y="50" width="140" height="24" rx="3" fill="url(#blue-glow)" opacity="0.8" />
+      <text x="85" y="60" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Adapter Partition 1/4</text>
+      <text x="85" y="70" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle" font-weight="600">Active Forward/Backward</text>
+    </g>
+
+    <!-- 3. Gradients (ZeRO-3 Partitioned) -->
+    <g transform="translate(15, 255)">
+      <rect width="170" height="60" rx="8" fill="#064e3b" stroke="#047857" stroke-width="1.5" />
+      <text x="85" y="22" fill="#6ee7b7" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Gradients (Part 1/4)</text>
+      <text x="85" y="38" fill="#6ee7b7" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" opacity="0.8">LoRA FP32 Gradients</text>
+      <rect x="15" y="44" width="140" height="10" rx="2" fill="url(#green-glow)" opacity="0.8" />
+    </g>
+
+    <!-- 4. Optimizer States (ZeRO-3 Partitioned) -->
+    <g transform="translate(15, 330)">
+      <rect width="170" height="85" rx="8" fill="#451a03" stroke="#b45309" stroke-width="1.5" />
+      <text x="85" y="22" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Optimizer States</text>
+      <text x="85" y="38" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" opacity="0.8">AdamW: FP32 Momentum + Variance</text>
+      <rect x="15" y="48" width="140" height="24" rx="3" fill="url(#orange-glow)" opacity="0.8" />
+      <text x="85" y="58" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Partition 1/4 (FP32)</text>
+      <text x="85" y="68" fill="#fcd34d" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle">Optimized at Step Boundary</text>
+    </g>
+  </g>
+
+  <!-- ================= GPU 1 (RANK 1) ================= -->
+  <g transform="translate(280, 100)">
+    <rect width="200" height="430" rx="12" fill="url(#gpu-grad)" stroke="#374151" stroke-width="1.5" />
+    <rect width="200" height="40" rx="12" fill="#1f2937" opacity="0.5" />
+    <text x="100" y="25" fill="#f3f4f6" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">GPU 1 (Rank 1)</text>
+
+    <!-- Stack -->
+    <g transform="translate(15, 60)">
+      <rect width="170" height="80" rx="8" fill="#1e1b1b" stroke="#7f1d1d" stroke-width="1.5" />
+      <text x="85" y="25" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Base Model W₀ (Part 2/4)</text>
+      <text x="85" y="45" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" text-anchor="middle" opacity="0.8">Frozen Parameters (FP16/BF16)</text>
+      <rect x="15" y="55" width="140" height="14" rx="3" fill="url(#red-glow)" opacity="0.8" />
+      <text x="85" y="65" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">17.5B Params (35 GB)</text>
+    </g>
+    <g transform="translate(15, 155)">
+      <rect width="170" height="85" rx="8" fill="#172554" stroke="#1d4ed8" stroke-width="1.5" />
+      <text x="85" y="22" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">LoRA Adapters (A, B)</text>
+      <text x="85" y="40" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" text-anchor="middle" opacity="0.8">Trainable Weights (FP32)</text>
+      <rect x="15" y="50" width="140" height="24" rx="3" fill="url(#blue-glow)" opacity="0.8" />
+      <text x="85" y="60" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Adapter Partition 2/4</text>
+      <text x="85" y="70" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle" font-weight="600">Active Forward/Backward</text>
+    </g>
+    <g transform="translate(15, 255)">
+      <rect width="170" height="60" rx="8" fill="#064e3b" stroke="#047857" stroke-width="1.5" />
+      <text x="85" y="22" fill="#6ee7b7" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Gradients (Part 2/4)</text>
+      <text x="85" y="38" fill="#6ee7b7" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" opacity="0.8">LoRA FP32 Gradients</text>
+      <rect x="15" y="44" width="140" height="10" rx="2" fill="url(#green-glow)" opacity="0.8" />
+    </g>
+    <g transform="translate(15, 330)">
+      <rect width="170" height="85" rx="8" fill="#451a03" stroke="#b45309" stroke-width="1.5" />
+      <text x="85" y="22" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Optimizer States</text>
+      <text x="85" y="38" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" opacity="0.8">AdamW: FP32 Momentum + Variance</text>
+      <rect x="15" y="48" width="140" height="24" rx="3" fill="url(#orange-glow)" opacity="0.8" />
+      <text x="85" y="58" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Partition 2/4 (FP32)</text>
+      <text x="85" y="68" fill="#fcd34d" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle">Optimized at Step Boundary</text>
+    </g>
+  </g>
+
+  <!-- ================= GPU 2 (RANK 2) ================= -->
+  <g transform="translate(520, 100)">
+    <rect width="200" height="430" rx="12" fill="url(#gpu-grad)" stroke="#374151" stroke-width="1.5" />
+    <rect width="200" height="40" rx="12" fill="#1f2937" opacity="0.5" />
+    <text x="100" y="25" fill="#f3f4f6" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">GPU 2 (Rank 2)</text>
+
+    <!-- Stack -->
+    <g transform="translate(15, 60)">
+      <rect width="170" height="80" rx="8" fill="#1e1b1b" stroke="#7f1d1d" stroke-width="1.5" />
+      <text x="85" y="25" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Base Model W₀ (Part 3/4)</text>
+      <text x="85" y="45" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" text-anchor="middle" opacity="0.8">Frozen Parameters (FP16/BF16)</text>
+      <rect x="15" y="55" width="140" height="14" rx="3" fill="url(#red-glow)" opacity="0.8" />
+      <text x="85" y="65" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">17.5B Params (35 GB)</text>
+    </g>
+    <g transform="translate(15, 155)">
+      <rect width="170" height="85" rx="8" fill="#172554" stroke="#1d4ed8" stroke-width="1.5" />
+      <text x="85" y="22" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">LoRA Adapters (A, B)</text>
+      <text x="85" y="40" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" text-anchor="middle" opacity="0.8">Trainable Weights (FP32)</text>
+      <rect x="15" y="50" width="140" height="24" rx="3" fill="url(#blue-glow)" opacity="0.8" />
+      <text x="85" y="60" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Adapter Partition 3/4</text>
+      <text x="85" y="70" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle" font-weight="600">Active Forward/Backward</text>
+    </g>
+    <g transform="translate(15, 255)">
+      <rect width="170" height="60" rx="8" fill="#064e3b" stroke="#047857" stroke-width="1.5" />
+      <text x="85" y="22" fill="#6ee7b7" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Gradients (Part 3/4)</text>
+      <text x="85" y="38" fill="#6ee7b7" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" opacity="0.8">LoRA FP32 Gradients</text>
+      <rect x="15" y="44" width="140" height="10" rx="2" fill="url(#green-glow)" opacity="0.8" />
+    </g>
+    <g transform="translate(15, 330)">
+      <rect width="170" height="85" rx="8" fill="#451a03" stroke="#b45309" stroke-width="1.5" />
+      <text x="85" y="22" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Optimizer States</text>
+      <text x="85" y="38" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" opacity="0.8">AdamW: FP32 Momentum + Variance</text>
+      <rect x="15" y="48" width="140" height="24" rx="3" fill="url(#orange-glow)" opacity="0.8" />
+      <text x="85" y="58" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Partition 3/4 (FP32)</text>
+      <text x="85" y="68" fill="#fcd34d" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle">Optimized at Step Boundary</text>
+    </g>
+  </g>
+
+  <!-- ================= GPU 3 (RANK 3) ================= -->
+  <g transform="translate(760, 100)">
+    <rect width="200" height="430" rx="12" fill="url(#gpu-grad)" stroke="#374151" stroke-width="1.5" />
+    <rect width="200" height="40" rx="12" fill="#1f2937" opacity="0.5" />
+    <text x="100" y="25" fill="#f3f4f6" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">GPU 3 (Rank 3)</text>
+
+    <!-- Stack -->
+    <g transform="translate(15, 60)">
+      <rect width="170" height="80" rx="8" fill="#1e1b1b" stroke="#7f1d1d" stroke-width="1.5" />
+      <text x="85" y="25" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Base Model W₀ (Part 4/4)</text>
+      <text x="85" y="45" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" text-anchor="middle" opacity="0.8">Frozen Parameters (FP16/BF16)</text>
+      <rect x="15" y="55" width="140" height="14" rx="3" fill="url(#red-glow)" opacity="0.8" />
+      <text x="85" y="65" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">17.5B Params (35 GB)</text>
+    </g>
+    <g transform="translate(15, 155)">
+      <rect width="170" height="85" rx="8" fill="#172554" stroke="#1d4ed8" stroke-width="1.5" />
+      <text x="85" y="22" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">LoRA Adapters (A, B)</text>
+      <text x="85" y="40" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500" text-anchor="middle" opacity="0.8">Trainable Weights (FP32)</text>
+      <rect x="15" y="50" width="140" height="24" rx="3" fill="url(#blue-glow)" opacity="0.8" />
+      <text x="85" y="60" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Adapter Partition 4/4</text>
+      <text x="85" y="70" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle" font-weight="600">Active Forward/Backward</text>
+    </g>
+    <g transform="translate(15, 255)">
+      <rect width="170" height="60" rx="8" fill="#064e3b" stroke="#047857" stroke-width="1.5" />
+      <text x="85" y="22" fill="#6ee7b7" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Gradients (Part 4/4)</text>
+      <text x="85" y="38" fill="#6ee7b7" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" opacity="0.8">LoRA FP32 Gradients</text>
+      <rect x="15" y="44" width="140" height="10" rx="2" fill="url(#green-glow)" opacity="0.8" />
+    </g>
+    <g transform="translate(15, 330)">
+      <rect width="170" height="85" rx="8" fill="#451a03" stroke="#b45309" stroke-width="1.5" />
+      <text x="85" y="22" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Optimizer States</text>
+      <text x="85" y="38" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" opacity="0.8">AdamW: FP32 Momentum + Variance</text>
+      <rect x="15" y="48" width="140" height="24" rx="3" fill="url(#orange-glow)" opacity="0.8" />
+      <text x="85" y="58" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700" text-anchor="middle">Partition 4/4 (FP32)</text>
+      <text x="85" y="68" fill="#fcd34d" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle">Optimized at Step Boundary</text>
+    </g>
+  </g>
+
+  <!-- ================= ORCHESTRATION & COMMUNICATION INTERCONNECT ================= -->
+  <!-- NVLink / PCIe Ring Bus -->
+  <g transform="translate(0, 545)">
+    <!-- Horizontal Bus Line -->
+    <path d="M 140,20 L 860,20" stroke="#4b5563" stroke-width="4" stroke-dasharray="10 6" fill="none" />
+    
+    <!-- Connections to GPUs -->
+    <path d="M 140,0 L 140,20" stroke="#3b82f6" stroke-width="3" filter="url(#glow-subtle)" />
+    <circle cx="140" cy="20" r="6" fill="#3b82f6" filter="url(#glow-strong)" />
+
+    <path d="M 380,0 L 380,20" stroke="#3b82f6" stroke-width="3" filter="url(#glow-subtle)" />
+    <circle cx="380" cy="20" r="6" fill="#3b82f6" filter="url(#glow-strong)" />
+
+    <path d="M 620,0 L 620,20" stroke="#3b82f6" stroke-width="3" filter="url(#glow-subtle)" />
+    <circle cx="620" cy="20" r="6" fill="#3b82f6" filter="url(#glow-strong)" />
+
+    <path d="M 860,0 L 860,20" stroke="#3b82f6" stroke-width="3" filter="url(#glow-subtle)" />
+    <circle cx="860" cy="20" r="6" fill="#3b82f6" filter="url(#glow-strong)" />
+
+    <!-- Label -->
+    <rect x="420" y="8" width="160" height="24" rx="12" fill="#111827" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="500" y="24" fill="#3b82f6" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1">NVLINK / NCCL RING</text>
+  </g>
+
+  <!-- Communication Flow Arrows & Annotations -->
+  <!-- Forward Pass: All-Gather -->
+  <path d="M 210,130 Q 245,130 280,130" stroke="#3b82f6" stroke-width="2" stroke-dasharray="4 4" fill="none" />
+  <!-- Backward Pass: Reduce-Scatter -->
+  <path d="M 280,285 Q 245,285 210,285" stroke="#10b981" stroke-width="2" stroke-dasharray="4 4" fill="none" />
+  
+  <g transform="translate(100, 595)" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#9ca3af">
+    <text x="50" y="15" text-anchor="middle">1. Forward Pass: <tspan fill="#3b82f6">All-Gather</tspan> layer parameters dynamically</text>
+    <text x="430" y="15" text-anchor="middle">2. Backward Pass: <tspan fill="#10b981">Reduce-Scatter</tspan> to update adapter gradients</text>
+    <text x="800" y="15" text-anchor="middle">3. Step Boundary: <tspan fill="#f59e0b">Local Partition Update</tspan></text>
+  </g>
+</svg>
