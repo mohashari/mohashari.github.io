@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 560" font-family="monospace, sans-serif" font-size="13">
+  <!-- Background -->
+  <rect width="900" height="560" fill="#0f1117" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="34" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="bold">PgCat Session Multiplexing &amp; Query Routing Architecture</text>
+
+  <!-- Client Application Tier -->
+  <rect x="30" y="70" width="160" height="420" rx="8" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+  <text x="110" y="95" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="bold">APPLICATION TIER</text>
+  
+  <rect x="45" y="120" width="130" height="60" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="110" y="145" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">App Instance A</text>
+  <text x="110" y="160" text-anchor="middle" fill="#64748b" font-size="10">Active Conns: 5,000</text>
+
+  <rect x="45" y="200" width="130" height="60" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="110" y="225" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">App Instance B</text>
+  <text x="110" y="240" text-anchor="middle" fill="#64748b" font-size="10">Active Conns: 4,000</text>
+
+  <text x="110" y="300" text-anchor="middle" fill="#64748b" font-size="16" font-weight="bold">...</text>
+
+  <rect x="45" y="330" width="130" height="60" rx="6" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="110" y="355" text-anchor="middle" fill="#93c5fd" font-size="11" font-weight="bold">App Instance N</text>
+  <text x="110" y="370" text-anchor="middle" fill="#64748b" font-size="10">Active Conns: 1,000</text>
+
+  <text x="110" y="440" text-anchor="middle" fill="#3b82f6" font-size="11" font-weight="bold">Total Client Conns</text>
+  <text x="110" y="460" text-anchor="middle" fill="#3b82f6" font-size="12" font-weight="bold">~ 10,000 Sessions</text>
+
+  <!-- Multiplexing arrows from App Tier to PgCat -->
+  <path d="M 175,150 L 310,210" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrow-blue)"/>
+  <path d="M 175,230 L 310,240" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrow-blue)"/>
+  <path d="M 175,360 L 310,270" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrow-blue)"/>
+
+  <!-- PgCat Connection Pooler Tier -->
+  <rect x="310" y="70" width="280" height="420" rx="8" fill="#111827" stroke="#10b981" stroke-width="1.5"/>
+  <text x="450" y="95" text-anchor="middle" fill="#10b981" font-size="12" font-weight="bold">PGCAT POOLER LAYER</text>
+
+  <!-- pgcat internal architecture components -->
+  <!-- Client Session Listeners -->
+  <rect x="325" y="120" width="250" height="45" rx="6" fill="#1e293b" stroke="#0d9488" stroke-width="1"/>
+  <text x="450" y="145" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="bold">Frontend Connection Manager (Port 6432)</text>
+
+  <!-- Query Parser & Router -->
+  <rect x="325" y="185" width="250" height="60" rx="6" fill="#1e293b" stroke="#0d9488" stroke-width="1"/>
+  <text x="450" y="205" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="bold">Query Parser &amp; Router</text>
+  <text x="450" y="220" text-anchor="middle" fill="#64748b" font-size="9">Read/Write Splitting &amp; Sharding Key Extraction</text>
+  <text x="450" y="235" text-anchor="middle" fill="#64748b" font-size="9">(Default Role Routing: Primary vs. Replica)</text>
+
+  <!-- Multiplexing Engine -->
+  <rect x="325" y="265" width="250" height="85" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="450" y="285" text-anchor="middle" fill="#fcd34d" font-size="11" font-weight="bold">Transaction Multiplexing Engine</text>
+  <text x="450" y="305" text-anchor="middle" fill="#e2e8f0" font-size="10">pool_mode = &quot;transaction&quot;</text>
+  <text x="450" y="320" text-anchor="middle" fill="#a1a1aa" font-size="9">Associates server connections ONLY during txn</text>
+  <text x="450" y="335" text-anchor="middle" fill="#a1a1aa" font-size="9">Clears session state with DEALLOCATE/RESET</text>
+
+  <!-- Backend Pool Stats -->
+  <rect x="325" y="370" width="250" height="60" rx="6" fill="#1e293b" stroke="#0d9488" stroke-width="1"/>
+  <text x="450" y="390" text-anchor="middle" fill="#2dd4bf" font-size="11" font-weight="bold">Backend Server Pools</text>
+  <text x="450" y="405" text-anchor="middle" fill="#64748b" font-size="10">Primary Pool: max 50 conns</text>
+  <text x="450" y="418" text-anchor="middle" fill="#64748b" font-size="10">Replica Pool: max 50 conns</text>
+
+  <text x="450" y="465" text-anchor="middle" fill="#10b981" font-size="11" font-weight="bold">Total Backend Conns</text>
+  <text x="450" y="480" text-anchor="middle" fill="#10b981" font-size="12" font-weight="bold">~ 100 Dedicated Conns</text>
+
+  <!-- Routing arrows from PgCat to Database -->
+  <path d="M 575,215 L 700,165" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="635" y="175" text-anchor="middle" fill="#94a3b8" font-size="9">Write / Txn</text>
+
+  <path d="M 575,230 L 700,345" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="635" y="300" text-anchor="middle" fill="#94a3b8" font-size="9">Read / Select</text>
+
+  <!-- PostgreSQL Database Tier -->
+  <rect x="700" y="70" width="170" height="420" rx="8" fill="#111827" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="785" y="95" text-anchor="middle" fill="#818cf8" font-size="12" font-weight="bold">POSTGRESQL TIER</text>
+
+  <!-- Primary Node -->
+  <rect x="715" y="120" width="140" height="90" rx="6" fill="#1e293b" stroke="#ef4444" stroke-width="1.5"/>
+  <text x="785" y="140" text-anchor="middle" fill="#fca5a5" font-size="11" font-weight="bold">Primary DB Node</text>
+  <text x="785" y="155" text-anchor="middle" fill="#94a3b8" font-size="9">(Read / Write)</text>
+  <text x="785" y="175" text-anchor="middle" fill="#64748b" font-size="9">Dedicated Backends</text>
+  <text x="785" y="190" text-anchor="middle" fill="#64748b" font-size="9">50 processes (500MB)</text>
+
+  <!-- Replication arrow -->
+  <line x1="785" y1="210" x2="785" y2="300" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-red)"/>
+  <text x="830" y="260" text-anchor="middle" fill="#f43f5e" font-size="9">WAL Streaming</text>
+
+  <!-- Replica Node -->
+  <rect x="715" y="300" width="140" height="90" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="785" y="320" text-anchor="middle" fill="#86efac" font-size="11" font-weight="bold">Replica DB Node</text>
+  <text x="785" y="335" text-anchor="middle" fill="#94a3b8" font-size="9">(Read-Only)</text>
+  <text x="785" y="355" text-anchor="middle" fill="#64748b" font-size="9">Dedicated Backends</text>
+  <text x="785" y="370" text-anchor="middle" fill="#64748b" font-size="9">50 processes (500MB)</text>
+
+  <rect x="710" y="415" width="150" height="60" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="785" y="430" text-anchor="middle" fill="#94a3b8" font-size="9" font-weight="bold">Postgres Conn Overhead</text>
+  <text x="785" y="445" text-anchor="middle" fill="#ef4444" font-size="9">Direct: 10,000 conns = 100GB</text>
+  <text x="785" y="460" text-anchor="middle" fill="#22c55e" font-size="9">PgCat: 100 conns = 1GB</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#f43f5e"/>
+    </marker>
+  </defs>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 540" width="950" height="540" font-family="monospace, sans-serif">
+  <!-- Background -->
+  <rect width="950" height="540" fill="#0f1117" rx="8"/>
+
+  <!-- Title -->
+  <text x="475" y="32" text-anchor="middle" fill="#e2e8f0" font-size="16" font-weight="bold">Lock-Free Ring Buffer: Cache-Aligned SPSC Memory Architecture</text>
+  
+  <!-- Left Side: Circular Ring Buffer -->
+  <text x="250" y="70" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="bold">LOGICAL RING STRUCTURE</text>
+  
+  <!-- Inner Ring Details -->
+  <circle cx="250" cy="220" r="100" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="6,6"/>
+  <circle cx="250" cy="220" r="70" fill="#0f1117" stroke="#1e293b" stroke-width="1"/>
+  
+  <!-- Direction Arrow -->
+  <path d="M 230 180 A 20 20 0 0 1 270 180" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-gray)"/>
+  <text x="250" y="170" text-anchor="middle" fill="#64748b" font-size="9">Flow</text>
+
+  <!-- Slots -->
+  <!-- Slot 0 (Empty) -->
+  <circle cx="350" cy="220" r="22" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <text x="350" y="224" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">[0]</text>
+
+  <!-- Slot 1 (Has Data / Unread) -->
+  <circle cx="321" cy="291" r="22" fill="#1e3a2a" stroke="#10b981" stroke-width="2"/>
+  <text x="321" y="295" text-anchor="middle" fill="#34d399" font-size="10" font-weight="bold">[1]</text>
+  <text x="321" y="327" text-anchor="middle" fill="#34d399" font-size="8">Data A</text>
+
+  <!-- Slot 2 (Has Data / Unread) -->
+  <circle cx="250" cy="320" r="22" fill="#1e3a2a" stroke="#10b981" stroke-width="2"/>
+  <text x="250" y="324" text-anchor="middle" fill="#34d399" font-size="10" font-weight="bold">[2]</text>
+  <text x="250" y="356" text-anchor="middle" fill="#34d399" font-size="8">Data B</text>
+
+  <!-- Slot 3 (Empty / Read) -->
+  <circle cx="179" cy="291" r="22" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <text x="179" y="295" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">[3]</text>
+
+  <!-- Slot 4 (Write Target) -->
+  <circle cx="150" cy="220" r="22" fill="#1e293b" stroke="#0ea5e9" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="150" y="224" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="bold">[4]</text>
+
+  <!-- Slot 5 (Empty) -->
+  <circle cx="179" cy="149" r="22" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <text x="179" y="153" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">[5]</text>
+
+  <!-- Slot 6 (Empty) -->
+  <circle cx="250" cy="120" r="22" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <text x="250" y="124" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">[6]</text>
+
+  <!-- Slot 7 (Empty) -->
+  <circle cx="321" cy="149" r="22" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <text x="321" y="153" text-anchor="middle" fill="#94a3b8" font-size="10" font-weight="bold">[7]</text>
+
+  <!-- Producer Pointer -->
+  <line x1="60" y1="220" x2="118" y2="220" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="50" y="205" text-anchor="start" fill="#38bdf8" font-size="10" font-weight="bold">Write Index (4)</text>
+  <text x="50" y="238" text-anchor="start" fill="#0ea5e9" font-size="9">Producer Core</text>
+
+  <!-- Consumer Pointer -->
+  <line x1="410" y1="340" x2="350" y2="305" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="420" y="345" text-anchor="start" fill="#34d399" font-size="10" font-weight="bold">Read Index (1)</text>
+  <text x="420" y="358" text-anchor="start" fill="#10b981" font-size="9">Consumer Core</text>
+
+  <!-- Right Side: CPU Cache-Line Padding / Alignment -->
+  <text x="700" y="70" text-anchor="middle" fill="#94a3b8" font-size="12" font-weight="bold">PHYSICAL CACHE-LINE ALIGNMENT</text>
+
+  <!-- Cache Line 1 -->
+  <rect x="520" y="95" width="360" height="75" rx="4" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <text x="530" y="113" fill="#94a3b8" font-size="10" font-weight="bold">L1/L2 Cache Line 1 (64 Bytes) - Producer Controlled</text>
+  
+  <!-- Write Index block (8 bytes) -->
+  <rect x="530" y="125" width="80" height="30" rx="3" fill="#0c4a6e" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="570" y="144" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="bold">writeIndex</text>
+  <text x="618" y="138" fill="#64748b" font-size="8">8 Bytes</text>
+
+  <!-- Padding block (56 bytes) -->
+  <rect x="650" y="125" width="220" height="30" rx="3" fill="#1f2937" stroke="#4b5563" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="760" y="144" text-anchor="middle" fill="#9ca3af" font-size="9">Cache Line Pad (56 Bytes / [56]byte)</text>
+
+  <!-- Cache Line 2 -->
+  <rect x="520" y="185" width="360" height="75" rx="4" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <text x="530" y="203" fill="#94a3b8" font-size="10" font-weight="bold">L1/L2 Cache Line 2 (64 Bytes) - Consumer Controlled</text>
+
+  <!-- Read Index block (8 bytes) -->
+  <rect x="530" y="215" width="80" height="30" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="1.5"/>
+  <text x="570" y="234" text-anchor="middle" fill="#34d399" font-size="9" font-weight="bold">readIndex</text>
+  <text x="618" y="228" fill="#64748b" font-size="8">8 Bytes</text>
+
+  <!-- Padding block (56 bytes) -->
+  <rect x="650" y="215" width="220" height="30" rx="3" fill="#1f2937" stroke="#4b5563" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="760" y="234" text-anchor="middle" fill="#9ca3af" font-size="9">Cache Line Pad (56 Bytes / [56]byte)</text>
+
+  <!-- Cache Line 3 -->
+  <rect x="520" y="275" width="360" height="75" rx="4" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <text x="530" y="293" fill="#94a3b8" font-size="10" font-weight="bold">L1/L2 Cache Line 3+ (Data Storage Slots)</text>
+
+  <!-- Buffer storage block -->
+  <rect x="530" y="305" width="340" height="30" rx="3" fill="#1f2937" stroke="#6b7280" stroke-width="1"/>
+  <text x="700" y="324" text-anchor="middle" fill="#d1d5db" font-size="9" font-weight="bold">Ring Buffer Storage Slice / Array Elements</text>
+
+  <!-- Divider -->
+  <line x1="30" y1="380" x2="920" y2="380" stroke="#1f2937" stroke-width="1.5"/>
+
+  <!-- Bottom Panel: Coordination & Architecture Details -->
+  <!-- Left Side: Logic -->
+  <rect x="30" y="395" width="430" height="120" rx="4" fill="#0b1329" stroke="#1e293b" stroke-width="1"/>
+  <text x="50" y="415" fill="#38bdf8" font-size="11" font-weight="bold">COORDINATION STRATEGY (SPSC LOCK-FREE)</text>
+  <text x="50" y="435" fill="#e2e8f0" font-size="9.5">• Producer: writes to slot writeIndex % size</text>
+  <text x="70" y="448" fill="#94a3b8" font-size="8.5">- Wait if writeIndex - readIndex == size (Full)</text>
+  <text x="70" y="458" fill="#94a3b8" font-size="8.5">- Store data -&gt; Atomic Store writeIndex (Release semantics)</text>
+  <text x="50" y="475" fill="#34d399" font-size="9.5">• Consumer: reads from slot readIndex % size</text>
+  <text x="70" y="488" fill="#94a3b8" font-size="8.5">- Wait if writeIndex - readIndex == 0 (Empty)</text>
+  <text x="70" y="498" fill="#94a3b8" font-size="8.5">- Read data -&gt; Atomic Store readIndex (Release semantics)</text>
+
+  <!-- Right Side: CPU Cache coherency info -->
+  <rect x="490" y="395" width="430" height="120" rx="4" fill="#1e1b29" stroke="#2d1a3a" stroke-width="1"/>
+  <text x="510" y="415" fill="#c084fc" font-size="11" font-weight="bold">WHY CACHE-LINE ALIGNMENT MATTERS</text>
+  <text x="510" y="435" fill="#e2e8f0" font-size="9">• Without Padding: false sharing occurs on the same cache line</text>
+  <text x="530" y="448" fill="#a78bfa" font-size="8.5">- Core 0 (Producer) updates writeIndex -&gt; invalidates Core 1 cache</text>
+  <text x="530" y="458" fill="#a78bfa" font-size="8.5">- Core 1 (Consumer) updates readIndex -&gt; invalidates Core 0 cache</text>
+  <text x="530" y="468" fill="#fb7185" font-size="8.5">- Massive CPU interconnect bus traffic + pipeline stalls</text>
+  <text x="510" y="488" fill="#34d399" font-size="9">• With Padding: indices sit in separate cache lines (isolated)</text>
+  <text x="530" y="501" fill="#86efac" font-size="8.5">- Max throughput: &gt; 150M ops/sec with sub-50ns latency</text>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L6,3 z" fill="#64748b"/>
+    </marker>
+  </defs>
+</svg>
