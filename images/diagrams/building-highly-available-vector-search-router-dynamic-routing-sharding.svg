@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="1000" height="600" rx="12" fill="#0b0f19"/>
+  
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#ffffff" stroke-opacity="0.02" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="routerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="100%" stop-color="#6366f1"/>
+    </linearGradient>
+    <linearGradient id="shard0Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="shard1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="brokenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f87171"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <rect width="1000" height="600" fill="url(#grid)" rx="12"/>
+
+  <!-- TITLE -->
+  <text x="30" y="45" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="bold">Highly Available Vector Search Router Architecture</text>
+  <text x="30" y="68" fill="#64748b" font-family="Inter, system-ui, sans-serif" font-size="13">Dynamic Routing with Circuit Breaking, Scatter-Gather Query Sharding, and Index Replication</text>
+
+  <!-- CLIENT -->
+  <rect x="40" y="240" width="130" height="120" rx="8" fill="url(#clientGrad)" fill-opacity="0.1" stroke="#38bdf8" stroke-width="2"/>
+  <text x="105" y="275" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Client App</text>
+  <text x="105" y="295" fill="#38bdf8" font-family="Inter, system-ui, sans-serif" font-size="11" text-anchor="middle">gRPC / HTTP Client</text>
+  <text x="105" y="325" fill="#94a3b8" font-family="monospace" font-size="9" text-anchor="middle">Query: [1536]f32</text>
+  <text x="105" y="340" fill="#94a3b8" font-family="monospace" font-size="9" text-anchor="middle">Limit K=100</text>
+
+  <!-- ROUTER GROUP -->
+  <rect x="230" y="110" width="360" height="440" rx="12" fill="#111827" stroke="#1f2937" stroke-width="2"/>
+  <rect x="230" y="110" width="360" height="40" rx="12" fill="#1f2937" fill-opacity="0.5"/>
+  <text x="250" y="135" fill="#e2e8f0" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold">VECTOR SEARCH ROUTER (Go Proxy)</text>
+
+  <!-- Dynamic Router & Load Balancer -->
+  <rect x="250" y="170" width="320" height="90" rx="8" fill="url(#routerGrad)" fill-opacity="0.1" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="270" y="195" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold">1. Dynamic Load Balancer</text>
+  <text x="270" y="215" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="11">Consistent Hashing &amp; Topology Map</text>
+  <text x="270" y="235" fill="#a5b4fc" font-family="Inter, system-ui, sans-serif" font-size="11">Active Health Checking &amp; EWMA Latency Tracker</text>
+
+  <!-- Circuit Breakers & Resiliency -->
+  <rect x="250" y="280" width="320" height="90" rx="8" fill="url(#amberGrad)" fill-opacity="0.1" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="270" y="305" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold">2. Circuit Breakers &amp; Rate Limiter</text>
+  <text x="270" y="325" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="11">Fast-Fail on high error rates / timeouts</text>
+  <text x="270" y="345" fill="#fde047" font-family="Inter, system-ui, sans-serif" font-size="11">State: Closed (Healthy) / Open (Tripped)</text>
+
+  <!-- Scatter-Gather Engine -->
+  <rect x="250" y="390" width="320" height="135" rx="8" fill="url(#clientGrad)" fill-opacity="0.1" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="270" y="415" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="bold">3. Scatter-Gather Sharding Engine</text>
+  <text x="270" y="435" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="11">Parallel Query Dispatching (goroutines)</text>
+  <text x="270" y="455" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="11">Concurrent Scatter to all shards</text>
+  <text x="270" y="475" fill="#38bdf8" font-family="Inter, system-ui, sans-serif" font-size="11">Gather, Heap-Merge, &amp; Score Re-ranking</text>
+  <text x="270" y="495" fill="#38bdf8" font-family="Inter, system-ui, sans-serif" font-size="11">K-way Merge: Out = Top K elements</text>
+
+  <!-- SHARDED & REPLICATED VECTOR NODES -->
+  
+  <!-- SHARD 0 -->
+  <rect x="650" y="110" width="310" height="205" rx="10" fill="#111827" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="670" y="132" fill="#10b981" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="bold">SHARD 0 (Vector Range: [0.0 - 0.5])</text>
+  
+  <!-- Shard 0 - Replica A (Primary) -->
+  <rect x="670" y="150" width="270" height="65" rx="6" fill="url(#shard0Grad)" fill-opacity="0.15" stroke="#10b981" stroke-width="1.5"/>
+  <text x="685" y="175" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="bold">VectorNode-Shard0-ReplicaA</text>
+  <text x="685" y="195" fill="#34d399" font-family="monospace" font-size="10">Primary | Health: 100% | Latency: 4ms</text>
+  <circle cx="915" cy="180" r="6" fill="#10b981"/>
+
+  <!-- Shard 0 - Replica B (Backup) -->
+  <rect x="670" y="230" width="270" height="65" rx="6" fill="url(#shard0Grad)" fill-opacity="0.1" stroke="#059669" stroke-width="1.5"/>
+  <text x="685" y="255" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="bold">VectorNode-Shard0-ReplicaB</text>
+  <text x="685" y="275" fill="#34d399" font-family="monospace" font-size="10">Replica | Health: 100% | Latency: 6ms</text>
+  <circle cx="915" cy="260" r="6" fill="#10b981"/>
+
+  <!-- SHARD 1 -->
+  <rect x="650" y="345" width="310" height="205" rx="10" fill="#111827" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="670" y="367" fill="#38bdf8" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="bold">SHARD 1 (Vector Range: [0.5 - 1.0])</text>
+
+  <!-- Shard 1 - Replica A (Primary) -->
+  <rect x="670" y="385" width="270" height="65" rx="6" fill="url(#shard1Grad)" fill-opacity="0.1" stroke="#059669" stroke-width="1.5"/>
+  <text x="685" y="410" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="bold">VectorNode-Shard1-ReplicaA</text>
+  <text x="685" y="430" fill="#34d399" font-family="monospace" font-size="10">Primary | Health: 100% | Latency: 5ms</text>
+  <circle cx="915" cy="415" r="6" fill="#10b981"/>
+
+  <!-- Shard 1 - Replica B (Unhealthy / Circuit Tripped) -->
+  <rect x="670" y="465" width="270" height="65" rx="6" fill="url(#brokenGrad)" fill-opacity="0.15" stroke="#f87171" stroke-width="1.5"/>
+  <text x="685" y="490" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="bold">VectorNode-Shard1-ReplicaB</text>
+  <text x="685" y="510" fill="#f87171" font-family="monospace" font-size="10">Replica | Health: 0% (Dead) | Circuit Open</text>
+  <circle cx="915" cy="495" r="6" fill="#f87171"/>
+
+  <!-- CONNECTIONS / ARROWS -->
+  
+  <!-- Client -> Router LB -->
+  <path d="M 170 300 L 230 300" fill="none" stroke="#38bdf8" stroke-width="2"/>
+  <polygon points="222,295 230,300 222,305" fill="#38bdf8"/>
+  <text x="200" y="285" fill="#38bdf8" font-family="Inter, system-ui, sans-serif" font-size="10" text-anchor="middle" font-weight="bold">Search Request</text>
+
+  <!-- Router Scatter -> Shards -->
+  <!-- To Shard 0 (Replica A) -->
+  <path d="M 570 410 L 610 410 L 610 182 L 670 182" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="2,2"/>
+  <polygon points="662,177 670,182 662,187" fill="#10b981"/>
+
+  <!-- To Shard 1 (Replica A) -->
+  <path d="M 570 470 L 630 470 L 630 417 L 670 417" fill="none" stroke="#38bdf8" stroke-width="2"/>
+  <polygon points="662,412 670,417 662,422" fill="#38bdf8"/>
+
+  <!-- To Shard 1 (Replica B - Blocked by Circuit Breaker) -->
+  <path d="M 630 470 L 630 500 L 670 500" fill="none" stroke="#f87171" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="645" y1="495" x2="655" y2="505" stroke="#f87171" stroke-width="2"/>
+  <line x1="655" y1="495" x2="645" y2="505" stroke="#f87171" stroke-width="2"/>
+  <text x="635" y="520" fill="#f87171" font-family="Inter, system-ui, sans-serif" font-size="9" text-anchor="middle" font-weight="bold">Circuit Open</text>
+  
+  <!-- Labels on arrows -->
+  <text x="610" y="325" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="10" text-anchor="middle" font-weight="bold" transform="rotate(-90 610 325)">Parallel Scatter Queries</text>
+</svg>

@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 780" width="1100" height="780" font-family="sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arrowDark" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#059669"/>
+    </marker>
+  </defs>
+
+  <!-- White overall background -->
+  <rect width="1100" height="780" fill="#ffffff"/>
+
+  <!-- Main Title -->
+  <text x="550" y="35" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">Zero-Trust Network Evolution in Production</text>
+
+  <!-- ================= PANEL 1: PERIMETER SECURITY ================= -->
+  <rect x="20" y="60" width="330" height="690" rx="12" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="185" y="85" text-anchor="middle" font-size="15" font-weight="bold" fill="#475569">1. Perimeter Security (Legacy)</text>
+  
+  <!-- Boundary Label -->
+  <rect x="35" y="105" width="300" height="25" rx="4" fill="#e2e8f0"/>
+  <text x="185" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#64748b">TRUSTED INTRANET (PLAINTEXT)</text>
+
+  <!-- API Gateway -->
+  <rect x="100" y="150" width="170" height="50" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="185" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#0369a1">API Gateway</text>
+  <text x="185" y="225" text-anchor="middle" font-size="11" fill="#64748b">TLS Terminated</text>
+
+  <!-- Gateway to App A (Plaintext) -->
+  <line x1="185" y1="200" x2="185" y2="260" stroke="#475569" stroke-width="2" marker-end="url(#arrowDark)"/>
+  <text x="195" y="238" font-size="11" fill="#475569">Plaintext HTTP</text>
+
+  <!-- Pod A -->
+  <rect x="65" y="260" width="240" height="90" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="185" y="285" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">Pod A (Frontend)</text>
+  <rect x="80" y="300" width="210" height="40" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="185" y="325" text-anchor="middle" font-size="12" fill="#1e40af">App Container (Port 8080)</text>
+
+  <!-- Lateral Movement (Vulnerable) -->
+  <path d="M 185 350 L 185 460" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowRed)"/>
+  <text x="195" y="405" font-size="11" font-weight="bold" fill="#b91c1c">Threat: Lateral Spying</text>
+  <text x="195" y="420" font-size="10" fill="#b91c1c">(No Service Identity)</text>
+
+  <!-- Pod B -->
+  <rect x="65" y="460" width="240" height="90" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="185" y="485" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">Pod B (Payment API)</text>
+  <rect x="80" y="500" width="210" height="40" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="185" y="525" text-anchor="middle" font-size="12" fill="#1e40af">App Container (Port 8081)</text>
+
+  <!-- Perimeter Analysis Box -->
+  <rect x="35" y="580" width="300" height="150" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="50" y="605" font-size="12" font-weight="bold" fill="#0f172a">Vulnerability Assessment:</text>
+  <text x="50" y="630" font-size="11" fill="#334155">• IP-based rules easily spoofed</text>
+  <text x="50" y="650" font-size="11" fill="#334155">• Single compromised pod exposes database</text>
+  <text x="50" y="670" font-size="11" fill="#334155">• Plaintext internal network is non-compliant</text>
+  <text x="50" y="690" font-size="11" fill="#334155">• No cryptographic identity (SPIFFE)</text>
+
+
+  <!-- ================= PANEL 2: SIDECAR SERVICE MESH ================= -->
+  <rect x="370" y="60" width="330" height="690" rx="12" fill="#fff5f5" stroke="#fca5a5" stroke-width="2"/>
+  <text x="535" y="85" text-anchor="middle" font-size="15" font-weight="bold" fill="#b91c1c">2. Sidecar Service Mesh (Istio Classic)</text>
+
+  <!-- Boundary Label -->
+  <rect x="385" y="105" width="300" height="25" rx="4" fill="#fee2e2"/>
+  <text x="535" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#991b1b">MUTUAL TLS ENFORCED IN PODS</text>
+
+  <!-- Pod A with Sidecar -->
+  <rect x="385" y="150" width="300" height="180" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="535" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">Pod A (Frontend)</text>
+  
+  <!-- App Container inside Pod A -->
+  <rect x="400" y="190" width="270" height="50" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="535" y="215" text-anchor="middle" font-size="12" fill="#1e40af">App Container</text>
+  
+  <!-- Sidecar Envoy inside Pod A -->
+  <rect x="400" y="260" width="270" height="50" rx="6" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+  <text x="535" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#581c87">Envoy Sidecar Proxy (iptables-redirect)</text>
+  <text x="535" y="300" text-anchor="middle" font-size="9" fill="#581c87">L4 + L7 Filters active</text>
+
+  <line x1="535" y1="240" x2="535" y2="260" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arrowPurple)"/>
+
+  <!-- mTLS Tunnel (Pod-to-Pod) -->
+  <path d="M 535 330 L 535 440" stroke="#7c3aed" stroke-width="3" marker-end="url(#arrowPurple)"/>
+  <rect x="450" y="365" width="170" height="35" rx="4" fill="#f3e8ff" stroke="#a855f7" stroke-width="1"/>
+  <text x="535" y="380" text-anchor="middle" font-size="10" font-weight="bold" fill="#581c87">mTLS Tunnel (Envoy to Envoy)</text>
+  <text x="535" y="394" text-anchor="middle" font-size="9" fill="#581c87">SPIFFE Identity cryptographic check</text>
+
+  <!-- Pod B with Sidecar -->
+  <rect x="385" y="440" width="300" height="180" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="535" y="460" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">Pod B (Payment API)</text>
+  
+  <!-- Sidecar Envoy inside Pod B -->
+  <rect x="400" y="480" width="270" height="50" rx="6" fill="#f3e8ff" stroke="#a855f7" stroke-width="2"/>
+  <text x="535" y="505" text-anchor="middle" font-size="12" font-weight="bold" fill="#581c87">Envoy Sidecar Proxy</text>
+  
+  <!-- App Container inside Pod B -->
+  <rect x="400" y="550" width="270" height="50" rx="6" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="535" y="575" text-anchor="middle" font-size="12" fill="#1e40af">App Container</text>
+
+  <line x1="535" y1="530" x2="535" y2="550" stroke="#7c3aed" stroke-width="1.5" marker-end="url(#arrowPurple)"/>
+
+  <!-- Sidecar Analysis Box -->
+  <rect x="385" y="630" width="300" height="100" rx="8" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="400" y="650" font-size="12" font-weight="bold" fill="#991b1b">The Sidecar Tax:</text>
+  <text x="400" y="670" font-size="11" fill="#7f1d1d">• Memory: ~50MB - 120MB per pod</text>
+  <text x="400" y="690" font-size="11" fill="#7f1d1d">• CPU: Significant overhead compiling L7 filters</text>
+  <text x="400" y="710" font-size="11" fill="#7f1d1d">• Complex: Inbound/Outbound iptables loops</text>
+
+
+  <!-- ================= PANEL 3: ISTIO AMBIENT MESH ================= -->
+  <rect x="720" y="60" width="360" height="690" rx="12" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="2"/>
+  <text x="900" y="85" text-anchor="middle" font-size="15" font-weight="bold" fill="#047857">3. Istio Ambient Mesh (Zero-Trust)</text>
+
+  <!-- Boundary Label -->
+  <rect x="735" y="105" width="330" height="25" rx="4" fill="#d1fae5"/>
+  <text x="900" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#065f46">SPLIT-PATH DATA PLANE (SIDECARLESS)</text>
+
+  <!-- Pod A (Sidecarless) -->
+  <rect x="750" y="150" width="300" height="70" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="900" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">Pod A (Frontend)</text>
+  <text x="900" y="195" text-anchor="middle" font-size="11" fill="#1e40af">App Container only — No sidecar proxy</text>
+
+  <!-- Traffic Redirect to Host Ztunnel -->
+  <line x1="900" y1="220" x2="900" y2="280" stroke="#059669" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowGreen)"/>
+  <text x="910" y="250" font-size="10" fill="#047857">eBPF redirect</text>
+
+  <!-- Host Node 1 Ztunnel (L4 secure overlay daemon) -->
+  <rect x="750" y="280" width="300" height="60" rx="8" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+  <text x="900" y="305" text-anchor="middle" font-size="13" font-weight="bold" fill="#064e3b">ztunnel DaemonSet (Node 1)</text>
+  <text x="900" y="325" text-anchor="middle" font-size="11" fill="#064e3b">Enforces mTLS (HBONE) &amp; L4 Authz</text>
+
+  <!-- Optional Waypoint Proxy (L7) -->
+  <rect x="800" y="375" width="200" height="65" rx="8" fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
+  <text x="900" y="395" text-anchor="middle" font-size="12" font-weight="bold" fill="#78350f">Waypoint Proxy (L7)</text>
+  <text x="900" y="415" text-anchor="middle" font-size="10" fill="#78350f">Shared per ServiceAccount / Namespace</text>
+  <text x="900" y="430" text-anchor="middle" font-size="9" fill="#78350f">Authz, routing rules, retries</text>
+
+  <!-- Ztunnel Node 1 -> Waypoint Proxy -> Ztunnel Node 2 path -->
+  <path d="M 850 340 L 850 375" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <path d="M 950 375 L 950 340" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <path d="M 900 440 L 900 480" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Tunnel between ztunnels/waypoints -->
+  <path d="M 900 340 L 900 480" stroke="#059669" stroke-width="3" marker-end="url(#arrowGreen)"/>
+  <rect x="830" y="445" width="140" height="25" rx="4" fill="#d1fae5" stroke="#10b981" stroke-width="1"/>
+  <text x="900" y="461" text-anchor="middle" font-size="9" font-weight="bold" fill="#064e3b">HBONE / mTLS Tunnel</text>
+
+  <!-- Host Node 2 Ztunnel (L4 secure overlay daemon) -->
+  <rect x="750" y="480" width="300" height="60" rx="8" fill="#d1fae5" stroke="#10b981" stroke-width="2"/>
+  <text x="900" y="505" text-anchor="middle" font-size="13" font-weight="bold" fill="#064e3b">ztunnel DaemonSet (Node 2)</text>
+  <text x="900" y="525" text-anchor="middle" font-size="11" fill="#064e3b">Decrypts and delivers to local pod</text>
+
+  <line x1="900" y1="540" x2="900" y2="600" stroke="#059669" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="910" y="570" font-size="10" fill="#047857">plaintext local</text>
+
+  <!-- Pod B (Sidecarless) -->
+  <rect x="750" y="600" width="300" height="70" rx="8" fill="#eff6ff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="900" y="622" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e3a8a">Pod B (Payment API)</text>
+  <text x="900" y="645" text-anchor="middle" font-size="11" fill="#1e40af">App Container only — No sidecar proxy</text>
+
+  <!-- Ambient Benefits Box -->
+  <rect x="750" y="680" width="300" height="50" rx="8" fill="#d1fae5" stroke="#10b981" stroke-width="1.5"/>
+  <text x="765" y="700" font-size="11" font-weight="bold" fill="#065f46">Ambient Savings:</text>
+  <text x="765" y="718" font-size="10" fill="#065f46">• CPU: up to 70% decrease   • Memory: up to 90% savings</text>
+
+</svg>
