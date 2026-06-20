@@ -1122,3 +1122,57 @@ post_generator.PostGenerationError: Output missing frontmatter delimiter
 2026-06-16 08:07:06,138 INFO Committed: Auto-generate 5 posts for 2026-06-16
 2026-06-16 08:07:09,749 INFO Pushed to origin/master
 [2026-06-16 08:07:09] Run finished with exit code 0
+[2026-06-18 08:00:01] Starting blog generation run
+2026-06-18 08:00:01,977 INFO [preflight] AGY CLI: OK
+2026-06-18 08:00:02,506 INFO [preflight] GitHub CLI auth: OK
+2026-06-18 08:00:02,509 INFO [preflight] git remote: OK
+2026-06-18 08:00:02,509 INFO === Blog generation run: 2026-06-18 ===
+2026-06-18 08:00:02,510 INFO Generating topics (attempt 1)
+2026-06-18 08:00:16,208 INFO Got 5 topics
+2026-06-18 08:00:16,208 INFO Topics selected: 5
+2026-06-18 08:00:16,209 INFO [1/5] zero-allocation-serialization-capn-proto-protobuf-rust
+2026-06-18 08:00:16,209 INFO Generating post: zero-allocation-serialization-capn-proto-protobuf-rust
+2026-06-18 08:00:59,256 INFO Written: 2026-06-18-zero-allocation-serialization-capn-proto-protobuf-rust.md
+2026-06-18 08:00:59,256 INFO [2/5] redis-cluster-slot-resharding-latency-client-redirection
+2026-06-18 08:00:59,256 INFO Generating post: redis-cluster-slot-resharding-latency-client-redirection
+2026-06-18 08:02:16,254 INFO Written: 2026-06-18-redis-cluster-slot-resharding-latency-client-redirection.md
+2026-06-18 08:02:16,256 INFO [3/5] envoy-gateway-sds-tls-rotation-letsencrypt
+2026-06-18 08:02:16,256 INFO Generating post: envoy-gateway-sds-tls-rotation-letsencrypt
+2026-06-18 08:03:14,072 INFO Written: 2026-06-18-envoy-gateway-sds-tls-rotation-letsencrypt.md
+2026-06-18 08:03:14,072 INFO [4/5] finetuning-lora-adapters-deepspeed-multi-gpu
+2026-06-18 08:03:14,072 INFO Generating post: finetuning-lora-adapters-deepspeed-multi-gpu
+2026-06-18 08:04:11,998 INFO Written: 2026-06-18-finetuning-lora-adapters-deepspeed-multi-gpu.md
+2026-06-18 08:04:11,998 INFO [5/5] distributed-two-phase-commit-locking-key-value-stores
+2026-06-18 08:04:11,998 INFO Generating post: distributed-two-phase-commit-locking-key-value-stores
+2026-06-18 08:05:18,533 INFO Written: 2026-06-18-distributed-two-phase-commit-locking-key-value-stores.md
+2026-06-18 08:05:18,533 INFO Generation complete: 5/5 succeeded, 0 failed
+2026-06-18 08:05:18,578 INFO Committed: Auto-generate 5 posts for 2026-06-18
+2026-06-18 08:05:20,466 INFO Pushed to origin/master
+[2026-06-18 08:05:20] Run finished with exit code 0
+[2026-06-20 08:00:01] Starting blog generation run
+2026-06-20 08:00:01,904 INFO [preflight] AGY CLI: OK
+2026-06-20 08:00:02,776 INFO [preflight] GitHub CLI auth: OK
+2026-06-20 08:00:02,813 INFO [preflight] git remote: OK
+2026-06-20 08:00:02,813 INFO === Blog generation run: 2026-06-20 ===
+2026-06-20 08:00:02,814 INFO Generating topics (attempt 1)
+2026-06-20 08:00:58,477 INFO Got 5 topics
+2026-06-20 08:00:58,477 INFO Topics selected: 5
+2026-06-20 08:00:58,477 INFO [1/5] go-lock-free-ring-buffer-low-latency-ipc
+2026-06-20 08:00:58,477 INFO Generating post: go-lock-free-ring-buffer-low-latency-ipc
+2026-06-20 08:03:22,002 INFO Written: 2026-06-20-go-lock-free-ring-buffer-low-latency-ipc.md
+2026-06-20 08:03:22,003 INFO [2/5] raft-consensus-joint-consensus-membership-changes
+2026-06-20 08:03:22,004 INFO Generating post: raft-consensus-joint-consensus-membership-changes
+2026-06-20 08:05:46,373 INFO Written: 2026-06-20-raft-consensus-joint-consensus-membership-changes.md
+2026-06-20 08:05:46,375 INFO [3/5] envoy-mtls-sidecar-without-service-mesh
+2026-06-20 08:05:46,375 INFO Generating post: envoy-mtls-sidecar-without-service-mesh
+2026-06-20 08:06:59,773 INFO Written: 2026-06-20-envoy-mtls-sidecar-without-service-mesh.md
+2026-06-20 08:06:59,774 INFO [4/5] llm-inference-latency-kv-cache-quantization-pagedattention-vllm
+2026-06-20 08:06:59,775 INFO Generating post: llm-inference-latency-kv-cache-quantization-pagedattention-vllm
+2026-06-20 08:08:19,590 INFO Written: 2026-06-20-llm-inference-latency-kv-cache-quantization-pagedattention-vllm.md
+2026-06-20 08:08:19,592 INFO [5/5] postgresql-connection-overhead-multiplexing-pgcat
+2026-06-20 08:08:19,592 INFO Generating post: postgresql-connection-overhead-multiplexing-pgcat
+2026-06-20 08:09:52,687 INFO Written: 2026-06-20-postgresql-connection-overhead-multiplexing-pgcat.md
+2026-06-20 08:09:52,687 INFO Generation complete: 5/5 succeeded, 0 failed
+2026-06-20 08:09:52,743 INFO Committed: Auto-generate 5 posts for 2026-06-20
+2026-06-20 08:09:54,835 INFO Pushed to origin/master
+[2026-06-20 08:09:54] Run finished with exit code 0

@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <!-- Background grid pattern -->
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r="1.5" fill="#1e293b" opacity="0.6"/>
+    </pattern>
+
+    <!-- Gradients for Cards -->
+    <linearGradient id="github-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <linearGradient id="aws-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2d1a08" />
+      <stop offset="100%" stop-color="#140b02" />
+    </linearGradient>
+
+    <linearGradient id="aws-sts-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b2307" />
+      <stop offset="100%" stop-color="#1c0f01" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#020617" flood-opacity="0.6" />
+    </filter>
+
+    <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Markers for directed arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
+    </marker>
+    
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f97316" />
+    </marker>
+  </defs>
+
+  <!-- Deep Slate Navy Background -->
+  <rect width="100%" height="100%" fill="#090d16" />
+  <rect width="100%" height="100%" fill="url(#grid)" />
+
+  <!-- Diagram Title -->
+  <text x="480" y="45" text-anchor="middle" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" letter-spacing="-0.5px">
+    OIDC-Based AWS IAM Federation Workflow
+  </text>
+  <text x="480" y="65" text-anchor="middle" fill="#64748b" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500">
+    Secure, Keyless Authentication between GitHub Actions &amp; AWS Services
+  </text>
+
+  <!-- Boundary Labels -->
+  <text x="100" y="495" fill="#38bdf8" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" opacity="0.8">GITHUB PLATFORM</text>
+  <text x="760" y="495" fill="#f97316" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" opacity="0.8">AMAZON WEB SERVICES</text>
+
+  <!-- ==================== GITHUB PLATFORM ZONE ==================== -->
+  
+  <!-- GitHub Actions Runner -->
+  <g transform="translate(80, 240)" filter="url(#shadow)">
+    <rect width="240" height="85" rx="8" fill="url(#github-grad)" stroke="#38bdf8" stroke-width="1.5" />
+    <!-- Small icon representation -->
+    <path d="M15 25 L35 25 L35 45 L15 45 Z" fill="none" stroke="#38bdf8" stroke-width="2" opacity="0.7"/>
+    <text x="25" y="49" fill="#38bdf8" font-family="monospace" font-size="24" font-weight="700">&gt;_</text>
+    <text x="75" y="38" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="600">GitHub Actions Runner</text>
+    <text x="75" y="58" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="12">Workflow Executor (CI/CD)</text>
+    <rect x="75" y="65" width="105" height="14" rx="3" fill="#0c4a6e" />
+    <text x="80" y="75" fill="#38bdf8" font-family="monospace" font-size="9" font-weight="600">Requesting AWS Access</text>
+  </g>
+
+  <!-- GitHub OIDC Identity Provider -->
+  <g transform="translate(80, 90)" filter="url(#shadow)">
+    <rect width="240" height="75" rx="8" fill="url(#github-grad)" stroke="#475569" stroke-width="1.5" />
+    <text x="25" y="42" fill="#c084fc" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700">OIDC</text>
+    <text x="75" y="35" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600">GitHub OIDC Provider</text>
+    <text x="75" y="53" fill="#64748b" font-family="Inter, system-ui, sans-serif" font-size="11">token.actions.githubusercontent.com</text>
+  </g>
+
+  <!-- ==================== AWS CLOUD ZONE ==================== -->
+
+  <!-- AWS STS (Security Token Service) -->
+  <g transform="translate(560, 240)" filter="url(#shadow)">
+    <rect width="260" height="85" rx="8" fill="url(#aws-sts-grad)" stroke="#f97316" stroke-width="1.5" />
+    <!-- Lock icon graphic -->
+    <rect x="25" y="32" width="22" height="18" rx="2" fill="none" stroke="#f97316" stroke-width="2" />
+    <path d="M29 32 L29 25 A 7 7 0 0 1 43 25 L43 32" fill="none" stroke="#f97316" stroke-width="2" />
+    <text x="75" y="38" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="600">AWS STS</text>
+    <text x="75" y="56" fill="#fdba74" font-family="Inter, system-ui, sans-serif" font-size="12">Security Token Service</text>
+    <rect x="75" y="63" width="135" height="14" rx="3" fill="#431407" />
+    <text x="80" y="73" fill="#f97316" font-family="monospace" font-size="9" font-weight="600">AssumeRoleWithWebIdentity</text>
+  </g>
+
+  <!-- AWS IAM (Trust Policy & Role) -->
+  <g transform="translate(560, 90)" filter="url(#shadow)">
+    <rect width="260" height="75" rx="8" fill="url(#aws-grad)" stroke="#f97316" stroke-width="1" />
+    <text x="25" y="44" fill="#f97316" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700">IAM</text>
+    <text x="75" y="35" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600">AWS IAM Role &amp; Trust Policy</text>
+    <text x="75" y="53" fill="#a1a1aa" font-family="Inter, system-ui, sans-serif" font-size="11">Verifies: Issuer, Subject, Audience</text>
+  </g>
+
+  <!-- Target AWS Resources -->
+  <g transform="translate(320, 410)" filter="url(#shadow)">
+    <rect width="280" height="75" rx="8" fill="url(#aws-grad)" stroke="#10b981" stroke-width="1.5" />
+    <!-- Box icon graphic -->
+    <path d="M25 25 L45 25 L45 45 L25 45 Z" fill="none" stroke="#10b981" stroke-width="2" opacity="0.8"/>
+    <text x="75" y="35" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600">AWS Target Services</text>
+    <text x="75" y="53" fill="#a7f3d0" font-family="Inter, system-ui, sans-serif" font-size="11">Amazon ECR, S3, EKS, Terraform Backend</text>
+  </g>
+
+  <!-- ==================== FLOW ARROWS & LABELS ==================== -->
+
+  <!-- Flow 1: Request JWT -->
+  <path d="M170, 240 L170, 175" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <rect x="80" y="195" width="85" height="18" rx="3" fill="#1e293b" />
+  <text x="122.5" y="207" fill="#38bdf8" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">1. Request OIDC</text>
+
+  <!-- Flow 2: Return signed JWT -->
+  <path d="M230, 165 L230, 230" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <rect x="235" y="195" width="75" height="18" rx="3" fill="#1e293b" />
+  <text x="272.5" y="207" fill="#c084fc" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">2. Signed JWT</text>
+
+  <!-- Flow 3: Request STS Credentials -->
+  <path d="M320, 260 L550, 260" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <rect x="355" y="235" width="170" height="20" rx="3" fill="#1e293b" stroke="#f97316" stroke-width="1" />
+  <text x="440" y="249" fill="#f8fafc" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">3. Exchange JWT for AWS Session</text>
+
+  <!-- Flow 4: Verify Signature with GitHub JWKS -->
+  <path d="M590, 240 C 450, 160, 420, 150, 330, 135" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <rect x="360" y="145" width="135" height="18" rx="3" fill="#0f172a" />
+  <text x="427.5" y="157" fill="#a855f7" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" text-anchor="middle">4. Fetch JWKS Public Key</text>
+
+  <!-- Flow 5: Check Role Trust Policy -->
+  <path d="M690, 240 L690, 175" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <rect x="700" y="195" width="115" height="18" rx="3" fill="#1c1917" />
+  <text x="757.5" y="207" fill="#f97316" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" text-anchor="middle">5. Verify Claims Policy</text>
+
+  <!-- Flow 6: Return Temporary Credentials -->
+  <path d="M560, 295 L330, 295" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)" />
+  <rect x="360" y="300" width="160" height="20" rx="3" fill="#064e3b" />
+  <text x="440" y="314" fill="#a7f3d0" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">6. Temporary Access Credentials</text>
+
+  <!-- Flow 7: Access AWS Services -->
+  <path d="M200, 325 C 200, 400, 240, 440, 310, 445" fill="none" stroke="#10b981" stroke-width="1.8" marker-end="url(#arrow-green)" />
+  <rect x="155" y="380" width="140" height="20" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+  <text x="225" y="394" fill="#a7f3d0" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" text-anchor="middle">7. Deploy / Deployments</text>
+
+</svg>

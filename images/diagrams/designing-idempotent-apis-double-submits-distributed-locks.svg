@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550" width="100%" height="100%">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="grid-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="emerald-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="rose-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#9333ea" />
+    </linearGradient>
+    
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.3" />
+    </filter>
+    
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 7 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 7 5 L 0 8.5 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 7 5 L 0 8.5 z" fill="#34d399" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="550" fill="url(#grid-grad)" rx="12" />
+  
+  <!-- Grid pattern overlay for tech aesthetics -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 800,50 M 0,100 L 800,100 M 0,150 L 800,150 M 0,200 L 800,200 M 0,250 L 800,250 M 0,300 L 800,300 M 0,350 L 800,350 M 0,400 L 800,400 M 0,450 L 800,450 M 0,500 L 800,500" stroke="#ffffff" stroke-width="1" />
+    <path d="M 100,0 L 100,550 M 200,0 L 200,550 M 300,0 L 300,550 M 400,0 L 400,550 M 500,0 L 500,550 M 600,0 L 600,550 M 700,0 L 700,550" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="400" y="35" text-anchor="middle" fill="#f8fafc" font-family="'Inter', sans-serif" font-size="18" font-weight="bold" letter-spacing="1">
+    IDEMPOTENCY &amp; LOCKING FLOW IN PAYMENT GATEWAYS
+  </text>
+
+  <!-- Node: Client -->
+  <g filter="url(#shadow)" transform="translate(40, 180)">
+    <rect width="120" height="80" rx="8" fill="url(#blue-grad)" />
+    <text x="60" y="35" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">Client / UI</text>
+    <text x="60" y="55" text-anchor="middle" fill="#e0f2fe" font-family="'Inter', sans-serif" font-size="10">Sends idempotency-key</text>
+    <text x="60" y="68" text-anchor="middle" fill="#93c5fd" font-family="'Inter', sans-serif" font-size="9" font-style="italic">Retry on timeout</text>
+  </g>
+
+  <!-- Node: API Gateway -->
+  <g filter="url(#shadow)" transform="translate(220, 180)">
+    <rect width="150" height="80" rx="8" fill="#1e293b" stroke="#475569" stroke-width="2" />
+    <text x="75" y="30" text-anchor="middle" fill="#f1f5f9" font-family="'Inter', sans-serif" font-size="13" font-weight="bold">API Gateway</text>
+    <text x="75" y="50" text-anchor="middle" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="10">1. Rate Limiting</text>
+    <text x="75" y="65" text-anchor="middle" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="10">2. Key Validation</text>
+  </g>
+
+  <!-- Node: Payment Service (Core Engine) -->
+  <g filter="url(#shadow)" transform="translate(430, 180)">
+    <rect width="180" height="120" rx="8" fill="#0f172a" stroke="#3b82f6" stroke-width="2" />
+    <text x="90" y="25" text-anchor="middle" fill="#38bdf8" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">Payment Service</text>
+    <path d="M 15,35 L 165,35" stroke="#334155" stroke-width="1" />
+    <!-- Action steps inside service -->
+    <text x="20" y="55" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">1. Acquire lock</text>
+    <text x="20" y="70" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">2. Check DB &amp; Redis state</text>
+    <text x="20" y="85" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">3. Call PSP (Stripe/Adyen)</text>
+    <text x="20" y="100" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">4. Persist result &amp; unlock</text>
+  </g>
+
+  <!-- Node: Redis (Distributed Lock & Idempotency Cache) -->
+  <g filter="url(#shadow)" transform="translate(320, 390)">
+    <rect width="180" height="100" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="2" />
+    <!-- Redis Icon representation -->
+    <text x="90" y="25" text-anchor="middle" fill="#f87171" font-family="'Inter', sans-serif" font-size="13" font-weight="bold">Redis (Distributed Cache)</text>
+    <path d="M 15,35 L 165,35" stroke="#334155" stroke-width="1" />
+    <!-- Content -->
+    <text x="90" y="55" text-anchor="middle" fill="#cbd5e1" font-family="'Inter', sans-serif" font-size="10">Locks: `lock:pay:{key}` (PX 10s)</text>
+    <text x="90" y="70" text-anchor="middle" fill="#cbd5e1" font-family="'Inter', sans-serif" font-size="10">Store: `idemp:{key}` (EX 86400s)</text>
+    <text x="90" y="88" text-anchor="middle" fill="#fca5a5" font-family="'Inter', sans-serif" font-size="9" font-style="italic">Prevents concurrent race conditions</text>
+  </g>
+
+  <!-- Node: Postgres DB -->
+  <g filter="url(#shadow)" transform="translate(560, 390)">
+    <rect width="150" height="100" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+    <text x="75" y="25" text-anchor="middle" fill="#34d399" font-family="'Inter', sans-serif" font-size="13" font-weight="bold">PostgreSQL DB</text>
+    <path d="M 15,35 L 135,35" stroke="#334155" stroke-width="1" />
+    <text x="75" y="55" text-anchor="middle" fill="#cbd5e1" font-family="'Inter', sans-serif" font-size="10">Table: `payments`</text>
+    <text x="75" y="70" text-anchor="middle" fill="#cbd5e1" font-family="'Inter', sans-serif" font-size="10">Table: `idempotency_keys`</text>
+    <text x="75" y="85" text-anchor="middle" fill="#6ee7b7" font-family="'Inter', sans-serif" font-size="9" font-style="italic">SQL Level Constraint (Unique)</text>
+  </g>
+
+  <!-- Node: External Payment Processor -->
+  <g filter="url(#shadow)" transform="translate(670, 180)">
+    <rect width="100" height="120" rx="8" fill="url(#purple-grad)" />
+    <text x="50" y="45" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">Stripe /</text>
+    <text x="50" y="65" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">Adyen</text>
+    <text x="50" y="90" text-anchor="middle" fill="#f3e8ff" font-family="'Inter', sans-serif" font-size="10">(Third-party)</text>
+  </g>
+
+  <!-- Connections / Arrows -->
+  
+  <!-- Client to API Gateway -->
+  <path d="M 160,220 L 212,220" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="186" y="210" text-anchor="middle" fill="#38bdf8" font-family="'Inter', sans-serif" font-size="9" font-weight="bold">POST /pay</text>
+  
+  <!-- API Gateway to Payment Service -->
+  <path d="M 370,220 L 422,220" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Payment Service <-> Redis (Lock & Idempotency) -->
+  <path d="M 450,300 L 410,382" fill="none" stroke="#f87171" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="3,3" />
+  <text x="400" y="340" text-anchor="middle" fill="#f87171" font-family="'Inter', sans-serif" font-size="9" font-weight="bold">Acquire Lock / Check Key</text>
+
+  <!-- Payment Service <-> Postgres DB -->
+  <path d="M 570,300 L 610,382" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)" />
+  <text x="615" y="340" text-anchor="middle" fill="#34d399" font-family="'Inter', sans-serif" font-size="9" font-weight="bold">SQL Tx / Store Key</text>
+
+  <!-- Payment Service <-> External Processor -->
+  <path d="M 610,240 L 662,240" fill="none" stroke="#c084fc" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="636" y="230" text-anchor="middle" fill="#c084fc" font-family="'Inter', sans-serif" font-size="9" font-weight="bold">Charge API</text>
+
+  <!-- Return flows (Dotted arrows for responses) -->
+  <!-- External to Payment Service -->
+  <path d="M 670,260 L 618,260" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  
+  <!-- Payment Service to API Gateway -->
+  <path d="M 430,260 L 378,260" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+
+  <!-- API Gateway to Client -->
+  <path d="M 220,245 L 168,245" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <text x="194" y="260" text-anchor="middle" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="9">JSON Response</text>
+
+  <!-- Double Submit block representation (Warning loop) -->
+  <path d="M 100,180 C 100,120 280,120 280,172" fill="none" stroke="#f43f5e" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <text x="190" y="130" text-anchor="middle" fill="#f43f5e" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">Double Submit / Retry Race (Simultaneous)</text>
+</svg>

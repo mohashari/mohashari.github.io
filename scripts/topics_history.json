@@ -71,7 +71,17 @@
     "tuning-go-garbage-collector-gogc-gomemlimit-microservices",
     "hardening-kubernetes-container-runtimes-gvisor-sandbox-isolation",
     "optimizing-pgvector-hnsw-index-tuning-vector-search",
-    "rust-memory-layout-struct-size-alignment-cache-locality"
+    "rust-memory-layout-struct-size-alignment-cache-locality",
+    "zero-allocation-serialization-capn-proto-protobuf-rust",
+    "redis-cluster-slot-resharding-latency-client-redirection",
+    "envoy-gateway-sds-tls-rotation-letsencrypt",
+    "finetuning-lora-adapters-deepspeed-multi-gpu",
+    "distributed-two-phase-commit-locking-key-value-stores",
+    "go-lock-free-ring-buffer-low-latency-ipc",
+    "raft-consensus-joint-consensus-membership-changes",
+    "envoy-mtls-sidecar-without-service-mesh",
+    "llm-inference-latency-kv-cache-quantization-pagedattention-vllm",
+    "postgresql-connection-overhead-multiplexing-pgcat"
   ],
-  "last_updated": "2026-06-16"
+  "last_updated": "2026-06-20"
 }

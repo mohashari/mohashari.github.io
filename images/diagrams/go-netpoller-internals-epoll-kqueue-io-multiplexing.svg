@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%" style="background-color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Definitions for gradients and shadows -->
+  <defs>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#3b82f6" />
+    </marker>
+  </defs>
+
+  <!-- Title / Legend Background -->
+  <rect x="20" y="20" width="960" height="45" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+  <text x="35" y="48" font-size="16" font-weight="bold" fill="#f8fafc">Go Netpoller I/O Multiplexing Architecture &amp; Goroutine State Lifecycle</text>
+  
+  <!-- Subsystems Labels -->
+  <text x="180" y="90" font-size="12" font-weight="bold" fill="#94a3b8" letter-spacing="1">USER SPACE (GO RUNTIME)</text>
+  <line x1="40" y1="95" x2="680" y2="95" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+  
+  <text x="780" y="90" font-size="12" font-weight="bold" fill="#94a3b8" letter-spacing="1">KERNEL SPACE</text>
+  <line x1="720" y1="95" x2="960" y2="95" stroke="#334155" stroke-width="2" stroke-dasharray="4 4" />
+
+  <!-- ================= USER SPACE COMPONENTS ================= -->
+  
+  <!-- Active Goroutine Box -->
+  <g transform="translate(40, 120)" filter="url(#shadow)">
+    <rect width="220" height="90" rx="8" fill="url(#cyanGrad)" stroke="#06b6d4" stroke-width="1.5" />
+    <text x="110" y="32" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Active Goroutine (G)</text>
+    <text x="110" y="52" font-size="11" fill="#e2e8f0" text-anchor="middle">Executing User Code</text>
+    <rect x="25" y="62" width="170" height="20" rx="4" fill="#0c4a6e" />
+    <text x="110" y="76" font-size="11" font-family="monospace" fill="#38bdf8" text-anchor="middle">conn.Read() / conn.Write()</text>
+  </g>
+
+  <!-- Runtime Netpoller (pollDesc) -->
+  <g transform="translate(380, 120)" filter="url(#shadow)">
+    <rect width="260" height="110" rx="8" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="130" y="28" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Runtime Netpoller</text>
+    <text x="130" y="46" font-size="11" fill="#dbeafe" text-anchor="middle">pollDesc struct (rg/wg pointers to G)</text>
+    <rect x="15" y="58" width="230" height="42" rx="4" fill="#172554" />
+    <text x="25" y="74" font-size="10" font-family="monospace" fill="#93c5fd">rg/wg uintptr -&gt; locked G</text>
+    <text x="25" y="90" font-size="10" font-family="monospace" fill="#93c5fd">fd uintptr    -&gt; OS socket</text>
+  </g>
+
+  <!-- Parked Goroutine (Waiting) -->
+  <g transform="translate(40, 270)" filter="url(#shadow)">
+    <rect width="220" height="90" rx="8" fill="url(#amberGrad)" stroke="#f59e0b" stroke-width="1.5" />
+    <text x="110" y="32" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Parked Goroutine (G)</text>
+    <text x="110" y="52" font-size="11" fill="#fef3c7" text-anchor="middle">State: _Gwaiting</text>
+    <rect x="20" y="62" width="180" height="20" rx="4" fill="#78350f" />
+    <text x="110" y="76" font-size="10" font-family="monospace" fill="#fcd34d" text-anchor="middle">waitReasonIOPoll</text>
+  </g>
+
+  <!-- Go Scheduler (findrunnable / sysmon) -->
+  <g transform="translate(380, 390)" filter="url(#shadow)">
+    <rect width="260" height="115" rx="8" fill="url(#purpleGrad)" stroke="#8b5cf6" stroke-width="1.5" />
+    <text x="130" y="26" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Go Scheduler Loop</text>
+    <text x="130" y="44" font-size="11" fill="#f5f3ff" text-anchor="middle">findrunnable() | sysmon | GC</text>
+    <rect x="15" y="56" width="230" height="46" rx="4" fill="#4c1d95" />
+    <text x="25" y="72" font-size="10" font-family="monospace" fill="#ddd6fe">1. Calls runtime.netpoll(delay)</text>
+    <text x="25" y="88" font-size="10" font-family="monospace" fill="#ddd6fe">2. Receives list of ready Gs</text>
+  </g>
+
+  <!-- Run Queue (Local/Global) -->
+  <g transform="translate(40, 500)" filter="url(#shadow)">
+    <rect width="220" height="90" rx="8" fill="url(#emeraldGrad)" stroke="#10b981" stroke-width="1.5" />
+    <text x="110" y="32" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Logical Run Queue</text>
+    <text x="110" y="52" font-size="11" fill="#ecfdf5" text-anchor="middle">State: _Grunnable</text>
+    <rect x="20" y="62" width="180" height="20" rx="4" fill="#064e3b" />
+    <text x="110" y="76" font-size="10" font-family="monospace" fill="#a7f3d0" text-anchor="middle">P's Local Queue / Global</text>
+  </g>
+
+  <!-- ================= KERNEL SPACE COMPONENTS ================= -->
+
+  <!-- Epoll / Kqueue Instance -->
+  <g transform="translate(720, 200)" filter="url(#shadow)">
+    <rect width="240" height="180" rx="8" fill="url(#roseGrad)" stroke="#f43f5e" stroke-width="1.5" />
+    <text x="120" y="30" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">OS Kernel Loop</text>
+    <text x="120" y="48" font-size="11" fill="#ffe4e6" text-anchor="middle">epoll (Linux) | kqueue (BSD)</text>
+    
+    <rect x="15" y="62" width="210" height="104" rx="4" fill="#881337" />
+    <text x="25" y="78" font-size="10" font-family="monospace" fill="#fda4af">Interest List: [FD1, FD2...]</text>
+    <text x="25" y="94" font-size="10" font-family="monospace" fill="#fda4af">Mode: Edge-Triggered (EPOLLET)</text>
+    <text x="25" y="114" font-size="10" font-family="monospace" fill="#fda4af">I/O Wait Queue (NAPI / Nic)</text>
+    <text x="25" y="132" font-size="9" fill="#fca5a5">Blocks thread if no events ready</text>
+    <text x="25" y="146" font-size="9" fill="#fca5a5">Interrupt updates socket buffers</text>
+  </g>
+
+  <!-- Physical NIC / Socket FD -->
+  <g transform="translate(720, 480)" filter="url(#shadow)">
+    <rect width="240" height="70" rx="6" fill="#334155" stroke="#475569" stroke-width="1.5" />
+    <text x="120" y="28" font-size="13" font-weight="bold" fill="#f8fafc" text-anchor="middle">Network Interface (NIC)</text>
+    <text x="120" y="48" font-size="10" fill="#cbd5e1" text-anchor="middle">TCP packets arrive -&gt; DMA to memory</text>
+  </g>
+
+  <!-- ================= DYNAMIC FLOW ARROWS & LABELS ================= -->
+  
+  <!-- Flow 1: Active G calls blocking I/O -->
+  <path d="M 260,150 L 370,150" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="315" y="142" font-size="10" fill="#94a3b8" text-anchor="middle">1. EWOULDBLOCK</text>
+
+  <!-- Flow 2: Register FD to epoll_ctl -->
+  <path d="M 640,165 L 710,165 L 710,210" stroke="#3b82f6" stroke-width="2" fill="none" marker-end="url(#arrow-blue)" />
+  <text x="680" y="152" font-size="10" fill="#93c5fd" text-anchor="middle">2. epoll_ctl</text>
+
+  <!-- Flow 3: Park Goroutine -->
+  <path d="M 150,210 L 150,260" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="140" y="240" font-size="10" fill="#94a3b8" text-anchor="end">3. gopark()</text>
+
+  <!-- Flow 4: pollDesc points to parked G -->
+  <path d="M 380,200 L 270,290" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-blue)" />
+  <text x="345" y="260" font-size="9" fill="#93c5fd" text-anchor="middle">Associated rg/wg</text>
+
+  <!-- Flow 5: NIC triggers hardware interrupt on network data -->
+  <path d="M 840,480 L 840,390" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="850" y="440" font-size="10" fill="#fca5a5" text-anchor="start">4. RX Packet</text>
+
+  <!-- Flow 6: Scheduler calls runtime.netpoll() -->
+  <path d="M 640,430 L 760,430 L 760,390" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="710" y="420" font-size="10" fill="#94a3b8" text-anchor="middle">5. epoll_wait()</text>
+
+  <!-- Flow 7: epoll_wait returns events -->
+  <path d="M 720,330 L 600,330 L 600,380" stroke="#10b981" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="650" y="320" font-size="10" fill="#a7f3d0" text-anchor="middle">6. Ready FDs</text>
+
+  <!-- Flow 8: netpoll unblocks G and transitions to runnable -->
+  <path d="M 440,390 L 330,390 L 330,340 C 330,340 300,340 270,330" stroke="#10b981" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="360" y="375" font-size="10" fill="#a7f3d0" text-anchor="middle">7. goready(rg)</text>
+
+  <!-- Flow 9: G placed on Run Queue -->
+  <path d="M 150,360 L 150,490" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="140" y="430" font-size="10" fill="#a7f3d0" text-anchor="end">8. Enqueue</text>
+
+  <!-- Flow 10: Scheduler runs next G -->
+  <path d="M 40,545 C -10,545 -10,165 30,165" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 4" fill="none" marker-end="url(#arrow)" />
+  <text x="0" y="335" font-size="10" fill="#94a3b8" text-anchor="middle" transform="rotate(-90 0 335)">9. Scheduler Schedules G</text>
+
+</svg>

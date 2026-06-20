@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%" style="background-color: #0f172a; font-family: 'Inter', system-ui, -apple-system, sans-serif;">
+  <!-- Definitions for gradients, shadows, and markers -->
+  <defs>
+    <linearGradient id="producerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="queueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="mutexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+    <linearGradient id="condvarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="workerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#f59e0b" />
+    </marker>
+  </defs>
+
+  <!-- Title & Background Grid -->
+  <rect width="100%" height="100%" fill="#0f172a" />
+  <g stroke="#1e293b" stroke-width="1" opacity="0.4">
+    <path d="M 0,50 L 900,50 M 0,100 L 900,100 M 0,150 L 900,150 M 0,200 L 900,200 M 0,250 L 900,250 M 0,300 L 900,300 M 0,350 L 900,350 M 0,400 L 900,400 M 0,450 L 900,450" />
+    <path d="M 100,0 L 100,500 M 200,0 L 200,500 M 300,0 L 300,500 M 400,0 L 400,500 M 500,0 L 500,500 M 600,0 L 600,500 M 700,0 L 700,500 M 800,0 L 800,500" />
+  </g>
+
+  <!-- Header -->
+  <text x="30" y="35" fill="#f8fafc" font-size="18" font-weight="700" letter-spacing="0.5">RUST CUSTOM THREAD POOL ARCHITECTURE</text>
+  <text x="30" y="55" fill="#64748b" font-size="12">Synchronizing tasks with raw synchronization primitives (Mutex &amp; Condvar)</text>
+
+  <!-- SECTION: PRODUCERS (Client Threads) -->
+  <g transform="translate(40, 100)" filter="url(#shadow)">
+    <rect width="180" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="90" y="30" fill="#94a3b8" font-size="13" font-weight="600" text-anchor="middle" letter-spacing="0.5">PRODUCERS</text>
+    <text x="90" y="48" fill="#64748b" font-size="10" text-anchor="middle">(Client / Web Request Threads)</text>
+    
+    <!-- Client Thread 1 -->
+    <g transform="translate(15, 70)">
+      <rect width="150" height="70" rx="8" fill="url(#producerGrad)" />
+      <text x="15" y="28" fill="#ffffff" font-size="12" font-weight="600">Client Thread A</text>
+      <rect x="15" y="38" width="120" height="20" rx="4" fill="#0f172a" opacity="0.4" />
+      <text x="22" y="52" fill="#93c5fd" font-size="10" font-family="monospace">pool.execute(task)</text>
+    </g>
+
+    <!-- Client Thread 2 -->
+    <g transform="translate(15, 160)">
+      <rect width="150" height="70" rx="8" fill="url(#producerGrad)" />
+      <text x="15" y="28" fill="#ffffff" font-size="12" font-weight="600">Client Thread B</text>
+      <rect x="15" y="38" width="120" height="20" rx="4" fill="#0f172a" opacity="0.4" />
+      <text x="22" y="52" fill="#93c5fd" font-size="10" font-family="monospace">pool.execute(task)</text>
+    </g>
+    
+    <!-- Client Thread 3 -->
+    <g transform="translate(15, 250)">
+      <rect width="150" height="70" rx="8" fill="url(#producerGrad)" opacity="0.7" />
+      <text x="15" y="28" fill="#ffffff" font-size="12" font-weight="600" opacity="0.7">Client Thread C</text>
+      <rect x="15" y="38" width="120" height="20" rx="4" fill="#0f172a" opacity="0.3" />
+      <text x="22" y="52" fill="#93c5fd" font-size="10" font-family="monospace" opacity="0.7">pool.execute(task)</text>
+    </g>
+  </g>
+
+  <!-- Connection Arrows: Producers to Mutex -->
+  <path d="M 220,185 C 270,185 270,250 310,250" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 220,275 C 270,275 270,250 310,250" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 220,365 C 270,365 270,260 310,260" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow)" />
+
+  <!-- SECTION: SYNCHRONIZED INNER STATE -->
+  <g transform="translate(320, 100)" filter="url(#shadow)">
+    <rect width="260" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="130" y="30" fill="#94a3b8" font-size="13" font-weight="600" text-anchor="middle" letter-spacing="0.5">SHARED INNER STATE</text>
+    <text x="130" y="48" fill="#64748b" font-size="10" text-anchor="middle">Arc&lt;Mutex&lt;TaskQueue&gt;&gt; + Condvar</text>
+
+    <!-- Task Queue Container -->
+    <g transform="translate(20, 70)">
+      <rect width="220" height="150" rx="8" fill="url(#queueGrad)" stroke="#475569" stroke-width="1.5" />
+      <text x="110" y="24" fill="#94a3b8" font-size="11" font-weight="600" text-anchor="middle">Task Queue (VecDeque)</text>
+      
+      <!-- Task 1 (Next out) -->
+      <g transform="translate(15, 40)">
+        <rect width="190" height="28" rx="4" fill="#334155" stroke="#f59e0b" stroke-width="1" />
+        <text x="10" y="18" fill="#f8fafc" font-size="10" font-family="monospace">Task 1 (FnOnce)</text>
+        <rect x="140" y="6" width="40" height="16" rx="2" fill="#d97706" />
+        <text x="160" y="17" fill="#ffffff" font-size="8" font-weight="700" text-anchor="middle">HEAD</text>
+      </g>
+      
+      <!-- Task 2 -->
+      <g transform="translate(15, 75)">
+        <rect width="190" height="28" rx="4" fill="#334155" stroke="#475569" stroke-width="1" />
+        <text x="10" y="18" fill="#f8fafc" font-size="10" font-family="monospace">Task 2 (FnOnce)</text>
+      </g>
+
+      <!-- Task 3 (Last in) -->
+      <g transform="translate(15, 110)">
+        <rect width="190" height="28" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" stroke-dasharray="2 2" />
+        <text x="10" y="18" fill="#64748b" font-size="10" font-family="monospace">Task 3 (FnOnce)</text>
+        <rect x="140" y="6" width="40" height="16" rx="2" fill="#475569" />
+        <text x="160" y="17" fill="#94a3b8" font-size="8" font-weight="700" text-anchor="middle">TAIL</text>
+      </g>
+    </g>
+
+    <!-- Mutex Protection Box -->
+    <g transform="translate(20, 235)">
+      <rect width="105" height="85" rx="6" fill="url(#mutexGrad)" />
+      <text x="52.5" y="28" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">MUTEX</text>
+      <text x="52.5" y="45" fill="#fca5a5" font-size="9" text-anchor="middle">Locks Queue</text>
+      
+      <!-- Mini lock icon -->
+      <path d="M 47,55 L 47,60 L 58,60 L 58,55 C 58,51 55,48 52.5,48 C 50,48 47,51 47,55 Z" fill="none" stroke="#ffffff" stroke-width="1.5" />
+      <rect x="44" y="60" width="17" height="12" rx="2" fill="#ffffff" />
+    </g>
+
+    <!-- Condvar Notification Box -->
+    <g transform="translate(135, 235)">
+      <rect width="105" height="85" rx="6" fill="url(#condvarGrad)" />
+      <text x="52.5" y="28" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">CONDVAR</text>
+      <text x="52.5" y="45" fill="#fde047" font-size="9" text-anchor="middle">Wakes Workers</text>
+      
+      <!-- Signal Waves -->
+      <path d="M 40,65 Q 45,55 52.5,65 T 65,65" fill="none" stroke="#ffffff" stroke-width="1.5" />
+      <path d="M 35,72 Q 45,60 52.5,72 T 70,72" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.6" />
+    </g>
+  </g>
+
+  <!-- Internal Interactions in Shared State -->
+  <!-- Mutex guarding queue -->
+  <path d="M 392,235 L 392,223" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow)" />
+  <!-- Condvar checking queue empty / notifying -->
+  <path d="M 507,235 L 507,223" fill="none" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- SECTION: WORKERS (ThreadPool Thread Spans) -->
+  <g transform="translate(640, 100)" filter="url(#shadow)">
+    <rect width="220" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="110" y="30" fill="#94a3b8" font-size="13" font-weight="600" text-anchor="middle" letter-spacing="0.5">WORKER POOL</text>
+    <text x="110" y="48" fill="#64748b" font-size="10" text-anchor="middle">OS Threads in JoinHandle Loop</text>
+    
+    <!-- Worker Thread 1 -->
+    <g transform="translate(15, 70)">
+      <rect width="190" height="75" rx="8" fill="url(#workerGrad)" />
+      <text x="15" y="24" fill="#ffffff" font-size="11" font-weight="600">Worker Thread 0</text>
+      <text x="15" y="40" fill="#a7f3d0" font-size="9">Status: Running Task 1</text>
+      
+      <!-- Progress Bar -->
+      <rect x="15" y="50" width="160" height="6" rx="3" fill="#064e3b" />
+      <rect x="15" y="50" width="110" height="6" rx="3" fill="#34d399" />
+    </g>
+
+    <!-- Worker Thread 2 -->
+    <g transform="translate(15, 160)">
+      <rect width="190" height="75" rx="8" fill="url(#workerGrad)" />
+      <text x="15" y="24" fill="#ffffff" font-size="11" font-weight="600">Worker Thread 1</text>
+      <text x="15" y="40" fill="#fef08a" font-size="9">Status: Waiting for lock...</text>
+      
+      <!-- Waiting Spinner / Line representation -->
+      <circle cx="20" cy="55" r="4" fill="none" stroke="#fde047" stroke-width="1.5" stroke-dasharray="3 3" />
+      <line x1="30" y1="55" x2="175" y2="55" stroke="#fef08a" stroke-dasharray="2 2" stroke-width="1" />
+    </g>
+
+    <!-- Worker Thread 3 -->
+    <g transform="translate(15, 250)">
+      <rect width="190" height="75" rx="8" fill="url(#workerGrad)" opacity="0.6" />
+      <text x="15" y="24" fill="#ffffff" font-size="11" font-weight="600" opacity="0.8">Worker Thread N</text>
+      <text x="15" y="40" fill="#a7f3d0" font-size="9" opacity="0.8">Status: Parked (Condvar.wait)</text>
+      
+      <!-- Sleeping Representation -->
+      <text x="160" y="58" fill="#a7f3d0" font-size="12" font-weight="bold" font-family="monospace" opacity="0.6">Zzz</text>
+    </g>
+  </g>
+
+  <!-- Synchronization Arrows: Condvar to Workers (Wake notifications) -->
+  <path d="M 480,278 C 540,278 570,360 635,360" fill="none" stroke="#f59e0b" stroke-dasharray="3 3" stroke-width="1.5" marker-end="url(#arrow-amber)" />
+  <text x="560" y="325" fill="#f59e0b" font-size="10" font-weight="600" text-anchor="middle">notify_one()</text>
+
+  <!-- Worker Thread requesting Lock from Mutex -->
+  <path d="M 640,210 C 585,210 585,278 450,278" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="545" y="235" fill="#ef4444" font-size="10" font-weight="600" text-anchor="middle">mutex.lock()</text>
+
+  <!-- Worker Threads pulling Task from Queue -->
+  <path d="M 640,110 C 600,110 590,145 550,145" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <text x="595" y="135" fill="#10b981" font-size="11" font-weight="700" text-anchor="middle">pop_front()</text>
+</svg>
