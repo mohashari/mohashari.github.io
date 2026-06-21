@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 500" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="1000" height="500" rx="16" fill="#0B0F19" />
+  
+  <!-- Gradients -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2DD4BF" />
+      <stop offset="100%" stop-color="#0D9488" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FB923C" />
+      <stop offset="100%" stop-color="#EA580C" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <marker id="arrow-head" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <!-- Typography -->
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 20px; fill: #F8FAFC; font-weight: 700; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #94A3B8; }
+    .box-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 15px; fill: #F8FAFC; font-weight: 600; }
+    .box-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 12px; fill: #CBD5E1; line-height: 1.4; }
+    .label { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; fill: #38BDF8; font-weight: bold; }
+    .arrow-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; fill: #64748B; font-weight: 500; }
+  </style>
+
+  <!-- Header -->
+  <text x="40" y="50" class="title">Tetragon Runtime Security Profiling Lifecycle for ECS Fargate</text>
+  <text x="40" y="72" class="subtitle">Generating zero-trust workloads by profiling eBPF events in staging and enforcing configurations in production</text>
+
+  <!-- Stage 1: Profiling (Left Column) -->
+  <g transform="translate(40, 110)">
+    <!-- Boundary Box -->
+    <rect width="280" height="340" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1.5" />
+    <path d="M 0 12 Q 0 0 12 0 L 268 0 Q 280 0 280 12 L 280 40 L 0 40 Z" fill="#0F172A" />
+    <text x="20" y="25" class="box-title">1. Profiling (Staging / EC2)</text>
+    
+    <!-- Application Container -->
+    <rect x="20" y="60" width="240" height="75" rx="8" fill="#0F172A" stroke="url(#blueGrad)" stroke-width="1.5" />
+    <text x="35" y="85" class="box-title" fill="#38BDF8">App Container (ECS on EC2)</text>
+    <text x="35" y="105" class="box-text" font-size="11">Executes tests, triggers system</text>
+    <text x="35" y="120" class="box-text" font-size="11">calls, network requests &amp; file I/O</text>
+    
+    <!-- Linux Kernel with eBPF -->
+    <rect x="20" y="165" width="240" height="75" rx="8" fill="#1E1E2D" stroke="url(#tealGrad)" stroke-width="1.5" />
+    <text x="35" y="190" class="box-title" fill="#2DD4BF">Linux Kernel (eBPF)</text>
+    <text x="35" y="210" class="box-text" font-size="11">Tetragon traces kernel syscalls</text>
+    <text x="35" y="225" class="box-text" font-size="11">network sockets &amp; process execs</text>
+
+    <!-- Output Stream -->
+    <rect x="20" y="270" width="240" height="50" rx="6" fill="#0B132B" stroke="#334155" stroke-width="1" />
+    <text x="35" y="290" class="label">JSON Event Log</text>
+    <text x="35" y="305" class="box-text" font-size="10" fill="#64748B">tetra getevents --output json</text>
+  </g>
+
+  <!-- Arrow between 1 and 2 -->
+  <path d="M 320 280 L 380 280" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow-head)" />
+  <text x="330" y="270" class="arrow-text">Log Stream</text>
+
+  <!-- Stage 2: Profile Compiler (Middle Column) -->
+  <g transform="translate(380, 110)">
+    <rect width="240" height="340" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1.5" />
+    <path d="M 0 12 Q 0 0 12 0 L 228 0 Q 240 0 240 12 L 240 40 L 0 40 Z" fill="#0F172A" />
+    <text x="20" y="25" class="box-title">2. Analysis &amp; Hardening</text>
+
+    <!-- Compiler Engine -->
+    <rect x="20" y="60" width="200" height="110" rx="8" fill="#0F172A" stroke="url(#purpleGrad)" stroke-width="1.5" />
+    <text x="35" y="85" class="box-title" fill="#C084FC">Profile Compiler</text>
+    <text x="35" y="110" class="box-text" font-size="11">- Resolves write paths</text>
+    <text x="35" y="125" class="box-text" font-size="11">- Maps network endpoints</text>
+    <text x="35" y="140" class="box-text" font-size="11">- Identifies POSIX capabilities</text>
+
+    <!-- Artifacts Generation -->
+    <rect x="20" y="195" width="200" height="125" rx="8" fill="#0B0F19" stroke="#334155" stroke-width="1" />
+    <text x="30" y="215" class="box-title" font-size="12">Hardening Artifacts</text>
+    <text x="30" y="240" class="label" fill="#A855F7" font-size="10">ReadOnlyRootFilesystem: true</text>
+    <text x="30" y="255" class="label" fill="#A855F7" font-size="10">Security Group Egress Rules</text>
+    <text x="30" y="270" class="label" fill="#A855F7" font-size="10">Dropped POSIX Capabilities</text>
+    <text x="30" y="285" class="label" fill="#A855F7" font-size="10">Ephemeral volume mountpoints</text>
+  </g>
+
+  <!-- Arrow between 2 and 3 -->
+  <path d="M 620 280 L 680 280" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow-head)" />
+  <text x="630" y="270" class="arrow-text">CI/CD Deploy</text>
+
+  <!-- Stage 3: Enforcement (Right Column) -->
+  <g transform="translate(680, 110)">
+    <rect width="280" height="340" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1.5" />
+    <path d="M 0 12 Q 0 0 12 0 L 268 0 Q 280 0 280 12 L 280 40 L 0 40 Z" fill="#0F172A" />
+    <text x="20" y="25" class="box-title">3. ECS Fargate (Prod)</text>
+
+    <!-- Hardened Container Task -->
+    <rect x="20" y="60" width="240" height="160" rx="8" fill="#0F172A" stroke="url(#orangeGrad)" stroke-width="1.5" />
+    <text x="35" y="85" class="box-title" fill="#FB923C">Hardened ECS Task</text>
+    <text x="35" y="110" class="box-text" font-weight="bold" font-size="11" fill="#E2E8F0">- readonlyRootFilesystem: true</text>
+    <text x="35" y="125" class="box-text" font-size="11" fill="#E2E8F0">- linuxParameters.capabilities: ["DROP ALL"]</text>
+    <text x="35" y="140" class="box-text" font-size="11" fill="#E2E8F0">- Strict Network Egress Security Group</text>
+    <text x="35" y="155" class="box-text" font-size="11" fill="#E2E8F0">- Writable volumes isolated to /tmp /logs</text>
+    <text x="35" y="170" class="box-text" font-size="11" fill="#E2E8F0">- Firecracker MicroVM Isolation</text>
+
+    <!-- GuardDuty Monitoring -->
+    <rect x="20" y="240" width="240" height="80" rx="8" fill="#1E1E2D" stroke="#475569" stroke-width="1" />
+    <text x="35" y="260" class="box-title" font-size="12" fill="#E2E8F0">GuardDuty ECS Runtime Monitoring</text>
+    <text x="35" y="280" class="box-text" font-size="10">Managed AWS runtime security audits anomalies</text>
+    <text x="35" y="295" class="box-text" font-size="10">against the Tetragon baseline</text>
+  </g>
+</svg>

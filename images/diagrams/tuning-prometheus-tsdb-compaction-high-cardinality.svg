@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="'Segoe UI', system-ui, sans-serif">
+  <!-- Background -->
+  <rect width="960" height="540" fill="#0b0f19" rx="12"/>
+  
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="headerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="headBlockGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="blockGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="compactGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="warningGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7f1d1d"/>
+      <stop offset="100%" stop-color="#991b1b"/>
+    </linearGradient>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a78bfa"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="480" y="38" text-anchor="middle" font-size="20" font-weight="700" fill="#f8fafc">Prometheus TSDB Compaction &amp; High-Cardinality Memory Pressures</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#94a3b8">How in-memory chunk management flushes to disk and spikes during index merges</text>
+
+  <!-- Column 1: Scrape & Head Block (In-Memory) -->
+  <g transform="translate(30, 90)">
+    <rect width="270" height="420" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+    <text x="135" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#38bdf8">1. Scrape &amp; Head Block (RAM)</text>
+    
+    <!-- Scraped Targets -->
+    <rect x="20" y="45" width="230" height="60" rx="6" fill="#0f172a" stroke="#1e293b"/>
+    <text x="32" y="65" font-size="11" font-weight="700" fill="#94a3b8">Active Metric Streams</text>
+    <text x="32" y="80" font-size="9" fill="#64748b">10M+ series, dynamic labels (e.g. pods, path)</text>
+    <text x="32" y="94" font-size="10" font-weight="700" fill="#ef4444">High Cardinality Target</text>
+    
+    <!-- Arrow from Targets to Head Block -->
+    <path d="M 135 105 L 135 130" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)" fill="none"/>
+
+    <!-- In-Memory Head Block -->
+    <rect x="20" y="140" width="230" height="250" rx="8" fill="url(#headBlockGrad)" stroke="#0284c7" stroke-width="1.5"/>
+    <text x="135" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Head Block (In-Memory)</text>
+    <text x="135" y="177" text-anchor="middle" font-size="10" fill="#bae6fd">Active 2-Hour Range Window</text>
+    
+    <!-- Head Block Internals -->
+    <!-- WAL -->
+    <rect x="35" y="195" width="200" height="35" rx="4" fill="#0c4a6e" stroke="#0284c7"/>
+    <text x="45" y="217" font-size="11" font-weight="700" fill="#38bdf8">Write-Ahead Log (WAL)</text>
+    <text x="165" y="217" font-size="9" fill="#94a3b8">[Disk Append]</text>
+    
+    <!-- Active Chunks (mapped/in-memory) -->
+    <rect x="35" y="240" width="200" height="65" rx="4" fill="#075985" stroke="#0284c7"/>
+    <text x="45" y="258" font-size="11" font-weight="700" fill="#e0f2fe">Series &amp; Chunk Map</text>
+    <text x="45" y="274" font-size="9" fill="#bae6fd">• Mmapped chunks on disk after 120 samples</text>
+    <text x="45" y="288" font-size="9" fill="#bae6fd">• Index structures held entirely in RAM</text>
+    
+    <!-- Posting Lists -->
+    <rect x="35" y="315" width="200" height="60" rx="4" fill="#0369a1" stroke="#0284c7"/>
+    <text x="45" y="333" font-size="11" font-weight="700" fill="#e0f2fe">Posting Lists (In-Memory Index)</text>
+    <text x="45" y="348" font-size="9" fill="#bae6fd">• LabelName/LabelValue -> Series ID lookup</text>
+    <text x="45" y="362" font-size="9" font-weight="700" fill="#f43f5e">Hotspot: High label count consumes RAM</text>
+  </g>
+  
+  <!-- Column 2: On-Disk 2-Hour Blocks -->
+  <g transform="translate(330, 90)">
+    <rect width="270" height="420" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+    <text x="135" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#94a3b8">2. TSDB Block Directory (Disk)</text>
+    
+    <!-- Block 1 -->
+    <rect x="25" y="50" width="220" height="100" rx="6" fill="url(#blockGrad)" stroke="#475569" stroke-width="1.5"/>
+    <text x="35" y="70" font-size="12" font-weight="700" fill="#f1f5f9">Block [T0 - T2]</text>
+    <text x="175" y="70" font-size="9" fill="#cbd5e1" font-weight="700">2 Hours</text>
+    <!-- Block contents -->
+    <rect x="35" y="80" width="200" height="60" rx="4" fill="#1e293b" stroke="#334155"/>
+    <text x="45" y="96" font-size="10" font-family="monospace" fill="#38bdf8">index (Immutable Posting lists)</text>
+    <text x="45" y="112" font-size="10" font-family="monospace" fill="#38bdf8">chunks/ (Compressed TS DB files)</text>
+    <text x="45" y="128" font-size="10" font-family="monospace" fill="#38bdf8">meta.json (T0, T2, stats)</text>
+
+    <!-- Block 2 -->
+    <rect x="25" y="170" width="220" height="100" rx="6" fill="url(#blockGrad)" stroke="#475569" stroke-width="1.5"/>
+    <text x="35" y="190" font-size="12" font-weight="700" fill="#f1f5f9">Block [T2 - T4]</text>
+    <text x="175" y="190" font-size="9" fill="#cbd5e1" font-weight="700">2 Hours</text>
+    <!-- Block contents -->
+    <rect x="35" y="200" width="200" height="60" rx="4" fill="#1e293b" stroke="#334155"/>
+    <text x="45" y="216" font-size="10" font-family="monospace" fill="#38bdf8">index (Immutable Posting lists)</text>
+    <text x="45" y="232" font-size="10" font-family="monospace" fill="#38bdf8">chunks/ (Compressed TS DB files)</text>
+    <text x="45" y="248" font-size="10" font-family="monospace" fill="#38bdf8">meta.json (T2, T4, stats)</text>
+
+    <!-- Block 3 -->
+    <rect x="25" y="290" width="220" height="100" rx="6" fill="url(#blockGrad)" stroke="#475569" stroke-width="1.5"/>
+    <text x="35" y="310" font-size="12" font-weight="700" fill="#f1f5f9">Block [T4 - T6]</text>
+    <text x="175" y="310" font-size="9" fill="#cbd5e1" font-weight="700">2 Hours</text>
+    <!-- Block contents -->
+    <rect x="35" y="320" width="200" height="60" rx="4" fill="#1e293b" stroke="#334155"/>
+    <text x="45" y="336" font-size="10" font-family="monospace" fill="#38bdf8">index (Immutable Posting lists)</text>
+    <text x="45" y="352" font-size="10" font-family="monospace" fill="#38bdf8">chunks/ (Compressed TS DB files)</text>
+    <text x="45" y="368" font-size="10" font-family="monospace" fill="#38bdf8">meta.json (T4, T6, stats)</text>
+  </g>
+  
+  <!-- Column 3: The Compactor Engine -->
+  <g transform="translate(630, 90)">
+    <rect width="300" height="420" rx="10" fill="url(#cardGrad)" stroke="#334155" stroke-width="1.5"/>
+    <text x="150" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#c084fc">3. Compaction (Merge &amp; Rewrite)</text>
+    
+    <!-- Compaction process box -->
+    <rect x="20" y="45" width="260" height="130" rx="8" fill="url(#compactGrad)" stroke="#8b5cf6" stroke-width="1.5"/>
+    <text x="30" y="65" font-size="12" font-weight="700" fill="#ffffff">Compactor Worker Thread</text>
+    
+    <text x="30" y="85" font-size="10" fill="#e9d5ff">• Merges multiple blocks sequentially</text>
+    <text x="30" y="99" font-size="10" fill="#e9d5ff">• Rewrites chunk arrays for data continuity</text>
+    <text x="30" y="113" font-size="10" fill="#e9d5ff">• Combines and deduplicates index files</text>
+    <text x="30" y="127" font-size="10" fill="#e9d5ff">• Removes tombstoned/deleted samples</text>
+    <text x="30" y="141" font-size="10" font-weight="700" fill="#f472b6">Tuning: Max Block Limit halts growth at 31d</text>
+    <text x="30" y="155" font-size="9" font-family="monospace" fill="#d8b4fe">--storage.tsdb.max-block-duration=2h</text>
+
+    <!-- Compacted Block -->
+    <rect x="20" y="195" width="260" height="100" rx="6" fill="url(#blockGrad)" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="32" y="215" font-size="12" font-weight="700" fill="#f1f5f9">Compacted Block [T0 - T6]</text>
+    <text x="215" y="215" font-size="9" fill="#d8b4fe" font-weight="700">6 Hours</text>
+    <!-- Block contents -->
+    <rect x="30" y="225" width="240" height="60" rx="4" fill="#0f172a" stroke="#334155"/>
+    <text x="40" y="241" font-size="10" font-family="monospace" fill="#c084fc">merged index (highly compressed)</text>
+    <text x="40" y="257" font-size="10" font-family="monospace" fill="#c084fc">chunks/ (deduplicated &amp; sequential)</text>
+    <text x="40" y="273" font-size="10" font-family="monospace" fill="#c084fc">meta.json (T0, T6, compactions)</text>
+
+    <!-- RAM Spike Danger Zone Warning -->
+    <rect x="20" y="310" width="260" height="90" rx="6" fill="url(#warningGrad)" stroke="#b91c1c"/>
+    <path d="M 35 325 L 43 341 L 27 341 Z" fill="#fbcfe8" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="35" y="337" text-anchor="middle" font-size="9" font-weight="700" fill="#7f1d1d">!</text>
+    <text x="52" y="328" font-size="11" font-weight="700" fill="#ffffff">Memory Spikes (OOM Risks)</text>
+    <text x="52" y="343" font-size="9.5" fill="#fecdd3">Merging large block index files requires</text>
+    <text x="52" y="357" font-size="9.5" fill="#fecdd3">loading symbols &amp; postings into memory.</text>
+    <text x="52" y="371" font-size="9.5" font-weight="700" fill="#fecdd3">RAM scales with active high cardinality.</text>
+  </g>
+  
+  <!-- Flow Arrows connecting columns -->
+  <!-- Arrow 1 to 2: Flush -->
+  <path d="M 280 240 L 350 240" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)" fill="none" stroke-dasharray="4,3"/>
+  <text x="315" y="230" text-anchor="middle" font-size="9" font-weight="700" fill="#38bdf8">Flush</text>
+
+  <!-- Arrow 2 to 3: Compaction Input -->
+  <!-- Top block to Compactor -->
+  <path d="M 575 190 C 610 190, 615 155, 645 155" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)" fill="none"/>
+  <!-- Middle block to Compactor -->
+  <path d="M 575 310 C 610 310, 615 185, 645 185" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)" fill="none"/>
+  <!-- Bottom block to Compactor -->
+  <path d="M 575 430 C 610 430, 615 215, 645 215" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)" fill="none"/>
+  
+  <!-- Arrow 3 compactor to Compacted Block -->
+  <path d="M 780 175 L 780 192" stroke="#8b5cf6" stroke-width="2.5" marker-end="url(#arrow-purple)" fill="none"/>
+</svg>
