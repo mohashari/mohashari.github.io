@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="100%" height="100%" style="background-color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    
+    <!-- Filters for shadows -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    
+    <!-- Arrow Markers -->
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#60a5fa" />
+    </marker>
+    <marker id="arrowEmerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#34d399" />
+    </marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#a78bfa" />
+    </marker>
+    <marker id="arrowAmber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#fbbf24" />
+    </marker>
+    <marker id="doubleArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 5 L 10 5 M 3 2 L 0 5 L 3 8 M 7 2 L 10 5 L 7 8" stroke="#a78bfa" stroke-width="1.5" fill="none" />
+    </marker>
+  </defs>
+
+  <!-- Title & Background -->
+  <rect width="960" height="580" fill="#0f172a" rx="12" />
+  <rect width="958" height="578" x="1" y="1" rx="11" fill="none" stroke="#1e293b" stroke-width="2" />
+  
+  <text x="30" y="40" font-size="20" font-weight="700" fill="#f8fafc">ClickHouse Log Ingestion &amp; Storage Architecture</text>
+  <text x="30" y="62" font-size="12" fill="#94a3b8">Production topology featuring direct local sharded writes, coordinated distributed reads, and column codecs.</text>
+
+  <!-- ================= LOG SOURCES LAYER ================= -->
+  <g transform="translate(30, 100)" filter="url(#dropShadow)">
+    <rect width="200" height="430" rx="8" fill="url(#slateGrad)" stroke="#334155" stroke-width="1.5" />
+    <text x="100" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#cbd5e1">1. Log Producers &amp; Router</text>
+    
+    <!-- App Instances -->
+    <rect x="15" y="45" width="170" height="90" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1" />
+    <text x="25" y="65" font-size="11" font-weight="600" fill="#94a3b8">Kubernetes &amp; VM Logs</text>
+    <rect x="25" y="80" width="40" height="18" rx="3" fill="#334155" />
+    <text x="45" y="93" text-anchor="middle" font-size="9" font-weight="600" fill="#cbd5e1">App 1</text>
+    <rect x="75" y="80" width="40" height="18" rx="3" fill="#334155" />
+    <text x="95" y="93" text-anchor="middle" font-size="9" font-weight="600" fill="#cbd5e1">App 2</text>
+    <rect x="125" y="80" width="40" height="18" rx="3" fill="#334155" />
+    <text x="145" y="93" text-anchor="middle" font-size="9" font-weight="600" fill="#cbd5e1">App N</text>
+    <text x="25" y="118" font-size="10" fill="#64748b">Raw format: JSON, Glog, Logfmt</text>
+
+    <!-- Flow indicator -->
+    <path d="M 100 135 L 100 160" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowBlue)" />
+
+    <!-- Vector Log Shipping Agent -->
+    <rect x="15" y="175" width="170" height="230" rx="6" fill="#0f172a" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="100" y="195" text-anchor="middle" font-size="13" font-weight="700" fill="#60a5fa">Vector / Fluent Bit</text>
+    <text x="100" y="210" text-anchor="middle" font-size="9" fill="#94a3b8">Log Shipping Agent &amp; Router</text>
+    
+    <!-- Buffering & Batching -->
+    <rect x="25" y="230" width="150" height="50" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="35" y="247" font-size="10" font-weight="600" fill="#e2e8f0">Ingestion Batching</text>
+    <text x="35" y="260" font-size="9" fill="#94a3b8">Min block size: 1,048,576 rows</text>
+    <text x="35" y="271" font-size="9" fill="#94a3b8">Max flush interval: 5 seconds</text>
+
+    <!-- Client-Side Hashing -->
+    <rect x="25" y="295" width="150" height="95" rx="4" fill="#1e293b" stroke="#3b82f6" stroke-width="1" stroke-dasharray="2,2" />
+    <text x="35" y="312" font-size="10" font-weight="600" fill="#3b82f6">Client-Side Router (Go/Vector)</text>
+    <text x="35" y="327" font-size="9" fill="#94a3b8">Hash: xxHash64(service, host)</text>
+    <text x="35" y="340" font-size="9" fill="#94a3b8">Target: Write directly to Shard IPs</text>
+    <text x="35" y="355" font-size="9" fill="#10b981" font-weight="600">✓ Avoids double network hop</text>
+    <text x="35" y="367" font-size="9" fill="#10b981" font-weight="600">✓ Prevents distributed lock overhead</text>
+    <text x="35" y="379" font-size="9" fill="#10b981" font-weight="600">✓ Perfect write balancing</text>
+  </g>
+
+  <!-- ================= INGESTION FLOW LINES ================= -->
+  <!-- Direct Writes to Local Tables -->
+  <path d="M 230 430 L 400 430" stroke="#10b981" stroke-width="2" marker-end="url(#arrowEmerald)" fill="none" />
+  <text x="315" y="420" text-anchor="middle" font-size="11" font-weight="600" fill="#34d399">Direct Batch Writes</text>
+  <text x="315" y="443" text-anchor="middle" font-size="9" fill="#64748b">Port 8123 (HTTP) / 9000 (TCP)</text>
+
+  <!-- Distributed Queries (Read Flow) -->
+  <path d="M 230 180 L 400 180" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowBlue)" fill="none" />
+  <text x="315" y="170" text-anchor="middle" font-size="11" font-weight="600" fill="#60a5fa">SELECT Queries</text>
+  <text x="315" y="193" text-anchor="middle" font-size="9" fill="#64748b">Unified Query Endpoint</text>
+
+
+  <!-- ================= CLICKHOUSE DATABASE LAYER ================= -->
+  <g transform="translate(410, 100)" filter="url(#dropShadow)">
+    <!-- Container -->
+    <rect width="520" height="430" rx="8" fill="url(#slateGrad)" stroke="#334155" stroke-width="1.5" />
+    <text x="260" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#cbd5e1">2. ClickHouse Cluster Topology</text>
+
+    <!-- Zookeeper / Keeper -->
+    <rect x="180" y="40" width="160" height="30" rx="4" fill="#1e293b" stroke="#8b5cf6" stroke-width="1" />
+    <text x="260" y="59" text-anchor="middle" font-size="11" font-weight="700" fill="#c084fc">Coordination: ClickHouse Keeper</text>
+
+    <!-- ================= DISTRIBUTED ENGINE (READS) ================= -->
+    <rect x="20" y="80" width="480" height="55" rx="6" fill="url(#nodeGrad)" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="30" y="102" font-size="12" font-weight="700" fill="#60a5fa">Distributed Table Engine: logs_all</text>
+    <text x="30" y="117" font-size="10" fill="#94a3b8">ENGINE = Distributed(cluster_2s2r, system, logs_local, xxHash64(service))</text>
+    <rect x="420" y="90" width="70" height="18" rx="3" fill="#1d4ed8" />
+    <text x="455" y="102" text-anchor="middle" font-size="9" font-weight="600" fill="#ffffff">READ ONLY</text>
+
+    <!-- Query scatter arrow -->
+    <path d="M 120 135 L 120 180" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)" fill="none" />
+    <path d="M 370 135 L 370 180" stroke="#60a5fa" stroke-width="1.5" marker-end="url(#arrowBlue)" fill="none" />
+
+    <!-- ================= SHARD 1 ================= -->
+    <g transform="translate(20, 155)">
+      <rect width="230" height="255" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="115" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#94a3b8">SHARD 1 (Hash Range: 0 - 2^63)</text>
+      
+      <!-- Replica A (Leader/Active Write Target) -->
+      <rect x="10" y="35" width="210" height="90" rx="4" fill="url(#nodeGrad)" stroke="#10b981" stroke-width="1.5" />
+      <text x="20" y="52" font-size="11" font-weight="700" fill="#34d399">Replica 1A (ch-node-01)</text>
+      <text x="20" y="67" font-size="9" fill="#94a3b8">Engine: ReplicatedMergeTree('/clickhouse/tables/01/logs', ...)</text>
+      
+      <!-- Compression Codecs visualization -->
+      <rect x="20" y="80" width="190" height="35" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="25" y="92" font-size="8" font-weight="600" fill="#fbbf24">COLUMN CODECS:</text>
+      <text x="25" y="103" font-size="8" fill="#e2e8f0">timestamp: DoubleDelta, ZSTD(1) | payload: ZSTD(3) | level: LC</text>
+
+      <!-- Sync line -->
+      <path d="M 115 125 L 115 155" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#doubleArrow)" />
+      <text x="125" y="144" font-size="8" fill="#c084fc">Replication (Async WAL)</text>
+
+      <!-- Replica B -->
+      <rect x="10" y="155" width="210" height="90" rx="4" fill="url(#nodeGrad)" stroke="#475569" stroke-width="1" />
+      <text x="20" y="172" font-size="11" font-weight="700" fill="#cbd5e1">Replica 1B (ch-node-02)</text>
+      <text x="20" y="187" font-size="9" fill="#94a3b8">Engine: ReplicatedMergeTree('/clickhouse/tables/01/logs', ...)</text>
+      <rect x="20" y="200" width="190" height="35" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="25" y="212" font-size="8" font-weight="600" fill="#fbbf24">COLUMN CODECS:</text>
+      <text x="25" y="223" font-size="8" fill="#e2e8f0">timestamp: DoubleDelta, ZSTD(1) | payload: ZSTD(3) | level: LC</text>
+    </g>
+
+    <!-- ================= SHARD 2 ================= -->
+    <g transform="translate(270, 155)">
+      <rect width="230" height="255" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="115" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#94a3b8">SHARD 2 (Hash Range: 2^63 - 2^64)</text>
+      
+      <!-- Replica A -->
+      <rect x="10" y="35" width="210" height="90" rx="4" fill="url(#nodeGrad)" stroke="#10b981" stroke-width="1.5" />
+      <text x="20" y="52" font-size="11" font-weight="700" fill="#34d399">Replica 2A (ch-node-03)</text>
+      <text x="20" y="67" font-size="9" fill="#94a3b8">Engine: ReplicatedMergeTree('/clickhouse/tables/02/logs', ...)</text>
+      
+      <!-- Compression Codecs visualization -->
+      <rect x="20" y="80" width="190" height="35" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="25" y="92" font-size="8" font-weight="600" fill="#fbbf24">COLUMN CODECS:</text>
+      <text x="25" y="103" font-size="8" fill="#e2e8f0">timestamp: DoubleDelta, ZSTD(1) | payload: ZSTD(3) | level: LC</text>
+
+      <!-- Sync line -->
+      <path d="M 115 125 L 115 155" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#doubleArrow)" />
+      <text x="125" y="144" font-size="8" fill="#c084fc">Replication (Async WAL)</text>
+
+      <!-- Replica B -->
+      <rect x="10" y="155" width="210" height="90" rx="4" fill="url(#nodeGrad)" stroke="#475569" stroke-width="1" />
+      <text x="20" y="172" font-size="11" font-weight="700" fill="#cbd5e1">Replica 2B (ch-node-04)</text>
+      <text x="20" y="187" font-size="9" fill="#94a3b8">Engine: ReplicatedMergeTree('/clickhouse/tables/02/logs', ...)</text>
+      <rect x="20" y="200" width="190" height="35" rx="3" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="25" y="212" font-size="8" font-weight="600" fill="#fbbf24">COLUMN CODECS:</text>
+      <text x="25" y="223" font-size="8" fill="#e2e8f0">timestamp: DoubleDelta, ZSTD(1) | payload: ZSTD(3) | level: LC</text>
+    </g>
+
+    <!-- Keeper link lines -->
+    <path d="M 180 55 H 120 V 155" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,2" fill="none" />
+    <path d="M 340 55 H 380 V 155" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2,2" fill="none" />
+  </g>
+
+  <!-- Status indicators / Legend -->
+  <g transform="translate(30, 540)">
+    <circle cx="10" cy="10" r="5" fill="#10b981" />
+    <text x="22" y="13" font-size="10" fill="#cbd5e1">Write Ingestion Pipeline (Direct to Local)</text>
+    
+    <circle cx="280" cy="10" r="5" fill="#3b82f6" />
+    <text x="292" y="13" font-size="10" fill="#cbd5e1">Distributed Read / Analytics Queries</text>
+    
+    <circle cx="530" cy="10" r="5" fill="#8b5cf6" />
+    <text x="542" y="13" font-size="10" fill="#cbd5e1">Metadata Coordination &amp; Replication</text>
+    
+    <circle cx="780" cy="10" r="5" fill="#fbbf24" />
+    <text x="792" y="13" font-size="10" fill="#cbd5e1">Data-Type Tuning &amp; Codecs</text>
+  </g>
+</svg>
