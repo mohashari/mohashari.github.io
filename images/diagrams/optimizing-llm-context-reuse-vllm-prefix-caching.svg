@@ -1,0 +1,271 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 580" width="100%" height="100%" style="background-color: #0b0f19; font-family: system-ui, -apple-system, sans-serif;">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="indigoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" />
+      <stop offset="100%" stop-color="#db2777" />
+    </linearGradient>
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+    <linearGradient id="darkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f97316" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="30" y="40" fill="#ffffff" font-size="20" font-weight="bold">vLLM Serving Optimization Architecture</text>
+  <text x="30" y="62" fill="#94a3b8" font-size="12">Automatic Prefix Caching (APC) block lookup combined with Chunked Prefill dynamic scheduling</text>
+
+  <!-- Legend -->
+  <g transform="translate(620, 25)">
+    <rect x="0" y="0" width="12" height="12" rx="2" fill="url(#blueGrad)" />
+    <text x="18" y="10" fill="#94a3b8" font-size="10">System Prompt</text>
+    <rect x="110" y="0" width="12" height="12" rx="2" fill="url(#indigoGrad)" />
+    <text x="128" y="10" fill="#94a3b8" font-size="10">RAG Context</text>
+    <rect x="210" y="0" width="12" height="12" rx="2" fill="url(#pinkGrad)" />
+    <text x="228" y="10" fill="#94a3b8" font-size="10">Query / Decode</text>
+  </g>
+
+  <!-- Column 1: Client Request Queue -->
+  <g transform="translate(30, 90)">
+    <rect x="0" y="0" width="220" height="450" rx="8" fill="#111827" stroke="#1f2937" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#f8fafc" font-size="14" font-weight="bold">Client Request Queue</text>
+    <text x="15" y="42" fill="#64748b" font-size="11">Arriving inputs with varying prefixes</text>
+
+    <!-- Request A (Cache Hit Candidate) -->
+    <g transform="translate(10, 60)" filter="url(#shadow)">
+      <rect x="0" y="0" width="200" height="110" rx="6" fill="#1e293b" stroke="#334155"/>
+      <text x="10" y="20" fill="#f1f5f9" font-size="12" font-weight="bold">Req A: Chat Turn 2</text>
+      <!-- Prompt Breakdown -->
+      <rect x="10" y="32" width="180" height="20" rx="3" fill="url(#blueGrad)"/>
+      <text x="15" y="46" fill="#ffffff" font-size="10" font-weight="bold">System Prompt (512 tokens)</text>
+      
+      <rect x="10" y="56" width="180" height="20" rx="3" fill="url(#indigoGrad)"/>
+      <text x="15" y="70" fill="#ffffff" font-size="10" font-weight="bold">RAG Document (1536 tokens)</text>
+
+      <rect x="10" y="80" width="180" height="20" rx="3" fill="url(#pinkGrad)"/>
+      <text x="15" y="94" fill="#ffffff" font-size="10" font-weight="bold">User Query A (64 tokens)</text>
+    </g>
+
+    <!-- Request B (Cache Hit Candidate) -->
+    <g transform="translate(10, 185)" filter="url(#shadow)">
+      <rect x="0" y="0" width="200" height="110" rx="6" fill="#1e293b" stroke="#334155"/>
+      <text x="10" y="20" fill="#f1f5f9" font-size="12" font-weight="bold">Req B: Chat Turn 2</text>
+      <!-- Prompt Breakdown -->
+      <rect x="10" y="32" width="180" height="20" rx="3" fill="url(#blueGrad)"/>
+      <text x="15" y="46" fill="#ffffff" font-size="10" font-weight="bold">System Prompt (512 tokens)</text>
+      
+      <rect x="10" y="56" width="180" height="20" rx="3" fill="url(#indigoGrad)"/>
+      <text x="15" y="70" fill="#ffffff" font-size="10" font-weight="bold">RAG Document (1536 tokens)</text>
+
+      <rect x="10" y="80" width="180" height="20" rx="3" fill="url(#pinkGrad)"/>
+      <text x="15" y="94" fill="#ffffff" font-size="10" font-weight="bold">User Query B (48 tokens)</text>
+    </g>
+
+    <!-- Request C (Cache Miss / Uncached Large Request) -->
+    <g transform="translate(10, 310)" filter="url(#shadow)">
+      <rect x="0" y="0" width="200" height="120" rx="6" fill="#1e293b" stroke="#334155"/>
+      <text x="10" y="20" fill="#f1f5f9" font-size="12" font-weight="bold">Req C: Long Uncached Doc</text>
+      <!-- Prompt Breakdown -->
+      <rect x="10" y="32" width="180" height="20" rx="3" fill="url(#blueGrad)"/>
+      <text x="15" y="46" fill="#ffffff" font-size="10">System Prompt (512 tokens)</text>
+
+      <rect x="10" y="56" width="180" height="40" rx="3" fill="url(#emeraldGrad)"/>
+      <text x="15" y="72" fill="#ffffff" font-size="10" font-weight="bold">New Document (3072 tokens)</text>
+      <text x="15" y="88" fill="#a7f3d0" font-size="9">Prefill Bubble Hazard</text>
+
+      <rect x="10" y="100" width="180" height="14" rx="2" fill="url(#pinkGrad)"/>
+      <text x="15" y="110" fill="#ffffff" font-size="8">Query (16 tokens)</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrows from Client to Engine -->
+  <path d="M 250,200 L 282,200" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 250,425 L 282,425" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Column 2: vLLM Scheduler & Cache Router -->
+  <g transform="translate(290, 90)">
+    <rect x="0" y="0" width="280" height="450" rx="8" fill="#111827" stroke="#1f2937" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#f8fafc" font-size="14" font-weight="bold">vLLM Core Engine</text>
+    
+    <!-- Automatic Prefix Caching Router -->
+    <g transform="translate(10, 45)" filter="url(#shadow)">
+      <rect x="0" y="0" width="260" height="150" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1"/>
+      <text x="10" y="18" fill="#38bdf8" font-size="11" font-weight="bold" letter-spacing="0.5">AUTOMATIC PREFIX CACHING (APC)</text>
+      <text x="10" y="32" fill="#94a3b8" font-size="9">Computes Hash(Prefix) to check KV Cache hits</text>
+
+      <!-- Hash Match Block -->
+      <rect x="10" y="45" width="240" height="45" rx="4" fill="#0f172a" stroke="#334155"/>
+      <text x="18" y="60" fill="#38bdf8" font-size="10" font-weight="bold">Lookup: Hash(System + RAG)</text>
+      <text x="18" y="78" fill="#10b981" font-size="10">CACHE HIT! Skip Prefill for 2048 tokens</text>
+
+      <!-- Cache miss Match Block -->
+      <rect x="10" y="98" width="240" height="45" rx="4" fill="#0f172a" stroke="#334155"/>
+      <text x="18" y="113" fill="#f97316" font-size="10" font-weight="bold">Lookup: Hash(System + New Doc)</text>
+      <text x="18" y="131" fill="#f97316" font-size="10">CACHE MISS: Prefill required (3584 tokens)</text>
+    </g>
+
+    <!-- Chunked Prefill Scheduler -->
+    <g transform="translate(10, 215)" filter="url(#shadow)">
+      <rect x="0" y="0" width="260" height="220" rx="6" fill="#1e293b" stroke="#f97316" stroke-width="1"/>
+      <text x="10" y="18" fill="#f97316" font-size="11" font-weight="bold" letter-spacing="0.5">CHUNKED PREFILL SCHEDULER</text>
+      <text x="10" y="32" fill="#94a3b8" font-size="9">Splits long prefills into smaller runtime execution chunks</text>
+
+      <!-- Chunking Process Visual -->
+      <g transform="translate(10, 48)">
+        <text x="0" y="12" fill="#cbd5e1" font-size="10" font-weight="bold">Req C: 3584 Tokens</text>
+        <path d="M 100,8 L 120,8" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="2,2"/>
+        <text x="130" y="12" fill="#f97316" font-size="10" font-weight="bold">Chunked prefill (512T/chunk)</text>
+        
+        <!-- Chunks diagram -->
+        <rect x="0" y="24" width="55" height="18" rx="2" fill="url(#orangeGrad)"/>
+        <text x="6" y="36" fill="#ffffff" font-size="8" font-weight="bold">Chunk 1 (512)</text>
+
+        <rect x="60" y="24" width="55" height="18" rx="2" fill="#475569" stroke="#64748b"/>
+        <text x="66" y="36" fill="#94a3b8" font-size="8">Chunk 2 (512)</text>
+
+        <rect x="120" y="24" width="55" height="18" rx="2" fill="#475569" stroke="#64748b"/>
+        <text x="126" y="36" fill="#94a3b8" font-size="8">Chunk 3 (512)</text>
+
+        <text x="180" y="36" fill="#64748b" font-size="10" font-weight="bold">...</text>
+      </g>
+
+      <!-- Co-scheduled Execution Batch -->
+      <g transform="translate(10, 115)">
+        <rect x="0" y="0" width="240" height="92" rx="4" fill="#0f172a" stroke="#334155"/>
+        <text x="10" y="16" fill="#f8fafc" font-size="10" font-weight="bold">Scheduled Batch (Iteration N)</text>
+        <text x="10" y="28" fill="#64748b" font-size="8">Co-scheduling prefill chunk with active decodes</text>
+        
+        <!-- Batch layout -->
+        <g transform="translate(10, 36)">
+          <rect x="0" y="0" width="105" height="22" rx="2" fill="url(#orangeGrad)"/>
+          <text x="5" y="14" fill="#ffffff" font-size="8" font-weight="bold">Req C: Prefill Chunk 1</text>
+          
+          <rect x="110" y="0" width="50" height="22" rx="2" fill="url(#pinkGrad)"/>
+          <text x="115" y="14" fill="#ffffff" font-size="8" font-weight="bold">Req A (Dec)</text>
+
+          <rect x="165" y="0" width="50" height="22" rx="2" fill="url(#pinkGrad)"/>
+          <text x="170" y="14" fill="#ffffff" font-size="8" font-weight="bold">Req B (Dec)</text>
+        </g>
+        
+        <text x="10" y="78" fill="#10b981" font-size="9">Result: Smooth decoding, no latency bubble</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Flow Arrows from Engine to GPU/KV-Cache -->
+  <!-- Hit flow (APC to GPU Memory) -->
+  <path d="M 560,140 L 602,140" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="568" y="132" fill="#10b981" font-size="9" font-weight="bold">Cache Hit</text>
+
+  <!-- Chunk flow (Scheduler to GPU Memory) -->
+  <path d="M 560,380 L 602,380" fill="none" stroke="#f97316" stroke-width="2" marker-end="url(#arrow-orange)" />
+  <text x="566" y="372" fill="#f97316" font-size="9" font-weight="bold">Chunk Prefill</text>
+
+  <!-- Column 3: GPU Memory & PagedAttention KV Cache -->
+  <g transform="translate(610, 90)">
+    <rect x="0" y="0" width="260" height="450" rx="8" fill="#111827" stroke="#1f2937" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#f8fafc" font-size="14" font-weight="bold">GPU Memory (KV Cache)</text>
+    <text x="15" y="42" fill="#64748b" font-size="11">PagedAttention Block Management</text>
+
+    <!-- Block Manager Table -->
+    <g transform="translate(10, 60)">
+      <!-- System prompt blocks (Shared) -->
+      <g transform="translate(0, 0)">
+        <rect x="0" y="0" width="240" height="42" rx="4" fill="#0f172a" stroke="#0ea5e9" stroke-width="1"/>
+        <text x="10" y="16" fill="#f8fafc" font-size="10" font-weight="bold">Physical Blocks 0 - 15 (System Prompt)</text>
+        <text x="10" y="32" fill="#38bdf8" font-size="9">Locked &amp; Cached (Hash match). Ref Count: 2</text>
+        <!-- Mini blocks representation -->
+        <rect x="180" y="6" width="8" height="8" fill="#0ea5e9" rx="1"/>
+        <rect x="190" y="6" width="8" height="8" fill="#0ea5e9" rx="1"/>
+        <rect x="200" y="6" width="8" height="8" fill="#0ea5e9" rx="1"/>
+        <rect x="210" y="6" width="8" height="8" fill="#0ea5e9" rx="1"/>
+        <rect x="220" y="6" width="8" height="8" fill="#0ea5e9" rx="1"/>
+      </g>
+
+      <!-- RAG Context blocks (Shared) -->
+      <g transform="translate(0, 52)">
+        <rect x="0" y="0" width="240" height="42" rx="4" fill="#0f172a" stroke="#6366f1" stroke-width="1"/>
+        <text x="10" y="16" fill="#f8fafc" font-size="10" font-weight="bold">Physical Blocks 16 - 63 (RAG Doc)</text>
+        <text x="10" y="32" fill="#818cf8" font-size="9">LRU Cached (Hash match). Ref Count: 2</text>
+        <!-- Mini blocks representation -->
+        <rect x="180" y="6" width="8" height="8" fill="#6366f1" rx="1"/>
+        <rect x="190" y="6" width="8" height="8" fill="#6366f1" rx="1"/>
+        <rect x="200" y="6" width="8" height="8" fill="#6366f1" rx="1"/>
+        <rect x="210" y="6" width="8" height="8" fill="#6366f1" rx="1"/>
+        <rect x="220" y="6" width="8" height="8" fill="#6366f1" rx="1"/>
+      </g>
+
+      <!-- Req A Decode blocks (Dynamic) -->
+      <g transform="translate(0, 104)">
+        <rect x="0" y="0" width="240" height="42" rx="4" fill="#0f172a" stroke="#db2777" stroke-width="1"/>
+        <text x="10" y="16" fill="#f8fafc" font-size="10" font-weight="bold">Physical Block 64 (Req A Decode)</text>
+        <text x="10" y="32" fill="#f472b6" font-size="9">Active decode, mapped dynamically</text>
+        <rect x="220" y="6" width="8" height="8" fill="#db2777" rx="1"/>
+      </g>
+
+      <!-- Req B Decode blocks (Dynamic) -->
+      <g transform="translate(0, 156)">
+        <rect x="0" y="0" width="240" height="42" rx="4" fill="#0f172a" stroke="#db2777" stroke-width="1"/>
+        <text x="10" y="16" fill="#f8fafc" font-size="10" font-weight="bold">Physical Block 65 (Req B Decode)</text>
+        <text x="10" y="32" fill="#f472b6" font-size="9">Active decode, mapped dynamically</text>
+        <rect x="220" y="6" width="8" height="8" fill="#db2777" rx="1"/>
+      </g>
+
+      <!-- Req C Chunk 1 blocks (Allocating) -->
+      <g transform="translate(0, 208)">
+        <rect x="0" y="0" width="240" height="42" rx="4" fill="#0f172a" stroke="#ea580c" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="10" y="16" fill="#f8fafc" font-size="10" font-weight="bold">Physical Blocks 66 - 81 (Req C)</text>
+        <text x="10" y="32" fill="#ea580c" font-size="9">Allocated dynamically for Chunk 1 KV</text>
+        <rect x="220" y="6" width="8" height="8" fill="#ea580c" rx="1"/>
+      </g>
+
+      <!-- LRU Cache Stats -->
+      <g transform="translate(0, 260)">
+        <rect x="0" y="0" width="240" height="110" rx="4" fill="#1e293b" stroke="#334155"/>
+        <text x="10" y="18" fill="#f1f5f9" font-size="10" font-weight="bold">LRU Eviction Pool &amp; Stats</text>
+        
+        <text x="10" y="36" fill="#94a3b8" font-size="9">Free Blocks: 4,096 / 8,192 (50%)</text>
+        <rect x="10" y="42" width="220" height="6" rx="3" fill="#0f172a"/>
+        <rect x="10" y="42" width="110" height="6" rx="3" fill="#10b981"/>
+
+        <text x="10" y="62" fill="#94a3b8" font-size="9">Active Cached Prefixes: 12</text>
+        <text x="10" y="74" fill="#94a3b8" font-size="9">Avg Cache Hit Rate: 72%</text>
+        
+        <!-- Alert Box -->
+        <rect x="10" y="84" width="220" height="20" rx="2" fill="#0c1d24" stroke="#0ea5e9" stroke-width="0.5"/>
+        <text x="16" y="96" fill="#0ea5e9" font-size="8" font-weight="bold">Memory protected: LRU handles eviction</text>
+      </g>
+    </g>
+  </g>
+</svg>
