@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    
+    <linearGradient id="orchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+
+    <linearGradient id="guardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <linearGradient id="llmGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64748b" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <!-- Marker Arrowheads -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="550" fill="url(#bgGradient)" rx="16" />
+  
+  <!-- Outer Border -->
+  <rect width="898" height="548" x="1" y="1" fill="none" stroke="#1e293b" stroke-width="2" rx="15" />
+
+  <!-- Grid Pattern overlay -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 900,50 M 0,100 L 900,100 M 0,150 L 900,150 M 0,200 L 900,200 M 0,250 L 900,250 M 0,300 L 900,300 M 0,350 L 900,350 M 0,400 L 900,400 M 0,450 L 900,450 M 0,500 L 900,500" stroke="#94a3b8" stroke-width="1" />
+    <path d="M 50,0 L 50,550 M 100,0 L 100,550 M 150,0 L 150,550 M 200,0 L 200,550 M 250,0 L 250,550 M 300,0 L 300,550 M 350,0 L 350,550 M 400,0 L 400,550 M 450,0 L 450,550 M 500,0 L 500,550 M 550,0 L 550,550 M 600,0 L 600,550 M 650,0 L 650,550 M 700,0 L 700,550 M 750,0 L 750,550 M 800,0 L 800,550 M 850,0 L 850,550" stroke="#94a3b8" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" fill="#f8fafc" letter-spacing="-0.5">
+    Low-Latency LLM Guardrail Pipeline Architecture
+  </text>
+  <text x="30" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="400" fill="#64748b">
+    Dual-phase (Prompt/Response) validation using local vLLM instances for sub-15ms overhead
+  </text>
+
+  <!-- 1. Client -->
+  <g transform="translate(40, 210)" filter="url(#shadow)">
+    <rect width="120" height="90" rx="10" fill="url(#clientGrad)" opacity="0.95" />
+    <rect width="120" height="90" rx="10" fill="none" stroke="#60a5fa" stroke-width="1.5" />
+    <text x="60" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">API Client</text>
+    <text x="60" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#93c5fd" text-anchor="middle">App / User</text>
+  </g>
+
+  <!-- 2. Gateway / Orchestrator -->
+  <g transform="translate(260, 120)" filter="url(#shadow)">
+    <rect width="220" height="270" rx="12" fill="url(#orchGrad)" opacity="0.95" />
+    <rect width="220" height="270" rx="12" fill="none" stroke="#a78bfa" stroke-width="1.5" />
+    <!-- Header -->
+    <text x="110" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">API Gateway Service</text>
+    <text x="110" y="48" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#ddd6fe" text-anchor="middle">(Go / FastAPI Orchestrator)</text>
+    <line x1="20" y1="60" x2="200" y2="60" stroke="#a78bfa" stroke-opacity="0.3" stroke-width="1" />
+    
+    <!-- Step details inside orchestrator -->
+    <g transform="translate(15, 75)">
+      <!-- Step 1 -->
+      <rect width="190" height="36" rx="6" fill="#1e1b4b" stroke="#818cf8" stroke-width="1" />
+      <text x="10" y="22" font-family="monospace" font-size="10.5" fill="#e0e7ff">1. Check Input (LlamaGuard)</text>
+      
+      <!-- Step 2 -->
+      <rect width="190" height="36" rx="6" fill="#1e1b4b" stroke="#818cf8" stroke-width="1" transform="translate(0, 48)" />
+      <text x="10" y="70" font-family="monospace" font-size="10.5" fill="#e0e7ff">2. Route to Primary LLM</text>
+      
+      <!-- Step 3 -->
+      <rect width="190" height="36" rx="6" fill="#1e1b4b" stroke="#818cf8" stroke-width="1" transform="translate(0, 96)" />
+      <text x="10" y="118" font-family="monospace" font-size="10.5" fill="#e0e7ff">3. Check Output (LlamaGuard)</text>
+
+      <!-- Step 4 -->
+      <rect width="190" height="36" rx="6" fill="#1e1b4b" stroke="#818cf8" stroke-width="1" transform="translate(0, 144)" />
+      <text x="10" y="166" font-family="monospace" font-size="10.5" fill="#e0e7ff">4. Final Stream / Sanitization</text>
+    </g>
+  </g>
+
+  <!-- 3. LlamaGuard Service (vLLM Cluster) -->
+  <g transform="translate(580, 110)" filter="url(#shadow)">
+    <rect width="250" height="110" rx="12" fill="url(#guardGrad)" opacity="0.95" />
+    <rect width="250" height="110" rx="12" fill="none" stroke="#34d399" stroke-width="1.5" />
+    <text x="125" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">vLLM: LlamaGuard-3-8B</text>
+    <text x="125" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#a7f3d0" text-anchor="middle">Quantized FP8 / TP=1</text>
+    <line x1="20" y1="62" x2="230" y2="62" stroke="#34d399" stroke-opacity="0.3" stroke-width="1" />
+    <text x="125" y="80" font-family="monospace" font-size="11" fill="#ecfdf5" text-anchor="middle">Port: 8001 | /v1/completions</text>
+    <text x="125" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#a7f3d0" text-anchor="middle">Latency: ~12ms per validation</text>
+  </g>
+
+  <!-- 4. Primary LLM Generation Service (vLLM Cluster) -->
+  <g transform="translate(580, 290)" filter="url(#shadow)">
+    <rect width="250" height="110" rx="12" fill="url(#llmGrad)" opacity="0.95" />
+    <rect width="250" height="110" rx="12" fill="none" stroke="#fbbf24" stroke-width="1.5" />
+    <text x="125" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">vLLM: Llama-3-70B-Instruct</text>
+    <text x="125" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#fde68a" text-anchor="middle">AWQ / TP=4 / A100 Cluster</text>
+    <line x1="20" y1="62" x2="230" y2="62" stroke="#fbbf24" stroke-opacity="0.3" stroke-width="1" />
+    <text x="125" y="80" font-family="monospace" font-size="11" fill="#fffbeb" text-anchor="middle">Port: 8000 | /v1/chat/completions</text>
+    <text x="125" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#fde68a" text-anchor="middle">Streaming Enabled</text>
+  </g>
+
+  <!-- 5. Audit Logging / DB -->
+  <g transform="translate(260, 445)" filter="url(#shadow)">
+    <rect width="220" height="65" rx="8" fill="url(#dbGrad)" opacity="0.95" />
+    <rect width="220" height="65" rx="8" fill="none" stroke="#94a3b8" stroke-width="1.5" />
+    <text x="110" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">Audit Logs &amp; Metrics</text>
+    <text x="110" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">Prometheus / Kafka (Policy Violations)</text>
+  </g>
+
+  <!-- Flow Arrows & Text -->
+
+  <!-- Client <-> Gateway -->
+  <path d="M 160,235 L 260,235" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="210" y="225" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Prompt Req</text>
+
+  <path d="M 260,275 L 160,275" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="210" y="293" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Filtered Resp / Stream</text>
+
+  <!-- Gateway -> LlamaGuard Input (Up & Right) -->
+  <path d="M 480,150 L 570,150" stroke="#10b981" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-green)" />
+  <text x="525" y="140" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#34d399" text-anchor="middle">Input Validation</text>
+
+  <!-- LlamaGuard -> Gateway Response (Down & Left) -->
+  <path d="M 570,185 L 480,185" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="525" y="202" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#34d399" text-anchor="middle">Verdict [Safe/Unsafe]</text>
+
+  <!-- Gateway -> Primary LLM Output (Down & Right) -->
+  <path d="M 480,310 L 570,310" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="525" y="302" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#fbbf24" text-anchor="middle">Prompt (If Safe)</text>
+
+  <!-- Primary LLM -> Gateway Response (Up & Left) -->
+  <path d="M 570,345 L 480,345" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="525" y="362" font-family="system-ui, -apple-system, sans-serif" font-size="10.5" font-weight="600" fill="#fbbf24" text-anchor="middle">Generated Content</text>
+
+  <!-- Gateway -> LlamaGuard Output Check -->
+  <!-- We reuse LlamaGuard for output checking. Path from Gateway Step 3 to LlamaGuard -->
+  <path d="M 480,165 L 570,165" stroke="#10b981" stroke-width="1.5" stroke-dasharray="2,2" />
+  
+  <!-- Gateway -> Logging DB -->
+  <path d="M 370,390 L 370,435" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)" />
+  <text x="382" y="418" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" fill="#fca5a5" text-anchor="start">Log violations / Metrics</text>
+
+</svg>
