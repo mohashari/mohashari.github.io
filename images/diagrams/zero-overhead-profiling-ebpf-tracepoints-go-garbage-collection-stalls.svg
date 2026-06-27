@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%" style="background-color: #0b0f19; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Background & Grid -->
+  <rect width="800" height="500" fill="#0b0f19" rx="8" />
+  
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#022c22" />
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c2d12" />
+      <stop offset="100%" stop-color="#431407" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="24" y="36" fill="#f8fafc" font-size="18" font-weight="bold" letter-spacing="0.5">eBPF-Based Go GC Stall Profiling Architecture</text>
+  <text x="24" y="56" fill="#94a3b8" font-size="12">Correlating User-space GC Phases with Kernel Scheduling Latency</text>
+
+  <!-- User Space Box -->
+  <rect x="30" y="80" width="340" height="380" rx="12" fill="url(#blueGrad)" stroke="#1e293b" stroke-width="2" />
+  <text x="46" y="106" fill="#38bdf8" font-size="14" font-weight="bold">USER SPACE</text>
+
+  <!-- Go Application Process -->
+  <rect x="50" y="125" width="300" height="150" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+  <text x="64" y="145" fill="#e2e8f0" font-size="12" font-weight="bold">Go Service (Target Process)</text>
+  
+  <!-- Go GC Runtime Functions -->
+  <rect x="70" y="165" width="260" height="40" rx="4" fill="#0f172a" stroke="#475569" />
+  <text x="80" y="189" fill="#94a3b8" font-size="11">runtime.gcStart()</text>
+  <circle cx="280" cy="185" r="6" fill="#ef4444" />
+  <text x="295" y="189" fill="#ef4444" font-size="10" font-weight="bold">uprobe</text>
+  
+  <rect x="70" y="215" width="260" height="40" rx="4" fill="#0f172a" stroke="#475569" />
+  <text x="80" y="239" fill="#94a3b8" font-size="11">runtime.gcEnd() / markTermination</text>
+  <circle cx="280" cy="235" r="6" fill="#10b981" />
+  <text x="295" y="239" fill="#10b981" font-size="10" font-weight="bold">uretprobe</text>
+
+  <!-- eBPF Profiler Daemon (Go) -->
+  <rect x="50" y="295" width="300" height="150" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+  <text x="64" y="315" fill="#e2e8f0" font-size="12" font-weight="bold">eBPF Collector Daemon (Go)</text>
+  
+  <rect x="70" y="335" width="120" height="40" rx="4" fill="#0f172a" stroke="#475569" />
+  <text x="80" y="359" fill="#94a3b8" font-size="11">cilium/ebpf Loader</text>
+  
+  <rect x="210" y="335" width="120" height="40" rx="4" fill="#0f172a" stroke="#475569" />
+  <text x="220" y="359" fill="#94a3b8" font-size="11">Ring Buffer Consumer</text>
+
+  <rect x="70" y="390" width="260" height="40" rx="4" fill="#0f172a" stroke="#38bdf8" stroke-dasharray="2,2" />
+  <text x="80" y="414" fill="#38bdf8" font-size="11" font-weight="bold">Aggregated GC Metrics / OTel</text>
+
+  <!-- Kernel Space Box -->
+  <rect x="410" y="80" width="360" height="380" rx="12" fill="url(#blueGrad)" stroke="#1e293b" stroke-width="2" />
+  <text x="426" y="106" fill="#818cf8" font-size="14" font-weight="bold">KERNEL SPACE</text>
+
+  <!-- eBPF Subsystem -->
+  <rect x="430" y="125" width="320" height="315" rx="8" fill="#0f172a" stroke="#312e81" stroke-width="1.5" />
+  <text x="444" y="145" fill="#e2e8f0" font-size="12" font-weight="bold">eBPF Virtual Machine</text>
+
+  <!-- eBPF Programs -->
+  <g transform="translate(440, 160)">
+    <rect width="300" height="95" rx="6" fill="#1e1b4b" stroke="#4338ca" />
+    <text x="12" y="20" fill="#a5b4fc" font-size="11" font-weight="bold">BPF_PROG(trace_gc_start) [Uprobe]</text>
+    <text x="12" y="38" fill="#94a3b8" font-size="10">• Captures start timestamp &amp; CPU ID</text>
+    <text x="12" y="52" fill="#94a3b8" font-size="10">• Records current task_struct and state</text>
+    <text x="12" y="66" fill="#94a3b8" font-size="10">• Saves to local map</text>
+  </g>
+
+  <g transform="translate(440, 265)">
+    <rect width="300" height="95" rx="6" fill="#1e1b4b" stroke="#4338ca" />
+    <text x="12" y="20" fill="#a5b4fc" font-size="11" font-weight="bold">BPF_PROG(trace_gc_end) [Uretprobe / Sched]</text>
+    <text x="12" y="38" fill="#94a3b8" font-size="10">• Calculates delta (GC Stall Duration)</text>
+    <text x="12" y="52" fill="#94a3b8" font-size="10">• Correlates with sched_switch off-CPU time</text>
+    <text x="12" y="66" fill="#94a3b8" font-size="10">• Pushes structured event to Ring Buffer</text>
+  </g>
+
+  <!-- eBPF Maps -->
+  <g transform="translate(440, 375)">
+    <rect width="140" height="50" rx="4" fill="#111827" stroke="#374151" />
+    <text x="10" y="22" fill="#94a3b8" font-size="10" font-weight="bold">gc_start_map</text>
+    <text x="10" y="38" fill="#64748b" font-size="9">BPF_MAP_TYPE_HASH</text>
+  </g>
+
+  <g transform="translate(600, 375)">
+    <rect width="140" height="50" rx="4" fill="#111827" stroke="#059669" />
+    <text x="10" y="22" fill="#34d399" font-size="10" font-weight="bold">gc_events_ringbuf</text>
+    <text x="10" y="38" fill="#64748b" font-size="9">BPF_MAP_TYPE_RINGBUF</text>
+  </g>
+
+  <!-- Connectors -->
+  <!-- Uprobes hooking C code -->
+  <path d="M 330 185 L 430 185" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <path d="M 330 235 L 430 290" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+
+  <!-- Loading eBPF -->
+  <path d="M 130 335 L 130 275" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow-gray)" />
+  <text x="140" y="285" fill="#64748b" font-size="9">Instruments</text>
+
+  <path d="M 190 355 L 420 355" fill="none" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="3,3" />
+  <text x="355" y="350" fill="#818cf8" font-size="9" transform="rotate(-90 355 350)">Loads BPF</text>
+
+  <!-- Ring buffer communication -->
+  <path d="M 670 375 L 670 450 L 270 450 L 270 375" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="450" y="445" fill="#10b981" font-size="9">GC Events Ring Buffer Stream</text>
+</svg>

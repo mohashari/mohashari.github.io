@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="100%" height="100%">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="pgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#336791" />
+      <stop offset="100%" stop-color="#244b6b" />
+    </linearGradient>
+    <linearGradient id="decGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#3730A3" />
+    </linearGradient>
+    <linearGradient id="parserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="destGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94A3B8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10B981" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#0F172A" rx="10"/>
+  
+  <!-- Grid lines (subtle) -->
+  <path d="M0 50 H900 M0 100 H900 M0 150 H900 M0 200 H900 M0 250 H900 M0 300 H900 M0 350 H900 M0 400 H900" stroke="#1E293B" stroke-width="1"/>
+  <path d="M100 0 V450 M200 0 V450 M300 0 V450 M400 0 V450 M500 0 V450 M600 0 V450 M700 0 V450 M800 0 V450" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- Section Titles -->
+  <text x="180" y="35" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" letter-spacing="1" text-anchor="middle">POSTGRESQL DATABASE ENGINE</text>
+  <text x="560" y="35" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" letter-spacing="1" text-anchor="middle">CUSTOM REPLICATION CONSUMER (GO)</text>
+
+  <!-- Boundaries -->
+  <rect x="20" y="50" width="320" height="370" rx="8" fill="none" stroke="#334155" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <rect x="380" y="50" width="360" height="370" rx="8" fill="none" stroke="#334155" stroke-dasharray="4 4" stroke-width="1.5"/>
+
+  <!-- Node 1: WAL Writer & Heap -->
+  <g transform="translate(40, 80)" filter="url(#shadow)">
+    <rect width="120" height="80" rx="6" fill="url(#pgGrad)"/>
+    <text x="60" y="35" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Shared Buffers</text>
+    <text x="60" y="55" fill="#93C5FD" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">&amp; WAL Writer</text>
+  </g>
+
+  <!-- Node 2: PostgreSQL WAL Files -->
+  <g transform="translate(40, 200)" filter="url(#shadow)">
+    <rect width="120" height="80" rx="6" fill="url(#pgGrad)"/>
+    <text x="60" y="35" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">WAL Segment</text>
+    <text x="60" y="55" fill="#93C5FD" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">16MB Ring Files</text>
+  </g>
+
+  <!-- Node 2b: TOAST Storage -->
+  <g transform="translate(40, 320)" filter="url(#shadow)">
+    <rect width="120" height="60" rx="6" fill="#1E293B" stroke="#475569" stroke-width="1.5"/>
+    <text x="60" y="28" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">pg_toast_xxxx</text>
+    <text x="60" y="45" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Out-of-line Chunks</text>
+  </g>
+
+  <!-- Node 3: Logical Decoding (pgoutput) -->
+  <g transform="translate(200, 140)" filter="url(#shadow)">
+    <rect width="120" height="140" rx="6" fill="url(#decGrad)"/>
+    <text x="60" y="35" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Logical Decoding</text>
+    <text x="60" y="55" fill="#C7D2FE" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">Output Plugin</text>
+    <rect x="10" y="75" width="100" height="50" rx="4" fill="#312E81" stroke="#4338CA" stroke-width="1"/>
+    <text x="60" y="95" fill="#E0E7FF" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">pgoutput</text>
+    <text x="60" y="112" fill="#A5B4FC" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">Filter/Format Stream</text>
+  </g>
+
+  <!-- Node 4: Replication Stream (Wire) -->
+  <g transform="translate(330, 200)">
+    <path d="M 10 10 L 40 10" fill="none" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arrow)"/>
+    <text x="25" y="0" fill="#94A3B8" font-family="monospace" font-size="8" text-anchor="middle">REPL PROTOCOL</text>
+  </g>
+
+  <!-- Node 5: Custom CDC Parser (Receiver/Buffer) -->
+  <g transform="translate(390, 80)" filter="url(#shadow)">
+    <rect width="140" height="80" rx="6" fill="url(#parserGrad)"/>
+    <text x="70" y="35" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Replication Receiver</text>
+    <text x="70" y="55" fill="#A7F3D0" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">Stream Keep-Alives</text>
+  </g>
+
+  <!-- Node 6: Protocol Message Parser -->
+  <g transform="translate(390, 200)" filter="url(#shadow)">
+    <rect width="140" height="100" rx="6" fill="url(#parserGrad)"/>
+    <text x="70" y="25" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Custom Parser</text>
+    <text x="70" y="42" fill="#A7F3D0" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Relation/Tuple Mapper</text>
+    <rect x="10" y="55" width="120" height="35" rx="4" fill="#065F46" stroke="#047857" stroke-width="1"/>
+    <text x="70" y="77" fill="#F0FDF4" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="10" text-anchor="middle">TOAST State Tracker</text>
+  </g>
+
+  <!-- Node 7: Schema Cache & Registry -->
+  <g transform="translate(580, 200)" filter="url(#shadow)">
+    <rect width="140" height="100" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+    <text x="70" y="28" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Schema Tracker</text>
+    <text x="70" y="48" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">RelID-to-Tuple Map</text>
+    <rect x="10" y="60" width="120" height="30" rx="4" fill="#0F172A" stroke="#334155" stroke-width="1"/>
+    <text x="70" y="78" fill="#A7F3D0" font-family="monospace" font-size="9" text-anchor="middle">relation_cache.go</text>
+  </g>
+
+  <!-- Node 8: Structured Events Out -->
+  <g transform="translate(760, 200)" filter="url(#shadow)">
+    <rect width="110" height="100" rx="6" fill="url(#destGrad)"/>
+    <text x="55" y="35" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Downstream</text>
+    <text x="55" y="55" fill="#FEF3C7" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">Kafka / Event Hub</text>
+    <text x="55" y="75" fill="#FEF3C7" font-family="monospace" font-size="9" text-anchor="middle">Clean JSON Events</text>
+  </g>
+
+  <!-- Connectors (PG Side) -->
+  <path d="M 100 160 L 100 200" fill="none" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 100 280 L 100 320" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arrow)"/>
+  <path d="M 160 240 L 200 240" fill="none" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 160 120 L 220 120 L 220 140" fill="none" stroke="#94A3B8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Connectors (Wire and Consumer Side) -->
+  <path d="M 320 210 L 390 210" fill="none" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 460 160 L 460 200" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)"/>
+  
+  <path d="M 530 250 L 580 250" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <path d="M 580 230 L 530 230" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <path d="M 720 250 L 760 250" fill="none" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrow)"/>
+</svg>
