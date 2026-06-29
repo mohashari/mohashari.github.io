@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <!-- Definitions for gradients, markers, and shadows -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Node/Box Gradients -->
+    <linearGradient id="nodeJsGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#15803d" stop-opacity="0.25" />
+    </linearGradient>
+    
+    <linearGradient id="monitorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#b91c1c" stop-opacity="0.25" />
+    </linearGradient>
+
+    <linearGradient id="triggerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#b45309" stop-opacity="0.25" />
+    </linearGradient>
+
+    <linearGradient id="storageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#0e7490" stop-opacity="0.25" />
+    </linearGradient>
+
+    <linearGradient id="analysisGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#4338ca" stop-opacity="0.25" />
+    </linearGradient>
+
+    <!-- Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444" />
+    </marker>
+
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f59e0b" />
+    </marker>
+
+    <!-- Drop Shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" rx="12" fill="url(#bgGrad)" />
+  
+  <!-- Grid Lines (Subtle) -->
+  <g opacity="0.05" stroke="#94a3b8" stroke-width="1">
+    <path d="M 80 0 L 80 540 M 160 0 L 160 540 M 240 0 L 240 540 M 320 0 L 320 540 M 400 0 L 400 540 M 480 0 L 480 540 M 560 0 L 560 540 M 640 0 L 640 540 M 720 0 L 720 540 M 800 0 L 800 540 M 880 0 L 880 540" />
+    <path d="M 0 60 L 960 60 M 0 120 L 960 120 M 0 180 L 960 180 M 0 240 L 960 240 M 0 300 L 960 300 M 0 360 L 960 360 M 0 420 L 960 420 M 0 480 L 960 480" />
+  </g>
+
+  <!-- Title -->
+  <text x="480" y="40" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700" letter-spacing="0.5">
+    REAL-TIME NODE.JS MEMORY LEAK DETECTION &amp; ANALYSIS PIPELINE
+  </text>
+  <text x="480" y="60" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500">
+    Production Monitoring, Automated Artifact Generation, and Diagnostics
+  </text>
+
+  <!-- ==================== 1. PRODUCTION SERVICE ==================== -->
+  <g filter="url(#shadow)">
+    <!-- Main Node.js Box -->
+    <rect x="50" y="110" width="260" height="360" rx="8" fill="url(#nodeJsGrad)" stroke="#22c55e" stroke-width="1.5" />
+    <rect x="50" y="110" width="260" height="35" rx="8" fill="#15803d" fill-opacity="0.3" />
+    <text x="65" y="132" fill="#22c55e" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700">Node.js Production Container</text>
+    
+    <!-- V8 Engine Box inside Node -->
+    <rect x="65" y="160" width="230" height="150" rx="6" fill="#0f172a" fill-opacity="0.6" stroke="#475569" stroke-width="1" />
+    <text x="75" y="180" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700">V8 RUNTIME HEAP</text>
+    
+    <!-- Memory Spaces -->
+    <rect x="75" y="195" width="100" height="40" rx="4" fill="#1e293b" stroke="#334155" />
+    <text x="125" y="212" text-anchor="middle" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600">Old Space</text>
+    <text x="125" y="227" text-anchor="middle" fill="#22c55e" font-family="monospace" font-size="9">(Active Objects)</text>
+
+    <rect x="185" y="195" width="100" height="40" rx="4" fill="#1e293b" stroke="#334155" />
+    <text x="235" y="212" text-anchor="middle" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600">New Space</text>
+    <text x="235" y="227" text-anchor="middle" fill="#94a3b8" font-family="monospace" font-size="9">(Short-lived)</text>
+
+    <rect x="75" y="250" width="210" height="45" rx="4" fill="#1e293b" stroke="#334155" />
+    <text x="180" y="267" text-anchor="middle" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600">Native C++ Memory (External)</text>
+    <text x="180" y="282" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="9">Buffers, Libuv, Native Addons</text>
+
+    <!-- App / Logic and Event Loop -->
+    <rect x="65" y="325" width="230" height="130" rx="6" fill="#0f172a" fill-opacity="0.6" stroke="#475569" stroke-width="1" />
+    <text x="75" y="342" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="700">APPLICATION LAYER</text>
+
+    <!-- Code elements -->
+    <rect x="75" y="355" width="210" height="90" rx="4" fill="#1e293b" stroke="#334155" />
+    <!-- Event Loop Indicator -->
+    <circle cx="115" cy="400" r="22" fill="none" stroke="#22c55e" stroke-width="2" stroke-dasharray="4 2" />
+    <text x="115" y="403" text-anchor="middle" fill="#22c55e" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold">EV LOOP</text>
+    
+    <text x="150" y="375" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">Winston / Loggers</text>
+    <text x="150" y="390" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Unbounded Closures</text>
+    <text x="150" y="405" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">Database Pools</text>
+    <text x="150" y="420" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="8">Leaked EventEmitter Listeners</text>
+  </g>
+
+  <!-- ==================== 2. OBSERVABILITY / PROMETHEUS ==================== -->
+  <g filter="url(#shadow)">
+    <rect x="390" y="90" width="200" height="100" rx="8" fill="url(#monitorGrad)" stroke="#ef4444" stroke-width="1.5" />
+    <rect x="390" y="90" width="200" height="28" rx="8" fill="#b91c1c" fill-opacity="0.3" />
+    <text x="405" y="108" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Prometheus Alertmanager</text>
+    
+    <text x="405" y="138" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">Metric: <tspan fill="#fca5a5" font-family="monospace">nodejs_heap_space_size_bytes</tspan></text>
+    <text x="405" y="153" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="500">Rule: Heap slope &gt; 0 after GC</text>
+    <text x="405" y="172" fill="#ef4444" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">ALERT: Potential Memory Leak</text>
+  </g>
+
+  <!-- ==================== 3. TRICK ENGINE / DUMP SYSTEM ==================== -->
+  <g filter="url(#shadow)">
+    <rect x="390" y="240" width="200" height="230" rx="8" fill="url(#triggerGrad)" stroke="#f59e0b" stroke-width="1.5" />
+    <rect x="390" y="240" width="200" height="28" rx="8" fill="#b45309" fill-opacity="0.3" />
+    <text x="405" y="258" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Automated Capture Engine</text>
+    
+    <!-- Path A: Heap Snapshot -->
+    <rect x="402" y="280" width="176" height="70" rx="4" fill="#0f172a" stroke="#d97706" stroke-width="1" />
+    <text x="410" y="296" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">A: V8 Heap Snapshot</text>
+    <text x="410" y="312" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="9">- JS Memory only (V8 Objects)</text>
+    <text x="410" y="325" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="9">- Blocks event loop (Sync write)</text>
+    <text x="410" y="338" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">Requires Event Loop Check</text>
+
+    <!-- Path B: Linux Core Dump -->
+    <rect x="402" y="360" width="176" height="70" rx="4" fill="#0f172a" stroke="#d97706" stroke-width="1" />
+    <text x="410" y="376" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">B: Linux Core Dump (gcore)</text>
+    <text x="410" y="392" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="9">- C++ Native + JS memory</text>
+    <text x="410" y="405" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="9">- Non-blocking (Forked process)</text>
+    <text x="410" y="418" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">Ideal for C++ Addon leaks</text>
+
+    <text x="490" y="455" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Trigger via HTTP API or CLI signal</text>
+  </g>
+
+  <!-- ==================== 4. SECURE S3 STORAGE ==================== -->
+  <g filter="url(#shadow)">
+    <rect x="670" y="340" width="240" height="130" rx="8" fill="url(#storageGrad)" stroke="#06b6d4" stroke-width="1.5" />
+    <rect x="670" y="340" width="240" height="28" rx="8" fill="#0e7490" fill-opacity="0.3" />
+    <text x="685" y="358" fill="#a5f3fc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Secure Artifact Storage (S3/GCS)</text>
+    
+    <text x="685" y="385" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">Storage Buckets:</text>
+    
+    <rect x="685" y="395" width="210" height="22" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="695" y="409" fill="#22c55e" font-family="monospace" font-size="9">s3://leak-snapshots/*.heapsnapshot</text>
+    
+    <rect x="685" y="425" width="210" height="22" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="695" y="439" fill="#38bdf8" font-family="monospace" font-size="9">s3://core-dumps/*.core</text>
+  </g>
+
+  <!-- ==================== 5. DEVELOPER / DIAGNOSTICS ==================== -->
+  <g filter="url(#shadow)">
+    <rect x="670" y="90" width="240" height="200" rx="8" fill="url(#analysisGrad)" stroke="#6366f1" stroke-width="1.5" />
+    <rect x="670" y="90" width="240" height="28" rx="8" fill="#4338ca" fill-opacity="0.3" />
+    <text x="685" y="108" fill="#c7d2fe" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">Developer Diagnostic Station</text>
+    
+    <text x="685" y="135" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">1. Chrome DevTools</text>
+    <text x="700" y="150" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Heap snapshot comparison &amp; constructors</text>
+
+    <text x="685" y="175" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">2. llnode (LLDB plugin)</text>
+    <text x="700" y="190" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Inspect JS frames &amp; objects inside core dump</text>
+
+    <text x="685" y="215" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700">3. Clinic.js / Clinic Bubbleprof</text>
+    <text x="700" y="230" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Analyze async resources &amp; memory growth</text>
+    
+    <rect x="685" y="250" width="210" height="25" rx="4" fill="#0f172a" stroke="#1e293b" />
+    <text x="790" y="266" text-anchor="middle" fill="#c7d2fe" font-family="monospace" font-weight="700" font-size="9">v8 findjsobjects / v8 inspect</text>
+  </g>
+
+  <!-- ==================== FLOW ARROWS & CONNECTIONS ==================== -->
+  
+  <!-- Line 1: Metrics to Monitoring (Node.js -> Prometheus) -->
+  <path d="M 230 110 L 230 75 L 490 75 L 490 90" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arrow-red)" />
+  <text x="280" y="70" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="600">Scrapes nodejs_heap_* metrics</text>
+
+  <!-- Line 2: Trigger Signal (Monitoring -> Trigger Engine) -->
+  <path d="M 490 190 L 490 232" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)" />
+  <text x="496" y="215" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">Auto-Alert Trigger</text>
+
+  <!-- Line 3: Capture Action (Trigger Engine -> Node.js Service) -->
+  <path d="M 390 320 L 322 320" fill="none" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-amber)" />
+  <text x="330" y="310" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">v8.writeHeapSnapshot()</text>
+
+  <path d="M 390 410 L 322 410" fill="none" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-amber)" />
+  <text x="330" y="400" fill="#fde047" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">gcore -o /tmp/node.core</text>
+
+  <!-- Line 4: Upload to Storage (Trigger Engine -> S3) -->
+  <path d="M 590 395 L 662 395" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="626" y="388" text-anchor="middle" fill="#a5f3fc" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700">Secure Upload</text>
+
+  <!-- Line 5: Download for Analysis (S3 -> Dev Station) -->
+  <path d="M 790 340 L 790 298" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="796" y="320" fill="#c7d2fe" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="700">Fetch Dump Files</text>
+
+  <!-- Line 6: Feedback Loop (Dev Station -> Node.js Code Optimization) -->
+  <path d="M 790 90 L 790 20 L 180 20 L 180 102" fill="none" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow)" />
+  <text x="480" y="15" text-anchor="middle" fill="#c7d2fe" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="700">Identify Constructor -> Fix Code Leak (EventEmitter / Cache)</text>
+
+</svg>

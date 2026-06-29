@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <!-- Sleek dark theme styling -->
+  <style>
+    .bg { fill: #0f172a; }
+    .title { fill: #f8fafc; font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 700; }
+    .subtitle { fill: #94a3b8; font-family: 'Inter', sans-serif; font-size: 13px; }
+    .box { fill: #1e293b; stroke: #38bdf8; stroke-width: 2; rx: 8; ry: 8; }
+    .box-rust { fill: #1e293b; stroke: #f97316; stroke-width: 2; rx: 8; ry: 8; }
+    .box-redis { fill: #1e293b; stroke: #ef4444; stroke-width: 2; rx: 8; ry: 8; }
+    .label { fill: #f8fafc; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; text-anchor: middle; }
+    .sublabel { fill: #94a3b8; font-family: 'Inter', sans-serif; font-size: 11px; text-anchor: middle; }
+    .arrow { stroke: #64748b; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .arrow-active { stroke: #38bdf8; stroke-width: 2; fill: none; marker-end: url(#arrowhead-active); }
+    .arrow-redis { stroke: #ef4444; stroke-width: 2; stroke-dasharray: 4 4; fill: none; marker-end: url(#arrowhead-redis); }
+    .code-text { fill: #38bdf8; font-family: 'Fira Code', monospace; font-size: 11px; }
+    .redis-cmd { fill: #ef4444; font-family: 'Fira Code', monospace; font-size: 12px; font-weight: bold; }
+    .tag { fill: #0284c7; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: bold; }
+  </style>
+
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+    </marker>
+    <marker id="arrowhead-active" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#38bdf8" />
+    </marker>
+    <marker id="arrowhead-redis" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ef4444" />
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Grid Pattern overlay (subtle) -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 800,50 M 0,100 L 800,100 M 0,150 L 800,150 M 0,200 L 800,200 M 0,250 L 800,250 M 0,300 L 800,300 M 0,350 L 800,350 M 0,400 L 800,400 M 0,450 L 800,450" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M 50,0 L 50,500 M 100,0 L 100,500 M 150,0 L 150,500 M 200,0 L 200,500 M 250,0 L 250,500 M 300,0 L 300,500 M 350,0 L 350,500 M 400,0 L 400,500 M 450,0 L 450,500 M 500,0 L 500,500 M 550,0 L 550,500 M 600,0 L 600,500 M 650,0 L 650,500 M 700,0 L 700,500 M 750,0 L 750,500" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Header -->
+  <text x="30" y="45" class="title">Distributed Rate Limiter Architecture</text>
+  <text x="30" y="65" class="subtitle">Rust-based API Gateways querying Redis Cell (CL.THROTTLE) in parallel</text>
+
+  <!-- Node: Clients -->
+  <g filter="url(#shadow)">
+    <rect x="40" y="200" width="100" height="80" class="box" />
+    <text x="90" y="240" class="label">Clients</text>
+    <text x="90" y="260" class="sublabel">Mobile &amp; Web App</text>
+  </g>
+
+  <!-- Node: Load Balancer -->
+  <g filter="url(#shadow)">
+    <rect x="200" y="180" width="110" height="120" class="box" />
+    <text x="255" y="235" class="label">Load Balancer</text>
+    <text x="255" y="255" class="sublabel">NGINX / HAProxy</text>
+    <text x="255" y="275" class="sublabel">TLS Termination</text>
+  </g>
+
+  <!-- Node: Rust API Instance 1 -->
+  <g filter="url(#shadow)">
+    <rect x="380" y="100" width="160" height="110" class="box-rust" />
+    <text x="460" y="135" class="label">Rust Web App (1)</text>
+    <text x="460" y="155" class="sublabel">Axum + tokio-postgres</text>
+    <rect x="395" y="170" width="130" height="25" rx="4" ry="4" fill="#2c2421" stroke="#f97316" stroke-width="1" />
+    <text x="460" y="186" class="code-text" text-anchor="middle">bb8-redis pool</text>
+  </g>
+
+  <!-- Node: Rust API Instance 2 -->
+  <g filter="url(#shadow)">
+    <rect x="380" y="270" width="160" height="110" class="box-rust" />
+    <text x="460" y="305" class="label">Rust Web App (2)</text>
+    <text x="460" y="325" class="sublabel">Axum + tokio-postgres</text>
+    <rect x="395" y="340" width="130" height="25" rx="4" ry="4" fill="#2c2421" stroke="#f97316" stroke-width="1" />
+    <text x="460" y="356" class="code-text" text-anchor="middle">bb8-redis pool</text>
+  </g>
+
+  <!-- Node: Redis Cell Cluster -->
+  <g filter="url(#shadow)">
+    <rect x="600" y="150" width="170" height="180" class="box-redis" />
+    <text x="685" y="185" class="label">Redis + Redis Cell</text>
+    <text x="685" y="205" class="sublabel">In-Memory Store</text>
+    <!-- Internal Redis Cell state / command visualization -->
+    <rect x="615" y="225" width="140" height="85" rx="4" ry="4" fill="#1e1b22" stroke="#ef4444" stroke-width="1" />
+    <text x="625" y="245" class="redis-cmd">CL.THROTTLE</text>
+    <text x="625" y="265" font-family="'Fira Code', monospace" font-size="10" fill="#a8a29e">key max_burst</text>
+    <text x="625" y="280" font-family="'Fira Code', monospace" font-size="10" fill="#a8a29e">rate period [qty]</text>
+    <text x="625" y="295" font-family="'Fira Code', monospace" font-size="9" fill="#10b981">Generic Cell Rate Algo</text>
+  </g>
+
+  <!-- Connections -->
+  <!-- Clients to LB -->
+  <path d="M 140,240 L 192,240" class="arrow-active" />
+  
+  <!-- LB to Rust 1 -->
+  <path d="M 310,210 L 372,175" class="arrow-active" />
+  
+  <!-- LB to Rust 2 -->
+  <path d="M 310,270 L 372,305" class="arrow-active" />
+
+  <!-- Rust 1 to Redis -->
+  <path d="M 540,155 L 592,200" class="arrow-redis" />
+  <text x="566" y="170" class="sublabel" fill="#ef4444">1. Query</text>
+
+  <!-- Rust 2 to Redis -->
+  <path d="M 540,325 L 592,280" class="arrow-redis" />
+  <text x="566" y="315" class="sublabel" fill="#ef4444">1. Query</text>
+
+  <!-- Return Flow indicators (dotted back) -->
+  <path d="M 592,220 L 540,175" stroke="#10b981" stroke-width="1.5" stroke-dasharray="2 2" fill="none" marker-end="url(#arrowhead-active)" />
+  <text x="566" y="210" class="sublabel" fill="#10b981">2. Resp</text>
+  
+  <path d="M 592,260 L 540,305" stroke="#10b981" stroke-width="1.5" stroke-dasharray="2 2" fill="none" marker-end="url(#arrowhead-active)" />
+  <text x="566" y="275" class="sublabel" fill="#10b981">2. Resp</text>
+
+</svg>
