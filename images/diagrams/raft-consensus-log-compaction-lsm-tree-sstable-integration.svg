@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 550" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="850" height="550" rx="12" fill="#0d1117" stroke="#30363d" stroke-width="2"/>
+  
+  <!-- Title / Header -->
+  <text x="30" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#58a6ff">Raft Log Compaction &amp; LSM-Tree SSTable Flow</text>
+  <text x="30" y="70" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" fill="#8b949e">Zero-copy state persistence via unified WAL-to-SSTable lifecycle</text>
+
+  <!-- Raft WAL Container -->
+  <g transform="translate(40, 110)">
+    <rect width="220" height="380" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="110" y="30" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#c9d1d9" text-anchor="middle">Raft Write-Ahead Log (WAL)</text>
+    
+    <!-- Log Entries -->
+    <!-- Entry 1 (Compacted) -->
+    <rect x="20" y="55" width="180" height="45" rx="4" fill="#21262d" stroke="#f0883e" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="30" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#8b949e">Index 104, Term 3</text>
+    <text x="30" y="90" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#8b949e">Op: PUT x=10 (Truncated)</text>
+    
+    <!-- Entry 2 (Compacted) -->
+    <rect x="20" y="110" width="180" height="45" rx="4" fill="#21262d" stroke="#f0883e" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="30" y="130" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#8b949e">Index 105, Term 3</text>
+    <text x="30" y="145" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#8b949e">Op: PUT y=20 (Truncated)</text>
+
+    <!-- Boundary -->
+    <line x1="10" y1="170" x2="210" y2="170" stroke="#f0883e" stroke-width="2" stroke-dasharray="5,5"/>
+    <text x="110" y="185" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#f0883e" text-anchor="middle">COMPACTION POINT (Index 105)</text>
+
+    <!-- Entry 3 (Active) -->
+    <rect x="20" y="200" width="180" height="45" rx="4" fill="#21262d" stroke="#30363d" stroke-width="1.5"/>
+    <text x="30" y="220" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#c9d1d9">Index 106, Term 3</text>
+    <text x="30" y="235" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#8b949e">Op: PUT x=12 (Uncommitted)</text>
+
+    <!-- Entry 4 (Active) -->
+    <rect x="20" y="255" width="180" height="45" rx="4" fill="#21262d" stroke="#30363d" stroke-width="1.5"/>
+    <text x="30" y="275" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#c9d1d9">Index 107, Term 3</text>
+    <text x="30" y="290" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#8b949e">Op: DEL z (Uncommitted)</text>
+  </g>
+
+  <!-- LSM MemTable Container (Memory State Machine) -->
+  <g transform="translate(320, 110)">
+    <rect width="220" height="150" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="110" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#c9d1d9" text-anchor="middle">LSM MemTable (State Machine)</text>
+    
+    <!-- Skiplist representation -->
+    <rect x="20" y="45" width="180" height="25" rx="4" fill="#21262d" stroke="#58a6ff" stroke-width="1"/>
+    <text x="30" y="62" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#c9d1d9">x  --&gt; [v12 @ Index 106]</text>
+
+    <rect x="20" y="75" width="180" height="25" rx="4" fill="#21262d" stroke="#58a6ff" stroke-width="1"/>
+    <text x="30" y="92" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#c9d1d9">y  --&gt; [v20 @ Index 105]</text>
+
+    <rect x="20" y="105" width="180" height="25" rx="4" fill="#21262d" stroke="#8b949e" stroke-width="1"/>
+    <text x="30" y="122" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#8b949e">z  --&gt; [Tombstone @ Index 107]</text>
+  </g>
+
+  <!-- SSTable Block Storage (Disk) -->
+  <g transform="translate(590, 110)">
+    <rect width="220" height="380" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="110" y="30" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#c9d1d9" text-anchor="middle">SSTable Files (L0/Disk)</text>
+
+    <!-- SSTable 1 -->
+    <rect x="20" y="55" width="180" height="100" rx="6" fill="#0d1117" stroke="#3fb950" stroke-width="1.5"/>
+    <text x="30" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">sstable_00012.db</text>
+    <text x="30" y="95" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#8b949e">Max Index: 105</text>
+    <text x="30" y="110" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#8b949e">Keys: x, y</text>
+    <rect x="30" y="120" width="160" height="20" rx="3" fill="#21262d" stroke="#30363d" stroke-width="1"/>
+    <text x="110" y="133" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#c9d1d9" text-anchor="middle">Metadata: LastIndex=105</text>
+
+    <!-- SSTable 2 (Future Flush) -->
+    <rect x="20" y="180" width="180" height="100" rx="6" fill="#0d1117" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="30" y="200" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#8b949e">sstable_00013.db</text>
+    <text x="30" y="220" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#8b949e">Pending MemTable Flush</text>
+    <text x="30" y="235" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#8b949e">Will span: Index 106-107</text>
+  </g>
+
+  <!-- Raft Snapshot Metadata Box -->
+  <g transform="translate(320, 310)">
+    <rect width="220" height="100" rx="8" fill="#1f242c" stroke="#ab7df6" stroke-width="1.5"/>
+    <text x="110" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ab7df6" text-anchor="middle">Raft State Metadata</text>
+    <text x="25" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#c9d1d9">Last Included Index: 105</text>
+    <text x="25" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#c9d1d9">Last Included Term: 3</text>
+  </g>
+
+  <!-- Connectors / Flows -->
+  <!-- Raft Apply to MemTable -->
+  <path d="M 260 310 Q 290 220 320 220" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="280" y="250" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#58a6ff" text-anchor="middle">Apply</text>
+
+  <!-- MemTable Flush to SSTable -->
+  <path d="M 540 185 Q 565 185 590 120" fill="none" stroke="#3fb950" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow-green)"/>
+  <text x="565" y="150" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#3fb950" text-anchor="middle">Flush</text>
+
+  <!-- Compaction Truncate -->
+  <path d="M 320 360 L 260 360 Q 130 360 130 290" fill="none" stroke="#f0883e" stroke-width="2" marker-end="url(#arrow-orange)"/>
+  <text x="195" y="350" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#f0883e" text-anchor="middle">Truncate &lt;= 105</text>
+
+  <!-- Link SSTable Metadata to Raft Metadata -->
+  <path d="M 590 140 Q 460 260 430 310" fill="none" stroke="#ab7df6" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-purple)"/>
+
+  <!-- Marker definitions -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#58a6ff"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#3fb950"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f0883e"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ab7df6"/>
+    </marker>
+  </defs>
+</svg>
