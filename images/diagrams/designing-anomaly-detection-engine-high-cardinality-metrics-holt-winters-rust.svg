@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+
+    <!-- Component Gradients -->
+    <linearGradient id="ingestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+
+    <linearGradient id="routerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+
+    <linearGradient id="workerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <linearGradient id="storageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+
+    <linearGradient id="sinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" rx="16" fill="url(#bgGrad)" />
+  <rect width="998" height="648" x="1" y="1" rx="15" fill="none" stroke="#334155" stroke-width="2" />
+
+  <!-- Title & Metadata -->
+  <text x="40" y="50" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="800" fill="#f8fafc">
+    Real-Time Holt-Winters Anomaly Detection Engine
+  </text>
+  <text x="40" y="75" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">
+    High-Performance, Low-Memory Rust Pipeline for High-Cardinality Metrics
+  </text>
+
+  <!-- Ingestion Source -->
+  <g transform="translate(40, 150)" filter="url(#shadow)">
+    <rect width="180" height="380" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect width="180" height="40" rx="12" fill="url(#ingestGrad)" />
+    <rect width="180" height="20" y="20" fill="url(#ingestGrad)" />
+    <text x="90" y="25" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      1. Ingestion Sources
+    </text>
+
+    <!-- Sub-boxes -->
+    <g transform="translate(15, 60)">
+      <rect width="150" height="60" rx="8" fill="#0f172a" stroke="#475569" />
+      <text x="75" y="28" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="middle">Prometheus</text>
+      <text x="75" y="45" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">Remote Write Protobuf</text>
+    </g>
+
+    <g transform="translate(15, 140)">
+      <rect width="150" height="60" rx="8" fill="#0f172a" stroke="#475569" />
+      <text x="75" y="28" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="middle">Kafka Partition</text>
+      <text x="75" y="45" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">JSON / Avro Stream</text>
+    </g>
+
+    <g transform="translate(15, 220)">
+      <rect width="150" height="60" rx="8" fill="#0f172a" stroke="#475569" />
+      <text x="75" y="28" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="middle">OTLP Metrics</text>
+      <text x="75" y="45" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b" text-anchor="middle">gRPC Stream</text>
+    </g>
+
+    <!-- Metrics Traffic Stats -->
+    <text x="90" y="325" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="600" fill="#3b82f6" text-anchor="middle">
+      1,000,000+ active series
+    </text>
+    <text x="90" y="345" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">
+      ~50,000 write operations/sec
+    </text>
+  </g>
+
+  <!-- Flow Arrow 1 -->
+  <path d="M 220 340 L 260 340" fill="none" stroke="#475569" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- Router / Partitioner -->
+  <g transform="translate(270, 210)" filter="url(#shadow)">
+    <rect width="180" height="260" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect width="180" height="40" rx="12" fill="url(#routerGrad)" />
+    <rect width="180" height="20" y="20" fill="url(#routerGrad)" />
+    <text x="90" y="25" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      2. Router &amp; Balancer
+    </text>
+
+    <!-- Hashing Block -->
+    <g transform="translate(15, 60)">
+      <rect width="150" height="80" rx="8" fill="#0f172a" stroke="#8b5cf6" stroke-width="1" />
+      <text x="75" y="25" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#a78bfa" text-anchor="middle">Consistent Hashing</text>
+      <text x="75" y="45" font-family="Consolas, monospace" font-size="10" fill="#38bdf8" text-anchor="middle">SipHash13(Metric Labels)</text>
+      <text x="75" y="65" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Lock-Free Dispatching</text>
+    </g>
+
+    <!-- Worker Queues -->
+    <g transform="translate(15, 155)">
+      <rect width="150" height="80" rx="8" fill="#0f172a" stroke="#475569" />
+      <text x="75" y="25" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0" text-anchor="middle">Crossbeam Channels</text>
+      <text x="75" y="45" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#3b82f6" text-anchor="middle">Bounded Lock-Free MPMC</text>
+      <text x="75" y="65" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Zero-Allocation Transfers</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrows to Workers -->
+  <path d="M 450 310 L 490 270" fill="none" stroke="#6d28d9" stroke-width="2.5" />
+  <path d="M 450 340 L 490 340" fill="none" stroke="#6d28d9" stroke-width="2.5" />
+  <path d="M 450 370 L 490 410" fill="none" stroke="#6d28d9" stroke-width="2.5" />
+
+  <!-- Rust Worker Pool (Thread Per Core) -->
+  <g transform="translate(500, 150)" filter="url(#shadow)">
+    <rect width="240" height="380" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect width="240" height="40" rx="12" fill="url(#workerGrad)" />
+    <rect width="240" height="20" y="20" fill="url(#workerGrad)" />
+    <text x="120" y="25" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      3. Processing Core (Rust)
+    </text>
+
+    <!-- Worker Thread 1 -->
+    <g transform="translate(15, 60)">
+      <rect width="210" height="75" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+      <text x="15" y="22" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#a7f3d0">Worker Thread #1</text>
+      <text x="15" y="40" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#94a3b8">Triple Exponential Smoothing (HW)</text>
+      <text x="15" y="55" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#34d399">Alpha=0.2, Beta=0.1, Gamma=0.3</text>
+    </g>
+
+    <!-- Worker Thread N -->
+    <g transform="translate(15, 150)">
+      <rect width="210" height="75" rx="8" fill="#0f172a" stroke="#475569" />
+      <text x="15" y="22" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">Worker Thread #2..N</text>
+      <text x="15" y="40" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#64748b">Holt-Winters Pipeline</text>
+      <text x="15" y="55" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#64748b">Static allocation per thread</text>
+    </g>
+
+    <!-- In-Memory Metrics Store -->
+    <g transform="translate(15, 240)">
+      <rect width="210" height="120" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1.2" />
+      <rect width="210" height="25" rx="8" fill="url(#storageGrad)" />
+      <rect width="210" height="10" y="15" fill="url(#storageGrad)" />
+      <text x="105" y="17" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Sliding Window State Cache</text>
+      
+      <text x="15" y="48" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#fef08a">Memory Layout:</text>
+      <text x="15" y="65" font-family="Consolas, monospace" font-size="9.5" fill="#fef08a">  HashMap&lt;u64, CircularBuffer&gt;</text>
+      <text x="15" y="82" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8">Keys: 64-bit Hash (SipHash of Series labels)</text>
+      <text x="15" y="97" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8">Values: Contiguous f64 arrays in memory</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrow to Sink -->
+  <path d="M 740 340 L 780 340" fill="none" stroke="#10b981" stroke-width="3" marker-end="url(#arrow)" />
+
+  <!-- Output / Alerting Sink -->
+  <g transform="translate(790, 180)" filter="url(#shadow)">
+    <rect width="170" height="320" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect width="170" height="40" rx="12" fill="url(#sinkGrad)" />
+    <rect width="170" height="20" y="20" fill="url(#sinkGrad)" />
+    <text x="85" y="25" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">
+      4. Output Sinks
+    </text>
+
+    <!-- Alert Manager -->
+    <g transform="translate(15, 60)">
+      <rect width="140" height="60" rx="8" fill="#0f172a" stroke="#ef4444" />
+      <text x="70" y="25" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#fca5a5" text-anchor="middle">Alertmanager</text>
+      <text x="70" y="42" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Prometheus webhook</text>
+    </g>
+
+    <!-- Kafka Out -->
+    <g transform="translate(15, 135)">
+      <rect width="140" height="60" rx="8" fill="#0f172a" stroke="#475569" />
+      <text x="70" y="25" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0" text-anchor="middle">Kafka Topic</text>
+      <text x="70" y="42" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Downstream Analysis</text>
+    </g>
+
+    <!-- Diagnostics / Metrics -->
+    <g transform="translate(15, 210)">
+      <rect width="140" height="85" rx="8" fill="#0f172a" stroke="#475569" />
+      <text x="70" y="20" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0" text-anchor="middle">Self-Metrics</text>
+      <text x="15" y="40" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#38bdf8">  • anomaly_detected_total</text>
+      <text x="15" y="55" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#38bdf8">  • processing_latency_ms</text>
+      <text x="15" y="70" font-family="Inter, system-ui, sans-serif" font-size="9.5" fill="#38bdf8">  • memory_usage_bytes</text>
+    </g>
+  </g>
+
+  <!-- Decorative Arrow Definition -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+  </defs>
+</svg>

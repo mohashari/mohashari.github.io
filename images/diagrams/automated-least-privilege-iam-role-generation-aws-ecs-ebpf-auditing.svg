@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="100%" height="100%" style="background-color: #0f172a; font-family: 'Inter', -apple-system, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="ecsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="kernelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="awsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#c2410c" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="pipelineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#6d28d9" stop-opacity="0.05" />
+    </linearGradient>
+    
+    <!-- Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+
+    <!-- Markers for arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-ebpf" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-iam" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8b5cf6" />
+    </marker>
+  </defs>
+
+  <!-- Title / Header -->
+  <text x="30" y="35" font-size="18" font-weight="700" fill="#f8fafc" letter-spacing="-0.025em">ECS Task eBPF IAM Auditor &amp; Policy Generator</text>
+  <text x="30" y="55" font-size="12" fill="#64748b">Continuous least-privilege IAM enforcement via user-space TLS intercept and syscall tracing</text>
+
+  <!-- Area 1: AWS Services (Top) -->
+  <rect x="30" y="85" width="940" height="85" rx="12" fill="url(#awsGrad)" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4 4" filter="url(#shadow)" />
+  <text x="45" y="110" font-size="11" font-weight="700" fill="#f97316" letter-spacing="0.05em">AWS CLOUD ENVIRONMENT (TARGET APIs)</text>
+  
+  <!-- AWS Service Boxes -->
+  <g transform="translate(180, 115)">
+    <rect x="0" y="0" width="130" height="40" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+    <text x="65" y="24" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="middle">Amazon S3</text>
+  </g>
+  <g transform="translate(330, 115)">
+    <rect x="0" y="0" width="130" height="40" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+    <text x="65" y="24" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="middle">DynamoDB</text>
+  </g>
+  <g transform="translate(480, 115)">
+    <rect x="0" y="0" width="130" height="40" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+    <text x="65" y="24" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="middle">AWS KMS</text>
+  </g>
+  <g transform="translate(630, 115)">
+    <rect x="0" y="0" width="130" height="40" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+    <text x="65" y="24" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="middle">AWS STS</text>
+  </g>
+  <g transform="translate(780, 115)">
+    <rect x="0" y="0" width="140" height="40" rx="6" fill="#1e293b" stroke="#ea580c" stroke-width="1.5" />
+    <text x="70" y="24" font-size="12" font-weight="600" fill="#f8fafc" text-anchor="middle">Task IAM Role</text>
+  </g>
+
+  <!-- Area 2: ECS Task Container (Left) -->
+  <rect x="30" y="195" width="280" height="270" rx="12" fill="url(#ecsGrad)" stroke="#3b82f6" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="45" y="220" font-size="12" font-weight="700" fill="#3b82f6" letter-spacing="0.05em">AWS ECS TASK (CONTAINER)</text>
+
+  <!-- Container Components -->
+  <g transform="translate(50, 240)">
+    <rect x="0" y="0" width="240" height="50" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="15" y="23" font-size="12" font-weight="700" fill="#f8fafc">Application Code</text>
+    <text x="15" y="38" font-size="10" fill="#94a3b8">Calls AWS SDK for Go/Python</text>
+  </g>
+  
+  <g transform="translate(50, 310)">
+    <rect x="0" y="0" width="240" height="50" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="15" y="23" font-size="12" font-weight="700" fill="#f8fafc">AWS SDK / HTTP Client</text>
+    <text x="15" y="38" font-size="10" fill="#94a3b8">Constructs AWS HTTP Requests</text>
+  </g>
+
+  <g transform="translate(50, 380)">
+    <rect x="0" y="0" width="240" height="55" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="15" y="23" font-size="12" font-weight="700" fill="#f8fafc">libssl.so / OpenSSL</text>
+    <text x="15" y="38" font-size="10" fill="#94a3b8">SSL_write() &amp; SSL_read()</text>
+    <text x="15" y="48" font-size="8" fill="#60a5fa" font-weight="600">UPROBE HOOK TARGET</text>
+  </g>
+
+  <!-- Area 3: Linux Kernel (Bottom) -->
+  <rect x="30" y="490" width="580" height="100" rx="12" fill="url(#kernelGrad)" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="45" y="515" font-size="12" font-weight="700" fill="#10b981" letter-spacing="0.05em">LINUX KERNEL SPACE (ECS HOST / BOTTLEROCKET)</text>
+
+  <!-- Kernel eBPF components -->
+  <g transform="translate(50, 530)">
+    <rect x="0" y="0" width="240" height="45" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+    <text x="120" y="22" font-size="11" font-weight="700" fill="#34d399" text-anchor="middle">uprobes (SSL Intercept)</text>
+    <text x="120" y="35" font-size="9" fill="#a7f3d0" text-anchor="middle">Inspects plaintext API buffers</text>
+  </g>
+
+  <g transform="translate(340, 530)">
+    <rect x="0" y="0" width="240" height="45" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+    <text x="120" y="22" font-size="11" font-weight="700" fill="#34d399" text-anchor="middle">kprobes (sys_enter_connect)</text>
+    <text x="120" y="35" font-size="9" fill="#a7f3d0" text-anchor="middle">Correlates sockets to AWS IPs</text>
+  </g>
+
+  <!-- Area 4: eBPF Auditing Agent (Middle Right) -->
+  <rect x="350" y="195" width="260" height="270" rx="12" fill="#1e293b" stroke="#475569" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="365" y="220" font-size="12" font-weight="700" fill="#e2e8f0" letter-spacing="0.05em">EBPF AUDIT AGENT (DAEMON)</text>
+
+  <g transform="translate(370, 240)">
+    <rect x="0" y="0" width="220" height="50" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+    <text x="15" y="23" font-size="11" font-weight="700" fill="#f8fafc">eBPF Ring Buffer Reader</text>
+    <text x="15" y="38" font-size="9" fill="#94a3b8">Pulls events from kernel ringbuf</text>
+  </g>
+
+  <g transform="translate(370, 310)">
+    <rect x="0" y="0" width="220" height="50" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+    <text x="15" y="23" font-size="11" font-weight="700" fill="#f8fafc">AWS HTTP Payload Parser</text>
+    <text x="15" y="38" font-size="9" fill="#94a3b8">Extracts Action &amp; Resource ARN</text>
+  </g>
+
+  <g transform="translate(370, 380)">
+    <rect x="0" y="0" width="220" height="55" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+    <text x="15" y="23" font-size="11" font-weight="700" fill="#f8fafc">Audit Log Exporter</text>
+    <text x="15" y="38" font-size="9" fill="#94a3b8">Outputs JSON events to S3/CloudWatch</text>
+    <text x="15" y="48" font-size="8" fill="#34d399" font-weight="600">AUDIT LOG GENERATION</text>
+  </g>
+
+  <!-- Area 5: IAM policy generator Pipeline (Right) -->
+  <rect x="650" y="195" width="320" height="270" rx="12" fill="url(#pipelineGrad)" stroke="#8b5cf6" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="665" y="220" font-size="12" font-weight="700" fill="#a78bfa" letter-spacing="0.05em">IAM POLICY GENERATION PIPELINE</text>
+
+  <g transform="translate(670, 245)">
+    <rect x="0" y="0" width="280" height="50" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1" />
+    <text x="15" y="23" font-size="11" font-weight="700" fill="#f8fafc">Access Event Aggregator</text>
+    <text x="15" y="38" font-size="9" fill="#c084fc">Deduplicates &amp; groups logs by Task family</text>
+  </g>
+
+  <g transform="translate(670, 315)">
+    <rect x="0" y="0" width="280" height="50" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1" />
+    <text x="15" y="23" font-size="11" font-weight="700" fill="#f8fafc">Policy Generator Engine</text>
+    <text x="15" y="38" font-size="9" fill="#c084fc">Maps API signatures to IAM policies</text>
+  </g>
+
+  <g transform="translate(670, 385)">
+    <rect x="0" y="0" width="280" height="55" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.5" />
+    <text x="15" y="23" font-size="11" font-weight="700" fill="#f8fafc">Policy Deployer (GitOps/Terraform)</text>
+    <text x="15" y="38" font-size="9" fill="#c084fc">Applies least-privilege role upgrades</text>
+    <text x="15" y="48" font-size="8" fill="#a78bfa" font-weight="600">IAM ROLE ENFORCEMENT</text>
+  </g>
+
+  <!-- Flow Lines / Connections -->
+  
+  <!-- App Code -> AWS SDK -> libssl -->
+  <path d="M 170,290 L 170,310" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 170,360 L 170,380" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- libssl API call out to AWS Services -->
+  <path d="M 290,405 C 330,405 330,165 245,165 L 245,155" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow)" />
+  <text x="210" y="180" font-size="9" fill="#94a3b8" transform="rotate(-90 210 180)" text-anchor="middle">HTTPS Calls (TLS)</text>
+
+  <!-- Uprobe monitoring of libssl by eBPF in kernel -->
+  <path d="M 170,435 L 170,530" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="2 2" marker-start="url(#arrow-ebpf)" marker-end="url(#arrow-ebpf)" />
+  <text x="178" y="470" font-size="9" font-weight="600" fill="#34d399">1. Uprobe Intercept</text>
+
+  <!-- Kprobe monitoring network connection -->
+  <path d="M 260,335 C 310,335 320,535 340,545" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arrow-ebpf)" />
+  <text x="310" y="485" font-size="9" font-weight="600" fill="#34d399" text-anchor="middle">2. sys_enter_connect</text>
+
+  <!-- Kernel to User Space Ring Buffer -->
+  <path d="M 460,530 L 460,290" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-ebpf)" />
+  <text x="470" y="505" font-size="9" font-weight="600" fill="#34d399" transform="rotate(-90 470 505)" text-anchor="middle">3. Ring Buffer Events</text>
+
+  <!-- Parser flow inside Agent -->
+  <path d="M 480,290 L 480,310" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 480,360 L 480,380" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Exporter to Aggregator -->
+  <path d="M 590,410 L 670,270" fill="none" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow-iam)" />
+  <text x="640" y="340" font-size="9" font-weight="600" fill="#a78bfa" transform="rotate(-30 640 340)" text-anchor="middle">4. JSON Audit Stream</text>
+
+  <!-- Pipeline internally -->
+  <path d="M 810,295 L 810,315" fill="none" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-iam)" />
+  <path d="M 810,365 L 810,385" fill="none" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-iam)" />
+
+  <!-- Policy Deployer updating IAM Role -->
+  <path d="M 850,385 C 890,340 890,195 850,155" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arrow-iam)" />
+  <text x="900" y="270" font-size="9" font-weight="600" fill="#a78bfa" transform="rotate(90 900 270)" text-anchor="middle">5. IAM Policy Enforcement</text>
+
+  <!-- ECS Task Assuming IAM Role -->
+  <path d="M 780,135 L 170,135 C 150,135 150,185 150,195" fill="none" stroke="#f97316" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="475" y="130" font-size="9" font-weight="600" fill="#f97316" text-anchor="middle">Task Role Assumed by Task (via Metadata Endpoint / AWS STS)</text>
+</svg>
