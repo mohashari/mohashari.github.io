@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 550" width="100%" height="100%" style="background:#0F172A; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Definitions for gradients and shadows -->
+  <defs>
+    <!-- Card shadow -->
+    <filter id="drop-shadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    
+    <!-- Gradients -->
+    <linearGradient id="grad-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+    
+    <linearGradient id="grad-indigo" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+
+    <linearGradient id="grad-rose" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FB7185" />
+      <stop offset="100%" stop-color="#E11D48" />
+    </linearGradient>
+
+    <linearGradient id="grad-emerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <linearGradient id="grad-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <!-- Line marker arrow -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748B"/>
+    </marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FB7185"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="50" y="50" fill="#F8FAFC" font-size="22" font-weight="700" letter-spacing="-0.025em">Technical Debt Quantification Framework</text>
+  <text x="50" y="75" fill="#64748B" font-size="14">Mapping source code complexity and developer activity to financial &amp; operational metrics</text>
+
+  <!-- ================= STAGE 1: METRICS CAPTURE ================= -->
+  <g transform="translate(50, 110)">
+    <text x="0" y="-15" fill="#94A3B8" font-size="12" font-weight="600" letter-spacing="0.05em" text-anchor="start">01 / TELEMETRY &amp; STATIC ANALYSIS</text>
+    
+    <!-- Source Code / AST card -->
+    <rect x="0" y="0" width="240" height="110" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1" filter="url(#drop-shadow)"/>
+    <rect x="0" y="0" width="6" height="110" rx="0" fill="url(#grad-blue)" style="clip-path: inset(0px 0px 0px 0px round 12px 0px 0px 12px);"/>
+    <text x="25" y="30" fill="#F8FAFC" font-size="14" font-weight="600">Cyclomatic Complexity (M)</text>
+    <text x="25" y="52" fill="#94A3B8" font-size="12">McCabe Complexity Index (Paths)</text>
+    <text x="25" y="72" fill="#38BDF8" font-size="11" font-family="monospace">Complexity M = E - N + 2P</text>
+    <text x="25" y="90" fill="#64748B" font-size="11">AST Parse via ESLint, Lizard, Radon</text>
+
+    <!-- Git Churn card -->
+    <rect x="0" y="140" width="240" height="110" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1" filter="url(#drop-shadow)"/>
+    <rect x="0" y="140" width="6" height="110" rx="0" fill="url(#grad-indigo)" style="clip-path: inset(0px 0px 0px 0px round 12px 0px 0px 12px);"/>
+    <text x="25" y="170" fill="#F8FAFC" font-size="14" font-weight="600">Code Churn (C)</text>
+    <text x="25" y="192" fill="#94A3B8" font-size="12">Frequency of modifications &amp; LOC</text>
+    <text x="25" y="212" fill="#818CF8" font-size="11" font-family="monospace">Churn = Sum(Adds + Dels) / Period</text>
+    <text x="25" y="230" fill="#64748B" font-size="11">Git Log parsing (30-90 day window)</text>
+  </g>
+
+  <!-- ================= STAGE 2: CORRELATION ENGINE ================= -->
+  <g transform="translate(370, 110)">
+    <text x="0" y="-15" fill="#94A3B8" font-size="12" font-weight="600" letter-spacing="0.05em" text-anchor="start">02 / HOTSPOT ANALYSIS &amp; RISK SCORING</text>
+    
+    <!-- Hotspot Detection Card -->
+    <rect x="0" y="0" width="260" height="250" rx="12" fill="#1E293B" stroke="#F43F5E" stroke-width="1" stroke-dasharray="0" filter="url(#drop-shadow)"/>
+    <rect x="0" y="0" width="6" height="250" rx="0" fill="url(#grad-rose)" style="clip-path: inset(0px 0px 0px 0px round 12px 0px 0px 12px);"/>
+    <text x="25" y="35" fill="#F8FAFC" font-size="16" font-weight="700">Debt Hotspot Matrix</text>
+    
+    <!-- Small graph inside hotspot card -->
+    <rect x="25" y="55" width="130" height="90" fill="#0F172A" rx="6" stroke="#334155"/>
+    <!-- Graph labels & markers -->
+    <line x1="35" y1="130" x2="145" y2="130" stroke="#475569" stroke-width="1"/>
+    <line x1="35" y1="70" x2="35" y2="130" stroke="#475569" stroke-width="1"/>
+    <!-- X/Y labels -->
+    <text x="140" y="142" fill="#64748B" font-size="8" text-anchor="end">Churn (C)</text>
+    <text x="30" y="65" fill="#64748B" font-size="8" transform="rotate(-90 30 65)" text-anchor="end">Complexity (M)</text>
+    
+    <!-- Dots on the graph -->
+    <circle cx="55" cy="115" r="4" fill="#10B981"/> <!-- Low impact -->
+    <circle cx="75" cy="122" r="4" fill="#10B981"/> <!-- Low impact -->
+    <circle cx="120" cy="118" r="4" fill="#FBBF24"/> <!-- Med impact (high churn, low comp) -->
+    <circle cx="60" cy="78" r="4" fill="#FBBF24"/> <!-- Med impact (low churn, high comp) -->
+    
+    <!-- Hotspot Target -->
+    <circle cx="115" cy="75" r="8" fill="#F43F5E" fill-opacity="0.4"/>
+    <circle cx="115" cy="75" r="4" fill="#E11D48"/>
+    <path d="M 115 62 L 115 88 M 102 75 L 128 75" stroke="#F43F5E" stroke-width="1" stroke-dasharray="2"/>
+    
+    <text x="165" y="75" fill="#FB7185" font-size="11" font-weight="700">HOTSPOT</text>
+    <text x="165" y="90" fill="#94A3B8" font-size="10">High Complexity</text>
+    <text x="165" y="102" fill="#94A3B8" font-size="10">x High Churn</text>
+
+    <!-- Risk scoring equation -->
+    <rect x="25" y="165" width="210" height="65" fill="#0F172A" rx="8" stroke="#334155"/>
+    <text x="35" y="185" fill="#94A3B8" font-size="10" font-weight="600">RISK INDEX FORMULA</text>
+    <text x="35" y="210" fill="#F8FAFC" font-size="13" font-family="monospace" font-weight="700">R<sub>i</sub> = (M<sub>i</sub> / M<sub>avg</sub>) &times; (C<sub>i</sub> / C<sub>avg</sub>)</text>
+  </g>
+
+  <!-- ================= STAGE 3: BUSINESS VALUE LOSS ================= -->
+  <g transform="translate(710, 110)">
+    <text x="0" y="-15" fill="#94A3B8" font-size="12" font-weight="600" letter-spacing="0.05em" text-anchor="start">03 / BUSINESS VALUE LOSS</text>
+
+    <!-- Cost of Delay Card -->
+    <rect x="0" y="0" width="240" height="75" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1" filter="url(#drop-shadow)"/>
+    <rect x="0" y="0" width="6" height="75" rx="0" fill="url(#grad-gold)" style="clip-path: inset(0px 0px 0px 0px round 12px 0px 0px 12px);"/>
+    <text x="20" y="25" fill="#FBBF24" font-size="11" font-weight="700" letter-spacing="0.05em">VELOCITY LOSS (SCAVENGING)</text>
+    <text x="20" y="44" fill="#F8FAFC" font-size="14" font-weight="600">Dev-Hours Wasted</text>
+    <text x="20" y="60" fill="#94A3B8" font-size="11">Time spent navigating complex code</text>
+
+    <!-- Bug escape / Remediation Card -->
+    <rect x="0" y="90" width="240" height="75" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1" filter="url(#drop-shadow)"/>
+    <rect x="0" y="90" width="6" height="75" rx="0" fill="url(#grad-rose)" style="clip-path: inset(0px 0px 0px 0px round 12px 0px 0px 12px);"/>
+    <text x="20" y="115" fill="#FB7185" font-size="11" font-weight="700" letter-spacing="0.05em">DEFECT COST</text>
+    <text x="20" y="134" fill="#F8FAFC" font-size="14" font-weight="600">Production Incidents</text>
+    <text x="20" y="150" fill="#94A3B8" font-size="11">Outages, SLA penalties, patch overhead</text>
+
+    <!-- Opportunity Cost Card -->
+    <rect x="0" y="180" width="240" height="75" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1" filter="url(#drop-shadow)"/>
+    <rect x="0" y="180" width="6" height="75" rx="0" fill="url(#grad-emerald)" style="clip-path: inset(0px 0px 0px 0px round 12px 0px 0px 12px);"/>
+    <text x="20" y="205" fill="#34D399" font-size="11" font-weight="700" letter-spacing="0.05em">OPPORTUNITY COST</text>
+    <text x="20" y="224" fill="#F8FAFC" font-size="14" font-weight="600">Stalled Feature Delivery</text>
+    <text x="20" y="240" fill="#94A3B8" font-size="11">Delayed market entry &amp; churned users</text>
+  </g>
+
+  <!-- ================= CONNECTORS / FLOW ARROWS ================= -->
+  <!-- Stage 1 to Stage 2 -->
+  <path d="M 290 165 L 320 165 L 320 235 L 360 235" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M 290 305 L 320 305 L 320 235 L 360 235" fill="none" stroke="#475569" stroke-width="1.5"/>
+  <line x1="320" y1="235" x2="360" y2="235" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Stage 2 to Stage 3 -->
+  <!-- Connection to Velocity Loss -->
+  <path d="M 630 235 L 670 235 L 670 147 L 700 147" fill="none" stroke="#FB7185" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-rose)"/>
+  <!-- Connection to Incident Cost -->
+  <path d="M 630 235 L 670 235 L 670 237 L 700 237" fill="none" stroke="#FB7185" stroke-width="2" marker-end="url(#arrow-rose)"/>
+  <!-- Connection to Opportunity Cost -->
+  <path d="M 630 235 L 670 235 L 670 327 L 700 327" fill="none" stroke="#FB7185" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-rose)"/>
+
+  <!-- Bottom Details Panel: Mapping & Output -->
+  <g transform="translate(50, 400)">
+    <rect x="0" y="0" width="900" height="110" rx="12" fill="#1E293B" stroke="#334155" stroke-width="1" filter="url(#drop-shadow)"/>
+    <text x="25" y="30" fill="#F8FAFC" font-size="14" font-weight="700">Financial Impact Matrix (Calculations)</text>
+    
+    <!-- Calculation columns -->
+    <g transform="translate(25, 50)">
+      <text x="0" y="15" fill="#FBBF24" font-size="11" font-weight="600">DEVELOPER WASTE</text>
+      <text x="0" y="32" fill="#F8FAFC" font-size="13" font-family="monospace">Hours × Rate × Drag Coeff</text>
+      <text x="0" y="47" fill="#64748B" font-size="10">Quantifiable sprint velocity reduction</text>
+    </g>
+
+    <line x1="300" y1="45" x2="300" y2="95" stroke="#334155" stroke-width="1"/>
+
+    <g transform="translate(325, 50)">
+      <text x="0" y="15" fill="#FB7185" font-size="11" font-weight="600">INCIDENT &amp; REMEDIATION</text>
+      <text x="0" y="32" fill="#F8FAFC" font-size="13" font-family="monospace">(MTTR × System Outage Cost) + Dev-Remediation</text>
+      <text x="0" y="47" fill="#64748B" font-size="10">Escaped bugs mapped directly to complexity spikes</text>
+    </g>
+
+    <line x1="630" y1="45" x2="630" y2="95" stroke="#334155" stroke-width="1"/>
+
+    <g transform="translate(655, 50)">
+      <text x="0" y="15" fill="#34D399" font-size="11" font-weight="600">OPPORTUNITY COST</text>
+      <text x="0" y="32" fill="#F8FAFC" font-size="13" font-family="monospace">Delta-Velocity × Feature Expected Revenue</text>
+      <text x="0" y="47" fill="#64748B" font-size="10">Delayed time-to-market of critical features</text>
+    </g>
+  </g>
+</svg>
