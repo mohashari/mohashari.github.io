@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7f1d1d" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="greyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#374151" />
+      <stop offset="100%" stop-color="#4b5563" />
+    </linearGradient>
+    <linearGradient id="warnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78350f" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9ca3af" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#0f172a" rx="8" />
+
+  <!-- Title & Context -->
+  <text x="30" y="40" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">gRPC Stream Stall: HTTP/2 Flow Control Exhaustion</text>
+  <text x="30" y="60" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Visualizing Stream-level vs. Connection-level window depletion</text>
+
+  <!-- Client Node -->
+  <rect x="50" y="100" width="160" height="340" rx="6" fill="url(#blueGrad)" stroke="#2563eb" stroke-width="2" />
+  <text x="130" y="130" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="16" font-weight="bold">gRPC Client</text>
+  <text x="130" y="150" text-anchor="middle" fill="#93c5fd" font-family="system-ui, sans-serif" font-size="11">(Slow Consumer)</text>
+
+  <!-- Client Windows -->
+  <!-- Stream 1 Window -->
+  <rect x="65" y="190" width="130" height="70" rx="4" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" />
+  <text x="75" y="210" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">STREAM 1 WINDOW</text>
+  <text x="75" y="230" fill="#ef4444" font-family="system-ui, sans-serif" font-size="16" font-weight="bold">0 Bytes</text>
+  <text x="75" y="248" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="9">Stalled (No WINDOW_UPDATE)</text>
+
+  <!-- Connection Window -->
+  <rect x="65" y="320" width="130" height="70" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+  <text x="75" y="340" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">CONN-LEVEL WINDOW</text>
+  <text x="75" y="360" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="16" font-weight="bold">8.4 KB</text>
+  <text x="75" y="378" fill="#fde047" font-family="system-ui, sans-serif" font-size="9">Depleting rapidly</text>
+
+  <!-- Server Node -->
+  <rect x="590" y="100" width="160" height="340" rx="6" fill="url(#greyGrad)" stroke="#4b5563" stroke-width="2" />
+  <text x="670" y="130" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="16" font-weight="bold">gRPC Server</text>
+  <text x="670" y="150" text-anchor="middle" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">(Fast Producer)</text>
+
+  <!-- Server Windows -->
+  <rect x="605" y="190" width="130" height="70" rx="4" fill="#1e293b" stroke="#94a3b8" stroke-width="1" />
+  <text x="615" y="210" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">STREAM 1 OUT</text>
+  <text x="615" y="230" fill="#ef4444" font-family="system-ui, sans-serif" font-size="16" font-weight="bold">0 Bytes</text>
+  <text x="615" y="248" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">Writes Blocked</text>
+
+  <!-- Connection Out Window -->
+  <rect x="605" y="320" width="130" height="70" rx="4" fill="#1e293b" stroke="#94a3b8" stroke-width="1" />
+  <text x="615" y="340" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">CONN OUT WINDOW</text>
+  <text x="615" y="360" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="16" font-weight="bold">8.4 KB</text>
+  <text x="615" y="378" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">Total capacity remaining</text>
+
+  <!-- Network/HTTP2 Layer -->
+  <!-- TCP Connection Tunnel -->
+  <rect x="250" y="230" width="300" height="120" rx="8" fill="#111827" stroke="#374151" stroke-width="2" />
+  <text x="400" y="250" text-anchor="middle" fill="#6b7280" font-family="system-ui, sans-serif" font-size="11" letter-spacing="1">TCP CONNECTION / HTTP2 MULTIPLEX</text>
+
+  <!-- Stream 1 Data Frame (Stalled) -->
+  <rect x="420" y="270" width="100" height="24" rx="4" fill="url(#redGrad)" stroke="#ef4444" stroke-dasharray="2,2" />
+  <text x="470" y="285" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">DATA (Stream 1)</text>
+
+  <!-- Stream 2 Data Frame (Active but limited) -->
+  <rect x="290" y="305" width="100" height="24" rx="4" fill="url(#greenGrad)" stroke="#10b981" />
+  <text x="340" y="320" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">DATA (Stream 2)</text>
+
+  <!-- Flow Control Arrows -->
+  <!-- Blocked Data Flow Stream 1 -->
+  <path d="M 590 220 L 530 220" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" />
+  <path d="M 250 220 L 210 220" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-red)" />
+  <text x="230" y="210" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">STALLED</text>
+
+  <!-- Active Data Flow Stream 2 -->
+  <path d="M 590 380 L 550 380" fill="none" stroke="#10b981" stroke-width="2" />
+  <path d="M 250 380 L 210 380" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="230" y="395" text-anchor="middle" fill="#10b981" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">FLOWING</text>
+
+  <!-- Explainers -->
+  <rect x="260" y="120" width="280" height="80" rx="6" fill="#1e293b" stroke="#334155" />
+  <circle cx="280" cy="140" r="5" fill="#ef4444" />
+  <text x="295" y="143" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">1. Client app reads slowly or halts processing.</text>
+
+  <circle cx="280" cy="160" r="5" fill="#f59e0b" />
+  <text x="295" y="163" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">2. HTTP/2 stream buffer fills; window drops to 0.</text>
+
+  <circle cx="280" cy="180" r="5" fill="#cbd5e1" />
+  <text x="295" y="183" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">3. Server stops sending Stream 1 DATA frames.</text>
+
+</svg>

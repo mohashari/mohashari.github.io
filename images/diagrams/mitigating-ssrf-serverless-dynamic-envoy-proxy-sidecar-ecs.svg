@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%" style="background-color: #0b0f19; font-family: 'Inter', system-ui, -apple-system, sans-serif;">
+  <!-- Definitions for Gradients, Shadows, and Markers -->
+  <defs>
+    <!-- Background grid pattern -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.7" opacity="0.6"/>
+    </pattern>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow-container" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="shadow-node" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="grad-ecs" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="grad-app" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#0369a1" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="grad-envoy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#db2777" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="grad-vpc" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#b91c1c" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="grad-stripe" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="grad-flow-blocked" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <linearGradient id="grad-flow-allowed" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+
+    <!-- Markers for Arrows -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrow-envoy" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f472b6"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f87171"/>
+    </marker>
+  </defs>
+
+  <!-- Background Grid -->
+  <rect width="100%" height="100%" fill="url(#grid)" />
+
+  <!-- Diagram Title / Header -->
+  <text x="30" y="45" fill="#f8fafc" font-size="20" font-weight="700" letter-spacing="-0.025em">Dynamic Envoy Sidecar Egress Architecture in AWS ECS Fargate</text>
+  <text x="30" y="68" fill="#94a3b8" font-size="13" font-weight="400">Mitigating SSRF by intercepting and validating task egress traffic at the network level</text>
+
+  <!-- AWS ECS TASK BOUNDARY -->
+  <g filter="url(#shadow-container)">
+    <!-- Main Task Container -->
+    <rect x="50" y="110" width="560" height="470" rx="16" fill="url(#grad-ecs)" stroke="#334155" stroke-width="2"/>
+    <rect x="65" y="125" width="130" height="28" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="80" y="143" fill="#cbd5e1" font-size="11" font-weight="600" letter-spacing="0.05em">AWS ECS TASK (FARGATE)</text>
+    <text x="590" y="143" fill="#64748b" font-size="11" font-weight="500" text-anchor="end">awsvpc network mode</text>
+  </g>
+
+  <!-- 1. APPLICATION CONTAINER -->
+  <g filter="url(#shadow-node)">
+    <rect x="80" y="180" width="200" height="340" rx="12" fill="url(#grad-app)" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="0"/>
+    <rect x="95" y="195" width="170" height="24" rx="4" fill="#0c4a6e" />
+    <text x="110" y="211" fill="#38bdf8" font-size="11" font-weight="700" letter-spacing="0.025em">App Container</text>
+    
+    <!-- Code/Process Simulator inside App -->
+    <rect x="95" y="240" width="170" height="85" rx="6" fill="#030712" stroke="#1e293b" stroke-width="1"/>
+    <text x="105" y="260" fill="#64748b" font-size="10" font-family="monospace"># SSRF Vulnerable Code</text>
+    <text x="105" y="278" fill="#f43f5e" font-size="10" font-family="monospace">requests.get(user_url)</text>
+    <text x="105" y="296" fill="#34d399" font-size="10" font-family="monospace">HTTP Egress Proxy configured</text>
+    <text x="105" y="312" fill="#34d399" font-size="10" font-family="monospace">HTTP_PROXY=http://127.0.0.1:15001</text>
+
+    <!-- Outgoing HTTP Request Flow Origin -->
+    <circle cx="180" cy="380" r="16" fill="#0284c7" fill-opacity="0.2" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="180" y="384" fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle">HTTP</text>
+  </g>
+
+  <!-- REDIRECTION / IPTABLES -->
+  <!-- Traffic forced to Envoy Sidecar (via HTTP_PROXY or iptables transparent redirection) -->
+  <path d="M 280 380 L 380 380" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4" marker-end="url(#arrow-blue)"/>
+  <rect x="290" y="335" width="80" height="36" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <text x="330" y="348" fill="#94a3b8" font-size="9" font-weight="600" text-anchor="middle">REDITECT /</text>
+  <text x="330" y="360" fill="#38bdf8" font-size="9" font-weight="700" text-anchor="middle">HTTP_PROXY</text>
+
+  <!-- 2. ENVOY PROXY CONTAINER (SIDECAR) -->
+  <g filter="url(#shadow-node)">
+    <rect x="390" y="180" width="200" height="340" rx="12" fill="url(#grad-envoy)" stroke="#ec4899" stroke-width="1.5"/>
+    <rect x="405" y="195" width="170" height="24" rx="4" fill="#4d0c2e" />
+    <text x="420" y="211" fill="#f472b6" font-size="11" font-weight="700" letter-spacing="0.025em">Envoy Proxy Sidecar</text>
+
+    <!-- Listener -->
+    <rect x="405" y="235" width="170" height="50" rx="6" fill="#030712" stroke="#4d0c2e" stroke-width="1"/>
+    <text x="415" y="250" fill="#f472b6" font-size="9" font-weight="700">HTTP/TCP LISTENER</text>
+    <text x="415" y="265" fill="#94a3b8" font-size="10" font-family="monospace">127.0.0.1:15001 (Egress)</text>
+    <text x="415" y="277" fill="#64748b" font-size="9">Dynamic Forward Proxy Filter</text>
+
+    <!-- Dynamic Validation Engine -->
+    <rect x="405" y="300" width="170" height="120" rx="6" fill="#030712" stroke="#475569" stroke-width="1"/>
+    <text x="415" y="316" fill="#f472b6" font-size="9" font-weight="700">EGRESS POLICY ENGINE</text>
+    
+    <!-- Rule 1: Block IMDS / Link-Local -->
+    <rect x="412" y="326" width="156" height="18" rx="3" fill="#1e1b1b"/>
+    <text x="418" y="338" fill="#f87171" font-size="9" font-weight="600">✗ Block 169.254.169.254</text>
+    
+    <!-- Rule 2: Block VPC CIDR -->
+    <rect x="412" y="348" width="156" height="18" rx="3" fill="#1e1b1b"/>
+    <text x="418" y="360" fill="#f87171" font-size="9" font-weight="600">✗ Block VPC (10.0.0.0/8)</text>
+
+    <!-- Rule 3: DNS Resolution / IP Sanity -->
+    <rect x="412" y="370" width="156" height="18" rx="3" fill="#181e1b"/>
+    <text x="418" y="382" fill="#34d399" font-size="9" font-weight="600">✓ Resolve External DNS</text>
+    
+    <!-- Rule 4: Match IP against Blocklist -->
+    <rect x="412" y="392" width="156" height="18" rx="3" fill="#181e1b"/>
+    <text x="418" y="404" fill="#34d399" font-size="9" font-weight="600">✓ Strict Egress Allowed List</text>
+    
+    <!-- Stats output -->
+    <text x="415" y="435" fill="#64748b" font-size="9">Stats: envoy.ssrf_mitigation.*</text>
+  </g>
+
+  <!-- CONTROL FLOWS FROM ENVOY TO EXTERNAL -->
+  
+  <!-- Flow 1: Attempted SSRF to AWS Instance Metadata Service (IMDSv2) -->
+  <path d="M 590 320 C 690 320, 700 230, 755 230" fill="none" stroke="url(#grad-flow-blocked)" stroke-width="2.5" marker-end="url(#arrow-red)"/>
+  
+  <!-- Flow 2: Attempted SSRF to Internal DB / VPC Target -->
+  <path d="M 590 350 C 680 350, 680 350, 755 350" fill="none" stroke="url(#grad-flow-blocked)" stroke-width="2.5" marker-end="url(#arrow-red)"/>
+
+  <!-- Flow 3: Allowed Egress to Stripe API -->
+  <path d="M 590 470 C 690 470, 700 480, 755 480" fill="none" stroke="url(#grad-flow-allowed)" stroke-width="3" marker-end="url(#arrow-green)"/>
+
+  <!-- EXTERNAL TARGETS (OUTSIDE ECS TASK) -->
+  
+  <!-- Blocked Target 1: AWS Metadata Service (IMDS) -->
+  <g filter="url(#shadow-node)">
+    <rect x="770" y="180" width="180" height="85" rx="8" fill="url(#grad-vpc)" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="785" y="202" fill="#f87171" font-size="11" font-weight="700">AWS IMDS Endpoint</text>
+    <text x="785" y="220" fill="#fca5a5" font-size="10" font-family="monospace">169.254.169.254</text>
+    <text x="785" y="235" fill="#94a3b8" font-size="9">Target: IAM Role Credentials</text>
+    <rect x="785" y="245" width="75" height="14" rx="3" fill="#7f1d1d"/>
+    <text x="790" y="255" fill="#fca5a5" font-size="8" font-weight="700">BLOCKED (403)</text>
+  </g>
+
+  <!-- Blocked Target 2: Internal VPC Resources -->
+  <g filter="url(#shadow-node)">
+    <rect x="770" y="300" width="180" height="90" rx="8" fill="url(#grad-vpc)" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="785" y="322" fill="#f87171" font-size="11" font-weight="700">Internal VPC Network</text>
+    <text x="785" y="340" fill="#fca5a5" font-size="10" font-family="monospace">10.0.0.0/8 (Subnets)</text>
+    <text x="785" y="355" fill="#94a3b8" font-size="9">Target: DBs, Internal APIs</text>
+    <rect x="785" y="365" width="75" height="14" rx="3" fill="#7f1d1d"/>
+    <text x="790" y="375" fill="#fca5a5" font-size="8" font-weight="700">BLOCKED (403)</text>
+  </g>
+
+  <!-- Allowed Target: Public Egress / Stripe API -->
+  <g filter="url(#shadow-node)">
+    <rect x="770" y="430" width="180" height="95" rx="8" fill="url(#grad-stripe)" stroke="#10b981" stroke-width="1.5"/>
+    <text x="785" y="452" fill="#34d399" font-size="11" font-weight="700">External HTTPS API</text>
+    <text x="785" y="470" fill="#a7f3d0" font-size="10" font-family="monospace">api.stripe.com</text>
+    <text x="785" y="485" fill="#94a3b8" font-size="9">Allowed domain rule matches</text>
+    <rect x="785" y="498" width="85" height="14" rx="3" fill="#064e3b"/>
+    <text x="790" y="508" fill="#a7f3d0" font-size="8" font-weight="700">ALLOWED (FORWARD)</text>
+  </g>
+
+  <!-- Explanatory Legend / Annotation -->
+  <rect x="50" y="590" width="900" height="40" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <circle cx="70" cy="610" r="6" fill="#38bdf8"/>
+  <text x="82" y="613" fill="#cbd5e1" font-size="10" font-weight="500">1. Egress Interception</text>
+  
+  <circle cx="230" cy="610" r="6" fill="#f472b6"/>
+  <text x="242" y="613" fill="#cbd5e1" font-size="10" font-weight="500">2. Sidecar Dynamic Policy Inspection (No Local DNS Spoofing)</text>
+
+  <circle cx="580" cy="610" r="6" fill="#f87171"/>
+  <text x="592" y="613" fill="#cbd5e1" font-size="10" font-weight="500">3. Non-routeable &amp; Internal IP Blocks</text>
+
+  <circle cx="810" cy="610" r="6" fill="#34d399"/>
+  <text x="822" y="613" fill="#cbd5e1" font-size="10" font-weight="500">4. Gateway Forwarding</text>
+
+</svg>
