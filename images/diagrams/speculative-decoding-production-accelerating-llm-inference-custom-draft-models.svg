@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 550" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="draftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    
+    <linearGradient id="targetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#3730a3" />
+    </linearGradient>
+
+    <linearGradient id="verifyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f766e" />
+      <stop offset="100%" stop-color="#115e59" />
+    </linearGradient>
+
+    <!-- Accent Gradients -->
+    <linearGradient id="acceptGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <linearGradient id="rejectGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+
+    <!-- Filters for Glow Effects -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-weight: 800; font-size: 24px; fill: #f8fafc; letter-spacing: -0.025em; }
+    .subtitle { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .card-title { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 16px; fill: #ffffff; }
+    .card-desc { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #cbd5e1; }
+    .label { font-family: 'Inter', system-ui, sans-serif; font-weight: 600; font-size: 12px; fill: #ffffff; text-anchor: middle; }
+    .label-bold { font-family: 'Outfit', 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 13px; fill: #ffffff; text-anchor: middle; }
+    .meta-text { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #64748b; }
+    .flow-arrow { stroke: #6366f1; stroke-width: 2.5; fill: none; stroke-dasharray: 6 4; animation: dash 10s linear infinite; }
+    .static-arrow { stroke: #475569; stroke-width: 2; fill: none; }
+    .token-box { rx: 6px; stroke-width: 1.5; }
+    .token-text { font-family: 'Fira Code', monospace; font-size: 12px; font-weight: bold; text-anchor: middle; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="550" fill="url(#bgGrad)" rx="16" />
+  <rect width="1000" height="550" fill="none" stroke="#1e293b" stroke-width="2" rx="16" />
+
+  <!-- Header -->
+  <g transform="translate(40, 45)">
+    <text class="title" x="0" y="0">SPECULATIVE DECODING PIPELINE</text>
+    <text class="subtitle" x="0" y="22">Distributed Inference Architecture with Custom Draft Models &amp; Parallel Verification</text>
+  </g>
+
+  <!-- 1. DRAFT MODEL STEP -->
+  <g transform="translate(40, 110)">
+    <!-- Component Box -->
+    <rect width="240" height="380" rx="12" fill="url(#draftGrad)" stroke="#0ea5e9" stroke-width="1.5" opacity="0.9" />
+    <text class="card-title" x="20" y="35">1. Draft Generation</text>
+    <text class="card-desc" x="20" y="55">Autoregressively predicts K tokens</text>
+    
+    <!-- Specs -->
+    <rect x="20" y="75" width="200" height="40" rx="6" fill="#082f49" opacity="0.6"/>
+    <text class="label" x="120" y="93" fill="#38bdf8">Draft Model (e.g., LLaMA-3.2-1B)</text>
+    <text class="meta-text" x="120" y="108" text-anchor="middle" fill="#0ea5e9">Low Latency / High Throughput</text>
+
+    <!-- Autoregressive Steps -->
+    <g transform="translate(20, 135)">
+      <!-- Prompt input representation -->
+      <rect x="0" y="0" width="200" height="30" rx="6" fill="#1e293b" stroke="#334155" />
+      <text class="token-text" x="100" y="19" fill="#94a3b8">Context KV Cache (Shared)</text>
+      
+      <!-- Generated Draft Tokens -->
+      <g transform="translate(0, 45)">
+        <text class="meta-text" x="0" y="12" text-anchor="start" fill="#cbd5e1">Speculative Window (K = 4)</text>
+        
+        <!-- Draft Token 1 -->
+        <rect x="0" y="25" width="45" height="35" class="token-box" fill="#0369a1" stroke="#38bdf8" />
+        <text class="token-text" x="22.5" y="47" fill="#ffffff">T[1]</text>
+        
+        <!-- Draft Token 2 -->
+        <rect x="52" y="25" width="45" height="35" class="token-box" fill="#0369a1" stroke="#38bdf8" />
+        <text class="token-text" x="74.5" y="47" fill="#ffffff">T[2]</text>
+
+        <!-- Draft Token 3 -->
+        <rect x="104" y="25" width="45" height="35" class="token-box" fill="#0369a1" stroke="#38bdf8" />
+        <text class="token-text" x="126.5" y="47" fill="#ffffff">T[3]</text>
+
+        <!-- Draft Token 4 -->
+        <rect x="156" y="25" width="45" height="35" class="token-box" fill="#0369a1" stroke="#38bdf8" />
+        <text class="token-text" x="178.5" y="47" fill="#ffffff">T[4]</text>
+      </g>
+    </g>
+    
+    <rect x="20" y="295" width="200" height="65" rx="6" fill="#082f49" opacity="0.6" stroke="#0ea5e9" stroke-dasharray="3 3"/>
+    <text class="meta-text" x="30" y="315" fill="#e0f2fe">• Run-time: ~2ms per token</text>
+    <text class="meta-text" x="30" y="332" fill="#e0f2fe">• Total Draft Time (K=4): ~8ms</text>
+    <text class="meta-text" x="30" y="349" fill="#e0f2fe">• Shared KV cache projection</text>
+  </g>
+
+  <!-- Flow Connector 1 -> 2 -->
+  <path d="M 280,300 L 360,300" class="flow-arrow" marker-end="url(#arrow)" />
+  <polygon points="360,300 350,295 350,305" fill="#6366f1" />
+  <text class="meta-text" x="320" y="285" text-anchor="middle" fill="#818cf8">Send K Drafts</text>
+
+  <!-- 2. TARGET VERIFICATION STEP -->
+  <g transform="translate(380, 110)">
+    <rect width="260" height="380" rx="12" fill="url(#targetGrad)" stroke="#6366f1" stroke-width="1.5" opacity="0.9" />
+    <text class="card-title" x="20" y="35">2. Parallel Verification</text>
+    <text class="card-desc" x="20" y="55">Runs 1 forward pass on (K+1) tokens</text>
+
+    <!-- Specs -->
+    <rect x="20" y="75" width="220" height="40" rx="6" fill="#1e1b4b" opacity="0.6"/>
+    <text class="label" x="110" y="93" fill="#a5b4fc">Target Model (e.g., LLaMA-3-70B)</text>
+    <text class="meta-text" x="110" y="108" text-anchor="middle" fill="#818cf8">High Latency / Full Precision</text>
+
+    <!-- Parallel Verification Matrix -->
+    <g transform="translate(20, 135)">
+      <text class="meta-text" x="0" y="12" text-anchor="start" fill="#cbd5e1">Batch Forward Pass Inputs:</text>
+      
+      <!-- Parallel Block -->
+      <rect x="0" y="25" width="220" height="110" rx="8" fill="#0f172a" stroke="#4f46e5" />
+      
+      <!-- Input Row -->
+      <g transform="translate(10, 15)">
+        <rect x="0" y="0" width="35" height="25" rx="4" fill="#312e81" stroke="#6366f1" />
+        <text class="token-text" x="17.5" y="16" fill="#ffffff" font-size="10">T[1]</text>
+        
+        <rect x="40" y="0" width="35" height="25" rx="4" fill="#312e81" stroke="#6366f1" />
+        <text class="token-text" x="57.5" y="16" fill="#ffffff" font-size="10">T[2]</text>
+
+        <rect x="80" y="0" width="35" height="25" rx="4" fill="#312e81" stroke="#6366f1" />
+        <text class="token-text" x="97.5" y="16" fill="#ffffff" font-size="10">T[3]</text>
+
+        <rect x="120" y="0" width="35" height="25" rx="4" fill="#312e81" stroke="#6366f1" />
+        <text class="token-text" x="137.5" y="16" fill="#ffffff" font-size="10">T[4]</text>
+
+        <rect x="160" y="0" width="35" height="25" rx="4" fill="#1e293b" stroke="#475569" />
+        <text class="token-text" x="177.5" y="16" fill="#94a3b8" font-size="10">+1</text>
+      </g>
+
+      <!-- Matrix Multiply Glow representation -->
+      <path d="M 15,65 Q 110,95 205,65" stroke="#818cf8" stroke-width="2" fill="none" filter="url(#glow)"/>
+      <text class="meta-text" x="110" y="75" text-anchor="middle" fill="#818cf8" font-size="9">Attention Matrix &amp; Logit Calculation</text>
+
+      <g transform="translate(10, 95)">
+        <text class="meta-text" x="0" y="-8" text-anchor="start" fill="#64748b" font-size="9">Output Logits: P(x|x_1..x_i)</text>
+      </g>
+    </g>
+
+    <rect x="20" y="295" width="220" height="65" rx="6" fill="#1e1b4b" opacity="0.6" stroke="#6366f1" stroke-dasharray="3 3"/>
+    <text class="meta-text" x="30" y="315" fill="#e0e7ff">• Target Forward Pass: ~25ms</text>
+    <text class="meta-text" x="30" y="332" fill="#e0e7ff">• Compares Target Logits vs Draft</text>
+    <text class="meta-text" x="30" y="349" fill="#e0e7ff">• Verifies all K in parallel</text>
+  </g>
+
+  <!-- Flow Connector 2 -> 3 -->
+  <path d="M 640,300 L 720,300" class="flow-arrow" />
+  <polygon points="720,300 710,295 710,305" fill="#6366f1" />
+  <text class="meta-text" x="680" y="285" text-anchor="middle" fill="#818cf8">Evaluate</text>
+
+  <!-- 3. DECISION & KV UPDATE -->
+  <g transform="translate(740, 110)">
+    <rect width="220" height="380" rx="12" fill="url(#verifyGrad)" stroke="#0d9488" stroke-width="1.5" opacity="0.9" />
+    <text class="card-title" x="20" y="35">3. Accept/Reject</text>
+    <text class="card-desc" x="20" y="55">Updates KV cache dynamically</text>
+
+    <!-- Token validation visualizer -->
+    <g transform="translate(20, 85)">
+      <!-- Token 1: Accepted -->
+      <g transform="translate(0, 0)">
+        <rect width="180" height="35" rx="6" fill="url(#acceptGrad)" stroke="#34d399" stroke-width="1" />
+        <text class="label-bold" x="90" y="22">T[1] ACCEPTED</text>
+        <circle cx="20" cy="17" r="6" fill="#ffffff" opacity="0.3" />
+        <path d="M 17,17 L 19,19 L 23,15" stroke="#ffffff" stroke-width="1.5" fill="none" />
+      </g>
+
+      <!-- Token 2: Accepted -->
+      <g transform="translate(0, 45)">
+        <rect width="180" height="35" rx="6" fill="url(#acceptGrad)" stroke="#34d399" stroke-width="1" />
+        <text class="label-bold" x="90" y="22">T[2] ACCEPTED</text>
+        <circle cx="20" cy="17" r="6" fill="#ffffff" opacity="0.3" />
+        <path d="M 17,17 L 19,19 L 23,15" stroke="#ffffff" stroke-width="1.5" fill="none" />
+      </g>
+
+      <!-- Token 3: Rejected -->
+      <g transform="translate(0, 90)">
+        <rect width="180" height="35" rx="6" fill="url(#rejectGrad)" stroke="#f87171" stroke-width="1" />
+        <text class="label-bold" x="90" y="22">T[3] REJECTED</text>
+        <circle cx="20" cy="17" r="6" fill="#ffffff" opacity="0.3" />
+        <path d="M 16,13 L 24,21 M 24,13 L 16,21" stroke="#ffffff" stroke-width="1.5" fill="none" />
+      </g>
+
+      <!-- Token 4: Discarded -->
+      <g transform="translate(0, 135)">
+        <rect width="180" height="35" rx="6" fill="#1f2937" stroke="#4b5563" stroke-width="1" />
+        <text class="label" x="90" y="22" fill="#9ca3af">T[4] DISCARDED</text>
+      </g>
+
+      <!-- Output from this iteration -->
+      <g transform="translate(0, 180)">
+        <rect width="180" height="35" rx="6" fill="#0369a1" stroke="#38bdf8" stroke-width="1" />
+        <text class="label-bold" x="90" y="22">GENERATE T_new[3]</text>
+      </g>
+    </g>
+
+    <!-- Summary of accepted count -->
+    <rect x="20" y="315" width="180" height="45" rx="6" fill="#042f2e" opacity="0.8"/>
+    <text class="meta-text" x="110" y="333" text-anchor="middle" fill="#2dd4bf">Step Yield: +3 Tokens (T1, T2, T_new3)</text>
+    <text class="meta-text" x="110" y="348" text-anchor="middle" fill="#2dd4bf">KV Cache sliced back to T2</text>
+  </g>
+
+  <!-- Feedback Loop (Loop Back to 1) -->
+  <path d="M 850,490 L 850,520 L 160,520 L 160,490" class="flow-arrow" />
+  <polygon points="160,490 155,500 165,500" fill="#6366f1" />
+  <text class="meta-text" x="505" y="515" text-anchor="middle" fill="#818cf8">Feedback accepted tokens &amp; T_new to Draft model cache for next iteration</text>
+
+</svg>

@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 520" width="100%" height="100%" style="background-color: #0b0f19;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="node-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="pod-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="cilium-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+    <linearGradient id="wg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="tunnel-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316" stop-opacity="0.2" />
+      <stop offset="15%" stop-color="#10b981" />
+      <stop offset="50%" stop-color="#10b981" />
+      <stop offset="85%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0.2" />
+    </linearGradient>
+    
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glow-wg" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="520" fill="url(#bg-grad)" />
+  
+  <!-- Title & Subtitle -->
+  <text x="30" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#f3f4f6">Cilium WireGuard Kernel-Level Encryption</text>
+  <text x="30" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9ca3af">Direct Pod-to-Pod encryption via Wireguard kernel module, bypassing user-space overhead</text>
+
+  <!-- ==================== NODE A (LEFT) ==================== -->
+  <g transform="translate(40, 80)" filter="url(#shadow)">
+    <!-- Node Boundary -->
+    <rect width="400" height="380" rx="12" fill="url(#node-grad)" stroke="#374151" stroke-width="1.5" />
+    <text x="20" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#e5e7eb">Kubernetes Node A</text>
+    <text x="20" y="48" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#9ca3af">IP: 10.0.0.100 (Internal IP)</text>
+    
+    <!-- User Space Box -->
+    <rect x="15" y="70" width="370" height="110" rx="8" fill="#1f2937" fill-opacity="0.4" stroke="#4b5563" stroke-width="1" stroke-dasharray="4 4" />
+    <text x="25" y="90" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#9ca3af" letter-spacing="1">USER SPACE</text>
+
+    <!-- Pod A (Client) -->
+    <g transform="translate(30, 105)">
+      <rect width="340" height="60" rx="8" fill="url(#pod-grad)" />
+      <text x="15" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Pod A (Frontend Client)</text>
+      <text x="15" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#bfdbfe">IP: 10.244.1.15</text>
+      <!-- Port info -->
+      <rect x="250" y="15" width="75" height="30" rx="4" fill="#1e3a8a" fill-opacity="0.6" />
+      <text x="287" y="33" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">TCP Src: 49152</text>
+    </g>
+
+    <!-- Kernel Space Box -->
+    <rect x="15" y="195" width="370" height="170" rx="8" fill="#1f2937" fill-opacity="0.4" stroke="#4b5563" stroke-width="1" stroke-dasharray="4 4" />
+    <text x="25" y="215" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#9ca3af" letter-spacing="1">KERNEL SPACE</text>
+
+    <!-- Cilium Agent & eBPF Datapath -->
+    <g transform="translate(30, 230)">
+      <rect width="150" height="60" rx="8" fill="url(#cilium-grad)" />
+      <text x="75" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">eBPF Datapath</text>
+      <text x="75" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#ffedd5" text-anchor="middle">Routing / Policy</text>
+    </g>
+
+    <!-- WireGuard Kernel Module (Node A) -->
+    <g transform="translate(220, 230)">
+      <rect width="150" height="60" rx="8" fill="url(#wg-grad)" />
+      <text x="75" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">WireGuard Module</text>
+      <text x="75" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#a7f3d0" text-anchor="middle">cilium_wg0 (Key: A_pub)</text>
+    </g>
+
+    <!-- Node A Nic (eth0) -->
+    <rect x="160" y="325" width="80" height="30" rx="4" fill="#374151" stroke="#4b5563" stroke-width="1" />
+    <text x="200" y="344" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#e5e7eb" font-weight="bold" text-anchor="middle">eth0</text>
+
+    <!-- Flow Arrows Node A -->
+    <!-- Pod A to eBPF -->
+    <path d="M105, 165 L105, 230" fill="none" stroke="#60a5fa" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+    <!-- eBPF to WG -->
+    <path d="M180, 260 L220, 260" fill="none" stroke="#f97316" stroke-width="2.5" marker-end="url(#arrow-orange)" />
+    <!-- WG to eth0 -->
+    <path d="M295, 290 L295, 310 L200, 310 L200, 325" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  </g>
+
+  <!-- ==================== NODE B (RIGHT) ==================== -->
+  <g transform="translate(560, 80)" filter="url(#shadow)">
+    <!-- Node Boundary -->
+    <rect width="400" height="380" rx="12" fill="url(#node-grad)" stroke="#374151" stroke-width="1.5" />
+    <text x="20" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#e5e7eb">Kubernetes Node B</text>
+    <text x="20" y="48" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#9ca3af">IP: 10.0.0.101 (Internal IP)</text>
+    
+    <!-- User Space Box -->
+    <rect x="15" y="70" width="370" height="110" rx="8" fill="#1f2937" fill-opacity="0.4" stroke="#4b5563" stroke-width="1" stroke-dasharray="4 4" />
+    <text x="25" y="90" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#9ca3af" letter-spacing="1">USER SPACE</text>
+
+    <!-- Pod B (Server) -->
+    <g transform="translate(30, 105)">
+      <rect width="340" height="60" rx="8" fill="url(#pod-grad)" />
+      <text x="15" y="26" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">Pod B (Backend API)</text>
+      <text x="15" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#bfdbfe">IP: 10.244.2.82</text>
+      <!-- Port info -->
+      <rect x="250" y="15" width="75" height="30" rx="4" fill="#1e3a8a" fill-opacity="0.6" />
+      <text x="287" y="33" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">TCP Dst: 8080</text>
+    </g>
+
+    <!-- Kernel Space Box -->
+    <rect x="15" y="195" width="370" height="170" rx="8" fill="#1f2937" fill-opacity="0.4" stroke="#4b5563" stroke-width="1" stroke-dasharray="4 4" />
+    <text x="25" y="215" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#9ca3af" letter-spacing="1">KERNEL SPACE</text>
+
+    <!-- Cilium Agent & eBPF Datapath -->
+    <g transform="translate(30, 230)">
+      <rect width="150" height="60" rx="8" fill="url(#cilium-grad)" />
+      <text x="75" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">eBPF Datapath</text>
+      <text x="75" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#ffedd5" text-anchor="middle">Routing / Policy</text>
+    </g>
+
+    <!-- WireGuard Kernel Module (Node B) -->
+    <g transform="translate(220, 230)">
+      <rect width="150" height="60" rx="8" fill="url(#wg-grad)" />
+      <text x="75" y="28" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">WireGuard Module</text>
+      <text x="75" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#a7f3d0" text-anchor="middle">cilium_wg0 (Key: B_pub)</text>
+    </g>
+
+    <!-- Node B Nic (eth0) -->
+    <rect x="160" y="325" width="80" height="30" rx="4" fill="#374151" stroke="#4b5563" stroke-width="1" />
+    <text x="200" y="344" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#e5e7eb" font-weight="bold" text-anchor="middle">eth0</text>
+
+    <!-- Flow Arrows Node B -->
+    <!-- eth0 to WG -->
+    <path d="M200, 325 L200, 310 L295, 310 L295, 290" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+    <!-- WG to eBPF -->
+    <path d="M220, 260 L180, 260" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+    <!-- eBPF to Pod B -->
+    <path d="M105, 230 L105, 165" fill="none" stroke="#60a5fa" stroke-width="2.5" marker-end="url(#arrow-blue)" />
+  </g>
+
+  <!-- ==================== TRANSMISSION TUNNEL ==================== -->
+  <g transform="translate(440, 385)">
+    <!-- Main tunnel pipe -->
+    <rect x="0" y="10" width="120" height="24" rx="4" fill="url(#tunnel-grad)" filter="url(#glow-wg)" />
+    
+    <!-- Lock symbol -->
+    <g transform="translate(46, -10)">
+      <circle cx="14" cy="14" r="14" fill="#10b981" />
+      <path d="M9,13 V9 A5,5 0 0,1 19,9 V13 M7,13 H21 V23 H7 Z" fill="none" stroke="#ffffff" stroke-width="2" />
+      <circle cx="14" cy="18" r="1.5" fill="#ffffff" />
+    </g>
+    
+    <!-- Protocol Label -->
+    <text x="60" y="47" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#10b981" text-anchor="middle">UDP 51871 (WireGuard)</text>
+    <text x="60" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#9ca3af" text-anchor="middle">Kernel-encrypted Tunnel</text>
+  </g>
+
+  <!-- Physical connection lines (outer nodes) -->
+  <path d="M240, 420 L440, 420" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="5 5" />
+  <path d="M560, 420 L600, 420" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="5 5" />
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#60a5fa" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f97316" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Labels on paths (Plaintext vs Ciphertext) -->
+  <!-- Plaintext label Node A -->
+  <rect x="45" y="175" width="120" height="18" rx="3" fill="#1e3a8a" stroke="#3b82f6" stroke-width="0.5" />
+  <text x="105" y="188" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">Plaintext TCP Traffic</text>
+
+  <!-- Plaintext label Node B -->
+  <rect x="615" y="175" width="120" height="18" rx="3" fill="#1e3a8a" stroke="#3b82f6" stroke-width="0.5" />
+  <text x="675" y="188" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="600" fill="#ffffff" text-anchor="middle">Decrypted TCP Traffic</text>
+  
+  <!-- Encrypted flow indicator -->
+  <rect x="295" y="325" width="130" height="18" rx="3" fill="#064e3b" stroke="#10b981" stroke-width="0.5" />
+  <text x="360" y="337" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="600" fill="#a7f3d0" text-anchor="middle">Kernel Encryption (Noise/WG)</text>
+
+</svg>
