@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="100%" height="100%" style="background-color: #0B0F19; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <!-- Background Gradients -->
+    <radialGradient id="bg-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1E2640" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0B0F19" stop-opacity="1" />
+    </radialGradient>
+    
+    <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#0284C7" />
+    </linearGradient>
+
+    <linearGradient id="purple-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#4F46E5" />
+    </linearGradient>
+
+    <linearGradient id="emerald-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <linearGradient id="amber-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+
+    <!-- Border Gradients -->
+    <linearGradient id="border-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="50%" stop-color="#38BDF8" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748B" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8" />
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#34D399" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#818CF8" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="880" height="520" fill="url(#bg-glow)" />
+  
+  <!-- Outer grid pattern for tech look -->
+  <g opacity="0.05">
+    <path d="M 0,40 L 880,40 M 0,80 L 880,80 M 0,120 L 880,120 M 0,160 L 880,160 M 0,200 L 880,200 M 0,240 L 880,240 M 0,280 L 880,280 M 0,320 L 880,320 M 0,360 L 880,360 M 0,400 L 880,400 M 0,440 L 880,440 M 0,480 L 880,480" stroke="#94A3B8" stroke-width="1" />
+    <path d="M 40,0 L 40,520 M 80,0 L 80,520 M 120,0 L 120,520 M 160,0 L 160,520 M 200,0 L 200,520 M 240,0 L 240,520 M 280,0 L 280,520 M 320,0 L 320,520 M 360,0 L 360,520 M 40,0 L 40,520 M 440,0 L 440,520 M 480,0 L 480,520 M 520,0 L 520,520 M 560,0 L 560,520 M 600,0 L 600,520 M 640,0 L 640,520 M 680,0 L 680,520 M 720,0 L 720,520 M 760,0 L 760,520 M 800,0 L 800,520 M 840,0 L 840,520" stroke="#94A3B8" stroke-width="1" />
+  </g>
+
+  <!-- ==================== GATEWAY BOUNDARY ==================== -->
+  <rect x="180" y="30" width="460" height="460" rx="16" fill="#0F172A" fill-opacity="0.8" stroke="url(#border-glow)" stroke-width="2" />
+  <text x="200" y="60" fill="#94A3B8" font-size="12" font-weight="700" letter-spacing="1.5">ADAPTIVE LLM ROUTING GATEWAY</text>
+
+  <!-- ==================== CLIENT (LEFT) ==================== -->
+  <g id="client-group" transform="translate(30, 210)">
+    <rect width="110" height="80" rx="10" fill="#1E293B" stroke="#475569" stroke-width="1.5" />
+    <text x="55" y="35" fill="#F8FAFC" font-size="14" font-weight="600" text-anchor="middle">Application</text>
+    <text x="55" y="55" fill="#38BDF8" font-size="11" font-weight="700" text-anchor="middle">API Client</text>
+    <!-- Latency / Token metrics bubble -->
+    <rect x="10" y="-20" width="90" height="18" rx="4" fill="#0F172A" stroke="#38BDF8" stroke-width="1" stroke-dasharray="2 2" />
+    <text x="55" y="-7" fill="#38BDF8" font-size="9" text-anchor="middle">Latency SLA: 800ms</text>
+  </g>
+
+  <!-- ==================== INGESTION & CLASSIFICATION ==================== -->
+  <g id="classifier" transform="translate(200, 90)">
+    <rect width="180" height="70" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5" />
+    <text x="90" y="28" fill="#F8FAFC" font-size="13" font-weight="600" text-anchor="middle">Request Analyzer</text>
+    <text x="90" y="45" fill="#94A3B8" font-size="10" text-anchor="middle">Complexity, Token Est &amp;</text>
+    <text x="90" y="58" fill="#38BDF8" font-size="10" font-weight="700" text-anchor="middle">Semantic Cache Check</text>
+  </g>
+
+  <!-- ==================== POLICY ENGINE ==================== -->
+  <g id="policy-engine" transform="translate(200, 210)">
+    <rect width="180" height="80" rx="8" fill="#1E293B" stroke="#818CF8" stroke-width="1.5" />
+    <text x="90" y="30" fill="#F8FAFC" font-size="13" font-weight="600" text-anchor="middle">Adaptive Policy Engine</text>
+    <text x="90" y="48" fill="#E2E8F0" font-size="10" text-anchor="middle">Epsilon-Greedy Routing</text>
+    <text x="90" y="62" fill="#818CF8" font-size="10" font-weight="700" text-anchor="middle">Cost-Latency Optimizer</text>
+  </g>
+
+  <!-- ==================== RESILIENCY / CIRCUIT BREAKERS ==================== -->
+  <g id="circuit-breaker" transform="translate(430, 210)">
+    <rect width="180" height="80" rx="8" fill="#1E293B" stroke="#F87171" stroke-width="1.5" />
+    <text x="90" y="30" fill="#F8FAFC" font-size="13" font-weight="600" text-anchor="middle">Resiliency Controller</text>
+    <text x="90" y="48" fill="#94A3B8" font-size="10" text-anchor="middle">Active Circuit Breakers</text>
+    <text x="90" y="62" fill="#F87171" font-size="10" font-weight="700" text-anchor="middle">Fallback &amp; Retries</text>
+  </g>
+
+  <!-- ==================== METRICS / REDIS SYSTEM ==================== -->
+  <g id="redis-metrics" transform="translate(200, 370)">
+    <rect width="410" height="80" rx="8" fill="#111827" stroke="#34D399" stroke-width="1.5" stroke-dasharray="4 2" />
+    <text x="205" y="25" fill="#34D399" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">STATE STORE (REDIS / PROMETHEUS)</text>
+    <!-- Sub boxes inside Redis for clean data look -->
+    <rect x="220" y="38" width="110" height="30" rx="4" fill="#1E293B" stroke="#475569" />
+    <text x="275" y="57" fill="#F8FAFC" font-size="10" text-anchor="middle">Latency Tracker</text>
+    
+    <rect x="340" y="38" width="110" height="30" rx="4" fill="#1E293B" stroke="#475569" />
+    <text x="395" y="57" fill="#F8FAFC" font-size="10" text-anchor="middle">Dynamic Costs</text>
+
+    <rect x="20" y="38" width="180" height="30" rx="4" fill="#1E293B" stroke="#475569" />
+    <text x="110" y="57" fill="#F8FAFC" font-size="10" text-anchor="middle">Semantic Embeddings Cache</text>
+  </g>
+
+  <!-- ==================== UPSTREAM PROVIDERS (RIGHT) ==================== -->
+  <!-- Tier 1 -->
+  <g id="tier-1" transform="translate(690, 80)">
+    <rect width="160" height="60" rx="8" fill="#1E293B" stroke="#818CF8" stroke-width="1.5" />
+    <text x="80" y="25" fill="#F8FAFC" font-size="12" font-weight="600" text-anchor="middle">Tier 1: Claude 3.5 Sonnet</text>
+    <text x="80" y="42" fill="#818CF8" font-size="10" text-anchor="middle">Cost: High | Latency: ~1200ms</text>
+  </g>
+
+  <!-- Tier 2 -->
+  <g id="tier-2" transform="translate(690, 220)">
+    <rect width="160" height="60" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5" />
+    <text x="80" y="25" fill="#F8FAFC" font-size="12" font-weight="600" text-anchor="middle">Tier 2: Gemini 1.5 Flash</text>
+    <text x="80" y="42" fill="#38BDF8" font-size="10" text-anchor="middle">Cost: Low | Latency: ~400ms</text>
+  </g>
+
+  <!-- Tier 3 -->
+  <g id="tier-3" transform="translate(690, 360)">
+    <rect width="160" height="60" rx="8" fill="#1E293B" stroke="#34D399" stroke-width="1.5" />
+    <text x="80" y="25" fill="#F8FAFC" font-size="12" font-weight="600" text-anchor="middle">Tier 3: Llama 3 8B (vLLM)</text>
+    <text x="80" y="42" fill="#34D399" font-size="10" text-anchor="middle">Cost: Internal | Latency: ~150ms</text>
+  </g>
+
+  <!-- ==================== FLOW LINES & ARROWS ==================== -->
+  
+  <!-- 1. Client -> Request Analyzer -->
+  <path d="M 140,250 L 170,250 L 170,125 L 200,125" fill="none" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="175" y="190" fill="#38BDF8" font-size="10" font-weight="600" text-anchor="middle" transform="rotate(-90 175 190)">1. API Req</text>
+
+  <!-- 2. Request Analyzer -> Policy Engine -->
+  <path d="M 290,160 L 290,210" fill="none" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="300" y="188" fill="#94A3B8" font-size="9">2. Analyzed Metadata</text>
+
+  <!-- 3. Policy Engine <-> State/Metrics (Bidirectional) -->
+  <path d="M 245,290 L 245,370" fill="none" stroke="#34D399" stroke-width="1.5" marker-end="url(#arrow-emerald)" />
+  <path d="M 265,370 L 265,290" fill="none" stroke="#34D399" stroke-width="1.5" marker-end="url(#arrow-emerald)" />
+  <text x="215" y="335" fill="#34D399" font-size="9" text-anchor="middle">Cache Check &amp;<br/>Performance Metrics</text>
+
+  <!-- 4. Policy Engine -> Resiliency Controller -->
+  <path d="M 380,250 L 430,250" fill="none" stroke="#818CF8" stroke-width="2" marker-end="url(#arrow-purple)" />
+  <text x="405" y="242" fill="#818CF8" font-size="9" font-weight="600" text-anchor="middle">3. Route Choice</text>
+
+  <!-- 5. Resiliency Controller -> Upstreams -->
+  <!-- To Tier 1 -->
+  <path d="M 610,230 L 650,230 L 650,110 L 690,110" fill="none" stroke="#818CF8" stroke-width="1.5" marker-end="url(#arrow-purple)" />
+  <text x="645" y="160" fill="#818CF8" font-size="9" text-anchor="middle" transform="rotate(-90 645 160)">Route A (Complex/SLA High)</text>
+
+  <!-- To Tier 2 -->
+  <path d="M 610,250 L 690,250" fill="none" stroke="#38BDF8" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+  <text x="650" y="245" fill="#38BDF8" font-size="9" text-anchor="middle">Route B (Standard)</text>
+
+  <!-- To Tier 3 -->
+  <path d="M 610,270 L 650,270 L 650,390 L 690,390" fill="none" stroke="#34D399" stroke-width="1.5" marker-end="url(#arrow-emerald)" />
+  <text x="645" y="325" fill="#34D399" font-size="9" text-anchor="middle" transform="rotate(90 645 325)">Route C (Simple/SLA Low)</text>
+
+  <!-- 6. Metrics Feedback Loop from Upstreams back to Redis (Dotted) -->
+  <path d="M 770,140 L 770,165 L 630,165 L 630,370" fill="none" stroke="#34D399" stroke-width="1.2" stroke-dasharray="3 3" />
+  <path d="M 770,360 L 770,340 L 630,340 L 630,370" fill="none" stroke="#34D399" stroke-width="1.2" stroke-dasharray="3 3" />
+  <path d="M 850,250 L 865,250 L 865,470 L 405,470 L 405,450" fill="none" stroke="#34D399" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arrow-emerald)" />
+  <text x="730" y="465" fill="#34D399" font-size="9">Async Performance &amp; Cost Updates</text>
+
+</svg>

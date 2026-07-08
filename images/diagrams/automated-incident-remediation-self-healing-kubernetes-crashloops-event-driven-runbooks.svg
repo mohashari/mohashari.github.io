@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    
+    <!-- Box Gradients -->
+    <linearGradient id="k8sGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#326ce5" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    
+    <linearGradient id="alertGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+
+    <linearGradient id="engineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+
+    <linearGradient id="actionGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+
+    <!-- Glow effect -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="500" rx="12" fill="url(#bgGrad)" />
+  <rect width="900" height="500" rx="12" fill="none" stroke="#334155" stroke-width="2" />
+
+  <!-- Grid Pattern (Subtle) -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 900,50 M 0,100 L 900,100 M 0,150 L 900,150 M 0,200 L 900,200 M 0,250 L 900,250 M 0,300 L 900,300 M 0,350 L 900,350 M 0,400 L 900,400 M 0,450 L 900,450" stroke="#94a3b8" stroke-width="1" />
+    <path d="M 50,0 L 50,500 M 100,0 L 100,500 M 150,0 L 150,500 M 200,0 L 200,500 M 250,0 L 250,500 M 300,0 L 300,500 M 350,0 L 350,500 M 400,0 L 400,500 M 450,0 L 450,500 M 500,0 L 500,500 M 550,0 L 550,500 M 600,0 L 600,500 M 650,0 L 650,500 M 700,0 L 700,500 M 750,0 L 750,500 M 800,0 L 800,500 M 850,0 L 850,500" stroke="#94a3b8" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#f8fafc" letter-spacing="0.5">
+    Event-Driven Automated Incident Remediation Architecture
+  </text>
+  <text x="30" y="70" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#94a3b8">
+    Self-Healing CrashLoops triggered by Kubernetes Event streams and Alertmanager webhooks.
+  </text>
+
+  <!-- CONNECTORS / PATHS -->
+  <!-- 1. K8s Pod to Prometheus -->
+  <path d="M 180,180 L 240,180" fill="none" stroke="#475569" stroke-width="3" stroke-dasharray="6,4" />
+  <!-- 2. Prometheus to Alertmanager -->
+  <path d="M 370,180 L 430,180" fill="none" stroke="#475569" stroke-width="3" />
+  <polygon points="430,180 420,174 420,186" fill="#475569" />
+  <!-- 3. Alertmanager to Runbook Engine -->
+  <path d="M 560,180 L 620,180" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="6,4" />
+  <polygon points="620,180 610,174 610,186" fill="#38bdf8" />
+  <!-- 4. Runbook Engine to K8s API (Control Loop) -->
+  <path d="M 705,230 L 705,370 L 115,370 L 115,230" fill="none" stroke="#10b981" stroke-width="3" />
+  <polygon points="115,230 109,240 121,240" fill="#10b981" />
+  
+  <!-- Diagnostic/Notification Path -->
+  <path d="M 790,180 L 830,180 L 830,280" fill="none" stroke="#a855f7" stroke-width="2" />
+  <polygon points="830,280 824,270 836,270" fill="#a855f7" />
+
+  <!-- NODES -->
+  
+  <!-- Node 1: Target K8s Namespace / Pod -->
+  <g transform="translate(50, 130)" filter="url(#shadow)">
+    <rect width="130" height="100" rx="8" fill="url(#k8sGrad)" stroke="#60a5fa" stroke-width="1.5" />
+    <text x="65" y="30" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#f8fafc" text-anchor="middle">Kubernetes Pod</text>
+    <rect x="15" y="45" width="100" height="20" rx="4" fill="#ef4444" opacity="0.9" />
+    <text x="65" y="59" font-family="monospace" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">CrashLoopBackOff</text>
+    <text x="65" y="85" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#93c5fd" text-anchor="middle">Failing App Container</text>
+  </g>
+
+  <!-- Node 2: Prometheus / Kube-State-Metrics -->
+  <g transform="translate(240, 130)" filter="url(#shadow)">
+    <rect width="130" height="100" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <text x="65" y="30" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#f8fafc" text-anchor="middle">Prometheus</text>
+    <rect x="15" y="45" width="100" height="20" rx="4" fill="#334155" />
+    <text x="65" y="59" font-family="monospace" font-size="9" fill="#e2e8f0" text-anchor="middle">kube_pod_status_...</text>
+    <text x="65" y="85" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Metric Scraping</text>
+  </g>
+
+  <!-- Node 3: Alertmanager -->
+  <g transform="translate(430, 130)" filter="url(#shadow)">
+    <rect width="130" height="100" rx="8" fill="url(#alertGrad)" stroke="#f97316" stroke-width="1.5" />
+    <text x="65" y="30" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#f8fafc" text-anchor="middle">Alertmanager</text>
+    <rect x="15" y="45" width="100" height="20" rx="4" fill="#7c2d12" />
+    <text x="65" y="59" font-family="monospace" font-size="10" font-weight="bold" fill="#fdba74" text-anchor="middle">Webhook Routing</text>
+    <text x="65" y="85" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#ffedd5" text-anchor="middle">Payload Delivery</text>
+  </g>
+
+  <!-- Node 4: Runbook Engine (Self-Healing Receiver) -->
+  <g transform="translate(620, 130)" filter="url(#shadow)">
+    <rect width="170" height="100" rx="8" fill="url(#engineGrad)" stroke="#2dd4bf" stroke-width="1.5" />
+    <text x="85" y="30" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#f8fafc" text-anchor="middle">Runbook Engine</text>
+    <rect x="15" y="45" width="140" height="20" rx="4" fill="#115e59" />
+    <text x="85" y="59" font-family="monospace" font-size="10" font-weight="bold" fill="#99f6e4" text-anchor="middle">Automated Remediation</text>
+    <text x="85" y="85" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#ccfbf1" text-anchor="middle">Executes Diagnostics &amp; Fixes</text>
+  </g>
+
+  <!-- Node 5: ChatOps / Slack / PagerDuty -->
+  <g transform="translate(750, 280)" filter="url(#shadow)">
+    <rect width="130" height="80" rx="8" fill="#1e1b4b" stroke="#818cf8" stroke-width="1.5" />
+    <text x="65" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="bold" fill="#f8fafc" text-anchor="middle">Slack / PagerDuty</text>
+    <rect x="15" y="38" width="100" height="16" rx="4" fill="#312e81" />
+    <text x="65" y="50" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#c7d2fe" text-anchor="middle">Remediation Log</text>
+    <text x="65" y="70" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#a5b4fc" text-anchor="middle">Notification &amp; Audit</text>
+  </g>
+
+  <!-- Flow Steps Overlay Labels -->
+  <g transform="translate(195, 155)">
+    <rect width="30" height="16" rx="8" fill="#334155" />
+    <text x="15" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#cbd5e1" text-anchor="middle">1</text>
+  </g>
+  <g transform="translate(385, 155)">
+    <rect width="30" height="16" rx="8" fill="#334155" />
+    <text x="15" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#cbd5e1" text-anchor="middle">2</text>
+  </g>
+  <g transform="translate(575, 155)">
+    <rect width="30" height="16" rx="8" fill="#334155" />
+    <text x="15" y="12" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#cbd5e1" text-anchor="middle">3</text>
+  </g>
+  <g transform="translate(390, 345)">
+    <rect width="120" height="20" rx="10" fill="#065f46" stroke="#34d399" stroke-width="1" />
+    <text x="60" y="14" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#a7f3d0" text-anchor="middle">4. Remediation Action</text>
+  </g>
+</svg>
