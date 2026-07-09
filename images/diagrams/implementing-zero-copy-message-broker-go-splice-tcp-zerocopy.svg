@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="grad-user" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="grad-kernel" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="grad-hardware" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <linearGradient id="grad-pipe" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#090d16" flood-opacity="0.5" />
+    </filter>
+
+    <!-- Markers for Arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#e2e8f0" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#0f172a" rx="12" />
+  
+  <!-- Boundary Grid / Boxes -->
+  <!-- User Space Box -->
+  <rect x="30" y="50" width="740" height="130" fill="#1e293b" stroke="#334155" stroke-width="2" rx="8" />
+  <text x="50" y="80" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" letter-spacing="1">USER SPACE (GO APPLICATION)</text>
+  
+  <!-- Kernel Space Box -->
+  <rect x="30" y="210" width="740" height="230" fill="#1e293b" stroke="#334155" stroke-width="2" rx="8" />
+  <text x="50" y="240" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" letter-spacing="1">KERNEL SPACE (LINUX ENGINE)</text>
+
+  <!-- Hardware Space Box -->
+  <rect x="30" y="470" width="740" height="100" fill="#1e293b" stroke="#334155" stroke-width="2" rx="8" />
+  <text x="50" y="495" fill="#94a3b8" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" letter-spacing="1">HARDWARE (NETWORK INTERFACE)</text>
+
+  <!-- --- COMPONENTS --- -->
+
+  <!-- User Space: Go Buffer (Traditional Path) -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="100" width="160" height="60" fill="url(#grad-user)" rx="6" />
+    <text x="160" y="130" fill="#ffffff" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Go Buffer ([]byte)</text>
+    <text x="160" y="145" fill="#93c5fd" font-family="Inter, system-ui, sans-serif" font-size="10" text-anchor="middle">GC Managed • CPU Copy</text>
+  </g>
+
+  <!-- Kernel Space Components -->
+  <!-- Rx Socket Buffer -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="280" width="180" height="70" fill="url(#grad-kernel)" rx="6" />
+    <text x="170" y="310" fill="#ffffff" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Rx Socket Ring Buffer</text>
+    <text x="170" y="325" fill="#a7f3d0" font-family="Inter, system-ui, sans-serif" font-size="10" text-anchor="middle">sk_buff (Inbound TCP)</text>
+    <text x="170" y="340" fill="#a7f3d0" font-family="Inter, system-ui, sans-serif" font-size="9" text-anchor="middle">Port 5001 (Ingress)</text>
+  </g>
+
+  <!-- Tx Socket Buffer -->
+  <g filter="url(#shadow)">
+    <rect x="540" y="280" width="180" height="70" fill="url(#grad-kernel)" rx="6" />
+    <text x="630" y="310" fill="#ffffff" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Tx Socket Ring Buffer</text>
+    <text x="630" y="325" fill="#a7f3d0" font-family="Inter, system-ui, sans-serif" font-size="10" text-anchor="middle">sk_buff (Outbound TCP)</text>
+    <text x="630" y="340" fill="#a7f3d0" font-family="Inter, system-ui, sans-serif" font-size="9" text-anchor="middle">Port 5002 (Egress)</text>
+  </g>
+
+  <!-- Pipe Ring Buffer (Splice Destination/Source) -->
+  <g filter="url(#shadow)">
+    <rect x="310" y="270" width="180" height="90" fill="url(#grad-pipe)" rx="6" stroke="#c084fc" stroke-width="1.5" />
+    <text x="400" y="300" fill="#ffffff" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle">Linux Kernel Pipe</text>
+    <text x="400" y="320" fill="#e9d5ff" font-family="Inter, system-ui, sans-serif" font-size="11" text-anchor="middle">pipe_buffer Ring</text>
+    <text x="400" y="335" fill="#f3e8ff" font-family="Inter, system-ui, sans-serif" font-size="10" font-style="italic" text-anchor="middle">Page References Only</text>
+    <text x="400" y="350" fill="#f3e8ff" font-family="Inter, system-ui, sans-serif" font-size="9" text-anchor="middle">Zero Buffer Copies</text>
+  </g>
+
+  <!-- Hardware: Rx and Tx NIC Rings -->
+  <g filter="url(#shadow)">
+    <rect x="80" y="500" width="180" height="50" fill="url(#grad-hardware)" rx="6" />
+    <text x="170" y="525" fill="#ffffff" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">NIC Ring (Rx FIFO)</text>
+    <text x="170" y="540" fill="#fde68a" font-family="Inter, system-ui, sans-serif" font-size="10" text-anchor="middle">DMA Write to RAM</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="540" y="500" width="180" height="50" fill="url(#grad-hardware)" rx="6" />
+    <text x="630" y="525" fill="#ffffff" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">NIC Ring (Tx FIFO)</text>
+    <text x="630" y="540" fill="#fde68a" font-family="Inter, system-ui, sans-serif" font-size="10" text-anchor="middle">DMA Read from RAM</text>
+  </g>
+
+
+  <!-- --- PATHWAYS & ARROWS --- -->
+
+  <!-- Path 1: Traditional Path (Red/Orange dashed showing CPU copying overhead) -->
+  <!-- DMA Rx to Socket Buffer -->
+  <path d="M 170 500 L 170 350" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" fill="none" />
+  <text x="180" y="440" fill="#34d399" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600">DMA Ingress</text>
+
+  <!-- Rx Socket to Go Buffer (syscall read) -->
+  <path d="M 140 280 L 140 160" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-red)" fill="none" />
+  <text x="60" y="210" fill="#f87171" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600">read() CPU Copy</text>
+
+  <!-- Go Buffer to Tx Socket (syscall write) -->
+  <path d="M 220 160 C 240 200, 560 200, 580 280" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-red)" fill="none" />
+  <text x="350" y="195" fill="#f87171" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600">write() CPU Copy</text>
+
+
+  <!-- Path 2: Splice Zero-Copy Path (Solid Green showing kernel pipe splice) -->
+  <!-- Rx Socket to Pipe (splice #1) -->
+  <path d="M 260 315 L 310 315" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-green)" fill="none" />
+  <text x="285" y="298" fill="#34d399" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Splice 1</text>
+  
+  <!-- Pipe to Tx Socket (splice #2) -->
+  <path d="M 490 315 L 540 315" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-green)" fill="none" />
+  <text x="515" y="298" fill="#34d399" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Splice 2</text>
+
+  <!-- Tx Socket to NIC (DMA Out) -->
+  <path d="M 630 350 L 630 500" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" fill="none" />
+  <text x="640" y="440" fill="#34d399" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600">DMA Egress</text>
+
+  <!-- Legend -->
+  <g transform="translate(240, 20)">
+    <rect width="320" height="25" fill="#0f172a" stroke="#334155" stroke-width="1.5" rx="4" />
+    
+    <line x1="10" y1="12" x2="35" y2="12" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,3" />
+    <text x="40" y="16" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600">Traditional Copy (2 Context Switches + 2 Copies)</text>
+    
+    <line x1="200" y1="12" x2="225" y2="12" stroke="#10b981" stroke-width="3" />
+    <text x="230" y="16" fill="#cbd5e1" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600">Splice Zero-Copy</text>
+  </g>
+
+</svg>
