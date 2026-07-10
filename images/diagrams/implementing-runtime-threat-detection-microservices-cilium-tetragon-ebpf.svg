@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080C14"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+
+    <!-- Component Gradients -->
+    <linearGradient id="pod-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0F172A"/>
+    </linearGradient>
+    
+    <linearGradient id="kernel-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <linearGradient id="ebpf-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0EA5E9"/>
+    </linearGradient>
+
+    <linearGradient id="tetragon-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C084FC"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+
+    <linearGradient id="alert-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F87171"/>
+      <stop offset="100%" stop-color="#EF4444"/>
+    </linearGradient>
+
+    <!-- Filters for Glow Effects -->
+    <filter id="glow-ebpf" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-tetragon" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-alert" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748B"/>
+    </marker>
+    <marker id="arrow-ebpf" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38BDF8"/>
+    </marker>
+    <marker id="arrow-tetragon" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#C084FC"/>
+    </marker>
+    <marker id="arrow-alert" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#F87171"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" fill="url(#bg-grad)"/>
+
+  <!-- Grid lines for subtle tech texture -->
+  <g stroke="#1E293B" stroke-width="0.5" opacity="0.3">
+    <path d="M 0,50 L 1000,50 M 0,100 L 1000,100 M 0,150 L 1000,150 M 0,200 L 1000,200 M 0,250 L 1000,250 M 0,300 L 1000,300 M 0,350 L 1000,350 M 0,400 L 1000,400 M 0,450 L 1000,450 M 0,500 L 1000,500 M 0,550 L 1000,550 M 0,600 L 1000,600" />
+    <path d="M 100,0 L 100,650 M 200,0 L 200,650 M 300,0 L 300,650 M 400,0 L 400,650 M 500,0 L 500,650 M 600,0 L 600,650 M 700,0 L 700,650 M 800,0 L 800,650 M 900,0 L 900,650" />
+  </g>
+
+  <!-- User Space/Kernel Space Divider -->
+  <line x1="50" y1="410" x2="950" y2="410" stroke="#475569" stroke-width="2" stroke-dasharray="8,6"/>
+  <text x="940" y="400" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12" font-weight="bold" text-anchor="end">USER SPACE</text>
+  <text x="940" y="430" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12" font-weight="bold" text-anchor="end">KERNEL SPACE</text>
+
+  <!-- ================= USER SPACE ================= -->
+
+  <!-- Container: Microservice Pod -->
+  <rect x="50" y="50" width="280" height="320" rx="12" fill="url(#pod-grad)" stroke="#334155" stroke-width="1.5"/>
+  <text x="70" y="78" fill="#F8FAFC" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">Container: payments-service</text>
+  <text x="70" y="96" fill="#64748B" font-family="'Inter', sans-serif" font-size="11">Pod Namespace: default</text>
+
+  <!-- App Process Box -->
+  <rect x="70" y="120" width="240" height="70" rx="8" fill="#1E293B" stroke="#475569" stroke-width="1"/>
+  <text x="85" y="142" fill="#38BDF8" font-family="'Inter', sans-serif" font-size="12" font-weight="bold">Application Engine</text>
+  <text x="85" y="160" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="11">Go Binary (PID 10452)</text>
+  <text x="85" y="176" fill="#64748B" font-family="'Inter', sans-serif" font-size="10">Serving HTTPS traffic on :8080</text>
+
+  <!-- Suspicious Action Trigger -->
+  <rect x="70" y="260" width="240" height="85" rx="8" fill="#2D1A22" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="85" y="282" fill="#F87171" font-family="'Inter', sans-serif" font-size="12" font-weight="bold">Exploitation / Escape</text>
+  <text x="85" y="300" fill="#FCA5A5" font-family="'Inter', sans-serif" font-size="10" font-family="monospace">RCE -&gt; execve("/bin/sh")</text>
+  <text x="85" y="318" fill="#EF4444" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">CRITICAL THREAT TRIGGERED</text>
+
+  <!-- Container: Tetragon Agent DaemonSet -->
+  <rect x="370" y="50" width="300" height="320" rx="12" fill="url(#pod-grad)" stroke="#8B5CF6" stroke-width="1.5"/>
+  <text x="390" y="78" fill="#F8FAFC" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">Tetragon Agent (DaemonSet)</text>
+  <text x="390" y="96" fill="#A78BFA" font-family="'Inter', sans-serif" font-size="11">Namespace: kube-system</text>
+
+  <!-- TracingPolicy Engine -->
+  <rect x="390" y="120" width="260" height="100" rx="8" fill="#1E1B4B" stroke="#6366F1" stroke-width="1"/>
+  <text x="405" y="142" fill="#C084FC" font-family="'Inter', sans-serif" font-size="12" font-weight="bold">TracingPolicy Evaluator</text>
+  <text x="405" y="162" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="10" font-family="monospace">metadata.name: block-sh</text>
+  <text x="405" y="180" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="10">Match: sys_execve where args == "/bin/sh"</text>
+  <text x="405" y="198" fill="#10B981" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">Action: Sigkill + Alert</text>
+
+  <!-- Event Exporter -->
+  <rect x="390" y="260" width="260" height="85" rx="8" fill="#1E293B" stroke="#8B5CF6" stroke-width="1"/>
+  <text x="405" y="282" fill="#C084FC" font-family="'Inter', sans-serif" font-size="12" font-weight="bold">JSON/gRPC Event Exporter</text>
+  <text x="405" y="302" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="10">Structured JSON stream</text>
+  <text x="405" y="320" fill="#64748B" font-family="'Inter', sans-serif" font-size="10">Stdout log / gRPC sensor endpoint</text>
+
+  <!-- Container: SIEM & Monitoring -->
+  <rect x="710" y="50" width="240" height="320" rx="12" fill="url(#pod-grad)" stroke="#334155" stroke-width="1.5"/>
+  <text x="730" y="78" fill="#F8FAFC" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">Security Ops / SIEM</text>
+  <text x="730" y="96" fill="#64748B" font-family="'Inter', sans-serif" font-size="11">Log Collection &amp; Alerting</text>
+
+  <!-- Grafana Loki -->
+  <rect x="730" y="125" width="200" height="50" rx="6" fill="#1F2937" stroke="#475569" stroke-width="1"/>
+  <text x="745" y="155" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="12" font-weight="bold">Grafana Loki / ES</text>
+
+  <!-- Webhook Alerting -->
+  <rect x="730" y="195" width="200" height="50" rx="6" fill="#1F2937" stroke="#475569" stroke-width="1"/>
+  <text x="745" y="225" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="12" font-weight="bold">Webhook / Alertmanager</text>
+
+  <!-- Slack Alert UI Box -->
+  <rect x="730" y="260" width="200" height="85" rx="6" fill="#2D1A22" stroke="#EF4444" stroke-width="1" filter="url(#glow-alert)"/>
+  <text x="745" y="280" fill="#F87171" font-family="'Inter', sans-serif" font-size="11" font-weight="bold">🚨 ALERT: RCE BLOCKED</text>
+  <text x="745" y="298" fill="#FCA5A5" font-family="'Inter', sans-serif" font-size="9">Pod: default/payments-service</text>
+  <text x="745" y="314" fill="#FCA5A5" font-family="'Inter', sans-serif" font-size="9">Exec: /bin/sh (SIGKILL sent)</text>
+
+
+  <!-- ================= KERNEL SPACE ================= -->
+
+  <!-- Kernel Box -->
+  <rect x="50" y="440" width="900" height="170" rx="12" fill="url(#kernel-grad)" stroke="#475569" stroke-width="1.5"/>
+  <text x="70" y="468" fill="#F8FAFC" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">Linux Kernel Space (Shared Host Kernel)</text>
+
+  <!-- System Call Hooks -->
+  <rect x="70" y="495" width="240" height="85" rx="8" fill="#0F172A" stroke="#334155" stroke-width="1.5"/>
+  <text x="85" y="520" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="12" font-weight="bold">Syscall Interface (VFS/Namespaces)</text>
+  <text x="85" y="542" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="11" font-family="monospace">sys_execve()</text>
+  <text x="85" y="560" fill="#E2E8F0" font-family="'Inter', sans-serif" font-size="11" font-family="monospace">sys_write() / sys_connect()</text>
+
+  <!-- eBPF Probes / Sensor -->
+  <rect x="370" y="495" width="300" height="85" rx="8" fill="#082F49" stroke="#0EA5E9" stroke-width="1.5" filter="url(#glow-ebpf)"/>
+  <text x="385" y="520" fill="#38BDF8" font-family="'Inter', sans-serif" font-size="13" font-weight="bold">Tetragon eBPF Sensor Program</text>
+  <text x="385" y="540" fill="#0EA5E9" font-family="'Inter', sans-serif" font-size="11">Hooked: kprobes/sys_exit_execve</text>
+  <text x="385" y="558" fill="#0E7490" font-family="'Inter', sans-serif" font-size="10">Filters state inline, triggers actions in-kernel</text>
+
+  <!-- eBPF Ring Buffer -->
+  <rect x="710" y="495" width="220" height="85" rx="8" fill="#1E293B" stroke="#0EA5E9" stroke-width="1.5"/>
+  <text x="725" y="520" fill="#38BDF8" font-family="'Inter', sans-serif" font-size="12" font-weight="bold">eBPF Ring Buffer</text>
+  <text x="725" y="542" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="10">High-speed, zero-copy, async</text>
+  <text x="725" y="560" fill="#94A3B8" font-family="'Inter', sans-serif" font-size="10">kernel-to-userspace channel</text>
+
+
+  <!-- ================= ARROWS & FLOWS ================= -->
+
+  <!-- Flow 1: App to Syscall -->
+  <path d="M 190,345 L 190,490" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#arrow-alert)"/>
+  <text x="80" y="400" fill="#EF4444" font-family="'Inter', sans-serif" font-size="11" font-weight="bold">1. Suspicious Syscall</text>
+
+  <!-- Flow 2: Syscall to eBPF Probe -->
+  <path d="M 310,537 L 362,537" fill="none" stroke="#38BDF8" stroke-width="2.5" marker-end="url(#arrow-ebpf)"/>
+  <text x="320" y="525" fill="#38BDF8" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">2. Intercept</text>
+
+  <!-- Flow 2b: Action/Kill (In-kernel block) -->
+  <path d="M 370,555 L 318,555" fill="none" stroke="#EF4444" stroke-width="2" marker-end="url(#arrow-alert)"/>
+  <text x="325" y="572" fill="#EF4444" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">SIGKILL</text>
+
+  <!-- Flow 3: eBPF Probe to Ring Buffer -->
+  <path d="M 670,537 L 702,537" fill="none" stroke="#38BDF8" stroke-width="2.5" marker-end="url(#arrow-ebpf)"/>
+  <text x="675" y="525" fill="#38BDF8" font-family="'Inter', sans-serif" font-size="10" font-weight="bold">3. Push</text>
+
+  <!-- Flow 4: Ring Buffer up to Tetragon Agent -->
+  <path d="M 820,490 Q 820,380 610,225" fill="none" stroke="#C084FC" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arrow-tetragon)"/>
+  <text x="730" y="390" fill="#C084FC" font-family="'Inter', sans-serif" font-size="11" font-weight="bold">4. Read Event (async)</text>
+
+  <!-- Flow 5: Eval to Exporter -->
+  <path d="M 520,220 L 520,252" fill="none" stroke="#8B5CF6" stroke-width="2" marker-end="url(#arrow-tetragon)"/>
+
+  <!-- Flow 6: Exporter to SIEM / Loki / Slack -->
+  <path d="M 650,302 L 722,302" fill="none" stroke="#EF4444" stroke-width="2.5" marker-end="url(#arrow-alert)"/>
+  <text x="658" y="292" fill="#EF4444" font-family="'Inter', sans-serif" font-size="11" font-weight="bold">5. Alerts</text>
+
+</svg>

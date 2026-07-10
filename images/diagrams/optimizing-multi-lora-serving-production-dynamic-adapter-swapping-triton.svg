@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%" style="background-color: #0b0f19; font-family: 'Inter', -apple-system, sans-serif;">
+  <!-- Styling -->
+  <style>
+    .title { font-weight: 700; fill: #f3f4f6; font-size: 20px; }
+    .subtitle { fill: #9ca3af; font-size: 13px; }
+    .box { fill: #111827; stroke: #374151; stroke-width: 1.5; rx: 8px; }
+    .box-highlight { fill: #1e1b4b; stroke: #6366f1; stroke-width: 2; rx: 8px; }
+    .box-green { fill: #064e3b; stroke: #10b981; stroke-width: 1.5; rx: 8px; }
+    .box-amber { fill: #78350f; stroke: #f59e0b; stroke-width: 1.5; rx: 8px; }
+    .text-main { fill: #f3f4f6; font-size: 13px; font-weight: 600; }
+    .text-sub { fill: #9ca3af; font-size: 11px; }
+    .text-bold { font-weight: 700; }
+    .arrow { stroke: #6366f1; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .arrow-dash { stroke: #9ca3af; stroke-dasharray: 4 4; stroke-width: 1.5; fill: none; marker-end: url(#arrowhead-dash); }
+    .arrow-success { stroke: #10b981; stroke-width: 2; fill: none; marker-end: url(#arrowhead-success); }
+    .badge { font-size: 10px; font-weight: 800; fill: #ffffff; }
+  </style>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6366f1" />
+    </marker>
+    <marker id="arrowhead-dash" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#9ca3af" />
+    </marker>
+    <marker id="arrowhead-success" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#10b981" />
+    </marker>
+    <linearGradient id="gpu-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.05" />
+    </linearGradient>
+  </defs>
+
+  <!-- Header -->
+  <text x="30" y="40" class="title">Triton Multi-LoRA Dynamic Adapter Architecture</text>
+  <text x="30" y="60" class="subtitle">High-throughput dynamic adapter swapping with tiered caching and Business Logic Scripting (BLS)</text>
+
+  <!-- Client Requests -->
+  <g transform="translate(30, 100)">
+    <rect width="180" height="400" class="box" />
+    <text x="90" y="30" class="text-main text-bold" text-anchor="middle">CLIENT LAYER</text>
+    
+    <g transform="translate(15, 60)">
+      <rect width="150" height="70" class="box" />
+      <text x="15" y="25" class="text-main">Client Request A</text>
+      <text x="15" y="45" class="text-sub">Prompt + Adapter ID: "lora_finance"</text>
+      <text x="15" y="58" class="text-sub">Model: Llama3-8B</text>
+    </g>
+
+    <g transform="translate(15, 150)">
+      <rect width="150" height="70" class="box" />
+      <text x="15" y="25" class="text-main">Client Request B</text>
+      <text x="15" y="45" class="text-sub">Prompt + Adapter ID: "lora_legal"</text>
+      <text x="15" y="58" class="text-sub">Model: Llama3-8B</text>
+    </g>
+    
+    <g transform="translate(15, 240)">
+      <rect width="150" height="70" class="box" />
+      <text x="15" y="25" class="text-main">Client Request C</text>
+      <text x="15" y="45" class="text-sub">Prompt + Adapter ID: "lora_code"</text>
+      <text x="15" y="58" class="text-sub">Model: Llama3-8B</text>
+    </g>
+    
+    <text x="90" y="355" class="text-sub" text-anchor="middle">Requests multiplexed</text>
+    <text x="90" y="375" class="text-sub" text-anchor="middle">via gRPC / HTTP/2</text>
+  </g>
+
+  <!-- Triton Inference Server Boundary -->
+  <g transform="translate(250, 100)">
+    <rect width="380" height="400" class="box-highlight" />
+    <text x="190" y="30" class="text-main text-bold" text-anchor="middle" fill="#818cf8">TRITON INFERENCE SERVER</text>
+    
+    <!-- BLS Orchestrator -->
+    <g transform="translate(20, 60)">
+      <rect width="340" height="90" class="box" stroke="#818cf8" />
+      <text x="170" y="25" class="text-main text-bold" text-anchor="middle">Business Logic Scripting (BLS) Router</text>
+      <text x="15" y="50" class="text-sub">1. Extract adapter metadata from request header</text>
+      <text x="15" y="65" class="text-sub">2. Interrogate Adapter Cache Manager for GPU VRAM residency</text>
+      <text x="15" y="80" class="text-sub">3. Dispatch load commands or route directly to base LLM</text>
+    </g>
+
+    <!-- Triton Model Control API & Cache Manager -->
+    <g transform="translate(20, 175)">
+      <rect width="160" height="110" class="box-amber" />
+      <text x="80" y="25" class="text-main text-bold" text-anchor="middle" fill="#fbbf24">Cache Manager</text>
+      <text x="15" y="50" class="text-sub">• LRU eviction policy</text>
+      <text x="15" y="65" class="text-sub">• Tracks GPU VRAM slots</text>
+      <text x="15" y="80" class="text-sub">• Pinned Host RAM cache</text>
+      <text x="15" y="95" class="text-sub">• Overlaps host-to-device</text>
+    </g>
+
+    <g transform="translate(200, 175)">
+      <rect width="160" height="110" class="box" />
+      <text x="80" y="25" class="text-main text-bold" text-anchor="middle">Triton Model API</text>
+      <text x="15" y="50" class="text-sub">• Triton Model Control C API</text>
+      <text x="15" y="65" class="text-sub">• Dynamic loading/unloading</text>
+      <text x="15" y="80" class="text-sub">• Non-blocking execution</text>
+      <text x="15" y="95" class="text-sub">• Zero-downtime swaps</text>
+    </g>
+
+    <!-- Base LLM Engine -->
+    <g transform="translate(20, 305)">
+      <rect width="340" height="75" class="box-green" style="fill: url(#gpu-grad); stroke: #06b6d4;" />
+      <text x="170" y="25" class="text-main text-bold" text-anchor="middle" fill="#22d3ee">TensorRT-LLM / vLLM Engine</text>
+      <text x="170" y="45" class="text-sub" text-anchor="middle">Base Model Weights (Shared, Pinned in GPU VRAM)</text>
+      <text x="170" y="60" class="text-sub" text-anchor="middle">Active LoRA Slot 1 | Active LoRA Slot 2 | Active LoRA Slot 3</text>
+    </g>
+  </g>
+
+  <!-- Storage and Registries -->
+  <g transform="translate(670, 100)">
+    <rect width="200" height="400" class="box" />
+    <text x="100" y="30" class="text-main text-bold" text-anchor="middle">ADAPTER STORAGE</text>
+    
+    <g transform="translate(15, 60)">
+      <rect width="170" height="85" class="box" />
+      <text x="15" y="25" class="text-main">Local Cache (NVMe)</text>
+      <text x="15" y="45" class="text-sub">• High-speed reads</text>
+      <text x="15" y="60" class="text-sub">• lora_finance (240MB)</text>
+      <text x="15" y="75" class="text-sub">• lora_legal (240MB)</text>
+    </g>
+
+    <g transform="translate(15, 165)">
+      <rect width="170" height="100" class="box" />
+      <text x="15" y="25" class="text-main">Remote Storage</text>
+      <text x="15" y="45" class="text-sub">• S3 / MinIO / HF Registry</text>
+      <text x="15" y="60" class="text-sub">• Latency: 100ms - 2s</text>
+      <text x="15" y="75" class="text-sub">• Cold-start reservoir</text>
+      <text x="15" y="90" class="text-sub">• On-demand fetcher</text>
+    </g>
+
+    <g transform="translate(15, 285)">
+      <rect width="170" height="100" class="box-green" />
+      <text x="15" y="25" class="text-main" fill="#a7f3d0">Host RAM Cache</text>
+      <text x="15" y="45" class="text-sub">• Pinned memory (malloc)</text>
+      <text x="15" y="60" class="text-sub">• PCIe transfer: ~3ms</text>
+      <text x="15" y="75" class="text-sub">• Fast-path staging</text>
+      <text x="15" y="90" class="text-sub">• Capac: 64+ adapters</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrows (Connecting everything) -->
+  <!-- Client to BLS Router -->
+  <path d="M 210,180 C 220,180 230,170 250,170" class="arrow" />
+  <path d="M 210,270 C 225,270 235,185 250,185" class="arrow" />
+  <path d="M 210,360 C 225,360 235,200 250,200" class="arrow" />
+  <text x="228" y="150" class="text-sub" fill="#818cf8">gRPC</text>
+
+  <!-- BLS to Cache Manager -->
+  <path d="M 310,150 L 310,175" class="arrow" />
+  <path d="M 290,175 L 290,150" class="arrow-dash" />
+  <text x="245" y="165" class="text-sub">Lookup / hit</text>
+
+  <!-- Cache Manager to Triton Model API -->
+  <path d="M 180,230 L 200,230" class="arrow" />
+
+  <!-- Triton Model API to Base LLM (Load) -->
+  <path d="M 300,285 L 300,305" class="arrow-success" />
+  <text x="305" y="297" class="text-sub" fill="#10b981">Load Adapter</text>
+
+  <!-- BLS to Base LLM (Inference request forward) -->
+  <path d="M 430,150 L 430,305" class="arrow" />
+  <text x="435" y="240" class="text-sub" fill="#818cf8">Execute Batch</text>
+
+  <!-- Cache Manager fetches from local cache or RAM -->
+  <path d="M 685,335 Q 350,420 180,280" class="arrow-dash" />
+  <text x="490" y="425" class="text-sub">Host RAM to VRAM staging (PCIe: 31.5 GB/s)</text>
+
+  <!-- Disk to RAM staging -->
+  <path d="M 770,145 L 770,285" class="arrow-dash" />
+  <text x="775" y="210" class="text-sub">NVMe Read</text>
+  
+  <!-- Remote to Disk -->
+  <path d="M 820,165 Q 850,150 820,145" class="arrow-dash" />
+  <text x="825" y="155" class="text-sub">Pull</text>
+
+</svg>

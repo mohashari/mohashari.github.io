@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="100%" height="100%">
+  <!-- Definitions for gradients, markers, and filters -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <!-- Box Gradients -->
+    <linearGradient id="thread-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.05" />
+    </linearGradient>
+    
+    <linearGradient id="buffer-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.05" />
+    </linearGradient>
+
+    <linearGradient id="fallback-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.05" />
+    </linearGradient>
+
+    <linearGradient id="hardware-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+    </marker>
+
+    <!-- Shadow/Glow Filter -->
+    <filter id="glow-green" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Container/Background -->
+  <rect width="800" height="520" rx="16" fill="url(#bg-grad)" stroke="#1e293b" stroke-width="2" />
+
+  <!-- Outer Titles -->
+  <text x="30" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#f8fafc">Custom WAL: Zero-Copy O_DIRECT Architecture</text>
+  <text x="30" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94a3b8">Bypassing Page Cache using Aligned Memory Buffers &amp; Direct I/O in Rust</text>
+
+  <!-- Section: USER SPACE (Left Boundary) -->
+  <rect x="25" y="85" width="465" height="400" rx="12" fill="#0f172a" fill-opacity="0.6" stroke="#334155" stroke-width="1.5" />
+  <text x="40" y="110" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#94a3b8" letter-spacing="1">USERSPACE</text>
+
+  <!-- Thread Pool / Writers -->
+  <g transform="translate(45, 130)">
+    <!-- Group Title -->
+    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#3b82f6">1. App Threads (Misaligned/Arbitrary Writes)</text>
+    
+    <!-- Thread A -->
+    <rect x="0" y="15" width="140" height="40" rx="6" fill="url(#thread-grad)" stroke="#3b82f6" stroke-width="1" />
+    <text x="12" y="32" font-family="monospace" font-size="11" fill="#e2e8f0">Thread A (Payload: 120B)</text>
+    <text x="12" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#64748b">Write #1 - Unaligned</text>
+
+    <!-- Thread B -->
+    <rect x="0" y="70" width="140" height="40" rx="6" fill="url(#thread-grad)" stroke="#3b82f6" stroke-width="1" />
+    <text x="12" y="87" font-family="monospace" font-size="11" fill="#e2e8f0">Thread B (Payload: 8KB)</text>
+    <text x="12" y="99" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#64748b">Write #2 - 4KB Aligned</text>
+
+    <!-- Thread C -->
+    <rect x="0" y="125" width="140" height="40" rx="6" fill="url(#thread-grad)" stroke="#3b82f6" stroke-width="1" />
+    <text x="12" y="142" font-family="monospace" font-size="11" fill="#e2e8f0">Thread C (Payload: 512B)</text>
+    <text x="12" y="154" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#64748b">Write #3 - Sector Aligned</text>
+  </g>
+
+  <!-- Zero-Copy Ring Buffer (Aligned Memory Pool) -->
+  <g transform="translate(235, 130)">
+    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#10b981">2. Zero-Copy Page Pool (4KB Aligned)</text>
+    
+    <!-- Outer Buffer Pool -->
+    <rect x="0" y="15" width="235" height="175" rx="8" fill="url(#buffer-grad)" stroke="#10b981" stroke-width="1.5" />
+    
+    <!-- Page 0 -->
+    <rect x="10" y="25" width="215" height="40" rx="4" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+    <text x="20" y="42" font-family="monospace" font-size="11" font-weight="bold" fill="#34d399">Page 0 [Active Log Page]</text>
+    <text x="20" y="55" font-family="monospace" font-size="9" fill="#a7f3d0">Addr: 0x7f00..000 (Aligned)</text>
+    
+    <!-- Page 1 -->
+    <rect x="10" y="75" width="215" height="40" rx="4" fill="#022c22" stroke="#047857" stroke-width="1" stroke-dasharray="2" />
+    <text x="20" y="92" font-family="monospace" font-size="11" fill="#6ee7b7">Page 1 [Ready]</text>
+    <text x="20" y="105" font-family="monospace" font-size="9" fill="#047857">Addr: 0x7f00..100 (Aligned)</text>
+
+    <!-- Page 2 -->
+    <rect x="10" y="125" width="215" height="40" rx="4" fill="#022c22" stroke="#047857" stroke-width="1" stroke-dasharray="2" />
+    <text x="20" y="142" font-family="monospace" font-size="11" fill="#6ee7b7">Page 2 [Flushing]</text>
+    <text x="20" y="155" font-family="monospace" font-size="9" fill="#047857">Addr: 0x7f00..200 (Aligned)</text>
+  </g>
+
+  <!-- Fallback/Copy Path (Misaligned Buffers) -->
+  <g transform="translate(235, 335)">
+    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f59e0b">3. Aligning Write-Ahead Buffer (Fallback)</text>
+    <rect x="0" y="15" width="235" height="115" rx="8" fill="url(#fallback-grad)" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3" />
+    
+    <rect x="10" y="25" width="215" height="35" rx="4" fill="#78350f" stroke="#d97706" stroke-width="1" />
+    <text x="20" y="40" font-family="monospace" font-size="10" fill="#fef3c7">Bounce Buffer (4KB Aligned)</text>
+    <text x="20" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#f59e0b">Unaligned thread payloads copied here first</text>
+
+    <!-- Pad/Flush Controller -->
+    <rect x="10" y="70" width="215" height="35" rx="4" fill="#451a03" stroke="#b45309" stroke-width="1" />
+    <text x="20" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#fef3c7">Zero-Padding &amp; Flush Controller</text>
+    <text x="20" y="96" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#f59e0b">Aligns write size to sector bounds (512B/4KB)</text>
+  </g>
+
+  <!-- Section: KERNEL / HARDWARE (Right Boundary) -->
+  <rect x="510" y="85" width="265" height="400" rx="12" fill="#0f172a" fill-opacity="0.6" stroke="#334155" stroke-width="1.5" />
+  <text x="525" y="110" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#94a3b8" letter-spacing="1">KERNEL &amp; HARDWARE</text>
+
+  <!-- OS Page Cache (Bypassed) -->
+  <g transform="translate(525, 130)">
+    <rect x="0" y="15" width="235" height="70" rx="8" fill="#1e1b4b" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3" />
+    <text x="15" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#fda4af">OS Page Cache</text>
+    <text x="15" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#fda4af">Bypassed via O_DIRECT</text>
+    <text x="15" y="70" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#f43f5e">No context-switching, no dirty pages</text>
+    
+    <!-- Giant red bypass slash -->
+    <line x1="10" y1="75" x2="225" y2="25" stroke="#ef4444" stroke-width="3" opacity="0.6" />
+    <line x1="10" y1="25" x2="225" y2="75" stroke="#ef4444" stroke-width="3" opacity="0.6" />
+  </g>
+
+  <!-- Linux Block Layer / io_uring -->
+  <g transform="translate(525, 230)">
+    <rect x="0" y="15" width="235" height="75" rx="8" fill="#1e1e38" stroke="#6366f1" stroke-width="1" />
+    <text x="15" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#c7d2fe">Kernel VFS &amp; Block Layer</text>
+    <text x="15" y="53" font-family="monospace" font-size="10" fill="#a5b4fc">pwritev2() / io_uring</text>
+    <text x="15" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#6366f1">Strict: Offset &amp; Len must be aligned!</text>
+  </g>
+
+  <!-- Physical Storage Hardware (NVMe SSD) -->
+  <g transform="translate(525, 335)">
+    <!-- Glow Effect around NVMe -->
+    <rect x="0" y="15" width="235" height="115" rx="8" fill="url(#hardware-grad)" stroke="#818cf8" stroke-width="2" filter="url(#glow-green)" />
+    
+    <!-- Details inside SSD -->
+    <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">NVMe PCIe Gen 4/5 SSD</text>
+    <text x="15" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#e0e7ff">Block Controller &amp; Flash Cells</text>
+    
+    <!-- Draw Disk Sectors visual representation -->
+    <g transform="translate(15, 75)">
+      <rect x="0" y="0" width="40" height="30" rx="3" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-width="1" />
+      <text x="20" y="18" text-anchor="middle" font-family="monospace" font-size="9" font-weight="bold" fill="#ffffff">4KB</text>
+      
+      <rect x="48" y="0" width="40" height="30" rx="3" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-width="1" />
+      <text x="68" y="18" text-anchor="middle" font-family="monospace" font-size="9" font-weight="bold" fill="#ffffff">4KB</text>
+
+      <rect x="96" y="0" width="40" height="30" rx="3" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-width="1" />
+      <text x="116" y="18" text-anchor="middle" font-family="monospace" font-size="9" font-weight="bold" fill="#ffffff">4KB</text>
+
+      <rect x="144" y="0" width="40" height="30" rx="3" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-width="1" />
+      <text x="164" y="18" text-anchor="middle" font-family="monospace" font-size="9" font-weight="bold" fill="#ffffff">4KB</text>
+    </g>
+  </g>
+
+  <!-- CONNECTION PATHS (ARROWS) -->
+  
+  <!-- 1. Thread A, B, C writing to Pool and Bounce Buffer -->
+  <!-- Blue write paths -->
+  <path d="M 185,160 Q 210,160 227,160" fill="none" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+  <path d="M 185,215 Q 210,215 227,200" fill="none" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+  <path d="M 185,270 Q 210,270 227,240" fill="none" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+  
+  <!-- Fallback path (Unaligned copy to bounce buffer) -->
+  <path d="M 185,275 Q 210,310 227,370" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3" marker-end="url(#arrow-orange)" />
+
+  <!-- 2. Ring buffer (direct I/O) going to Kernel, bypassing Page Cache -->
+  <!-- Direct path: Green bold arrow -->
+  <path d="M 470,200 L 500,200 L 500,270 L 515,270" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <!-- Text along the green path -->
+  <text x="475" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" fill="#10b981" text-anchor="middle">Zero-Copy</text>
+
+  <!-- 3. Bounce buffer going to Kernel -->
+  <path d="M 470,390 L 500,390 L 500,290 L 515,290" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="2" marker-end="url(#arrow-orange)" />
+  
+  <!-- 4. Kernel virtual layer going down to NVMe -->
+  <path d="M 642,305 L 642,340" fill="none" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow-blue)" />
+
+  <!-- Legend / Info Tags -->
+  <g transform="translate(25, 492)">
+    <circle cx="5" cy="5" r="4" fill="#3b82f6" />
+    <text x="15" y="8" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">App Write</text>
+
+    <circle cx="85" cy="5" r="4" fill="#10b981" />
+    <text x="95" y="8" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Direct Zero-Copy Path</text>
+
+    <circle cx="210" cy="5" r="4" fill="#f59e0b" />
+    <text x="220" y="8" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Bounce / Alignment Fallback</text>
+    
+    <circle cx="375" cy="5" r="4" fill="#ef4444" />
+    <text x="385" y="8" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Bypassed OS Page Cache</text>
+  </g>
+</svg>
