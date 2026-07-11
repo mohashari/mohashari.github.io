@@ -1,0 +1,234 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Glowing Filters -->
+    <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Node Gradients -->
+    <linearGradient id="node-ok" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="node-drift" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#dc2626" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="node-engine" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="node-db" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64748b" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#475569" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Line Markers -->
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#ef4444" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-grey" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="700" rx="8" fill="url(#bg-grad)" />
+  <rect width="1200" height="700" rx="8" fill="none" stroke="#334155" stroke-width="2" />
+
+  <!-- Diagram Title & Subtitle -->
+  <text x="40" y="45" font-family="system-ui, sans-serif" font-size="22" font-weight="800" fill="#f8fafc">ARCHITECTURAL DRIFT VALUATION PIPELINE</text>
+  <text x="40" y="70" font-family="system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">Continuous analysis of tracing, DB topologies, and git config files against target architecture metrics.</text>
+
+  <!-- ================= SECTION 1: RUNTIME ECOSYSTEM (LEFT) ================= -->
+  <g transform="translate(40, 100)">
+    <!-- Header -->
+    <rect width="360" height="540" rx="12" fill="#1e293b" fill-opacity="0.4" stroke="#334155" stroke-width="1.5" />
+    <text x="20" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#cbd5e1" letter-spacing="1">1. PRODUCTION ECOSYSTEM</text>
+    
+    <!-- API Gateway -->
+    <rect x="30" y="60" width="300" height="45" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <text x="180" y="87" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#94a3b8" text-anchor="middle">API GATEWAY (Kong / Envoy)</text>
+
+    <!-- Normal Service A -->
+    <rect x="30" y="150" width="130" height="80" rx="8" fill="url(#node-ok)" stroke="#10b981" stroke-width="1.5" filter="url(#glow-green)" />
+    <text x="95" y="185" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#e2e8f0" text-anchor="middle">Orders Service</text>
+    <text x="95" y="205" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#10b981" text-anchor="middle">ADI: 0.85 (A)</text>
+
+    <!-- DB A -->
+    <rect x="30" y="280" width="130" height="50" rx="6" fill="url(#node-db)" stroke="#475569" stroke-width="1.5" />
+    <text x="95" y="310" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#cbd5e1" text-anchor="middle">Orders DB (PG)</text>
+
+    <!-- Drift Service B -->
+    <rect x="200" y="150" width="130" height="80" rx="8" fill="url(#node-drift)" stroke="#ef4444" stroke-width="1.5" filter="url(#glow-red)" />
+    <text x="265" y="185" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#e2e8f0" text-anchor="middle">Billing Service</text>
+    <text x="265" y="205" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#ef4444" text-anchor="middle">ADI: 5.60 (D)</text>
+
+    <!-- DB B -->
+    <rect x="200" y="280" width="130" height="50" rx="6" fill="url(#node-db)" stroke="#475569" stroke-width="1.5" />
+    <text x="265" y="310" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#cbd5e1" text-anchor="middle">Billing DB (Mongo)</text>
+
+    <!-- Drift Service C -->
+    <rect x="115" y="390" width="140" height="80" rx="8" fill="url(#node-drift)" stroke="#ef4444" stroke-width="1.5" filter="url(#glow-red)" />
+    <text x="185" y="425" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#e2e8f0" text-anchor="middle">Inventory Service</text>
+    <text x="185" y="445" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#ef4444" text-anchor="middle">ADI: 3.40 (C)</text>
+
+    <!-- Normal Connections -->
+    <!-- Gateway to Service A -->
+    <path d="M 95 105 L 95 150" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)" />
+    <!-- Service A to DB A -->
+    <path d="M 95 230 L 95 280" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)" />
+    
+    <!-- Drift Violation Lines -->
+    <!-- Gateway to Service B -->
+    <path d="M 265 105 L 265 150" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)" />
+    <!-- Service B to DB B -->
+    <path d="M 265 230 L 265 280" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)" />
+    
+    <!-- DB Bypass Violation: Service B directly queries DB A -->
+    <path d="M 200 190 Q 150 210 130 280" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-red)" />
+    <text x="135" y="245" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#f87171" transform="rotate(-65 135 245)">Direct DB Bypass</text>
+
+    <!-- Circular Dependency: Service C calls Service B, but Service B also calls Service C -->
+    <path d="M 240 230 Q 260 300 240 390" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-red)" />
+    <path d="M 210 390 Q 190 310 210 230" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-red)" />
+    <text x="250" y="320" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#f87171">Circular Call</text>
+
+    <!-- Service C queries DB B directly (DB Sharing) -->
+    <path d="M 220 390 L 250 330" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-red)" />
+    <text x="245" y="365" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#f87171">Bypass Shared DB</text>
+
+    <!-- Legend in Box -->
+    <rect x="20" y="495" width="320" height="30" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <circle cx="35" cy="510" r="5" fill="#10b981" />
+    <text x="48" y="514" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">Compliant</text>
+    <circle cx="150" cy="510" r="5" fill="#ef4444" />
+    <text x="163" y="514" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">Drift Violations (Shared DB, Circular, Bypass)</text>
+  </g>
+
+  <!-- Telemetry Connectors -->
+  <!-- Service A to OTel -->
+  <path d="M 400 280 Q 425 280 450 310" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3,3" />
+  <!-- Service B to OTel -->
+  <path d="M 400 320 Q 425 320 450 320" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3,3" />
+  <!-- DB Connections and Git to OTel -->
+  <path d="M 400 450 Q 425 430 450 330" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3,3" />
+
+  <!-- ================= SECTION 2: DRIFT ENGINE (CENTER) ================= -->
+  <g transform="translate(450, 100)">
+    <rect width="280" height="540" rx="12" fill="#1e293b" fill-opacity="0.4" stroke="#334155" stroke-width="1.5" />
+    <text x="20" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#cbd5e1" letter-spacing="1">2. GRADING ENGINE</text>
+
+    <!-- Telemetry Aggregator / OTel -->
+    <rect x="20" y="60" width="240" height="75" rx="8" fill="url(#node-engine)" stroke="#3b82f6" stroke-width="1.5" filter="url(#glow-blue)" />
+    <text x="140" y="85" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc" text-anchor="middle">Collector &amp; Parser</text>
+    <text x="140" y="105" font-family="system-ui, sans-serif" font-size="11" font-weight="500" fill="#93c5fd" text-anchor="middle">OTel Traces, Git Configs, Schema Reg</text>
+
+    <!-- Rules / Matrix Evaluator -->
+    <rect x="20" y="180" width="240" height="150" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+    <text x="35" y="210" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#cbd5e1">MATRIX CRITERIA SCORING</text>
+    
+    <text x="35" y="235" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">1. Coupling Matrix (Weight: 40%)</text>
+    <text x="35" y="255" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">2. Protocol &amp; Schema (Weight: 30%)</text>
+    <text x="35" y="275" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">3. Infrastructure Bypass (Weight: 20%)</text>
+    <text x="35" y="295" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">4. Lifecycle &amp; Tech (Weight: 10%)</text>
+
+    <!-- ADI Index Calculator -->
+    <rect x="20" y="370" width="240" height="80" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="140" y="395" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#cbd5e1" text-anchor="middle">Drift Score Calculator</text>
+    <text x="140" y="420" font-family="system-ui, sans-serif" font-size="15" font-weight="800" fill="#3b82f6" text-anchor="middle">ADI = Sum(W_i * Drift_i)</text>
+
+    <!-- Output Trigger -->
+    <rect x="20" y="480" width="240" height="40" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+    <text x="140" y="504" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#94a3b8" text-anchor="middle">Continuous CI/CD Gate / Alerting</text>
+
+    <!-- Connectors inside Engine -->
+    <path d="M 140 135 L 140 180" fill="none" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+    <path d="M 140 330 L 140 370" fill="none" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+    <path d="M 140 450 L 140 480" fill="none" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+  </g>
+
+  <!-- Collector and Analyzer Link -->
+  <path d="M 730 370 L 780 340" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow-grey)" />
+
+  <!-- ================= SECTION 3: METRICS & SCORECARD (RIGHT) ================= -->
+  <g transform="translate(770, 100)">
+    <rect width="390" height="540" rx="12" fill="#1e293b" fill-opacity="0.4" stroke="#334155" stroke-width="1.5" />
+    <text x="20" y="30" font-family="system-ui, sans-serif" font-size="14" font-weight="700" fill="#cbd5e1" letter-spacing="1">3. ECOSYSTEM DRIFT SCORECARD</text>
+
+    <!-- Overall Architecture Drift Index Gauge -->
+    <rect x="20" y="60" width="350" height="95" rx="8" fill="#0f172a" stroke="#eab308" stroke-width="2" />
+    <text x="35" y="85" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#eab308">ECOSYSTEM-WIDE ADI SCORE</text>
+    <text x="35" y="130" font-family="system-ui, sans-serif" font-size="36" font-weight="900" fill="#f8fafc">3.28</text>
+    <rect x="150" y="100" width="90" height="25" rx="12" fill="#eab308" fill-opacity="0.2" stroke="#eab308" stroke-width="1" />
+    <text x="195" y="117" font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#f59e0b" text-anchor="middle">GRADE: C</text>
+    <text x="255" y="105" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">Target Index: &lt; 1.00</text>
+    <text x="255" y="122" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#f87171">Status: Degrading</text>
+
+    <!-- Score Breakdown Table -->
+    <rect x="20" y="175" width="350" height="345" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5" />
+    <text x="35" y="205" font-family="system-ui, sans-serif" font-size="12" font-weight="800" fill="#cbd5e1">DRIFT INDEX BREAKDOWN BY DOMAIN</text>
+    
+    <!-- Table Headers -->
+    <text x="35" y="235" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#64748b">DOMAIN / SERVICE</text>
+    <text x="210" y="235" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#64748b" text-anchor="middle">COUPLING</text>
+    <text x="290" y="235" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#64748b" text-anchor="middle">SCHEMA</text>
+    <text x="350" y="235" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#64748b" text-anchor="middle">ADI</text>
+
+    <!-- Row 1: Orders (Compliant) -->
+    <line x1="35" y1="245" x2="355" y2="245" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="265" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">Orders (Core)</text>
+    <text x="210" y="265" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#10b981" text-anchor="middle">0.20 (A)</text>
+    <text x="290" y="265" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#10b981" text-anchor="middle">0.10 (A)</text>
+    <text x="350" y="265" font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#10b981" text-anchor="middle">0.85</text>
+
+    <!-- Row 2: Billing (Severely Drifted) -->
+    <line x1="35" y1="280" x2="355" y2="280" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="300" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">Billing (Fintech)</text>
+    <text x="210" y="300" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#ef4444" text-anchor="middle">4.20 (F)</text>
+    <text x="290" y="300" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#eab308" text-anchor="middle">1.50 (C)</text>
+    <text x="350" y="300" font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#ef4444" text-anchor="middle">5.60</text>
+
+    <!-- Row 3: Inventory (Drifted) -->
+    <line x1="35" y1="315" x2="355" y2="315" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="335" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">Inventory (Ops)</text>
+    <text x="210" y="335" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#eab308" text-anchor="middle">2.10 (D)</text>
+    <text x="290" y="335" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#10b981" text-anchor="middle">0.40 (A)</text>
+    <text x="350" y="335" font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#ef4444" text-anchor="middle">3.40</text>
+
+    <!-- Row 4: Shipping (Minor Drift) -->
+    <line x1="35" y1="350" x2="355" y2="350" stroke="#1e293b" stroke-width="1" />
+    <text x="35" y="370" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">Shipping (Logistics)</text>
+    <text x="210" y="370" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#10b981" text-anchor="middle">0.50 (A)</text>
+    <text x="290" y="370" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#eab308" text-anchor="middle">1.10 (B)</text>
+    <text x="350" y="370" font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#cbd5e1" text-anchor="middle">1.25</text>
+
+    <!-- Summary / Alert section inside Table box -->
+    <rect x="35" y="400" width="320" height="100" rx="6" fill="#1e293b" fill-opacity="0.6" stroke="#475569" stroke-width="1" />
+    <text x="45" y="420" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#ef4444">CRITICAL DRIFT ALERTS DETECTED</text>
+    <text x="45" y="440" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#cbd5e1">• Shared DB bypass: Billing Service queries Orders DB</text>
+    <text x="45" y="458" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#cbd5e1">• Circular dependency: Inventory &lt;-&gt; Billing Service</text>
+    <text x="45" y="476" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#cbd5e1">• 2 services on outdated gRPC Proto Schema (v1.12)</text>
+  </g>
+</svg>

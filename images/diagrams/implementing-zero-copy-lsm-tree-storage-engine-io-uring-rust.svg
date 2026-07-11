@@ -1,0 +1,244 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F19" />
+      <stop offset="100%" stop-color="#1E2640" />
+    </linearGradient>
+
+    <!-- Component Gradients -->
+    <linearGradient id="user-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="memtable-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="kernel-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#4338CA" />
+    </linearGradient>
+    <linearGradient id="disk-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EC4899" />
+      <stop offset="100%" stop-color="#BE185D" />
+    </linearGradient>
+
+    <!-- Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glow-teal" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="640" rx="16" fill="url(#bg-grad)" />
+  
+  <!-- Outer Borders/Grid Subtly -->
+  <rect x="10" y="10" width="940" height="620" rx="12" fill="none" stroke="#2D3748" stroke-width="1.5" stroke-dasharray="4 4" />
+
+  <!-- TITLE -->
+  <text x="480" y="45" font-family="'Outfit', 'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="#F8FAFC" text-anchor="middle" letter-spacing="1">
+    ZERO-COPY LSM-TREE STORAGE ENGINE WITH IO_URING
+  </text>
+  <text x="480" y="65" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="500" fill="#94A3B8" text-anchor="middle">
+    Direct I/O (O_DIRECT) &amp; Registered Buffers Architecture in Rust
+  </text>
+
+  <!-- ==================== USER SPACE boundary ==================== -->
+  <rect x="40" y="90" width="880" height="230" rx="12" fill="#1E293B" fill-opacity="0.4" stroke="#475569" stroke-width="1.5" />
+  <text x="55" y="115" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#38BDF8" letter-spacing="1">USER SPACE (RUST APPLICATION)</text>
+
+  <!-- User Components -->
+  <!-- Write Path Block -->
+  <g transform="translate(60, 130)" filter="url(#shadow)">
+    <rect width="220" height="170" rx="8" fill="#1E293B" stroke="#3B82F6" stroke-width="2" />
+    <rect width="220" height="35" rx="8" fill="url(#user-grad)" />
+    <text x="110" y="22" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Write Path (MemTable &amp; WAL)</text>
+    
+    <!-- Inner Elements -->
+    <rect x="15" y="50" width="190" height="40" rx="4" fill="#0F172A" stroke="#1E293B" />
+    <text x="105" y="74" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#E2E8F0" text-anchor="middle">Concurrent SkipList (MemTable)</text>
+    
+    <rect x="15" y="105" width="190" height="50" rx="4" fill="#0F172A" stroke="#1E293B" />
+    <text x="105" y="125" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#E2E8F0" text-anchor="middle">WAL Ring Buffer</text>
+    <text x="105" y="140" font-family="'Courier New', monospace" font-size="9" fill="#10B981" text-anchor="middle">(Page-Aligned Memory)</text>
+  </g>
+
+  <!-- Fixed Buffer Pool Block (Zero-Copy Core) -->
+  <g transform="translate(320, 130)" filter="url(#shadow)">
+    <rect width="320" height="170" rx="8" fill="#1E293B" stroke="#10B981" stroke-width="2" />
+    <rect width="320" height="35" rx="8" fill="url(#memtable-grad)" />
+    <text x="160" y="22" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Fixed Buffer Pool (io_uring Registered)</text>
+    
+    <!-- Buffer slots -->
+    <g transform="translate(15, 50)">
+      <!-- Buf 0 -->
+      <rect x="0" y="0" width="80" height="50" rx="4" fill="#022C22" stroke="#059669" stroke-width="1.5" />
+      <text x="40" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#A7F3D0" text-anchor="middle">Buf Index 0</text>
+      <text x="40" y="38" font-family="'Courier New', monospace" font-size="9" fill="#34D399" text-anchor="middle">4KB Aligned</text>
+      
+      <!-- Buf 1 -->
+      <rect x="95" y="0" width="80" height="50" rx="4" fill="#022C22" stroke="#059669" stroke-width="1.5" />
+      <text x="135" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#A7F3D0" text-anchor="middle">Buf Index 1</text>
+      <text x="135" y="38" font-family="'Courier New', monospace" font-size="9" fill="#34D399" text-anchor="middle">4KB Aligned</text>
+
+      <!-- Buf N -->
+      <rect x="190" y="0" width="100" height="50" rx="4" fill="#022C22" stroke="#059669" stroke-dasharray="3 3" />
+      <text x="240" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#A7F3D0" text-anchor="middle">Buf Index N</text>
+      <text x="240" y="38" font-family="'Courier New', monospace" font-size="9" fill="#34D399" text-anchor="middle">Registered Buffers</text>
+    </g>
+
+    <!-- Block Cache (Bypasses Kernel Cache) -->
+    <rect x="15" y="115" width="290" height="40" rx="4" fill="#0F172A" stroke="#1E293B" />
+    <text x="160" y="132" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#E2E8F0" text-anchor="middle">Block Cache (Direct View of Registered Memory)</text>
+    <text x="160" y="147" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#94A3B8" text-anchor="middle">No copy from Kernel Page Cache to application cache</text>
+  </g>
+
+  <!-- Read Path Block -->
+  <g transform="translate(680, 130)" filter="url(#shadow)">
+    <rect width="220" height="170" rx="8" fill="#1E293B" stroke="#6366F1" stroke-width="2" />
+    <rect width="220" height="35" rx="8" fill="url(#kernel-grad)" />
+    <text x="110" y="22" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Read Path &amp; Compactor</text>
+    
+    <rect x="15" y="50" width="190" height="45" rx="4" fill="#0F172A" stroke="#1E293B" />
+    <text x="110" y="70" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#E2E8F0" text-anchor="middle">Point Lookup / Scan Iterator</text>
+    <text x="110" y="83" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#F43F5E" text-anchor="middle">Asynchronous yield via io_uring</text>
+
+    <rect x="15" y="110" width="190" height="45" rx="4" fill="#0F172A" stroke="#1E293B" />
+    <text x="110" y="128" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#E2E8F0" text-anchor="middle">Compaction Worker Threads</text>
+    <text x="110" y="141" font-family="'Inter', system-ui, sans-serif" font-size="9" fill="#10B981" text-anchor="middle">Merge-sort via direct block IO</text>
+  </g>
+
+  <!-- ==================== KERNEL SPACE boundary ==================== -->
+  <rect x="40" y="360" width="880" height="130" rx="12" fill="#0F172A" fill-opacity="0.6" stroke="#4F46E5" stroke-width="1.5" />
+  <text x="55" y="385" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#A5B4FC" letter-spacing="1">KERNEL SPACE (LINUX io_uring SUBSYSTEM)</text>
+
+  <!-- Rings Inside Kernel -->
+  <g transform="translate(180, 400)">
+    <!-- Submission Queue (SQ) -->
+    <rect width="260" height="70" rx="6" fill="#1E1E2F" stroke="#EC4899" stroke-width="1.5" />
+    <rect width="260" height="22" rx="6" fill="url(#ring-grad)" />
+    <text x="130" y="15" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Submission Queue (SQ)</text>
+    
+    <!-- SQ Entries (SQEs) -->
+    <g transform="translate(10, 30)">
+      <rect x="0" y="0" width="40" height="30" rx="3" fill="#312E81" stroke="#4F46E5" />
+      <text x="20" y="18" font-family="'Courier New', monospace" font-size="9" font-weight="700" fill="#E0E7FF" text-anchor="middle">SQE 0</text>
+      
+      <rect x="48" y="0" width="40" height="30" rx="3" fill="#312E81" stroke="#4F46E5" />
+      <text x="68" y="18" font-family="'Courier New', monospace" font-size="9" font-weight="700" fill="#E0E7FF" text-anchor="middle">SQE 1</text>
+      
+      <rect x="96" y="0" width="40" height="30" rx="3" fill="#312E81" stroke="#4F46E5" />
+      <text x="116" y="18" font-family="'Courier New', monospace" font-size="9" font-weight="700" fill="#E0E7FF" text-anchor="middle">SQE 2</text>
+
+      <text x="160" y="20" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#64748B" text-anchor="middle">...</text>
+      
+      <rect x="195" y="0" width="55" height="30" rx="3" fill="#022C22" stroke="#10B981" />
+      <text x="222.5" y="15" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="700" fill="#34D399" text-anchor="middle">READ_FIXED</text>
+      <text x="222.5" y="24" font-family="'Inter', system-ui, sans-serif" font-size="7" fill="#6EE7B7" text-anchor="middle">WRITE_FIXED</text>
+    </g>
+  </g>
+
+  <g transform="translate(520, 400)">
+    <!-- Completion Queue (CQ) -->
+    <rect width="260" height="70" rx="6" fill="#1E1E2F" stroke="#EC4899" stroke-width="1.5" />
+    <rect width="260" height="22" rx="6" fill="url(#ring-grad)" />
+    <text x="130" y="15" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">Completion Queue (CQ)</text>
+
+    <!-- CQ Entries (CQEs) -->
+    <g transform="translate(10, 30)">
+      <rect x="0" y="0" width="50" height="30" rx="3" fill="#1E293B" stroke="#475569" />
+      <text x="25" y="15" font-family="'Courier New', monospace" font-size="8" font-weight="700" fill="#E2E8F0" text-anchor="middle">CQE 0</text>
+      <text x="25" y="25" font-family="'Courier New', monospace" font-size="7" fill="#10B981" text-anchor="middle">res: 4096</text>
+      
+      <rect x="58" y="0" width="50" height="30" rx="3" fill="#1E293B" stroke="#475569" />
+      <text x="83" y="15" font-family="'Courier New', monospace" font-size="8" font-weight="700" fill="#E2E8F0" text-anchor="middle">CQE 1</text>
+      <text x="83" y="25" font-family="'Courier New', monospace" font-size="7" fill="#EF4444" text-anchor="middle">res: -EAGAIN</text>
+      
+      <rect x="116" y="0" width="50" height="30" rx="3" fill="#1E293B" stroke="#475569" />
+      <text x="141" y="15" font-family="'Courier New', monospace" font-size="8" font-weight="700" fill="#E2E8F0" text-anchor="middle">CQE 2</text>
+      <text x="141" y="25" font-family="'Courier New', monospace" font-size="7" fill="#10B981" text-anchor="middle">res: 0</text>
+
+      <text x="185" y="20" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#64748B" text-anchor="middle">...</text>
+      
+      <text x="225" y="20" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#38BDF8" text-anchor="middle">Interrupt-free</text>
+    </g>
+  </g>
+
+  <!-- ==================== PHYSICAL HARDWARE ==================== -->
+  <g transform="translate(40, 520)">
+    <rect width="880" height="90" rx="10" fill="#1E293B" stroke="#F59E0B" stroke-width="1.5" />
+    <rect width="880" height="25" rx="10" fill="url(#disk-grad)" />
+    <text x="440" y="17" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#FFFFFF" text-anchor="middle">NVMe STORAGE HARDWARE (DIRECT I/O - O_DIRECT)</text>
+
+    <!-- Block Allocations / Files -->
+    <g transform="translate(20, 35)">
+      <!-- WAL File -->
+      <rect x="0" y="0" width="180" height="45" rx="4" fill="#0F172A" stroke="#F59E0B" />
+      <text x="90" y="18" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#F8FAFC" text-anchor="middle">WAL (Sequential Log)</text>
+      <text x="90" y="32" font-family="'Courier New', monospace" font-size="9" fill="#94A3B8" text-anchor="middle">wal_0001.log</text>
+
+      <!-- SSTable Level 0 -->
+      <rect x="230" y="0" width="180" height="45" rx="4" fill="#0F172A" stroke="#10B981" />
+      <text x="320" y="18" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#F8FAFC" text-anchor="middle">SSTable L0 (Overlap)</text>
+      <text x="320" y="32" font-family="'Courier New', monospace" font-size="9" fill="#10B981" text-anchor="middle">000042.sst (Direct I/O)</text>
+
+      <!-- SSTable Level 1 -->
+      <rect x="440" y="0" width="180" height="45" rx="4" fill="#0F172A" stroke="#3B82F6" />
+      <text x="530" y="18" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#F8FAFC" text-anchor="middle">SSTable L1 (Sorted)</text>
+      <text x="530" y="32" font-family="'Courier New', monospace" font-size="9" fill="#3B82F6" text-anchor="middle">000043.sst (Direct I/O)</text>
+
+      <!-- SSTable Level 2 -->
+      <rect x="650" y="0" width="190" height="45" rx="4" fill="#0F172A" stroke="#6366F1" />
+      <text x="745" y="18" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#F8FAFC" text-anchor="middle">SSTable L2 (Sorted)</text>
+      <text x="745" y="32" font-family="'Courier New', monospace" font-size="9" fill="#6366F1" text-anchor="middle">000044.sst (Direct I/O)</text>
+    </g>
+  </g>
+
+  <!-- ==================== FLOW LINES & ARROWS ==================== -->
+  
+  <!-- Arrow marker definitions -->
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3B82F6" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#10B981" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6366F1" />
+    </marker>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#EC4899" />
+    </marker>
+  </defs>
+
+  <!-- Flow 1: WAL Write path -> SQ -->
+  <path d="M 170,300 L 170,330 L 250,330 L 250,395" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="215" y="322" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#38BDF8" text-anchor="middle">1. Submit SQE</text>
+
+  <!-- Flow 2: Zero-Copy Read from SQ -> Registered Buffer -->
+  <path d="M 480,300 L 480,350" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="3 3" />
+  <text x="480" y="340" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#34D399" text-anchor="middle">Buffer Registration (mmap / ioctl)</text>
+
+  <!-- Flow 3: Kernel SQ executes asynchronous I/O to Hardware -->
+  <path d="M 310,470 L 310,500 L 110,500 L 110,515" fill="none" stroke="#EC4899" stroke-width="2" marker-end="url(#arrow-pink)" />
+  <text x="210" y="495" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#F472B6" text-anchor="middle">2. Kernel ring polls driver</text>
+
+  <!-- Flow 4: SSD returns data directly to Registered Buffers (Zero Copy) -->
+  <path d="M 530,515 L 530,490 L 480,490 L 480,305" fill="none" stroke="#10B981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <text x="480" y="505" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#34D399" text-anchor="middle">3. DMA Transfer (Zero-Copy to Registered Mem)</text>
+
+  <!-- Flow 5: CQE Completion Notification to application -->
+  <path d="M 650,395 L 650,340 L 790,340 L 790,305" fill="none" stroke="#6366F1" stroke-width="2" marker-end="url(#arrow-purple)" />
+  <text x="720" y="332" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#818CF8" text-anchor="middle">4. Reclaim Buffer (CQE)</text>
+
+</svg>
