@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%" style="background-color: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <!-- Dark background gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    
+    <!-- Glow effect -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Arrow marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+    </marker>
+    
+    <!-- Yellow Arrow marker -->
+    <marker id="arrow-yellow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" />
+    </marker>
+
+    <!-- Red Arrow marker for skipped node -->
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" rx="12" fill="url(#bgGrad)" />
+  <rect width="800" height="500" rx="12" fill="none" stroke="#334155" stroke-width="2" />
+
+  <!-- Title -->
+  <text x="30" y="45" fill="#f8fafc" font-size="22" font-weight="700" letter-spacing="-0.5">Consistent Hashing with Bounded Loads &amp; Lock-Free Ring</text>
+  <text x="30" y="68" fill="#94a3b8" font-size="13">High-throughput, zero-lock read path with O(1) load re-routing in Go</text>
+
+  <!-- MAIN HASH RING -->
+  <g transform="translate(260, 270)">
+    <!-- The Ring Circle -->
+    <circle cx="0" cy="0" r="140" fill="none" stroke="#334155" stroke-width="8" />
+    <circle cx="0" cy="0" r="140" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="8 6" />
+    
+    <!-- Clockwise Direction Indicators -->
+    <path d="M 120 -70 A 140 140 0 0 1 140 0" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M -120 70 A 140 140 0 0 1 -140 0" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- Virtual Nodes / Ring Segments -->
+    <!-- Node A (Red/Orange because overloaded) -->
+    <!-- Position: ~ 30 degrees (x = 121, y = 70) -->
+    <circle cx="121" cy="70" r="12" fill="#ef4444" filter="url(#glow)" />
+    <circle cx="121" cy="70" r="12" fill="none" stroke="#fca5a5" stroke-width="2" />
+    <text x="142" y="75" fill="#fca5a5" font-size="12" font-weight="600">Node A (Overloaded)</text>
+
+    <!-- Node B (Green because it has capacity) -->
+    <!-- Position: ~ 120 degrees (x = -70, y = 121) -->
+    <circle cx="-70" cy="121" r="12" fill="#10b981" filter="url(#glow)" />
+    <circle cx="-70" cy="121" r="12" fill="none" stroke="#a7f3d0" stroke-width="2" />
+    <text x="-165" y="145" fill="#a7f3d0" font-size="12" font-weight="600">Node B (Available)</text>
+
+    <!-- Node C -->
+    <!-- Position: ~ 240 degrees (x = -70, y = -121) -->
+    <circle cx="-70" cy="-121" r="12" fill="#3b82f6" />
+    <circle cx="-70" cy="-121" r="12" fill="none" stroke="#93c5fd" stroke-width="2" />
+    <text x="-140" y="-140" fill="#93c5fd" font-size="12" font-weight="600">Node C</text>
+
+    <!-- Request Hash Key (Incoming Key) -->
+    <!-- Hashes to Position ~ 10 degrees (x = 138, y = 24) -->
+    <circle cx="138" cy="24" r="8" fill="#f59e0b" filter="url(#glow)" />
+    <text x="155" y="28" fill="#f59e0b" font-size="12" font-weight="bold">Hash(Key)</text>
+
+    <!-- Route 1: Hash lands near Node A, tries Node A first -->
+    <path d="M 135 32 Q 130 50 126 58" fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arrow-red)" />
+    
+    <!-- Route 2: Node A is overloaded, request skips Node A and walks clockwise to Node B -->
+    <!-- Draw arc from A (121, 70) to B (-70, 121) -->
+    <path d="M 112 80 A 140 140 0 0 1 -56 123" fill="none" stroke="#f59e0b" stroke-width="3" marker-end="url(#arrow-yellow)" />
+    
+    <!-- Label on the walk -->
+    <rect x="5" y="115" width="105" height="20" rx="4" fill="#1e293b" stroke="#f59e0b" stroke-width="1" />
+    <text x="12" y="129" fill="#f59e0b" font-size="10" font-weight="bold">Bounded Load Shift</text>
+  </g>
+
+  <!-- RIGHT PANEL: LOCK-FREE & BOUNDED LOAD MECHANISM -->
+  <g transform="translate(520, 100)">
+    <!-- Box background -->
+    <rect width="250" height="360" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    
+    <!-- Header -->
+    <text x="15" y="25" fill="#f8fafc" font-size="14" font-weight="bold">Lock-Free Read Path</text>
+    
+    <!-- Atomic Pointer Diagram -->
+    <rect x="15" y="45" width="220" height="65" rx="6" fill="#0f172a" stroke="#475569" />
+    <text x="25" y="65" fill="#38bdf8" font-size="11" font-family="monospace">atomic.Pointer[Ring]</text>
+    
+    <text x="25" y="85" fill="#94a3b8" font-size="11">Reads use Lock-Free </text>
+    <text x="135" y="85" fill="#34d399" font-weight="bold" font-size="11">atomic.Load()</text>
+    <text x="25" y="100" fill="#94a3b8" font-size="10">Writes swap via CAS / Atomic Store</text>
+
+    <!-- Divider -->
+    <line x1="15" y1="125" x2="235" y2="125" stroke="#334155" stroke-width="1" />
+
+    <!-- Bounded Load Section -->
+    <text x="15" y="145" fill="#f8fafc" font-size="14" font-weight="bold">Bounded Load Balancing</text>
+    
+    <text x="15" y="170" fill="#e2e8f0" font-size="11" font-weight="bold">Capacity Threshold Formula:</text>
+    <rect x="15" y="180" width="220" height="40" rx="4" fill="#0f172a" stroke="#334155" />
+    <text x="25" y="205" fill="#fbbf24" font-size="12" font-family="monospace" font-weight="bold">C = (TotalLoad / N) * (1 + c)</text>
+    
+    <text x="15" y="240" fill="#94a3b8" font-size="11">- c = load balance factor (e.g. 0.25)</text>
+    <text x="15" y="255" fill="#94a3b8" font-size="11">- N = number of active nodes</text>
+    
+    <!-- Status / Flow -->
+    <g transform="translate(15, 275)">
+      <rect width="220" height="70" rx="4" fill="#0f172a" stroke="#ef4444" stroke-width="1" />
+      <text x="10" y="20" fill="#fca5a5" font-size="11" font-weight="bold">Load-Aware Routing Logic:</text>
+      <text x="10" y="40" fill="#e2e8f0" font-size="11">If CurrentNode.Load &gt; C:</text>
+      <text x="20" y="55" fill="#f59e0b" font-weight="bold" font-size="11">Try Next Node Clockwise</text>
+    </g>
+  </g>
+
+  <!-- Footer Info / Legend -->
+  <g transform="translate(30, 440)">
+    <circle cx="10" cy="10" r="6" fill="#ef4444" />
+    <text x="22" y="14" fill="#cbd5e1" font-size="11">Overloaded (&gt; Max Capacity)</text>
+
+    <circle cx="210" cy="10" r="6" fill="#10b981" />
+    <text x="222" y="14" fill="#cbd5e1" font-size="11">Available (Has Headroom)</text>
+
+    <circle cx="390" cy="10" r="6" fill="#f59e0b" />
+    <text x="402" y="14" fill="#cbd5e1" font-size="11">Hash Target &amp; Fallback path</text>
+  </g>
+</svg>
