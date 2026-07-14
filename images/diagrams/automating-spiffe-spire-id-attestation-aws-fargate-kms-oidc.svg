@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 550" width="100%" height="100%" style="background-color: #0b0f19; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="box-grad-fargate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="box-grad-spire" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#311042" />
+    </linearGradient>
+    <linearGradient id="box-grad-aws" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917" />
+      <stop offset="100%" stop-color="#292524" />
+    </linearGradient>
+    
+    <!-- Component Gradients -->
+    <linearGradient id="workload-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+    <linearGradient id="agent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="spire-server-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7c3aed" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="kms-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ea580c" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+    
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <filterDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    
+    <!-- Markers for arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b5cf6" />
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="30" y="40" fill="#f8fafc" font-size="20" font-weight="bold" letter-spacing="0.5">Fargate Ephemeral Attestation Architecture</text>
+  <text x="30" y="62" fill="#94a3b8" font-size="12">KMS-Signed Client Assertions &amp; OIDC Web Identity Verification Flow</text>
+
+  <!-- Left: AWS Fargate Task Boundary -->
+  <rect x="30" y="90" width="360" height="420" rx="12" fill="url(#box-grad-fargate)" stroke="#334155" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="50" y="115" fill="#94a3b8" font-size="12" font-weight="bold" letter-spacing="1">AWS FARGATE TASK (ECS)</text>
+
+  <!-- Inside Fargate: Workload Container -->
+  <rect x="50" y="140" width="320" height="90" rx="8" fill="url(#workload-grad)" opacity="0.15" />
+  <rect x="50" y="140" width="320" height="90" rx="8" fill="none" stroke="#0ea5e9" stroke-width="1.5" />
+  <text x="70" y="170" fill="#f8fafc" font-size="14" font-weight="bold">App Container (Workload)</text>
+  <text x="70" y="190" fill="#cbd5e1" font-size="11">Consumes SPIFFE Workload API via socket</text>
+  <text x="70" y="210" fill="#38bdf8" font-size="10" font-family="monospace">/run/spire/sockets/agent.sock</text>
+
+  <!-- Inside Fargate: SPIRE Agent / Attestor Sidecar -->
+  <rect x="50" y="270" width="320" height="210" rx="8" fill="url(#agent-grad)" opacity="0.15" />
+  <rect x="50" y="270" width="320" height="210" rx="8" fill="none" stroke="#10b981" stroke-width="1.5" />
+  <text x="70" y="300" fill="#f8fafc" font-size="14" font-weight="bold">SPIRE Agent / Attestation Sidecar</text>
+  <text x="70" y="322" fill="#cbd5e1" font-size="11">1. Obtains AWS OIDC Token from ECS</text>
+  <text x="70" y="342" fill="#cbd5e1" font-size="11">2. Generates ephemeral key pair</text>
+  <text x="70" y="362" fill="#cbd5e1" font-size="11">3. Signs public key hash via AWS KMS</text>
+  
+  <rect x="70" y="385" width="280" height="75" rx="6" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+  <text x="85" y="405" fill="#94a3b8" font-size="10">ENVIRONMENT VARIABLES (ECS Injection):</text>
+  <text x="85" y="423" fill="#10b981" font-size="10" font-family="monospace">AWS_WEB_IDENTITY_TOKEN_FILE</text>
+  <text x="85" y="441" fill="#e2e8f0" font-size="10" font-family="monospace">AWS_CONTAINER_AUTHORIZATION_TOKEN</text>
+
+  <!-- Middle-Right: AWS Cloud Services -->
+  <rect x="440" y="90" width="200" height="420" rx="12" fill="url(#box-grad-aws)" stroke="#292524" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="460" y="115" fill="#a8a29e" font-size="12" font-weight="bold" letter-spacing="1">AWS CLOUD SERVICES</text>
+
+  <!-- AWS KMS -->
+  <rect x="460" y="140" width="160" height="90" rx="8" fill="url(#kms-grad)" opacity="0.15" />
+  <rect x="460" y="140" width="160" height="90" rx="8" fill="none" stroke="#f97316" stroke-width="1.5" />
+  <text x="475" y="170" fill="#f8fafc" font-size="13" font-weight="bold">AWS KMS</text>
+  <text x="475" y="190" fill="#cbd5e1" font-size="11">Asymmetric Key</text>
+  <text x="475" y="210" fill="#f97316" font-size="10" font-family="monospace">kms:Sign / Verify</text>
+
+  <!-- AWS Security Token Service (STS) & ECS IAM -->
+  <rect x="460" y="260" width="160" height="90" rx="8" fill="#292524" stroke="#44403c" stroke-width="1.5" />
+  <text x="475" y="290" fill="#f8fafc" font-size="13" font-weight="bold">AWS STS / IAM</text>
+  <text x="475" y="310" fill="#cbd5e1" font-size="10">OIDC Provider &amp;</text>
+  <text x="475" y="325" fill="#cbd5e1" font-size="10">Web Identity Federation</text>
+
+  <!-- AWS ECS API (DescribeTasks) -->
+  <rect x="460" y="380" width="160" height="90" rx="8" fill="#292524" stroke="#44403c" stroke-width="1.5" />
+  <text x="475" y="410" fill="#f8fafc" font-size="13" font-weight="bold">AWS ECS API</text>
+  <text x="475" y="430" fill="#cbd5e1" font-size="10">Out-of-band validation</text>
+  <text x="475" y="445" fill="#cbd5e1" font-size="10">of task metadata</text>
+
+  <!-- Right: SPIRE Infrastructure -->
+  <rect x="690" y="90" width="230" height="420" rx="12" fill="url(#box-grad-spire)" stroke="#4c1d95" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="710" y="115" fill="#c084fc" font-size="12" font-weight="bold" letter-spacing="1">SPIRE TRUST DOMAIN</text>
+
+  <!-- SPIRE Server -->
+  <rect x="710" y="140" width="190" height="150" rx="8" fill="url(#spire-server-grad)" opacity="0.15" />
+  <rect x="710" y="140" width="190" height="150" rx="8" fill="none" stroke="#8b5cf6" stroke-width="1.5" />
+  <text x="725" y="170" fill="#f8fafc" font-size="14" font-weight="bold">SPIRE Server</text>
+  <text x="725" y="195" fill="#c084fc" font-size="11" font-weight="bold">KMS &amp; OIDC Attester</text>
+  <text x="725" y="215" fill="#cbd5e1" font-size="10">Verifies client assertions</text>
+  <text x="725" y="230" fill="#cbd5e1" font-size="10">Assumes IAM Role via</text>
+  <text x="725" y="245" fill="#cbd5e1" font-size="10">OIDC Web Identity</text>
+
+  <!-- Workload SVID Store / Vault -->
+  <rect x="710" y="320" width="190" height="150" rx="8" fill="#1e1b4b" stroke="#312e81" stroke-width="1.5" />
+  <text x="725" y="350" fill="#f8fafc" font-size="13" font-weight="bold">SVID Registry</text>
+  <text x="725" y="375" fill="#94a3b8" font-size="11">Authorized SPIFFE IDs:</text>
+  <text x="725" y="395" fill="#38bdf8" font-size="10" font-family="monospace">spiffe://example.com/ns/...</text>
+  <text x="725" y="415" fill="#818cf8" font-size="10">Cryptographically bound</text>
+  <text x="725" y="430" fill="#818cf8" font-size="10">to ephemeral task lifecycle</text>
+
+  <!-- CONNECTIONS / FLOW ARROWS -->
+  
+  <!-- Flow 1: Workload -> Agent Socket Connection -->
+  <path d="M 210 230 L 210 270" stroke="#0ea5e9" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="215" y="250" fill="#38bdf8" font-size="10" font-weight="bold">API Socket</text>
+
+  <!-- Flow 2: Agent -> KMS Sign -->
+  <path d="M 370 330 Q 430 250 460 210" stroke="#f97316" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow)" />
+  <text x="390" y="245" fill="#f97316" font-size="10">2. kms:Sign</text>
+
+  <!-- Flow 3: Agent -> SPIRE Server Attestation request -->
+  <path d="M 370 370 Q 550 370 710 250" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="400" y="360" fill="#10b981" font-size="11" font-weight="bold">3. Attestation Req (Token + Signature)</text>
+
+  <!-- Flow 4: SPIRE Server -> STS OIDC Verification -->
+  <path d="M 710 210 L 620 280" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)" />
+  <text x="640" y="235" fill="#a78bfa" font-size="10">4. OIDC Auth</text>
+
+  <!-- Flow 5: SPIRE Server -> ECS API DescribeTasks -->
+  <path d="M 710 240 L 620 400" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)" stroke-dasharray="4,2" />
+  <text x="645" y="340" fill="#a78bfa" font-size="10">5. Verify Task</text>
+
+  <!-- Flow 6: SPIRE Server -> Agent Cert Issuance (SVID) -->
+  <path d="M 710 180 Q 520 160 370 300" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="420" y="155" fill="#10b981" font-size="11" font-weight="bold">6. Issue X.509 SVID (Identity Certificate)</text>
+</svg>

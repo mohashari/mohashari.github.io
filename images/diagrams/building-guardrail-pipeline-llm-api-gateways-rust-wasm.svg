@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </linearGradient>
+
+    <!-- Client Box Gradient -->
+    <linearGradient id="client-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+
+    <!-- LLM Provider Gradient -->
+    <linearGradient id="llm-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <!-- WASM Plugin Gradient -->
+    <linearGradient id="wasm-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Head Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a78bfa" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="900" height="500" rx="16" fill="url(#bg-grad)" stroke="#1e293b" stroke-width="2" />
+
+  <!-- Grid Pattern Overlay for Techy Look -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 900,50 M 0,100 L 900,100 M 0,150 L 900,150 M 0,200 L 900,200 M 0,250 L 900,250 M 0,300 L 900,300 M 0,350 L 900,350 M 0,400 L 900,400 M 0,450 L 900,450" stroke="#cbd5e1" stroke-width="1" />
+    <path d="M 100,0 L 100,500 M 200,0 L 200,500 M 300,0 L 300,500 M 400,0 L 400,500 M 500,0 L 500,500 M 600,0 L 600,500 M 700,0 L 700,500 M 800,0 L 800,500" stroke="#cbd5e1" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" fill="#f8fafc" letter-spacing="0.5">
+    Rust &amp; WASM Custom Guardrail Pipeline Architecture
+  </text>
+  <text x="30" y="68" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#64748b">
+    Low-latency interceptors executing inside API Gateway worker threads via Proxy-WASM ABI
+  </text>
+
+  <!-- 1. Client App -->
+  <g transform="translate(40, 190)">
+    <rect width="130" height="120" rx="10" fill="url(#client-grad)" stroke="#2563eb" stroke-width="2" filter="url(#glow)" opacity="0.9" />
+    <text x="65" y="55" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">Client App</text>
+    <text x="65" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#bfdbfe" text-anchor="middle">Web/Mobile SDK</text>
+    <text x="65" y="90" font-family="system-ui, sans-serif" font-size="10" fill="#93c5fd" text-anchor="middle">Port: 443 (HTTPS)</text>
+  </g>
+
+  <!-- Connection: Client -> Gateway (Request) -->
+  <path d="M 170,230 L 250,230" fill="none" stroke="#3b82f6" stroke-width="3" marker-end="url(#arrow-blue)" />
+  <text x="210" y="220" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#3b82f6" text-anchor="middle">User Prompt</text>
+
+  <!-- Connection: Gateway -> Client (Sanitized Response) -->
+  <path d="M 250,270 L 170,270" fill="none" stroke="#94a3b8" stroke-dasharray="4,4" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="210" y="290" font-family="system-ui, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">Sanitized Stream</text>
+
+  <!-- 2. API Gateway Boundary (Envoy / Kong) -->
+  <g transform="translate(260, 110)">
+    <!-- Boundary box -->
+    <rect width="380" height="280" rx="14" fill="#0f172a" stroke="#334155" stroke-width="2" />
+    <rect width="380" height="30" rx="0" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="190" y="20" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#94a3b8" text-anchor="middle" letter-spacing="1">API GATEWAY (ENVOY WORKER THREAD)</text>
+
+    <!-- Gateway Core Pipeline -->
+    <g transform="translate(20, 50)">
+      <rect width="120" height="200" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+      <text x="60" y="25" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" fill="#cbd5e1" text-anchor="middle">Envoy Route</text>
+      <text x="60" y="40" font-family="system-ui, sans-serif" font-size="11" fill="#64748b" text-anchor="middle">Filter Chain</text>
+
+      <!-- Steps inside Route -->
+      <rect x="10" y="60" width="100" height="30" rx="4" fill="#334155" />
+      <text x="60" y="78" font-family="system-ui, sans-serif" font-size="10" fill="#e2e8f0" text-anchor="middle">HTTP Routing</text>
+
+      <rect x="10" y="105" width="100" height="35" rx="4" fill="#334155" stroke="#a78bfa" stroke-width="1.5" />
+      <text x="60" y="120" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" fill="#a78bfa" text-anchor="middle">Proxy-WASM</text>
+      <text x="60" y="132" font-family="system-ui, sans-serif" font-size="8" fill="#c084fc" text-anchor="middle">ABI Interface</text>
+
+      <rect x="10" y="155" width="100" height="30" rx="4" fill="#334155" />
+      <text x="60" y="173" font-family="system-ui, sans-serif" font-size="10" fill="#e2e8f0" text-anchor="middle">Rate Limiting</text>
+    </g>
+
+    <!-- WASM VM Container -->
+    <g transform="translate(180, 50)">
+      <rect width="180" height="200" rx="8" fill="url(#wasm-grad)" stroke="#7c3aed" stroke-width="2" filter="url(#glow)" opacity="0.9" />
+      <text x="90" y="25" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">WASM Guardrail VM</text>
+      <text x="90" y="40" font-family="system-ui, sans-serif" font-size="10" fill="#ddd6fe" text-anchor="middle">Compiled Rust Plugin</text>
+
+      <!-- Inside WASM VM Guardrails -->
+      <g transform="translate(15, 60)">
+        <rect width="150" height="50" rx="6" fill="#1e1b4b" stroke="#8b5cf6" stroke-width="1" />
+        <text x="75" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#c084fc" text-anchor="middle">Input Interceptor</text>
+        <text x="75" y="38" font-family="system-ui, sans-serif" font-size="9" fill="#a78bfa" text-anchor="middle">Injection &amp; PII Detection</text>
+      </g>
+
+      <g transform="translate(15, 130)">
+        <rect width="150" height="50" rx="6" fill="#1e1b4b" stroke="#8b5cf6" stroke-width="1" />
+        <text x="75" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#c084fc" text-anchor="middle">Output Interceptor</text>
+        <text x="75" y="38" font-family="system-ui, sans-serif" font-size="9" fill="#a78bfa" text-anchor="middle">Chunk Stream Sanitization</text>
+      </g>
+    </g>
+
+    <!-- Internal Flow Indicators -->
+    <path d="M 130,165 L 185,140" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow-purple)" />
+    <path d="M 185,210 L 130,185" fill="none" stroke="#a78bfa" stroke-width="2" marker-end="url(#arrow-purple)" />
+  </g>
+
+  <!-- Connection: Gateway -> LLM Upstream (Request) -->
+  <path d="M 640,230 L 720,230" fill="none" stroke="#10b981" stroke-width="3" marker-end="url(#arrow-green)" />
+  <text x="680" y="220" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#10b981" text-anchor="middle">Filtered Req</text>
+
+  <!-- Connection: LLM Upstream -> Gateway (Stream Response) -->
+  <path d="M 720,270 L 640,270" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-green)" />
+  <text x="680" y="290" font-family="system-ui, sans-serif" font-size="11" fill="#10b981" text-anchor="middle">Raw Stream</text>
+
+  <!-- 3. LLM Provider Upstream -->
+  <g transform="translate(730, 190)">
+    <rect width="130" height="120" rx="10" fill="url(#llm-grad)" stroke="#059669" stroke-width="2" filter="url(#glow)" opacity="0.9" />
+    <text x="65" y="55" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">LLM Provider</text>
+    <text x="65" y="75" font-family="system-ui, sans-serif" font-size="11" fill="#a7f3d0" text-anchor="middle">OpenAI / Anthropic</text>
+    <text x="65" y="90" font-family="system-ui, sans-serif" font-size="10" fill="#6ee7b7" text-anchor="middle">HTTPS Endpoint</text>
+  </g>
+
+  <!-- Footnote -->
+  <text x="450" y="475" font-family="system-ui, sans-serif" font-size="11" fill="#475569" text-anchor="middle">
+    Execution latency overhead: &lt; 1.5ms per request/response chunk | Sandbox memory footprint: ~4MB per worker
+  </text>
+</svg>
