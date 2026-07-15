@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 540" width="100%" height="100%" style="background-color: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="spireServerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8a2be2" />
+      <stop offset="100%" stop-color="#4a00e0" />
+    </linearGradient>
+    <linearGradient id="spireAgentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f39c12" />
+      <stop offset="100%" stop-color="#d35400" />
+    </linearGradient>
+    <linearGradient id="envoyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00c6ff" />
+      <stop offset="100%" stop-color="#0072ff" />
+    </linearGradient>
+    <linearGradient id="appGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2ecc71" />
+      <stop offset="100%" stop-color="#27ae60" />
+    </linearGradient>
+    
+    <!-- Filters for shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="410" y="35" text-anchor="middle" fill="#f0f6fc" font-size="18" font-weight="700" letter-spacing="0.5">SPIFFE/SPIRE-Driven Zero-Trust Service Mesh Architecture</text>
+  <text x="410" y="55" text-anchor="middle" fill="#8b949e" font-size="12">Dynamic Workload Attestation &amp; Mutual TLS via Envoy SDS Integration</text>
+
+  <!-- SPIRE Server (Root CA & Attestor) -->
+  <g transform="translate(310, 80)" filter="url(#shadow)">
+    <rect width="200" height="75" rx="8" fill="url(#spireServerGrad)" stroke="#c9d1d9" stroke-width="1"/>
+    <text x="100" y="30" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">SPIRE Server</text>
+    <text x="100" y="48" text-anchor="middle" fill="#e1e4e8" font-size="10" font-family="monospace">trust-domain: example.org</text>
+    <text x="100" y="62" text-anchor="middle" fill="#e1e4e8" font-size="9">(Root CA &amp; Node Attestor)</text>
+  </g>
+
+  <!-- ==================== NODE 1 (Client) ==================== -->
+  <g transform="translate(30, 200)" filter="url(#shadow)">
+    <!-- Node boundary -->
+    <rect width="350" height="295" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="15" y="22" fill="#8b949e" font-size="11" font-weight="600" letter-spacing="1">KUBERNETES NODE A (CLIENT)</text>
+    
+    <!-- SPIRE Agent (Node 1) -->
+    <g transform="translate(15, 45)">
+      <rect width="140" height="70" rx="6" fill="url(#spireAgentGrad)" stroke="#f39c12" stroke-width="1"/>
+      <text x="70" y="25" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">SPIRE Agent</text>
+      <text x="70" y="42" text-anchor="middle" fill="#e1e4e8" font-size="9">K8s Node Attestor</text>
+      <text x="70" y="55" text-anchor="middle" fill="#e1e4e8" font-size="8" font-family="monospace">agent.sock (UDS)</text>
+    </g>
+
+    <!-- Workload Pod A -->
+    <rect x="180" y="45" width="155" height="230" rx="6" fill="#0d1117" stroke="#30363d" stroke-dasharray="4 4" stroke-width="1"/>
+    <text x="257" y="62" text-anchor="middle" fill="#8b949e" font-size="9" font-weight="600">POD: payment-service</text>
+
+    <!-- App Container A -->
+    <g transform="translate(192, 80)">
+      <rect width="130" height="50" rx="4" fill="url(#appGrad)" stroke="#2ecc71" stroke-width="1"/>
+      <text x="65" y="24" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">payment-app</text>
+      <text x="65" y="38" text-anchor="middle" fill="#e1e4e8" font-size="8" font-family="monospace">spiffeid: .../ns/prod/sa/payment</text>
+    </g>
+
+    <!-- Envoy Sidecar A -->
+    <g transform="translate(192, 185)">
+      <rect width="130" height="70" rx="4" fill="url(#envoyGrad)" stroke="#00c6ff" stroke-width="1"/>
+      <text x="65" y="25" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">Envoy Sidecar</text>
+      <text x="65" y="42" text-anchor="middle" fill="#e1e4e8" font-size="9" font-weight="600">SDS Client</text>
+      <text x="65" y="56" text-anchor="middle" fill="#e1e4e8" font-size="8" font-family="monospace">L4/L7 Ingress/Egress</text>
+    </g>
+
+    <!-- App to Envoy local call -->
+    <path d="M 257,130 L 257,185" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+    <text x="262" y="157" fill="#8b949e" font-size="9">localhost:8080</text>
+  </g>
+
+  <!-- ==================== NODE 2 (Server) ==================== -->
+  <g transform="translate(440, 200)" filter="url(#shadow)">
+    <!-- Node boundary -->
+    <rect width="350" height="295" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5"/>
+    <text x="15" y="22" fill="#8b949e" font-size="11" font-weight="600" letter-spacing="1">KUBERNETES NODE B (SERVER)</text>
+    
+    <!-- SPIRE Agent (Node 2) -->
+    <g transform="translate(195, 45)">
+      <rect width="140" height="70" rx="6" fill="url(#spireAgentGrad)" stroke="#f39c12" stroke-width="1"/>
+      <text x="70" y="25" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">SPIRE Agent</text>
+      <text x="70" y="42" text-anchor="middle" fill="#e1e4e8" font-size="9">K8s Node Attestor</text>
+      <text x="70" y="55" text-anchor="middle" fill="#e1e4e8" font-size="8" font-family="monospace">agent.sock (UDS)</text>
+    </g>
+
+    <!-- Workload Pod B -->
+    <rect x="15" y="45" width="155" height="230" rx="6" fill="#0d1117" stroke="#30363d" stroke-dasharray="4 4" stroke-width="1"/>
+    <text x="92" y="62" text-anchor="middle" fill="#8b949e" font-size="9" font-weight="600">POD: ledger-service</text>
+
+    <!-- App Container B -->
+    <g transform="translate(27, 80)">
+      <rect width="130" height="50" rx="4" fill="url(#appGrad)" stroke="#2ecc71" stroke-width="1"/>
+      <text x="65" y="24" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">ledger-app</text>
+      <text x="65" y="38" text-anchor="middle" fill="#e1e4e8" font-size="8" font-family="monospace">spiffeid: .../ns/prod/sa/ledger</text>
+    </g>
+
+    <!-- Envoy Sidecar B -->
+    <g transform="translate(27, 185)">
+      <rect width="130" height="70" rx="4" fill="url(#envoyGrad)" stroke="#00c6ff" stroke-width="1"/>
+      <text x="65" y="25" text-anchor="middle" fill="#ffffff" font-size="11" font-weight="700">Envoy Sidecar</text>
+      <text x="65" y="42" text-anchor="middle" fill="#e1e4e8" font-size="9" font-weight="600">SDS Client</text>
+      <text x="65" y="56" text-anchor="middle" fill="#e1e4e8" font-size="8" font-family="monospace">L4/L7 Ingress/Egress</text>
+    </g>
+
+    <!-- Envoy to App local call -->
+    <path d="M 92,185 L 92,130" stroke="#8b949e" stroke-width="1.5" marker-end="url(#arrow)" fill="none"/>
+    <text x="97" y="157" fill="#8b949e" font-size="9">localhost:9090</text>
+  </g>
+
+  <!-- ==================== CONNECTIONS ==================== -->
+  
+  <!-- Marker definitions -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b949e" />
+    </marker>
+    <marker id="greenArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#2ecc71" />
+    </marker>
+    <marker id="purpleArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#cba6f7" />
+    </marker>
+  </defs>
+
+  <!-- SPIRE Server -> SPIRE Agents connections -->
+  <!-- Node A Agent -->
+  <path d="M 310,120 L 130,120 L 130,245" fill="none" stroke="#cba6f7" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#purpleArrow)"/>
+  <!-- Node B Agent -->
+  <path d="M 510,120 L 675,120 L 675,245" fill="none" stroke="#cba6f7" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#purpleArrow)"/>
+  <text x="210" y="112" fill="#cba6f7" font-size="9">Node Attestation &amp; Keys</text>
+  <text x="590" y="112" fill="#cba6f7" font-size="9" text-anchor="end">Node Attestation &amp; Keys</text>
+
+  <!-- SPIRE Agent A -> Envoy SDS (via Unix Domain Socket) -->
+  <path d="M 155,270 L 222,270 L 222,255" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arrow)"/>
+  <text x="189" y="285" fill="#f39c12" font-size="9" text-anchor="middle">Workload API</text>
+
+  <!-- SPIRE Agent B -> Envoy SDS (via Unix Domain Socket) -->
+  <path d="M 635,270 L 567,270 L 567,255" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="2 2" marker-end="url(#arrow)"/>
+  <text x="601" y="285" fill="#f39c12" font-size="9" text-anchor="middle">Workload API</text>
+
+  <!-- Mutual TLS connection between Envoy sidecars -->
+  <path d="M 352,420 L 467,420" fill="none" stroke="#2ecc71" stroke-width="2.5" marker-end="url(#greenArrow)"/>
+  <text x="410" y="405" fill="#2ecc71" font-size="11" font-weight="700" text-anchor="middle">mTLS Tunnel</text>
+  <text x="410" y="438" fill="#e1e4e8" font-size="9" text-anchor="middle">SPIFFE ID Validation</text>
+  <text x="410" y="450" fill="#8b949e" font-size="8" text-anchor="middle">L7 Authorization Policies</text>
+
+  <!-- Padlocks on connection -->
+  <g transform="translate(398, 408)">
+    <rect x="2" y="4" width="8" height="6" rx="1" fill="#2ecc71"/>
+    <path d="M 3,4 Q 3,1 6,1 Q 9,1 9,4" fill="none" stroke="#2ecc71" stroke-width="1"/>
+  </g>
+</svg>
