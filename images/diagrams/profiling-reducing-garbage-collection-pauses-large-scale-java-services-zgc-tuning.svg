@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="jvm-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#312e81" />
+    </linearGradient>
+    <linearGradient id="young-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+    <linearGradient id="old-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="gc-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="alert-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+    
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 22px; font-weight: 700; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #94a3b8; }
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 15px; font-weight: 600; fill: #ffffff; }
+    .node-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+    .node-bold { font-weight: bold; fill: #ffffff; }
+    .arrow-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; fill: #94a3b8; font-weight: 500; }
+    .axis-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 12px; font-weight: 600; fill: #64748b; }
+    .code { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 11px; fill: #38bdf8; }
+    .metric { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 12px; fill: #f43f5e; font-weight: bold; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="600" rx="16" fill="url(#bg-grad)" />
+
+  <!-- Header -->
+  <text x="40" y="45" class="title">Generational ZGC Production Observability &amp; Tuning Architecture</text>
+  <text x="40" y="68" class="subtitle">Visualizing runtime interactions, JFR telemetry ingestion, and pressure points causing Allocation Stalls under high throughput</text>
+
+  <!-- Main Container: JVM Runtime -->
+  <rect x="40" y="100" width="560" height="460" rx="12" fill="url(#jvm-grad)" stroke="#4338ca" stroke-width="2" filter="url(#shadow)" />
+  <text x="60" y="130" class="node-title" fill="#a5b4fc">JVM Runtime (Java 21+ / Generational ZGC)</text>
+
+  <!-- Heap Representation -->
+  <g transform="translate(60, 150)">
+    <!-- Young Gen -->
+    <rect x="0" y="0" width="240" height="110" rx="8" fill="url(#young-grad)" fill-opacity="0.25" stroke="#06b6d4" stroke-width="1.5" />
+    <text x="15" y="25" class="node-title" fill="#22d3ee">Young Generation</text>
+    <text x="15" y="50" class="node-text">• Highly transient objects</text>
+    <text x="15" y="70" class="node-text">• Frequent, ultra-fast concurrent GC cycles</text>
+    <text x="15" y="90" class="node-text">• Dynamic sizing based on allocation rate</text>
+    
+    <!-- Old Gen -->
+    <rect x="260" y="0" width="260" height="110" rx="8" fill="url(#old-grad)" fill-opacity="0.25" stroke="#6366f1" stroke-width="1.5" />
+    <text x="275" y="25" class="node-title" fill="#818cf8">Old Generation</text>
+    <text x="275" y="50" class="node-text">• Tenured objects (promoted)</text>
+    <text x="275" y="70" class="node-text">• Periodic background concurrent sweeps</text>
+    <text x="275" y="90" class="node-text">• Triggers via <tspan class="code">-XX:ZAllocationSpikeTolerance</tspan></text>
+  </g>
+
+  <!-- Application Threads & GC Interaction -->
+  <g transform="translate(60, 290)">
+    <!-- Application Threads -->
+    <rect x="0" y="0" width="200" height="130" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <text x="15" y="25" class="node-title" fill="#f8fafc">Application Mutators</text>
+    <text x="15" y="50" class="node-text">Allocate objects in Young Gen</text>
+    <text x="15" y="75" class="node-text">High-rate allocation (e.g., 5 GB/s)</text>
+    
+    <!-- Red Alert Box: Allocation Stall -->
+    <rect x="10" y="90" width="180" height="30" rx="4" fill="url(#alert-grad)" filter="url(#shadow)" />
+    <text x="20" y="110" class="node-title" font-size="12">CRITICAL: Allocation Stall</text>
+  </g>
+
+  <!-- ZGC Collector Core -->
+  <g transform="translate(320, 290)">
+    <rect x="0" y="0" width="260" height="130" rx="8" fill="url(#gc-grad)" fill-opacity="0.2" stroke="#d97706" stroke-width="1.5" />
+    <text x="15" y="25" class="node-title" fill="#fbbf24">ZGC Collector Threadpool</text>
+    
+    <text x="15" y="50" class="node-text">• Parallel Workers: <tspan class="code">-XX:ZWorkers=N</tspan></text>
+    <text x="15" y="70" class="node-text">• Load-barrier checks on heap references</text>
+    <text x="15" y="90" class="node-text">• Concurrent Mark &amp; Relocate phases</text>
+    <text x="15" y="110" class="node-text">• Relocation Set selection &amp; compacting</text>
+  </g>
+
+  <!-- Interaction Arrows in JVM -->
+  <!-- Mutators -> Young Gen -->
+  <path d="M 160,290 L 160,265" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="4 4" />
+  <!-- GC -> Old/Young Gen (Control) -->
+  <path d="M 450,290 L 450,265" fill="none" stroke="#fbbf24" stroke-width="2" />
+  <!-- Allocation Stall Loop back to Mutators -->
+  <path d="M 320,355 L 265,355" fill="none" stroke="#ef4444" stroke-width="2" />
+  <polygon points="265,355 272,351 272,359" fill="#ef4444" />
+  <text x="270" y="345" class="arrow-text" fill="#ef4444">Block threads</text>
+
+  <!-- Promotion Arrow -->
+  <path d="M 300,205 L 320,205" fill="none" stroke="#818cf8" stroke-width="2.5" />
+  <polygon points="320,205 313,201 313,209" fill="#818cf8" />
+  <text x="290" y="195" class="arrow-text">Promotion</text>
+
+  <!-- JFR Logging Block -->
+  <g transform="translate(60, 480)">
+    <rect x="0" y="0" width="520" height="60" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5" />
+    <text x="15" y="22" class="node-title" font-size="13" fill="#38bdf8">JFR Events &amp; JVM Unified Logging</text>
+    <text x="15" y="42" class="code" fill="#94a3b8">-XX:StartFlightRecording=settings=profile,filename=gc.jfr  |  -Xlog:gc*,gc+phases=debug:file=gc.log</text>
+  </g>
+
+  <!-- Right Container: Observability & Ingestion Stack -->
+  <g transform="translate(630, 100)">
+    <rect x="0" y="0" width="330" height="460" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2" filter="url(#shadow)" />
+    <text x="20" y="30" class="node-title" fill="#94a3b8">Observability &amp; Ingestion</text>
+
+    <!-- Unified Logging Parser -->
+    <g transform="translate(20, 60)">
+      <rect x="0" y="0" width="290" height="85" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+      <text x="15" y="22" class="node-title" font-size="13" fill="#f8fafc">Log Pipeline (Vector / FluentBit)</text>
+      <text x="15" y="45" class="node-text">Scrapes unified JVM logs from disk</text>
+      <text x="15" y="65" class="node-text">Pushes to Grafana Loki / Elasticsearch</text>
+    </g>
+
+    <!-- JFR Ingestion (Cryostat / Prometheus Daemon) -->
+    <g transform="translate(20, 165)">
+      <rect x="0" y="0" width="290" height="110" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+      <text x="15" y="22" class="node-title" font-size="13" fill="#f8fafc">Cryostat / JFR Daemon</text>
+      <text x="15" y="45" class="node-text">Extracts specific event types:</text>
+      <text x="15" y="68" class="code" fill="#f43f5e">jdk.GarbageCollection</text>
+      <text x="15" y="88" class="code" fill="#f43f5e">jdk.OldObjectSample</text>
+    </g>
+
+    <!-- Grafana Dashboards & Alerting -->
+    <g transform="translate(20, 295)">
+      <rect x="0" y="0" width="290" height="145" rx="8" fill="#0f172a" stroke="#e2e8f0" stroke-width="1.5" />
+      <text x="15" y="25" class="node-title" fill="#fbbf24" font-size="14">Grafana Visualizations</text>
+      
+      <text x="15" y="50" class="node-text">1. GC Pause Durations (Max/P99)</text>
+      <text x="15" y="70" class="node-text">2. Allocation Rate vs GC Speed</text>
+      <text x="15" y="90" class="node-text">3. Thread Stall Counts &amp; Latency</text>
+      
+      <rect x="15" y="105" width="260" height="28" rx="4" fill="#312e81" stroke="#4f46e5" />
+      <text x="25" y="123" class="node-bold" font-size="11" fill="#a5b4fc">Alert: Pause &gt; 10ms or Stall Count &gt; 0</text>
+    </g>
+  </g>
+
+  <!-- Connectors JVM -> Ingestion -->
+  <!-- JVM Log -> Log Pipeline -->
+  <path d="M 580,490 L 610,490 L 610,140 L 630,140" fill="none" stroke="#64748b" stroke-width="2" />
+  <polygon points="630,140 623,136 623,144" fill="#64748b" />
+  
+  <!-- JFR Stream -> Cryostat -->
+  <path d="M 580,510 L 620,510 L 620,220 L 630,220" fill="none" stroke="#f43f5e" stroke-width="2" />
+  <polygon points="630,220 623,216 623,224" fill="#f43f5e" />
+
+</svg>

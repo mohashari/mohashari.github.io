@@ -1,0 +1,259 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    
+    <!-- Element Gradients -->
+    <linearGradient id="client-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    
+    <linearGradient id="gateway-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <linearGradient id="queue-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+
+    <linearGradient id="batcher-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <linearGradient id="engine-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    
+    <!-- Glow Filters -->
+    <filter id="glow-blue" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#3b82f6" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow-green" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#10b981" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow-orange" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#f59e0b" flood-opacity="0.3"/>
+    </filter>
+    <filter id="glow-purple" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#8b5cf6" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="850" height="520" fill="url(#bg-grad)" rx="12" />
+  
+  <!-- Outer Border -->
+  <rect width="848" height="518" x="1" y="1" fill="none" stroke="#1e293b" stroke-width="2" rx="12" />
+
+  <!-- Title -->
+  <text x="30" y="40" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" letter-spacing="0.5">Dynamic Batching Architecture in C++ Gateway</text>
+  <text x="30" y="60" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12">High-throughput, low-latency concurrent processing pipeline</text>
+
+  <!-- Section: Clients -->
+  <g transform="translate(40, 100)">
+    <!-- Boundary Box -->
+    <rect width="130" height="350" fill="#1e293b" fill-opacity="0.2" stroke="#334155" stroke-dasharray="4 4" rx="8" />
+    <text x="65" y="-15" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600">CLIENTS</text>
+    
+    <!-- Client 1 -->
+    <g transform="translate(15, 30)">
+      <rect width="100" height="70" fill="url(#client-grad)" rx="6" filter="url(#glow-blue)" />
+      <text x="50" y="32" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Client C1</text>
+      <text x="50" y="50" text-anchor="middle" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="10">gRPC/HTTP</text>
+    </g>
+
+    <!-- Client 2 -->
+    <g transform="translate(15, 140)">
+      <rect width="100" height="70" fill="url(#client-grad)" rx="6" filter="url(#glow-blue)" />
+      <text x="50" y="32" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Client C2</text>
+      <text x="50" y="50" text-anchor="middle" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="10">gRPC/HTTP</text>
+    </g>
+
+    <!-- Client N -->
+    <g transform="translate(15, 250)">
+      <rect width="100" height="70" fill="url(#client-grad)" rx="6" filter="url(#glow-blue)" />
+      <text x="50" y="32" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Client Cn</text>
+      <text x="50" y="50" text-anchor="middle" fill="#93c5fd" font-family="system-ui, -apple-system, sans-serif" font-size="10">gRPC/HTTP</text>
+    </g>
+  </g>
+
+  <!-- Connectors: Clients to Gateway -->
+  <g stroke="#3b82f6" stroke-width="2" fill="none">
+    <path d="M 140 165 L 220 165" />
+    <path d="M 140 275 L 220 275" />
+    <path d="M 140 385 L 220 385" />
+  </g>
+  <g fill="#3b82f6">
+    <polygon points="220,165 212,160 212,170" />
+    <polygon points="220,275 212,270 212,280" />
+    <polygon points="220,385 212,380 212,390" />
+  </g>
+
+  <!-- Section: Gateway (Worker Threads) -->
+  <g transform="translate(220, 100)">
+    <rect width="140" height="350" fill="url(#gateway-grad)" stroke="#475569" stroke-width="1.5" rx="8" />
+    <text x="70" y="-15" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600">C++ GATEWAY</text>
+    
+    <!-- Worker Thread Pool -->
+    <text x="70" y="30" text-anchor="middle" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Worker Pool</text>
+    
+    <!-- Workers -->
+    <g transform="translate(15, 55)">
+      <rect width="110" height="45" fill="#0f172a" stroke="#64748b" stroke-width="1" rx="4" />
+      <text x="55" y="27" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="10">Thread 1 (Enqueuer)</text>
+    </g>
+    <g transform="translate(15, 115)">
+      <rect width="110" height="45" fill="#0f172a" stroke="#64748b" stroke-width="1" rx="4" />
+      <text x="55" y="27" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="10">Thread 2 (Enqueuer)</text>
+    </g>
+    <text x="70" y="195" text-anchor="middle" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold">...</text>
+    <g transform="translate(15, 220)">
+      <rect width="110" height="45" fill="#0f172a" stroke="#64748b" stroke-width="1" rx="4" />
+      <text x="55" y="27" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="10">Thread N (Enqueuer)</text>
+    </g>
+
+    <!-- Promise/Future Tracking Map -->
+    <g transform="translate(10, 285)">
+      <rect width="120" height="50" fill="#0f172a" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="2 2" rx="4" />
+      <text x="60" y="22" text-anchor="middle" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">Promise Tracking Map</text>
+      <text x="60" y="37" text-anchor="middle" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="9">Req ID -> Promise&lt;Res&gt;</text>
+    </g>
+  </g>
+
+  <!-- Connectors: Workers to Queue -->
+  <g stroke="#f59e0b" stroke-width="2" fill="none">
+    <path d="M 360 275 L 410 275" />
+  </g>
+  <g fill="#f59e0b">
+    <polygon points="410,275 402,270 402,280" />
+  </g>
+
+  <!-- Section: Concurrent Queue -->
+  <g transform="translate(410, 180)">
+    <rect width="60" height="190" fill="url(#queue-grad)" fill-opacity="0.15" stroke="#d97706" stroke-width="1.5" rx="6" filter="url(#glow-orange)" />
+    <text x="30" y="-15" text-anchor="middle" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">QUEUE</text>
+    
+    <!-- Slots in Queue -->
+    <rect x="5" y="10" width="50" height="25" fill="#1e293b" stroke="#f59e0b" stroke-dasharray="2 2" rx="3" />
+    <text x="30" y="26" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="10">Req N</text>
+
+    <rect x="5" y="45" width="50" height="25" fill="#1e293b" stroke="#f59e0b" rx="3" />
+    <text x="30" y="61" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="10">Req 3</text>
+
+    <rect x="5" y="80" width="50" height="25" fill="#1e293b" stroke="#f59e0b" rx="3" />
+    <text x="30" y="96" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="10">Req 2</text>
+    
+    <rect x="5" y="115" width="50" height="25" fill="#1e293b" stroke="#f59e0b" rx="3" />
+    <text x="30" y="131" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="10">Req 1</text>
+
+    <text x="30" y="170" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="600">Lock-Free</text>
+  </g>
+
+  <!-- Connectors: Queue to Batcher -->
+  <g stroke="#10b981" stroke-width="2" fill="none">
+    <path d="M 470 275 L 510 275" />
+  </g>
+  <g fill="#10b981">
+    <polygon points="510,275 502,270 502,280" />
+  </g>
+
+  <!-- Section: Dynamic Batcher (Thread Loop) -->
+  <g transform="translate(510, 120)">
+    <rect width="140" height="310" fill="url(#batcher-grad)" stroke="#059669" stroke-width="1.5" rx="8" filter="url(#glow-green)" />
+    <text x="70" y="-15" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600">DYNAMIC BATCHER</text>
+
+    <!-- Batcher Thread Loop -->
+    <text x="70" y="30" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Batcher Loop</text>
+    
+    <!-- State/Config info inside Batcher -->
+    <g transform="translate(10, 50)">
+      <rect width="120" height="85" fill="#064e3b" stroke="#10b981" rx="4" />
+      <text x="12" y="20" fill="#a7f3d0" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">Batch Trigger Specs:</text>
+      <text x="12" y="40" fill="#d1fae5" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Max Batch Size: 32</text>
+      <text x="12" y="55" fill="#d1fae5" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Delay Window: 4ms</text>
+      <text x="12" y="70" fill="#d1fae5" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Token Limit: 4096</text>
+    </g>
+
+    <!-- Active Formed Batch -->
+    <g transform="translate(10, 155)">
+      <rect width="120" height="100" fill="#0f172a" stroke="#10b981" stroke-width="2" rx="4" />
+      <text x="60" y="20" text-anchor="middle" fill="#34d399" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">Formed Batch</text>
+      
+      <!-- Inner Batch List representing stacked tensors/requests -->
+      <rect x="15" y="32" width="90" height="15" fill="#1e293b" rx="2" />
+      <text x="60" y="43" text-anchor="middle" fill="#a7f3d0" font-family="system-ui, -apple-system, sans-serif" font-size="8">Req 1 (Padded)</text>
+
+      <rect x="15" y="52" width="90" height="15" fill="#1e293b" rx="2" />
+      <text x="60" y="63" text-anchor="middle" fill="#a7f3d0" font-family="system-ui, -apple-system, sans-serif" font-size="8">Req 2 (Padded)</text>
+
+      <rect x="15" y="72" width="90" height="15" fill="#1e293b" rx="2" />
+      <text x="60" y="83" text-anchor="middle" fill="#a7f3d0" font-family="system-ui, -apple-system, sans-serif" font-size="8">Req 3 (Padded)</text>
+    </g>
+    
+    <text x="70" y="285" text-anchor="middle" fill="#a7f3d0" font-family="system-ui, -apple-system, sans-serif" font-size="9">Dispatches async execution</text>
+  </g>
+
+  <!-- Connectors: Batcher to Engine -->
+  <g stroke="#8b5cf6" stroke-width="2" fill="none">
+    <path d="M 650 275 L 690 275" />
+  </g>
+  <g fill="#8b5cf6">
+    <polygon points="690,275 682,270 682,280" />
+  </g>
+
+  <!-- Section: LLM Inference Engine (GPU) -->
+  <g transform="translate(690, 120)">
+    <rect width="120" height="310" fill="url(#engine-grad)" stroke="#7c3aed" stroke-width="1.5" rx="8" filter="url(#glow-purple)" />
+    <text x="60" y="-15" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600">INFERENCE ENGINE</text>
+    
+    <text x="60" y="30" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">GPU / Accelerator</text>
+
+    <!-- GPU Blocks representation -->
+    <g transform="translate(15, 60)">
+      <rect width="90" height="50" fill="#2e1065" stroke="#a78bfa" rx="4" />
+      <text x="45" y="22" text-anchor="middle" fill="#ddd6fe" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">Shared Memory /</text>
+      <text x="45" y="37" text-anchor="middle" fill="#ddd6fe" font-family="system-ui, -apple-system, sans-serif" font-size="9">C++ Engine API</text>
+    </g>
+
+    <g transform="translate(15, 130)">
+      <rect width="90" height="100" fill="#1e1b4b" stroke="#a78bfa" rx="4" />
+      <text x="45" y="25" text-anchor="middle" fill="#c084fc" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">Tensor Cores</text>
+      
+      <!-- Tiny grid representing parallel GPU processing -->
+      <rect x="20" y="42" width="12" height="12" fill="#7c3aed" rx="1" />
+      <rect x="36" y="42" width="12" height="12" fill="#7c3aed" rx="1" />
+      <rect x="52" y="42" width="12" height="12" fill="#7c3aed" rx="1" />
+      <rect x="68" y="42" width="12" height="12" fill="#7c3aed" rx="1" />
+      
+      <rect x="20" y="58" width="12" height="12" fill="#7c3aed" rx="1" />
+      <rect x="36" y="58" width="12" height="12" fill="#7c3aed" rx="1" />
+      <rect x="52" y="58" width="12" height="12" fill="#7c3aed" rx="1" />
+      <rect x="68" y="58" width="12" height="12" fill="#7c3aed" rx="1" />
+
+      <text x="45" y="85" text-anchor="middle" fill="#a78bfa" font-family="system-ui, -apple-system, sans-serif" font-size="8">Batch Execution</text>
+    </g>
+
+    <!-- KV Cache block -->
+    <g transform="translate(15, 245)">
+      <rect width="90" height="45" fill="#4c1d95" stroke="#a78bfa" rx="4" />
+      <text x="45" y="20" text-anchor="middle" fill="#ddd6fe" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">KV Cache Manager</text>
+      <text x="45" y="34" text-anchor="middle" fill="#c084fc" font-family="system-ui, -apple-system, sans-serif" font-size="8">PagedAttention</text>
+    </g>
+  </g>
+
+  <!-- Return Path / Callback Loop (Gateway sets promise value -> worker returns response) -->
+  <path d="M 750 430 L 750 480 L 290 480 L 290 450" fill="none" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4 4" />
+  <g fill="#a78bfa">
+    <polygon points="290,450 286,458 294,458" />
+  </g>
+  <text x="520" y="473" text-anchor="middle" fill="#a78bfa" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">Asynchronous Response Promise Resolution Loop</text>
+</svg>
