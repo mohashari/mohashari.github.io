@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- T1 Recency Gradient (Teal) -->
+    <linearGradient id="t1Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+
+    <!-- T2 Frequency Gradient (Purple) -->
+    <linearGradient id="t2Grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+
+    <!-- B1/B2 Ghost Gradient -->
+    <linearGradient id="ghostGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#475569" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- Glow filters for highlighted nodes -->
+    <filter id="glowTeal" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrowTeal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#06b6d4" />
+    </marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#a855f7" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" rx="16" fill="url(#bgGrad)" stroke="#334155" stroke-width="2"/>
+
+  <!-- Title / Header -->
+  <text x="50" y="50" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="bold">
+    Adaptive Replacement Cache (ARC) Architecture
+  </text>
+  <text x="50" y="75" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="14">
+    Dynamically balancing Recency (T1, B1) and Frequency (T2, B2) for LSM-Tree Block Caching
+  </text>
+
+  <!-- LSM Reader Flow (Input Side) -->
+  <g transform="translate(50, 150)">
+    <!-- LSM-Tree Box -->
+    <rect width="140" height="320" rx="12" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+    <text x="70" y="35" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" text-anchor="middle">LSM ENGINE</text>
+    
+    <!-- MemTable / SSTable representation -->
+    <rect x="15" y="60" width="110" height="40" rx="6" fill="#334155" stroke="#64748b" stroke-dasharray="2,2"/>
+    <text x="70" y="85" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" text-anchor="middle">Active MemTable</text>
+
+    <rect x="15" y="115" width="110" height="80" rx="6" fill="#1e293b" stroke="#475569"/>
+    <text x="70" y="145" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" text-anchor="middle">Block Cache</text>
+    <text x="70" y="165" fill="#06b6d4" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">(ARC Interface)</text>
+
+    <rect x="15" y="210" width="110" height="90" rx="6" fill="#0f172a" stroke="#334155"/>
+    <text x="70" y="245" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" text-anchor="middle">SSTables</text>
+    <text x="70" y="265" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">L1 - L6 (On Disk)</text>
+  </g>
+
+  <!-- Arrow from LSM Engine to Block Cache interface -->
+  <path d="M 195 295 L 260 295" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="228" y="285" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" text-anchor="middle">Read Block</text>
+
+  <!-- L1: Recency Section -->
+  <g transform="translate(280, 150)">
+    <!-- L1 Boundary -->
+    <rect width="320" height="320" rx="12" fill="#0f172a" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="15" y="25" fill="#06b6d4" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold">L1: Recency List</text>
+    <text x="15" y="45" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="11">Capacity: p</text>
+
+    <!-- T1 Cache (Top Recency) -->
+    <g transform="translate(15, 60)">
+      <rect width="135" height="230" rx="8" fill="url(#ghostGrad)" stroke="#06b6d4" stroke-width="2"/>
+      <text x="67.5" y="25" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">T1 (Recent Cache)</text>
+      <text x="67.5" y="40" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Stores actual data blocks</text>
+      
+      <!-- Nodes inside T1 -->
+      <rect x="15" y="55" width="105" height="30" rx="4" fill="url(#t1Grad)"/>
+      <text x="67.5" y="74" fill="#ffffff" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">MRU: Block A</text>
+      
+      <rect x="15" y="95" width="105" height="30" rx="4" fill="#1e293b" stroke="#334155"/>
+      <text x="67.5" y="114" fill="#94a3b8" font-family="monospace" font-size="11" text-anchor="middle">Block B</text>
+
+      <rect x="15" y="135" width="105" height="30" rx="4" fill="#1e293b" stroke="#334155"/>
+      <text x="67.5" y="154" fill="#94a3b8" font-family="monospace" font-size="11" text-anchor="middle">Block C</text>
+
+      <rect x="15" y="180" width="105" height="30" rx="4" fill="#1e293b" stroke="#0891b2" stroke-dasharray="2,2"/>
+      <text x="67.5" y="199" fill="#06b6d4" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">LRU: Block D</text>
+    </g>
+
+    <!-- B1 Ghost Cache (Recent Evictions) -->
+    <g transform="translate(170, 60)">
+      <rect width="135" height="230" rx="8" fill="url(#ghostGrad)" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <text x="67.5" y="25" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">B1 (Ghost Recency)</text>
+      <text x="67.5" y="40" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Metadata only (No Data)</text>
+
+      <!-- Nodes inside B1 -->
+      <rect x="15" y="60" width="105" height="30" rx="4" fill="#1e293b" stroke="#475569" stroke-dasharray="3,3"/>
+      <text x="67.5" y="79" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">Key E</text>
+
+      <rect x="15" y="105" width="105" height="30" rx="4" fill="#1e293b" stroke="#475569" stroke-dasharray="3,3"/>
+      <text x="67.5" y="124" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">Key F</text>
+
+      <rect x="15" y="180" width="105" height="30" rx="4" fill="#1e293b" stroke="#475569" stroke-dasharray="3,3"/>
+      <text x="67.5" y="199" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">LRU: Key G</text>
+    </g>
+  </g>
+
+  <!-- L2: Frequency Section -->
+  <g transform="translate(630, 150)">
+    <!-- L2 Boundary -->
+    <rect width="320" height="320" rx="12" fill="#0f172a" stroke="#7e22ce" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="15" y="25" fill="#a855f7" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold">L2: Frequency List</text>
+    <text x="15" y="45" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="11">Capacity: c - p</text>
+
+    <!-- T2 Cache (Top Frequency) -->
+    <g transform="translate(15, 60)">
+      <rect width="135" height="230" rx="8" fill="url(#ghostGrad)" stroke="#a855f7" stroke-width="2"/>
+      <text x="67.5" y="25" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">T2 (Freq Cache)</text>
+      <text x="67.5" y="40" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Stores actual data blocks</text>
+
+      <!-- Nodes inside T2 -->
+      <rect x="15" y="55" width="105" height="30" rx="4" fill="url(#t2Grad)"/>
+      <text x="67.5" y="74" fill="#ffffff" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">MRU: Block H</text>
+
+      <rect x="15" y="95" width="105" height="30" rx="4" fill="#1e293b" stroke="#334155"/>
+      <text x="67.5" y="114" fill="#94a3b8" font-family="monospace" font-size="11" text-anchor="middle">Block I</text>
+
+      <rect x="15" y="135" width="105" height="30" rx="4" fill="#1e293b" stroke="#334155"/>
+      <text x="67.5" y="154" fill="#94a3b8" font-family="monospace" font-size="11" text-anchor="middle">Block J</text>
+
+      <rect x="15" y="180" width="105" height="30" rx="4" fill="#1e293b" stroke="#7e22ce" stroke-dasharray="2,2"/>
+      <text x="67.5" y="199" fill="#a855f7" font-family="monospace" font-size="11" font-weight="bold" text-anchor="middle">LRU: Block K</text>
+    </g>
+
+    <!-- B2 Ghost Cache (Frequent Evictions) -->
+    <g transform="translate(170, 60)">
+      <rect width="135" height="230" rx="8" fill="url(#ghostGrad)" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <text x="67.5" y="25" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">B2 (Ghost Freq)</text>
+      <text x="67.5" y="40" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Metadata only (No Data)</text>
+
+      <!-- Nodes inside B2 -->
+      <rect x="15" y="60" width="105" height="30" rx="4" fill="#1e293b" stroke="#475569" stroke-dasharray="3,3"/>
+      <text x="67.5" y="79" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">Key L</text>
+
+      <rect x="15" y="105" width="105" height="30" rx="4" fill="#1e293b" stroke="#475569" stroke-dasharray="3,3"/>
+      <text x="67.5" y="124" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">Key M</text>
+
+      <rect x="15" y="180" width="105" height="30" rx="4" fill="#1e293b" stroke="#475569" stroke-dasharray="3,3"/>
+      <text x="67.5" y="199" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">LRU: Key N</text>
+    </g>
+  </g>
+
+  <!-- Interactive Adaptation & Movement Arrows -->
+
+  <!-- Eviction paths (T1 -> B1 and T2 -> B2) -->
+  <path d="M 430 360 L 450 360" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow)"/>
+  <text x="440" y="350" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">Evict</text>
+
+  <path d="M 780 360 L 800 360" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow)"/>
+  <text x="790" y="350" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">Evict</text>
+
+  <!-- B1 hit logic (hit in B1 adapts p to the right, moves element to T2) -->
+  <path d="M 505 210 Q 590 120 670 210" fill="none" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrowTeal)"/>
+  <text x="585" y="150" fill="#06b6d4" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Hit B1: Increase p (Recency Bias)</text>
+  <text x="585" y="165" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Promotes to T2 MRU</text>
+
+  <!-- B2 hit logic (hit in B2 adapts p to the left, moves element to T2) -->
+  <path d="M 855 210 Q 800 120 690 210" fill="none" stroke="#a855f7" stroke-width="2" marker-end="url(#arrowPurple)"/>
+  <text x="790" y="110" fill="#a855f7" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Hit B2: Decrease p (Frequency Bias)</text>
+
+  <!-- T1 hit logic (promotes to T2) -->
+  <path d="M 370 245 C 370 210, 600 210, 670 230" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arrowPurple)"/>
+  <text x="500" y="220" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Hit T1 -> Promote to T2 MRU</text>
+
+  <!-- Target Cache Size Boundary indicators -->
+  <!-- Adaptive slider bar below -->
+  <g transform="translate(280, 520)">
+    <rect width="670" height="24" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+    
+    <!-- p partition pointer -->
+    <rect x="0" y="2" width="280" height="20" rx="10" fill="url(#t1Grad)" fill-opacity="0.3"/>
+    <rect x="280" y="2" width="390" height="20" rx="10" fill="url(#t2Grad)" fill-opacity="0.3"/>
+
+    <!-- Pointer marker -->
+    <line x1="280" y1="-5" x2="280" y2="29" stroke="#f8fafc" stroke-width="3"/>
+    <polygon points="275,-5 285,-5 280,2" fill="#f8fafc" />
+    <polygon points="275,29 285,29 280,22" fill="#f8fafc" />
+
+    <text x="280" y="-12" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Adaptive Partition Boundary (p)</text>
+    
+    <!-- Labels -->
+    <text x="140" y="16" fill="#06b6d4" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Target T1 Capacity (p)</text>
+    <text x="475" y="16" fill="#a855f7" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Target T2 Capacity (c - p)</text>
+  </g>
+
+  <!-- Footer Info / Equations -->
+  <g transform="translate(50, 585)">
+    <rect width="900" height="40" rx="8" fill="#1e293b" fill-opacity="0.5" stroke="#334155" stroke-width="1"/>
+    <text x="20" y="25" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12">
+      Constraints: <tspan fill="#f8fafc" font-weight="bold">|T1| + |T2| ≤ c</tspan> (Active Cache)  |  <tspan fill="#f8fafc" font-weight="bold">|T1| + |B1| + |T2| + |B2| ≤ 2c</tspan> (Total Tracked)  |  Dynamic step tuning: <tspan fill="#06b6d4">Δ = max(1, |B2|/|B1|)</tspan> or <tspan fill="#a855f7">Δ = max(1, |B1|/|B2|)</tspan>
+    </text>
+  </g>
+</svg>

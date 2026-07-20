@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <!-- Definitions for gradients, markers, etc. -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    
+    <!-- Area Gradients -->
+    <linearGradient id="safeAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.0" />
+    </linearGradient>
+    <linearGradient id="dangerAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0.0" />
+    </linearGradient>
+    
+    <!-- Line Gradients -->
+    <linearGradient id="latencyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="60%" stop-color="#3b82f6" />
+      <stop offset="80%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+    
+    <linearGradient id="utilGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#a78bfa" />
+      <stop offset="80%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" rx="8" />
+
+  <!-- Grid Lines -->
+  <g stroke="#334155" stroke-width="1" stroke-dasharray="4 4" opacity="0.6">
+    <line x1="100" y1="100" x2="720" y2="100" />
+    <line x1="100" y1="170" x2="720" y2="170" />
+    <line x1="100" y1="240" x2="720" y2="240" />
+    <line x1="100" y1="310" x2="720" y2="310" />
+  </g>
+
+  <!-- Shaded Regions -->
+  <!-- Safe Operating Zone (up to Peak Load) -->
+  <path d="M 100 380 L 100 100 L 420 100 L 420 380 Z" fill="url(#safeAreaGrad)" />
+  <!-- SLO Violation Zone (above SLO limit or beyond saturation point) -->
+  <path d="M 420 380 L 420 170 L 720 170 L 720 380 Z" fill="url(#dangerAreaGrad)" />
+
+  <!-- Axes -->
+  <g stroke="#64748b" stroke-width="2">
+    <!-- Y-axis Left (Latency) -->
+    <line x1="100" y1="60" x2="100" y2="380" />
+    <!-- X-axis (Throughput / Load RPS) -->
+    <line x1="100" y1="380" x2="740" y2="380" />
+    <!-- Y-axis Right (Resource Util %) -->
+    <line x1="720" y1="60" x2="720" y2="380" />
+  </g>
+
+  <!-- Axis Labels & Markers -->
+  <!-- X-Axis Arrow -->
+  <polygon points="740,377 750,380 740,383" fill="#64748b" />
+  <!-- Y-Axis Arrows -->
+  <polygon points="97,60 100,50 103,60" fill="#64748b" />
+  <polygon points="717,60 720,50 723,60" fill="#64748b" />
+
+  <!-- Graph Curves -->
+  <!-- Latency Curve (spikes up non-linearly) -->
+  <path d="M 100 340 C 250 338, 400 330, 480 300 C 530 280, 560 210, 580 100" 
+        fill="none" stroke="url(#latencyGrad)" stroke-width="4" stroke-linecap="round" />
+
+  <!-- CPU/Resource Utilization Curve (linear-ish, then caps near 100% or bends as thread contention limits progress) -->
+  <path d="M 100 350 L 300 250 L 480 160 C 540 130, 600 115, 720 110" 
+        fill="none" stroke="url(#utilGrad)" stroke-width="4" stroke-dasharray="2 2" opacity="0.8" />
+  <path d="M 100 350 L 300 250 L 480 160 C 540 130, 600 115, 720 110" 
+        fill="none" stroke="url(#utilGrad)" stroke-width="4" stroke-linecap="round" opacity="0.9" />
+
+  <!-- Thresholds and Points -->
+  <!-- SLO Latency Target (e.g., 200ms) -->
+  <line x1="100" y1="170" x2="720" y2="170" stroke="#f43f5e" stroke-width="2" stroke-dasharray="6 4" />
+  <text x="110" y="162" fill="#f43f5e" font-family="system-ui, sans-serif" font-size="12" font-weight="600">SLO Latency Threshold (P99 &lt; 200ms)</text>
+
+  <!-- Peak Load Line (current expected maximum) -->
+  <line x1="420" y1="80" x2="420" y2="380" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 4" />
+  <text x="425" y="95" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Peak Load (4,000 RPS)</text>
+
+  <!-- Knee Point / Saturation Point -->
+  <circle cx="510" cy="245" r="6" fill="#fbbf24" stroke="#0f172a" stroke-width="2" />
+  <line x1="510" y1="245" x2="510" y2="380" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="4 4" />
+  <text x="518" y="240" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="11" font-weight="700">Knee Point (Saturation)</text>
+  <text x="515" y="395" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="10" font-weight="600">~4,800 RPS</text>
+
+  <!-- Latency SLO Intersection / Limit Point -->
+  <circle cx="540" cy="170" r="6" fill="#f43f5e" stroke="#0f172a" stroke-width="2" />
+  <line x1="540" y1="170" x2="540" y2="380" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="4 4" />
+  <text x="548" y="165" fill="#f43f5e" font-family="system-ui, sans-serif" font-size="11" font-weight="700">SLO Violation Point</text>
+  <text x="545" y="395" fill="#f43f5e" font-family="system-ui, sans-serif" font-size="10" font-weight="600">~5,100 RPS</text>
+
+  <!-- Headroom Dimension -->
+  <g fill="#38bdf8">
+    <line x1="420" y1="210" x2="540" y2="210" stroke="#38bdf8" stroke-width="2" />
+    <polygon points="420,206 410,210 420,214" />
+    <polygon points="540,206 550,210 540,214" />
+    <text x="430" y="202" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Safe Headroom</text>
+    <text x="440" y="224" font-family="system-ui, sans-serif" font-size="9" opacity="0.9">(+900 RPS / 22.5%)</text>
+  </g>
+
+  <!-- Axis Titles -->
+  <text x="420" y="425" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="13" font-weight="600" text-anchor="middle">Throughput / Request Rate (RPS)</text>
+  <text x="40" y="220" fill="#60a5fa" font-family="system-ui, sans-serif" font-size="13" font-weight="600" transform="rotate(-90 40 220)" text-anchor="middle">P99 Latency (ms)</text>
+  <text x="765" y="220" fill="#a78bfa" font-family="system-ui, sans-serif" font-size="13" font-weight="600" transform="rotate(90 765 220)" text-anchor="middle">Resource Utilization (%)</text>
+
+  <!-- Title & Legend -->
+  <text x="25" y="35" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="16" font-weight="700">Modeling Capacity &amp; Headroom against SLO Limits</text>
+  
+  <g transform="translate(480, 20)">
+    <line x1="0" y1="10" x2="20" y2="10" stroke="#3b82f6" stroke-width="3" />
+    <text x="25" y="14" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">P99 Latency</text>
+    
+    <line x1="110" y1="10" x2="130" y2="10" stroke="#8b5cf6" stroke-width="3" stroke-dasharray="3 2" />
+    <text x="135" y="14" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="11">CPU/Memory Util</text>
+  </g>
+</svg>
