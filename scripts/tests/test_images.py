@@ -49,8 +49,11 @@ def test_inject_urls_does_not_double_inject():
 def test_fetch_photo_url_format():
     client = images.PicsumClient(logger)
     regular, small = client.fetch_photo("Kubernetes Networking Deep Dive")
-    assert regular.startswith("https://picsum.photos/1080/720?random=")
-    assert small.startswith("https://picsum.photos/400/300?random=")
+    assert regular.startswith("https://picsum.photos/seed/")
+    assert small.startswith("https://picsum.photos/seed/")
+    assert "/1080/720" in regular
+    assert "/400/300" in small
+
 
 
 def test_fetch_photo_returns_deterministic_urls():

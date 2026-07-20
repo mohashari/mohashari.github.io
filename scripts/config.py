@@ -10,7 +10,20 @@ HISTORY_PATH = SCRIPTS_DIR / "topics_history.json"
 
 GITHUB_USER = "mohashari"
 POSTS_PER_RUN = 5
-CATEGORIES = ["software_engineering", "development", "devsecops", "ai_engineering"]
+CATEGORIES = [
+    "software_engineering",
+    "development",
+    "devsecops",
+    "ai_engineering",
+    "software_engineering_management",
+    "tech_culture",
+    "open_source_and_saas",
+    "industry_trends",
+    "tech_lead_management",
+    "observability_and_incident_management",
+    "sdlc",
+]
+
 
 TIMEOUT_WITH_DIAGRAM = 600   # seconds
 TIMEOUT_TEXT_ONLY = 400      # seconds
