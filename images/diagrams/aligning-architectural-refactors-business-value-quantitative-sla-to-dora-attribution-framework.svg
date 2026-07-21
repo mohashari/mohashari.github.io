@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="blue-card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="purple-card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#581c87" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="emerald-card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.8" />
+    </linearGradient>
+    <linearGradient id="orange-card" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c2d12" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.8" />
+    </linearGradient>
+
+    <!-- Flow Arrow Gradients -->
+    <linearGradient id="arrow-blue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="arrow-purple" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+
+    <!-- Filters for Glow Effects -->
+    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-emerald" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-active-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-active-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8b5cf6" />
+    </marker>
+    <marker id="arrow-active-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Background Layer -->
+  <rect width="100%" height="100%" fill="url(#bg-grad)" rx="16" />
+  
+  <!-- Subtle Grid Pattern Overlay -->
+  <g opacity="0.05">
+    <path d="M0,50 H900 M0,100 H900 M0,150 H900 M0,200 H900 M0,250 H900 M0,300 H900 M0,350 H900 M0,400 H900 M0,450 H900 M0,500 H900" stroke="#ffffff" stroke-width="1"/>
+    <path d="M50,0 V550 M100,0 V550 M150,0 V550 M200,0 V550 M250,0 V550 M300,0 V550 M350,0 V550 M400,0 V550 M450,0 V550 M500,0 V550 M550,0 V550 M600,0 V550 M650,0 V550 M700,0 V550 M750,0 V550 M800,0 V550 M850,0 V550" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <!-- Title & Metadata -->
+  <text x="35" y="45" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" letter-spacing="0.5">SLA-to-DORA Quantitative Attribution Architecture</text>
+  <text x="35" y="68" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-style="italic">Mapping technical refactoring telemetry to business metrics &amp; ROI</text>
+
+  <!-- ZONE 1: DATA INGESTION & PIPELINES (LEFT) -->
+  <g id="zone-inputs">
+    <!-- Border Container for Visual Grouping -->
+    <rect x="30" y="95" width="230" height="420" rx="12" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="4 4" />
+    <text x="45" y="120" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" letter-spacing="1">INPUT DATA STREAMS</text>
+
+    <!-- Source 1: Technical Telemetry (APM) -->
+    <g transform="translate(45, 140)">
+      <rect width="200" height="90" rx="8" fill="url(#blue-card)" stroke="#2563eb" stroke-width="1.5" filter="url(#glow-blue)" />
+      <text x="15" y="25" fill="#3b82f6" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">TELEMETRY &amp; APM (SLAs)</text>
+      <!-- Details -->
+      <text x="15" y="48" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="semibold">Prometheus &amp; Datadog</text>
+      <text x="15" y="65" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">P99 Latency, HTTP Error Rates</text>
+      <text x="15" y="78" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Database Locks &amp; Resource Saturation</text>
+    </g>
+
+    <!-- Source 2: Delivery Telemetry (CI/CD) -->
+    <g transform="translate(45, 255)">
+      <rect width="200" height="90" rx="8" fill="url(#purple-card)" stroke="#7c3aed" stroke-width="1.5" filter="url(#glow-purple)" />
+      <text x="15" y="25" fill="#a78bfa" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">DELIVERY TELEMETRY (DORA)</text>
+      <!-- Details -->
+      <text x="15" y="48" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="semibold">GitHub APIs &amp; ArgoCD</text>
+      <text x="15" y="65" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Lead Time, Change Failure Rate</text>
+      <text x="15" y="78" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Deployment Freq, MTTR</text>
+    </g>
+
+    <!-- Source 3: Refactoring Logs -->
+    <g transform="translate(45, 370)">
+      <rect width="200" height="90" rx="8" fill="url(#orange-card)" stroke="#ea580c" stroke-width="1.5" />
+      <text x="15" y="25" fill="#f97316" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">REFACTORING REGISTRY</text>
+      <!-- Details -->
+      <text x="15" y="48" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="semibold">Git Commits &amp; Releases</text>
+      <text x="15" y="65" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Migration Tags, Code Churn</text>
+      <text x="15" y="78" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Architectural Boundary Updates</text>
+    </g>
+  </g>
+
+  <!-- CONNECTOR PIPELINES (ZONE 1 -> ZONE 2) -->
+  <path d="M 245 185 L 320 185 L 320 230 L 350 230" fill="none" stroke="url(#arrow-blue)" stroke-width="2" marker-end="url(#arrow-active-blue)" />
+  <path d="M 245 300 L 350 300" fill="none" stroke="url(#arrow-purple)" stroke-width="2" marker-end="url(#arrow-active-purple)" />
+  <path d="M 245 415 L 320 415 L 320 370 L 350 370" fill="none" stroke="#ea580c" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- ZONE 2: ATTRIBUTION ENGINE (CENTER) -->
+  <g id="zone-engine">
+    <rect x="335" y="95" width="270" height="420" rx="12" fill="none" stroke="#475569" stroke-width="1.5" />
+    <text x="350" y="120" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" letter-spacing="1">ATTRIBUTION ENGINE (MATE)</text>
+
+    <!-- Component: Alignment Middleware & Data Syncer -->
+    <g transform="translate(350, 140)">
+      <rect width="240" height="110" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+      <text x="15" y="20" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">1. TELEMETRY CO-RELATION</text>
+      <text x="15" y="45" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Time-Series Alignment</text>
+      <!-- Sub-process -->
+      <rect x="15" y="58" width="210" height="40" rx="4" fill="#0f172a" stroke="#334155" />
+      <text x="25" y="73" fill="#38bdf8" font-family="monospace" font-size="10">Align(Refactor(t), SLA(t+N))</text>
+      <text x="25" y="88" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="9">Evaluates SLA shift relative to deploy date</text>
+    </g>
+
+    <!-- Component: Mathematical Engine -->
+    <g transform="translate(350, 275)">
+      <rect width="240" height="115" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="2" filter="url(#glow-purple)" />
+      <text x="15" y="20" fill="#a78bfa" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">2. STATISTICAL DECOMPOSITION</text>
+      <text x="15" y="42" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Multivariate Attribution</text>
+      
+      <!-- Regression box -->
+      <rect x="15" y="52" width="210" height="50" rx="4" fill="#0f172a" stroke="#581c87" />
+      <text x="25" y="68" fill="#a78bfa" font-family="monospace" font-size="10">Y_SLA = β0 + β1*X_refactor + ε</text>
+      <text x="25" y="83" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">Beta Coefficients represent ROI weight</text>
+      <text x="25" y="93" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="semibold">P-Value &lt; 0.05 Signficance Check</text>
+    </g>
+
+    <!-- Component: Attribution Output API -->
+    <g transform="translate(350, 410)">
+      <rect width="240" height="85" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+      <text x="15" y="20" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">3. ATTRIBUTION LEDGER</text>
+      <text x="15" y="40" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">JSON API / Database Export</text>
+      <text x="15" y="58" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="10">Exposes attribution mappings:</text>
+      <text x="15" y="72" fill="#10b981" font-family="monospace" font-size="10">{ "refactor_id": "RF-102", "dora_impact": 0.42 }</text>
+    </g>
+  </g>
+
+  <!-- INTERNAL CENTER DYNAMICS -->
+  <path d="M 470 250 L 470 275" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 470 390 L 470 410" fill="none" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-active-purple)" />
+
+  <!-- CONNECTOR PIPELINES (ZONE 2 -> ZONE 3) -->
+  <path d="M 590 332 L 645 332 L 645 220 L 675 220" fill="none" stroke="url(#arrow-purple)" stroke-width="2" marker-end="url(#arrow-active-purple)" />
+  <path d="M 590 452 L 645 452 L 645 375 L 675 375" fill="none" stroke="url(#arrow-purple)" stroke-width="2" marker-end="url(#arrow-active-emerald)" />
+
+  <!-- ZONE 3: BUSINESS VALUE & ROI (RIGHT) -->
+  <g id="zone-outputs">
+    <rect x="660" y="95" width="210" height="420" rx="12" fill="none" stroke="#10b981" stroke-width="1.5" filter="url(#glow-emerald)" />
+    <text x="675" y="120" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" letter-spacing="1">BUSINESS ATTRIBUTION</text>
+
+    <!-- Target 1: Cost & Incident Mitigation Savings -->
+    <g transform="translate(675, 140)">
+      <rect width="180" height="120" rx="8" fill="url(#emerald-card)" stroke="#059669" stroke-width="1.5" />
+      <text x="12" y="22" fill="#34d399" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">FINANCIAL ROI TRACKING</text>
+      <!-- Real stats examples -->
+      <text x="12" y="45" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="semibold">Incident Savings (USD)</text>
+      <text x="12" y="62" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Est. Savings = SLA SLA_Hours *</text>
+      <text x="12" y="74" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Cost_Per_Hour_Dowtime</text>
+      
+      <!-- Metrics box -->
+      <rect x="12" y="85" width="156" height="24" rx="4" fill="#062f25" />
+      <text x="20" y="101" fill="#34d399" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">+$142,500 ROI Captured</text>
+    </g>
+
+    <!-- Target 2: Stakeholder Alignment & Prioritization -->
+    <g transform="translate(675, 290)">
+      <rect width="180" height="205" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+      <text x="12" y="22" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">EXECUTIVE FEEDBACK LOOP</text>
+      <text x="12" y="45" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Refactor Backlog</text>
+      <text x="12" y="62" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Prioritized by SLA Impact</text>
+      
+      <!-- Prioritized list in mockup -->
+      <g transform="translate(12, 77)">
+        <rect width="156" height="28" rx="4" fill="#0f172a" stroke="#38bdf8" />
+        <text x="10" y="17" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">1. Partition Payment DB (ROI: 8.4)</text>
+      </g>
+      <g transform="translate(12, 112)">
+        <rect width="156" height="28" rx="4" fill="#0f172a" stroke="#475569" />
+        <text x="10" y="17" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">2. Upgrade HTTP Router (ROI: 3.1)</text>
+      </g>
+      <g transform="translate(12, 147)">
+        <rect width="156" height="28" rx="4" fill="#0f172a" stroke="#475569" />
+        <text x="10" y="17" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">3. Cache User Metadata (ROI: 1.8)</text>
+      </g>
+      
+      <text x="12" y="193" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-style="italic">Decisions driven by telemetry, not intuition</text>
+    </g>
+  </g>
+</svg>

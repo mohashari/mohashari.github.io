@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Node/Box Gradients -->
+    <linearGradient id="worker-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#312e81" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="db-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#065f46" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+    <linearGradient id="lock-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#78350f" />
+      <stop offset="100%" stop-color="#451a03" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    <filter id="glow-teal" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Markers for Arrows -->
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399" />
+    </marker>
+    <marker id="arrow-indigo" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#818cf8" />
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="550" rx="16" fill="url(#bg-grad)" />
+  <rect width="900" height="550" rx="16" fill="none" stroke="#334155" stroke-width="2" />
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" fill="#f8fafc" letter-spacing="1">
+    DISTRIBUTED SCHEDULING ARCHITECTURE
+  </text>
+  <text x="450" y="55" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#94a3b8">
+    PostgreSQL Advisory Locks + Go Bounded Queue Workers
+  </text>
+
+  <!-- ==================== WORKER NODES (LEFT) ==================== -->
+  <text x="210" y="100" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#818cf8" text-anchor="middle">DISTRIBUTED APP INSTANCES</text>
+
+  <!-- Worker Node 1 -->
+  <g transform="translate(40, 120)" filter="url(#shadow)">
+    <rect width="340" height="170" rx="8" fill="url(#worker-grad)" stroke="#4338ca" stroke-width="1.5" />
+    <text x="15" y="25" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#e0e7ff">Worker Node 01 (Replica)</text>
+    
+    <!-- Poller -->
+    <rect x="15" y="45" width="130" height="40" rx="4" fill="#312e81" stroke="#6366f1" stroke-width="1" />
+    <text x="80" y="68" font-family="monospace" font-size="11" fill="#c7d2fe" text-anchor="middle">Ticker Poll Loop</text>
+    
+    <!-- Bounded Queue Semaphore -->
+    <rect x="15" y="105" width="130" height="45" rx="4" fill="#1e1b4b" stroke="#4f46e5" stroke-width="1" />
+    <text x="80" y="123" font-family="system-ui, sans-serif" font-size="10" fill="#a5b4fc" text-anchor="middle">Concurrency Limiter</text>
+    <text x="80" y="138" font-family="monospace" font-size="10" fill="#818cf8" text-anchor="middle">chan struct{size: 50}</text>
+
+    <!-- Go routines -->
+    <g transform="translate(190, 45)">
+      <rect width="130" height="105" rx="4" fill="#1e1b4b" stroke="#4f46e5" stroke-width="1" />
+      <text x="65" y="20" font-family="system-ui, sans-serif" font-size="11" fill="#e0e7ff" text-anchor="middle" font-weight="bold">Goroutine Pool</text>
+      
+      <!-- Worker Threads -->
+      <rect x="10" y="32" width="110" height="18" rx="2" fill="#312e81" />
+      <text x="65" y="44" font-family="monospace" font-size="9" fill="#a5b4fc" text-anchor="middle">Worker #1 (Executing)</text>
+      
+      <rect x="10" y="55" width="110" height="18" rx="2" fill="#312e81" />
+      <text x="65" y="67" font-family="monospace" font-size="9" fill="#a5b4fc" text-anchor="middle">Worker #2 (Executing)</text>
+
+      <rect x="10" y="78" width="110" height="18" rx="2" fill="#1e1b4b" stroke="#4338ca" stroke-dasharray="2" />
+      <text x="65" y="90" font-family="monospace" font-size="9" fill="#6366f1" text-anchor="middle">Worker #3 (Idle)</text>
+    </g>
+
+    <!-- Internal Flow Arrow -->
+    <path d="M 145 65 L 190 65" fill="none" stroke="#818cf8" stroke-width="1.5" marker-end="url(#arrow-indigo)" />
+    <path d="M 80 85 L 80 105" fill="none" stroke="#818cf8" stroke-width="1.5" marker-end="url(#arrow-indigo)" />
+  </g>
+
+  <!-- Worker Node 2 (Collapsed visual reference) -->
+  <g transform="translate(40, 310)" filter="url(#shadow)">
+    <rect width="340" height="60" rx="8" fill="url(#worker-grad)" stroke="#4338ca" stroke-dasharray="4" stroke-width="1.5" opacity="0.8" />
+    <text x="20" y="35" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#a5b4fc" opacity="0.8">Worker Node 02 (Replica)</text>
+    <text x="200" y="35" font-family="monospace" font-size="11" fill="#6366f1" opacity="0.8">Running Poll Loop...</text>
+  </g>
+
+  <!-- Worker Node 3 (Collapsed visual reference) -->
+  <g transform="translate(40, 390)" filter="url(#shadow)">
+    <rect width="340" height="60" rx="8" fill="url(#worker-grad)" stroke="#4338ca" stroke-dasharray="4" stroke-width="1.5" opacity="0.8" />
+    <text x="20" y="35" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#a5b4fc" opacity="0.8">Worker Node 03 (Replica)</text>
+    <text x="200" y="35" font-family="monospace" font-size="11" fill="#6366f1" opacity="0.8">Running Poll Loop...</text>
+  </g>
+
+  <!-- ==================== DATABASE (RIGHT) ==================== -->
+  <text x="690" y="100" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#34d399" text-anchor="middle">POSTGRESQL INSTANCE</text>
+
+  <g transform="translate(520, 120)" filter="url(#shadow)">
+    <!-- DB Boundary -->
+    <rect width="340" height="330" rx="8" fill="url(#db-grad)" stroke="#059669" stroke-width="1.5" />
+    <text x="15" y="25" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" fill="#a7f3d0">Production PostgreSQL (Primary)</text>
+
+    <!-- Task Queue Table -->
+    <g transform="translate(15, 45)">
+      <rect width="310" height="135" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+      <text x="15" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#34d399">Table: scheduled_tasks</text>
+      
+      <!-- Columns Table visual -->
+      <rect x="10" y="30" width="290" height="95" rx="2" fill="#022c22" />
+      <!-- Table Header -->
+      <text x="15" y="45" font-family="monospace" font-size="9" fill="#6ee7b7" font-weight="bold">id (BIGINT)</text>
+      <text x="110" y="45" font-family="monospace" font-size="9" fill="#6ee7b7" font-weight="bold">run_at (TZ)</text>
+      <text x="200" y="45" font-family="monospace" font-size="9" fill="#6ee7b7" font-weight="bold">status (VARCHAR)</text>
+      <line x1="10" y1="50" x2="300" y2="50" stroke="#047857" stroke-width="1" />
+
+      <!-- Row 1 (Acquired/Processing) -->
+      <text x="15" y="65" font-family="monospace" font-size="9" fill="#10b981">109827</text>
+      <text x="110" y="65" font-family="monospace" font-size="9" fill="#10b981">08:00:00 (Past)</text>
+      <text x="200" y="65" font-family="monospace" font-size="9" fill="#10b981" font-weight="bold">processing</text>
+      <!-- Glow outline for locked row -->
+      <rect x="12" y="55" width="286" height="14" fill="none" stroke="#34d399" stroke-width="1" opacity="0.7" />
+
+      <!-- Row 2 (Pending/Ready to acquire) -->
+      <text x="15" y="82" font-family="monospace" font-size="9" fill="#a7f3d0">109828</text>
+      <text x="110" y="82" font-family="monospace" font-size="9" fill="#a7f3d0">08:00:15 (Past)</text>
+      <text x="200" y="82" font-family="monospace" font-size="9" fill="#34d399">queued</text>
+
+      <!-- Row 3 (Future scheduled task) -->
+      <text x="15" y="99" font-family="monospace" font-size="9" fill="#6ee7b7" opacity="0.6">109829</text>
+      <text x="110" y="99" font-family="monospace" font-size="9" fill="#6ee7b7" opacity="0.6">09:00:00 (Future)</text>
+      <text x="200" y="99" font-family="monospace" font-size="9" fill="#6ee7b7" opacity="0.6">scheduled</text>
+    </g>
+
+    <!-- Advisory Lock Space -->
+    <g transform="translate(15, 200)">
+      <rect width="310" height="115" rx="6" fill="url(#lock-grad)" stroke="#d97706" stroke-width="1" />
+      <text x="15" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" fill="#fbbf24">Pg Advisory Locks (In-Memory Hash)</text>
+
+      <!-- Locked Key Visuals -->
+      <g transform="translate(15, 30)">
+        <!-- Lock 1 -->
+        <rect x="0" y="5" width="130" height="30" rx="4" fill="#451a03" stroke="#fbbf24" stroke-width="1" />
+        <circle cx="15" cy="20" r="5" fill="#f59e0b" />
+        <text x="30" y="23" font-family="monospace" font-size="9" fill="#fef3c7">Lock ID: 109827</text>
+        <text x="30" y="32" font-family="system-ui, sans-serif" font-size="7" fill="#fcd34d">(Transaction Scoped)</text>
+
+        <!-- Lock 2 (Attempted/Blocked) -->
+        <rect x="150" y="5" width="130" height="30" rx="4" fill="#022c22" stroke="#047857" stroke-dasharray="2" />
+        <circle cx="165" cy="20" r="5" fill="#059669" />
+        <text x="180" y="23" font-family="monospace" font-size="9" fill="#a7f3d0">Lock ID: 109828</text>
+        <text x="180" y="32" font-family="system-ui, sans-serif" font-size="7" fill="#6ee7b7">(Available)</text>
+      </g>
+      
+      <text x="15" y="85" font-family="system-ui, sans-serif" font-size="9" fill="#fde047" opacity="0.9">
+        Locks are fast hash-table checks in shared memory.
+      </text>
+      <text x="15" y="97" font-family="system-ui, sans-serif" font-size="9" fill="#fde047" opacity="0.9">
+        Zero disk I/O. Automatically freed on Tx commit/rollback.
+      </text>
+    </g>
+  </g>
+
+  <!-- ==================== INTERACTION FLOWS ==================== -->
+  
+  <!-- Flow 1: Poll & Lock Query -->
+  <path d="M 185 165 C 220 165, 380 200, 510 200" fill="none" stroke="#34d399" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-teal)" />
+  <g transform="translate(250, 160)">
+    <rect x="-10" y="-12" width="220" height="20" rx="3" fill="#0f172a" stroke="#065f46" stroke-width="1" />
+    <text x="100" y="2" font-family="monospace" font-size="8" fill="#34d399" text-anchor="middle">
+      1. SELECT FOR UPDATE SKIP LOCKED + Advisory Lock
+    </text>
+  </g>
+
+  <!-- Flow 2: Lock Granted -->
+  <path d="M 520 280 C 450 300, 300 300, 205 285" fill="none" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrow-amber)" />
+  <g transform="translate(280, 302)">
+    <rect x="-10" y="-12" width="160" height="20" rx="3" fill="#0f172a" stroke="#78350f" stroke-width="1" />
+    <text x="70" y="2" font-family="system-ui, sans-serif" font-size="8" fill="#fbbf24" text-anchor="middle" font-weight="bold">
+      2. Lock Acquired (Id: 109827)
+    </text>
+  </g>
+
+  <!-- Flow 3: Executor runs task -->
+  <path d="M 230 265 L 230 290" fill="none" stroke="#818cf8" stroke-width="1.5" marker-end="url(#arrow-indigo)" />
+  <text x="240" y="280" font-family="system-ui, sans-serif" font-size="9" fill="#a5b4fc">
+    3. Spawn Goroutine
+  </text>
+  
+  <!-- Flow 4: Worker 2 Polling Skip Locked -->
+  <path d="M 180 340 C 260 345, 420 380, 520 380" fill="none" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="3" marker-end="url(#arrow-teal)" />
+  <text x="280" y="358" font-family="system-ui, sans-serif" font-size="8" fill="#f43f5e" font-weight="bold">
+    Node 2 skips Lock 109827 (Busy) &amp; acquires Lock 109828
+  </text>
+
+  <!-- Key Legend (Bottom Center) -->
+  <g transform="translate(270, 480)">
+    <rect width="360" height="40" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+    
+    <circle cx="20" cy="20" r="6" fill="#818cf8" />
+    <text x="32" y="23" font-family="system-ui, sans-serif" font-size="10" fill="#f8fafc">App Workers</text>
+
+    <circle cx="120" cy="20" r="6" fill="#10b981" />
+    <text x="132" y="23" font-family="system-ui, sans-serif" font-size="10" fill="#f8fafc">DB Storage</text>
+
+    <circle cx="220" cy="20" r="6" fill="#fbbf24" />
+    <text x="232" y="23" font-family="system-ui, sans-serif" font-size="10" fill="#f8fafc">Advisory Lock</text>
+
+    <line x1="310" y1="20" x2="330" y2="20" stroke="#f43f5e" stroke-width="2" stroke-dasharray="3" />
+    <text x="335" y="23" font-family="system-ui, sans-serif" font-size="10" fill="#f8fafc">Contention Skip</text>
+  </g>
+</svg>

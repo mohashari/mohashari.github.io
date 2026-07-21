@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%" style="background-color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bg-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="1" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="1" />
+    </radialGradient>
+    
+    <!-- Box Gradients -->
+    <linearGradient id="control-plane-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="sds-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <linearGradient id="envoy-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="client-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Markers for Arrows -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a78bfa" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f59e0b" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bg-glow)" />
+
+  <!-- Grid lines (subtle background pattern) -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.2">
+    <path d="M 0,50 L 800,50 M 0,100 L 800,100 M 0,150 L 800,150 M 0,200 L 800,200 M 0,250 L 800,250 M 0,300 L 800,300 M 0,350 L 800,350 M 0,400 L 800,400 M 0,450 L 800,450" />
+    <path d="M 50,0 L 50,500 M 100,0 L 100,500 M 150,0 L 150,500 M 200,0 L 200,500 M 250,0 L 250,500 M 300,0 L 300,500 M 350,0 L 350,500 M 400,0 L 400,500 M 450,0 L 450,500 M 500,0 L 500,500 M 550,0 L 550,500 M 600,0 L 600,500 M 650,0 L 650,500 M 700,0 L 700,500 M 750,0 L 750,500" />
+  </g>
+
+  <!-- Title / Header -->
+  <text x="400" y="35" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="bold" letter-spacing="0.5">
+    MULTI-REGION EPHEMERAL TLS STEK ROTATION ARCHITECTURE
+  </text>
+
+  <!-- Legend -->
+  <g transform="translate(620, 20)" opacity="0.8">
+    <rect width="160" height="75" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <circle cx="20" cy="20" r="6" fill="#3b82f6" />
+    <text x="35" y="24" fill="#94a3b8" font-size="11">Key Generation</text>
+    <circle cx="20" cy="38" r="6" fill="#8b5cf6" />
+    <text x="35" y="42" fill="#94a3b8" font-size="11">gRPC SDS API</text>
+    <circle cx="20" cy="56" r="6" fill="#10b981" />
+    <text x="35" y="60" fill="#94a3b8" font-size="11">Envoy Data Plane</text>
+  </g>
+
+  <!-- ================= CONTROL PLANE (CENTRAL) ================= -->
+  <g transform="translate(300, 75)" filter="url(#shadow)">
+    <!-- Central STEK Generator (Vault + Cron/Go Operator) -->
+    <rect width="200" height="90" rx="8" fill="url(#control-plane-grad)" stroke="#60a5fa" stroke-width="1.5" />
+    <text x="100" y="30" text-anchor="middle" fill="#ffffff" font-size="14" font-weight="bold">Control Plane / Vault</text>
+    <text x="100" y="50" text-anchor="middle" fill="#e0f2fe" font-size="11">STEK Generator &amp; Custodian</text>
+    <rect x="20" y="62" width="160" height="18" rx="4" fill="#1d4ed8" />
+    <text x="100" y="75" text-anchor="middle" fill="#93c5fd" font-size="10" font-family="monospace">Generates 80-byte STEK Keyring</text>
+  </g>
+
+  <!-- ================= REGION A (us-east-1) ================= -->
+  <!-- Boundary Box -->
+  <rect x="50" y="200" width="310" height="240" rx="8" fill="#1e293b" fill-opacity="0.4" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 4" />
+  <text x="65" y="222" fill="#94a3b8" font-size="12" font-weight="bold" letter-spacing="1">REGION A (us-east-1)</text>
+
+  <!-- SDS Server A -->
+  <g transform="translate(80, 240)" filter="url(#shadow)">
+    <rect width="250" height="60" rx="6" fill="url(#sds-grad)" stroke="#c084fc" stroke-width="1.5" />
+    <text x="125" y="25" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">gRPC SDS Control Plane</text>
+    <text x="125" y="45" text-anchor="middle" fill="#f3e8ff" font-size="10" font-family="monospace">Secret Discovery Service Server</text>
+  </g>
+
+  <!-- Envoy Proxy A -->
+  <g transform="translate(80, 350)" filter="url(#shadow)">
+    <rect width="250" height="70" rx="6" fill="url(#envoy-grad)" stroke="#34d399" stroke-width="1.5" />
+    <text x="125" y="25" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">Envoy Ingress Gateway</text>
+    <text x="125" y="45" text-anchor="middle" fill="#d1fae5" font-size="10">Active: Key_A (Decrypt: Key_A, Key_B)</text>
+    <rect x="15" y="52" width="220" height="12" rx="2" fill="#065f46" />
+    <text x="125" y="61" text-anchor="middle" fill="#6ee7b7" font-size="9" font-family="monospace">dynamic_active_secrets: [stek_keyring]</text>
+  </g>
+
+
+  <!-- ================= REGION B (ap-southeast-1) ================= -->
+  <!-- Boundary Box -->
+  <rect x="440" y="200" width="310" height="240" rx="8" fill="#1e293b" fill-opacity="0.4" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 4" />
+  <text x="455" y="222" fill="#94a3b8" font-size="12" font-weight="bold" letter-spacing="1">REGION B (ap-southeast-1)</text>
+
+  <!-- SDS Server B -->
+  <g transform="translate(470, 240)" filter="url(#shadow)">
+    <rect width="250" height="60" rx="6" fill="url(#sds-grad)" stroke="#c084fc" stroke-width="1.5" />
+    <text x="125" y="25" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">gRPC SDS Control Plane</text>
+    <text x="125" y="45" text-anchor="middle" fill="#f3e8ff" font-size="10" font-family="monospace">Secret Discovery Service Server</text>
+  </g>
+
+  <!-- Envoy Proxy B -->
+  <g transform="translate(470, 350)" filter="url(#shadow)">
+    <rect width="250" height="70" rx="6" fill="url(#envoy-grad)" stroke="#34d399" stroke-width="1.5" />
+    <text x="125" y="25" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="bold">Envoy Ingress Gateway</text>
+    <text x="125" y="45" text-anchor="middle" fill="#d1fae5" font-size="10">Active: Key_A (Decrypt: Key_A, Key_B)</text>
+    <rect x="15" y="52" width="220" height="12" rx="2" fill="#065f46" />
+    <text x="125" y="61" text-anchor="middle" fill="#6ee7b7" font-size="9" font-family="monospace">dynamic_active_secrets: [stek_keyring]</text>
+  </g>
+
+
+  <!-- ================= FLOW ARROWS & INTERACTIONS ================= -->
+
+  <!-- Control Plane -> SDS Server A -->
+  <path d="M 330,165 L 330,185 Q 330,220 230,220 L 230,234" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="250" y="200" fill="#93c5fd" font-size="10" font-weight="bold">1. Sync Keyring</text>
+
+  <!-- Control Plane -> SDS Server B -->
+  <path d="M 470,165 L 470,185 Q 470,220 570,220 L 570,234" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="500" y="200" fill="#93c5fd" font-size="10" font-weight="bold">1. Sync Keyring</text>
+
+  <!-- SDS Server A -> Envoy A (gRPC Stream) -->
+  <path d="M 205,302 L 205,344" fill="none" stroke="#a78bfa" stroke-width="2.5" marker-end="url(#arrow-purple)" />
+  <text x="215" y="328" fill="#c084fc" font-size="10" font-weight="bold">2. gRPC SDS Push</text>
+
+  <!-- SDS Server B -> Envoy B (gRPC Stream) -->
+  <path d="M 595,302 L 595,344" fill="none" stroke="#a78bfa" stroke-width="2.5" marker-end="url(#arrow-purple)" />
+  <text x="605" y="328" fill="#c084fc" font-size="10" font-weight="bold">2. gRPC SDS Push</text>
+
+
+  <!-- ================= CLIENT RESUMPTION FLOW ================= -->
+
+  <!-- Client Box -->
+  <g transform="translate(340, 442)" filter="url(#shadow)">
+    <rect width="120" height="40" rx="4" fill="url(#client-grad)" stroke="#fbbf24" stroke-width="1.5" />
+    <text x="60" y="24" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="bold">User Client</text>
+  </g>
+
+  <!-- Client -> Envoy A (Initial Connection - Full Handshake) -->
+  <path d="M 340,455 L 200,455 Q 160,455 160,426" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-orange)" />
+  <text x="210" y="472" fill="#f59e0b" font-size="9" text-anchor="middle">3. Full TLS Handshake</text>
+  <text x="210" y="484" fill="#f59e0b" font-size="9" text-anchor="middle">(Receives Session Ticket)</text>
+
+  <!-- Client -> Envoy B (Subsequent Connection - Resumption) -->
+  <path d="M 460,455 L 600,455 Q 640,455 640,426" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="590" y="472" fill="#34d399" font-size="9" text-anchor="middle" font-weight="bold">4. 0-RTT/1-RTT Session Resumption</text>
+  <text x="590" y="484" fill="#34d399" font-size="9" text-anchor="middle">(Decrypted via synced Key_A)</text>
+
+</svg>
