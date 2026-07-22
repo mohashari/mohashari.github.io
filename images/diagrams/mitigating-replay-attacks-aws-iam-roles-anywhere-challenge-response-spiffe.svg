@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="1000" height="650" fill="#0d1117" rx="12" />
+  
+  <!-- Definitions for gradients and filters -->
+  <defs>
+    <!-- Card glow / shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glow-blue" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#58a6ff" flood-opacity="0.3" />
+    </filter>
+    <filter id="glow-purple" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#bc8cff" flood-opacity="0.3" />
+    </filter>
+    
+    <!-- Linear Gradients -->
+    <linearGradient id="gradient-client" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="gradient-broker" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="gradient-aws" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c1a04" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    
+    <!-- Arrow heads -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b949e" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#bc8cff" />
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="50" y="45" fill="#f0f6fc" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700">AWS IAM Roles Anywhere Challenge-Response &amp; SPIFFE</text>
+  <text x="50" y="70" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="400">Zero-Trust Workload Identity &amp; Replay Attack Mitigation Architecture</text>
+
+  <!-- ==================== ON-PREMISES / HYBRID WORKLOAD (LEFT) ==================== -->
+  <g transform="translate(50, 110)">
+    <!-- Container -->
+    <rect width="280" height="470" fill="url(#gradient-client)" stroke="#30363d" stroke-width="1.5" rx="8" filter="url(#shadow)" />
+    <text x="20" y="30" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" letter-spacing="1">ON-PREM / HYBRID WORKLOAD</text>
+
+    <!-- Workload Application -->
+    <g transform="translate(20, 60)" filter="url(#glow-blue)">
+      <rect width="240" height="140" fill="#161b22" stroke="#58a6ff" stroke-width="1.5" rx="6" />
+      <text x="15" y="30" fill="#58a6ff" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700">App Workload</text>
+      <text x="15" y="55" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="12">1. Request AWS Credentials</text>
+      
+      <!-- SVID In-Memory Cache -->
+      <rect x="15" y="75" width="210" height="45" fill="#0d1117" stroke="#30363d" rx="4" />
+      <circle cx="30" cy="97" r="6" fill="#3fb950" />
+      <text x="45" y="94" fill="#c9d1d9" font-family="monospace" font-size="11" font-weight="bold">SPIFFE X.509 SVID</text>
+      <text x="45" y="108" fill="#8b949e" font-family="monospace" font-size="9">In-memory / Auto-rotated (1h)</text>
+    </g>
+
+    <!-- SPIRE Agent -->
+    <g transform="translate(20, 240)">
+      <rect width="240" height="120" fill="#161b22" stroke="#30363d" stroke-width="1" rx="6" />
+      <text x="15" y="30" fill="#f0f6fc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">SPIRE Agent</text>
+      <text x="15" y="50" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="11">Attests workload, issues SVID</text>
+      
+      <!-- Workload API Endpoint -->
+      <rect x="15" y="70" width="210" height="35" fill="#0d1117" stroke="#30363d" rx="4" />
+      <text x="25" y="91" fill="#79c0ff" font-family="monospace" font-size="10">unix:///run/spire/sockets/agent.sock</text>
+    </g>
+    
+    <!-- SPIRE Server (Local Trust Anchor) -->
+    <g transform="translate(20, 390)">
+      <rect width="240" height="60" fill="#161b22" stroke="#30363d" stroke-width="1" rx="6" />
+      <text x="15" y="25" fill="#f0f6fc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600">SPIRE Server</text>
+      <text x="15" y="45" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="11">Validates workloads &amp; syncs trust bundles</text>
+    </g>
+  </g>
+
+  <!-- ==================== TRUST BROKER / AUTH GATEWAY (MIDDLE) ==================== -->
+  <g transform="translate(370, 110)">
+    <rect width="260" height="470" fill="url(#gradient-broker)" stroke="#30363d" stroke-width="1.5" rx="8" filter="url(#shadow)" />
+    <text x="20" y="30" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" letter-spacing="1">TRUST BROKER / GATEWAY</text>
+
+    <!-- Mutual TLS Endpoint -->
+    <g transform="translate(15, 60)" filter="url(#glow-purple)">
+      <rect width="230" height="75" fill="#161b22" stroke="#bc8cff" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#bc8cff" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700">mTLS &amp; SPIFFE Val</text>
+      <text x="15" y="45" fill="#c9d1d9" font-family="system-ui, -apple-system, sans-serif" font-size="11">Verifies client SVID against</text>
+      <text x="15" y="60" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="11">SPIRE Trust Bundle (SPIFFE ID)</text>
+    </g>
+
+    <!-- Cryptographic Challenge-Response Engine -->
+    <g transform="translate(15, 155)">
+      <rect width="230" height="150" fill="#161b22" stroke="#30363d" stroke-width="1" rx="6" />
+      <text x="15" y="25" fill="#f0f6fc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">Challenge Engine</text>
+      
+      <!-- Nonce Generator -->
+      <rect x="15" y="40" width="200" height="45" fill="#0d1117" stroke="#30363d" rx="4" />
+      <text x="10" y="20" transform="translate(15, 42)" fill="#79c0ff" font-family="monospace" font-size="10">Nonce: CRYPTO_RAND(32)</text>
+      <text x="10" y="32" transform="translate(15, 42)" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="9">Expires in 15 seconds</text>
+      
+      <!-- Sliding Window Bloom Filter / Cache -->
+      <rect x="15" y="95" width="200" height="45" fill="#0d1117" stroke="#3fb950" stroke-width="1" rx="4" />
+      <text x="10" y="18" transform="translate(15, 95)" fill="#3fb950" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">Replay Cache (Redis)</text>
+      <text x="10" y="32" transform="translate(15, 95)" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="9">Guarantees single-use nonces</text>
+    </g>
+
+    <!-- Signer Service -->
+    <g transform="translate(15, 325)">
+      <rect width="230" height="120" fill="#161b22" stroke="#30363d" stroke-width="1" rx="6" />
+      <text x="15" y="25" fill="#f0f6fc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">AWS IAMRA Signer</text>
+      <text x="15" y="45" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="11">Signs Roles Anywhere payload</text>
+      
+      <!-- AWS Signing Helper Key -->
+      <rect x="15" y="65" width="200" height="40" fill="#0d1117" stroke="#30363d" rx="4" />
+      <text x="10" y="18" transform="translate(15, 65)" fill="#ff7b72" font-family="monospace" font-size="10">Broker Private Key</text>
+      <text x="10" y="30" transform="translate(15, 65)" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="9">Anchored in AWS Trust Anchor</text>
+    </g>
+  </g>
+
+  <!-- ==================== AWS CLOUD (RIGHT) ==================== -->
+  <g transform="translate(670, 110)">
+    <rect width="280" height="470" fill="url(#gradient-aws)" stroke="#f2994a" stroke-width="1.5" rx="8" filter="url(#shadow)" />
+    <text x="20" y="30" fill="#f2994a" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" letter-spacing="1">AWS CLOUD (SECURE ZONE)</text>
+
+    <!-- AWS IAM Roles Anywhere -->
+    <g transform="translate(20, 60)" filter="url(#glow-blue)">
+      <rect width="240" height="150" fill="#161b22" stroke="#58a6ff" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#58a6ff" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700">IAM Roles Anywhere</text>
+      
+      <!-- Components -->
+      <rect x="15" y="40" width="210" height="30" fill="#0d1117" stroke="#30363d" rx="4" />
+      <text x="25" y="59" fill="#c9d1d9" font-family="system-ui, -apple-system, sans-serif" font-size="11">Trust Anchor (Broker CA)</text>
+      
+      <rect x="15" y="78" width="210" height="30" fill="#0d1117" stroke="#30363d" rx="4" />
+      <text x="25" y="97" fill="#c9d1d9" font-family="system-ui, -apple-system, sans-serif" font-size="11">Trust Profile (Role Mapping)</text>
+      
+      <text x="15" y="130" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="11">Validates broker signature &amp; cert</text>
+    </g>
+
+    <!-- AWS Security Token Service (STS) -->
+    <g transform="translate(20, 230)">
+      <rect width="240" height="100" fill="#161b22" stroke="#30363d" stroke-width="1" rx="6" />
+      <text x="15" y="25" fill="#f0f6fc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">AWS STS</text>
+      <text x="15" y="45" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="11">Assumes target IAM Role</text>
+      
+      <!-- Target Role -->
+      <rect x="15" y="60" width="210" height="30" fill="#0d1117" stroke="#30363d" rx="4" />
+      <text x="25" y="79" fill="#ff7b72" font-family="monospace" font-size="10">arn:aws:iam::*:role/WorkloadRole</text>
+    </g>
+    
+    <!-- IAM Role Trust Policy Evaluation -->
+    <g transform="translate(20, 350)">
+      <rect width="240" height="100" fill="#161b22" stroke="#30363d" stroke-width="1" rx="6" />
+      <text x="15" y="25" fill="#f0f6fc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600">Trust Policy Enforcement</text>
+      <text x="15" y="45" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="10">Checks certificate policy constraints</text>
+      
+      <!-- Condition Box -->
+      <rect x="15" y="60" width="210" height="30" fill="#2c1a04" stroke="#f2994a" rx="4" />
+      <text x="25" y="79" fill="#f2994a" font-family="monospace" font-size="9" font-weight="bold">aws:PrincipalTag/SPIFFE_ID</text>
+    </g>
+  </g>
+
+  <!-- ==================== CONNECTORS & DATA FLOW ==================== -->
+  
+  <!-- Flow 1: Workload -> Broker (Request Challenge) -->
+  <path d="M 280, 200 Q 325, 180 370, 200" fill="none" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4, 4" marker-end="url(#arrow-blue)" />
+  <text x="325" y="170" fill="#58a6ff" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">1. Get Challenge</text>
+
+  <!-- Flow 2: Broker -> Workload (Return Nonce) -->
+  <path d="M 370, 220 Q 325, 240 280, 220" fill="none" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrow-purple)" />
+  <text x="325" y="250" fill="#bc8cff" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">2. Nonce Response</text>
+
+  <!-- Flow 3: Workload -> Broker (mTLS + Signed Challenge) -->
+  <path d="M 280, 270 L 370, 270" fill="none" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <text x="325" y="295" fill="#3fb950" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">3. Submit Signed Nonce (mTLS)</text>
+
+  <!-- Flow 4: Broker -> AWS Roles Anywhere (CreateSession) -->
+  <path d="M 630, 240 L 670, 240" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="650" y="230" fill="#58a6ff" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">4. CreateSession</text>
+  
+  <!-- Flow 5: AWS Roles Anywhere -> STS -> Broker (Credentials) -->
+  <path d="M 670, 300 Q 650, 330 630, 350" fill="none" stroke="#bc8cff" stroke-width="2" marker-end="url(#arrow-purple)" />
+  <text x="650" y="340" fill="#bc8cff" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">5. Temp Creds</text>
+
+  <!-- Flow 6: Broker -> Workload (Deliver Temp AWS Credentials) -->
+  <path d="M 370, 410 Q 325, 410 280, 410" fill="none" stroke="#3fb950" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="325" y="430" fill="#3fb950" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">6. AWS Credentials</text>
+
+  <!-- SPIRE Agent to App Workload SVID delivery -->
+  <path d="M 140, 240 L 140, 200" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arrow)" />
+  <text x="145" y="225" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="9">SVID Rotation</text>
+
+  <!-- Legend -->
+  <g transform="translate(50, 595)">
+    <circle cx="10" cy="10" r="5" fill="#58a6ff" />
+    <text x="22" y="14" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="11">Request / Call</text>
+    
+    <circle cx="110" cy="10" r="5" fill="#bc8cff" />
+    <text x="122" y="14" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="11">Response / Challenge</text>
+    
+    <circle cx="270" cy="10" r="5" fill="#3fb950" />
+    <text x="282" y="14" fill="#8b949e" font-family="system-ui, -apple-system, sans-serif" font-size="11">Secure mTLS / Authenticated payload</text>
+  </g>
+</svg>

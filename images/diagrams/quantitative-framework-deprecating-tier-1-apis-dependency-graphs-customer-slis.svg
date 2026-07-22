@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="teal-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0dd3c5" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <linearGradient id="rose-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fda4af" />
+      <stop offset="100%" stop-color="#f43f5e" />
+    </linearGradient>
+    
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    <filter id="glow-teal" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e" />
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#0dd3c5" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" fill="url(#bg-grad)" rx="12" />
+  
+  <!-- Outer Border Grid Lines (Subtle) -->
+  <path d="M 50,0 L 50,650 M 950,0 L 950,650 M 0,50 L 1000,50 M 0,600 L 1000,600" stroke="#334155" stroke-width="0.5" stroke-dasharray="4,4" />
+
+  <!-- TITLE -->
+  <text x="50" y="38" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" letter-spacing="0.5">
+    QUANTITATIVE DEPRECATION FRAMEWORK Architecture
+  </text>
+  <text x="800" y="38" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="500">
+    Moh Ashari Muklis • 2026
+  </text>
+  <line x1="50" y1="48" x2="950" y2="48" stroke="#334155" stroke-width="1.5" />
+
+  <!-- ==================== LAYER 1: INGESTION & TRACING ==================== -->
+  <g transform="translate(60, 80)">
+    <rect width="240" height="490" fill="#1e293b" fill-opacity="0.6" stroke="#334155" stroke-width="1.5" rx="8" />
+    <text x="20" y="30" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" letter-spacing="1">1. DATA INGESTION &amp; TRACING</text>
+    
+    <!-- Gateway Node -->
+    <g transform="translate(20, 60)" filter="url(#shadow)">
+      <rect width="200" height="70" fill="#0f172a" stroke="#475569" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Envoy API Gateway</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Injects: x-request-id, w3c-traceparent</text>
+      <text x="15" y="58" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">100k rps • Edge Latency SLI</text>
+    </g>
+
+    <!-- OTel Collector -->
+    <g transform="translate(20, 160)" filter="url(#shadow)">
+      <rect width="200" height="70" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">OpenTelemetry Collector</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Span Exporter (Kafka/gRPC)</text>
+      <text x="15" y="58" fill="#0ea5e9" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">Lossless Tail-Based Sampling</text>
+    </g>
+
+    <!-- Prometheus Prometheus -->
+    <g transform="translate(20, 260)" filter="url(#shadow)">
+      <rect width="200" height="70" fill="#0f172a" stroke="#f97316" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Prometheus / Cortex</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Scrapes http_requests_total</text>
+      <text x="15" y="58" fill="#f97316" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">Client &amp; Service SLI Metrics</text>
+    </g>
+
+    <!-- Jaeger Traces -->
+    <g transform="translate(20, 360)" filter="url(#shadow)">
+      <rect width="200" height="90" fill="#0f172a" stroke="#818cf8" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Jaeger Span Store</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Elasticsearch backend</text>
+      <text x="15" y="58" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">DAG Generation Source</text>
+      <text x="15" y="76" fill="#818cf8" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">Trace Depth: 12 • Transitive Path</text>
+    </g>
+  </g>
+
+  <!-- Connectors Layer 1 to Layer 2 -->
+  <line x1="280" y1="275" x2="380" y2="235" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="280" y1="485" x2="380" y2="445" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- ==================== LAYER 2: GRAPH & RISK ENGINE ==================== -->
+  <g transform="translate(380, 80)">
+    <rect width="260" height="490" fill="#1e293b" fill-opacity="0.6" stroke="#334155" stroke-width="1.5" rx="8" />
+    <text x="20" y="30" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" letter-spacing="1">2. DEPRECIATION RISK ENGINE</text>
+
+    <!-- Graph Builder -->
+    <g transform="translate(20, 60)" filter="url(#shadow)">
+      <rect width="220" height="90" fill="#0f172a" stroke="#0dd3c5" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Graph Builder (NetworkX)</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Pulls Jaeger traces periodically</text>
+      <text x="15" y="58" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Builds Directed Acyclic Graph (DAG)</text>
+      <text x="15" y="76" fill="#0dd3c5" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">Node: API Resource | Edge: Call Rate</text>
+    </g>
+
+    <!-- Neo4j Dependency DB -->
+    <g transform="translate(20, 180)" filter="url(#shadow)">
+      <rect width="220" height="70" fill="#0f172a" stroke="#a855f7" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Neo4j Dependency Store</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Stores transitive service paths</text>
+      <text x="15" y="58" fill="#a855f7" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">Cypher: MATCH (c:Client)-[*]->(d:DepAPI)</text>
+    </g>
+
+    <!-- Quantitative Assessor -->
+    <g transform="translate(20, 280)" filter="url(#shadow)">
+      <rect width="220" height="170" fill="#0f172a" stroke="#f43f5e" stroke-width="2" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Quantitative Risk Assessor</text>
+      <text x="15" y="45" fill="#fda4af" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">SLI Risk Score Formula:</text>
+      
+      <!-- Formula box -->
+      <rect x="15" y="55" width="190" height="35" fill="#1e293b" rx="4" stroke="#e2e8f0" stroke-width="0.5" />
+      <text x="25" y="77" fill="#38bdf8" font-family="Courier, monospace" font-size="11" font-weight="bold">Risk = Σ ( W_c * SLI_impact )</text>
+      
+      <text x="15" y="110" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Metrics Evaluated:</text>
+      <text x="25" y="125" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Transitive dependency paths</text>
+      <text x="25" y="138" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Max allowable latency budget</text>
+      <text x="25" y="151" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="9">• Client tier weight (W_c: 1.0 to 10.0)</text>
+    </g>
+  </g>
+
+  <!-- Connectors Layer 2 to Layer 3 -->
+  <line x1="640" y1="215" x2="720" y2="185" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="640" y1="365" x2="720" y2="335" stroke="#f43f5e" stroke-width="2" stroke-dasharray="2,2" marker-end="url(#arrow-rose)" />
+
+  <!-- Internal Connectors Layer 2 -->
+  <line x1="490" y1="150" x2="490" y2="180" stroke="#0dd3c5" stroke-width="1.5" marker-end="url(#arrow-teal)" />
+  <line x1="490" y1="250" x2="490" y2="280" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- ==================== LAYER 3: ENFORCEMENT & DEPRECATION ==================== -->
+  <g transform="translate(720, 80)">
+    <rect width="220" height="490" fill="#1e293b" fill-opacity="0.6" stroke="#334155" stroke-width="1.5" rx="8" />
+    <text x="20" y="30" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" letter-spacing="1">3. ACTION &amp; POLICIES</text>
+
+    <!-- Deprecation Registry -->
+    <g transform="translate(15, 60)" filter="url(#shadow)">
+      <rect width="190" height="85" fill="#0f172a" stroke="#a855f7" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Deprecation Catalog</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Target: /api/v1/checkout</text>
+      <text x="15" y="58" fill="#c084fc" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">Sunset Date: 2026-12-31</text>
+      <text x="15" y="73" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="9">Current Risk Status: MEDIUM</text>
+    </g>
+
+    <!-- Policy Controller -->
+    <g transform="translate(15, 175)" filter="url(#shadow)">
+      <rect width="190" height="110" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Policy Decision Engine</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Threshold evaluation:</text>
+      <text x="15" y="58" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">IF Risk &lt; 0.1 AND</text>
+      <text x="15" y="71" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">Client count &lt;= 2:</text>
+      <text x="15" y="86" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">=&gt; PERMIT SHUTDOWN</text>
+    </g>
+
+    <!-- Enforcement Gate (Rate Limiting/Header Injection) -->
+    <g transform="translate(15, 315)" filter="url(#shadow)">
+      <rect width="190" height="135" fill="#0f172a" stroke="#ef4444" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" fill="#f1f5f9" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Enforcement Handler</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Orchestrates client alerts:</text>
+      
+      <!-- Actions -->
+      <g transform="translate(15, 52)">
+        <rect width="160" height="20" fill="#991b1b" rx="3" />
+        <text x="10" y="14" fill="#fecaca" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">1. Inject Sunset/Deprecation HTTP Headers</text>
+      </g>
+      <g transform="translate(15, 78)">
+        <rect width="160" height="20" fill="#991b1b" rx="3" />
+        <text x="10" y="14" fill="#fecaca" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">2. Trigger Brownout (429 Rate Limits)</text>
+      </g>
+      <g transform="translate(15, 104)">
+        <rect width="160" height="20" fill="#7f1d1d" rx="3" />
+        <text x="10" y="14" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">3. Absolute Drop / Blackhole (503)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Connectors inside Layer 3 -->
+  <line x1="815" y1="145" x2="815" y2="175" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <line x1="815" y1="285" x2="815" y2="315" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Feedback loop from Enforcement back to Gateway -->
+  <path d="M 815,450 L 815,590 L 160,590 L 160,230" fill="none" stroke="#ef4444" stroke-dasharray="4,4" stroke-width="2" marker-end="url(#arrow-rose)" />
+  <text x="450" y="605" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">
+    Enforcement Loop: Automated Brownouts &amp; Deprecation Headers injected at Edge
+  </text>
+</svg>

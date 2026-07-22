@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="900" height="550" fill="#0f172a" rx="12" />
+  
+  <!-- Grid pattern (subtle) -->
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.3" />
+    </pattern>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <rect width="900" height="550" fill="url(#grid)" rx="12" />
+
+  <!-- Diagram Title -->
+  <text x="30" y="45" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#f8fafc">vLLM KV Cache Memory Architecture (PagedAttention)</text>
+  <text x="30" y="68" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" fill="#94a3b8">Virtual memory abstraction mapping contiguous logical token blocks to non-contiguous physical GPU VRAM blocks</text>
+
+  <!-- Left: Request / Logical Space -->
+  <g transform="translate(30, 110)">
+    <!-- Container -->
+    <rect width="240" height="390" fill="#1e293b" stroke="#334155" stroke-width="1.5" rx="8" filter="url(#shadow)" />
+    <text x="120" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Logical Space (User Request)</text>
+    <text x="120" y="42" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#94a3b8">Contiguous sequence of tokens</text>
+
+    <!-- Request Sequence Box -->
+    <rect x="15" y="65" width="210" height="300" fill="#0f172a" stroke="#475569" stroke-dasharray="3 3" rx="6" />
+
+    <!-- Logical Blocks -->
+    <!-- Block 0 -->
+    <g transform="translate(25, 80)">
+      <rect width="190" height="70" fill="url(#blueGrad)" rx="6" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Logical Block 0</text>
+      <text x="15" y="42" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#bfdbfe">Tokens 0-15 (Prefill)</text>
+      <text x="15" y="55" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#93c5fd">Status: Filled &amp; Immutable</text>
+    </g>
+
+    <!-- Block 1 -->
+    <g transform="translate(25, 165)">
+      <rect width="190" height="70" fill="url(#purpleGrad)" rx="6" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Logical Block 1</text>
+      <text x="15" y="42" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#e9d5ff">Tokens 16-31 (Decode)</text>
+      <text x="15" y="55" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#d8b4fe">Status: Filled &amp; Immutable</text>
+    </g>
+
+    <!-- Block 2 (Partially filled) -->
+    <g transform="translate(25, 250)">
+      <rect width="190" height="70" fill="#1e293b" stroke="#a855f7" stroke-width="1.5" rx="6" />
+      <rect x="0" y="0" width="80" height="70" fill="url(#purpleGrad)" opacity="0.6" rx="6" />
+      <!-- Re-draw borders of partial to overlay nicely -->
+      <rect width="190" height="70" fill="none" stroke="#a855f7" stroke-width="1.5" rx="6" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Logical Block 2</text>
+      <text x="15" y="42" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#e9d5ff">Tokens 32-47 (Active)</text>
+      <text x="15" y="55" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#a78bfa">Status: Allocating (5/16 slots)</text>
+    </g>
+  </g>
+
+  <!-- Middle: Block Table -->
+  <g transform="translate(305, 110)">
+    <rect width="210" height="390" fill="#1e293b" stroke="#334155" stroke-width="1.5" rx="8" filter="url(#shadow)" />
+    <text x="105" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Block Table</text>
+    <text x="105" y="42" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#94a3b8">Translates Logical to Physical</text>
+
+    <!-- Table Header -->
+    <rect x="15" y="65" width="180" height="30" fill="#0f172a" rx="4" />
+    <text x="30" y="84" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">Logical</text>
+    <text x="120" y="84" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#94a3b8">Physical Block</text>
+
+    <!-- Table Rows -->
+    <!-- Row 0 -->
+    <g transform="translate(15, 105)">
+      <rect width="180" height="45" fill="#1e293b" stroke="#475569" rx="4" />
+      <text x="25" y="27" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#3b82f6">Block 0</text>
+      <text x="120" y="27" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#10b981"># 07</text>
+      <line x1="85" y1="0" x2="85" y2="45" stroke="#475569" />
+    </g>
+
+    <!-- Row 1 -->
+    <g transform="translate(15, 160)">
+      <rect width="180" height="45" fill="#1e293b" stroke="#475569" rx="4" />
+      <text x="25" y="27" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#a855f7">Block 1</text>
+      <text x="120" y="27" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#10b981"># 42</text>
+      <line x1="85" y1="0" x2="85" y2="45" stroke="#475569" />
+    </g>
+
+    <!-- Row 2 -->
+    <g transform="translate(15, 215)">
+      <rect width="180" height="45" fill="#1e293b" stroke="#475569" rx="4" />
+      <text x="25" y="27" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#a855f7">Block 2</text>
+      <text x="120" y="27" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#10b981"># 103</text>
+      <line x1="85" y1="0" x2="85" y2="45" stroke="#475569" />
+    </g>
+
+    <!-- Free Blocks Queue / Metadata -->
+    <rect x="15" y="275" width="180" height="95" fill="#0f172a" stroke="#334155" rx="6" />
+    <text x="25" y="295" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="bold" fill="#f8fafc">Block Manager State</text>
+    <text x="25" y="315" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Free Blocks: 1,482</text>
+    <text x="25" y="332" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Allocated Blocks: 566</text>
+    <text x="25" y="349" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#e2e8f0">Dynamic Swap: Enabled</text>
+  </g>
+
+  <!-- Right: Physical Space (GPU VRAM) -->
+  <g transform="translate(545, 110)">
+    <rect width="325" height="390" fill="#1e293b" stroke="#334155" stroke-width="1.5" rx="8" filter="url(#shadow)" />
+    <text x="162" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#f8fafc">Physical GPU VRAM Pool</text>
+    <text x="162" y="42" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" fill="#94a3b8">Paged KV Cache (Non-contiguous blocks)</text>
+
+    <!-- Grid of physical memory blocks -->
+    <g transform="translate(20, 65)">
+      <!-- Block Row 1 -->
+      <g transform="translate(0, 0)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 00</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+      <g transform="translate(70, 0)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 01</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+      <g transform="translate(140, 0)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 02</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+      <g transform="translate(210, 0)">
+        <rect width="60" height="55" fill="url(#blueGrad)" stroke="#60a5fa" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#ffffff">Block 07</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#bfdbfe">Allocated</text>
+      </g>
+
+      <!-- Block Row 2 -->
+      <g transform="translate(0, 70)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 08</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+      <g transform="translate(70, 70)">
+        <rect width="60" height="55" fill="url(#greenGrad)" opacity="0.4" stroke="#10b981" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#a7f3d0">Block 21</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#a7f3d0">Req 2</text>
+      </g>
+      <g transform="translate(140, 70)">
+        <rect width="60" height="55" fill="url(#purpleGrad)" stroke="#c084fc" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#ffffff">Block 42</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#e9d5ff">Allocated</text>
+      </g>
+      <g transform="translate(210, 70)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 43</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+
+      <!-- Block Row 3 -->
+      <g transform="translate(0, 140)">
+        <rect width="60" height="55" fill="url(#greenGrad)" opacity="0.4" stroke="#10b981" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#a7f3d0">Block 75</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#a7f3d0">Req 2</text>
+      </g>
+      <g transform="translate(70, 140)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 88</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+      <g transform="translate(140, 140)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 99</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+      <g transform="translate(210, 140)">
+        <rect width="60" height="55" fill="url(#purpleGrad)" stroke="#c084fc" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#ffffff">Block 103</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#e9d5ff">Allocated</text>
+      </g>
+      
+      <!-- Block Row 4 -->
+      <g transform="translate(0, 210)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 104</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+      <g transform="translate(70, 210)">
+        <rect width="60" height="55" fill="url(#roseGrad)" opacity="0.5" stroke="#f43f5e" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#fecdd3">Block 115</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#fecdd3">Req 3</text>
+      </g>
+      <g transform="translate(140, 210)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 120</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+      <g transform="translate(210, 210)">
+        <rect width="60" height="55" fill="#1e293b" stroke="#475569" stroke-width="1.5" rx="4" />
+        <text x="30" y="25" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Block 121</text>
+        <text x="30" y="40" text-anchor="middle" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#475569" font-weight="bold">FREE</text>
+      </g>
+    </g>
+
+    <!-- Legend -->
+    <g transform="translate(20, 345)">
+      <rect x="0" y="0" width="12" height="12" fill="url(#blueGrad)" rx="2" />
+      <text x="18" y="10" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Prefill Blocks</text>
+
+      <rect x="100" y="0" width="12" height="12" fill="url(#purpleGrad)" rx="2" />
+      <text x="118" y="10" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Decode/Active</text>
+
+      <rect x="210" y="0" width="12" height="12" fill="#1e293b" stroke="#475569" rx="2" />
+      <text x="228" y="10" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#94a3b8">Unallocated</text>
+    </g>
+  </g>
+
+  <!-- Connectors -->
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a855f7" />
+    </marker>
+  </defs>
+
+  <!-- Logical to Block Table lines -->
+  <path d="M 245, 225 C 275, 225 275, 237.5 315, 237.5" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <path d="M 245, 310 C 275, 310 275, 292.5 315, 292.5" fill="none" stroke="#a855f7" stroke-width="2" marker-end="url(#arrow-purple)" />
+  <path d="M 245, 395 C 275, 395 275, 347.5 315, 347.5" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-purple)" />
+
+  <!-- Block Table to Physical Space lines -->
+  <path d="M 500, 237.5 C 580, 237.5 680, 202.5 770, 202.5" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <path d="M 500, 292.5 C 550, 292.5 640, 272.5 700, 272.5" fill="none" stroke="#a855f7" stroke-width="2" marker-end="url(#arrow-purple)" />
+  <path d="M 500, 347.5 C 580, 347.5 680, 342.5 770, 342.5" fill="none" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-purple)" />
+</svg>
