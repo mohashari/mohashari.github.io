@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background: #0d1117; font-family: 'Inter', system-ui, -apple-system, sans-serif;">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="purple-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+    <linearGradient id="blue-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="green-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="border-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#30363d" />
+      <stop offset="100%" stop-color="#21262d" />
+    </linearGradient>
+    
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8b8e96" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#c084fc" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#60a5fa" />
+    </marker>
+  </defs>
+
+  <!-- Title & Background Grid -->
+  <g opacity="0.05">
+    <path d="M0,50 H1000 M0,100 H1000 M0,150 H1000 M0,200 H1000 M0,250 H1000 M0,300 H1000 M0,350 H1000 M0,400 H1000 M0,450 H1000 M0,500 H1000 M0,550 H1000" stroke="#ffffff" stroke-width="1" />
+    <path d="M100,0 V600 M200,0 V600 M300,0 V600 M400,0 V600 M500,0 V600 M600,0 V600 M700,0 V600 M800,0 V600 M900,0 V600" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title Card -->
+  <text x="50" y="45" fill="#f0f6fc" font-size="20" font-weight="700" letter-spacing="0.5">AWS Nitro Enclave Cryptographic Attestation Flow</text>
+  <text x="50" y="70" fill="#8b949e" font-size="13">Secure, hardware-attested bootstrap flow for ephemeral workload identities via KMS Key Policies</text>
+
+  <!-- ================= PARENT EC2 INSTANCE CONTAINER ================= -->
+  <rect x="50" y="110" width="520" height="440" rx="12" fill="#161b22" stroke="url(#border-grad)" stroke-width="2" />
+  <rect x="50" y="110" width="520" height="35" rx="12" fill="#21262d" opacity="0.5" />
+  <text x="70" y="132" fill="#c9d1d9" font-size="14" font-weight="600">Parent EC2 Instance (Untrusted Host OS)</text>
+  
+  <!-- vsock Proxy Daemon inside Parent EC2 -->
+  <rect x="80" y="320" width="160" height="80" rx="8" fill="#21262d" stroke="#30363d" stroke-width="1.5" />
+  <text x="95" y="348" fill="#e6edf3" font-size="13" font-weight="600">vsock-to-ip Proxy</text>
+  <text x="95" y="368" fill="#8b949e" font-size="11">Bridges Enclave vsock</text>
+  <text x="95" y="383" fill="#8b949e" font-size="11">to AWS Public Endpoints</text>
+
+  <!-- ================= NITRO HYPERVISOR (ROOT OF TRUST) ================= -->
+  <rect x="350" y="440" width="200" height="90" rx="8" fill="#1f1b2c" stroke="#632ca6" stroke-width="1.5" />
+  <text x="365" y="468" fill="#f0f6fc" font-size="14" font-weight="600">Nitro Hypervisor</text>
+  <text x="365" y="490" fill="#d8b4fe" font-size="11">Nitro Security Module (NSM)</text>
+  <text x="365" y="508" fill="#a78bfa" font-size="11" font-family="monospace">Creates Signed Attest. Doc</text>
+
+  <!-- ================= NITRO ENCLAVE (SECURE ZONE) ================= -->
+  <!-- Subtle glowing background for Enclave -->
+  <rect x="260" y="160" width="290" height="240" rx="12" fill="#0f1423" stroke="url(#purple-glow)" stroke-width="2" filter="url(#glow)" opacity="0.3" />
+  <rect x="260" y="160" width="290" height="240" rx="12" fill="#0f1423" stroke="url(#purple-glow)" stroke-width="2" />
+  <rect x="260" y="160" width="290" height="35" rx="12" fill="#1b1836" opacity="0.8" />
+  <text x="280" y="182" fill="#f0f6fc" font-size="13" font-weight="700" fill-opacity="0.9">Nitro Enclave (Isolated CPUs &amp; Memory)</text>
+
+  <!-- App Agent running in Enclave -->
+  <rect x="290" y="220" width="230" height="70" rx="8" fill="#1c162e" stroke="#8b5cf6" stroke-width="1.5" />
+  <text x="305" y="245" fill="#f0f6fc" font-size="13" font-weight="600">Identity Bootstrapper</text>
+  <text x="305" y="265" fill="#c084fc" font-size="11" font-family="monospace">Decrypted Secret in RAM Only</text>
+
+  <!-- Cryptographic Hardware Device inside Enclave -->
+  <rect x="290" y="315" width="230" height="60" rx="6" fill="#161b22" stroke="#444d56" stroke-width="1" />
+  <text x="305" y="338" fill="#c9d1d9" font-size="12" font-weight="600">/dev/nsm Device Driver</text>
+  <text x="305" y="356" fill="#8b949e" font-size="10" font-family="monospace">PCRs [0,1,2,3,4] + Nonce</text>
+
+  <!-- ================= AWS KMS (EXTERNAL TRUSTED PARTY) ================= -->
+  <rect x="680" y="110" width="270" height="440" rx="12" fill="#161b22" stroke="url(#border-grad)" stroke-width="2" />
+  <rect x="680" y="110" width="270" height="35" rx="12" fill="#21262d" opacity="0.5" />
+  <text x="700" y="132" fill="#c9d1d9" font-size="14" font-weight="600">AWS KMS Service</text>
+
+  <!-- KMS Key with Policy -->
+  <rect x="710" y="170" width="210" height="150" rx="8" fill="#13231c" stroke="#10b981" stroke-width="1.5" />
+  <text x="725" y="195" fill="#f0f6fc" font-size="13" font-weight="600">Customer Managed Key</text>
+  <text x="725" y="215" fill="#34d399" font-size="11" font-family="monospace">Key Policy Enforcement</text>
+  
+  <rect x="725" y="235" width="180" height="70" rx="4" fill="#0b130f" stroke="#047857" stroke-width="1" />
+  <text x="735" y="252" fill="#10b981" font-size="10" font-family="monospace">RecipientEquals:</text>
+  <text x="735" y="267" fill="#8b949e" font-size="9" font-family="monospace">PCR0: enclave_image_hash</text>
+  <text x="735" y="280" fill="#8b949e" font-size="9" font-family="monospace">PCR1: hypervisor_hash</text>
+  <text x="735" y="293" fill="#8b949e" font-size="9" font-family="monospace">PCR2: iam_role_hash</text>
+
+  <!-- AWS KMS Decrypt Action -->
+  <rect x="710" y="350" width="210" height="80" rx="8" fill="#1c2538" stroke="#3b82f6" stroke-width="1.5" />
+  <text x="725" y="375" fill="#f0f6fc" font-size="13" font-weight="600">KMS::Decrypt API</text>
+  <text x="725" y="395" fill="#60a5fa" font-size="11">Decrypts wrapped database/API</text>
+  <text x="725" y="410" fill="#60a5fa" font-size="11">credentials if PCRs match</text>
+
+  <!-- ================= FLOW ARROWS & LABELS ================= -->
+  
+  <!-- Step 1: Enclave App requests Attestation Document from /dev/nsm -->
+  <path d="M 405 290 L 405 315" fill="none" stroke="#c084fc" stroke-width="2" marker-end="url(#arrow-purple)" />
+  <rect x="412" y="293" width="20" height="20" rx="10" fill="#8b5cf6" />
+  <text x="418" y="307" fill="#ffffff" font-size="11" font-weight="bold">1</text>
+  
+  <!-- Step 2: /dev/nsm invokes Nitro Hypervisor to sign PCRs -->
+  <path d="M 430 375 L 430 440" fill="none" stroke="#c084fc" stroke-width="2" marker-end="url(#arrow-purple)" />
+  <rect x="437" y="395" width="20" height="20" rx="10" fill="#8b5cf6" />
+  <text x="443" y="409" fill="#ffffff" font-size="11" font-weight="bold">2</text>
+
+  <!-- Step 3: Hypervisor returns signed Attestation Document back to Enclave App -->
+  <path d="M 480 440 L 480 375" fill="none" stroke="#c084fc" stroke-dasharray="4" stroke-width="1.5" marker-end="url(#arrow-purple)" />
+  <path d="M 480 315 L 480 290" fill="none" stroke="#c084fc" stroke-dasharray="4" stroke-width="1.5" marker-end="url(#arrow-purple)" />
+  <rect x="487" y="395" width="20" height="20" rx="10" fill="#8b5cf6" />
+  <text x="493" y="409" fill="#ffffff" font-size="11" font-weight="bold">3</text>
+
+  <!-- Step 4: Enclave sends KMS API Call with Attestation Document to vsock-to-ip proxy -->
+  <path d="M 290 255 L 160 255 L 160 320" fill="none" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <rect x="195" y="240" width="20" height="20" rx="10" fill="#3b82f6" />
+  <text x="201" y="254" fill="#ffffff" font-size="11" font-weight="bold">4</text>
+  <text x="175" y="232" fill="#60a5fa" font-size="10" font-family="monospace">vsock (CID 3)</text>
+
+  <!-- Step 5: Proxy forwards KMS Decrypt request to KMS endpoint -->
+  <path d="M 160 400 L 160 560 L 630 560 L 630 390 L 710 390" fill="none" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <rect x="620" y="525" width="20" height="20" rx="10" fill="#3b82f6" />
+  <text x="626" y="539" fill="#ffffff" font-size="11" font-weight="bold">5</text>
+  <text x="640" y="550" fill="#60a5fa" font-size="11">HTTPS KMS API call</text>
+
+  <!-- Step 6: KMS verifies Attestation Signature & PCR values in Policy -->
+  <path d="M 815 350 L 815 320" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)" />
+  <rect x="822" y="325" width="20" height="20" rx="10" fill="#059669" />
+  <text x="828" y="339" fill="#ffffff" font-size="11" font-weight="bold">6</text>
+
+  <!-- Step 7: KMS returns plaintext Decrypted identity/secrets back -->
+  <path d="M 710 410 L 610 410 L 610 580 L 140 580 L 140 380 L 290 380" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4" marker-end="url(#arrow)" />
+  <rect x="580" y="500" width="20" height="20" rx="10" fill="#059669" />
+  <text x="586" y="514" fill="#ffffff" font-size="11" font-weight="bold">7</text>
+  <text x="210" y="393" fill="#10b981" font-size="11">Decrypted Payload</text>
+
+</svg>
