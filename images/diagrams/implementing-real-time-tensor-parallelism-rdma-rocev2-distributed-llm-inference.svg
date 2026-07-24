@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Definitions for gradients and shadows -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1117" />
+      <stop offset="100%" stop-color="#161b22" />
+    </linearGradient>
+    
+    <!-- Component Gradients -->
+    <linearGradient id="gpu-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#76b900" />
+      <stop offset="100%" stop-color="#4d7900" />
+    </linearGradient>
+    <linearGradient id="nic-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00a3e0" />
+      <stop offset="100%" stop-color="#005a9c" />
+    </linearGradient>
+    <linearGradient id="switch-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8a2be2" />
+      <stop offset="100%" stop-color="#4a0e80" />
+    </linearGradient>
+    
+    <!-- Box Shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-grad)" rx="8" />
+
+  <!-- Grid Pattern overlay for tech aesthetic -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 900,50 M 0,100 L 900,100 M 0,150 L 900,150 M 0,200 L 900,200 M 0,250 L 900,250 M 0,300 L 900,300 M 0,350 L 900,350 M 0,400 L 900,400 M 0,450 L 900,450 M 0,500 L 900,500" stroke="#ffffff" stroke-width="1" />
+    <path d="M 50,0 L 50,550 M 100,0 L 100,550 M 150,0 L 150,550 M 200,0 L 200,550 M 250,0 L 250,550 M 300,0 L 300,550 M 350,0 L 350,550 M 400,0 L 400,550 M 450,0 L 450,550 M 500,0 L 500,550 M 550,0 L 550,550 M 600,0 L 600,550 M 650,0 L 650,550 M 700,0 L 700,550 M 750,0 L 750,550 M 800,0 L 800,550 M 850,0 L 850,550" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="40" fill="#ffffff" font-family="'Outfit', 'Inter', sans-serif" font-size="20" font-weight="700" letter-spacing="0.5">GPUDirect RDMA (RoCEv2) vs. Traditional TCP/IP Data Path</text>
+  <text x="30" y="60" fill="#8b949e" font-family="'Inter', sans-serif" font-size="12">Direct VRAM-to-VRAM copy bypassing CPU hosting stack &amp; OS kernel context switches</text>
+
+  <!-- Node A (Sender) -->
+  <g transform="translate(40, 90)">
+    <!-- Node Frame -->
+    <rect width="320" height="340" rx="12" fill="#1f242c" stroke="#30363d" stroke-width="2" filter="url(#shadow)" />
+    <text x="20" y="30" fill="#f0f6fc" font-family="'Inter', sans-serif" font-size="16" font-weight="600">NODE 01 (GPU Server)</text>
+    
+    <!-- GPU A -->
+    <g transform="translate(20, 50)">
+      <rect width="280" height="70" rx="8" fill="url(#gpu-grad)" />
+      <text x="20" y="40" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">NVIDIA H100 GPU (Rank 0)</text>
+      <text x="20" y="58" fill="#e1f5fe" font-family="'Inter', sans-serif" font-size="10" opacity="0.9">Tensor Parallel activations in HBM3</text>
+    </g>
+
+    <!-- System Memory A -->
+    <g transform="translate(20, 140)">
+      <rect width="280" height="60" rx="8" fill="#21262d" stroke="#8b949e" stroke-width="1" stroke-dasharray="4,4" />
+      <text x="20" y="35" fill="#8b949e" font-family="'Inter', sans-serif" font-size="13" font-weight="600">Host RAM (CPU Pinning)</text>
+      <text x="20" y="50" fill="#4f5661" font-family="'Inter', sans-serif" font-size="10">Slow legacy staging buffers</text>
+    </g>
+
+    <!-- HCA A (Mellanox ConnectX-7) -->
+    <g transform="translate(20, 230)">
+      <rect width="280" height="75" rx="8" fill="url(#nic-grad)" />
+      <text x="20" y="30" fill="#ffffff" font-family="'Inter', sans-serif" font-size="13" font-weight="bold">ConnectX-7 HCA (RoCEv2)</text>
+      <text x="20" y="48" fill="#e1f5fe" font-family="'Inter', sans-serif" font-size="10">PFC, ECN, DCQCN hardware engine</text>
+      <text x="20" y="64" fill="#a5f3fc" font-family="'Inter', sans-serif" font-size="9" font-weight="bold">Memory Key: rkey_0x5fa2</text>
+    </g>
+  </g>
+
+  <!-- Node B (Receiver) -->
+  <g transform="translate(540, 90)">
+    <!-- Node Frame -->
+    <rect width="320" height="340" rx="12" fill="#1f242c" stroke="#30363d" stroke-width="2" filter="url(#shadow)" />
+    <text x="20" y="30" fill="#f0f6fc" font-family="'Inter', sans-serif" font-size="16" font-weight="600">NODE 02 (GPU Server)</text>
+    
+    <!-- GPU B -->
+    <g transform="translate(20, 50)">
+      <rect width="280" height="70" rx="8" fill="url(#gpu-grad)" />
+      <text x="20" y="40" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="bold">NVIDIA H100 GPU (Rank 1)</text>
+      <text x="20" y="58" fill="#e1f5fe" font-family="'Inter', sans-serif" font-size="10" opacity="0.9">Target VRAM (All-Reduce / All-Gather)</text>
+    </g>
+
+    <!-- System Memory B -->
+    <g transform="translate(20, 140)">
+      <rect width="280" height="60" rx="8" fill="#21262d" stroke="#8b949e" stroke-width="1" stroke-dasharray="4,4" />
+      <text x="20" y="35" fill="#8b949e" font-family="'Inter', sans-serif" font-size="13" font-weight="600">Host RAM (CPU Pinning)</text>
+      <text x="20" y="50" fill="#4f5661" font-family="'Inter', sans-serif" font-size="10">Bypassed in GPUDirect RDMA path</text>
+    </g>
+
+    <!-- HCA B (Mellanox ConnectX-7) -->
+    <g transform="translate(20, 230)">
+      <rect width="280" height="75" rx="8" fill="url(#nic-grad)" />
+      <text x="20" y="30" fill="#ffffff" font-family="'Inter', sans-serif" font-size="13" font-weight="bold">ConnectX-7 HCA (RoCEv2)</text>
+      <text x="20" y="48" fill="#e1f5fe" font-family="'Inter', sans-serif" font-size="10">PFC, ECN, DCQCN hardware engine</text>
+      <text x="20" y="64" fill="#a5f3fc" font-family="'Inter', sans-serif" font-size="9" font-weight="bold">Memory Key: rkey_0x9b11</text>
+    </g>
+  </g>
+
+  <!-- RoCEv2 Network Fabric Switch (Center-bottom) -->
+  <g transform="translate(320, 455)">
+    <rect width="260" height="65" rx="8" fill="url(#switch-grad)" filter="url(#shadow)" stroke="#8a2be2" stroke-width="1.5" />
+    <text x="130" y="28" fill="#ffffff" font-family="'Inter', sans-serif" font-size="13" font-weight="bold" text-anchor="middle">RoCEv2 Spine/Leaf Switch Fabric</text>
+    <text x="130" y="44" fill="#f3e8ff" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle" opacity="0.9">400 GbE, PFC Congestion Control Enabled</text>
+  </g>
+
+  <!-- PATHS & CONNECTIONS -->
+
+  <!-- GPUDirect RDMA (GREEN/BLUE) -->
+  <!-- Node 01 GPU to PCIe to NIC -->
+  <path d="M 120,210 L 120,290 L 180,290 L 180,320" fill="none" stroke="#76b900" stroke-width="4" stroke-linecap="round" />
+  <circle cx="120" cy="210" r="4" fill="#76b900" />
+  <circle cx="180" cy="320" r="4" fill="#76b900" />
+  
+  <!-- NIC A to Switch -->
+  <path d="M 220,395 L 220,487 L 320,487" fill="none" stroke="#00a3e0" stroke-width="4" stroke-linecap="round" />
+  
+  <!-- Switch to NIC B -->
+  <path d="M 580,487 L 680,487 L 680,395" fill="none" stroke="#00a3e0" stroke-width="4" stroke-linecap="round" />
+
+  <!-- Node 02 NIC B to PCIe to GPU B -->
+  <path d="M 720,320 L 720,290 L 780,290 L 780,210" fill="none" stroke="#76b900" stroke-width="4" stroke-linecap="round" />
+  <circle cx="720" cy="320" r="4" fill="#76b900" />
+  <circle cx="780" cy="210" r="4" fill="#76b900" />
+
+  <!-- Traditional Path (RED - Dotted/dashed, complex) -->
+  <!-- GPU A -> Host Memory A -->
+  <path d="M 280,210 L 280,230" fill="none" stroke="#ff4a4a" stroke-width="2.5" stroke-dasharray="3,3" />
+  <!-- Host Memory A -> TCP Stack/Driver -> NIC A -->
+  <path d="M 280,290 L 280,320" fill="none" stroke="#ff4a4a" stroke-width="2.5" stroke-dasharray="3,3" />
+  
+  <!-- Labels -->
+  <!-- GPUDirect RDMA Path -->
+  <path d="M 330,340 L 450,340" stroke="#76b900" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="450" y="330" fill="#76b900" font-family="'Inter', sans-serif" font-size="11" font-weight="bold" text-anchor="middle">GPUDirect RDMA Path (Zero-Copy)</text>
+  <text x="450" y="345" fill="#f0f6fc" font-family="'Inter', sans-serif" font-size="9" text-anchor="middle">&lt; 1.5 µs Latency, Zero CPU Overhead</text>
+
+  <!-- Traditional path labels -->
+  <text x="295" y="224" fill="#ff6b6b" font-family="'Inter', sans-serif" font-size="9" font-weight="600">CPU Copy</text>
+  <text x="295" y="309" fill="#ff6b6b" font-family="'Inter', sans-serif" font-size="9" font-weight="600">Kernel copy</text>
+  
+  <!-- Flow arrows on paths -->
+  <g transform="translate(110,240)">
+    <polygon points="5,0 15,10 5,20" fill="#76b900" transform="rotate(90, 10, 10)" />
+  </g>
+  <g transform="translate(770,240)">
+    <polygon points="5,0 15,10 5,20" fill="#76b900" transform="rotate(270, 10, 10)" />
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(300, 120)">
+    <rect width="300" height="70" rx="6" fill="#161b22" stroke="#30363d" stroke-width="1" />
+    <circle cx="20" cy="20" r="6" fill="#76b900" />
+    <text x="35" y="24" fill="#c9d1d9" font-family="'Inter', sans-serif" font-size="11">GPU VRAM to HCA Direct PCIe DMA</text>
+
+    <circle cx="20" cy="40" r="6" fill="#00a3e0" />
+    <text x="35" y="44" fill="#c9d1d9" font-family="'Inter', sans-serif" font-size="11">RoCEv2 Ethernet Transport (RoCE IP/UDP)</text>
+    
+    <line x1="14" y1="58" x2="26" y2="58" stroke="#ff4a4a" stroke-width="3" stroke-dasharray="2,2" />
+    <text x="35" y="62" fill="#c9d1d9" font-family="'Inter', sans-serif" font-size="11">Traditional CPU-Staged TCP Path (Slow)</text>
+  </g>
+</svg>

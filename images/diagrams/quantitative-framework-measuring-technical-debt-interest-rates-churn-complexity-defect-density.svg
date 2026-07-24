@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%" style="background-color: #0f172a; font-family: system-ui, -apple-system, sans-serif;">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+    
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="30" y="40" fill="#f8fafc" font-size="20" font-weight="bold">Technical Debt Interest Rate Measurement Pipeline</text>
+  <text x="30" y="60" fill="#94a3b8" font-size="12">Quantifying interest rate based on Churn, Complexity, and Defect Density</text>
+
+  <!-- Data Sources Block -->
+  <g transform="translate(40, 100)">
+    <!-- Boundary Box -->
+    <rect width="220" height="380" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="15" y="25" fill="#e2e8f0" font-size="14" font-weight="600">1. Raw Telemetry Sources</text>
+    
+    <!-- Source 1: Git Repository -->
+    <g transform="translate(15, 45)">
+      <rect width="190" height="90" rx="6" fill="#1e1b4b" stroke="#4f46e5" stroke-width="1" />
+      <text x="12" y="25" fill="#818cf8" font-size="12" font-weight="bold">Code Churn (Git Logs)</text>
+      <text x="12" y="45" fill="#cbd5e1" font-size="11">Change frequency &amp; volume</text>
+      <text x="12" y="62" fill="#94a3b8" font-size="10">• Commit Count per Module</text>
+      <text x="12" y="75" fill="#94a3b8" font-size="10">• Lines of Code (LoC) Added/Deleted</text>
+    </g>
+
+    <!-- Source 2: Static Analysis -->
+    <g transform="translate(15, 150)">
+      <rect width="190" height="90" rx="6" fill="#0f2942" stroke="#0284c7" stroke-width="1" />
+      <text x="12" y="25" fill="#38bdf8" font-size="12" font-weight="bold">Complexity (AST Analysis)</text>
+      <text x="12" y="45" fill="#cbd5e1" font-size="11">Structural/semantic health</text>
+      <text x="12" y="62" fill="#94a3b8" font-size="10">• Cognitive &amp; Cyclomatic Complexity</text>
+      <text x="12" y="75" fill="#94a3b8" font-size="10">• Coupling &amp; Efferent/Afferent Fan-out</text>
+    </g>
+
+    <!-- Source 3: Bug Tracker / Logs -->
+    <g transform="translate(15, 255)">
+      <rect width="190" height="90" rx="6" fill="#31102f" stroke="#db2777" stroke-width="1" />
+      <text x="12" y="25" fill="#f472b6" font-size="12" font-weight="bold">Defect Density (Jira/Sentry)</text>
+      <text x="12" y="45" fill="#cbd5e1" font-size="11">Production failure rates</text>
+      <text x="12" y="62" fill="#94a3b8" font-size="10">• Post-release Incidents/Bugs</text>
+      <text x="12" y="75" fill="#94a3b8" font-size="10">• MTTR &amp; Ticket counts</text>
+    </g>
+  </g>
+
+  <!-- Connectors from Data Sources to Engine -->
+  <line x1="260" y1="190" x2="330" y2="190" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="260" y1="295" x2="330" y2="295" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="260" y1="400" x2="330" y2="400" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Engine Block -->
+  <g transform="translate(340, 100)">
+    <rect width="240" height="380" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="15" y="25" fill="#e2e8f0" font-size="14" font-weight="600">2. Processing &amp; Correlation Engine</text>
+
+    <!-- Step 1: Normalizer -->
+    <g transform="translate(15, 45)">
+      <rect width="210" height="75" rx="6" fill="#0f766e" fill-opacity="0.2" stroke="#0f766e" stroke-width="1" />
+      <text x="12" y="22" fill="#2dd4bf" font-size="12" font-weight="bold">Data Normalizer</text>
+      <text x="12" y="40" fill="#cbd5e1" font-size="10.5">Scale metrics: min-max normalization</text>
+      <text x="12" y="55" fill="#94a3b8" font-size="9.5">Outputs normalized score [0.0 - 1.0]</text>
+    </g>
+
+    <!-- Arrow down -->
+    <line x1="120" y1="120" x2="120" y2="155" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+
+    <!-- Step 2: Correlation Engine -->
+    <g transform="translate(15, 160)">
+      <rect width="210" height="75" rx="6" fill="#d97706" fill-opacity="0.2" stroke="#d97706" stroke-width="1" />
+      <text x="12" y="22" fill="#fbbf24" font-size="12" font-weight="bold">Risk Weighting Engine</text>
+      <text x="12" y="40" fill="#cbd5e1" font-size="10.5">High Churn * High Complexity = Risk</text>
+      <text x="12" y="55" fill="#94a3b8" font-size="9.5">Multiplies normalized values with weights</text>
+    </g>
+
+    <!-- Arrow down -->
+    <line x1="120" y1="235" x2="120" y2="270" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+
+    <!-- Step 3: Calculator -->
+    <g transform="translate(15, 275)">
+      <rect width="210" height="85" rx="6" fill="#be123c" fill-opacity="0.2" stroke="#be123c" stroke-width="1" />
+      <text x="12" y="22" fill="#fb7185" font-size="12" font-weight="bold">Interest Rate Calculator</text>
+      <text x="12" y="42" fill="#cbd5e1" font-size="10.5">Formula: Interest Rate (i) = f(Churn, Comp, Def)</text>
+      <text x="12" y="58" fill="#cbd5e1" font-size="10">Translates risk into "extra dev-hours / sprint"</text>
+      <text x="12" y="72" fill="#94a3b8" font-size="9.5">Calculates interest index per module</text>
+    </g>
+  </g>
+
+  <!-- Connectors from Engine to Outputs -->
+  <line x1="580" y1="290" x2="630" y2="290" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Actionable Outputs Block -->
+  <g transform="translate(640, 100)">
+    <rect width="220" height="380" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="15" y="25" fill="#e2e8f0" font-size="14" font-weight="600">3. Actionable Insights</text>
+
+    <!-- Output 1: Interest Index Report -->
+    <g transform="translate(15, 45)">
+      <rect width="190" height="90" rx="6" fill="#581c87" stroke="#a855f7" stroke-width="1" />
+      <text x="12" y="25" fill="#c084fc" font-size="12" font-weight="bold">Interest Rate Dashboard</text>
+      <text x="12" y="45" fill="#cbd5e1" font-size="11">Metrics visualizer</text>
+      <text x="12" y="62" fill="#94a3b8" font-size="10">• Sprint-by-sprint cost trends</text>
+      <text x="12" y="75" fill="#94a3b8" font-size="10">• High-interest components</text>
+    </g>
+
+    <!-- Output 2: Priority Queue -->
+    <g transform="translate(15, 150)">
+      <rect width="190" height="90" rx="6" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+      <text x="12" y="25" fill="#34d399" font-size="12" font-weight="bold">Refactor Backlog Queue</text>
+      <text x="12" y="45" fill="#cbd5e1" font-size="11">Data-driven priorities</text>
+      <text x="12" y="62" fill="#94a3b8" font-size="10">• Sort modules by interest rate</text>
+      <text x="12" y="75" fill="#94a3b8" font-size="10">• ROI of paying down debt</text>
+    </g>
+
+    <!-- Output 3: CI/CD Guardrails -->
+    <g transform="translate(15, 255)">
+      <rect width="190" height="90" rx="6" fill="#450a0a" stroke="#ef4444" stroke-width="1" />
+      <text x="12" y="25" fill="#f87171" font-size="12" font-weight="bold">CI/CD Gatekeeping</text>
+      <text x="12" y="45" fill="#cbd5e1" font-size="11">Automated validation</text>
+      <text x="12" y="62" fill="#94a3b8" font-size="10">• Fail build on high rate delta</text>
+      <text x="12" y="75" fill="#94a3b8" font-size="10">• High-risk commit warnings</text>
+    </g>
+  </g>
+</svg>

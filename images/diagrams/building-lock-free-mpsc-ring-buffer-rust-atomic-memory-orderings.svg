@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%" style="background:#1e1e2e; font-family:'Inter', sans-serif;">
+  <!-- Styling -->
+  <style>
+    .title { fill: #cdd6f4; font-size: 18px; font-weight: bold; }
+    .subtitle { fill: #a6adc8; font-size: 12px; }
+    .label { fill: #cdd6f4; font-size: 13px; font-weight: 500; }
+    .cell-text { fill: #11111b; font-size: 12px; font-weight: bold; }
+    .index-text { fill: #bac2de; font-size: 11px; }
+    .arrow-text { fill: #a6e3a1; font-size: 11px; font-weight: bold; }
+    .producer-color { fill: #89b4fa; }
+    .consumer-color { fill: #f38ba8; }
+    .cell-empty { fill: #313244; stroke: #45475a; stroke-width: 2; }
+    .cell-writing { fill: #f9e2af; stroke: #f9e2af; stroke-dasharray: 4; }
+    .cell-filled { fill: #a6e3a1; stroke: #a6e3a1; }
+  </style>
+
+  <!-- Background Grid or Accents -->
+  <rect x="0" y="0" width="800" height="450" rx="8" fill="#1e1e2e"/>
+  
+  <!-- Header -->
+  <text x="30" y="40" class="title">Lock-Free MPSC Ring Buffer Architecture</text>
+  <text x="30" y="60" class="subtitle">Multi-Producer CAS Tail Contention vs. Single-Consumer Head Acquisition</text>
+
+  <!-- Outer Ring / Buffer Representation -->
+  <g transform="translate(100, 160)">
+    <!-- Array Buffer cells -->
+    <!-- Cell 0 -->
+    <rect x="0" y="0" width="80" height="80" rx="6" class="cell-filled"/>
+    <text x="40" y="35" dominant-baseline="middle" text-anchor="middle" class="cell-text">Item 0</text>
+    <text x="40" y="55" dominant-baseline="middle" text-anchor="middle" class="cell-text" style="fill:#585b70; font-size:10px;">Seq: 0</text>
+    <text x="40" y="-10" dominant-baseline="middle" text-anchor="middle" class="index-text">Idx: 0</text>
+
+    <!-- Cell 1 -->
+    <rect x="90" y="0" width="80" height="80" rx="6" class="cell-filled"/>
+    <text x="130" y="35" dominant-baseline="middle" text-anchor="middle" class="cell-text">Item 1</text>
+    <text x="130" y="55" dominant-baseline="middle" text-anchor="middle" class="cell-text" style="fill:#585b70; font-size:10px;">Seq: 1</text>
+    <text x="130" y="-10" dominant-baseline="middle" text-anchor="middle" class="index-text">Idx: 1</text>
+
+    <!-- Cell 2 (Undergoing CAS write - Reserved by Producer 1) -->
+    <rect x="180" y="0" width="80" height="80" rx="6" class="cell-writing"/>
+    <text x="220" y="35" dominant-baseline="middle" text-anchor="middle" class="cell-text" style="fill:#1e1e2e;">Writing...</text>
+    <text x="220" y="55" dominant-baseline="middle" text-anchor="middle" class="cell-text" style="fill:#7f849c; font-size:10px;">Seq: 6 (Old: 2)</text>
+    <text x="220" y="-10" dominant-baseline="middle" text-anchor="middle" class="index-text">Idx: 2</text>
+
+    <!-- Cell 3 (Empty) -->
+    <rect x="270" y="0" width="80" height="80" rx="6" class="cell-empty"/>
+    <text x="310" y="40" dominant-baseline="middle" text-anchor="middle" style="fill:#bac2de; font-size:12px;">Empty</text>
+    <text x="310" y="60" dominant-baseline="middle" text-anchor="middle" style="fill:#585b70; font-size:10px;">Seq: 3</text>
+    <text x="310" y="-10" dominant-baseline="middle" text-anchor="middle" class="index-text">Idx: 3</text>
+
+    <!-- Cell 4 (Empty) -->
+    <rect x="360" y="0" width="80" height="80" rx="6" class="cell-empty"/>
+    <text x="400" y="40" dominant-baseline="middle" text-anchor="middle" style="fill:#bac2de; font-size:12px;">Empty</text>
+    <text x="400" y="60" dominant-baseline="middle" text-anchor="middle" style="fill:#585b70; font-size:10px;">Seq: 4</text>
+    <text x="400" y="-10" dominant-baseline="middle" text-anchor="middle" class="index-text">Idx: 4</text>
+
+    <!-- Cell 5 (Empty) -->
+    <rect x="450" y="0" width="80" height="80" rx="6" class="cell-empty"/>
+    <text x="490" y="40" dominant-baseline="middle" text-anchor="middle" style="fill:#bac2de; font-size:12px;">Empty</text>
+    <text x="490" y="60" dominant-baseline="middle" text-anchor="middle" style="fill:#585b70; font-size:10px;">Seq: 5</text>
+    <text x="490" y="-10" dominant-baseline="middle" text-anchor="middle" class="index-text">Idx: 5</text>
+  </g>
+
+  <!-- Producers Section -->
+  <g transform="translate(480, 310)">
+    <rect x="0" y="0" width="120" height="40" rx="4" fill="#89b4fa" opacity="0.15" stroke="#89b4fa" stroke-width="1.5"/>
+    <text x="60" y="25" text-anchor="middle" class="label" style="fill:#89b4fa;">Producer A</text>
+  </g>
+  <g transform="translate(630, 310)">
+    <rect x="0" y="0" width="120" height="40" rx="4" fill="#89b4fa" opacity="0.15" stroke="#89b4fa" stroke-width="1.5"/>
+    <text x="60" y="25" text-anchor="middle" class="label" style="fill:#89b4fa;">Producer B</text>
+  </g>
+  
+  <text x="615" y="290" text-anchor="middle" class="label" style="fill:#89b4fa; font-size:12px;">Atomic Contention on Tail</text>
+
+  <!-- Consumer Section -->
+  <g transform="translate(50, 310)">
+    <rect x="0" y="0" width="120" height="40" rx="4" fill="#f38ba8" opacity="0.15" stroke="#f38ba8" stroke-width="1.5"/>
+    <text x="60" y="25" text-anchor="middle" class="label" style="fill:#f38ba8;">Consumer</text>
+  </g>
+
+  <!-- Pointers -->
+  <!-- Head pointer -->
+  <g transform="translate(100, 160)">
+    <path d="M 220 120 L 220 90" stroke="#f38ba8" stroke-width="2.5" fill="none" marker-end="url(#arrow-red)"/>
+    <rect x="180" y="125" width="80" height="20" rx="3" fill="#f38ba8"/>
+    <text x="220" y="139" text-anchor="middle" style="fill:#11111b; font-size:10px; font-weight:bold;">HEAD (Acquire)</text>
+  </g>
+
+  <!-- Tail pointer -->
+  <g transform="translate(100, 160)">
+    <path d="M 310 120 L 310 90" stroke="#89b4fa" stroke-width="2.5" fill="none" marker-end="url(#arrow-blue)"/>
+    <rect x="270" y="125" width="80" height="20" rx="3" fill="#89b4fa"/>
+    <text x="310" y="139" text-anchor="middle" style="fill:#11111b; font-size:10px; font-weight:bold;">TAIL (Release)</text>
+  </g>
+
+  <!-- Connecting Lines and Annotations -->
+  <!-- Producer A writing to Cell 2 -->
+  <path d="M 540 310 C 540 270, 320 270, 320 245" stroke="#f9e2af" stroke-width="1.5" stroke-dasharray="4" fill="none" marker-end="url(#arrow-yellow)"/>
+  <text x="430" y="270" text-anchor="middle" style="fill:#f9e2af; font-size:10px;">1. Claimed Slot 2, writes data</text>
+
+  <!-- Producer B competing for Tail -->
+  <path d="M 690 310 C 690 280, 410 280, 410 260" stroke="#89b4fa" stroke-width="1.5" fill="none" marker-end="url(#arrow-blue)"/>
+  <text x="590" y="250" text-anchor="middle" style="fill:#89b4fa; font-size:10px;">2. CAS Tail (atomic fetch_add/compare_exchange)</text>
+
+  <!-- Consumer checking Cell 2 -->
+  <path d="M 110 310 C 110 280, 220 280, 220 260" stroke="#f38ba8" stroke-width="1.5" fill="none" marker-end="url(#arrow-red)"/>
+  <text x="140" y="285" text-anchor="middle" style="fill:#f38ba8; font-size:10px;">3. Spins until Seq == Idx (2)</text>
+
+  <!-- Cache-Line Padding indicator -->
+  <rect x="20" y="380" width="760" height="40" rx="4" fill="#313244" stroke="#45475a"/>
+  <text x="400" y="405" text-anchor="middle" style="fill:#a6adc8; font-size:11px;">False Sharing Prevention: Cache-line alignment prevents Head &amp; Tail cross-interference</text>
+
+  <!-- Marker definitions -->
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#89b4fa"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f38ba8"/>
+    </marker>
+    <marker id="arrow-yellow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f9e2af"/>
+    </marker>
+  </defs>
+</svg>

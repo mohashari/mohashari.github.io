@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d"/>
+      <stop offset="100%" stop-color="#070a14"/>
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="podGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    
+    <linearGradient id="kernelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#1f2937"/>
+    </linearGradient>
+
+    <!-- Accent Gradients -->
+    <linearGradient id="ebpfGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#0891b2"/>
+    </linearGradient>
+
+    <linearGradient id="operatorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+
+    <linearGradient id="seccompGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <linearGradient id="blockedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+
+    <!-- Filters for Glow Effects -->
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowGreen" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Base Canvas Background -->
+  <rect width="950" height="600" rx="8" fill="url(#bgGrad)"/>
+  
+  <!-- Outer Border -->
+  <rect x="2" y="2" width="946" height="596" rx="6" fill="none" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Title & Metadata -->
+  <text x="30" y="40" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="800" fill="#f8fafc" letter-spacing="0.5">DYNAMIC SECCOMP PROFILING VIA eBPF IN KUBERNETES</text>
+  <text x="30" y="60" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#64748b" letter-spacing="1">PHASE 1: RECORDING &amp; GENERATION  |  PHASE 2: ENFORCEMENT &amp; BLOCKING</text>
+
+  <!-- PHASE 1: RECORDING WORKFLOW (TOP HALF) -->
+  <g transform="translate(0, 0)">
+    <text x="30" y="105" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" fill="#38bdf8" letter-spacing="1">PHASE 1: AUDITING &amp; PROFILING (STAGING/TESTING)</text>
+    
+    <!-- User Pod Box (Staging) -->
+    <rect x="50" y="120" width="180" height="110" rx="8" fill="url(#podGrad)" stroke="#334155" stroke-width="1.5"/>
+    <rect x="50" y="120" width="180" height="28" rx="8" fill="#1e293b" stroke="none"/>
+    <path d="M 50 148 L 230 148" stroke="#334155" stroke-width="1.5"/>
+    <text x="65" y="138" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">POD: staging-app</text>
+    <!-- Nested Container inside Pod -->
+    <rect x="65" y="158" width="150" height="60" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="75" y="178" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#f1f5f9">Application Process</text>
+    <text x="75" y="193" font-family="Courier New, monospace" font-size="9" font-weight="700" fill="#38bdf8">execve(), socket(), read()</text>
+
+    <!-- Syscall Flow Line Down to Kernel -->
+    <path d="M 140 230 L 140 280" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 4"/>
+    <polygon points="140,285 136,275 144,275" fill="#38bdf8"/>
+    <text x="148" y="260" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" fill="#64748b">Syscalls</text>
+
+    <!-- Linux Kernel (Host) -->
+    <rect x="50" y="290" width="340" height="100" rx="8" fill="url(#kernelGrad)" stroke="#334155" stroke-width="1.5"/>
+    <text x="65" y="312" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">LINUX KERNEL (Worker Node)</text>
+    
+    <!-- Syscall Layer within Kernel -->
+    <rect x="65" y="325" width="130" height="50" rx="4" fill="#111827" stroke="#1f2937" stroke-width="1"/>
+    <text x="75" y="345" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#94a3b8">System Call</text>
+    <text x="75" y="358" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" fill="#94a3b8">Handler (Ring 0)</text>
+
+    <!-- eBPF Program Box (Hooked to Syscall Enter) -->
+    <rect x="230" y="315" width="145" height="65" rx="6" fill="url(#ebpfGrad)" stroke="#06b6d4" stroke-width="1.5" filter="url(#glowCyan)"/>
+    <text x="242" y="335" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#ffffff">eBPF Tracing Probe</text>
+    <text x="242" y="350" font-family="Courier New, monospace" font-size="9" font-weight="700" fill="#e2f8ff">sys_enter/*</text>
+    <text x="242" y="362" font-family="Inter, system-ui, sans-serif" font-size="8" font-weight="500" fill="#e2f8ff">Inspektor Gadget / SPO</text>
+
+    <!-- Hook connector -->
+    <path d="M 195 350 L 230 350" fill="none" stroke="#22d3ee" stroke-width="2"/>
+    <circle cx="195" cy="350" r="3" fill="#22d3ee"/>
+
+    <!-- Data Upload to Operator -->
+    <path d="M 302 315 L 302 180 L 415 180" fill="none" stroke="#06b6d4" stroke-width="2" stroke-dasharray="2 2"/>
+    <polygon points="420,180 410,176 410,184" fill="#06b6d4"/>
+    <text x="310" y="172" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" fill="#06b6d4">Syscall Events Stream</text>
+
+    <!-- Kubernetes Operator (Security Profiles Operator) -->
+    <rect x="425" y="120" width="200" height="110" rx="8" fill="url(#operatorGrad)" stroke="#4f46e5" stroke-width="1.5"/>
+    <rect x="425" y="120" width="200" height="28" rx="8" fill="#312e81" stroke="none"/>
+    <path d="M 425 148 L 625 148" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="440" y="138" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#f8fafc">Kubernetes SPO Agent</text>
+    <text x="440" y="170" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#e0e7ff">Recording Controller</text>
+    <text x="440" y="185" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="500" fill="#c7d2fe">Aggregation &amp; Deduplication</text>
+    <text x="440" y="200" font-family="Courier New, monospace" font-size="9" font-weight="700" fill="#a5b4fc">SeccompProfile CRD</text>
+
+    <!-- Output Flow to JSON profile -->
+    <path d="M 625 175 L 685 175" fill="none" stroke="#818cf8" stroke-width="2"/>
+    <polygon points="690,175 680,171 680,179" fill="#818cf8"/>
+    <text x="632" y="166" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" fill="#c7d2fe">Generate</text>
+
+    <!-- Seccomp Profile Artifact (JSON) -->
+    <rect x="695" y="120" width="200" height="110" rx="8" fill="url(#podGrad)" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="695" y="120" width="200" height="28" rx="8" fill="#064e3b" stroke="none"/>
+    <path d="M 695 148 L 895 148" stroke="#10b981" stroke-width="1.5"/>
+    <text x="710" y="138" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#f8fafc">SECCOMP PROFILE (JSON)</text>
+    <!-- Code Preview -->
+    <text x="710" y="168" font-family="Courier New, monospace" font-size="9" font-weight="700" fill="#34d399">"defaultAction": "SCMP_ACT_ERRNO"</text>
+    <text x="710" y="182" font-family="Courier New, monospace" font-size="9" font-weight="700" fill="#34d399">"names": [ "read", "write",</text>
+    <text x="710" y="194" font-family="Courier New, monospace" font-size="9" font-weight="700" fill="#34d399">  "epoll_wait", "close" ]</text>
+    <text x="710" y="208" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#10b981">Minimalist Privilege Set</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="30" y1="410" x2="920" y2="410" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- PHASE 2: ENFORCEMENT & BLOCKING (BOTTOM HALF) -->
+  <g transform="translate(0, 310)">
+    <text x="30" y="125" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" fill="#10b981" letter-spacing="1">PHASE 2: PRODUCTION ENFORCEMENT &amp; ATTACK MITIGATION</text>
+    
+    <!-- Profile Injection Arrow down to Prod Pod -->
+    <path d="M 795 -80 L 795 140 L 460 140" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="3 3"/>
+    <polygon points="455,140 465,144 465,136" fill="#10b981"/>
+    <text x="610" y="132" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" fill="#34d399">Applied via Pod securityContext</text>
+
+    <!-- Production Pod Block -->
+    <rect x="250" y="145" width="200" height="115" rx="8" fill="url(#podGrad)" stroke="#10b981" stroke-width="1.5"/>
+    <rect x="250" y="145" width="200" height="28" rx="8" fill="#064e3b" stroke="none"/>
+    <path d="M 250 173 L 450 173" stroke="#10b981" stroke-width="1.5"/>
+    <text x="265" y="163" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#f8fafc">POD: prod-app-enforced</text>
+    
+    <rect x="265" y="183" width="170" height="65" rx="4" fill="#0f172a" stroke="#10b981" stroke-width="1"/>
+    <text x="275" y="200" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="700" fill="#34d399">Enforced Container</text>
+    <text x="275" y="215" font-family="Inter, system-ui, sans-serif" font-size="8" font-weight="500" fill="#94a3b8">Seccomp: Localhost profile</text>
+    <text x="275" y="228" font-family="Courier New, monospace" font-size="8.5" font-weight="700" fill="#f43f5e">Rejected: finit_module(), reboot()</text>
+
+    <!-- Attacker Module -->
+    <g transform="translate(30, 145)">
+      <rect x="0" y="0" width="160" height="115" rx="8" fill="#1e1b1b" stroke="#f43f5e" stroke-width="1.5" filter="url(#glowRed)"/>
+      <rect x="0" y="0" width="160" height="28" rx="8" fill="#7f1d1d" stroke="none"/>
+      <path d="M 0 28 L 160 28" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="12" y="18" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="800" fill="#f8fafc">RCE / EXPLOIT TRY</text>
+      
+      <!-- Attacker detail -->
+      <text x="12" y="48" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="600" fill="#fca5a5">Attacker executes:</text>
+      <text x="12" y="65" font-family="Courier New, monospace" font-size="10" font-weight="800" fill="#f43f5e">insmod kernel_rootkit</text>
+      <text x="12" y="78" font-family="Courier New, monospace" font-size="8" font-weight="700" fill="#94a3b8">(needs finit_module)</text>
+      <text x="12" y="95" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#f43f5e">Privilege Escalation</text>
+    </g>
+
+    <!-- Exploit Arrow pointing to Enforced Container -->
+    <path d="M 190 200 L 242 200" fill="none" stroke="#ef4444" stroke-width="2.5"/>
+    <polygon points="248,200 238,196 238,204" fill="#ef4444"/>
+    <text x="195" y="192" font-family="Inter, system-ui, sans-serif" font-size="8.5" font-weight="700" fill="#f43f5e">Syscall Trigger</text>
+
+    <!-- Kernel-level Block (Bottom Right) -->
+    <rect x="520" y="145" width="375" height="115" rx="8" fill="url(#kernelGrad)" stroke="#334155" stroke-width="1.5"/>
+    <text x="535" y="167" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">LINUX KERNEL (Enforcement Level)</text>
+    
+    <!-- Seccomp Filter Engine -->
+    <rect x="535" y="180" width="190" height="65" rx="4" fill="url(#seccompGrad)" stroke="#10b981" stroke-width="1" filter="url(#glowGreen)"/>
+    <text x="545" y="198" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="800" fill="#ffffff">Kernel Seccomp BPF Filter</text>
+    <text x="545" y="213" font-family="Inter, system-ui, sans-serif" font-size="8.5" font-weight="600" fill="#ecfdf5">Inspects: syscall #313 (finit_module)</text>
+    <text x="545" y="226" font-family="Inter, system-ui, sans-serif" font-size="8.5" font-weight="600" fill="#a7f3d0">Action: SECCOMP_RET_ERRNO</text>
+
+    <!-- Blocked Box -->
+    <rect x="745" y="180" width="130" height="65" rx="4" fill="url(#blockedGrad)" stroke="#ef4444" stroke-width="1" filter="url(#glowRed)"/>
+    <text x="755" y="205" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="900" fill="#ffffff">BLOCKED</text>
+    <text x="755" y="222" font-family="Inter, system-ui, sans-serif" font-size="9" font-weight="700" fill="#fee2e2">Operation Denied</text>
+
+    <!-- Arrow from Pod to Kernel Filter -->
+    <path d="M 450 200 L 512 200" fill="none" stroke="#34d399" stroke-width="2"/>
+    <polygon points="518,200 508,196 508,204" fill="#34d399"/>
+    
+    <!-- Connection from Filter to Blocked -->
+    <path d="M 725 212 L 740 212" fill="none" stroke="#ef4444" stroke-width="2"/>
+    <polygon points="742,212 734,208 734,216" fill="#ef4444"/>
+  </g>
+</svg>
