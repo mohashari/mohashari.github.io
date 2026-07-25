@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="cpuGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="throttleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f87171"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+    <linearGradient id="successGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="600" rx="16" fill="url(#bgGrad)"/>
+  
+  <!-- Title -->
+  <text x="500" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="bold" fill="#f8fafc" text-anchor="middle">
+    CFS CPU Throttling in Go Containers (CPU Limit: 2.0, Host Cores: 8)
+  </text>
+  
+  <!-- Left Side: GOMAXPROCS=8 (Throttling) -->
+  <g transform="translate(50, 80)" filter="url(#shadow)">
+    <!-- Container Box -->
+    <rect width="420" height="460" rx="12" fill="url(#boxGrad)" stroke="#ef4444" stroke-width="1.5"/>
+    <text x="210" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#f1f5f9" text-anchor="middle">
+      Scenario A: GOMAXPROCS = 8 (Host Cores)
+    </text>
+    <text x="210" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">
+      8 threads run in parallel, consuming quota rapidly
+    </text>
+
+    <!-- CFS Period timeline (100ms) -->
+    <g transform="translate(30, 80)">
+      <!-- Timeline bar -->
+      <rect width="360" height="40" rx="6" fill="#0f172a" stroke="#475569"/>
+      
+      <!-- Quota usage (200ms total, 8 threads * 25ms = 200ms) -->
+      <rect width="90" height="40" rx="6" fill="url(#cpuGrad)"/>
+      <!-- Throttled period (75ms remaining) -->
+      <rect x="90" width="270" height="40" rx="6" fill="url(#throttleGrad)" fill-opacity="0.85"/>
+      
+      <!-- Markings -->
+      <line x1="0" y1="0" x2="0" y2="45" stroke="#94a3b8" stroke-dasharray="3,3"/>
+      <line x1="90" y1="0" x2="90" y2="45" stroke="#f87171" stroke-dasharray="3,3"/>
+      <line x1="360" y1="0" x2="360" y2="45" stroke="#94a3b8" stroke-dasharray="3,3"/>
+      
+      <text x="0" y="-10" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">0ms</text>
+      <text x="90" y="-10" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f87171" text-anchor="middle">25ms</text>
+      <text x="360" y="-10" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">100ms (Period)</text>
+      
+      <text x="45" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ACTIVE (Go Runs)</text>
+      <text x="225" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">THROTTLED (Stalled)</text>
+    </g>
+
+    <!-- Thread activity visualization -->
+    <g transform="translate(30, 160)">
+      <text x="0" y="-10" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#cbd5e1">Thread Execution Profile</text>
+      
+      <!-- 8 thread bars -->
+      <!-- T1 -->
+      <rect x="0" y="10" width="90" height="15" rx="3" fill="url(#cpuGrad)"/>
+      <rect x="90" y="10" width="270" height="15" rx="3" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-dasharray="2,2"/>
+      <text x="-10" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T1</text>
+      
+      <!-- T2 -->
+      <rect x="0" y="35" width="90" height="15" rx="3" fill="url(#cpuGrad)"/>
+      <rect x="90" y="35" width="270" height="15" rx="3" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-dasharray="2,2"/>
+      <text x="-10" y="47" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T2</text>
+      
+      <!-- T3 -->
+      <rect x="0" y="60" width="90" height="15" rx="3" fill="url(#cpuGrad)"/>
+      <rect x="90" y="60" width="270" height="15" rx="3" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-dasharray="2,2"/>
+      <text x="-10" y="72" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T3</text>
+      
+      <!-- T4 -->
+      <rect x="0" y="85" width="90" height="15" rx="3" fill="url(#cpuGrad)"/>
+      <rect x="90" y="85" width="270" height="15" rx="3" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-dasharray="2,2"/>
+      <text x="-10" y="97" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T4</text>
+      
+      <!-- T5 -->
+      <rect x="0" y="110" width="90" height="15" rx="3" fill="url(#cpuGrad)"/>
+      <rect x="90" y="110" width="270" height="15" rx="3" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-dasharray="2,2"/>
+      <text x="-10" y="122" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T5</text>
+      
+      <!-- T6 -->
+      <rect x="0" y="135" width="90" height="15" rx="3" fill="url(#cpuGrad)"/>
+      <rect x="90" y="135" width="270" height="15" rx="3" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-dasharray="2,2"/>
+      <text x="-10" y="147" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T6</text>
+      
+      <!-- T7 -->
+      <rect x="0" y="160" width="90" height="15" rx="3" fill="url(#cpuGrad)"/>
+      <rect x="90" y="160" width="270" height="15" rx="3" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-dasharray="2,2"/>
+      <text x="-10" y="172" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T7</text>
+      
+      <!-- T8 -->
+      <rect x="0" y="185" width="90" height="15" rx="3" fill="url(#cpuGrad)"/>
+      <rect x="90" y="185" width="270" height="15" rx="3" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-dasharray="2,2"/>
+      <text x="-10" y="197" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T8</text>
+    </g>
+    
+    <!-- Impact explanation -->
+    <rect x="25" y="385" width="370" height="55" rx="6" fill="#ef4444" fill-opacity="0.1" stroke="#ef4444" stroke-width="1"/>
+    <text x="35" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f87171">Impact: High P99 Latency &amp; Resource Waste</text>
+    <text x="35" y="425" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">All threads are frozen for 75% of the scheduling period.</text>
+  </g>
+
+  <!-- Right Side: GOMAXPROCS=2 (Smooth, automaxprocs) -->
+  <g transform="translate(530, 80)" filter="url(#shadow)">
+    <!-- Container Box -->
+    <rect width="420" height="460" rx="12" fill="url(#boxGrad)" stroke="#10b981" stroke-width="1.5"/>
+    <text x="210" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="bold" fill="#f1f5f9" text-anchor="middle">
+      Scenario B: GOMAXPROCS = 2 (automaxprocs)
+    </text>
+    <text x="210" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">
+      2 threads run concurrently, aligning with CFS limit
+    </text>
+
+    <!-- CFS Period timeline (100ms) -->
+    <g transform="translate(30, 80)">
+      <!-- Timeline bar -->
+      <rect width="360" height="40" rx="6" fill="#0f172a" stroke="#475569"/>
+      
+      <!-- Quota usage (200ms total, 2 threads * 100ms = 200ms) -->
+      <rect width="360" height="40" rx="6" fill="url(#successGrad)"/>
+      
+      <!-- Markings -->
+      <line x1="0" y1="0" x2="0" y2="45" stroke="#94a3b8" stroke-dasharray="3,3"/>
+      <line x1="360" y1="0" x2="360" y2="45" stroke="#94a3b8" stroke-dasharray="3,3"/>
+      
+      <text x="0" y="-10" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">0ms</text>
+      <text x="360" y="-10" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1" text-anchor="middle">100ms (Period)</text>
+      
+      <text x="180" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">100% ACTIVE (No Throttling)</text>
+    </g>
+
+    <!-- Thread activity visualization -->
+    <g transform="translate(30, 160)">
+      <text x="0" y="-10" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" fill="#cbd5e1">Thread Execution Profile</text>
+      
+      <!-- 2 active thread bars -->
+      <!-- T1 -->
+      <rect x="0" y="10" width="360" height="20" rx="3" fill="url(#successGrad)"/>
+      <text x="-10" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T1</text>
+      
+      <!-- T2 -->
+      <rect x="0" y="45" width="360" height="20" rx="3" fill="url(#successGrad)"/>
+      <text x="-10" y="59" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">T2</text>
+      
+      <!-- Idle Threads (Inactive) -->
+      <rect x="0" y="80" width="360" height="15" rx="3" fill="#334155" fill-opacity="0.4" stroke="#475569" stroke-dasharray="2,2"/>
+      <text x="-10" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="end">T3</text>
+      <text x="180" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Inactive (Blocked by GOMAXPROCS)</text>
+
+      <rect x="0" y="105" width="360" height="15" rx="3" fill="#334155" fill-opacity="0.4" stroke="#475569" stroke-dasharray="2,2"/>
+      <text x="-10" y="117" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="end">T4..8</text>
+    </g>
+    
+    <!-- Benefit explanation -->
+    <rect x="25" y="385" width="370" height="55" rx="6" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-width="1"/>
+    <text x="35" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#34d399">Benefit: Predictable P99 &amp; Smooth Latency</text>
+    <text x="35" y="425" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#cbd5e1">Steady consumption of CPU. No hard CPU freezes.</text>
+  </g>
+</svg>

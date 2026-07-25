@@ -1,0 +1,293 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="stage0-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="stage1-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="stage2-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="stage3-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" />
+      <stop offset="100%" stop-color="#6D28D9" />
+    </linearGradient>
+    <linearGradient id="client-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EC4899" />
+      <stop offset="100%" stop-color="#DB2777" />
+    </linearGradient>
+
+    <!-- Flow Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748B" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3B82F6" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10B981" />
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#F59E0B" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8B5CF6" />
+    </marker>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#EC4899" />
+    </marker>
+
+    <!-- Drop Shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="680" rx="16" fill="url(#bg-grad)" />
+  <rect x="10" y="10" width="980" height="660" rx="12" fill="none" stroke="#1F2937" stroke-width="2" />
+
+  <!-- Title & Subtitle -->
+  <text x="500" y="45" font-family="'Outfit', 'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="#F9FAFB" text-anchor="middle" letter-spacing="1">
+    PIPELINE PARALLELISM FOR DISTRIBUTED TRANSFORMER INFERENCE
+  </text>
+  <text x="500" y="68" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500" fill="#9CA3AF" text-anchor="middle">
+    Local Hardware 4-Stage Pipeline via Socket-Based IPC Ring in Rust
+  </text>
+
+  <!-- ==================== CLIENT NODE ==================== -->
+  <g transform="translate(40, 120)" filter="url(#shadow)">
+    <rect width="160" height="420" rx="8" fill="#1F2937" fill-opacity="0.6" stroke="#EC4899" stroke-width="2" />
+    <rect width="160" height="35" rx="8" fill="url(#client-grad)" />
+    <text x="80" y="22" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Inference Orchestrator</text>
+    
+    <!-- Client Components -->
+    <g transform="translate(10, 50)">
+      <!-- Prompt Loader -->
+      <rect width="140" height="60" rx="4" fill="#111827" stroke="#374151" />
+      <text x="70" y="22" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#E5E7EB" text-anchor="middle">1. Tokenize Input</text>
+      <text x="70" y="38" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Batching &amp; Micro-batches</text>
+      <text x="70" y="48" font-family="'Courier New', monospace" font-size="9" fill="#EC4899" text-anchor="middle">Seq Length: L</text>
+      
+      <!-- TCP Client Dispatcher -->
+      <rect y="80" width="140" height="120" rx="4" fill="#111827" stroke="#374151" />
+      <text x="70" y="100" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#E5E7EB" text-anchor="middle">2. Send Tokens</text>
+      <text x="70" y="118" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Vec&lt;u32&gt; to Stage 0</text>
+      <path d="M 15 130 H 125" stroke="#374151" stroke-width="1" />
+      <text x="70" y="148" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#E5E7EB" text-anchor="middle">5. Recv Final Logits</text>
+      <text x="70" y="166" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">TCP Listen on :9000</text>
+      <text x="70" y="180" font-family="'Courier New', monospace" font-size="9" fill="#10B981" text-anchor="middle">ArgMax / Sample Token</text>
+
+      <!-- Autoregressive Loop -->
+      <rect y="220" width="140" height="130" rx="4" fill="#111827" stroke="#374151" />
+      <text x="70" y="242" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#E5E7EB" text-anchor="middle">Autoregressive Loop</text>
+      <path d="M 20 260 H 120 V 320 H 20 Z" fill="none" stroke="#EC4899" stroke-width="1.5" stroke-dasharray="3 3" />
+      <text x="70" y="280" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#EC4899" text-anchor="middle">Append Token</text>
+      <text x="70" y="295" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#EC4899" text-anchor="middle">Update KV Cache</text>
+      <text x="70" y="310" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#EC4899" text-anchor="middle">Loop Until EOS / Max</text>
+    </g>
+  </g>
+
+  <!-- ==================== STAGE 0 (Node 0) ==================== -->
+  <g transform="translate(260, 120)" filter="url(#shadow)">
+    <rect width="150" height="420" rx="8" fill="#1F2937" fill-opacity="0.6" stroke="#3B82F6" stroke-width="2" />
+    <rect width="150" height="35" rx="8" fill="url(#stage0-grad)" />
+    <text x="75" y="22" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Stage 0 (Embeddings)</text>
+    <text x="75" y="50" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Port: 8000</text>
+    
+    <g transform="translate(10, 65)">
+      <!-- Embeddings Layer -->
+      <rect width="130" height="55" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="22" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#93C5FD" text-anchor="middle">Token Embedding</text>
+      <text x="65" y="36" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Positional Enc</text>
+      
+      <!-- Attention Layers -->
+      <rect y="70" width="130" height="90" rx="4" fill="#111827" stroke="#3B82F6" stroke-width="1.5" />
+      <text x="65" y="88" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">Layers 0 – 11</text>
+      <text x="65" y="104" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Dec. Attention</text>
+      <text x="65" y="118" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">MLP Blocks</text>
+      <text x="65" y="132" font-family="'Courier New', monospace" font-size="9" fill="#3B82F6" text-anchor="middle">local KV Cache</text>
+
+      <!-- Frame Serialization -->
+      <rect y="175" width="130" height="80" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="195" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">Frame Encoder</text>
+      <text x="65" y="210" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Serialize Tensor</text>
+      <text x="65" y="225" font-family="'Courier New', monospace" font-size="9" fill="#34D399" text-anchor="middle">[Batch, Seq, Hidden]</text>
+      <text x="65" y="238" font-family="'Courier New', monospace" font-size="9" fill="#F87171" text-anchor="middle">f32/f16 raw payload</text>
+
+      <!-- Socket Tx -->
+      <rect y="270" width="130" height="65" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="290" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">TCP Socket Sender</text>
+      <text x="65" y="306" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Unix Stream / TCP</text>
+      <text x="65" y="318" font-family="'Courier New', monospace" font-size="9" fill="#3B82F6" text-anchor="middle">Send to Stage 1</text>
+    </g>
+  </g>
+
+  <!-- ==================== STAGE 1 (Node 1) ==================== -->
+  <g transform="translate(440, 120)" filter="url(#shadow)">
+    <rect width="150" height="420" rx="8" fill="#1F2937" fill-opacity="0.6" stroke="#10B981" stroke-width="2" />
+    <rect width="150" height="35" rx="8" fill="url(#stage1-grad)" />
+    <text x="75" y="22" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Stage 1 (Attention)</text>
+    <text x="75" y="50" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Port: 8001</text>
+
+    <g transform="translate(10, 65)">
+      <!-- Socket Rx -->
+      <rect width="130" height="65" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">TCP Socket Recv</text>
+      <text x="65" y="36" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Buffered Read</text>
+      <text x="65" y="48" font-family="'Courier New', monospace" font-size="9" fill="#10B981" text-anchor="middle">Recv from Stage 0</text>
+
+      <!-- Frame Deserialization -->
+      <rect y="80" width="130" height="80" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="100" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">Frame Decoder</text>
+      <text x="65" y="115" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Deserialize Tensor</text>
+      <text x="65" y="130" font-family="'Courier New', monospace" font-size="9" fill="#34D399" text-anchor="middle">Reconstruct Shape</text>
+      <text x="65" y="142" font-family="'Courier New', monospace" font-size="9" fill="#E5E7EB" text-anchor="middle">Zero-Allocation Parse</text>
+
+      <!-- Attention Layers -->
+      <rect y="175" width="130" height="90" rx="4" fill="#111827" stroke="#10B981" stroke-width="1.5" />
+      <text x="65" y="193" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">Layers 12 – 23</text>
+      <text x="65" y="209" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Dec. Attention</text>
+      <text x="65" y="223" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">MLP Blocks</text>
+      <text x="65" y="237" font-family="'Courier New', monospace" font-size="9" fill="#10B981" text-anchor="middle">local KV Cache</text>
+
+      <!-- Socket Tx -->
+      <rect y="275" width="130" height="60" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="295" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">TCP Socket Sender</text>
+      <text x="65" y="311" font-family="'Courier New', monospace" font-size="9" fill="#10B981" text-anchor="middle">Send to Stage 2</text>
+    </g>
+  </g>
+
+  <!-- ==================== STAGE 2 (Node 2) ==================== -->
+  <g transform="translate(620, 120)" filter="url(#shadow)">
+    <rect width="150" height="420" rx="8" fill="#1F2937" fill-opacity="0.6" stroke="#F59E0B" stroke-width="2" />
+    <rect width="150" height="35" rx="8" fill="url(#stage2-grad)" />
+    <text x="75" y="22" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Stage 2 (Attention)</text>
+    <text x="75" y="50" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Port: 8002</text>
+
+    <g transform="translate(10, 65)">
+      <!-- Socket Rx -->
+      <rect width="130" height="65" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">TCP Socket Recv</text>
+      <text x="65" y="36" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Buffered Read</text>
+      <text x="65" y="48" font-family="'Courier New', monospace" font-size="9" fill="#F59E0B" text-anchor="middle">Recv from Stage 1</text>
+
+      <!-- Frame Deserialization -->
+      <rect y="80" width="130" height="80" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="100" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">Frame Decoder</text>
+      <text x="65" y="115" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Deserialize Tensor</text>
+      <text x="65" y="130" font-family="'Courier New', monospace" font-size="9" fill="#34D399" text-anchor="middle">Reconstruct Shape</text>
+      <text x="65" y="142" font-family="'Courier New', monospace" font-size="9" fill="#E5E7EB" text-anchor="middle">Zero-Allocation Parse</text>
+
+      <!-- Attention Layers -->
+      <rect y="175" width="130" height="90" rx="4" fill="#111827" stroke="#F59E0B" stroke-width="1.5" />
+      <text x="65" y="193" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">Layers 24 – 35</text>
+      <text x="65" y="209" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Dec. Attention</text>
+      <text x="65" y="223" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">MLP Blocks</text>
+      <text x="65" y="237" font-family="'Courier New', monospace" font-size="9" fill="#F59E0B" text-anchor="middle">local KV Cache</text>
+
+      <!-- Socket Tx -->
+      <rect y="275" width="130" height="60" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="295" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">TCP Socket Sender</text>
+      <text x="65" y="311" font-family="'Courier New', monospace" font-size="9" fill="#F59E0B" text-anchor="middle">Send to Stage 3</text>
+    </g>
+  </g>
+
+  <!-- ==================== STAGE 3 (Node 3) ==================== -->
+  <g transform="translate(800, 120)" filter="url(#shadow)">
+    <rect width="150" height="420" rx="8" fill="#1F2937" fill-opacity="0.6" stroke="#8B5CF6" stroke-width="2" />
+    <rect width="150" height="35" rx="8" fill="url(#stage3-grad)" />
+    <text x="75" y="22" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">Stage 3 (LM Head)</text>
+    <text x="75" y="50" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Port: 8003</text>
+
+    <g transform="translate(10, 65)">
+      <!-- Socket Rx -->
+      <rect width="130" height="65" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">TCP Socket Recv</text>
+      <text x="65" y="36" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Buffered Read</text>
+      <text x="65" y="48" font-family="'Courier New', monospace" font-size="9" fill="#8B5CF6" text-anchor="middle">Recv from Stage 2</text>
+
+      <!-- Frame Deserialization -->
+      <rect y="80" width="130" height="55" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="98" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">Decoder</text>
+      <text x="65" y="112" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Deserialize Tensor</text>
+
+      <!-- Attention Layers -->
+      <rect y="145" width="130" height="75" rx="4" fill="#111827" stroke="#8B5CF6" stroke-width="1.5" />
+      <text x="65" y="160" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">Layers 36 – 47</text>
+      <text x="65" y="176" font-family="'Courier New', monospace" font-size="9" fill="#9CA3AF" text-anchor="middle">Dec. Attention</text>
+      <text x="65" y="190" font-family="'Courier New', monospace" font-size="9" fill="#34D399" text-anchor="middle">local KV Cache</text>
+
+      <!-- LM Head & Softmax -->
+      <rect y="230" width="130" height="50" rx="4" fill="#111827" stroke="#8B5CF6" stroke-width="1.5" />
+      <text x="65" y="245" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">LM Head / LayerNorm</text>
+      <text x="65" y="260" font-family="'Courier New', monospace" font-size="9" fill="#D8B4FE" text-anchor="middle">Softmax / Sample</text>
+
+      <!-- Socket Tx -->
+      <rect y="290" width="130" height="45" rx="4" fill="#111827" stroke="#374151" />
+      <text x="65" y="305" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB" text-anchor="middle">Send to Client</text>
+      <text x="65" y="318" font-family="'Courier New', monospace" font-size="9" fill="#EC4899" text-anchor="middle">Port 9000 Client</text>
+    </g>
+  </g>
+
+  <!-- ==================== PIPELINE CONNECTION ARROWS ==================== -->
+  <!-- Client to Stage 0 -->
+  <path d="M 200 240 Q 230 240 260 240" fill="none" stroke="#EC4899" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow-pink)" />
+  <text x="230" y="230" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#EC4899" text-anchor="middle">Tokens</text>
+
+  <!-- Stage 0 to Stage 1 -->
+  <path d="M 410 420 H 440" fill="none" stroke="#3B82F6" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="425" y="410" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#3B82F6" text-anchor="middle">IPC</text>
+
+  <!-- Stage 1 to Stage 2 -->
+  <path d="M 590 420 H 620" fill="none" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="605" y="410" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#10B981" text-anchor="middle">IPC</text>
+
+  <!-- Stage 2 to Stage 3 -->
+  <path d="M 770 420 H 800" fill="none" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrow-amber)" />
+  <text x="785" y="410" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#F59E0B" text-anchor="middle">IPC</text>
+
+  <!-- Stage 3 to Client (Autoregressive Feedback Loop) -->
+  <path d="M 875 540 V 600 H 120 V 540" fill="none" stroke="#8B5CF6" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arrow-pink)" />
+  <text x="500" y="590" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#A78BFA" text-anchor="middle">
+    Autoregressive Feedback Ring: Next Token / Logits Response (TCP Socket to Coordinator)
+  </text>
+  
+  <!-- Bubble diagram representation for Pipelining at the bottom -->
+  <g transform="translate(180, 620)">
+    <rect width="640" height="35" rx="6" fill="#1F2937" fill-opacity="0.9" stroke="#374151" />
+    <text x="15" y="21" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#E5E7EB">Pipelining:</text>
+    
+    <!-- Time slots -->
+    <!-- Slot 1 -->
+    <rect x="90" y="7" width="100" height="20" rx="3" fill="#1E3A8A" stroke="#3B82F6" />
+    <text x="140" y="20" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">M-Batch 0 (St 0)</text>
+    
+    <!-- Slot 2 -->
+    <rect x="195" y="7" width="100" height="20" rx="3" fill="#064E3B" stroke="#10B981" />
+    <text x="245" y="20" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">M-Batch 0 (St 1)</text>
+    
+    <rect x="300" y="7" width="100" height="20" rx="3" fill="#1E3A8A" stroke="#3B82F6" />
+    <text x="350" y="20" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">M-Batch 1 (St 0)</text>
+
+    <!-- Slot 3 -->
+    <rect x="405" y="7" width="100" height="20" rx="3" fill="#78350F" stroke="#F59E0B" />
+    <text x="455" y="20" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">M-Batch 0 (St 2)</text>
+    
+    <rect x="510" y="7" width="100" height="20" rx="3" fill="#064E3B" stroke="#10B981" />
+    <text x="560" y="20" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#FFFFFF" text-anchor="middle">M-Batch 1 (St 1)</text>
+    
+    <text x="620" y="20" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#9CA3AF">...</text>
+  </g>
+</svg>
