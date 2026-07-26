@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 480" width="100%" height="100%">
+  <!-- Definitions for gradients, filters, and markers -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    
+    <!-- Element Gradients -->
+    <linearGradient id="accentGradBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="accentGradPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <linearGradient id="accentGradTeal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <linearGradient id="accentGradOrange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+    
+    <!-- Box Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    
+    <!-- Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+    <marker id="arrowHighlight" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#a855f7" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" rx="12" />
+  
+  <!-- Outer Border -->
+  <rect x="2" y="2" width="896" height="476" fill="none" stroke="#334155" stroke-width="1.5" rx="10" />
+
+  <!-- Title -->
+  <text x="30" y="40" font-family="'Inter', system-ui, sans-serif" font-size="20" font-weight="700" fill="#f8fafc" letter-spacing="-0.025em">
+    Quantitative API Breakage Risk Framework Architecture
+  </text>
+  <text x="30" y="60" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="400" fill="#94a3b8">
+    Continuous Integration pipeline integrating static schema diffing and dynamic traffic metrics.
+  </text>
+
+  <!-- Grid / Stages boundaries (Visual grouping) -->
+  <!-- Static Analysis Zone -->
+  <rect x="30" y="90" width="360" height="360" fill="#1e293b" fill-opacity="0.2" stroke="#334155" stroke-dasharray="4 4" rx="8" />
+  <text x="45" y="112" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8" letter-spacing="0.05em">STAGE 1: CHANGE &amp; STATIC ANALYSIS</text>
+
+  <!-- Dynamic / Telemetry Zone -->
+  <rect x="410" y="90" width="460" height="360" fill="#1e293b" fill-opacity="0.2" stroke="#334155" stroke-dasharray="4 4" rx="8" />
+  <text x="425" y="112" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8" letter-spacing="0.05em">STAGE 2: TELEMETRY &amp; RISK CALCULATION</text>
+
+  <!-- Connectors -->
+  <!-- Git commit to Schema Parse -->
+  <line x1="170" y1="210" x2="220" y2="210" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  
+  <!-- Schema diff outputs -> Risk Engine (Top) -->
+  <path d="M 360 210 L 400 210 L 400 170 L 440 170" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  
+  <!-- APISIX/OTel to Metric Collector -->
+  <line x1="560" y1="365" x2="600" y2="365" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Metric Aggregator -> Risk Engine (Bottom) -->
+  <path d="M 720 365 L 750 365 L 750 260 L 580 260 L 580 220" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  
+  <!-- Schema diff to Risk Engine input -->
+  <line x1="360" y1="210" x2="440" y2="210" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Risk Engine to CI/CD Gate -->
+  <line x1="580" y1="170" x2="660" y2="170" stroke="#a855f7" stroke-width="2" marker-end="url(#arrowHighlight)" />
+  
+  <!-- CI/CD Gate to Pass/Fail -->
+  <line x1="780" y1="170" x2="815" y2="170" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- NODES -->
+
+  <!-- Git Commit / Code change -->
+  <g transform="translate(50, 160)" filter="url(#shadow)">
+    <rect width="120" height="100" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <rect width="120" height="6" fill="url(#accentGradBlue)" rx="3" />
+    <text x="15" y="30" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">Git PR / Commit</text>
+    <text x="15" y="52" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">Protobuf / OpenAPI</text>
+    <text x="15" y="67" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">Schema Change</text>
+    <text x="15" y="82" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#60a5fa">Trigger Pipeline</text>
+  </g>
+
+  <!-- Static Schema Diff -->
+  <g transform="translate(220, 160)" filter="url(#shadow)">
+    <rect width="140" height="100" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <rect width="140" height="6" fill="url(#accentGradBlue)" rx="3" />
+    <text x="15" y="30" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">Schema Diffing</text>
+    <text x="15" y="52" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">buf breaking --against</text>
+    <text x="15" y="67" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">oasdiff --changelog</text>
+    <text x="15" y="82" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#38bdf8">Outputs: Change Matrix</text>
+  </g>
+
+  <!-- API Gateway / Production Traffic -->
+  <g transform="translate(430, 315)" filter="url(#shadow)">
+    <rect width="130" height="100" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <rect width="130" height="6" fill="url(#accentGradTeal)" rx="3" />
+    <text x="15" y="30" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">API Gateway (Envoy)</text>
+    <text x="15" y="52" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">Production Traffic</text>
+    <text x="15" y="67" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">Real-time requests</text>
+    <text x="15" y="82" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#2dd4bf">OpenTelemetry Metrics</text>
+  </g>
+
+  <!-- Metric Aggregator -->
+  <g transform="translate(600, 315)" filter="url(#shadow)">
+    <rect width="120" height="100" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <rect width="120" height="6" fill="url(#accentGradTeal)" rx="3" />
+    <text x="15" y="30" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">Traffic Aggregator</text>
+    <text x="15" y="52" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">ClickHouse / Prometheus</text>
+    <text x="15" y="67" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">Client-endpoint mapping</text>
+    <text x="15" y="82" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#2dd4bf">Frequency &amp; Vol metrics</text>
+  </g>
+
+  <!-- Risk Calculator Engine -->
+  <g transform="translate(440, 120)" filter="url(#shadow)">
+    <rect width="140" height="100" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="2" />
+    <rect width="140" height="6" fill="url(#accentGradPurple)" rx="3" />
+    <text x="15" y="30" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">Risk Engine</text>
+    <text x="15" y="52" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#c084fc">R = Severity × Traffic Weight</text>
+    <text x="15" y="67" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="400" fill="#e2e8f0">Dynamic Score: 0.0 - 10.0</text>
+    <text x="15" y="82" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="400" fill="#94a3b8">Checks against policy thresholds</text>
+  </g>
+
+  <!-- CI/CD Gate -->
+  <g transform="translate(660, 120)" filter="url(#shadow)">
+    <rect width="120" height="100" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <rect width="120" height="6" fill="url(#accentGradPurple)" rx="3" />
+    <text x="15" y="30" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">CI/CD Gate</text>
+    <text x="15" y="52" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#e2e8f0">Policy Check</text>
+    <text x="15" y="67" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="400" fill="#f43f5e">Threshold: > 5.0 (Block)</text>
+    <text x="15" y="82" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#c084fc">GitHub Actions Gate</text>
+  </g>
+
+  <!-- Pass/Fail Status -->
+  <g transform="translate(815, 135)" filter="url(#shadow)">
+    <rect width="55" height="70" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5" />
+    <text x="12" y="25" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#f43f5e">FAIL</text>
+    <line x1="8" y1="35" x2="47" y2="35" stroke="#334155" stroke-width="1" />
+    <text x="12" y="50" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700" fill="#10b981">PASS</text>
+    <text x="12" y="62" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="400" fill="#e2e8f0">WARN</text>
+  </g>
+
+  <!-- Metric Details Callout (Tooltip Style) -->
+  <g transform="translate(425, 235)">
+    <rect width="180" height="60" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1" opacity="0.9"/>
+    <text x="10" y="18" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="600" fill="#f8fafc">Telemetry Inputs:</text>
+    <text x="10" y="32" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="400" fill="#94a3b8">• Request Vol (QPS / Total Requests)</text>
+    <text x="10" y="44" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="400" fill="#94a3b8">• Active Clients (User-Agent/Client-Id)</text>
+  </g>
+
+</svg>

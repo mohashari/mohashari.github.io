@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%" style="background-color: #0f172a; font-family: system-ui, -apple-system, sans-serif;">
+  <!-- Definitions for gradients, markers, filters -->
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="awsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff9900" />
+      <stop offset="100%" stop-color="#ec6000" />
+    </linearGradient>
+    <linearGradient id="gcpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4285f4" />
+      <stop offset="100%" stop-color="#34a853" />
+    </linearGradient>
+    <linearGradient id="wgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#554488" />
+      <stop offset="100%" stop-color="#8855aa" />
+    </linearGradient>
+    <linearGradient id="tunnelGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8855aa" stop-opacity="0.2"/>
+      <stop offset="50%" stop-color="#8855aa" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#8855aa" stop-opacity="0.2"/>
+    </linearGradient>
+    
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#020617" flood-opacity="0.5" />
+    </filter>
+    
+    <!-- Glow filter for active tunnel -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-wg" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#c084fc" />
+    </marker>
+  </defs>
+
+  <!-- Title / Header -->
+  <text x="400" y="30" text-anchor="middle" fill="#f8fafc" font-size="18" font-weight="bold" letter-spacing="0.5">Ephemeral WireGuard Tunnel: Cross-Cloud DB Replication</text>
+  <text x="400" y="50" text-anchor="middle" fill="#94a3b8" font-size="12">Secure, on-demand synchronization plane between AWS and GCP</text>
+
+  <!-- AWS VPC (Left) -->
+  <g transform="translate(40, 80)" filter="url(#shadow)">
+    <!-- Boundary -->
+    <rect width="280" height="300" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2" />
+    <rect width="280" height="40" rx="12" fill="#334155" opacity="0.3" />
+    <!-- Label -->
+    <text x="15" y="25" fill="#ff9900" font-size="14" font-weight="bold">AWS VPC</text>
+    <text x="265" y="24" text-anchor="end" fill="#64748b" font-size="11">us-east-1 (10.0.0.0/16)</text>
+    
+    <!-- PostgreSQL Primary Node -->
+    <g transform="translate(20, 60)">
+      <rect width="240" height="80" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+      <!-- DB Icon Placeholder -->
+      <rect x="15" y="15" width="30" height="50" rx="4" fill="url(#awsGrad)" opacity="0.8" />
+      <!-- Cylinder lines to represent DB -->
+      <ellipse cx="30" cy="25" rx="15" ry="5" fill="#0f172a" stroke="#fff" stroke-width="1" opacity="0.5"/>
+      <path d="M 15 25 L 15 40 A 15 5 0 0 0 45 40 L 45 25" fill="none" stroke="#fff" stroke-width="1" opacity="0.5"/>
+      <path d="M 15 40 L 15 55 A 15 5 0 0 0 45 55 L 45 40" fill="none" stroke="#fff" stroke-width="1" opacity="0.5"/>
+      
+      <text x="60" y="32" fill="#f1f5f9" font-size="13" font-weight="600">PostgreSQL Primary</text>
+      <text x="60" y="48" fill="#94a3b8" font-size="11">IP: 10.0.1.50</text>
+      <text x="60" y="64" fill="#34d399" font-size="10" font-weight="bold">● Primary Node (Active)</text>
+    </g>
+
+    <!-- WireGuard Sidecar/Gateway AWS -->
+    <g transform="translate(20, 180)">
+      <rect width="240" height="90" rx="8" fill="#0f172a" stroke="#ff9900" stroke-width="1.5" />
+      <rect x="15" y="15" width="40" height="40" rx="6" fill="#ff9900" opacity="0.2" />
+      <!-- WG Logo representation -->
+      <path d="M 25 45 L 35 25 L 45 45" fill="none" stroke="#ff9900" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      
+      <text x="70" y="32" fill="#f1f5f9" font-size="13" font-weight="600">WireGuard Gateway</text>
+      <text x="70" y="48" fill="#94a3b8" font-size="11">LAN: 10.0.1.10</text>
+      <text x="70" y="64" fill="#a78bfa" font-size="11">WG: 192.168.2.1/30</text>
+      <text x="70" y="78" fill="#94a3b8" font-size="10">ListenPort: 51820</text>
+    </g>
+  </g>
+
+  <!-- GCP VPC (Right) -->
+  <g transform="translate(480, 80)" filter="url(#shadow)">
+    <!-- Boundary -->
+    <rect width="280" height="300" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2" />
+    <rect width="280" height="40" rx="12" fill="#334155" opacity="0.3" />
+    <!-- Label -->
+    <text x="15" y="25" fill="#4285f4" font-size="14" font-weight="bold">GCP VPC</text>
+    <text x="265" y="24" text-anchor="end" fill="#64748b" font-size="11">asia-southeast1 (10.2.0.0/16)</text>
+    
+    <!-- PostgreSQL Replica Node -->
+    <g transform="translate(20, 60)">
+      <rect width="240" height="80" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+      <!-- DB Icon Placeholder -->
+      <rect x="15" y="15" width="30" height="50" rx="4" fill="url(#gcpGrad)" opacity="0.8" />
+      <!-- Cylinder lines -->
+      <ellipse cx="30" cy="25" rx="15" ry="5" fill="#0f172a" stroke="#fff" stroke-width="1" opacity="0.5"/>
+      <path d="M 15 25 L 15 40 A 15 5 0 0 0 45 40 L 45 25" fill="none" stroke="#fff" stroke-width="1" opacity="0.5"/>
+      <path d="M 15 40 L 15 55 A 15 5 0 0 0 45 55 L 45 40" fill="none" stroke="#fff" stroke-width="1" opacity="0.5"/>
+      
+      <text x="60" y="32" fill="#f1f5f9" font-size="13" font-weight="600">PostgreSQL Replica</text>
+      <text x="60" y="48" fill="#94a3b8" font-size="11">IP: 10.2.1.50</text>
+      <text x="60" y="64" fill="#38bdf8" font-size="10" font-weight="bold">● Standby (Read-Only)</text>
+    </g>
+
+    <!-- WireGuard Sidecar/Gateway GCP -->
+    <g transform="translate(20, 180)">
+      <rect width="240" height="90" rx="8" fill="#0f172a" stroke="#4285f4" stroke-width="1.5" />
+      <rect x="15" y="15" width="40" height="40" rx="6" fill="#4285f4" opacity="0.2" />
+      <!-- WG Logo representation -->
+      <path d="M 25 45 L 35 25 L 45 45" fill="none" stroke="#4285f4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      
+      <text x="70" y="32" fill="#f1f5f9" font-size="13" font-weight="600">WireGuard Gateway</text>
+      <text x="70" y="48" fill="#94a3b8" font-size="11">LAN: 10.2.1.10</text>
+      <text x="70" y="64" fill="#a78bfa" font-size="11">WG: 192.168.2.2/30</text>
+      <text x="70" y="78" fill="#94a3b8" font-size="10">ListenPort: 51820</text>
+    </g>
+  </g>
+
+  <!-- Connectors within VPCs -->
+  <!-- AWS internal replication traffic path -->
+  <path d="M 160 140 L 160 180" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <text x="170" y="160" fill="#94a3b8" font-size="10">Port 5432</text>
+  
+  <!-- GCP internal replication traffic path -->
+  <path d="M 600 180 L 600 140" fill="none" stroke="#94a3b8" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <text x="610" y="165" fill="#94a3b8" font-size="10">Port 5432</text>
+
+  <!-- Ephemeral WireGuard Tunnel (Middle) -->
+  <!-- Public Internet Cloud -->
+  <path d="M 360 210 C 370 200, 390 200, 400 210 C 410 200, 430 200, 440 210 C 450 220, 450 230, 440 240 C 430 250, 370 250, 360 240 C 350 230, 350 220, 360 210 Z" fill="#1e293b" stroke="#475569" stroke-width="1" opacity="0.6"/>
+  <text x="400" y="234" text-anchor="middle" fill="#64748b" font-size="10" font-weight="bold" letter-spacing="1">PUBLIC INTERNET</text>
+
+  <!-- The WG Tunnel Arrow -->
+  <path d="M 300 245 L 500 245" fill="none" stroke="#c084fc" stroke-width="6" filter="url(#glow)" opacity="0.3"/>
+  <path d="M 300 245 L 500 245" fill="none" stroke="url(#wgGrad)" stroke-width="3" stroke-dasharray="8,4" marker-end="url(#arrow-wg)" marker-start="url(#arrow-wg)"/>
+  
+  <!-- Tunnel details -->
+  <rect x="330" y="265" width="140" height="42" rx="6" fill="#1e1b4b" stroke="#818cf8" stroke-width="1" />
+  <text x="400" y="280" text-anchor="middle" fill="#c084fc" font-size="10" font-weight="bold">ChaCha20-Poly1305</text>
+  <text x="400" y="295" text-anchor="middle" fill="#e2e8f0" font-size="9">Ephemeral Keys (Rotated daily)</text>
+
+  <!-- Control Plane Overlay / Orchestrator -->
+  <g transform="translate(320, 340)">
+    <rect width="160" height="50" rx="6" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2,2" />
+    <text x="80" y="20" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="bold">Lifecycle Orchestrator</text>
+    <text x="80" y="36" text-anchor="middle" fill="#94a3b8" font-size="9">gRPC / API Triggered</text>
+  </g>
+  
+  <!-- Orchestrator control links -->
+  <path d="M 320 365 L 160 270" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3,3" opacity="0.7" marker-end="url(#arrow)" />
+  <path d="M 480 365 L 640 270" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3,3" opacity="0.7" marker-end="url(#arrow)" />
+  
+  <!-- Key Exchange Lock Icon -->
+  <g transform="translate(388, 140)" filter="url(#shadow)">
+    <circle cx="12" cy="12" r="16" fill="#1e293b" stroke="#34d399" stroke-width="1.5" />
+    <!-- Lock symbol -->
+    <path d="M 8 13 L 8 18 L 16 18 L 16 13 Z" fill="#34d399"/>
+    <path d="M 10 13 L 10 10 A 2 2 0 0 1 14 10 L 14 13" fill="none" stroke="#34d399" stroke-width="1.5"/>
+  </g>
+  <text x="400" y="175" text-anchor="middle" fill="#34d399" font-size="10" font-weight="bold">Noise Protocol</text>
+</svg>

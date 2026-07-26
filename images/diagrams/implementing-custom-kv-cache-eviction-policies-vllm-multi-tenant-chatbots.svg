@@ -1,0 +1,297 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <!-- Definitions for gradients, filters and markers -->
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </radialGradient>
+
+    <!-- Component Box Gradients -->
+    <linearGradient id="premium-tenant" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="free-tenant" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="engine-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="gpu-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="cpu-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Markers for Arrows -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#60a5fa"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c084fc"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#fbbf24"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f87171"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+  
+  <!-- Outer Title or Theme Indicator -->
+  <text x="500" y="35" text-anchor="middle" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="12" letter-spacing="4" font-weight="600">VLLM MULTI-TENANT KV CACHE EVICTION ARCHITECTURE</text>
+
+  <!-- SECTION 1: Tenants (Left) -->
+  <g transform="translate(40, 80)">
+    <!-- Section Border -->
+    <rect width="220" height="490" rx="16" fill="none" stroke="#334155" stroke-dasharray="4 4" stroke-width="1.5"/>
+    <text x="110" y="-15" text-anchor="middle" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="13" font-weight="700">Multi-Tenant Request Layer</text>
+
+    <!-- Tenant A: Premium SLA -->
+    <g transform="translate(15, 30)" filter="url(#shadow)">
+      <rect width="190" height="180" rx="12" fill="url(#premium-tenant)" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="15" y="30" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="800">Tenant A (Premium)</text>
+      <rect x="15" y="45" width="160" height="1" fill="#c084fc" opacity="0.5"/>
+      <!-- Policy Config -->
+      <text x="15" y="70" fill="#ddd6fe" font-family="'Inter', sans-serif" font-size="11" font-weight="500">Eviction Policy: Lease-Based</text>
+      <text x="15" y="90" fill="#ddd6fe" font-family="'Inter', sans-serif" font-size="11" font-weight="500">Min Lease Time: 300s</text>
+      <text x="15" y="110" fill="#ddd6fe" font-family="'Inter', sans-serif" font-size="11" font-weight="500">Guaranteed Blocks: 2,048</text>
+      <text x="15" y="130" fill="#ddd6fe" font-family="'Inter', sans-serif" font-size="11" font-weight="500">SLA Priority: High (0)</text>
+      
+      <!-- Virtual Active Sessions Indicator -->
+      <circle cx="25" cy="155" r="5" fill="#34d399"/>
+      <text x="36" y="159" fill="#a78bfa" font-family="'Inter', sans-serif" font-size="11" font-weight="700">12 Active Conversations</text>
+    </g>
+
+    <!-- Tenant B: Free Tier -->
+    <g transform="translate(15, 250)" filter="url(#shadow)">
+      <rect width="190" height="180" rx="12" fill="url(#free-tenant)" stroke="#60a5fa" stroke-width="1.5"/>
+      <text x="15" y="30" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="800">Tenant B (Free)</text>
+      <rect x="15" y="45" width="160" height="1" fill="#93c5fd" opacity="0.5"/>
+      <!-- Policy Config -->
+      <text x="15" y="70" fill="#dbeafe" font-family="'Inter', sans-serif" font-size="11" font-weight="500">Eviction Policy: Strict LRU</text>
+      <text x="15" y="90" fill="#dbeafe" font-family="'Inter', sans-serif" font-size="11" font-weight="500">Min Lease Time: 0s</text>
+      <text x="15" y="110" fill="#dbeafe" font-family="'Inter', sans-serif" font-size="11" font-weight="500">Guaranteed Blocks: 128</text>
+      <text x="15" y="130" fill="#dbeafe" font-family="'Inter', sans-serif" font-size="11" font-weight="500">SLA Priority: Low (3)</text>
+      
+      <!-- Virtual Active Sessions Indicator -->
+      <circle cx="25" cy="155" r="5" fill="#f87171"/>
+      <text x="36" y="159" fill="#93c5fd" font-family="'Inter', sans-serif" font-size="11" font-weight="700">45 Active Conversations</text>
+    </g>
+    
+    <!-- Meta/Telemetry tags -->
+    <rect x="15" y="445" width="190" height="30" rx="6" fill="#1e293b" stroke="#334155"/>
+    <text x="110" y="464" text-anchor="middle" fill="#64748b" font-family="'Inter', sans-serif" font-size="10" font-weight="600">Tenant ID Injected via Headers</text>
+  </g>
+
+  <!-- SECTION 2: Custom Cache Eviction Engine (Middle) -->
+  <g transform="translate(320, 80)">
+    <!-- Section Border -->
+    <rect width="360" height="490" rx="16" fill="url(#engine-grad)" stroke="#475569" stroke-width="2" filter="url(#shadow)"/>
+    <text x="180" y="25" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="16" font-weight="800">vLLM Custom Scheduler Hook</text>
+
+    <!-- Component A: Tenant Metadata Router -->
+    <g transform="translate(20, 50)">
+      <rect width="320" height="70" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+      <text x="15" y="25" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="13" font-weight="700">1. Context-Aware Middleware</text>
+      <text x="15" y="42" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="11">Maps Request Context metadata -> tenant_id</text>
+      <text x="15" y="56" fill="#38bdf8" font-family="'Inter', sans-serif" font-size="10" font-weight="600">Extracts: API Keys / JWT Claim Mapping</text>
+    </g>
+
+    <!-- Component B: Custom Block Eviction Evaluator -->
+    <g transform="translate(20, 150)">
+      <rect width="320" height="180" rx="8" fill="#0f172a" stroke="#f43f5e" stroke-width="1.5"/>
+      <text x="15" y="25" fill="#f43f5e" font-family="'Inter', sans-serif" font-size="13" font-weight="700">2. CustomEvictionPolicyManager</text>
+      <rect x="15" y="35" width="290" height="1" fill="#f43f5e" opacity="0.3"/>
+      
+      <!-- Core Engine Sub-elements -->
+      <g transform="translate(15, 50)">
+        <!-- Box: Lease Tracker -->
+        <rect width="135" height="50" rx="4" fill="#1e293b" stroke="#334155"/>
+        <text x="10" y="20" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="10" font-weight="700">Lease Tracker</text>
+        <text x="10" y="36" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="9">Expires at: t_last + Lease</text>
+      </g>
+      
+      <g transform="translate(170, 50)">
+        <!-- Box: Block Tracker -->
+        <rect width="135" height="50" rx="4" fill="#1e293b" stroke="#334155"/>
+        <text x="10" y="20" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="10" font-weight="700">Block Alloc Tracker</text>
+        <text x="10" y="36" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="9">Active blocks per tenant</text>
+      </g>
+
+      <!-- Eviction logic list -->
+      <rect x="15" y="115" width="290" height="50" rx="6" fill="#180f1a" stroke="#701a2f"/>
+      <text x="25" y="130" fill="#fca5a5" font-family="'Inter', sans-serif" font-size="10" font-weight="700">Policy Resolution Hierarchy:</text>
+      <text x="25" y="145" fill="#fda4af" font-family="'Inter', sans-serif" font-size="9">1. Lease Not Expired (No Evict) | 2. SLA Priority (Free Evicts First)</text>
+      <text x="25" y="157" fill="#fda4af" font-family="'Inter', sans-serif" font-size="9">3. LFU / LRU fallback within SLA Group</text>
+    </g>
+
+    <!-- Component C: Modified Scheduler Swapping Controller -->
+    <g transform="translate(20, 360)">
+      <rect width="320" height="100" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+      <text x="15" y="25" fill="#e2e8f0" font-family="'Inter', sans-serif" font-size="13" font-weight="700">3. Physical Page Controller</text>
+      <text x="15" y="45" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="11">Communicates with CacheEngine to execute:</text>
+      
+      <!-- Sub-badges for Actions -->
+      <rect x="15" y="60" width="80" height="24" rx="4" fill="#ef4444" fill-opacity="0.2" stroke="#ef4444" stroke-width="1"/>
+      <text x="55" y="75" text-anchor="middle" fill="#f87171" font-family="'Inter', sans-serif" font-size="10" font-weight="700">EVICT</text>
+
+      <rect x="105" y="60" width="90" height="24" rx="4" fill="#fbbf24" fill-opacity="0.2" stroke="#fbbf24" stroke-width="1"/>
+      <text x="150" y="75" text-anchor="middle" fill="#fbbd23" font-family="'Inter', sans-serif" font-size="10" font-weight="700">SWAP TO CPU</text>
+
+      <rect x="205" y="60" width="100" height="24" rx="4" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1"/>
+      <text x="255" y="75" text-anchor="middle" fill="#60a5fa" font-family="'Inter', sans-serif" font-size="10" font-weight="700">RE-ALLOCATE</text>
+    </g>
+  </g>
+
+  <!-- SECTION 3: Memory Layers (Right) -->
+  <g transform="translate(730, 80)">
+    <!-- Section Border -->
+    <rect width="230" height="490" rx="16" fill="none" stroke="#334155" stroke-dasharray="4 4" stroke-width="1.5"/>
+    <text x="115" y="-15" text-anchor="middle" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="13" font-weight="700">Memory Allocation Layers</text>
+
+    <!-- GPU KV Cache Block Pool -->
+    <g transform="translate(15, 30)">
+      <rect width="200" height="260" rx="12" fill="url(#gpu-grad)" stroke="#34d399" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="15" y="30" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="800">GPU VRAM Cache</text>
+      <text x="15" y="45" fill="#a7f3d0" font-family="'Inter', sans-serif" font-size="10" font-weight="500">PagedAttention Block Pool (16 Blocks)</text>
+      <rect x="15" y="55" width="170" height="1" fill="#6ee7b7" opacity="0.3"/>
+
+      <!-- Visual Representation of blocks -->
+      <g transform="translate(15, 70)">
+        <!-- Row 1 -->
+        <rect x="0" y="0" width="35" height="35" rx="4" fill="#8b5cf6" stroke="#c084fc" stroke-width="1.5"/>
+        <text x="17" y="21" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">P_A1</text>
+        
+        <rect x="42" y="0" width="35" height="35" rx="4" fill="#8b5cf6" stroke="#c084fc" stroke-width="1.5"/>
+        <text x="59" y="21" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">P_A2</text>
+        
+        <rect x="84" y="0" width="35" height="35" rx="4" fill="#8b5cf6" stroke="#a78bfa" stroke-width="1" opacity="0.6"/>
+        <text x="101" y="21" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700" opacity="0.6">P_A3</text>
+        
+        <rect x="126" y="0" width="35" height="35" rx="4" fill="#3b82f6" stroke="#60a5fa" stroke-width="1.5"/>
+        <text x="143" y="21" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">F_B1</text>
+
+        <!-- Row 2 -->
+        <rect x="0" y="42" width="35" height="35" rx="4" fill="#3b82f6" stroke="#60a5fa" stroke-width="1.5"/>
+        <text x="17" y="63" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">F_B2</text>
+        
+        <rect x="42" y="42" width="35" height="35" rx="4" fill="#3b82f6" stroke="#60a5fa" stroke-width="1" opacity="0.4"/>
+        <text x="59" y="63" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700" opacity="0.6">F_B3</text>
+        
+        <!-- Evict Target marked with red border -->
+        <rect x="84" y="42" width="35" height="35" rx="4" fill="#1e293b" stroke="#f87171" stroke-width="2"/>
+        <text x="101" y="63" text-anchor="middle" fill="#f87171" font-family="'Inter', sans-serif" font-size="8" font-weight="800">EVICT</text>
+        
+        <rect x="126" y="42" width="35" height="35" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="143" y="63" text-anchor="middle" fill="#64748b" font-family="'Inter', sans-serif" font-size="8">FREE</text>
+
+        <!-- Row 3 -->
+        <rect x="0" y="84" width="35" height="35" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="17" y="105" text-anchor="middle" fill="#64748b" font-family="'Inter', sans-serif" font-size="8">FREE</text>
+        
+        <rect x="42" y="84" width="35" height="35" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="59" y="105" text-anchor="middle" fill="#64748b" font-family="'Inter', sans-serif" font-size="8">FREE</text>
+
+        <rect x="84" y="84" width="35" height="35" rx="4" fill="#8b5cf6" stroke="#c084fc" stroke-width="1.5"/>
+        <text x="101" y="105" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">P_A4</text>
+        
+        <rect x="126" y="84" width="35" height="35" rx="4" fill="#3b82f6" stroke="#60a5fa" stroke-width="1.5"/>
+        <text x="143" y="105" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">F_B4</text>
+
+        <!-- Row 4 -->
+        <rect x="0" y="126" width="35" height="35" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="17" y="147" text-anchor="middle" fill="#64748b" font-family="'Inter', sans-serif" font-size="8">FREE</text>
+        
+        <rect x="42" y="126" width="35" height="35" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="59" y="147" text-anchor="middle" fill="#64748b" font-family="'Inter', sans-serif" font-size="8">FREE</text>
+        
+        <rect x="84" y="126" width="35" height="35" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="101" y="147" text-anchor="middle" fill="#64748b" font-family="'Inter', sans-serif" font-size="8">FREE</text>
+        
+        <rect x="126" y="126" width="35" height="35" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="143" y="147" text-anchor="middle" fill="#64748b" font-family="'Inter', sans-serif" font-size="8">FREE</text>
+      </g>
+      
+      <!-- Explanatory legends -->
+      <rect x="15" y="222" width="50" height="8" rx="2" fill="#8b5cf6"/>
+      <text x="70" y="230" fill="#ffffff" font-family="'Inter', sans-serif" font-size="8">Prem Block (Leased)</text>
+      
+      <rect x="15" y="235" width="50" height="8" rx="2" fill="#3b82f6"/>
+      <text x="70" y="243" fill="#ffffff" font-family="'Inter', sans-serif" font-size="8">Free Block (LRU)</text>
+    </g>
+
+    <!-- CPU RAM Cache Swap (Swapped out pages) -->
+    <g transform="translate(15, 310)">
+      <rect width="200" height="150" rx="12" fill="url(#cpu-grad)" stroke="#f59e0b" stroke-width="1.5" filter="url(#shadow)"/>
+      <text x="15" y="25" fill="#ffffff" font-family="'Inter', sans-serif" font-size="14" font-weight="800">CPU Host RAM (Swap)</text>
+      <text x="15" y="38" fill="#fef3c7" font-family="'Inter', sans-serif" font-size="10" font-weight="500">Host Memory Swapped Blocks</text>
+      <rect x="15" y="48" width="170" height="1" fill="#fcd34d" opacity="0.3"/>
+      
+      <!-- Visual Swapped Blocks -->
+      <g transform="translate(15, 60)">
+        <rect x="0" y="0" width="35" height="35" rx="4" fill="#3b82f6" fill-opacity="0.6" stroke="#f59e0b" stroke-width="1"/>
+        <text x="17" y="21" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">F_B5</text>
+
+        <rect x="42" y="0" width="35" height="35" rx="4" fill="#3b82f6" fill-opacity="0.6" stroke="#f59e0b" stroke-width="1"/>
+        <text x="59" y="21" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">F_B6</text>
+
+        <rect x="84" y="0" width="35" height="35" rx="4" fill="#3b82f6" fill-opacity="0.6" stroke="#f59e0b" stroke-width="1"/>
+        <text x="101" y="21" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">F_B7</text>
+
+        <rect x="126" y="0" width="35" height="35" rx="4" fill="#3b82f6" fill-opacity="0.6" stroke="#f59e0b" stroke-width="1"/>
+        <text x="143" y="21" text-anchor="middle" fill="#ffffff" font-family="'Inter', sans-serif" font-size="9" font-weight="700">F_B8</text>
+      </g>
+      <text x="15" y="125" fill="#fef3c7" font-family="'Inter', sans-serif" font-size="9">Swapping creates latency spike (PCIE transfer)</text>
+      <text x="15" y="137" fill="#fbbf24" font-family="'Inter', sans-serif" font-size="9" font-weight="700">Rule: Evict Free blocks first!</text>
+    </g>
+  </g>
+
+  <!-- ARROWS AND FLOWS -->
+  <!-- Request Ingress -> Middleware -->
+  <path d="M 250 190 Q 295 190 295 160 T 330 160" fill="none" stroke="#c084fc" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <path d="M 250 410 Q 295 410 295 240 T 330 200" fill="none" stroke="#60a5fa" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  
+  <text x="270" y="145" fill="#c084fc" font-family="'Inter', sans-serif" font-size="10" font-weight="700">SLA Metadata</text>
+
+  <!-- Policy Manager -> Physical Page Controller -->
+  <path d="M 500 410 L 500 430" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="510" y="425" fill="#34d399" font-family="'Inter', sans-serif" font-size="10" font-weight="700">Directives</text>
+
+  <!-- Physical Page Controller -> GPU Memory -->
+  <path d="M 660 480 Q 700 480 710 400 T 735 250" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+  <text x="690" y="325" fill="#34d399" font-family="'Inter', sans-serif" font-size="10" font-weight="700">Allocate/Release</text>
+
+  <!-- GPU Memory -> CPU Memory (Swapping path) -->
+  <path d="M 885 295 C 910 330 910 360 885 400" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow-amber)"/>
+  <text x="915" y="355" fill="#fbbf24" font-family="'Inter', sans-serif" font-size="10" font-weight="700">Swap Out</text>
+  
+  <path d="M 855 400 C 830 360 830 330 855 295" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow-amber)"/>
+  <text x="785" y="355" fill="#fbbf24" font-family="'Inter', sans-serif" font-size="10" font-weight="700">Swap In</text>
+
+  <!-- Custom Eviction Engine -> GPU Block Evict Trigger (Crucial Step) -->
+  <path d="M 500 330 Q 720 330 720 185" fill="none" stroke="#f87171" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arrow-red)"/>
+  <text x="590" y="320" fill="#f87171" font-family="'Inter', sans-serif" font-size="10" font-weight="700">Evict Block Command</text>
+
+</svg>
