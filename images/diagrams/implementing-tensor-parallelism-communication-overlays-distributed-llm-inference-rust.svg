@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Fonts -->
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      text { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+      .code { font-family: 'JetBrains Mono', monospace; }
+    </style>
+
+    <!-- Gradients -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d" />
+      <stop offset="100%" stop-color="#070a14" />
+    </linearGradient>
+    <linearGradient id="gpu-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="gemm-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="comm-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="wait-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#b91c1c" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="50%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#d946ef" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3b82f6" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-grad)" rx="12" />
+  
+  <!-- Outer Border -->
+  <rect x="1" y="1" width="798" height="498" fill="none" stroke="#1e293b" stroke-width="2" rx="12" />
+
+  <!-- Title & Subtitle -->
+  <g transform="translate(30, 45)">
+    <text x="0" y="0" fill="#f8fafc" font-size="20" font-weight="700" letter-spacing="-0.025em">Tensor Parallelism (TP) Execution Overlays</text>
+    <text x="0" y="22" fill="#94a3b8" font-size="13" font-weight="400">Comparing Traditional Blocking TP vs. Pipelined Compute-Communication Overlaps</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(540, 35)" font-size="11" font-weight="500">
+    <!-- GEMM Box -->
+    <rect x="0" y="0" width="16" height="12" fill="url(#gemm-grad)" rx="2" />
+    <text x="24" y="10" fill="#cbd5e1">GEMM Computation</text>
+    
+    <!-- Comm Box -->
+    <rect x="0" y="18" width="16" height="12" fill="url(#comm-grad)" rx="2" />
+    <text x="24" y="28" fill="#cbd5e1">All-Reduce / Reduce-Scatter</text>
+
+    <!-- Wait Box -->
+    <rect x="160" y="0" width="16" height="12" fill="none" stroke="#ef4444" stroke-dasharray="2,2" rx="2" />
+    <rect x="160" y="0" width="16" height="12" fill="url(#wait-grad)" rx="2" />
+    <text x="184" y="10" fill="#cbd5e1">Idle / GPU Blocked</text>
+
+    <!-- Sync Line -->
+    <line x1="160" y1="24" x2="176" y2="24" stroke="#d946ef" stroke-width="2" stroke-dasharray="3,2" />
+    <text x="184" y="28" fill="#cbd5e1">CUDA Event Sync</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="30" y1="75" x2="770" y2="75" stroke="#1e293b" stroke-width="1.5" />
+
+  <!-- ==================== METHOD 1: STANDARD BLOCKING TP ==================== -->
+  <g transform="translate(30, 95)">
+    <!-- Header -->
+    <rect x="0" y="0" width="740" height="28" fill="#1e293b" rx="6" />
+    <text x="12" y="18" fill="#e2e8f0" font-size="12" font-weight="600">Method 1: Standard Synchronous TP (Blocking Collective)</text>
+    <text x="630" y="18" fill="#ef4444" font-size="11" font-weight="700" text-anchor="end">GPU Execution Stalls during I/O</text>
+
+    <!-- GPU Lane -->
+    <g transform="translate(0, 38)">
+      <!-- Background Lane -->
+      <rect x="0" y="10" width="740" height="40" fill="url(#gpu-grad)" rx="4" stroke="#334155" stroke-dasharray="2,2" />
+      <text x="-15" y="-5" fill="#64748b" font-size="10" font-weight="700" transform="translate(10, 35)">GPU 0 (Stream 0)</text>
+
+      <!-- GEMM Chunk 0 & 1 combined -->
+      <g transform="translate(120, 15)">
+        <rect x="0" y="0" width="180" height="30" fill="url(#gemm-grad)" rx="4" filter="url(#shadow)" />
+        <text x="90" y="19" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">Full Layer GEMM (C0 + C1)</text>
+      </g>
+
+      <!-- Blocking All-Reduce -->
+      <g transform="translate(300, 15)">
+        <rect x="0" y="0" width="220" height="30" fill="url(#comm-grad)" rx="4" filter="url(#shadow)" />
+        <text x="110" y="19" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle">All-Reduce (Blocking NCCL)</text>
+      </g>
+
+      <!-- Next GEMM -->
+      <g transform="translate(520, 15)">
+        <rect x="0" y="0" width="180" height="30" fill="url(#gemm-grad)" rx="4" filter="url(#shadow)" opacity="0.6" />
+        <text x="90" y="19" fill="#ffffff" font-size="11" font-weight="600" text-anchor="middle" opacity="0.6">Next Layer GEMM</text>
+      </g>
+
+      <!-- Timeline scale indicator -->
+      <path d="M 120 58 L 520 58" stroke="#ef4444" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+      <text x="320" y="72" fill="#f87171" font-size="11" font-weight="600" text-anchor="middle">Total Latency = T_Compute + T_Comm</text>
+    </g>
+  </g>
+
+  <!-- ==================== METHOD 2: PIPELINED OVERLAY ==================== -->
+  <g transform="translate(30, 270)">
+    <!-- Header -->
+    <rect x="0" y="0" width="740" height="28" fill="#1e293b" rx="6" />
+    <text x="12" y="18" fill="#e2e8f0" font-size="12" font-weight="600">Method 2: Pipelined Communication Overlay (Dual CUDA Streams + Events)</text>
+    <text x="630" y="18" fill="#10b981" font-size="11" font-weight="700" text-anchor="end">Optimized: 40% Communication Hidden</text>
+
+    <!-- Compute Stream (Stream 0) -->
+    <g transform="translate(0, 38)">
+      <rect x="0" y="5" width="740" height="30" fill="url(#gpu-grad)" rx="4" stroke="#334155" stroke-dasharray="2,2" />
+      <text x="10" y="24" fill="#3b82f6" font-size="10" font-weight="700">Stream 0 (Compute)</text>
+
+      <!-- GEMM Chunk 0 -->
+      <g transform="translate(120, 10)">
+        <rect x="0" y="0" width="90" height="20" fill="url(#gemm-grad)" rx="3" />
+        <text x="45" y="13" fill="#ffffff" font-size="10" font-weight="600" text-anchor="middle">GEMM (Chunk 0)</text>
+      </g>
+
+      <!-- GEMM Chunk 1 -->
+      <g transform="translate(215, 10)">
+        <rect x="0" y="0" width="90" height="20" fill="url(#gemm-grad)" rx="3" />
+        <text x="45" y="13" fill="#ffffff" font-size="10" font-weight="600" text-anchor="middle">GEMM (Chunk 1)</text>
+      </g>
+      
+      <!-- Stream Idle / Wait for Comm 1 to finish -->
+      <g transform="translate(305, 10)">
+        <rect x="0" y="0" width="30" height="20" fill="url(#wait-grad)" stroke="#ef4444" stroke-dasharray="2,2" rx="3" />
+        <text x="15" y="13" fill="#f87171" font-size="9" font-weight="600" text-anchor="middle">Wait</text>
+      </g>
+
+      <!-- Next GEMM Chunk 0 -->
+      <g transform="translate(335, 10)">
+        <rect x="0" y="0" width="90" height="20" fill="url(#gemm-grad)" rx="3" opacity="0.6" />
+        <text x="45" y="13" fill="#ffffff" font-size="10" font-weight="600" text-anchor="middle" opacity="0.6">Next GEMM C0</text>
+      </g>
+    </g>
+
+    <!-- Communication Stream (Stream 1) -->
+    <g transform="translate(0, 78)">
+      <rect x="0" y="5" width="740" height="30" fill="url(#gpu-grad)" rx="4" stroke="#334155" stroke-dasharray="2,2" />
+      <text x="10" y="24" fill="#10b981" font-size="10" font-weight="700">Stream 1 (NCCL Comm)</text>
+
+      <!-- Wait for GEMM Chunk 0 -->
+      <g transform="translate(120, 10)">
+        <rect x="0" y="0" width="90" height="20" fill="url(#wait-grad)" stroke="#ef4444" stroke-dasharray="2,2" rx="3" />
+        <text x="45" y="13" fill="#f87171" font-size="9" font-weight="600" text-anchor="middle">Wait GEMM C0</text>
+      </g>
+
+      <!-- All-Reduce Chunk 0 (Overlapped with GEMM Chunk 1) -->
+      <g transform="translate(210, 10)">
+        <rect x="0" y="0" width="110" height="20" fill="url(#comm-grad)" rx="3" />
+        <text x="55" y="13" fill="#ffffff" font-size="10" font-weight="600" text-anchor="middle">All-Reduce (C0)</text>
+      </g>
+
+      <!-- All-Reduce Chunk 1 -->
+      <g transform="translate(320, 10)">
+        <rect x="0" y="0" width="110" height="20" fill="url(#comm-grad)" rx="3" />
+        <text x="55" y="13" fill="#ffffff" font-size="10" font-weight="600" text-anchor="middle">All-Reduce (C1)</text>
+      </g>
+    </g>
+
+    <!-- Sync Arrows & Event Markers -->
+    <!-- Event 1: GEMM C0 Complete -> Comm C0 Start -->
+    <path d="M 210 30 L 210 88" stroke="#d946ef" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-pink)" />
+    <circle cx="210" cy="30" r="3" fill="#d946ef" />
+    <text x="175" y="55" fill="#d946ef" font-size="9" font-weight="600" text-anchor="middle">Record Event 1</text>
+
+    <!-- Event 2: GEMM C1 Complete -> Comm C1 Start -->
+    <path d="M 305 30 L 320 88" stroke="#d946ef" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-pink)" />
+    <circle cx="305" cy="30" r="3" fill="#d946ef" />
+    
+    <!-- Event 3: Comm C0 + C1 Complete -> Next GEMM Start -->
+    <path d="M 335 88 L 335 30" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrow-blue)" />
+    <circle cx="335" cy="88" r="3" fill="#3b82f6" />
+    <text x="380" y="55" fill="#3b82f6" font-size="9" font-weight="600" text-anchor="middle">Wait Event 3</text>
+
+    <!-- Timeline indicator for Overlapped -->
+    <path d="M 120 118 L 430 118" stroke="#10b981" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+    <text x="275" y="132" fill="#34d399" font-size="11" font-weight="600" text-anchor="middle">Total Latency = T_Compute + T_Comm - Overlap</text>
+  </g>
+
+  <!-- Global Timeline Axis -->
+  <g transform="translate(30, 470)">
+    <line x1="120" y1="0" x2="700" y2="0" stroke="#475569" stroke-width="1" marker-end="url(#arrow)" />
+    <text x="710" y="4" fill="#64748b" font-size="10" font-weight="700">Time (t)</text>
+    <text x="120" y="-8" fill="#64748b" font-size="9" font-weight="500" text-anchor="middle">t=0</text>
+  </g>
+</svg>

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="standbyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="vacuumGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="conflictGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#dc2626" />
+    </linearGradient>
+    
+    <!-- Filters for shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.15" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f8fafc" rx="12" />
+
+  <!-- Grid lines for engineering feel -->
+  <g opacity="0.05">
+    <path d="M 0 50 L 850 50 M 0 100 L 850 100 M 0 150 L 850 150 M 0 200 L 850 200 M 0 250 L 850 250 M 0 300 L 850 300 M 0 350 L 850 350 M 0 400 L 850 400 M 0 450 L 850 450" stroke="#000" stroke-width="1"/>
+    <path d="M 50 0 L 50 500 M 100 0 L 100 500 M 150 0 L 150 500 M 200 0 L 200 500 M 250 0 L 250 500 M 300 0 L 300 500 M 350 0 L 350 500 M 400 0 L 400 500 M 450 0 L 450 500 M 500 0 L 500 500 M 550 0 L 550 500 M 600 0 L 600 500 M 650 0 L 650 500 M 700 0 L 700 500 M 750 0 L 750 500 M 800 0 L 800 500" stroke="#000" stroke-width="1"/>
+  </g>
+
+  <!-- Primary Node Container -->
+  <rect x="40" y="50" width="320" height="400" rx="16" fill="url(#primaryGrad)" filter="url(#shadow)" stroke="#475569" stroke-width="2" />
+  <text x="60" y="85" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold">PostgreSQL Primary</text>
+  <text x="60" y="105" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12">High-Write Master Node (Read/Write)</text>
+
+  <!-- Primary Internal Components -->
+  <!-- Active Writes -->
+  <rect x="60" y="130" width="280" height="60" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+  <text x="80" y="155" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">Client Writes (OLTP)</text>
+  <text x="80" y="175" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11">Generates Dead Tuples on UPDATE/DELETE</text>
+
+  <!-- Vacuum Daemon -->
+  <rect x="60" y="210" width="280" height="70" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5" />
+  <text x="80" y="235" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">VACUUM Daemon</text>
+  <text x="80" y="255" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11">Purges dead tuples, emits cleanup WAL</text>
+  <text x="80" y="270" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">BLOCKS IF xmin HELD BY STANDBY</text>
+
+  <!-- WAL Sender -->
+  <rect x="60" y="300" width="280" height="60" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+  <text x="80" y="325" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">WAL Sender Process</text>
+  <text x="80" y="345" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11">Streams WAL records to Standby</text>
+
+
+  <!-- Standby Node Container -->
+  <rect x="490" y="50" width="320" height="400" rx="16" fill="url(#standbyGrad)" filter="url(#shadow)" stroke="#475569" stroke-width="2" />
+  <text x="510" y="85" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold">PostgreSQL Standby</text>
+  <text x="510" y="105" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12">Hot Standby Node (Read-Only replica)</text>
+
+  <!-- Standby Internal Components -->
+  <!-- WAL Receiver & Startup -->
+  <rect x="510" y="130" width="280" height="85" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.5" />
+  <text x="530" y="155" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">Startup Process (WAL Apply)</text>
+  <text x="530" y="175" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="11">Applies: Row Purges &amp; DDL Locks</text>
+  <text x="530" y="195" fill="#3b82f6" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600">Blocked by Read Queries (Conflict!)</text>
+
+  <!-- Long Running Query -->
+  <rect x="510" y="235" width="280" height="85" rx="8" fill="#1e293b" stroke="#ef4444" stroke-width="1.5" />
+  <text x="530" y="260" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600">Long Read Query (OLAP/Reports)</text>
+  <text x="530" y="280" fill="#fca5a5" font-family="system-ui, -apple-system, sans-serif" font-size="11">Holds snapshot (needs old row version)</text>
+  <text x="530" y="300" fill="#ef4444" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">TARGET FOR CANCELLATION</text>
+
+  <!-- Replication Delay Configs -->
+  <rect x="510" y="340" width="280" height="90" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+  <text x="525" y="360" fill="#cbd5e1" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">Conflict Parameters:</text>
+  <text x="525" y="380" fill="#94a3b8" font-family="monospace" font-size="10">max_standby_streaming_delay = 30s</text>
+  <text x="525" y="398" fill="#94a3b8" font-family="monospace" font-size="10">hot_standby_feedback = on/off</text>
+  <text x="525" y="416" fill="#94a3b8" font-family="monospace" font-size="10">vacuum_defer_cleanup_age = 0</text>
+
+
+  <!-- Connections & Flows -->
+  <!-- WAL Streaming Flow -->
+  <path d="M 340 330 C 415 330, 415 170, 510 170" fill="none" stroke="#3b82f6" stroke-width="3" stroke-dasharray="6,4" />
+  <polygon points="505,165 515,170 505,175" fill="#3b82f6" />
+  <rect x="385" y="225" width="80" height="20" rx="4" fill="#3b82f6" />
+  <text x="425" y="239" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">WAL Stream</text>
+
+  <!-- Conflict Flash/Collision -->
+  <circle cx="650" cy="225" r="16" fill="url(#conflictGrad)" opacity="0.85" />
+  <!-- Lightning Bolt Symbol -->
+  <path d="M 648 213 L 642 225 L 649 225 L 647 237 L 658 221 L 650 221 Z" fill="#ffffff" />
+  <text x="675" y="229" fill="#ef4444" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">CONFLICT</text>
+
+  <!-- Hot Standby Feedback Loop -->
+  <path d="M 510 395 C 415 395, 415 245, 340 245" fill="none" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4,4" />
+  <polygon points="345,240 335,245 345,250" fill="#f59e0b" />
+  <rect x="370" y="300" width="110" height="34" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1" />
+  <text x="425" y="314" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">Feedback (xmin)</text>
+  <text x="425" y="326" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle">Prevents Vacuum on Prim.</text>
+
+</svg>
