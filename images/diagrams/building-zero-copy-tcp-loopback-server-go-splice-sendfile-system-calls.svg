@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#0d1117" rx="8"/>
+  
+  <!-- Boundary Line User/Kernel -->
+  <line x1="50" y1="200" x2="750" y2="200" stroke="#30363d" stroke-width="2" stroke-dasharray="8 4"/>
+  
+  <!-- User Space / Kernel Space Labels -->
+  <text x="60" y="180" fill="#8b949e" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" letter-spacing="1">USER SPACE</text>
+  <text x="60" y="230" fill="#8b949e" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" letter-spacing="1">KERNEL SPACE</text>
+  
+  <!-- Traditional Path (Left Side) -->
+  <g transform="translate(0, 0)">
+    <!-- Label -->
+    <text x="200" y="50" fill="#ff7b72" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Traditional read()/write() (4 context switches)</text>
+    
+    <!-- User Buffer -->
+    <rect x="100" y="100" width="200" height="60" fill="#21262d" stroke="#ff7b72" stroke-width="2" rx="6"/>
+    <text x="200" y="135" fill="#c9d1d9" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Application Buffer</text>
+    
+    <!-- Socket Buffers -->
+    <rect x="80" y="300" width="100" height="60" fill="#21262d" stroke="#58a6ff" stroke-width="2" rx="6"/>
+    <text x="130" y="335" fill="#c9d1d9" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">RX Buffer</text>
+    
+    <rect x="220" y="300" width="100" height="60" fill="#21262d" stroke="#58a6ff" stroke-width="2" rx="6"/>
+    <text x="270" y="335" fill="#c9d1d9" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">TX Buffer</text>
+    
+    <!-- Copy Paths (arrows) -->
+    <!-- RX Buffer to Application Buffer (CPU Copy) -->
+    <path d="M 130 300 L 130 160" fill="none" stroke="#ff7b72" stroke-width="2.5" marker-end="url(#arrow-red)"/>
+    <text x="90" y="240" fill="#ff7b72" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">1. read() (CPU Copy)</text>
+    
+    <!-- Application Buffer to TX Buffer (CPU Copy) -->
+    <path d="M 270 160 L 270 300" fill="none" stroke="#ff7b72" stroke-width="2.5" marker-end="url(#arrow-red)"/>
+    <text x="280" y="240" fill="#ff7b72" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">2. write() (CPU Copy)</text>
+  </g>
+  
+  <!-- Zero-Copy Splice/Sendfile Path (Right Side) -->
+  <g transform="translate(420, 0)">
+    <!-- Label -->
+    <text x="180" y="50" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Zero-Copy splice() (2 context switches)</text>
+    
+    <!-- User Space control -->
+    <rect x="80" y="100" width="200" height="60" fill="#21262d" stroke="#30363d" stroke-width="1" rx="6"/>
+    <text x="180" y="135" fill="#8b949e" font-family="system-ui, sans-serif" font-size="14" text-anchor="middle">Go Runtime (sys_splice)</text>
+    
+    <!-- Socket Buffers -->
+    <rect x="50" y="300" width="90" height="60" fill="#21262d" stroke="#58a6ff" stroke-width="2" rx="6"/>
+    <text x="95" y="335" fill="#c9d1d9" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">RX Buffer</text>
+    
+    <rect x="220" y="300" width="90" height="60" fill="#21262d" stroke="#58a6ff" stroke-width="2" rx="6"/>
+    <text x="265" y="335" fill="#c9d1d9" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle">TX Buffer</text>
+    
+    <!-- Pipe Buffer (Zero-Copy Intermediate) -->
+    <rect x="130" y="400" width="100" height="50" fill="#1f6feb" fill-opacity="0.1" stroke="#58a6ff" stroke-width="2" stroke-dasharray="4" rx="6"/>
+    <text x="180" y="430" fill="#58a6ff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Kernel Pipe</text>
+    
+    <!-- Paths -->
+    <!-- RX Socket to Pipe (splice) -->
+    <path d="M 95 360 C 95 425, 120 425, 130 425" fill="none" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+    <text x="50" y="390" fill="#3fb950" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">1. splice(RX→Pipe)</text>
+    
+    <!-- Pipe to TX Socket (splice) -->
+    <path d="M 230 425 C 240 425, 265 425, 265 360" fill="none" stroke="#3fb950" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+    <text x="210" y="390" fill="#3fb950" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">2. splice(Pipe→TX)</text>
+    
+    <!-- System call control signals from User Space -->
+    <path d="M 180 160 L 180 290" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arrow-gray)"/>
+    <text x="190" y="210" fill="#8b949e" font-family="system-ui, sans-serif" font-size="11">sys_splice() call</text>
+  </g>
+  
+  <!-- Markers for arrows -->
+  <defs>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#ff7b72"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#3fb950"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+</svg>

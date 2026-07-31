@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%" style="background-color: #0d1117; font-family: 'Outfit', 'Inter', system-ui, sans-serif;">
+  <!-- Definitions for gradients and shadows -->
+  <defs>
+    <linearGradient id="cpuGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#0d419c" />
+    </linearGradient>
+    <linearGradient id="gpuGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#104d1e" />
+    </linearGradient>
+    <linearGradient id="pcieGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ab7df6" />
+      <stop offset="100%" stop-color="#8957e5" />
+    </linearGradient>
+    <linearGradient id="streamCompute" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff7b72" />
+      <stop offset="100%" stop-color="#d73a49" />
+    </linearGradient>
+    <linearGradient id="streamPrefetch" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4db6ac" />
+      <stop offset="100%" stop-color="#00796b" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f2c94c" />
+      <stop offset="100%" stop-color="#f2994a" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <drop-shadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="30" y="40" fill="#f0f6fc" font-size="20" font-weight="800" letter-spacing="0.5">Asynchronous KV Cache Prefetching Pipeline</text>
+  <text x="30" y="60" fill="#8b949e" font-size="12" font-weight="400">Overlapping PCIe Host-to-Device Transfer with GPU Compute Stream Execution</text>
+
+  <!-- HOST SIDE (CPU) -->
+  <g transform="translate(40, 90)" filter="url(#shadow)">
+    <!-- Container -->
+    <rect width="380" height="420" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2" />
+    <rect width="380" height="40" rx="12" fill="#21262d" />
+    <rect y="28" width="380" height="12" fill="#21262d" />
+    <text x="20" y="25" fill="#f0f6fc" font-size="14" font-weight="700">HOST (CPU DRAM)</text>
+    
+    <!-- Radix Tree Prefix Cache -->
+    <g transform="translate(20, 60)">
+      <rect width="340" height="110" rx="8" fill="#0d1117" stroke="#1f6feb" stroke-width="1" />
+      <text x="15" y="25" fill="#58a6ff" font-size="12" font-weight="700">Radix Tree Prefix Index &amp; LRU Tracker</text>
+      <!-- Visual tree representation -->
+      <circle cx="60" cy="65" r="8" fill="#1f6feb" />
+      <circle cx="110" cy="50" r="8" fill="#1f6feb" />
+      <circle cx="110" cy="80" r="8" fill="#1f6feb" />
+      <circle cx="160" cy="40" r="8" fill="#8957e5" />
+      <circle cx="160" cy="60" r="8" fill="#8957e5" />
+      <line x1="68" y1="62" x2="102" y2="53" stroke="#8b949e" stroke-width="1.5" />
+      <line x1="68" y1="68" x2="102" y2="77" stroke="#8b949e" stroke-width="1.5" />
+      <line x1="118" y1="47" x2="152" y2="42" stroke="#8b949e" stroke-width="1.5" />
+      <line x1="118" y1="53" x2="152" y2="58" stroke="#8b949e" stroke-width="1.5" />
+      <text x="210" y="55" fill="#c9d1d9" font-size="11" font-weight="600">Prefix: &quot;[System: Code]&quot;</text>
+      <text x="210" y="75" fill="#8b949e" font-size="10">Mapped to CPU Blocks: [B8, B9, B10]</text>
+      <text x="210" y="90" fill="#56d364" font-size="10">LRU Rank: High (Keep)</text>
+    </g>
+
+    <!-- Request Queue -->
+    <g transform="translate(20, 190)">
+      <rect width="340" height="90" rx="8" fill="#0d1117" stroke="#30363d" stroke-width="1" />
+      <text x="15" y="22" fill="#c9d1d9" font-size="12" font-weight="700">Inference Scheduler Queue</text>
+      <!-- Request boxes -->
+      <rect x="15" y="35" width="90" height="40" rx="4" fill="#21262d" stroke="#f2c94c" stroke-width="1.5" />
+      <text x="23" y="50" fill="#f0f6fc" font-size="10" font-weight="700">Req #103 (Prefill)</text>
+      <text x="23" y="65" fill="#8b949e" font-size="9">Prefetching KV...</text>
+      
+      <rect x="120" y="35" width="90" height="40" rx="4" fill="#21262d" stroke="#30363d" />
+      <text x="128" y="50" fill="#8b949e" font-size="10" font-weight="700">Req #104 (Queued)</text>
+      <text x="128" y="65" fill="#8b949e" font-size="9">Lookup Pending</text>
+
+      <rect x="225" y="35" width="100" height="40" rx="4" fill="#21262d" stroke="#30363d" />
+      <text x="233" y="50" fill="#8b949e" font-size="10" font-weight="700">Req #105 (Queued)</text>
+      <text x="233" y="65" fill="#8b949e" font-size="9">Idle</text>
+    </g>
+
+    <!-- Pinned Host Memory Block Cache -->
+    <g transform="translate(20, 300)">
+      <rect width="340" height="100" rx="8" fill="#0d1117" stroke="#1f6feb" stroke-width="1.5" />
+      <text x="15" y="22" fill="#58a6ff" font-size="12" font-weight="700">Pinned CPU KV Cache (cudaHostAlloc)</text>
+      
+      <!-- Pinned blocks -->
+      <g transform="translate(15, 35)">
+        <!-- Block 1 -->
+        <rect width="70" height="50" rx="4" fill="#1f6feb" fill-opacity="0.15" stroke="#1f6feb" stroke-width="1" />
+        <text x="15" y="20" fill="#c9d1d9" font-size="10" font-weight="700">Block B8</text>
+        <text x="15" y="38" fill="#8b949e" font-size="9">Tokens 0-15</text>
+      </g>
+      <g transform="translate(95, 35)">
+        <!-- Block 2 -->
+        <rect width="70" height="50" rx="4" fill="#1f6feb" fill-opacity="0.15" stroke="#1f6feb" stroke-width="1" />
+        <text x="15" y="20" fill="#c9d1d9" font-size="10" font-weight="700">Block B9</text>
+        <text x="15" y="38" fill="#8b949e" font-size="9">Tokens 16-31</text>
+      </g>
+      <g transform="translate(175, 35)">
+        <!-- Block 3 -->
+        <rect width="70" height="50" rx="4" fill="#1f6feb" fill-opacity="0.15" stroke="#1f6feb" stroke-width="1" />
+        <text x="12" y="20" fill="#c9d1d9" font-size="10" font-weight="700">Block B10</text>
+        <text x="12" y="38" fill="#8b949e" font-size="9">Tokens 32-47</text>
+      </g>
+      <g transform="translate(255, 35)">
+        <!-- Block 4 -->
+        <rect width="70" height="50" rx="4" fill="#21262d" stroke="#30363d" />
+        <text x="15" y="20" fill="#8b949e" font-size="10">Block B11</text>
+        <text x="15" y="38" fill="#8b949e" font-size="8">LRU Evicted</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- PCIE BUS TRANSFERS (MIDDLE) -->
+  <g transform="translate(435, 140)">
+    <rect width="130" height="320" rx="8" fill="#161b22" stroke="#ab7df6" stroke-width="1.5" />
+    <text x="65" y="25" fill="#ab7df6" font-size="12" font-weight="800" text-anchor="middle">PCIe Gen4 x16</text>
+    <text x="65" y="40" fill="#8b949e" font-size="10" text-anchor="middle">31.5 GB/s Bus</text>
+
+    <!-- Transfer arrow with animation representation -->
+    <path d="M 25 80 L 105 80 L 105 95 L 120 75 L 105 55 L 105 70 L 25 70 Z" fill="url(#pcieGrad)" />
+    <text x="65" y="115" fill="#f2c94c" font-size="9" font-weight="700" text-anchor="middle">cudaMemcpyAsync</text>
+    <text x="65" y="130" fill="#c9d1d9" font-size="10" text-anchor="middle">H2D Copy</text>
+    
+    <!-- Visual moving blocks on PCIe -->
+    <rect x="35" y="150" width="60" height="25" rx="3" fill="#00796b" stroke="#4db6ac" stroke-width="1" />
+    <text x="65" y="166" fill="#f0f6fc" font-size="9" font-weight="700" text-anchor="middle">Prefetch B8</text>
+
+    <rect x="35" y="185" width="60" height="25" rx="3" fill="#00796b" stroke="#4db6ac" stroke-width="1" />
+    <text x="65" y="201" fill="#f0f6fc" font-size="9" font-weight="700" text-anchor="middle">Prefetch B9</text>
+
+    <!-- Async event sync marker -->
+    <circle cx="65" cy="270" r="16" fill="#f2c94c" fill-opacity="0.2" stroke="#f2c94c" stroke-width="1.5" />
+    <text x="65" y="274" fill="#f2c94c" font-size="10" font-weight="800" text-anchor="middle">SYNC</text>
+  </g>
+
+  <!-- DEVICE SIDE (GPU) -->
+  <g transform="translate(580, 90)" filter="url(#shadow)">
+    <!-- Container -->
+    <rect width="380" height="420" rx="12" fill="#161b22" stroke="#30363d" stroke-width="2" />
+    <rect width="380" height="40" rx="12" fill="#21262d" />
+    <rect y="28" width="380" height="12" fill="#21262d" />
+    <text x="20" y="25" fill="#f0f6fc" font-size="14" font-weight="700">DEVICE (GPU HBM)</text>
+
+    <!-- Active Compute Stream Timeline -->
+    <g transform="translate(20, 60)">
+      <rect width="340" height="100" rx="8" fill="#0d1117" stroke="#ff7b72" stroke-width="1" />
+      <text x="15" y="22" fill="#ff7b72" font-size="12" font-weight="700">Compute Stream (Stream 0)</text>
+      
+      <!-- Kernel timeline block -->
+      <rect x="15" y="35" width="160" height="30" rx="4" fill="#d73a49" fill-opacity="0.3" stroke="#ff7b72" stroke-width="1" />
+      <text x="95" y="54" fill="#f0f6fc" font-size="10" font-weight="700" text-anchor="middle">Decode Kernel (Req #102)</text>
+      
+      <!-- Wait event marker -->
+      <rect x="185" y="35" width="40" height="30" rx="4" fill="#f2994a" fill-opacity="0.3" stroke="#f2c94c" stroke-dasharray="3,3" />
+      <text x="205" y="53" fill="#f2c94c" font-size="9" font-weight="700" text-anchor="middle">Wait</text>
+
+      <!-- Prefill kernel block -->
+      <rect x="235" y="35" width="90" height="30" rx="4" fill="#d73a49" fill-opacity="0.3" stroke="#ff7b72" stroke-width="1" />
+      <text x="280" y="54" fill="#f0f6fc" font-size="10" font-weight="700" text-anchor="middle">Prefill #103</text>
+      
+      <!-- Timeline axis -->
+      <line x1="15" y1="80" x2="325" y2="80" stroke="#30363d" stroke-width="2" />
+      <polygon points="325,77 332,80 325,83" fill="#30363d" />
+      <text x="320" y="93" fill="#8b949e" font-size="8" text-anchor="end">Time</text>
+    </g>
+
+    <!-- Async Prefetch Stream Timeline -->
+    <g transform="translate(20, 180)">
+      <rect width="340" height="100" rx="8" fill="#0d1117" stroke="#4db6ac" stroke-width="1" />
+      <text x="15" y="22" fill="#4db6ac" font-size="12" font-weight="700">Prefetch Stream (Stream 1)</text>
+
+      <!-- Async H2D Transfer timeline block -->
+      <rect x="15" y="35" width="140" height="30" rx="4" fill="#00796b" fill-opacity="0.3" stroke="#4db6ac" stroke-width="1" />
+      <text x="85" y="54" fill="#f0f6fc" font-size="10" font-weight="700" text-anchor="middle">H2D Copy (Blocks B8-B9)</text>
+
+      <!-- Record event marker -->
+      <circle cx="165" cy="50" r="10" fill="#f2c94c" />
+      <text x="165" y="54" fill="#0d1117" font-size="10" font-weight="900" text-anchor="middle">E</text>
+      <text x="180" y="53" fill="#8b949e" font-size="9">Record Event</text>
+
+      <!-- Timeline axis -->
+      <line x1="15" y1="80" x2="325" y2="80" stroke="#30363d" stroke-width="2" />
+      <polygon points="325,77 332,80 325,83" fill="#30363d" />
+      <text x="320" y="93" fill="#8b949e" font-size="8" text-anchor="end">Time</text>
+      
+      <!-- Sync Arrow from Record Event to Stream Wait Event -->
+      <!-- Connects (165,50 + offset) to Wait block (205, -70 relative) -->
+      <path d="M 165 35 C 165 -10, 205 -10, 205 30" fill="none" stroke="#f2c94c" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+    </g>
+
+    <!-- GPU Cache Block Allocation -->
+    <g transform="translate(20, 300)">
+      <rect width="340" height="100" rx="8" fill="#0d1117" stroke="#238636" stroke-width="1.5" />
+      <text x="15" y="22" fill="#56d364" font-size="12" font-weight="700">GPU Block Allocator (Paged Cache)</text>
+
+      <!-- Paged Blocks on GPU HBM -->
+      <g transform="translate(15, 35)">
+        <!-- Active running block -->
+        <rect width="70" height="50" rx="4" fill="#238636" fill-opacity="0.2" stroke="#56d364" stroke-width="1" />
+        <text x="15" y="20" fill="#c9d1d9" font-size="10" font-weight="700">GPU G0</text>
+        <text x="15" y="38" fill="#8b949e" font-size="9">In Use</text>
+      </g>
+      <g transform="translate(95, 35)">
+        <!-- Prefetched block (ready) -->
+        <rect width="70" height="50" rx="4" fill="#00796b" fill-opacity="0.2" stroke="#4db6ac" stroke-width="1.5" />
+        <text x="15" y="20" fill="#c9d1d9" font-size="10" font-weight="700">GPU G8</text>
+        <text x="15" y="38" fill="#4db6ac" font-size="9">Prefetched</text>
+      </g>
+      <g transform="translate(175, 35)">
+        <!-- Prefetched block (ready) -->
+        <rect width="70" height="50" rx="4" fill="#00796b" fill-opacity="0.2" stroke="#4db6ac" stroke-width="1.5" />
+        <text x="15" y="20" fill="#c9d1d9" font-size="10" font-weight="700">GPU G9</text>
+        <text x="15" y="38" fill="#4db6ac" font-size="9">Prefetched</text>
+      </g>
+      <g transform="translate(255, 35)">
+        <!-- Free block -->
+        <rect width="70" height="50" rx="4" fill="#21262d" stroke="#30363d" />
+        <text x="15" y="20" fill="#8b949e" font-size="10">GPU G10</text>
+        <text x="15" y="38" fill="#8b949e" font-size="9">Free</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f2c94c" />
+    </marker>
+  </defs>
+</svg>

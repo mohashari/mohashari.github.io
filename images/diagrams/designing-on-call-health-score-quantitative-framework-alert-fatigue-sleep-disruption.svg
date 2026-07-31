@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    
+    <!-- Neon Gradients -->
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+    <linearGradient id="indigoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    
+    <!-- Shadow Filter -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+    
+    <!-- Glow Filters -->
+    <filter id="glowCyan" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Marker Arrow -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#06b6d4" />
+    </marker>
+    <marker id="arrowIndigo" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#6366f1" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="550" rx="12" fill="url(#bgGrad)" />
+  
+  <!-- Outer Title -->
+  <text x="30" y="40" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" letter-spacing="0.5">On-Call Health Score (OCHS) Data &amp; Feedback Architecture</text>
+  <text x="30" y="60" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="12">Quantitative pipeline for ingestion, metrics calculation, and operational closed-loop feedback</text>
+
+  <!-- Group 1: Sources (Left) -->
+  <g transform="translate(40, 110)">
+    <!-- Boundary Box -->
+    <rect width="180" height="380" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="90" y="25" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" letter-spacing="0.5">ALERTING SOURCES</text>
+    
+    <!-- PagerDuty Node -->
+    <g transform="translate(15, 45)" filter="url(#shadow)">
+      <rect width="150" height="65" rx="6" fill="#27272a" stroke="#44403c" stroke-width="1" />
+      <rect width="6" height="65" fill="#38bdf8" rx="2" />
+      <text x="20" y="28" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold">PagerDuty</text>
+      <text x="20" y="45" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Webhooks v3 (JSON)</text>
+      <circle cx="130" cy="32" r="10" fill="#38bdf8" fill-opacity="0.2" />
+      <circle cx="130" cy="32" r="4" fill="#38bdf8" />
+    </g>
+
+    <!-- Opsgenie Node -->
+    <g transform="translate(15, 125)" filter="url(#shadow)">
+      <rect width="150" height="65" rx="6" fill="#27272a" stroke="#44403c" stroke-width="1" />
+      <rect width="6" height="65" fill="#38bdf8" rx="2" />
+      <text x="20" y="28" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold">Opsgenie</text>
+      <text x="20" y="45" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Alert Webhooks</text>
+      <circle cx="130" cy="32" r="10" fill="#38bdf8" fill-opacity="0.2" />
+      <circle cx="130" cy="32" r="4" fill="#38bdf8" />
+    </g>
+
+    <!-- Grafana / Prometheus Node -->
+    <g transform="translate(15, 205)" filter="url(#shadow)">
+      <rect width="150" height="65" rx="6" fill="#27272a" stroke="#44403c" stroke-width="1" />
+      <rect width="6" height="65" fill="#38bdf8" rx="2" />
+      <text x="20" y="28" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold">Alertmanager</text>
+      <text x="20" y="45" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Prometheus/Grafana</text>
+      <circle cx="130" cy="32" r="10" fill="#38bdf8" fill-opacity="0.2" />
+      <circle cx="130" cy="32" r="4" fill="#38bdf8" />
+    </g>
+
+    <!-- Slack / Team Input Node -->
+    <g transform="translate(15, 290)" filter="url(#shadow)">
+      <rect width="150" height="75" rx="6" fill="#1e1b4b" stroke="#3730a3" stroke-width="1" />
+      <rect width="6" height="75" fill="#6366f1" rx="2" />
+      <text x="20" y="25" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold">On-Call Context</text>
+      <text x="20" y="42" fill="#a5b4fc" font-family="system-ui, -apple-system, sans-serif" font-size="10">Slack Classification</text>
+      <text x="20" y="55" fill="#a5b4fc" font-family="system-ui, -apple-system, sans-serif" font-size="10">&amp; Handoff Notes</text>
+      <circle cx="130" cy="38" r="10" fill="#6366f1" fill-opacity="0.2" />
+      <circle cx="130" cy="38" r="4" fill="#6366f1" />
+    </g>
+  </g>
+
+  <!-- Connectors from Sources to Ingestion -->
+  <path d="M 220,177 L 275,177" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 220,257 L 245,257 L 245,190 L 275,190" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 220,337 L 255,337 L 255,200 L 275,200" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Group 2: Processing Pipeline (Middle) -->
+  <g transform="translate(290, 110)">
+    <!-- Boundary Box -->
+    <rect width="360" height="380" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="2" />
+    <text x="180" y="25" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" letter-spacing="0.5">INGESTION &amp; COMPUTATION CORE</text>
+    
+    <!-- Receiver API -->
+    <g transform="translate(15, 45)" filter="url(#shadow)">
+      <rect width="140" height="70" rx="6" fill="url(#cyanGrad)" />
+      <text x="70" y="32" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Webhook Receiver</text>
+      <text x="70" y="48" fill="#e0f7fa" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">FastAPI Event Ingestion</text>
+      <text x="70" y="60" fill="#e0f7fa" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">Token Verification</text>
+    </g>
+
+    <!-- Message Queue -->
+    <g transform="translate(15, 155)" filter="url(#shadow)">
+      <rect width="140" height="60" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+      <text x="70" y="28" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">RabbitMQ / Redpanda</text>
+      <text x="70" y="43" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Event Stream Buffer</text>
+    </g>
+    
+    <!-- DB Storage -->
+    <g transform="translate(15, 255)" filter="url(#shadow)">
+      <rect x="15" y="245" width="110" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+      <text x="70" y="278" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">TimescaleDB</text>
+      <text x="70" y="295" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">PostgreSQL + Hypertables</text>
+    </g>
+
+    <!-- Calculation Engine -->
+    <g transform="translate(195, 110)" filter="url(#shadow)">
+      <rect width="150" height="150" rx="8" fill="url(#indigoGrad)" />
+      <text x="75" y="30" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">OCHS Calculator</text>
+      <text x="75" y="48" fill="#c7d2fe" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" font-style="italic">Engine &amp; Business Logic</text>
+      
+      <!-- Formula bullets inside node -->
+      <rect x="12" y="65" width="126" height="72" rx="4" fill="#1e1b4b" fill-opacity="0.6" />
+      <text x="20" y="82" fill="#e0e7ff" font-family="monospace" font-size="9">1. Sleep Disruption</text>
+      <text x="20" y="96" fill="#e0e7ff" font-family="monospace" font-size="9">2. Actionability Ratio</text>
+      <text x="20" y="110" fill="#e0e7ff" font-family="monospace" font-size="9">3. Interruption Density</text>
+      <text x="20" y="124" fill="#e0e7ff" font-family="monospace" font-size="9">4. Off-Hours Weight</text>
+    </g>
+
+    <!-- Classification/Feedback Consumer -->
+    <g transform="translate(195, 290)" filter="url(#shadow)">
+      <rect width="150" height="75" rx="6" fill="#27272a" stroke="#52525b" stroke-width="1.5" />
+      <text x="75" y="25" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">Alert Classifier Bot</text>
+      <text x="75" y="42" fill="#a1a1aa" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">Polls team for unresolved</text>
+      <text x="75" y="54" fill="#a1a1aa" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">alerts &amp; actionability state</text>
+    </g>
+    
+    <!-- Internal connections -->
+    <path d="M 85,115 L 85,155" fill="none" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrowCyan)" />
+    <path d="M 85,215 L 85,255" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M 155,185 L 195,185" fill="none" stroke="#6366f1" stroke-width="2" marker-end="url(#arrowIndigo)" />
+    <path d="M 270,260 L 270,290" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+    <path d="M 195,330 L 140,330 C 135,330 130,330 130,320" fill="none" stroke="#64748b" stroke-width="2" />
+    <path d="M 270,110 L 270,80 L 125,80 C 125,80 120,80 120,110" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" />
+  </g>
+
+  <!-- Connectors from Core to Destinations (Right) -->
+  <path d="M 650,220 L 685,220" fill="none" stroke="#6366f1" stroke-width="2.5" marker-end="url(#arrowIndigo)" />
+
+  <!-- Group 3: Consumption & Action (Right) -->
+  <g transform="translate(690, 110)">
+    <!-- Boundary Box -->
+    <rect width="180" height="380" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="90" y="25" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" letter-spacing="0.5">METRICS &amp; ACTIONS</text>
+    
+    <!-- Grafana Dashboard -->
+    <g transform="translate(15, 45)" filter="url(#shadow)">
+      <rect width="150" height="70" rx="6" fill="#27272a" stroke="#44403c" stroke-width="1" />
+      <rect width="6" height="70" fill="#f59e0b" rx="2" />
+      <text x="20" y="26" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Grafana Panels</text>
+      <text x="20" y="42" fill="#d97706" font-family="system-ui, -apple-system, sans-serif" font-size="9">OCHS Trend Dashboards</text>
+      <text x="20" y="55" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">SLO &amp; Burn Rate Alerts</text>
+    </g>
+
+    <!-- Leadership Reports -->
+    <g transform="translate(15, 130)" filter="url(#shadow)">
+      <rect width="150" height="70" rx="6" fill="#27272a" stroke="#44403c" stroke-width="1" />
+      <rect width="6" height="70" fill="#10b981" rx="2" />
+      <text x="20" y="26" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Executive Reports</text>
+      <text x="20" y="42" fill="#059669" font-family="system-ui, -apple-system, sans-serif" font-size="9">On-Call Health Audits</text>
+      <text x="20" y="55" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">Capacity Planning Inputs</text>
+    </g>
+
+    <!-- Engineering Guardrails -->
+    <g transform="translate(15, 215)" filter="url(#shadow)">
+      <rect width="150" height="150" rx="6" fill="#450a0a" stroke="#991b1b" stroke-width="1" />
+      <rect width="6" height="150" fill="#f43f5e" rx="2" />
+      <text x="20" y="26" fill="#fecdd3" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Operational Actions</text>
+      
+      <!-- Thresholds -->
+      <rect x="15" y="40" fill="#180202" width="120" height="98" rx="4" />
+      
+      <text x="22" y="56" fill="#fda4af" font-family="monospace" font-size="9" font-weight="bold">OCHS &lt; 70: Warning</text>
+      <text x="22" y="70" fill="#e11d48" font-family="system-ui, -apple-system, sans-serif" font-size="8">- Prioritize Alert Cleanup</text>
+      
+      <text x="22" y="92" fill="#f43f5e" font-family="monospace" font-size="9" font-weight="bold">OCHS &lt; 50: Critical</text>
+      <text x="22" y="106" fill="#be123c" font-family="system-ui, -apple-system, sans-serif" font-size="8">- Halt Feature Delivery</text>
+      <text x="22" y="118" fill="#be123c" font-family="system-ui, -apple-system, sans-serif" font-size="8">- Shift Resources to Infra</text>
+    </g>
+  </g>
+
+  <!-- Connectors within the destination block -->
+  <path d="M 670,220 L 670,95 L 705,95" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" />
+  <path d="M 670,220 L 670,345 L 705,345" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="3,3" />
+</svg>
