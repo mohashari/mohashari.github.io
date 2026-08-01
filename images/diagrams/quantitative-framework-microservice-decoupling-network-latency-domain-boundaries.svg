@@ -1,0 +1,134 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Definitions for gradients and shadows -->
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="accent-blue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="accent-orange" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+    <linearGradient id="accent-teal" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" rx="12" fill="url(#bg-grad)" />
+  
+  <!-- Grid pattern (subtle) -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 800,50 M 0,100 L 800,100 M 0,150 L 800,150 M 0,200 L 800,200 M 0,250 L 800,250 M 0,300 L 800,300 M 0,355 L 800,355 M 0,400 L 800,400 M 0,450 L 800,450" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M 50,0 L 50,500 M 100,0 L 100,500 M 150,0 L 150,500 M 200,0 L 200,500 M 250,0 L 250,500 M 300,0 L 300,500 M 350,0 L 350,500 M 400,0 L 400,500 M 450,0 L 450,500 M 500,0 L 500,500 M 550,0 L 550,500 M 600,0 L 600,500 M 650,0 L 650,500 M 700,0 L 700,500 M 750,0 L 750,500" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Header -->
+  <text x="40" y="45" font-family="'Inter', system-ui, sans-serif" font-size="22" font-weight="800" fill="#f8fafc" letter-spacing="-0.025em">MICROSERVICE DECOUPLING DECISION MATRIX</text>
+  <text x="40" y="68" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="500" fill="#94a3b8">Balancing Domain Cohesion vs. Distributed Network Overhead</text>
+
+  <!-- Left Column: In-Process Monolithic Cohesion -->
+  <g transform="translate(40, 100)" filter="url(#shadow)">
+    <!-- Container -->
+    <rect width="330" height="340" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    
+    <!-- Title Badge -->
+    <rect x="20" y="20" width="135" height="26" rx="13" fill="#0369a1" fill-opacity="0.2" stroke="#0284c7" stroke-width="1" />
+    <text x="32" y="37" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#38bdf8" letter-spacing="0.05em">IN-PROCESS BOUNDARY</text>
+
+    <!-- Component A -->
+    <rect x="20" y="70" width="120" height="70" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+    <text x="35" y="95" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">Order Domain</text>
+    <text x="35" y="112" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#64748b">In-Memory State</text>
+
+    <!-- In-Process Link -->
+    <path d="M 140,105 L 190,105" stroke="#2dd4bf" stroke-width="3" stroke-dasharray="4 2" />
+    <!-- Indicator Pointer -->
+    <path d="M 185,100 L 192,105 L 185,110 Z" fill="#2dd4bf" />
+    <text x="145" y="95" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="700" fill="#2dd4bf">~50 ns</text>
+
+    <!-- Component B -->
+    <rect x="190" y="70" width="120" height="70" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+    <text x="205" y="95" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#f8fafc">Pricing Engine</text>
+    <text x="205" y="112" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#64748b">Shared Pointers</text>
+
+    <!-- Characteristics -->
+    <rect x="20" y="170" width="290" height="145" rx="6" fill="#0f172a" fill-opacity="0.5" stroke="#334155" stroke-width="1" />
+    <text x="35" y="195" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#38bdf8">High Logical Cohesion</text>
+    
+    <circle cx="40" cy="225" r="3" fill="#38bdf8" />
+    <text x="52" y="228" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#cbd5e1">Transactional Safety (ACID)</text>
+
+    <circle cx="40" cy="250" r="3" fill="#38bdf8" />
+    <text x="52" y="253" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#cbd5e1">Zero Latency Amplification</text>
+
+    <circle cx="40" cy="275" r="3" fill="#38bdf8" />
+    <text x="52" y="278" font-family="'Inter', system-ui, sans-serif" font-size="12" fill="#cbd5e1">Tight Code Coupling (Re-deploy needed)</text>
+  </g>
+
+  <!-- Right Column: Network Decoupled Services -->
+  <g transform="translate(430, 100)" filter="url(#shadow)">
+    <!-- Container -->
+    <rect width="330" height="340" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    
+    <!-- Title Badge -->
+    <rect x="20" y="20" width="135" height="26" rx="13" fill="#9a3412" fill-opacity="0.2" stroke="#ea580c" stroke-width="1" />
+    <text x="32" y="37" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#fb923c" letter-spacing="0.05em">NETWORK BOUNDARY</text>
+
+    <!-- Service A -->
+    <rect x="20" y="70" width="105" height="70" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+    <text x="30" y="95" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">Order SVC</text>
+    <text x="30" y="112" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#e2e8f0">gRPC/HTTP</text>
+
+    <!-- Network Serialization/Transport Arrow -->
+    <path d="M 125,105 L 205,105" stroke="#fb923c" stroke-width="2" />
+    <path d="M 200,100 L 207,105 L 200,110 Z" fill="#fb923c" />
+    
+    <rect x="133" y="112" width="64" height="26" rx="3" fill="#7c2d12" fill-opacity="0.4" stroke="#ea580c" stroke-width="0.5" />
+    <text x="138" y="123" font-family="'Inter', system-ui, sans-serif" font-size="8" font-weight="700" fill="#ffedd5">Network Hop</text>
+    <text x="138" y="133" font-family="'Inter', system-ui, sans-serif" font-size="8" fill="#fdba74">~15ms - 50ms</text>
+
+    <!-- Service B -->
+    <rect x="205" y="70" width="105" height="70" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+    <text x="215" y="95" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">Pricing SVC</text>
+    <text x="215" y="112" font-family="'Inter', system-ui, sans-serif" font-size="10" fill="#e2e8f0">Independent</text>
+
+    <!-- Latency Breakdown List -->
+    <rect x="20" y="170" width="290" height="145" rx="6" fill="#0f172a" fill-opacity="0.5" stroke="#334155" stroke-width="1" />
+    <text x="35" y="195" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#fb923c">Network Cost Breakdown</text>
+    
+    <!-- Cost Items -->
+    <text x="35" y="222" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#cbd5e1">1. TCP Handshake / TLS Negotiation</text>
+    <text x="250" y="222" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#f43f5e">~2-15ms</text>
+
+    <text x="35" y="247" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#cbd5e1">2. Serialization (e.g., JSON / Proto)</text>
+    <text x="250" y="247" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#f43f5e">~1-5ms</text>
+
+    <text x="35" y="272" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#cbd5e1">3. Thread Switching &amp; Envoy Routing</text>
+    <text x="250" y="272" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#f43f5e">~1-3ms</text>
+
+    <text x="35" y="297" font-family="'Inter', system-ui, sans-serif" font-size="11" fill="#cbd5e1">4. Cascading Retries &amp; Backpressure</text>
+    <text x="250" y="297" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" fill="#f43f5e">Variable</text>
+  </g>
+
+  <!-- Connective Decision Node in the Center -->
+  <g transform="translate(380, 220)">
+    <circle cx="20" cy="20" r="28" fill="#0f172a" stroke="#475569" stroke-width="2" />
+    <path d="M 12,20 L 28,20 M 20,12 L 20,28" stroke="#38bdf8" stroke-width="3" stroke-linecap="round" />
+    <text x="20" y="5" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="800" fill="#94a3b8" text-anchor="middle">DECISION</text>
+  </g>
+
+  <!-- Legend or Formula Footer -->
+  <rect x="40" y="455" width="720" height="30" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+  <text x="50" y="474" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="600" fill="#94a3b8">
+    Rule of Thumb: If <tspan fill="#38bdf8">Cohesion Score (C)</tspan> &gt; <tspan fill="#fb923c">Latency Budget Ratio (L/T)</tspan>, keep in-process. Otherwise, decouple.
+  </text>
+</svg>

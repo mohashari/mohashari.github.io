@@ -1,0 +1,150 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Stylesheet -->
+  <style>
+    .title { font-family: 'Outfit', -apple-system, sans-serif; font-size: 20px; font-weight: bold; fill: #f0f6fc; }
+    .subtitle { font-family: 'Inter', -apple-system, sans-serif; font-size: 13px; fill: #8b949e; }
+    .label { font-family: 'Inter', -apple-system, sans-serif; font-size: 12px; fill: #c9d1d9; font-weight: 600; }
+    .heading { font-family: 'Outfit', -apple-system, sans-serif; font-size: 15px; font-weight: 600; fill: #f0f6fc; }
+    .tag { font-family: 'SF Mono', monospace; font-size: 10px; fill: #58a6ff; }
+    .card { fill: #161b22; stroke: #30363d; stroke-width: 1.5; rx: 8px; }
+    .card-highlight { fill: #1c212a; stroke: #58a6ff; stroke-width: 1.5; rx: 8px; }
+    .flow-line { stroke: #8b949e; stroke-width: 1.5; stroke-dasharray: 4 4; fill: none; }
+    .flow-line-active { stroke: #58a6ff; stroke-width: 2; fill: none; }
+    .flow-line-purple { stroke: #bc8cff; stroke-width: 2; fill: none; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="500" rx="12" fill="#0d1117"/>
+
+  <!-- Grid Pattern overlay -->
+  <defs>
+    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#21262d" stroke-width="0.5"/>
+    </pattern>
+    <linearGradient id="go-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00add8"/>
+      <stop offset="100%" stop-color="#007d9c"/>
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#bc8cff"/>
+      <stop offset="100%" stop-color="#8957e5"/>
+    </linearGradient>
+    <linearGradient id="orange-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ff9b72"/>
+      <stop offset="100%" stop-color="#f7786b"/>
+    </linearGradient>
+    <linearGradient id="green-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#39d353"/>
+      <stop offset="100%" stop-color="#2ea44f"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <rect width="800" height="500" fill="url(#grid)" rx="12"/>
+
+  <!-- Title Block -->
+  <text x="25" y="35" class="title">Go Service Memory Space Architecture</text>
+  <text x="25" y="55" class="subtitle">Off-heap tracing, fragmentation analysis, and profile correlation</text>
+
+  <!-- Go Runtime Container -->
+  <rect x="25" y="80" width="310" height="290" class="card" filter="url(#shadow)"/>
+  <rect x="35" y="90" width="85" height="22" rx="4" fill="#00add8" fill-opacity="0.15"/>
+  <text x="42" y="105" font-family="'SF Mono', monospace" font-size="10px" fill="#00add8" font-weight="bold">GO RUNTIME</text>
+  <text x="25" y="80" dx="15" dy="48" class="heading">Managed Heap Space</text>
+
+  <!-- Go Allocator Cards -->
+  <rect x="40" y="145" width="280" height="85" class="card" fill="#161b22"/>
+  <text x="50" y="165" class="label">Go Runtime Allocator (TCMalloc Fork)</text>
+  <text x="50" y="182" class="subtitle">Allocates Go objects. Triggers GC based on GOGC/GOMEMLIMIT</text>
+  <!-- Allocator components -->
+  <rect x="50" y="195" width="70" height="25" rx="4" fill="#21262d" stroke="#30363d"/>
+  <text x="85" y="211" font-family="sans-serif" font-size="10px" fill="#c9d1d9" text-anchor="middle">mcache</text>
+  <rect x="130" y="195" width="70" height="25" rx="4" fill="#21262d" stroke="#30363d"/>
+  <text x="165" y="211" font-family="sans-serif" font-size="10px" fill="#c9d1d9" text-anchor="middle">mcentral</text>
+  <rect x="210" y="195" width="90" height="25" rx="4" fill="#21262d" stroke="#30363d"/>
+  <text x="255" y="211" font-family="sans-serif" font-size="10px" fill="#c9d1d9" text-anchor="middle">mheap (OS Page)</text>
+
+  <!-- Go Profiling component -->
+  <rect x="40" y="250" width="280" height="60" class="card" fill="#1c212a" stroke="#00add8" stroke-opacity="0.4"/>
+  <text x="50" y="270" class="label" fill="#00add8">runtime/pprof Profiler</text>
+  <text x="50" y="287" class="subtitle">Captures Go stack traces &amp; heap/alloc statistics</text>
+  <!-- Go Profile Output -->
+  <circle cx="290" cy="280" r="12" fill="#00add8" fill-opacity="0.2"/>
+  <path d="M 286 280 L 294 280 M 290 276 L 290 284" stroke="#00add8" stroke-width="2"/>
+  <text x="235" y="325" font-family="sans-serif" font-size="10px" fill="#8b949e">heap.pprof (Go Heap only)</text>
+
+  <!-- Cgo / Native Boundary -->
+  <g transform="translate(335, 160)">
+    <line x1="0" y1="30" x2="65" y2="30" class="flow-line-active" />
+    <polygon points="65,30 58,26 58,34" fill="#58a6ff"/>
+    <text x="32" y="20" font-family="sans-serif" font-size="9px" fill="#58a6ff" text-anchor="middle">cgo boundary</text>
+    <text x="32" y="45" font-family="sans-serif" font-size="9px" fill="#8b949e" text-anchor="middle">syscalls/unsafe</text>
+  </g>
+
+  <!-- Native Off-Heap Container -->
+  <rect x="425" y="80" width="350" height="290" class="card" filter="url(#shadow)"/>
+  <rect x="435" y="90" width="125" height="22" rx="4" fill="#bc8cff" fill-opacity="0.15"/>
+  <text x="442" y="105" font-family="'SF Mono', monospace" font-size="10px" fill="#bc8cff" font-weight="bold">OFF-HEAP MEMORY</text>
+  <text x="425" y="80" dx="15" dy="48" class="heading">Native C/C++ Space</text>
+
+  <!-- Native Allocators Comparison -->
+  <rect x="440" y="145" width="320" height="150" class="card" fill="#161b22"/>
+  <text x="450" y="165" class="label">Off-Heap Allocator Configuration</text>
+
+  <!-- glibc malloc (default) -->
+  <g transform="translate(450, 180)">
+    <rect width="140" height="60" rx="4" fill="#21262d" stroke="#f7786b" stroke-opacity="0.4"/>
+    <text x="10" y="18" font-family="sans-serif" font-size="11px" fill="#f7786b" font-weight="bold">glibc malloc</text>
+    <text x="10" y="32" font-family="sans-serif" font-size="9px" fill="#8b949e">Arena contention (max 8*cores)</text>
+    <text x="10" y="44" font-family="sans-serif" font-size="9px" fill="#f7786b">High Fragmentation &amp; RSS Leak</text>
+  </g>
+
+  <!-- jemalloc (optimized) -->
+  <g transform="translate(610, 180)">
+    <rect width="140" height="60" rx="4" fill="#21262d" stroke="#39d353" stroke-opacity="0.4"/>
+    <text x="10" y="18" font-family="sans-serif" font-size="11px" fill="#39d353" font-weight="bold">jemalloc</text>
+    <text x="10" y="32" font-family="sans-serif" font-size="9px" fill="#8b949e">Thread caches (tcache) &amp; bins</text>
+    <text x="10" y="44" font-family="sans-serif" font-size="9px" fill="#39d353">Reclaims pages via dirty decay</text>
+  </g>
+
+  <!-- jemalloc profile capture -->
+  <g transform="translate(450, 250)">
+    <rect width="300" height="35" rx="4" fill="#1c212a" stroke="#bc8cff" stroke-opacity="0.4"/>
+    <text x="10" y="21" class="label" fill="#bc8cff">jemalloc Profiler (jeprof)</text>
+    <circle cx="280" cy="17" r="8" fill="#bc8cff" fill-opacity="0.2"/>
+    <path d="M 277 17 L 283 17 M 280 14 L 280 20" stroke="#bc8cff" stroke-width="1.5"/>
+    <text x="100" y="33" font-family="sans-serif" font-size="9px" fill="#8b949e">MALLOC_CONF="prof:true"</text>
+  </g>
+  <text x="630" y="325" font-family="sans-serif" font-size="10px" fill="#8b949e">jeprof.out (Native allocations)</text>
+
+  <!-- Observability Integration (Bottom) -->
+  <rect x="150" y="390" width="500" height="85" class="card-highlight" fill="#161b22" filter="url(#shadow)"/>
+  <text x="400" y="412" class="heading" fill="#58a6ff" text-anchor="middle">Unified Memory Observability Pipeline</text>
+
+  <g transform="translate(160, 425)">
+    <!-- jeprof conversion -->
+    <rect x="0" y="0" width="130" height="35" rx="4" fill="#21262d" stroke="#30363d"/>
+    <text x="65" y="16" font-family="'SF Mono', monospace" font-size="10px" fill="#c9d1d9" text-anchor="middle">jeprof --go</text>
+    <text x="65" y="28" font-family="sans-serif" font-size="9px" fill="#8b949e" text-anchor="middle">Converts to native pprof</text>
+
+    <!-- arrow -->
+    <path d="M 140 17 L 165 17" stroke="#58a6ff" stroke-width="1.5" fill="none"/>
+    <polygon points="165,17 159,14 159,20" fill="#58a6ff"/>
+
+    <!-- Merge tool -->
+    <rect x="175" y="0" width="300" height="35" rx="4" fill="#0d1117" stroke="#58a6ff"/>
+    <text x="325" y="16" font-family="'SF Mono', monospace" font-size="10px" fill="#f0f6fc" text-anchor="middle">go tool pprof --base heap.pprof native.pprof</text>
+    <text x="325" y="28" font-family="sans-serif" font-size="9px" fill="#39d353" text-anchor="middle">Correlates exact memory fragmentation allocations</text>
+  </g>
+
+  <!-- Connections from Heap profiles to merge tool -->
+  <!-- Go profile line -->
+  <path d="M 180 325 L 180 390" stroke="#00add8" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+  <polygon points="180,390 177,384 183,384" fill="#00add8"/>
+
+  <!-- Native profile line -->
+  <path d="M 620 325 L 620 390" stroke="#bc8cff" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/>
+  <polygon points="620,390 617,384 623,384" fill="#bc8cff"/>
+
+</svg>
