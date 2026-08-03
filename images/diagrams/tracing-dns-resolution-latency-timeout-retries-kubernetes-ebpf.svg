@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="900" height="550" rx="12" fill="#0f172a"/>
+  
+  <!-- Grid Pattern -->
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f87171"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="550" rx="12" fill="url(#grid)"/>
+
+  <!-- Title -->
+  <text x="30" y="40" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#f8fafc">eBPF DNS Tracing Architecture in Kubernetes</text>
+  <text x="30" y="60" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" fill="#94a3b8">Visualizing latency and timeout retries from socket layer to CoreDNS</text>
+
+  <!-- User Space / Kernel Space divider -->
+  <line x1="30" y1="280" x2="870" y2="280" stroke="#475569" stroke-width="2" stroke-dasharray="8,4"/>
+  <rect x="740" y="255" width="130" height="20" rx="4" fill="#334155"/>
+  <text x="805" y="269" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" font-weight="bold" fill="#cbd5e1" text-anchor="middle">KERNEL SPACE BOUNDARY</text>
+
+  <!-- Labels for Spaces -->
+  <text x="50" y="100" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#64748b">USER SPACE (KUBERNETES PODS &amp; DAEMONS)</text>
+  <text x="50" y="315" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#64748b">KERNEL SPACE (LINUX HOST KERNEL)</text>
+
+  <!-- ================= USER SPACE COMPONENTS ================= -->
+  
+  <!-- Client Application Pod -->
+  <rect x="50" y="120" width="220" height="130" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <rect x="50" y="120" width="220" height="30" rx="8" fill="#0f172a" opacity="0.8"/>
+  <text x="65" y="140" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#38bdf8">Client Pod (App Container)</text>
+  
+  <rect x="65" y="165" width="190" height="35" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="75" y="187" font-family="'Courier New', Courier, monospace" font-size="11" fill="#e2e8f0">getaddrinfo() / libc</text>
+  
+  <text x="65" y="225" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#94a3b8">Resolves DNS (ndots:5 retry:2)</text>
+
+  <!-- CoreDNS Pod -->
+  <rect x="630" y="120" width="220" height="130" rx="8" fill="#1e293b" stroke="#4ade80" stroke-width="1.5"/>
+  <rect x="630" y="120" width="220" height="30" rx="8" fill="#0f172a" opacity="0.8"/>
+  <text x="645" y="140" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#4ade80">CoreDNS Pod (kube-system)</text>
+  
+  <rect x="645" y="165" width="190" height="35" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="655" y="187" font-family="'Courier New', Courier, monospace" font-size="11" fill="#e2e8f0">CoreDNS Server (Port 53)</text>
+  
+  <text x="645" y="225" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#94a3b8">Serves UDP/TCP Queries</text>
+
+  <!-- eBPF Daemon (Collector / Exporter) -->
+  <rect x="340" y="120" width="220" height="130" rx="8" fill="#1e293b" stroke="#c084fc" stroke-width="1.5"/>
+  <rect x="340" y="120" width="220" height="30" rx="8" fill="#0f172a" opacity="0.8"/>
+  <text x="355" y="140" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#c084fc">eBPF Agent DaemonSet</text>
+  
+  <rect x="355" y="165" width="190" height="35" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="365" y="187" font-family="'Courier New', Courier, monospace" font-size="11" fill="#e2e8f0">User Space Daemon (Go/C)</text>
+  
+  <text x="355" y="225" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#94a3b8">Reads Ring Buffer &amp; Exports</text>
+
+
+  <!-- ================= KERNEL SPACE COMPONENTS ================= -->
+
+  <!-- Socket / Network Layer -->
+  <rect x="50" y="340" width="220" height="160" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="65" y="360" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#e2e8f0">Syscall &amp; Socket Layer</text>
+
+  <!-- Probe Blocks -->
+  <rect x="65" y="380" width="190" height="32" rx="4" fill="#b91c1c" opacity="0.85"/>
+  <text x="75" y="400" font-family="'Courier New', Courier, monospace" font-size="11" fill="#fff" font-weight="bold">kprobe:udp_sendmsg</text>
+
+  <rect x="65" y="420" width="190" height="32" rx="4" fill="#15803d" opacity="0.85"/>
+  <text x="75" y="440" font-family="'Courier New', Courier, monospace" font-size="11" fill="#fff" font-weight="bold">kretprobe:udp_recvmsg</text>
+
+  <rect x="65" y="460" width="190" height="32" rx="4" fill="#b45309" opacity="0.85"/>
+  <text x="75" y="480" font-family="'Courier New', Courier, monospace" font-size="11" fill="#fff" font-weight="bold">tracepoint:net:netif_rx</text>
+
+  <!-- eBPF Runtime / Maps -->
+  <rect x="340" y="340" width="220" height="160" rx="8" fill="#1e293b" stroke="#c084fc" stroke-width="1.5"/>
+  <text x="355" y="360" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#c084fc">eBPF Engine</text>
+
+  <rect x="355" y="380" width="190" height="35" rx="4" fill="#0f172a" stroke="#7c3aed" stroke-width="1"/>
+  <text x="365" y="402" font-family="'Courier New', Courier, monospace" font-size="11" fill="#c084fc">BPF_MAP_TYPE_HASH</text>
+  
+  <rect x="355" y="425" width="190" height="35" rx="4" fill="#0f172a" stroke="#7c3aed" stroke-width="1"/>
+  <text x="365" y="447" font-family="'Courier New', Courier, monospace" font-size="11" fill="#c084fc">BPF_MAP_TYPE_RINGBUF</text>
+  
+  <text x="355" y="485" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Passes events to User Space</text>
+
+  <!-- DNS Virtual Networking (veth/bridge) -->
+  <rect x="630" y="340" width="220" height="160" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+  <text x="645" y="360" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="bold" fill="#e2e8f0">Host Network Stack</text>
+  
+  <rect x="645" y="380" width="190" height="40" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="655" y="404" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#94a3b8">Netfilter / Conntrack</text>
+
+  <rect x="645" y="430" width="190" height="40" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="655" y="454" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#94a3b8">Routing Table &amp; veth</text>
+
+
+  <!-- ================= DATAPATH ARROWS / CONNECTIONS ================= -->
+
+  <!-- Flow 1: App to Socket (DNS Request) -->
+  <path d="M 120 250 L 120 340" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 120 340 L 120 250" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="128" y="295" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#38bdf8">1. socket() / sendto()</text>
+
+  <!-- Flow 2: Kernel Network to CoreDNS -->
+  <path d="M 270 420 L 630 420" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="450" y="415" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Network packets processed (IP/UDP)</text>
+  
+  <path d="M 740 340 L 740 250" stroke="#4ade80" stroke-width="2"/>
+  <text x="748" y="295" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#4ade80">2. Deliver query</text>
+
+  <!-- Flow 3: Kernel probes tracking and updating Maps -->
+  <path d="M 255 400 C 295 400, 310 400, 340 400" stroke="#fb923c" stroke-width="2"/>
+  <path d="M 255 440 C 295 440, 310 440, 340 440" stroke="#fb923c" stroke-width="2"/>
+  <text x="298" y="388" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="9" fill="#fb923c" text-anchor="middle">Trace points</text>
+
+  <!-- Flow 4: Map/Ringbuf to User Daemon -->
+  <path d="M 450 340 L 450 250" stroke="#c084fc" stroke-width="2"/>
+  <text x="458" y="295" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#c084fc">3. RingBuffer Event stream</text>
+
+  <!-- Flow 5: Latency Correlator / Exporter -->
+  <path d="M 560 185 L 630 185" stroke="#f87171" stroke-dasharray="5,5" stroke-width="1.5"/>
+  <text x="595" y="175" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="9" fill="#f87171" text-anchor="middle">Retries?</text>
+
+  <!-- Marker definition -->
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8"/>
+    </marker>
+  </defs>
+</svg>

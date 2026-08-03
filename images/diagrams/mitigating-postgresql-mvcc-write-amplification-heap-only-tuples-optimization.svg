@@ -1,0 +1,203 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+
+    <!-- Glow Effect -->
+    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Marker definition for arrows -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <!-- Base Styles -->
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 24px; fill: #f8fafc; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 400; font-size: 14px; fill: #94a3b8; }
+    .section-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 18px; fill: #f8fafc; }
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 14px; fill: #f8fafc; }
+    .node-text { font-family: 'Fira Code', 'Courier New', monospace; font-size: 11px; fill: #cbd5e1; }
+    .badge-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 11px; fill: #0f172a; }
+    .arrow-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 11px; fill: #94a3b8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="650" rx="16" fill="url(#bg-grad)" />
+
+  <!-- Header -->
+  <g transform="translate(40, 45)">
+    <text x="0" y="0" class="title">PostgreSQL Update Mechanisms: Non-HOT vs. HOT Updates</text>
+    <text x="0" y="24" class="subtitle">Visualizing Heap-Only Tuple (HOT) optimization and index pointer redirection</text>
+  </g>
+
+  <!-- ================= SCENARIO 1: NON-HOT UPDATE ================= -->
+  <g transform="translate(40, 100)">
+    <!-- Boundary Box -->
+    <rect width="440" height="490" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="20" y="30" class="section-title">1. Standard Update (Non-HOT)</text>
+    <text x="20" y="50" class="subtitle" style="fill: #94a3b8;">Index columns updated or page has no free space</text>
+
+    <!-- Index Block -->
+    <g transform="translate(20, 80)">
+      <rect width="160" height="150" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)" />
+      <text x="15" y="25" class="node-title" style="fill: #38bdf8;">Index (B-Tree)</text>
+      <!-- Entry 1 -->
+      <rect x="15" y="45" width="130" height="35" rx="4" fill="#1e293b" stroke="#475569" />
+      <text x="25" y="66" class="node-text">Key: 42 -> Page 1, Item 1</text>
+      <!-- Entry 2 -->
+      <rect x="15" y="95" width="130" height="35" rx="4" fill="#334155" stroke="#f43f5e" stroke-width="1.5" />
+      <text x="25" y="116" class="node-text" style="fill: #fda4af;">Key: 42 -> Page 2, Item 2</text>
+      
+      <!-- Badge for index write amplification -->
+      <rect x="15" y="140" width="130" height="18" rx="3" fill="#f43f5e" />
+      <text x="80" y="153" class="badge-text" text-anchor="middle" style="fill: #ffffff;">NEW INDEX ENTRY REQ.</text>
+    </g>
+
+    <!-- Heap Page 1 -->
+    <g transform="translate(240, 80)">
+      <rect width="180" height="150" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1.5" filter="url(#shadow)" />
+      <text x="15" y="25" class="node-title">Heap Page 1</text>
+      
+      <!-- Tuple 1 -->
+      <g transform="translate(15, 45)">
+        <rect width="150" height="75" rx="6" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5" />
+        <text x="10" y="20" class="node-title" style="fill: #f43f5e;">Tuple v1 [DEAD]</text>
+        <text x="10" y="40" class="node-text">t_xmin: 1001</text>
+        <text x="10" y="55" class="node-text">t_xmax: 1002 (Updated)</text>
+        <text x="10" y="70" class="node-text">data: "val_old"</text>
+      </g>
+    </g>
+
+    <!-- Heap Page 2 -->
+    <g transform="translate(240, 270)">
+      <rect width="180" height="150" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1.5" filter="url(#shadow)" />
+      <text x="15" y="25" class="node-title">Heap Page 2 (or same page)</text>
+      
+      <!-- Tuple 2 -->
+      <g transform="translate(15, 45)">
+        <rect width="150" height="75" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+        <text x="10" y="20" class="node-title" style="fill: #10b981;">Tuple v2 [LIVE]</text>
+        <text x="10" y="40" class="node-text">t_xmin: 1002</text>
+        <text x="10" y="55" class="node-text">t_xmax: 0</text>
+        <text x="10" y="70" class="node-text">data: "val_new"</text>
+      </g>
+    </g>
+
+    <!-- Connections -->
+    <!-- Old Index Pointer to Tuple 1 -->
+    <path d="M 180, 142 L 232, 142" fill="none" stroke="#f43f5e" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-red)" />
+    <!-- New Index Pointer to Tuple 2 -->
+    <path d="M 180, 195 L 210, 195 L 210, 360 L 232, 360" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" />
+    
+    <text x="110" y="455" class="arrow-text" text-anchor="middle" style="fill: #f87171; font-weight: bold;">Write Amplification: Heap &amp; Index modified</text>
+  </g>
+
+  <!-- ================= SCENARIO 2: HOT UPDATE ================= -->
+  <g transform="translate(520, 100)">
+    <!-- Boundary Box -->
+    <rect width="440" height="490" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="20" y="30" class="section-title" style="fill: #10b981;">2. Heap-Only Tuple (HOT) Update</text>
+    <text x="20" y="50" class="subtitle" style="fill: #94a3b8;">Index columns untouched &amp; free space exists in same page</text>
+
+    <!-- Index Block -->
+    <g transform="translate(20, 80)">
+      <rect width="160" height="150" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)" />
+      <text x="15" y="25" class="node-title" style="fill: #38bdf8;">Index (B-Tree)</text>
+      <!-- Entry 1 -->
+      <rect x="15" y="45" width="130" height="35" rx="4" fill="#1e293b" stroke="#475569" />
+      <text x="25" y="66" class="node-text">Key: 42 -> Page 1, Item 1</text>
+      
+      <!-- Placeholder showing index stays clean -->
+      <rect x="15" y="95" width="130" height="35" rx="4" fill="#0f172a" stroke="#334155" stroke-dasharray="3,3" />
+      <text x="80" y="116" class="node-text" text-anchor="middle" style="fill: #64748b;">(No new index entry)</text>
+      
+      <!-- Badge for index write optimization -->
+      <rect x="15" y="140" width="130" height="18" rx="3" fill="#10b981" />
+      <text x="80" y="153" class="badge-text" text-anchor="middle" style="fill: #ffffff;">INDEX UNTOUCHED</text>
+    </g>
+
+    <!-- Heap Page 1 (Same Page contains both tuples) -->
+    <g transform="translate(240, 80)">
+      <rect width="180" height="340" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1.5" filter="url(#shadow)" />
+      <text x="15" y="25" class="node-title">Heap Page 1 (Same Page)</text>
+
+      <!-- Item Pointers (Line Pointers) section -->
+      <g transform="translate(15, 40)">
+        <rect width="150" height="60" rx="4" fill="#1e293b" stroke="#475569" />
+        <text x="10" y="18" class="node-title" style="font-size: 11px; fill: #94a3b8;">Item Pointers (Page Header)</text>
+        <text x="10" y="36" class="node-text" style="fill: #fca5a5;">Item 1 [HOT Root] -> Redirect to 2</text>
+        <text x="10" y="50" class="node-text" style="fill: #a7f3d0;">Item 2 -> Points to Tuple v2</text>
+      </g>
+      
+      <!-- Tuple 1 -->
+      <g transform="translate(15, 120)">
+        <rect width="150" height="85" rx="6" fill="#1e293b" stroke="#fbbf24" stroke-width="1.5" />
+        <text x="10" y="20" class="node-title" style="fill: #fbbf24;">Tuple v1 [HOT Root]</text>
+        <text x="10" y="40" class="node-text">t_xmin: 1001</text>
+        <text x="10" y="55" class="node-text">t_xmax: 1002 (HOT updated)</text>
+        <text x="10" y="70" class="node-text" style="fill: #38bdf8; font-weight: bold;">t_infomask: HEAP_HOT_UPDATED</text>
+      </g>
+
+      <!-- HOT Chain Pointer -->
+      <path d="M 90, 205 L 90, 232" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow-amber)" />
+
+      <!-- Tuple 2 -->
+      <g transform="translate(15, 240)">
+        <rect width="150" height="85" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="2" />
+        <text x="10" y="20" class="node-title" style="fill: #10b981;">Tuple v2 [HOT Member]</text>
+        <text x="10" y="40" class="node-text">t_xmin: 1002</text>
+        <text x="10" y="55" class="node-text">t_xmax: 0</text>
+        <text x="10" y="70" class="node-text" style="fill: #38bdf8; font-weight: bold;">t_infomask: HEAP_ONLY_TUPLE</text>
+      </g>
+    </g>
+
+    <!-- Connections -->
+    <!-- Index Pointer to Line Pointer 1 -->
+    <path d="M 180, 142 L 205, 142 L 205, 76 L 232, 76" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)" />
+    
+    <!-- Redirection inside Page Header -->
+    <path d="M 330, 76 C 360, 76 360, 90 330, 90" fill="none" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arrow-amber)" />
+    
+    <text x="110" y="455" class="arrow-text" text-anchor="middle" style="fill: #34d399; font-weight: bold;">Zero Index Overhead: Index pointer reused</text>
+  </g>
+
+  <!-- Footer Legend -->
+  <g transform="translate(40, 605)">
+    <rect x="-10" y="-15" width="940" height="40" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <circle cx="10" cy="5" r="6" fill="#f43f5e" />
+    <text x="22" y="9" class="node-text">Old/Dead Tuple</text>
+    
+    <circle cx="150" cy="5" r="6" fill="#10b981" />
+    <text x="162" y="9" class="node-text">Current/Live Tuple</text>
+    
+    <circle cx="310" cy="5" r="6" fill="#fbbf24" />
+    <text x="322" y="9" class="node-text">HOT Redirection / Chain</text>
+
+    <circle cx="490" cy="5" r="6" fill="#38bdf8" />
+    <text x="502" y="9" class="node-text">Index Reference</text>
+
+    <text x="920" y="9" class="node-text" style="fill: #64748b;" text-anchor="end">Moh Ashari Muklis | 2026</text>
+  </g>
+</svg>
