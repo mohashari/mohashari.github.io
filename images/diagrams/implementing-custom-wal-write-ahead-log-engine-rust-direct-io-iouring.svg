@@ -1,0 +1,140 @@
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .title { font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 20px; fill: #f8fafc; }
+    .label { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #f1f5f9; }
+    .sub-label { font-family: 'Inter', system-ui, sans-serif; font-size: 11px; fill: #94a3b8; }
+    .flow-text { font-family: 'Inter', system-ui, sans-serif; font-size: 10px; font-weight: 700; fill: #38bdf8; }
+    .box-bg-user { fill: #1e293b; stroke: #334155; stroke-width: 1.5; rx: 8px; }
+    .box-bg-kernel { fill: #0f172a; stroke: #1e293b; stroke-width: 1.5; rx: 8px; }
+    .box-ring { fill: #111827; stroke: #4f46e5; stroke-width: 2; rx: 6px; }
+    .box-hardware { fill: #1b253b; stroke: #10b981; stroke-width: 2; rx: 8px; }
+    .arrow { stroke: #64748b; stroke-width: 2; stroke-dasharray: 4 4; }
+    .arrow-active { stroke: #38bdf8; stroke-width: 2; }
+    .arrow-success { stroke: #10b981; stroke-width: 2; }
+    .glow { filter: drop-shadow(0px 0px 8px rgba(56, 189, 248, 0.4)); }
+    .glow-green { filter: drop-shadow(0px 0px 8px rgba(16, 185, 129, 0.4)); }
+    .glow-indigo { filter: drop-shadow(0px 0px 8px rgba(79, 70, 229, 0.4)); }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#0b0f19" rx="12"/>
+  <rect x="1" y="1" width="798" height="498" rx="11" stroke="#1e293b" stroke-width="2"/>
+
+  <!-- Grid lines for engineering aesthetic -->
+  <path d="M 0,100 L 800,100 M 0,200 L 800,200 M 0,300 L 800,300 M 0,400 L 800,400" stroke="#1e293b" stroke-opacity="0.3" stroke-width="1"/>
+  <path d="M 200,0 L 200,500 M 400,0 L 400,500 M 600,0 L 600,500" stroke="#1e293b" stroke-opacity="0.3" stroke-width="1"/>
+
+  <!-- Boundary Labels -->
+  <rect x="20" y="20" width="350" height="450" class="box-bg-kernel" />
+  <text x="35" y="45" class="label" fill="#64748b">USER SPACE (Rust Application)</text>
+
+  <rect x="390" y="20" width="390" height="450" class="box-bg-kernel" />
+  <text x="405" y="45" class="label" fill="#64748b">KERNEL SPACE (Linux Kernel &amp; NVMe)</text>
+
+  <!-- USER SPACE COMPONENTS -->
+  
+  <!-- 1. App Writer -->
+  <g transform="translate(40, 70)">
+    <rect width="140" height="80" class="box-bg-user" />
+    <text x="15" y="30" class="label">App Thread</text>
+    <text x="15" y="48" class="sub-label">Generates TX Logs</text>
+    <text x="15" y="62" class="sub-label">e.g., Transactions</text>
+  </g>
+
+  <!-- 2. Aligned Buffer Pool -->
+  <g transform="translate(40, 220)">
+    <rect width="140" height="100" class="box-bg-user" stroke="#f59e0b" />
+    <text x="15" y="25" class="label" fill="#f59e0b">Aligned Buffers</text>
+    <text x="15" y="45" class="sub-label">4KB / 512B boundary</text>
+    <text x="15" y="60" class="sub-label">POSIX Memalign</text>
+    <text x="15" y="75" class="sub-label">Zero-copy target</text>
+  </g>
+
+  <!-- 3. WAL Engine & io_uring controller -->
+  <g transform="translate(210, 120)">
+    <rect width="140" height="260" class="box-bg-user" stroke="#3b82f6" />
+    <text x="15" y="30" class="label" fill="#38bdf8">WAL Engine</text>
+    <text x="15" y="50" class="sub-label">State Management</text>
+    
+    <!-- Submission Queue Controller -->
+    <rect x="10" y="80" width="120" height="60" class="box-ring" stroke="#4f46e5" />
+    <text x="20" y="102" class="label" fill="#818cf8">Submission Q</text>
+    <text x="20" y="118" class="sub-label">Ring Buffer SQEs</text>
+    <text x="20" y="130" class="sub-label">Writev / Fsync</text>
+
+    <!-- Completion Queue Controller -->
+    <rect x="10" y="170" width="120" height="60" class="box-ring" stroke="#10b981" />
+    <text x="20" y="192" class="label" fill="#34d399">Completion Q</text>
+    <text x="20" y="208" class="sub-label">Ring Buffer CQEs</text>
+    <text x="20" y="220" class="sub-label">Async Ack reaping</text>
+  </g>
+
+  <!-- KERNEL SPACE COMPONENTS -->
+
+  <!-- 4. io_uring Kernel Core -->
+  <g transform="translate(410, 120)">
+    <rect width="160" height="260" class="box-bg-user" stroke="#4f46e5" />
+    <text x="15" y="30" class="label" fill="#818cf8">io_uring Kernel Core</text>
+    <text x="15" y="50" class="sub-label">Bypasses syscalls</text>
+    
+    <!-- Kernel Thread SQ Poll -->
+    <rect x="10" y="80" width="140" height="60" fill="#1e1b4b" stroke="#6366f1" rx="4"/>
+    <text x="20" y="102" class="label" fill="#a5b4fc">sqpoll kthread</text>
+    <text x="20" y="118" class="sub-label">Active ring polling</text>
+    <text x="20" y="130" class="sub-label">Zero syscall path</text>
+
+    <!-- Async Block I/O Engine -->
+    <rect x="10" y="170" width="140" height="60" fill="#064e3b" stroke="#059669" rx="4"/>
+    <text x="20" y="192" class="label" fill="#a7f3d0">Async I/O Dev</text>
+    <text x="20" y="208" class="sub-label">O_DIRECT execution</text>
+    <text x="20" y="220" class="sub-label">No Page Cache</text>
+  </g>
+
+  <!-- 5. Physical Storage (NVMe SSD) -->
+  <g transform="translate(610, 180)">
+    <rect width="140" height="140" class="box-hardware glow-green" />
+    <text x="15" y="35" class="label" fill="#10b981">NVMe SSD</text>
+    <text x="15" y="55" class="sub-label">Direct Block Write</text>
+    <text x="15" y="75" class="sub-label">Hardware Controller</text>
+    <path d="M 15,95 L 125,95 M 15,115 L 125,115" stroke="#10b981" stroke-opacity="0.3" stroke-width="2"/>
+    <text x="15" y="110" class="flow-text" fill="#10b981">PLP Capacitor active</text>
+    <text x="15" y="130" class="sub-label">Stable media ack</text>
+  </g>
+
+  <!-- FLOW PATHS & ARROWS -->
+
+  <!-- App Thread -> Aligned Buffer (Memcpy) -->
+  <path d="M 110,150 L 110,220" class="arrow-active glow" marker-end="url(#arrowhead)"/>
+  <text x="115" y="190" class="sub-label" fill="#f59e0b">Memcpy</text>
+
+  <!-- App Thread -> WAL Engine (Submit request) -->
+  <path d="M 180,110 L 210,135" class="arrow-active glow" />
+  <text x="182" y="115" class="flow-text">1. Write</text>
+
+  <!-- WAL Engine (SQ) -> io_uring Core (SQ) via Ring Share -->
+  <path d="M 330,220 L 410,220" class="arrow-active glow" stroke-width="3"/>
+  <text x="345" y="210" class="flow-text">2. Submit</text>
+
+  <!-- io_uring Core -> NVMe SSD (O_DIRECT Write) -->
+  <path d="M 570,220 L 610,220" class="arrow-active glow-green" stroke="#10b981" stroke-width="3"/>
+  <text x="572" y="210" class="flow-text" fill="#10b981">3. Direct I/O</text>
+
+  <!-- NVMe SSD -> io_uring Core (Hardware Completion) -->
+  <path d="M 610,280 L 570,280" class="arrow-success" />
+  <text x="572" y="300" class="flow-text" fill="#10b981">4. Ack</text>
+
+  <!-- io_uring Core (CQ) -> WAL Engine (CQ) via Ring Share -->
+  <path d="M 410,320 L 330,320" class="arrow-success" />
+  <text x="345" y="340" class="flow-text" fill="#10b981">5. Complete</text>
+
+  <!-- WAL Engine -> App Thread (Ack / Complete Callback) -->
+  <path d="M 210,360 L 110,360 L 110,320" class="arrow-success" />
+  <text x="120" y="350" class="flow-text" fill="#10b981">6. Durability Confirmed</text>
+
+  <!-- Marker definition for arrows -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#38bdf8"/>
+    </marker>
+  </defs>
+</svg>

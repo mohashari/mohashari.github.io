@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    
+    <!-- Component Gradients -->
+    <linearGradient id="pg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="ebpf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#311042" />
+      <stop offset="100%" stop-color="#1e0b29" />
+    </linearGradient>
+    <linearGradient id="agent-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="otel-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2c1a04" />
+      <stop offset="100%" stop-color="#140b00" />
+    </linearGradient>
+
+    <!-- Glow filters -->
+    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-orange" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#d946ef" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f97316" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" fill="url(#bg-grad)" />
+  
+  <!-- Boundary Line: User vs Kernel Space -->
+  <line x1="50" y1="360" x2="950" y2="360" stroke="#334155" stroke-dasharray="8,8" stroke-width="2" />
+  <text x="60" y="350" fill="#64748b" font-family="monospace" font-size="14" font-weight="bold">USER SPACE</text>
+  <text x="60" y="385" fill="#64748b" font-family="monospace" font-size="14" font-weight="bold">KERNEL SPACE</text>
+
+  <!-- 1. PostgreSQL Backend Process Box (User Space) -->
+  <g transform="translate(100, 80)">
+    <rect width="320" height="220" rx="12" fill="url(#pg-grad)" stroke="#3b82f6" stroke-width="2" filter="url(#glow-blue)" />
+    <text x="20" y="35" fill="#3b82f6" font-family="sans-serif" font-size="18" font-weight="bold">PostgreSQL Backend (PID 18452)</text>
+    
+    <!-- Inside PG: Query Execution -->
+    <rect x="20" y="60" width="280" height="60" rx="6" fill="#0f172a" stroke="#1e293b" />
+    <text x="30" y="80" fill="#94a3b8" font-family="monospace" font-size="11">SQL: UPDATE accounts SET balance = balance - 100</text>
+    <text x="30" y="98" fill="#e2e8f0" font-family="monospace" font-size="11">WHERE id = 42; <tspan fill="#f43f5e" font-weight="bold">(BLOCKED)</tspan></text>
+    
+    <!-- User Space function calling kernel -->
+    <rect x="20" y="140" width="280" height="50" rx="6" fill="#1e293b" stroke="#334155" />
+    <text x="30" y="160" fill="#38bdf8" font-family="monospace" font-size="12">PGSemaphoreLock()</text>
+    <text x="30" y="178" fill="#64748b" font-family="monospace" font-size="11">Invokes semop() system call to sleep</text>
+  </g>
+
+  <!-- 2. Kernel Syscall & eBPF Probe (Kernel Space) -->
+  <g transform="translate(100, 420)">
+    <rect width="320" height="180" rx="12" fill="url(#ebpf-grad)" stroke="#d946ef" stroke-width="2" filter="url(#glow-purple)" />
+    <text x="20" y="35" fill="#d946ef" font-family="sans-serif" font-size="18" font-weight="bold">Linux Kernel / eBPF</text>
+    
+    <!-- System call handlers -->
+    <rect x="20" y="60" width="280" height="45" rx="6" fill="#1e0b29" stroke="#4a154b" />
+    <text x="30" y="86" fill="#e879f9" font-family="monospace" font-size="13">sys_enter_semop() / sys_exit_semop()</text>
+    
+    <!-- eBPF maps -->
+    <rect x="20" y="115" width="280" height="45" rx="6" fill="#1e0b29" stroke="#4a154b" />
+    <text x="30" y="142" fill="#22d3ee" font-family="monospace" font-size="13">eBPF Ring Buffer / Maps</text>
+  </g>
+
+  <!-- 3. eBPF Agent / OpenTelemetry Collector (User Space) -->
+  <g transform="translate(560, 80)">
+    <rect width="340" height="240" rx="12" fill="url(#agent-grad)" stroke="#22d3ee" stroke-width="2" />
+    <text x="20" y="35" fill="#22d3ee" font-family="sans-serif" font-size="18" font-weight="bold">eBPF PG-Trace Agent</text>
+    
+    <!-- Poller / Reader -->
+    <rect x="20" y="60" width="300" height="45" rx="6" fill="#0f172a" stroke="#1e293b" />
+    <text x="30" y="86" fill="#38bdf8" font-family="monospace" font-size="12">Ring Buffer Consumer (Go/C)</text>
+    
+    <!-- Correlator -->
+    <rect x="20" y="115" width="300" height="50" rx="6" fill="#0f172a" stroke="#1e293b" />
+    <text x="30" y="135" fill="#a7f3d0" font-family="monospace" font-size="12">Metadata Correlator</text>
+    <text x="30" y="152" fill="#64748b" font-family="monospace" font-size="10">Resolves PID -> pg_stat_activity query &amp; lock</text>
+    
+    <!-- OTel SDK -->
+    <rect x="20" y="175" width="300" height="45" rx="6" fill="#0f172a" stroke="#1e293b" />
+    <text x="30" y="202" fill="#f472b6" font-family="monospace" font-size="12">OTel Go SDK (Traces &amp; Metrics)</text>
+  </g>
+
+  <!-- 4. OpenTelemetry Collector (User Space) -->
+  <g transform="translate(560, 420)">
+    <rect width="340" height="120" rx="12" fill="url(#otel-grad)" stroke="#f97316" stroke-width="2" filter="url(#glow-orange)" />
+    <text x="20" y="35" fill="#f97316" font-family="sans-serif" font-size="18" font-weight="bold">OpenTelemetry Collector</text>
+    
+    <rect x="20" y="55" width="300" height="45" rx="6" fill="#140b00" stroke="#431407" />
+    <text x="30" y="82" fill="#fdba74" font-family="monospace" font-size="13">otlp/grpc Receiver -> Exporter</text>
+  </g>
+
+  <!-- Arrows and Flows -->
+  
+  <!-- Flow 1: PG calls semop -->
+  <path d="M 260,300 L 260,420" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="270" y="340" fill="#3b82f6" font-family="sans-serif" font-size="11" font-weight="bold">1. semop() syscall</text>
+
+  <!-- Flow 2: eBPF catches syscall and sends to map -->
+  <path d="M 160,480 L 160,530" fill="none" stroke="#d946ef" stroke-width="2" marker-end="url(#arrow-purple)" />
+  <text x="170" y="505" fill="#d946ef" font-family="sans-serif" font-size="10" font-weight="bold">2. Latency &amp; PID logged</text>
+
+  <!-- Flow 3: eBPF map to Agent -->
+  <path d="M 380,535 L 730,535 L 730,320" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <text x="420" y="525" fill="#22d3ee" font-family="sans-serif" font-size="11" font-weight="bold">3. Read Map Events (Ringbuf poll)</text>
+
+  <!-- Flow 4: Query Correlation -->
+  <!-- Curving arrow from PG box to Agent metadata correlator -->
+  <path d="M 420,120 C 490,120 490,140 560,140" fill="none" stroke="#34d399" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow)" />
+  <text x="460" y="110" fill="#34d399" font-family="sans-serif" font-size="10" font-weight="bold">Query Info</text>
+
+  <!-- Flow 5: Agent to OTel Collector -->
+  <path d="M 730,320 L 730,420" fill="none" stroke="#f472b6" stroke-width="2" marker-end="url(#arrow-orange)" />
+  <text x="740" y="375" fill="#f472b6" font-family="sans-serif" font-size="11" font-weight="bold">4. Export Spans (OTLP)</text>
+
+  <!-- Flow 6: Out to Backend -->
+  <path d="M 900,480 L 970,480" fill="none" stroke="#f97316" stroke-width="2" marker-end="url(#arrow-orange)" />
+  <text x="910" y="470" fill="#f97316" font-family="sans-serif" font-size="11" font-weight="bold">5. OTLP</text>
+</svg>

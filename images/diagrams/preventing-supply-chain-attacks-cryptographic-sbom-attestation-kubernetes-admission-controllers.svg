@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="900" height="500" fill="#0f172a" rx="8"/>
+  
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">SBOM Attestation Enforcement Architecture</text>
+  
+  <!-- CI/CD Pipeline Section -->
+  <rect x="40" y="80" width="220" height="360" rx="6" fill="#1e293b" stroke="#334155" stroke-width="2" />
+  <text x="150" y="110" text-anchor="middle" fill="#f1f5f9" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">1. CI/CD Build Pipeline</text>
+  
+  <!-- Steps in CI/CD -->
+  <!-- Step 1.1: Build Image -->
+  <rect x="60" y="140" width="180" height="45" rx="4" fill="url(#blueGrad)" />
+  <text x="150" y="167" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Build Container Image</text>
+
+  <!-- Step 1.2: Generate SBOM -->
+  <rect x="60" y="215" width="180" height="45" rx="4" fill="url(#blueGrad)" />
+  <text x="150" y="242" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Generate SBOM (Syft)</text>
+
+  <!-- Step 1.3: Sign & Attest -->
+  <rect x="60" y="290" width="180" height="45" rx="4" fill="url(#purpleGrad)" />
+  <text x="150" y="317" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Sign SBOM (Cosign)</text>
+
+  <!-- Step 1.4: Push to Registry -->
+  <rect x="60" y="365" width="180" height="45" rx="4" fill="url(#blueGrad)" />
+  <text x="150" y="392" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Push Image &amp; Attestation</text>
+
+  <!-- Connectors in CI/CD -->
+  <path d="M 150 185 L 150 215" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 150 260 L 150 290" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 150 335 L 150 365" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- OCI Registry -->
+  <rect x="340" y="80" width="220" height="130" rx="6" fill="#1e293b" stroke="#334155" stroke-width="2" />
+  <text x="450" y="110" text-anchor="middle" fill="#f1f5f9" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">2. OCI Registry (e.g., Harbor, ECR)</text>
+  
+  <rect x="360" y="135" width="85" height="50" rx="4" fill="#334155" />
+  <text x="402" y="165" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11">App Image</text>
+
+  <rect x="455" y="135" width="90" height="50" rx="4" fill="#6d28d9" />
+  <text x="500" y="157" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Cosign SBOM</text>
+  <text x="500" y="172" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Attestation</text>
+
+  <!-- KMS / Cosign Trust Root -->
+  <rect x="340" y="350" width="220" height="90" rx="6" fill="#1e293b" stroke="#334155" stroke-width="2" />
+  <text x="450" y="380" text-anchor="middle" fill="#f1f5f9" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">Trust Root / Key Store</text>
+  <text x="450" y="405" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">KMS, Sigstore Fulcio/Rekor,</text>
+  <text x="450" y="420" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">or Static Public Keys</text>
+
+  <!-- Kubernetes Cluster Section -->
+  <rect x="640" y="80" width="220" height="360" rx="6" fill="#1e293b" stroke="#334155" stroke-width="2" />
+  <text x="750" y="110" text-anchor="middle" fill="#f1f5f9" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">3. Kubernetes Cluster</text>
+
+  <!-- K8s API Server -->
+  <rect x="660" y="140" width="180" height="50" rx="4" fill="url(#amberGrad)" />
+  <text x="750" y="170" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Kube-API Server</text>
+
+  <!-- Admission Webhook / Kyverno -->
+  <rect x="660" y="250" width="180" height="70" rx="4" fill="url(#greenGrad)" />
+  <text x="750" y="280" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Admission Controller</text>
+  <text x="750" y="298" text-anchor="middle" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="11">(Kyverno / Policy Controller)</text>
+
+  <!-- Worker Nodes / Pods -->
+  <rect x="660" y="365" width="180" height="50" rx="4" fill="#334155" stroke="#475569" />
+  <text x="750" y="395" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Running Pod</text>
+
+  <!-- Arrows and Lines between sections -->
+  <!-- Pipeline to Registry -->
+  <path d="M 260 388 L 300 388 L 300 145 L 340 145" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+  <text x="305" y="260" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" transform="rotate(-90 305 260)" text-anchor="middle">Push artifacts</text>
+
+  <!-- Deployment Request -->
+  <path d="M 750 190 L 750 250" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="760" y="222" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="10">Intercept Request</text>
+
+  <!-- Admission Controller queries Registry -->
+  <path d="M 660 275 L 570 275 L 570 170 L 545 170" stroke="#34d399" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+  <text x="590" y="240" fill="#34d399" font-family="system-ui, sans-serif" font-size="10" transform="rotate(90 590 240)" text-anchor="middle">Verify SBOM &amp; Signatures</text>
+
+  <!-- Admission Controller checks KMS -->
+  <path d="M 570 275 L 570 395 L 560 395" stroke="#34d399" stroke-width="2" fill="none" marker-end="url(#arrow-green)" />
+  <text x="590" y="350" fill="#34d399" font-family="system-ui, sans-serif" font-size="10">Validate Keys</text>
+
+  <!-- Allow Deployment -->
+  <path d="M 750 320 L 750 365" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="760" y="342" fill="#34d399" font-family="system-ui, sans-serif" font-size="10">Allow Deployment</text>
+
+</svg>
