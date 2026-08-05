@@ -1,0 +1,254 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="node-blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    
+    <!-- Accent Gradients -->
+    <linearGradient id="cyan-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="purple-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+    <linearGradient id="green-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="red-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    
+    <!-- Marker definitions for arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#4b5563" />
+    </marker>
+    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#06b6d4" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8b5cf6" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="540" fill="url(#bg-grad)" />
+  
+  <!-- Subtle Grid Pattern -->
+  <g opacity="0.05">
+    <path d="M 0,45 L 960,45 M 0,90 L 960,90 M 0,135 L 960,135 M 0,180 L 960,180 M 0,225 L 960,225 M 0,270 L 960,270 M 0,315 L 960,315 M 0,360 L 960,360 M 0,405 L 960,405 M 0,450 L 960,450 M 0,495 L 960,495" stroke="#ffffff" stroke-width="1" />
+    <path d="M 80,0 L 80,540 M 160,0 L 160,540 M 240,0 L 240,540 M 320,0 L 320,540 M 400,0 L 400,540 M 480,0 L 480,540 M 560,0 L 560,540 M 640,0 L 640,540 M 720,0 L 720,540 M 800,0 L 800,540 M 880,0 L 880,540" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title / Header of the diagram -->
+  <text x="40" y="45" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="18" fill="#f8fafc" letter-spacing="0.5">DEPENDENCY DRIFT EVALUATION ENGINE</text>
+  <text x="40" y="65" font-family="system-ui, -apple-system, sans-serif" font-weight="400" font-size="12" fill="#94a3b8">Quantitative Pipeline for Monorepos (Static Analysis vs. Declared Architecture Policies)</text>
+
+  <!-- ==================== COLUMN 1: INPUTS ==================== -->
+  <g transform="translate(40, 100)" filter="url(#shadow)">
+    <!-- Section Border Group -->
+    <rect width="200" height="380" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" />
+    <text x="15" y="-12" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="11" fill="#475569" letter-spacing="1">STAGE 1: INPUT SOURCES</text>
+
+    <!-- Node 1: Monorepo Codebase -->
+    <g transform="translate(10, 20)">
+      <rect width="180" height="150" rx="6" fill="url(#node-blue)" stroke="#334155" stroke-width="1" />
+      <rect x="0" y="0" width="180" height="6" rx="3" fill="url(#cyan-glow)" />
+      
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="13" fill="#f8fafc">Monorepo Source</text>
+      <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b">AST &amp; Import Trees</text>
+      
+      <!-- Inside items -->
+      <g transform="translate(15, 60)">
+        <!-- Small representations of code items -->
+        <rect x="0" y="0" width="150" height="22" rx="4" fill="#1e293b" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1" />
+        <text x="8" y="15" font-family="monospace" font-size="10" fill="#38bdf8">apps/payment/**/*.go</text>
+        
+        <rect x="0" y="28" width="150" height="22" rx="4" fill="#1e293b" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1" />
+        <text x="8" y="43" font-family="monospace" font-size="10" fill="#38bdf8">proto/billing/*.proto</text>
+
+        <rect x="0" y="56" width="150" height="22" rx="4" fill="#1e293b" stroke="#06b6d4" stroke-opacity="0.3" stroke-width="1" />
+        <text x="8" y="71" font-family="monospace" font-size="10" fill="#38bdf8">libs/auth/**/*.rs</text>
+      </g>
+    </g>
+
+    <!-- Node 2: Architecture Manifest -->
+    <g transform="translate(10, 195)">
+      <rect width="180" height="150" rx="6" fill="url(#node-blue)" stroke="#334155" stroke-width="1" />
+      <rect x="0" y="0" width="180" height="6" rx="3" fill="url(#purple-glow)" />
+      
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="13" fill="#f8fafc">Architecture Policy</text>
+      <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b">Declared Dependency Rules</text>
+      
+      <!-- Inside items -->
+      <g transform="translate(15, 60)">
+        <rect x="0" y="0" width="150" height="78" rx="4" fill="#1e293b" stroke="#8b5cf6" stroke-opacity="0.3" stroke-width="1" />
+        <text x="8" y="16" font-family="monospace" font-size="9" fill="#a78bfa">manifest.json</text>
+        <!-- JSON structure preview -->
+        <text x="8" y="32" font-family="monospace" font-size="9" fill="#c084fc">  "service": "payment",</text>
+        <text x="8" y="45" font-family="monospace" font-size="9" fill="#c084fc">  "allowed_egress": [</text>
+        <text x="8" y="58" font-family="monospace" font-size="9" fill="#c084fc">    "billing", "auth"</text>
+        <text x="8" y="71" font-family="monospace" font-size="9" fill="#c084fc">  ]</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 2: ANALYSIS & EXTRACT ==================== -->
+  <g transform="translate(290, 100)" filter="url(#shadow)">
+    <rect width="200" height="380" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" />
+    <text x="15" y="-12" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="11" fill="#475569" letter-spacing="1">STAGE 2: EXTRACTION</text>
+
+    <!-- Node 3: Static Analysis & Graph Resolution -->
+    <g transform="translate(10, 20)">
+      <rect width="180" height="325" rx="6" fill="url(#node-blue)" stroke="#334155" stroke-width="1" />
+      <rect x="0" y="0" width="180" height="6" rx="3" fill="url(#cyan-glow)" />
+
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="13" fill="#f8fafc">Graph Extractor</text>
+      <text x="15" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b">AST Resolver &amp; Import Parser</text>
+
+      <!-- Inner Logic Flow -->
+      <g transform="translate(15, 65)">
+        <!-- Process block 1 -->
+        <rect x="0" y="0" width="150" height="50" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+        <text x="8" y="18" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="10" fill="#f8fafc">Extract Imports &amp; RPCs</text>
+        <text x="8" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Scan HTTP/gRPC stubs</text>
+
+        <!-- Arrow -->
+        <path d="M 75,50 L 75,65" fill="none" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)" />
+
+        <!-- Process block 2 -->
+        <rect x="0" y="70" width="150" height="50" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+        <text x="8" y="88" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="10" fill="#f8fafc">Build G_obs (Observed)</text>
+        <text x="8" y="102" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Actual call-graph graph</text>
+
+        <!-- Arrow -->
+        <path d="M 75,120 L 75,135" fill="none" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)" />
+
+        <!-- Process block 3 -->
+        <rect x="0" y="140" width="150" height="50" rx="4" fill="#0f172a" stroke="#1e293b" stroke-width="1" />
+        <text x="8" y="158" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="10" fill="#f8fafc">Build G_decl (Declared)</text>
+        <text x="8" y="172" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Intended architecture policy</text>
+
+        <!-- Arrow -->
+        <path d="M 75,190 L 75,205" fill="none" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)" />
+
+        <!-- Process block 4 -->
+        <rect x="0" y="210" width="150" height="40" rx="4" fill="#1e1b4b" stroke="#4f46e5" stroke-opacity="0.4" stroke-width="1" />
+        <text x="8" y="226" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="10" fill="#c084fc">Graph Diff Engine</text>
+        <text x="8" y="238" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#a78bfa">G_drift = G_obs \ G_decl</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 3: QUANTITATIVE SCORING ==================== -->
+  <g transform="translate(540, 100)" filter="url(#shadow)">
+    <rect width="200" height="380" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" />
+    <text x="15" y="-12" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="11" fill="#475569" letter-spacing="1">STAGE 3: DRIFT METRICS</text>
+
+    <!-- Node 4: Metrics Calculator -->
+    <g transform="translate(10, 20)">
+      <rect width="180" height="325" rx="6" fill="url(#node-blue)" stroke="#334155" stroke-width="1" />
+      <rect x="0" y="0" width="180" height="6" rx="3" fill="url(#purple-glow)" />
+
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="13" fill="#f8fafc">Drift Evaluator</text>
+      <text x="15" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b">Quantitative Analysis</text>
+
+      <!-- Inside metrics blocks -->
+      <g transform="translate(12, 60)">
+        <!-- Metric 1 -->
+        <rect x="0" y="0" width="156" height="75" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1" />
+        <text x="10" y="18" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="10" fill="#38bdf8" letter-spacing="0.5">STRUCTURAL DRIFT INDEX</text>
+        <text x="10" y="34" font-family="monospace" font-size="15" font-weight="700" fill="#f8fafc">SDI = 0.24</text>
+        <!-- Mini progress bar -->
+        <rect x="10" y="48" width="136" height="5" rx="2.5" fill="#334155" />
+        <rect x="10" y="48" width="55" height="5" rx="2.5" fill="#f59e0b" />
+        <text x="10" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Threshold: &lt; 0.15 (Warning)</text>
+
+        <!-- Metric 2 -->
+        <rect x="0" y="90" width="156" height="75" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1" />
+        <text x="10" y="18" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="10" fill="#38bdf8" letter-spacing="0.5">COUPLING COEFFICIENT</text>
+        <text x="10" y="34" font-family="monospace" font-size="15" font-weight="700" fill="#f8fafc">C_c = 0.62</text>
+        <!-- Mini progress bar -->
+        <rect x="10" y="48" width="136" height="5" rx="2.5" fill="#334155" />
+        <rect x="10" y="48" width="110" height="5" rx="2.5" fill="#ef4444" />
+        <text x="10" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Threshold: &lt; 0.40 (Critical)</text>
+
+        <!-- Metric 3 -->
+        <rect x="0" y="180" width="156" height="75" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1" />
+        <text x="10" y="18" font-family="system-ui, -apple-system, sans-serif" font-weight="700" font-size="10" fill="#38bdf8" letter-spacing="0.5">TRANSITIVE CLUSTERING</text>
+        <text x="10" y="34" font-family="monospace" font-size="15" font-weight="700" fill="#f8fafc">T_c = 2.14</text>
+        <!-- Mini progress bar -->
+        <rect x="10" y="48" width="136" height="5" rx="2.5" fill="#334155" />
+        <rect x="10" y="48" width="30" height="5" rx="2.5" fill="#10b981" />
+        <text x="10" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8">Threshold: &lt; 3.00 (Healthy)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== COLUMN 4: ACTION / RESULTS ==================== -->
+  <g transform="translate(790, 100)" filter="url(#shadow)">
+    <rect width="130" height="380" rx="8" fill="none" stroke="#1e293b" stroke-width="1.5" />
+    <text x="15" y="-12" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="11" fill="#475569" letter-spacing="1">STAGE 4: ACTION</text>
+
+    <!-- Node 5: CI/CD Gate -->
+    <g transform="translate(10, 20)">
+      <rect width="110" height="150" rx="6" fill="url(#node-blue)" stroke="#334155" stroke-width="1" />
+      <rect x="0" y="0" width="110" height="6" rx="3" fill="url(#red-glow)" />
+      
+      <text x="12" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="12" fill="#f8fafc">CI/CD Gate</text>
+      
+      <circle cx="55" cy="80" r="24" fill="#7f1d1d" stroke="#ef4444" stroke-width="2" />
+      <!-- X mark inside circle -->
+      <path d="M 47,72 L 63,88 M 63,72 L 47,88" fill="none" stroke="#fca5a5" stroke-width="3" stroke-linecap="round" />
+
+      <text x="12" y="130" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="11" fill="#fca5a5" text-anchor="middle" x="55">BUILD FAIL</text>
+    </g>
+
+    <!-- Node 6: Observability / Grafana -->
+    <g transform="translate(10, 195)">
+      <rect width="110" height="150" rx="6" fill="url(#node-blue)" stroke="#334155" stroke-width="1" />
+      <rect x="0" y="0" width="110" height="6" rx="3" fill="url(#green-glow)" />
+      
+      <text x="12" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="600" font-size="12" fill="#f8fafc">Telemetry</text>
+
+      <g transform="translate(20, 50)">
+        <!-- Bar Graph Icon -->
+        <rect x="5" y="30" width="12" height="40" fill="#10b981" rx="2" />
+        <rect x="25" y="10" width="12" height="60" fill="#10b981" rx="2" />
+        <rect x="45" y="20" width="12" height="50" fill="#10b981" rx="2" />
+      </g>
+      
+      <text x="12" y="135" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#10b981" text-anchor="middle" x="55">Metrics Pushed</text>
+    </g>
+  </g>
+
+  <!-- ==================== FLOW CONNECTOR LINES ==================== -->
+  <g>
+    <!-- Codebase & Policy to Extractor -->
+    <path d="M 230,175 C 260,175 250,220 280,220" fill="none" stroke="#06b6d4" stroke-width="1.5" marker-end="url(#arrow-cyan)" />
+    <path d="M 230,350 C 260,350 250,300 280,300" fill="none" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)" />
+
+    <!-- Extractor to Drift Evaluator -->
+    <path d="M 480,290 L 530,290" fill="none" stroke="#38bdf8" stroke-dasharray="4,4" stroke-width="1.5" marker-end="url(#arrow-cyan)" />
+
+    <!-- Drift Evaluator to Actions -->
+    <path d="M 730,220 C 750,220 760,195 780,195" fill="none" stroke="#ef4444" stroke-width="1.5" marker-end="url(#arrow)" />
+    <path d="M 730,290 C 755,290 755,370 780,370" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow)" />
+  </g>
+</svg>
