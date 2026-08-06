@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%" style="background-color: #0f172a; font-family: 'Inter', system-ui, -apple-system, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="gitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <linearGradient id="parserGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="engineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="vizGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    
+    <!-- Filters -->
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.5"/>
+    </filter>
+    
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="30" y="40" fill="#f8fafc" font-size="20" font-weight="700" letter-spacing="-0.025em">Git Metadata Analytics Pipeline</text>
+  <text x="30" y="60" fill="#64748b" font-size="12" font-weight="500">Quantitative Framework for Code Ownership &amp; Silo Metrics</text>
+
+  <!-- Group: Source Data -->
+  <g transform="translate(30, 100)" filter="url(#glow)">
+    <rect width="180" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="90" y="30" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="0.05em">DATA SOURCES</text>
+    
+    <!-- Git Repos Box -->
+    <rect x="15" y="60" width="150" height="70" rx="8" fill="url(#gitGrad)"/>
+    <text x="90" y="95" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Git Repositories</text>
+    <text x="90" y="112" fill="#ffe4e6" font-size="11" text-anchor="middle">Bare Clones / Monorepos</text>
+
+    <!-- Metadata Types -->
+    <rect x="15" y="150" width="150" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="90" y="170" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Commit Logs (JSON)</text>
+    <text x="90" y="185" fill="#94a3b8" font-size="10" text-anchor="middle">Hash, Author, Timestamp</text>
+
+    <rect x="15" y="210" width="150" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="90" y="230" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Diff &amp; Blame Logs</text>
+    <text x="90" y="245" fill="#94a3b8" font-size="10" text-anchor="middle">Line Additions &amp; Deletions</text>
+
+    <rect x="15" y="270" width="150" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="90" y="290" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Metadata Schema</text>
+    <text x="90" y="305" fill="#94a3b8" font-size="10" text-anchor="middle">CODEOWNERS &amp; Teams</text>
+  </g>
+
+  <!-- Connectors from Source Data to Extractor -->
+  <path d="M 210 270 L 250 270" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Group: Parsing & Ingestion -->
+  <g transform="translate(260, 100)" filter="url(#glow)">
+    <rect width="180" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="90" y="30" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="0.05em">INGESTION &amp; PARSING</text>
+
+    <rect x="15" y="60" width="150" height="70" rx="8" fill="url(#parserGrad)"/>
+    <text x="90" y="95" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">CLI Extractor</text>
+    <text x="90" y="112" fill="#dbeafe" font-size="11" text-anchor="middle">git log / git-sizer</text>
+
+    <rect x="15" y="150" width="150" height="70" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="90" y="180" fill="#e2e8f0" font-size="12" font-weight="600" text-anchor="middle">Polars Parser</text>
+    <text x="90" y="198" fill="#94a3b8" font-size="10" text-anchor="middle">High-throughput tokenization</text>
+
+    <rect x="15" y="240" width="150" height="70" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="90" y="270" fill="#e2e8f0" font-size="12" font-weight="600" text-anchor="middle">Identity Mapper</text>
+    <text x="90" y="288" fill="#94a3b8" font-size="10" text-anchor="middle">Resolves multi-email aliases</text>
+  </g>
+
+  <!-- Connectors from Parser to Processing Engine -->
+  <path d="M 440 270 L 480 270" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Group: Analytical Engine -->
+  <g transform="translate(490, 100)" filter="url(#glow)">
+    <rect width="180" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="90" y="30" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="0.05em">ANALYTICAL ENGINE</text>
+
+    <rect x="15" y="60" width="150" height="70" rx="8" fill="url(#engineGrad)"/>
+    <text x="90" y="95" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Framework Core</text>
+    <text x="90" y="112" fill="#d1fae5" font-size="11" text-anchor="middle">Ownership &amp; Churn Metrics</text>
+
+    <!-- Algorithms -->
+    <rect x="15" y="145" width="150" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="90" y="168" fill="#34d399" font-size="11" font-weight="600" text-anchor="middle">Gini Coefficient</text>
+    <text x="90" y="183" fill="#94a3b8" font-size="10" text-anchor="middle">Knowledge Concentration</text>
+
+    <rect x="15" y="205" width="50" height="15" rx="3" fill="#3b82f6" opacity="0.3" x="65" />
+    <rect x="15" y="205" width="150" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="90" y="228" fill="#34d399" font-size="11" font-weight="600" text-anchor="middle">Ownership Churn</text>
+    <text x="90" y="243" fill="#94a3b8" font-size="10" text-anchor="middle">Entropy &amp; Transition Matrices</text>
+
+    <rect x="15" y="265" width="150" height="60" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="90" y="285" fill="#34d399" font-size="11" font-weight="600" text-anchor="middle">Bus Factor Analytics</text>
+    <text x="90" y="300" fill="#94a3b8" font-size="10" text-anchor="middle">Impact simulations</text>
+  </g>
+
+  <!-- Connectors from Engine to Visualization/Outputs -->
+  <path d="M 670 270 L 710 270" stroke="#475569" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+  <!-- Group: Actionable Outputs -->
+  <g transform="translate(720, 100)" filter="url(#glow)">
+    <rect width="150" height="340" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="75" y="30" fill="#94a3b8" font-size="12" font-weight="600" text-anchor="middle" letter-spacing="0.05em">OUTPUT &amp; ACTION</text>
+
+    <rect x="12" y="60" width="126" height="70" rx="8" fill="url(#vizGrad)"/>
+    <text x="75" y="95" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Downstream</text>
+    <text x="75" y="112" fill="#f5f3ff" font-size="11" text-anchor="middle">Decision Systems</text>
+
+    <!-- Visual outputs -->
+    <rect x="12" y="150" width="126" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="75" y="172" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Grafana Dashboards</text>
+    <text x="75" y="187" fill="#818cf8" font-size="10" text-anchor="middle">Temporal trends</text>
+
+    <rect x="12" y="210" width="126" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="75" y="232" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">CI/CD Gateways</text>
+    <text x="75" y="247" fill="#e11d48" font-size="10" text-anchor="middle">Ownership Risk Alerts</text>
+
+    <rect x="12" y="270" width="126" height="50" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+    <text x="75" y="292" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">PR Routing Engine</text>
+    <text x="75" y="307" fill="#818cf8" font-size="10" text-anchor="middle">Automated assignments</text>
+  </g>
+</svg>

@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background-color: #0b0f19; font-family: 'Inter', system-ui, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="appGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="t1Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="t2Grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <linearGradient id="backGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <linearGradient id="gridPattern" x1="0" y1="0" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background Grid -->
+  <rect width="1000" height="600" fill="#0b0f19"/>
+  <rect width="1000" height="600" fill="url(#gridPattern)"/>
+
+  <!-- Title/Header -->
+  <text x="50" y="45" fill="#f8fafc" font-size="22" font-weight="800" letter-spacing="0.5">TAIL-BASED SAMPLING ARCHITECTURE AT 100K RPS</text>
+  <text x="50" y="70" fill="#94a3b8" font-size="14">Scalable two-tier routing and decision-making pipeline for trace collection</text>
+
+  <!-- ================= TIER 0: APPLICATIONS ================= -->
+  <g transform="translate(50, 120)" filter="url(#shadow)">
+    <!-- Boundary -->
+    <rect width="180" height="420" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="90" y="30" fill="#94a3b8" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">MICROSERVICES</text>
+    
+    <!-- App 1 -->
+    <rect x="15" y="60" width="150" height="70" rx="8" fill="url(#appGrad)"/>
+    <text x="90" y="95" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">Order Service</text>
+    <text x="90" y="112" fill="#93c5fd" font-size="11" text-anchor="middle">OTel SDK (Go)</text>
+
+    <!-- App 2 -->
+    <rect x="15" y="150" width="150" height="70" rx="8" fill="url(#appGrad)"/>
+    <text x="90" y="185" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">Payment Service</text>
+    <text x="90" y="202" fill="#93c5fd" font-size="11" text-anchor="middle">OTel SDK (Java)</text>
+
+    <!-- App 3 -->
+    <rect x="15" y="240" width="150" height="70" rx="8" fill="url(#appGrad)"/>
+    <text x="90" y="275" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">Auth Service</text>
+    <text x="90" y="292" fill="#93c5fd" font-size="11" text-anchor="middle">OTel SDK (Node)</text>
+
+    <!-- App 4 -->
+    <rect x="15" y="330" width="150" height="70" rx="8" fill="url(#appGrad)"/>
+    <text x="90" y="365" fill="#ffffff" font-size="14" font-weight="700" text-anchor="middle">Inventory Service</text>
+    <text x="90" y="382" fill="#93c5fd" font-size="11" text-anchor="middle">OTel SDK (Go)</text>
+  </g>
+
+  <!-- Connectors Tier 0 to Tier 1 -->
+  <path d="M 230 200 L 320 200" stroke="#475569" stroke-width="2" stroke-dasharray="4 4" />
+  <path d="M 230 380 L 320 380" stroke="#475569" stroke-width="2" stroke-dasharray="4 4" />
+
+  <!-- ================= TIER 1: GATEWAY COLLECTORS ================= -->
+  <g transform="translate(320, 120)" filter="url(#shadow)">
+    <rect width="220" height="420" rx="12" fill="#1e293b" stroke="#10b981" stroke-width="1.5"/>
+    <text x="110" y="30" fill="#10b981" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">TIER 1: ROUTING GATEWAY</text>
+
+    <!-- Gateway Instance A -->
+    <rect x="15" y="60" width="190" height="150" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="110" y="85" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">OTel Collector (T1-A)</text>
+    
+    <!-- Inner Logic block -->
+    <rect x="25" y="105" width="170" height="90" rx="6" fill="#1e293b" stroke="#10b981" stroke-opacity="0.5"/>
+    <text x="110" y="125" fill="#10b981" font-size="11" font-weight="700" text-anchor="middle">routing / loadbalancing</text>
+    <text x="110" y="145" fill="#e2e8f0" font-size="11" text-anchor="middle">Hash(TraceID) % N</text>
+    <text x="110" y="165" fill="#94a3b8" font-size="10" text-anchor="middle">Consistent Routing</text>
+    <text x="110" y="180" fill="#94a3b8" font-size="10" text-anchor="middle">To Same Tier-2 Worker</text>
+
+    <!-- Gateway Instance B -->
+    <rect x="15" y="240" width="190" height="150" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="110" y="265" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">OTel Collector (T1-B)</text>
+    
+    <!-- Inner Logic block -->
+    <rect x="25" y="285" width="170" height="90" rx="6" fill="#1e293b" stroke="#10b981" stroke-opacity="0.5"/>
+    <text x="110" y="305" fill="#10b981" font-size="11" font-weight="700" text-anchor="middle">routing / loadbalancing</text>
+    <text x="110" y="325" fill="#e2e8f0" font-size="11" text-anchor="middle">Hash(TraceID) % N</text>
+    <text x="110" y="345" fill="#94a3b8" font-size="10" text-anchor="middle">Consistent Routing</text>
+    <text x="110" y="360" fill="#94a3b8" font-size="10" text-anchor="middle">To Same Tier-2 Worker</text>
+  </g>
+
+  <!-- Dynamic Flow Paths (Tier 1 to Tier 2 routing demonstration) -->
+  <!-- Route Trace ID A (Success, Ends up at T2-A) -->
+  <path d="M 540 220 L 650 200" stroke="#f59e0b" stroke-width="2.5" fill="none"/>
+  <text x="590" y="195" fill="#f59e0b" font-size="10" font-weight="700" text-anchor="middle">Trace 9a4f...</text>
+
+  <!-- Route Trace ID B (Error, Ends up at T2-B) -->
+  <path d="M 540 320 L 650 380" stroke="#ef4444" stroke-width="2.5" fill="none"/>
+  <text x="590" y="370" fill="#ef4444" font-size="10" font-weight="700" text-anchor="middle">Trace 2c1a...</text>
+
+  <!-- ================= TIER 2: SAMPLING COLLECTORS ================= -->
+  <g transform="translate(650, 120)" filter="url(#shadow)">
+    <rect width="250" height="420" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="125" y="30" fill="#f59e0b" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="1">TIER 2: SAMPLING WORKERS</text>
+
+    <!-- Sampling Worker A -->
+    <rect x="15" y="60" width="220" height="150" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="125" y="85" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">OTel Collector (T2-A)</text>
+    
+    <!-- Tail Sampling Mechanism -->
+    <rect x="25" y="105" width="200" height="90" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-opacity="0.5"/>
+    <text x="125" y="123" fill="#f59e0b" font-size="11" font-weight="700" text-anchor="middle">tail_sampling processor</text>
+    <text x="125" y="143" fill="#e2e8f0" font-size="10" text-anchor="middle">In-Memory Buffer (30s window)</text>
+    <text x="125" y="160" fill="#ef4444" font-size="9" text-anchor="middle">Policy: Keep errors / Latency &gt; 500ms</text>
+    <text x="125" y="175" fill="#10b981" font-size="9" text-anchor="middle">Policy: Rate limit system (20 spans/s)</text>
+
+    <!-- Sampling Worker B -->
+    <rect x="15" y="240" width="220" height="150" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+    <text x="125" y="265" fill="#f8fafc" font-size="13" font-weight="700" text-anchor="middle">OTel Collector (T2-B)</text>
+
+    <!-- Tail Sampling Mechanism -->
+    <rect x="25" y="285" width="200" height="90" rx="6" fill="#1e293b" stroke="#f59e0b" stroke-opacity="0.5"/>
+    <text x="125" y="303" fill="#f59e0b" font-size="11" font-weight="700" text-anchor="middle">tail_sampling processor</text>
+    <text x="125" y="323" fill="#e2e8f0" font-size="10" text-anchor="middle">In-Memory Buffer (30s window)</text>
+    <text x="125" y="340" fill="#ef4444" font-size="9" text-anchor="middle">Policy: Keep errors / Latency &gt; 500ms</text>
+    <text x="125" y="355" fill="#10b981" font-size="9" text-anchor="middle">Policy: Rate limit system (20 spans/s)</text>
+  </g>
+
+  <!-- Connectors Tier 2 to Storage -->
+  <!-- Sampled trace flow (Purple, Keep) -->
+  <path d="M 900 180 Q 940 180 940 280" stroke="#8b5cf6" stroke-width="3" fill="none"/>
+  <text x="965" y="220" fill="#c084fc" font-size="10" font-weight="700" text-anchor="middle">SAMPLED (Keep)</text>
+
+  <!-- Discarded trace flow (Red/Gray, Drop) -->
+  <path d="M 900 380 Q 940 380 940 460" stroke="#475569" stroke-width="2" fill="none" stroke-dasharray="3 3"/>
+  <text x="965" y="430" fill="#94a3b8" font-size="10" font-weight="700" text-anchor="middle">DROPPED</text>
+
+  <!-- ================= TIER 3: STORAGE / BACKEND ================= -->
+  <g transform="translate(850, 480)" filter="url(#shadow)">
+    <rect x="-10" y="0" width="140" height="50" rx="8" fill="url(#backGrad)" stroke="#a78bfa" stroke-width="1"/>
+    <text x="60" y="30" fill="#ffffff" font-size="13" font-weight="700" text-anchor="middle">Tempo / Jaeger</text>
+  </g>
+  
+  <!-- ================= LEGEND / METRICS ================= -->
+  <g transform="translate(50, 560)">
+    <circle cx="10" cy="-5" r="6" fill="#3b82f6" />
+    <text x="22" y="-1" fill="#94a3b8" font-size="11">OTel SDK</text>
+
+    <circle cx="120" cy="-5" r="6" fill="#10b981" />
+    <text x="132" y="-1" fill="#94a3b8" font-size="11">TraceID Hashing (Tier 1)</text>
+
+    <circle cx="310" cy="-5" r="6" fill="#f59e0b" />
+    <text x="322" y="-1" fill="#94a3b8" font-size="11">Tail-Based Decision (Tier 2)</text>
+
+    <circle cx="510" cy="-5" r="6" fill="#8b5cf6" />
+    <text x="522" y="-1" fill="#94a3b8" font-size="11">APM Storage</text>
+  </g>
+</svg>
