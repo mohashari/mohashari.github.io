@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 580" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="sourceGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    <linearGradient id="engineGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#311042" />
+    </linearGradient>
+    <linearGradient id="investmentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#022c22" />
+    </linearGradient>
+
+    <!-- Accent Gradients -->
+    <linearGradient id="accentCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+    <linearGradient id="accentPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d946ef" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <linearGradient id="accentEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="accentAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="glowCyan" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+
+    <!-- Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+    <marker id="arrowCyan" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#06b6d4" />
+    </marker>
+    <marker id="arrowEmerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="580" rx="16" fill="url(#bgGrad)" />
+  <rect width="996" height="576" x="2" y="2" rx="14" fill="none" stroke="#1e293b" stroke-width="2" />
+
+  <!-- Diagram Title -->
+  <text x="50" y="45" fill="#f8fafc" font-family="'Inter', system-ui, sans-serif" font-size="20" font-weight="700" letter-spacing="0.5">
+    Quantitative Incident Cost &amp; Reliability Investment Framework
+  </text>
+  <text x="50" y="65" fill="#94a3b8" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="400">
+    Continuous feedback loop mapping telemetry, operational costs, financial impact, and ROI-driven reliability allocation.
+  </text>
+
+  <!-- SECTION 1: INGESTION & DATA SOURCES (LEFT) -->
+  <text x="50" y="110" fill="#94a3b8" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600" letter-spacing="1">1. DATA INGESTION</text>
+  <g filter="url(#shadow)">
+    <!-- Metrics -->
+    <rect x="50" y="125" width="200" height="65" rx="8" fill="url(#sourceGrad)" stroke="#475569" stroke-width="1" />
+    <rect x="50" y="125" width="6" height="65" rx="0" fill="url(#accentCyan)" />
+    <text x="70" y="150" fill="#f1f5f9" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="600">Telemetry Systems</text>
+    <text x="70" y="168" fill="#94a3b8" font-family="'Inter', system-ui, sans-serif" font-size="11">Datadog, Prometheus, CloudWatch</text>
+
+    <!-- Incident Management -->
+    <rect x="50" y="210" width="200" height="65" rx="8" fill="url(#sourceGrad)" stroke="#475569" stroke-width="1" />
+    <rect x="50" y="210" width="6" height="65" rx="0" fill="url(#accentPurple)" />
+    <text x="70" y="235" fill="#f1f5f9" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="600">Incident Metadata</text>
+    <text x="70" y="253" fill="#94a3b8" font-family="'Inter', system-ui, sans-serif" font-size="11">PagerDuty, Opsgenie, Jira Service Desk</text>
+
+    <!-- Financial Inputs -->
+    <rect x="50" y="295" width="200" height="65" rx="8" fill="url(#sourceGrad)" stroke="#475569" stroke-width="1" />
+    <rect x="50" y="295" width="6" height="65" rx="0" fill="url(#accentAmber)" />
+    <text x="70" y="320" fill="#f1f5f9" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="600">Business &amp; Finance</text>
+    <text x="70" y="338" fill="#94a3b8" font-family="'Inter', system-ui, sans-serif" font-size="11">SLA Contracts, Stripe, Salesforce</text>
+  </g>
+
+  <!-- SECTION 2: THE COST ENGINE (MIDDLE) -->
+  <text x="320" y="110" fill="#94a3b8" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600" letter-spacing="1">2. TOTAL COST OF INCIDENT (TCOI) ENGINE</text>
+  <g filter="url(#shadow)">
+    <!-- Cost Engine Container -->
+    <rect x="320" y="125" width="360" height="235" rx="10" fill="url(#engineGrad)" stroke="#4338ca" stroke-width="1.5" />
+    
+    <!-- Cost Component: Direct Engineering Cost -->
+    <rect x="340" y="145" width="320" height="40" rx="6" fill="#1e1b4b" stroke="#3730a3" stroke-width="1" />
+    <circle cx="360" cy="165" r="8" fill="#06b6d4" />
+    <text x="357" y="169" fill="#0f172a" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="800">C1</text>
+    <text x="380" y="160" fill="#f1f5f9" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600">Direct Engineering Labor Cost</text>
+    <text x="380" y="174" fill="#a5b4fc" font-family="'Inter', system-ui, sans-serif" font-size="10">MTTR × Avg Eng Hourly Rate × Responders Count</text>
+
+    <!-- Cost Component: Direct Financial Impact -->
+    <rect x="340" y="195" width="320" height="40" rx="6" fill="#1e1b4b" stroke="#3730a3" stroke-width="1" />
+    <circle cx="360" cy="215" r="8" fill="#d946ef" />
+    <text x="356" y="219" fill="#0f172a" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="800">C2</text>
+    <text x="380" y="210" fill="#f1f5f9" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600">Direct Business Penalties</text>
+    <text x="380" y="224" fill="#a5b4fc" font-family="'Inter', system-ui, sans-serif" font-size="10">SLA Credits + Transaction Refunds + Fine/Regulatory</text>
+
+    <!-- Cost Component: Opportunity Cost -->
+    <rect x="340" y="245" width="320" height="40" rx="6" fill="#1e1b4b" stroke="#3730a3" stroke-width="1" />
+    <circle cx="360" cy="265" r="8" fill="#f59e0b" />
+    <text x="356" y="269" fill="#0f172a" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="800">C3</text>
+    <text x="380" y="260" fill="#f1f5f9" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600">Opportunity &amp; Velocity Cost</text>
+    <text x="380" y="274" fill="#a5b4fc" font-family="'Inter', system-ui, sans-serif" font-size="10">Post-Incident Fixes (Hours) × Dev Velocity Rate</text>
+
+    <!-- Cost Component: Reputational Loss & Churn -->
+    <rect x="340" y="295" width="320" height="40" rx="6" fill="#1e1b4b" stroke="#3730a3" stroke-width="1" />
+    <circle cx="360" cy="315" r="8" fill="#ef4444" />
+    <text x="356" y="319" fill="#0f172a" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="800">C4</text>
+    <text x="380" y="310" fill="#f1f5f9" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600">Customer Churn &amp; Goodwill Loss</text>
+    <text x="380" y="324" fill="#a5b4fc" font-family="'Inter', system-ui, sans-serif" font-size="10">Expected Churn Value (LTV) + Support Queue Overload</text>
+  </g>
+
+  <!-- SECTION 3: DECISIONING & ROI (RIGHT) -->
+  <text x="730" y="110" fill="#94a3b8" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="600" letter-spacing="1">3. RELIABILITY INVESTMENT</text>
+  <g filter="url(#shadow)">
+    <rect x="730" y="125" width="220" height="235" rx="10" fill="url(#investmentGrad)" stroke="#047857" stroke-width="1.5" />
+
+    <!-- Risk Exposure Metric -->
+    <rect x="745" y="145" width="190" height="55" rx="6" fill="#022c22" stroke="#065f46" stroke-width="1" />
+    <text x="755" y="165" fill="#34d399" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700">ANNUAL RISK EXPOSURE (ARE)</text>
+    <text x="755" y="183" fill="#f8fafc" font-family="'Inter', system-ui, sans-serif" font-size="13" font-weight="700">∑ (Annual Freq × TCOI)</text>
+
+    <!-- ROI Metric -->
+    <rect x="745" y="215" width="190" height="55" rx="6" fill="#022c22" stroke="#065f46" stroke-width="1" />
+    <text x="755" y="235" fill="#34d399" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="700">RELIABILITY ROI FORMULA</text>
+    <text x="755" y="253" fill="#f8fafc" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700">(Δ ARE - Cost_R) / Cost_R</text>
+
+    <!-- Allocation Backlog -->
+    <rect x="745" y="285" width="190" height="60" rx="6" fill="#047857" stroke="#34d399" stroke-width="1" />
+    <text x="755" y="305" fill="#ffffff" font-family="'Inter', system-ui, sans-serif" font-size="12" font-weight="700">Engineering Action</text>
+    <text x="755" y="322" fill="#d1fae5" font-family="'Inter', system-ui, sans-serif" font-size="10">Prioritize Architectural Fixes</text>
+    <text x="755" y="334" fill="#d1fae5" font-family="'Inter', system-ui, sans-serif" font-size="9" font-weight="400">vs Feature Backlog via ROI</text>
+  </g>
+
+  <!-- FEEDBACK LOOP & PIPELINE ARROWS -->
+  <!-- Sources to Cost Engine -->
+  <path d="M 250 157 L 285 157 L 285 242 L 320 242" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 250 242 L 320 242" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 250 327 L 285 327 L 285 242 L 320 242" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Cost Engine to Decisioning -->
+  <path d="M 680 242 L 730 242" fill="none" stroke="#06b6d4" stroke-dasharray="4,4" stroke-width="2" marker-end="url(#arrowCyan)" />
+  <text x="683" y="234" fill="#06b6d4" font-family="'Inter', system-ui, sans-serif" font-size="10" font-weight="600">Cost Data</text>
+
+  <!-- Continuous Loop: Action back to Telemetry / System Reliability -->
+  <path d="M 840 360 L 840 430 L 150 430 L 150 360" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowEmerald)" />
+  
+  <rect x="400" y="415" width="200" height="30" rx="15" fill="#064e3b" stroke="#10b981" stroke-width="1" />
+  <text x="500" y="434" fill="#10b981" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">
+    CONTINUOUS MITIGATION LOOP
+  </text>
+  <text x="500" y="460" fill="#94a3b8" font-family="'Inter', system-ui, sans-serif" font-size="11" text-anchor="middle">
+    Reliability enhancements reduce incident frequency/severity, updating incoming metrics.
+  </text>
+
+  <!-- Mathematical Legend (Bottom Panel) -->
+  <g transform="translate(50, 485)">
+    <rect width="900" height="70" rx="8" fill="#1e293b" opacity="0.4" />
+    <rect width="900" height="70" rx="8" fill="none" stroke="#334155" stroke-width="1" />
+    <text x="20" y="25" fill="#f8fafc" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700">CORE MATHEMATICAL FORMULATION</text>
+    
+    <!-- Formulas -->
+    <text x="20" y="48" fill="#e2e8f0" font-family="'Inter', system-ui, sans-serif" font-size="12">
+      <tspan fill="#f43f5e" font-weight="600">Total Cost (TCOI)</tspan> = C₁ + C₂ + C₃ + C₄
+    </text>
+    
+    <text x="320" y="48" fill="#e2e8f0" font-family="'Inter', system-ui, sans-serif" font-size="12">
+      <tspan fill="#06b6d4" font-weight="600">Annual Risk Exposure (ARE)</tspan> = ∑ (λ_i × TCOI_i)
+    </text>
+
+    <text x="680" y="48" fill="#e2e8f0" font-family="'Inter', system-ui, sans-serif" font-size="12">
+      <tspan fill="#10b981" font-weight="600">Investment ROI</tspan> = (ARE_before - ARE_after - Cost_R) / Cost_R
+    </text>
+  </g>
+</svg>

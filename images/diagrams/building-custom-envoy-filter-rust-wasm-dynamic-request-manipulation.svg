@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#0f172a" rx="8"/>
+  
+  <!-- Definitions for gradients/shadows -->
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="violetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="40" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="20" font-weight="bold">
+    Envoy WASM Filter Lifecycle &amp; Architecture
+  </text>
+  
+  <!-- Envoy Proxy Boundary -->
+  <rect x="220" y="80" width="360" height="340" rx="12" fill="#1e293b" stroke="#475569" stroke-width="2" filter="url(#glow)"/>
+  <text x="240" y="110" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14" font-weight="600" letter-spacing="1">
+    ENVOY PROXY
+  </text>
+
+  <!-- Client -->
+  <rect x="30" y="190" width="130" height="70" rx="8" fill="url(#skyGrad)" filter="url(#glow)"/>
+  <text x="95" y="225" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">Downstream Client</text>
+  <text x="95" y="245" text-anchor="middle" fill="#e0f2fe" font-family="system-ui, sans-serif" font-size="11">gRPC / HTTP</text>
+
+  <!-- Wasm VM Container inside Envoy -->
+  <rect x="250" y="150" width="300" height="230" rx="10" fill="#0f172a" stroke="#f43f5e" stroke-width="2" stroke-dasharray="4"/>
+  <text x="270" y="175" fill="#f43f5e" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" letter-spacing="0.5">
+    WASM VM (proxy-wasm SDK)
+  </text>
+
+  <!-- Wasm Filter Logic -->
+  <rect x="280" y="200" width="240" height="150" rx="8" fill="url(#roseGrad)" filter="url(#glow)"/>
+  <text x="400" y="235" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="15" font-weight="bold">Rust Wasm Filter</text>
+  <text x="400" y="255" text-anchor="middle" fill="#ffe4e6" font-family="system-ui, sans-serif" font-size="11">`on_http_request_headers`</text>
+  <text x="400" y="275" text-anchor="middle" fill="#ffe4e6" font-family="system-ui, sans-serif" font-size="11">`dispatch_http_call`</text>
+  <text x="400" y="295" text-anchor="middle" fill="#ffe4e6" font-family="system-ui, sans-serif" font-size="11">`on_http_call_response`</text>
+  <text x="400" y="315" text-anchor="middle" fill="#ffe4e6" font-family="system-ui, sans-serif" font-size="11">`resume_http_request` / `send_local_response`</text>
+
+  <!-- Upstream Service -->
+  <rect x="640" y="190" width="130" height="70" rx="8" fill="url(#violetGrad)" filter="url(#glow)"/>
+  <text x="705" y="225" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">Upstream Service</text>
+  <text x="705" y="245" text-anchor="middle" fill="#f3e8ff" font-family="system-ui, sans-serif" font-size="11">Target Backend</text>
+
+  <!-- External Auth / Policy Service (Out-of-band) -->
+  <rect x="335" y="430" width="130" height="60" rx="8" fill="url(#emeraldGrad)" filter="url(#glow)"/>
+  <text x="400" y="460" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">OOB Auth Service</text>
+  <text x="400" y="475" text-anchor="middle" fill="#d1fae5" font-family="system-ui, sans-serif" font-size="10">gRPC / REST API</text>
+
+  <!-- Arrows & Connections -->
+  <!-- 1. Client -> Wasm Filter (Request) -->
+  <path d="M 160 225 L 270 225" fill="none" stroke="#38bdf8" stroke-width="3" marker-end="url(#arrow-sky)"/>
+  <text x="215" y="215" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">1. Request</text>
+
+  <!-- 2. Wasm Filter -> OOB Auth (Dispatch HTTP call) -->
+  <path d="M 370 350 L 370 420" fill="none" stroke="#f43f5e" stroke-width="3" marker-end="url(#arrow-rose-down)"/>
+  <text x="315" y="390" text-anchor="middle" fill="#f43f5e" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">2. Dispatch</text>
+
+  <!-- 3. OOB Auth -> Wasm Filter (Response callback) -->
+  <path d="M 430 420 L 430 350" fill="none" stroke="#34d399" stroke-width="3" marker-end="url(#arrow-emerald-up)"/>
+  <text x="480" y="390" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">3. Callback</text>
+
+  <!-- 4. Wasm Filter -> Upstream (Forward request) -->
+  <path d="M 530 225 L 630 225" fill="none" stroke="#a78bfa" stroke-width="3" marker-end="url(#arrow-violet)"/>
+  <text x="580" y="215" text-anchor="middle" fill="#a78bfa" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">4. Forward</text>
+
+  <!-- Marker definitions for arrows -->
+  <defs>
+    <marker id="arrow-sky" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-rose-down" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f43f5e" />
+    </marker>
+    <marker id="arrow-emerald-up" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399" />
+    </marker>
+    <marker id="arrow-violet" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a78bfa" />
+    </marker>
+  </defs>
+</svg>
