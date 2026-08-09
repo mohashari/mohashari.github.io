@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="100%" height="100%" style="background:#0b0f19; font-family:'Inter', system-ui, -apple-system, sans-serif;">
+  <!-- Definitions for gradients and shadows -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e40af" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6b21a8" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#065f46" />
+      <stop offset="100%" stop-color="#10b981" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#f59e0b"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="30" y="45" fill="#f8fafc" font-size="20" font-weight="700" letter-spacing="-0.5px">Compiler-Aided CFG State Machine Logit Masking Architecture</text>
+  <text x="30" y="70" fill="#64748b" font-size="13">High-throughput structured output generation loop within an LLM inference engine</text>
+
+  <!-- Container for Engine Boundary -->
+  <rect x="20" y="95" width="960" height="500" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1.5" />
+  <text x="40" y="120" fill="#475569" font-size="11" font-weight="700" letter-spacing="1px" transform="rotate(0)">INFERENCE ENGINE PIPELINE</text>
+
+  <!-- Step 1: Prompt & History -->
+  <g transform="translate(40, 150)" filter="url(#dropShadow)">
+    <rect width="180" height="80" rx="8" fill="url(#slateGrad)" stroke="#334155" stroke-width="1.5"/>
+    <text x="90" y="35" fill="#f8fafc" font-size="14" font-weight="600" text-anchor="middle">Token History</text>
+    <text x="90" y="55" fill="#94a3b8" font-size="12" text-anchor="middle">Prefix + Generated Tokens</text>
+    <rect x="15" y="62" width="150" height="4" rx="2" fill="#3b82f6" opacity="0.6"/>
+  </g>
+
+  <!-- Arrow from History to LLM -->
+  <path d="M 220 190 L 260 190" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 2: LLM Transformer Core -->
+  <g transform="translate(270, 150)" filter="url(#dropShadow)">
+    <rect width="200" height="80" rx="8" fill="url(#blueGrad)" stroke="#2563eb" stroke-width="1.5"/>
+    <text x="100" y="35" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Transformer Core</text>
+    <text x="100" y="55" fill="#bfdbfe" font-size="12" text-anchor="middle">Model Inference (Forward Pass)</text>
+    <text x="100" y="70" fill="#93c5fd" font-size="10" font-family="monospace" text-anchor="middle">O(Seq_Len) Attention</text>
+  </g>
+
+  <!-- Arrow from LLM to Raw Logits -->
+  <path d="M 470 190 L 510 190" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 3: Raw Logits Box -->
+  <g transform="translate(520, 150)" filter="url(#dropShadow)">
+    <rect width="160" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="80" y="35" fill="#f8fafc" font-size="14" font-weight="600" text-anchor="middle">Raw Logits [V]</text>
+    <text x="80" y="55" fill="#94a3b8" font-size="11" text-anchor="middle">Unconstrained Float Array</text>
+    <text x="80" y="70" fill="#e2e8f0" font-size="10" font-family="monospace" text-anchor="middle">V = 32,000+ tokens</text>
+  </g>
+
+  <!-- Arrow from Raw Logits to Logit Masker -->
+  <path d="M 680 190 L 720 190" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 4: Compiler-Aided CFG State Machine (Bottom Left / Center) -->
+  <!-- Context-Free Grammar (JSON Schema / EBNF) -->
+  <g transform="translate(40, 360)" filter="url(#dropShadow)">
+    <rect width="180" height="90" rx="8" fill="url(#slateGrad)" stroke="#334155" stroke-width="1.5"/>
+    <text x="90" y="30" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">CFG Definition</text>
+    <text x="90" y="50" fill="#94a3b8" font-size="11" text-anchor="middle">JSON Schema / EBNF Rules</text>
+    <text x="90" y="70" fill="#f59e0b" font-size="10" font-family="monospace" text-anchor="middle">Compiled to State Machine</text>
+  </g>
+
+  <!-- Arrow from CFG to Compiler/State Machine -->
+  <path d="M 220 405 L 260 405" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Compiler-Aided State Machine (The core of the article) -->
+  <g transform="translate(270, 340)" filter="url(#dropShadow)">
+    <rect width="200" height="120" rx="8" fill="url(#purpleGrad)" stroke="#7e22ce" stroke-width="1.5"/>
+    <text x="100" y="30" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">CFG State Machine</text>
+    <text x="100" y="50" fill="#f3e8ff" font-size="11" text-anchor="middle">Lexer &amp; Parser PDA</text>
+    <!-- Inner states representation -->
+    <rect x="20" y="70" width="160" height="38" rx="4" fill="#581c87" opacity="0.8" stroke="#a855f7" stroke-dasharray="2 2"/>
+    <circle cx="50" cy="89" r="8" fill="#a855f7" />
+    <circle cx="50" cy="89" r="4" fill="#ffffff" />
+    <line x1="58" y1="89" x2="82" y2="89" stroke="#e9d5ff" stroke-width="2" />
+    <circle cx="90" cy="89" r="8" fill="#d8b4fe" />
+    <line x1="98" y1="89" x2="122" y2="89" stroke="#e9d5ff" stroke-width="2" />
+    <circle cx="130" cy="89" r="10" fill="#e9d5ff" stroke="#a855f7" stroke-width="2" />
+    <circle cx="130" cy="89" r="6" fill="#a855f7" />
+  </g>
+
+  <!-- Arrow from CFG State Machine to Token Mask Generator -->
+  <path d="M 470 405 L 510 405" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 5: Token Mask Generator -->
+  <g transform="translate(520, 350)" filter="url(#dropShadow)">
+    <rect width="160" height="100" rx="8" fill="url(#amberGrad)" stroke="#d97706" stroke-width="1.5"/>
+    <text x="80" y="30" fill="#ffffff" font-size="13" font-weight="600" text-anchor="middle">Trie-Based Token Masker</text>
+    <text x="80" y="50" fill="#fef3c7" font-size="11" text-anchor="middle">Find Allowed Prefix Identifiers</text>
+    <!-- Bitmask Representation -->
+    <g transform="translate(15, 65)">
+      <rect x="0" y="0" width="20" height="20" rx="3" fill="#10b981" />
+      <text x="10" y="14" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">1</text>
+      <rect x="25" y="0" width="20" height="20" rx="3" fill="#ef4444" />
+      <text x="35" y="14" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">0</text>
+      <rect x="50" y="0" width="20" height="20" rx="3" fill="#ef4444" />
+      <text x="60" y="14" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">0</text>
+      <rect x="75" y="0" width="20" height="20" rx="3" fill="#10b981" />
+      <text x="85" y="14" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">1</text>
+      <rect x="100" y="0" width="20" height="20" rx="3" fill="#ef4444" />
+      <text x="110" y="14" fill="#ffffff" font-size="10" font-weight="700" text-anchor="middle">0</text>
+      <text x="125" y="14" fill="#f59e0b" font-size="12" font-weight="700">...</text>
+    </g>
+  </g>
+
+  <!-- Arrow from Token Mask Generator to Masker -->
+  <path d="M 600 350 L 600 290 Q 600 270 700 270 L 790 270 L 790 245" fill="none" stroke="#f59e0b" stroke-width="2.5" marker-end="url(#arrow-amber)" stroke-dasharray="3 3" />
+  <text x="690" y="260" fill="#f59e0b" font-size="11" font-weight="600" text-anchor="middle">Token Bitmask [V]</text>
+
+  <!-- Step 6: Logit Processor / Masker (Right Column) -->
+  <g transform="translate(730, 150)" filter="url(#dropShadow)">
+    <rect width="180" height="80" rx="8" fill="url(#emeraldGrad)" stroke="#047857" stroke-width="1.5"/>
+    <text x="90" y="30" fill="#ffffff" font-size="14" font-weight="600" text-anchor="middle">Logit Masker</text>
+    <text x="90" y="50" fill="#a7f3d0" font-size="11" text-anchor="middle">Disallowed Set to -inf</text>
+    <text x="90" y="68" fill="#34d399" font-size="9" font-family="monospace" text-anchor="middle">logits[i] = -inf if mask[i]==0</text>
+  </g>
+
+  <!-- Arrow from Masker to Sampler -->
+  <path d="M 820 230 L 820 330" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Step 7: Sampler -->
+  <g transform="translate(730, 340)" filter="url(#dropShadow)">
+    <rect width="180" height="80" rx="8" fill="url(#slateGrad)" stroke="#334155" stroke-width="1.5"/>
+    <text x="90" y="35" fill="#f8fafc" font-size="14" font-weight="600" text-anchor="middle">Sampler</text>
+    <text x="90" y="55" fill="#94a3b8" font-size="12" text-anchor="middle">Argmax / Temperature</text>
+  </g>
+
+  <!-- Arrow from Sampler to output/next token -->
+  <path d="M 820 420 L 820 490 L 730 490" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <text x="830" y="460" fill="#10b981" font-size="11" font-weight="600">Selected Token ID</text>
+
+  <!-- Output & Feedback Node -->
+  <g transform="translate(540, 465)" filter="url(#dropShadow)">
+    <rect width="180" height="50" rx="6" fill="#1e293b" stroke="#10b981" stroke-width="1.5" />
+    <text x="90" y="28" fill="#10b981" font-size="12" font-weight="700" text-anchor="middle" font-family="monospace">Token Decoded &amp; Emitted</text>
+  </g>
+
+  <!-- Feedback loops -->
+  <!-- 1. Loop back to History -->
+  <path d="M 540 490 L 130 490 L 130 240" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="4 4" />
+  <text x="210" y="480" fill="#3b82f6" font-size="11" font-weight="600">Append to History</text>
+
+  <!-- 2. Loop back to CFG State Machine -->
+  <path d="M 540 490 L 370 490 L 370 470" fill="none" stroke="#a855f7" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="4 4" />
+  <text x="445" y="480" fill="#a855f7" font-size="11" font-weight="600">Transition PDA State</text>
+
+</svg>

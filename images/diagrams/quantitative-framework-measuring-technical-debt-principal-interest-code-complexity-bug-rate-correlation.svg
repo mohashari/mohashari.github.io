@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    
+    <!-- Box Gradients -->
+    <linearGradient id="boxGradGreen" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="boxGradBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#2563EB" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="boxGradOrange" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#D97706" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="boxGradPurple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#7C3AED" stop-opacity="0.05" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5" />
+    </filter>
+
+    <!-- Connector Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#4B5563" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#60A5FA" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FBBF24" />
+    </marker>
+  </defs>
+
+  <!-- Base Canvas -->
+  <rect width="880" height="520" rx="12" fill="url(#bgGrad)" stroke="#1F2937" stroke-width="2" />
+  
+  <!-- Subtle Grid Lines -->
+  <g stroke="#374151" stroke-width="0.5" stroke-dasharray="10 15" opacity="0.15">
+    <line x1="80" y1="0" x2="80" y2="520" />
+    <line x1="280" y1="0" x2="280" y2="520" />
+    <line x1="600" y1="0" x2="600" y2="520" />
+    <line x1="0" y1="130" x2="880" y2="130" />
+    <line x1="0" y1="390" x2="880" y2="390" />
+  </g>
+
+  <!-- Title Banner -->
+  <text x="30" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="800" fill="#F3F4F6" letter-spacing="0.5">TECHNICAL DEBT METRICS FLOW PIPELINE</text>
+  <text x="30" y="68" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" fill="#9CA3AF">Correlation of AST Complexity &amp; Git Churn with Production Incidents to quantify Principal &amp; Interest</text>
+
+  <!-- SECTION 1: INGESTION STAGE (Left Column) -->
+  <g transform="translate(40, 100)" filter="url(#shadow)">
+    <!-- Section Border Box -->
+    <rect width="200" height="380" rx="8" fill="none" stroke="#374151" stroke-dasharray="5 5" />
+    <text x="15" y="-12" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1">DATA SOURCE INGESTION</text>
+
+    <!-- Source 1: AST Parser -->
+    <g transform="translate(15, 25)">
+      <rect width="170" height="90" rx="6" fill="url(#boxGradGreen)" stroke="#10B981" stroke-width="1.5" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#34D399">AST Complexity Parser</text>
+      <text x="15" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9CA3AF">Cognitive &amp; Cyclomatic</text>
+      <text x="15" y="60" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9CA3AF">Metrics per File (LOC, CC)</text>
+      <rect x="15" y="70" width="70" height="12" rx="3" fill="#065F46" />
+      <text x="20" y="79" font-family="'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" fill="#34D399">static-analysis</text>
+    </g>
+
+    <!-- Source 2: Git Metadata Engine -->
+    <g transform="translate(15, 145)">
+      <rect width="170" height="90" rx="6" fill="url(#boxGradGreen)" stroke="#10B981" stroke-width="1.5" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#34D399">Git Metadata Engine</text>
+      <text x="15" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9CA3AF">Commit Churn, Ownership</text>
+      <text x="15" y="60" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9CA3AF">&amp; Modification Frequency</text>
+      <rect x="15" y="70" width="45" height="12" rx="3" fill="#065F46" />
+      <text x="20" y="79" font-family="'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" fill="#34D399">git-log</text>
+    </g>
+
+    <!-- Source 3: Jira/GitHub Issues API -->
+    <g transform="translate(15, 265)">
+      <rect width="170" height="90" rx="6" fill="url(#boxGradGreen)" stroke="#10B981" stroke-width="1.5" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#34D399">Issue Tracker Parser</text>
+      <text x="15" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9CA3AF">Bug Tickets, Hotfixes,</text>
+      <text x="15" y="60" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9CA3AF">&amp; MTTR/Resolution Time</text>
+      <rect x="15" y="70" width="55" height="12" rx="3" fill="#065F46" />
+      <text x="20" y="79" font-family="'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" fill="#34D399">jira-api/gh</text>
+    </g>
+  </g>
+
+  <!-- SECTION 2: CORRELATION ENGINE (Middle Column) -->
+  <g transform="translate(290, 100)" filter="url(#shadow)">
+    <!-- Section Border Box -->
+    <rect width="250" height="380" rx="8" fill="none" stroke="#374151" stroke-dasharray="5 5" />
+    <text x="15" y="-12" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1">PROCESSING &amp; CORRELATION</text>
+
+    <!-- File-to-Bug Mapper -->
+    <g transform="translate(20, 45)">
+      <rect width="210" height="110" rx="6" fill="url(#boxGradBlue)" stroke="#3B82F6" stroke-width="1.5" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#60A5FA">Bug-to-File Mapper</text>
+      <text x="15" y="50" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#D1D5DB">Cross-references Bug IDs with Git</text>
+      <text x="15" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#D1D5DB">commit diffs to isolate buggy files.</text>
+      <text x="15" y="90" font-family="'Courier New', Courier, monospace" font-size="10" font-weight="700" fill="#93C5FD">Regex: /([A-Z]+-[0-9]+)/</text>
+    </g>
+
+    <!-- Quantitative Correlation Analyzer -->
+    <g transform="translate(20, 215)">
+      <rect width="210" height="130" rx="6" fill="url(#boxGradBlue)" stroke="#3B82F6" stroke-width="1.5" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#60A5FA">Correlation Analyzer</text>
+      <text x="15" y="50" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9CA3AF">Aggregates dimensions:</text>
+      <text x="30" y="70" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#E5E7EB">1. Complexity Metrics (X)</text>
+      <text x="30" y="85" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#E5E7EB">2. Code Churn Rate (Y)</text>
+      <text x="30" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#E5E7EB">3. Bug Rate Density (Z)</text>
+    </g>
+  </g>
+
+  <!-- SECTION 3: METRIC OUTPUT (Right Column) -->
+  <g transform="translate(590, 100)" filter="url(#shadow)">
+    <!-- Section Border Box -->
+    <rect width="250" height="380" rx="8" fill="none" stroke="#374151" stroke-dasharray="5 5" />
+    <text x="15" y="-12" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1">METRIC CONVERSION</text>
+
+    <!-- Principal Box -->
+    <g transform="translate(20, 35)">
+      <rect width="210" height="130" rx="6" fill="url(#boxGradOrange)" stroke="#F59E0B" stroke-width="1.5" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#FBBF24">DEBT PRINCIPAL (P)</text>
+      <text x="15" y="48" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9CA3AF">Est. Effort to Refactor to Target</text>
+      
+      <rect x="15" y="65" width="180" height="50" rx="4" fill="#000" fill-opacity="0.3" />
+      <text x="25" y="82" font-family="'Courier New', Courier, monospace" font-size="11" font-weight="700" fill="#FBBF24">P = Σ (Δ LOC * CF)</text>
+      <text x="25" y="98" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#9CA3AF">CF: Complexity Factor (1.2-2.5)</text>
+    </g>
+
+    <!-- Interest Box -->
+    <g transform="translate(20, 205)">
+      <rect width="210" height="145" rx="6" fill="url(#boxGradPurple)" stroke="#8B5CF6" stroke-width="1.5" />
+      <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#A78BFA">DEBT INTEREST (I)</text>
+      <text x="15" y="48" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9CA3AF">Recurring Waste / Friction Cost</text>
+      
+      <rect x="15" y="65" width="180" height="65" rx="4" fill="#000" fill-opacity="0.3" />
+      <text x="25" y="82" font-family="'Courier New', Courier, monospace" font-size="10.5" font-weight="700" fill="#A78BFA">I = (N * MTTR) + F_tax</text>
+      <text x="25" y="100" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#9CA3AF">N: Recurring Bugs/Month</text>
+      <text x="25" y="112" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#9CA3AF">F_tax: Churn Velocity Slowdown</text>
+    </g>
+  </g>
+
+  <!-- CONNECTIONS / FLOW ARROWS -->
+
+  <!-- Ingestion to Processing -->
+  <!-- Line from Parser to Mapper -->
+  <path d="M 225 170 L 255 170 L 255 200 L 295 200" fill="none" stroke="#4B5563" stroke-width="1.5" marker-end="url(#arrow)" />
+  <!-- Line from Git Engine to Mapper -->
+  <path d="M 225 290 L 255 290 L 255 200 L 295 200" fill="none" stroke="#4B5563" stroke-width="1.5" marker-end="url(#arrow)" />
+  <!-- Line from Git Engine to Correlation -->
+  <path d="M 225 290 L 255 290 L 255 350 L 295 350" fill="none" stroke="#4B5563" stroke-width="1.5" marker-end="url(#arrow)" />
+  <!-- Line from Issues Parser to Correlation -->
+  <path d="M 225 410 L 270 410 L 270 350 L 295 350" fill="none" stroke="#4B5563" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Processing Internal Link -->
+  <!-- Mapper to Correlation -->
+  <path d="M 415 255 L 415 315" fill="none" stroke="#3B82F6" stroke-dasharray="3 3" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+
+  <!-- Processing to Output (Financial Metrics) -->
+  <!-- Correlation to Principal -->
+  <path d="M 520 315 L 560 315 L 560 200 L 595 200" fill="none" stroke="#FBBF24" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arrow-orange)" />
+  <!-- Correlation to Interest -->
+  <path d="M 520 315 L 560 315 L 560 370 L 595 370" fill="none" stroke="#A78BFA" stroke-width="1.5" stroke-dasharray="4 2" marker-end="url(#arrow-orange)" />
+
+</svg>
