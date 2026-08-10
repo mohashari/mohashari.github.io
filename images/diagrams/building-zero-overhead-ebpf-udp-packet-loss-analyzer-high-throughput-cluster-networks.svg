@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Block Gradients -->
+    <linearGradient id="nicGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <linearGradient id="kernelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <linearGradient id="ebpfGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+
+    <linearGradient id="goGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22c55e" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+
+    <linearGradient id="alertGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="glowPurple" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="650" rx="12" fill="url(#bgGrad)"/>
+  <rect width="1000" height="650" rx="12" fill="none" stroke="#334155" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="50" y="45" font-family="Inter, system-ui, sans-serif" font-size="22" font-weight="700" fill="#f8fafc">
+    eBPF UDP Packet Loss Analyzer Architecture
+  </text>
+  <text x="50" y="70" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#94a3b8">
+    Zero-overhead kernel-space tracing of sk_buff drops with ringbuf telemetry
+  </text>
+
+  <!-- Sub-boundaries: Kernel Space vs Userspace -->
+  <rect x="30" y="110" width="600" height="500" rx="8" fill="#1e293b" fill-opacity="0.4" stroke="#475569" stroke-width="1.5" stroke-dasharray="6,4" />
+  <text x="45" y="135" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" letter-spacing="1">KERNEL SPACE</text>
+
+  <rect x="660" y="110" width="310" height="500" rx="8" fill="#1e293b" fill-opacity="0.4" stroke="#475569" stroke-width="1.5" stroke-dasharray="6,4" />
+  <text x="675" y="135" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#94a3b8" letter-spacing="1">USER SPACE</text>
+
+  <!-- NIC Layer -->
+  <g transform="translate(60, 160)" filter="url(#dropShadow)">
+    <rect width="160" height="65" rx="6" fill="url(#nicGrad)" />
+    <text x="80" y="30" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#ffffff">Network Interface</text>
+    <text x="80" y="48" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#e0f2fe">NIC Rx-Ring / Driver</text>
+  </g>
+
+  <!-- Kernel IP/UDP Stack Blocks -->
+  <g transform="translate(60, 270)" filter="url(#dropShadow)">
+    <rect width="160" height="65" rx="6" fill="url(#kernelGrad)" stroke="#64748b" stroke-width="1"/>
+    <text x="80" y="30" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#f1f5f9">IP Layer</text>
+    <text x="80" y="48" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#cbd5e1">ip_rcv() / routing</text>
+  </g>
+
+  <g transform="translate(60, 380)" filter="url(#dropShadow)">
+    <rect width="160" height="65" rx="6" fill="url(#kernelGrad)" stroke="#64748b" stroke-width="1"/>
+    <text x="80" y="30" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#f1f5f9">UDP Layer</text>
+    <text x="80" y="48" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#cbd5e1">udp_rcv()</text>
+  </g>
+
+  <g transform="translate(60, 490)" filter="url(#dropShadow)">
+    <rect width="160" height="65" rx="6" fill="url(#kernelGrad)" stroke="#64748b" stroke-width="1"/>
+    <text x="80" y="28" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#f1f5f9">Socket Queue</text>
+    <text x="80" y="46" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#cbd5e1">sock_queue_rcv_skb()</text>
+  </g>
+
+  <!-- Flow Arrows (Stack) -->
+  <g stroke="#94a3b8" stroke-width="3" fill="none">
+    <!-- Arrow heads -->
+    <path d="M 140 225 L 140 260" marker-end="url(#arrow)" />
+    <path d="M 140 335 L 140 370" />
+    <path d="M 140 445 L 140 480" />
+  </g>
+
+  <!-- Drop / Free Event Hooks -->
+  <!-- Red alert boxes indicating drops -->
+  <g transform="translate(290, 270)" filter="url(#dropShadow)">
+    <rect width="130" height="50" rx="4" fill="url(#alertGrad)" />
+    <text x="65" y="24" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#ffffff">kfree_skb()</text>
+    <text x="65" y="40" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#fee2e2">Invalid Checksum / Route</text>
+  </g>
+
+  <g transform="translate(290, 490)" filter="url(#dropShadow)">
+    <rect width="130" height="50" rx="4" fill="url(#alertGrad)" />
+    <text x="65" y="24" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="600" fill="#ffffff">kfree_skb()</text>
+    <text x="65" y="40" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#fee2e2">Queue Buffer Full</text>
+  </g>
+
+  <!-- Drop path lines (Red dashed) -->
+  <path d="M 220 302 L 290 302" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4,4" fill="none" marker-end="url(#redArrow)"/>
+  <path d="M 220 522 L 290 522" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="4,4" fill="none" marker-end="url(#redArrow)"/>
+
+  <!-- Tracepoint: skb:kfree_skb -->
+  <g transform="translate(460, 360)" filter="url(#dropShadow)">
+    <rect width="140" height="70" rx="6" fill="url(#ebpfGrad)" stroke="#c084fc" stroke-width="1.5" />
+    <text x="70" y="25" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="#ffffff">eBPF Probe</text>
+    <text x="70" y="42" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#e9d5ff">tp/skb/kfree_skb</text>
+    <text x="70" y="56" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#d8b4fe">Filter: Proto == UDP</text>
+  </g>
+
+  <!-- Lines from drops to eBPF Probe -->
+  <path d="M 355 320 Q 380 395 460 395" stroke="#a855f7" stroke-width="2" stroke-dasharray="4,2" fill="none" marker-end="url(#purpleArrow)"/>
+  <path d="M 355 490 Q 380 395 460 395" stroke="#a855f7" stroke-width="2" stroke-dasharray="4,2" fill="none" marker-end="url(#purpleArrow)"/>
+
+  <!-- BPF Ring Buffer -->
+  <g transform="translate(460, 485)" filter="url(#dropShadow)">
+    <rect width="140" height="70" rx="6" fill="#581c87" stroke="#a855f7" stroke-width="1.5" />
+    <text x="70" y="25" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#f3e8ff" letter-spacing="0.5">BPF MAP</text>
+    <text x="70" y="42" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" fill="#e9d5ff">BPF Ringbuf</text>
+    <text x="70" y="58" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#c084fc">Lockless Shared Memory</text>
+  </g>
+  <path d="M 530 430 L 530 485" stroke="#c084fc" stroke-width="2.5" fill="none" marker-end="url(#purpleArrow)"/>
+
+  <!-- Go Collector (User Space) -->
+  <g transform="translate(710, 360)" filter="url(#dropShadow)">
+    <rect width="210" height="90" rx="6" fill="url(#goGrad)" stroke="#4ade80" stroke-width="1.5" />
+    <text x="105" y="25" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">Go Collector Daemon</text>
+    <text x="105" y="45" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#dcfce7">ebpf-udp-loss-exporter</text>
+    <text x="105" y="62" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#bbf7d0">Aggregates Drops &amp; Reason IP/Port</text>
+    <text x="105" y="78" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#86efac">Resolves /proc/kallsyms Symbols</text>
+  </g>
+
+  <!-- Ringbuf to Userspace Ringbuf Reader -->
+  <path d="M 600 520 H 815 V 450" stroke="#4ade80" stroke-width="2.5" stroke-dasharray="2,2" fill="none" marker-end="url(#greenArrow)"/>
+
+  <!-- Metrics Output -->
+  <g transform="translate(710, 190)" filter="url(#dropShadow)">
+    <rect width="210" height="75" rx="6" fill="#0f172a" stroke="#334155" stroke-width="1.5" />
+    <text x="105" y="25" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" fill="#e2e8f0">Prometheus Exporter</text>
+    <text x="105" y="45" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="500" fill="#38bdf8">HTTP Endpoint: :9100/metrics</text>
+    <text x="105" y="60" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#94a3b8">udp_loss_reason_total{src, dst, reason}</text>
+  </g>
+  <path d="M 815 360 L 815 265" stroke="#38bdf8" stroke-width="2.5" fill="none" marker-end="url(#blueArrow)"/>
+
+  <!-- External Systems (Grafana / Prometheus Server) -->
+  <g transform="translate(740, 40)" filter="url(#dropShadow)">
+    <rect width="150" height="50" rx="4" fill="#0f172a" stroke="#f97316" stroke-width="1.5" />
+    <text x="75" y="22" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="11" font-weight="700" fill="#fdba74">PROMETHEUS / GRAFANA</text>
+    <text x="75" y="38" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#94a3b8">Alerting &amp; Dashboards</text>
+  </g>
+  <path d="M 815 190 L 815 90" stroke="#f97316" stroke-width="2" fill="none" stroke-dasharray="4,4" marker-end="url(#orangeArrow)"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+    </marker>
+    <marker id="redArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+    </marker>
+    <marker id="purpleArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a855f7" />
+    </marker>
+    <marker id="greenArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4ade80" />
+    </marker>
+    <marker id="blueArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="orangeArrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f97316" />
+    </marker>
+  </defs>
+</svg>

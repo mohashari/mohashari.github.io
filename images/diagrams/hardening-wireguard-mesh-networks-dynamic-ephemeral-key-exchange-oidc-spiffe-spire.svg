@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Node Gradients -->
+    <linearGradient id="serverGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#312e81" />
+    </linearGradient>
+    <linearGradient id="peerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#022c22" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+    <linearGradient id="coordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917" />
+      <stop offset="100%" stop-color="#44403c" />
+    </linearGradient>
+
+    <!-- Component Gradients -->
+    <linearGradient id="spireAgentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0369a1" />
+      <stop offset="100%" stop-color="#0c4a6e" />
+    </linearGradient>
+    <linearGradient id="wgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="100%" stop-color="#78350f" />
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f59e0b" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="550" fill="url(#bgGrad)" rx="12" />
+
+  <!-- Grid Pattern Overlay for Tech Look -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 900,50 M 0,100 L 900,100 M 0,150 L 900,150 M 0,200 L 900,200 M 0,250 L 900,250 M 0,300 L 900,300 M 0,350 L 900,350 M 0,400 L 900,400 M 0,450 L 900,450 M 0,500 L 900,500" stroke="#ffffff" stroke-width="1" />
+    <path d="M 50,0 L 50,550 M 100,0 L 100,550 M 150,0 L 150,550 M 200,0 L 200,550 M 250,0 L 250,550 M 300,0 L 300,550 M 350,0 L 350,550 M 400,0 L 400,550 M 450,0 L 450,550 M 500,0 L 500,550 M 550,0 L 550,550 M 600,0 L 600,550 M 650,0 L 650,550 M 700,0 L 700,550 M 750,0 L 750,550 M 800,0 L 800,550 M 850,0 L 850,550" stroke="#ffffff" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="bold" letter-spacing="1">DYNAMIC WG EPHEMERAL KEY EXCHANGE ARCHITECTURE</text>
+
+  <!-- SPIRE Server & OIDC Provider -->
+  <g transform="translate(330, 60)" filter="url(#shadow)">
+    <rect width="240" height="90" rx="8" fill="url(#serverGrad)" stroke="#6366f1" stroke-width="2" />
+    <text x="120" y="28" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold">SPIRE Server (CA / OIDC)</text>
+    <text x="120" y="50" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11">Issues X.509 SVIDs &amp; OIDC JWTs</text>
+    <text x="120" y="68" text-anchor="middle" fill="#818cf8" font-family="monospace" font-size="10">Trust Root: spiffe://prod.mesh</text>
+  </g>
+
+  <!-- Key Exchange Coordinator -->
+  <g transform="translate(330, 220)" filter="url(#shadow)">
+    <rect width="240" height="90" rx="8" fill="url(#coordGrad)" stroke="#a8a29e" stroke-width="2" />
+    <text x="120" y="28" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold">Peer Coordinator API</text>
+    <text x="120" y="50" text-anchor="middle" fill="#e7e5e4" font-family="system-ui, -apple-system, sans-serif" font-size="11">Validates JWT-SVID (OIDC)</text>
+    <text x="120" y="68" text-anchor="middle" fill="#a8a29e" font-family="system-ui, -apple-system, sans-serif" font-size="11">Stores Ephemeral PubKeys &amp; IPs</text>
+  </g>
+
+  <!-- PEER NODE A -->
+  <g transform="translate(50, 180)" filter="url(#shadow)">
+    <!-- Node Boundary -->
+    <rect width="230" height="300" rx="10" fill="url(#peerGrad)" stroke="#10b981" stroke-width="2" />
+    <text x="115" y="25" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold">PEER A (mesh-node-1)</text>
+
+    <!-- SPIRE Agent Inside Peer A -->
+    <g transform="translate(15, 45)">
+      <rect width="200" height="70" rx="6" fill="url(#spireAgentGrad)" stroke="#38bdf8" stroke-width="1" />
+      <text x="100" y="22" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">SPIRE Agent</text>
+      <text x="100" y="42" text-anchor="middle" fill="#bae6fd" font-family="system-ui, -apple-system, sans-serif" font-size="10">Attests Node &amp; Workload</text>
+      <text x="100" y="58" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="9">Exposes /tmp/spire-agent/public/api.sock</text>
+    </g>
+
+    <!-- Key Rotator Daemon -->
+    <g transform="translate(15, 130)">
+      <rect width="200" height="70" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+      <text x="100" y="22" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">wg-rotator daemon</text>
+      <text x="100" y="40" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Generates Ephemeral WG Keypair</text>
+      <text x="100" y="56" text-anchor="middle" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="10">Fetches SVID, Publishes PubKey</text>
+    </g>
+
+    <!-- WireGuard Interface -->
+    <g transform="translate(15, 215)">
+      <rect width="200" height="65" rx="6" fill="url(#wgGrad)" stroke="#f59e0b" stroke-width="1" />
+      <text x="100" y="22" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">WireGuard (wg0)</text>
+      <text x="100" y="40" text-anchor="middle" fill="#fde68a" font-family="monospace" font-size="10">AllowedIPs: 10.200.0.1/32</text>
+      <text x="100" y="54" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="9">Port: 51820 (Ephemeral Key)</text>
+    </g>
+  </g>
+
+  <!-- PEER NODE B -->
+  <g transform="translate(620, 180)" filter="url(#shadow)">
+    <!-- Node Boundary -->
+    <rect width="230" height="300" rx="10" fill="url(#peerGrad)" stroke="#10b981" stroke-width="2" />
+    <text x="115" y="25" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold">PEER B (mesh-node-2)</text>
+
+    <!-- SPIRE Agent Inside Peer B -->
+    <g transform="translate(15, 45)">
+      <rect width="200" height="70" rx="6" fill="url(#spireAgentGrad)" stroke="#38bdf8" stroke-width="1" />
+      <text x="100" y="22" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">SPIRE Agent</text>
+      <text x="100" y="42" text-anchor="middle" fill="#bae6fd" font-family="system-ui, -apple-system, sans-serif" font-size="10">Attests Node &amp; Workload</text>
+      <text x="100" y="58" text-anchor="middle" fill="#38bdf8" font-family="monospace" font-size="9">Exposes /tmp/spire-agent/public/api.sock</text>
+    </g>
+
+    <!-- Key Rotator Daemon -->
+    <g transform="translate(15, 130)">
+      <rect width="200" height="70" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1" />
+      <text x="100" y="22" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">wg-rotator daemon</text>
+      <text x="100" y="40" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Generates Ephemeral WG Keypair</text>
+      <text x="100" y="56" text-anchor="middle" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="10">Fetches SVID, Publishes PubKey</text>
+    </g>
+
+    <!-- WireGuard Interface -->
+    <g transform="translate(15, 215)">
+      <rect width="200" height="65" rx="6" fill="url(#wgGrad)" stroke="#f59e0b" stroke-width="1" />
+      <text x="100" y="22" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">WireGuard (wg0)</text>
+      <text x="100" y="40" text-anchor="middle" fill="#fde68a" font-family="monospace" font-size="10">AllowedIPs: 10.200.0.2/32</text>
+      <text x="100" y="54" text-anchor="middle" fill="#f59e0b" font-family="monospace" font-size="9">Port: 51820 (Ephemeral Key)</text>
+    </g>
+  </g>
+
+  <!-- FLOW LINES & LABELS -->
+
+  <!-- Peer A Attestation (1) -->
+  <path d="M 280,105 L 330,105" stroke="#38bdf8" stroke-dasharray="4" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="305" y="95" text-anchor="middle" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">1. Attest</text>
+
+  <!-- Peer B Attestation (1) -->
+  <path d="M 620,105 L 570,105" stroke="#38bdf8" stroke-dasharray="4" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="595" y="95" text-anchor="middle" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold">1. Attest</text>
+
+  <!-- Peer A fetches JWT / SVID from SPIRE Agent (2) -->
+  <path d="M 115,225 L 115,200" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="125" y="213" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">2. Get SVID</text>
+
+  <!-- Peer B fetches JWT / SVID from SPIRE Agent (2) -->
+  <path d="M 685,225 L 685,200" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="695" y="213" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9">2. Get SVID</text>
+
+  <!-- Peer A publishes ephemeral key + endpoint (3) -->
+  <path d="M 265,340 C 300,340 300,280 330,280" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="290" y="325" text-anchor="middle" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">3. Register</text>
+
+  <!-- Peer B publishes ephemeral key + endpoint (3) -->
+  <path d="M 635,340 C 600,340 600,280 570,280" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="610" y="325" text-anchor="middle" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">3. Register</text>
+
+  <!-- Coordinator resolves configuration & fetches updates (4) -->
+  <path d="M 330,260 C 290,260 290,360 265,360" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-orange)" />
+  <text x="290" y="250" text-anchor="middle" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">4. Sync Peers</text>
+
+  <!-- Coordinator resolves configuration & fetches updates (4) -->
+  <path d="M 570,260 C 610,260 610,360 635,360" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-orange)" />
+  <text x="610" y="250" text-anchor="middle" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">4. Sync Peers</text>
+
+  <!-- local write key setup (5) -->
+  <path d="M 115,380 L 115,395" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-orange)" />
+  <text x="125" y="392" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="9">5. Set wg0 peers</text>
+
+  <!-- local write key setup (5) -->
+  <path d="M 685,380 L 685,395" stroke="#f59e0b" stroke-width="2" marker-end="url(#arrow-orange)" />
+  <text x="695" y="392" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="9">5. Set wg0 peers</text>
+
+  <!-- WireGuard Ephemeral VPN Tunnel (6) -->
+  <path d="M 265,430 L 635,430" stroke="#f59e0b" stroke-width="4" stroke-dasharray="8 4" marker-end="url(#arrow-orange)" marker-start="url(#arrow-orange)" />
+  <rect x="360" y="418" width="180" height="24" rx="4" fill="#78350f" stroke="#f59e0b" stroke-width="1" />
+  <text x="450" y="434" text-anchor="middle" fill="#fde68a" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">6. Ephemeral Tunnel (Mesh)</text>
+
+  <!-- Steps Legend -->
+  <g transform="translate(50, 485)">
+    <rect width="800" height="55" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="15" y="16" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold">LEGEND / LIFECYCLE:</text>
+    <text x="15" y="30" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="10">
+      (1) SPIRE Node Attestation &amp; Workload Identification | (2) Workload requests X.509/JWT from Agent | (3) Workload registers ephemeral public key authenticated via SVID
+    </text>
+    <text x="15" y="44" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="10">
+      (4) Coordinator pushes peer updates | (5) wg-rotator updates kernel config | (6) Secure, zero-trust tunnel traffic flows using rotating keys
+    </text>
+  </g>
+</svg>

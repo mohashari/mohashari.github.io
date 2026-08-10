@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%" style="background-color: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#c2410c" />
+    </linearGradient>
+    <linearGradient id="darkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9ca3af" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c084fc" />
+    </marker>
+  </defs>
+
+  <!-- Title/Header -->
+  <text x="30" y="40" fill="#f3f4f6" font-size="20" font-weight="bold">Custom vLLM PagedAttention VLM KV Cache Manager Architecture</text>
+  <text x="30" y="60" fill="#9ca3af" font-size="12">Optimizing large-scale visual prefix caching and contiguous-to-paged mapping for multi-modal serving</text>
+
+  <!-- Group: Inputs -->
+  <g transform="translate(30, 100)">
+    <rect width="180" height="380" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5" />
+    <text x="90" y="25" fill="#f3f4f6" font-size="14" font-weight="bold" text-anchor="middle">Multi-Modal Request</text>
+    
+    <!-- Image Box -->
+    <rect x="15" y="45" width="150" height="120" rx="6" fill="url(#blueGrad)" fill-opacity="0.15" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="90" y="75" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">Visual Input</text>
+    <text x="90" y="95" fill="#e5e7eb" font-size="11" text-anchor="middle">High Resolution Image</text>
+    <text x="90" y="115" fill="#9ca3af" font-size="10" text-anchor="middle">(e.g., 1024x1024 px)</text>
+    <rect x="40" y="130" width="100" height="20" rx="3" fill="#1f2937" stroke="#38bdf8" stroke-dasharray="2,2" />
+    <text x="90" y="144" fill="#38bdf8" font-size="9" font-weight="bold" text-anchor="middle">~576 - 1152 Tokens</text>
+
+    <!-- Text Box -->
+    <rect x="15" y="185" width="150" height="100" rx="6" fill="url(#purpleGrad)" fill-opacity="0.15" stroke="#c084fc" stroke-width="1.5" />
+    <text x="90" y="215" fill="#c084fc" font-size="12" font-weight="bold" text-anchor="middle">Text Prompt</text>
+    <text x="90" y="235" fill="#e5e7eb" font-size="11" text-anchor="middle">"Describe this image..."</text>
+    <rect x="40" y="250" width="100" height="20" rx="3" fill="#1f2937" stroke="#c084fc" stroke-dasharray="2,2" />
+    <text x="90" y="264" fill="#c084fc" font-size="9" font-weight="bold" text-anchor="middle">~20 - 100 Tokens</text>
+
+    <!-- Unified Tokenizer & Encoder -->
+    <rect x="15" y="305" width="150" height="60" rx="6" fill="#21262d" stroke="#30363d" stroke-width="1.5" />
+    <text x="90" y="325" fill="#e5e7eb" font-size="11" font-weight="bold" text-anchor="middle">Vision Encoder + Projector</text>
+    <text x="90" y="342" fill="#8b949e" font-size="10" text-anchor="middle">SigLIP / ViT-L + MLP</text>
+  </g>
+
+  <!-- Flow Arrows from Input to Manager -->
+  <path d="M 210,260 L 255,260" fill="none" stroke="#9ca3af" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="232" y="250" fill="#9ca3af" font-size="10" text-anchor="middle">Tokens</text>
+
+  <!-- Group: Custom VLM KV Cache Manager -->
+  <g transform="translate(270, 100)">
+    <rect width="320" height="380" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5" />
+    <text x="160" y="25" fill="#f3f4f6" font-size="14" font-weight="bold" text-anchor="middle">Custom VLM KV Cache Manager</text>
+    
+    <!-- Virtual Memory Router -->
+    <rect x="15" y="45" width="290" height="50" rx="6" fill="#21262d" stroke="#8b949e" stroke-width="1.5" />
+    <text x="160" y="70" fill="#f3f4f6" font-size="12" font-weight="bold" text-anchor="middle">Token-Type Aware Virtual Address Router</text>
+    <text x="160" y="85" fill="#8b949e" font-size="10" text-anchor="middle">Inspects sequence layout metadata per request</text>
+
+    <!-- Visual Cache Allocator (Contiguous Block Pool) -->
+    <rect x="15" y="115" width="290" height="110" rx="6" fill="url(#blueGrad)" fill-opacity="0.08" stroke="#38bdf8" stroke-width="1.2" />
+    <text x="25" y="135" fill="#38bdf8" font-size="12" font-weight="bold">Visual Prefix Allocator (Contiguous)</text>
+    <text x="25" y="152" fill="#8b949e" font-size="10">Maps massive visual token blocks into static physical segments</text>
+    <!-- Visual block array representation -->
+    <g transform="translate(25, 165)">
+      <rect x="0" y="0" width="60" height="25" rx="3" fill="#1e3a8a" stroke="#38bdf8" />
+      <text x="30" y="15" fill="#f3f4f6" font-size="9" text-anchor="middle">Img A [0-35]</text>
+      <rect x="65" y="0" width="60" height="25" rx="3" fill="#1e3a8a" stroke="#38bdf8" />
+      <text x="95" y="15" fill="#f3f4f6" font-size="9" text-anchor="middle">Img B [0-35]</text>
+      <rect x="130" y="0" width="80" height="25" rx="3" fill="#111827" stroke="#4b5563" stroke-dasharray="2,2" />
+      <text x="170" y="15" fill="#9ca3af" font-size="9" text-anchor="middle">Shared Visual Pool</text>
+      <text x="215" y="17" fill="#38bdf8" font-size="10" font-weight="bold">O(1) Hash Hit</text>
+    </g>
+    <text x="25" y="210" fill="#9ca3af" font-size="9">* Prevents page table bloat (saves 36 pages per image at block_size=16)</text>
+
+    <!-- Text Cache Allocator (Dynamic Paged) -->
+    <rect x="15" y="240" width="290" height="120" rx="6" fill="url(#purpleGrad)" fill-opacity="0.08" stroke="#c084fc" stroke-width="1.2" />
+    <text x="25" y="260" fill="#c084fc" font-size="12" font-weight="bold">Dynamic Text Allocator (Paged)</text>
+    <text x="25" y="277" fill="#8b949e" font-size="10">Manages generation tokens block-by-block dynamically</text>
+    
+    <!-- Table representation -->
+    <g transform="translate(25, 290)">
+      <rect x="0" y="0" width="100" height="60" rx="4" fill="#2e1065" stroke="#c084fc" stroke-width="1" />
+      <text x="50" y="15" fill="#f3f4f6" font-size="9" font-weight="bold" text-anchor="middle">Logical Blocks</text>
+      <text x="50" y="32" fill="#c084fc" font-size="9" text-anchor="middle">Seq0: Block 0, 1</text>
+      <text x="50" y="47" fill="#c084fc" font-size="9" text-anchor="middle">Seq1: Block 0</text>
+      
+      <!-- Arrow -->
+      <path d="M 110,30 L 135,30" fill="none" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#arrow)" />
+      
+      <rect x="145" y="0" width="115" height="60" rx="4" fill="#111827" stroke="#4b5563" stroke-width="1" />
+      <text x="202" y="15" fill="#f3f4f6" font-size="9" font-weight="bold" text-anchor="middle">Physical Mapping</text>
+      <text x="202" y="32" fill="#e5e7eb" font-size="9" text-anchor="middle">Logical 0 -&gt; Page 512</text>
+      <text x="202" y="47" fill="#e5e7eb" font-size="9" text-anchor="middle">Logical 1 -&gt; Page 723</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrows from Manager to Physical GPU Memory -->
+  <path d="M 590,190 L 640,190" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <path d="M 590,380 L 640,380" fill="none" stroke="#c084fc" stroke-width="2" marker-end="url(#arrow-purple)" />
+
+  <!-- Group: GPU Memory (Physical KV Cache) -->
+  <g transform="translate(650, 100)">
+    <rect width="220" height="380" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5" />
+    <text x="110" y="25" fill="#f3f4f6" font-size="14" font-weight="bold" text-anchor="middle">GPU VRAM (KV Cache)</text>
+
+    <!-- Contiguous Visual Arena -->
+    <rect x="15" y="45" width="190" height="150" rx="6" fill="#1e3a8a" fill-opacity="0.3" stroke="#38bdf8" stroke-width="1.5" />
+    <text x="110" y="65" fill="#38bdf8" font-size="12" font-weight="bold" text-anchor="middle">Contiguous Visual Arena</text>
+    
+    <g transform="translate(25, 80)">
+      <!-- Visual block segments -->
+      <rect x="0" y="0" width="170" height="30" rx="3" fill="#1d4ed8" stroke="#38bdf8" />
+      <text x="85" y="18" fill="#f3f4f6" font-size="10" text-anchor="middle">Shared Visual Cache (Img A)</text>
+      
+      <rect x="0" y="40" width="170" height="30" rx="3" fill="#1d4ed8" stroke="#38bdf8" />
+      <text x="85" y="58" fill="#f3f4f6" font-size="10" text-anchor="middle">Shared Visual Cache (Img B)</text>
+
+      <rect x="0" y="80" width="170" height="20" rx="3" fill="#111827" stroke="#4b5563" stroke-dasharray="2,2" />
+      <text x="85" y="93" fill="#9ca3af" font-size="9" text-anchor="middle">Reserved/Free Visual Slots</text>
+    </g>
+
+    <!-- Paged Text Arena -->
+    <rect x="15" y="210" width="190" height="150" rx="6" fill="#2e1065" fill-opacity="0.3" stroke="#c084fc" stroke-width="1.5" />
+    <text x="110" y="230" fill="#c084fc" font-size="12" font-weight="bold" text-anchor="middle">Paged Text Arena</text>
+
+    <!-- Scattered Paged Blocks -->
+    <g transform="translate(25, 245)">
+      <rect x="0" y="0" width="50" height="30" rx="3" fill="#581c87" stroke="#c084fc" />
+      <text x="25" y="18" fill="#f3f4f6" font-size="9" text-anchor="middle">Page 512</text>
+      
+      <rect x="60" y="0" width="50" height="30" rx="3" fill="#111827" stroke="#4b5563" />
+      <text x="85" y="18" fill="#6b7280" font-size="9" text-anchor="middle">Empty</text>
+
+      <rect x="120" y="0" width="50" height="30" rx="3" fill="#581c87" stroke="#c084fc" />
+      <text x="145" y="18" fill="#f3f4f6" font-size="9" text-anchor="middle">Page 723</text>
+
+      <rect x="0" y="40" width="50" height="30" rx="3" fill="#581c87" stroke="#c084fc" />
+      <text x="25" y="58" fill="#f3f4f6" font-size="9" text-anchor="middle">Page 104</text>
+      
+      <rect x="60" y="40" width="50" height="30" rx="3" fill="#111827" stroke="#4b5563" />
+      <text x="85" y="58" fill="#6b7280" font-size="9" text-anchor="middle">Empty</text>
+
+      <rect x="120" y="40" width="50" height="30" rx="3" fill="#581c87" stroke="#c084fc" />
+      <text x="145" y="58" fill="#f3f4f6" font-size="9" text-anchor="middle">Page 89</text>
+
+      <text x="85" y="95" fill="#9ca3af" font-size="9" text-anchor="middle" font-style="italic">Standard vLLM Allocation</text>
+    </g>
+    
+    <text x="110" y="372" fill="#9ca3af" font-size="9" text-anchor="middle">Page Block Size = 16 Tokens</text>
+  </g>
+</svg>
