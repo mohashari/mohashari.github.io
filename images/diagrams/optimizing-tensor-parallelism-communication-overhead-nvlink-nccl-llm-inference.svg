@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Definitions for gradients, markers, and filters -->
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </radialGradient>
+
+    <!-- GPU Container Gradients -->
+    <linearGradient id="gpu-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="nvlink-bus-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.2" />
+      <stop offset="50%" stop-color="#10b981" stop-opacity="0.8" />
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- Block Gradients -->
+    <linearGradient id="sm-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="hbm-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="kernel-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#34d399" />
+    </marker>
+    <marker id="arrow-violet" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#a78bfa" />
+    </marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#fb7185" />
+    </marker>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glow-emerald" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-grad)" />
+  <rect width="100%" height="100%" fill="none" stroke="#334155" stroke-width="1" />
+
+  <!-- Diagram Title / Header -->
+  <text x="30" y="40" font-family="system-ui, sans-serif" font-size="20" font-weight="800" fill="#f8fafc" letter-spacing="-0.025em">
+    TENSOR PARALLELISM ALL-REDUCE: STANDARD NCCL VS. CUSTOM NVLINK KERNEL
+  </text>
+  <text x="30" y="60" font-family="system-ui, sans-serif" font-size="12" font-weight="500" fill="#64748b">
+    Comparison of standard Ring/Tree All-Reduce overhead versus direct peer-to-peer single-shot reduction via custom CUDA kernels.
+  </text>
+
+  <!-- ================= GPU 0 CONTAINER ================= -->
+  <g transform="translate(60, 100)" filter="url(#shadow)">
+    <!-- GPU Frame -->
+    <rect width="320" height="340" rx="12" fill="url(#gpu-grad)" stroke="#475569" stroke-width="2" />
+    <rect width="90" height="24" x="12" y="-12" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+    <text x="22" y="4" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#10b981" letter-spacing="0.05em">GPU 0 (LOCAL)</text>
+
+    <!-- SMs (Streaming Multiprocessors) -->
+    <rect x="25" y="40" width="120" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="35" y="58" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">SM Cores</text>
+    <text x="35" y="74" font-family="system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">Linear / MatMul</text>
+    <rect x="35" y="85" width="100" height="24" rx="4" fill="url(#sm-grad)" />
+    <text x="85" y="100" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">Y0 = X * W0</text>
+
+    <!-- Local HBM (Buffers) -->
+    <rect x="175" y="40" width="120" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="185" y="58" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#a78bfa">HBM VRAM</text>
+    <rect x="185" y="70" width="100" height="20" rx="3" fill="#312e81" stroke="#4f46e5" stroke-width="1" />
+    <text x="235" y="83" font-family="system-ui, sans-serif" font-size="9" font-weight="500" fill="#c084fc" text-anchor="middle">Input: X (8MB)</text>
+    <rect x="185" y="94" width="100" height="20" rx="3" fill="#1e1b4b" stroke="#4338ca" stroke-width="1" />
+    <text x="235" y="107" font-family="system-ui, sans-serif" font-size="9" font-weight="500" fill="#a78bfa" text-anchor="middle">Local Temp: Y0</text>
+
+    <!-- Standard NCCL Path (Top Half of GPU 0) -->
+    <g transform="translate(25, 140)">
+      <rect width="270" height="80" rx="8" fill="#1b2535" stroke="#e0f2fe" stroke-dasharray="4 4" stroke-opacity="0.4" stroke-width="1.5" />
+      <text x="12" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">PATH A: STANDARD NCCL ALL-REDUCE</text>
+      
+      <!-- NCCL Buffer -->
+      <rect x="12" y="32" width="110" height="36" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1" />
+      <text x="67" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#e2e8f0" text-anchor="middle">Ring / Tree Buffer</text>
+      <text x="67" y="60" font-family="system-ui, sans-serif" font-size="8" font-weight="400" fill="#64748b" text-anchor="middle">Host/CUDA Ring-sync</text>
+
+      <!-- Communication overhead notation -->
+      <path d="M 130 50 L 220 50" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-rose)" />
+      <text x="175" y="45" font-family="system-ui, sans-serif" font-size="8" font-weight="700" fill="#fb7185" text-anchor="middle">Memcpys &amp; Barriers</text>
+    </g>
+
+    <!-- Custom Kernel Path (Bottom Half of GPU 0) -->
+    <g transform="translate(25, 235)">
+      <rect width="270" height="85" rx="8" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
+      <text x="12" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#34d399">PATH B: CUSTOM DIRECT-NVLINK KERNEL</text>
+      
+      <!-- Custom Kernel Execution Block -->
+      <rect x="12" y="32" width="246" height="42" rx="6" fill="url(#kernel-grad)" stroke="#f43f5e" stroke-width="1" />
+      <text x="135" y="48" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Single-Pass Sharded Reduction</text>
+      <text x="135" y="62" font-family="system-ui, sans-serif" font-size="8.5" font-weight="500" fill="#ffe4e6" text-anchor="middle">One-shot peer load/store (No CPU synchronization)</text>
+    </g>
+  </g>
+
+  <!-- ================= GPU 1 CONTAINER ================= -->
+  <g transform="translate(520, 100)" filter="url(#shadow)">
+    <!-- GPU Frame -->
+    <rect width="320" height="340" rx="12" fill="url(#gpu-grad)" stroke="#475569" stroke-width="2" />
+    <rect width="90" height="24" x="12" y="-12" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+    <text x="22" y="4" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#10b981" letter-spacing="0.05em">GPU 1 (PEER)</text>
+
+    <!-- SMs (Streaming Multiprocessors) -->
+    <rect x="25" y="40" width="120" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="35" y="58" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#38bdf8">SM Cores</text>
+    <text x="35" y="74" font-family="system-ui, sans-serif" font-size="10" font-weight="400" fill="#94a3b8">Linear / MatMul</text>
+    <rect x="35" y="85" width="100" height="24" rx="4" fill="url(#sm-grad)" />
+    <text x="85" y="100" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#ffffff" text-anchor="middle">Y1 = X * W1</text>
+
+    <!-- Local HBM (Buffers) -->
+    <rect x="175" y="40" width="120" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <text x="185" y="58" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#a78bfa">HBM VRAM</text>
+    <rect x="185" y="70" width="100" height="20" rx="3" fill="#312e81" stroke="#4f46e5" stroke-width="1" />
+    <text x="235" y="83" font-family="system-ui, sans-serif" font-size="9" font-weight="500" fill="#c084fc" text-anchor="middle">Input: X (8MB)</text>
+    <rect x="185" y="94" width="100" height="20" rx="3" fill="#1e1b4b" stroke="#4338ca" stroke-width="1" />
+    <text x="235" y="107" font-family="system-ui, sans-serif" font-size="9" font-weight="500" fill="#a78bfa" text-anchor="middle">Local Temp: Y1</text>
+
+    <!-- Standard NCCL Path (Top Half of GPU 1) -->
+    <g transform="translate(25, 140)">
+      <rect width="270" height="80" rx="8" fill="#1b2535" stroke="#e0f2fe" stroke-dasharray="4 4" stroke-opacity="0.4" stroke-width="1.5" />
+      <text x="12" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">PATH A: STANDARD NCCL ALL-REDUCE</text>
+      
+      <!-- NCCL Buffer -->
+      <rect x="148" y="32" width="110" height="36" rx="6" fill="#1e293b" stroke="#38bdf8" stroke-width="1" />
+      <text x="203" y="48" font-family="system-ui, sans-serif" font-size="10" font-weight="600" fill="#e2e8f0" text-anchor="middle">Ring / Tree Buffer</text>
+      <text x="203" y="60" font-family="system-ui, sans-serif" font-size="8" font-weight="400" fill="#64748b" text-anchor="middle">Host/CUDA Ring-sync</text>
+
+      <path d="M 140 50 L 50 50" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arrow-rose)" />
+      <text x="95" y="45" font-family="system-ui, sans-serif" font-size="8" font-weight="700" fill="#fb7185" text-anchor="middle">Ring Overhead</text>
+    </g>
+
+    <!-- Custom Kernel Path (Bottom Half of GPU 1) -->
+    <g transform="translate(25, 235)">
+      <rect width="270" height="85" rx="8" fill="#132a24" stroke="#10b981" stroke-width="1.5" />
+      <text x="12" y="20" font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#34d399">PATH B: CUSTOM DIRECT-NVLINK KERNEL</text>
+      
+      <!-- Peer Access Window -->
+      <rect x="12" y="32" width="246" height="42" rx="6" fill="#064e3b" stroke="#34d399" stroke-dasharray="3 3" stroke-width="1.5" />
+      <text x="135" y="50" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#34d399" text-anchor="middle">Exposed VRAM Peer Pointers</text>
+      <text x="135" y="62" font-family="system-ui, sans-serif" font-size="8" font-weight="400" fill="#a7f3d0" text-anchor="middle">via cudaDeviceEnablePeerAccess</text>
+    </g>
+  </g>
+
+  <!-- ================= PHYSICAL TRANSFERS & NVLINK ================= -->
+
+  <!-- Standard NCCL Path Physical Link (Top) -->
+  <g transform="translate(380, 180)">
+    <!-- Path Line -->
+    <path d="M 0 10 L 140 10" stroke="#38bdf8" stroke-width="3" stroke-dasharray="5 5" />
+    <path d="M 140 10 L 0 10" stroke="#38bdf8" stroke-width="3" stroke-dasharray="5 5" />
+    <!-- Circle indicator for latency/steps -->
+    <circle cx="70" cy="10" r="14" fill="#1e293b" stroke="#38bdf8" stroke-width="2" />
+    <text x="70" y="14" font-family="system-ui, sans-serif" font-size="10" font-weight="800" fill="#38bdf8" text-anchor="middle">NCCL</text>
+  </g>
+
+  <!-- NVLink Bus / Channels (Middle Background) -->
+  <g transform="translate(380, 275)" filter="url(#glow-emerald)">
+    <rect x="0" y="0" width="140" height="70" rx="6" fill="url(#nvlink-bus-grad)" stroke="#10b981" stroke-width="1.5" />
+    <!-- Glowing physical lines -->
+    <line x1="5" y1="18" x2="135" y2="18" stroke="#34d399" stroke-width="2.5" stroke-dasharray="12 4" />
+    <line x1="135" y1="35" x2="5" y2="35" stroke="#34d399" stroke-width="2.5" stroke-dasharray="12 4" />
+    <line x1="5" y1="52" x2="135" y2="52" stroke="#34d399" stroke-width="2.5" stroke-dasharray="12 4" />
+    <!-- Label -->
+    <text x="70" y="40" font-family="system-ui, sans-serif" font-size="13" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="0.1em">NVLink</text>
+    <text x="70" y="60" font-family="system-ui, sans-serif" font-size="8.5" font-weight="700" fill="#a7f3d0" text-anchor="middle">Up to 900 GB/s (H100/H200)</text>
+  </g>
+
+  <!-- P2P Direct Writes via NVLink (Path B Arrows) -->
+  <g>
+    <!-- GPU 0 SM writing directly to GPU 1 Memory -->
+    <path d="M 310,358 L 520,358" fill="none" stroke="#fb7185" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#arrow-rose)" />
+    <!-- GPU 1 reading or GPU 0 pulling GPU 1's data -->
+    <path d="M 520,378 L 310,378" fill="none" stroke="#fb7185" stroke-width="2" stroke-dasharray="6 3" marker-end="url(#arrow-rose)" />
+    
+    <rect x="365" y="348" width="170" height="42" rx="4" fill="#881337" stroke="#fb7185" stroke-width="1" />
+    <text x="450" y="363" font-family="system-ui, sans-serif" font-size="9" font-weight="800" fill="#ffe4e6" text-anchor="middle">Direct Peer P2P Load/Store</text>
+    <text x="450" y="375" font-family="system-ui, sans-serif" font-size="8" font-weight="600" fill="#fca5a5" text-anchor="middle">Skip Host &amp; Ring Copy Steps</text>
+  </g>
+
+  <!-- ================= TIMING & EFFICIENCY SUMMARY ================= -->
+  <g transform="translate(60, 460)">
+    <!-- Legend & Statistics -->
+    <rect width="780" height="60" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1.5" />
+    
+    <g transform="translate(20, 12)">
+      <!-- Standard Stats -->
+      <circle cx="10" cy="18" r="6" fill="#38bdf8" />
+      <text x="25" y="16" font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#94a3b8">Standard All-Reduce Latency</text>
+      <text x="25" y="32" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#e2e8f0">~15 - 25 µs</text>
+      <text x="140" y="32" font-family="system-ui, sans-serif" font-size="9" font-weight="500" fill="#64748b">(At 8MB tensor sizes, TP=2/4/8)</text>
+    </g>
+
+    <g transform="translate(320, 12)">
+      <!-- Divider line -->
+      <line x1="-30" y1="0" x2="-30" y2="40" stroke="#334155" stroke-width="1.5" />
+      
+      <!-- Custom Stats -->
+      <circle cx="10" cy="18" r="6" fill="#10b981" />
+      <text x="25" y="16" font-family="system-ui, sans-serif" font-size="11" font-weight="800" fill="#34d399">Custom NVLink P2P Latency</text>
+      <text x="25" y="32" font-family="system-ui, sans-serif" font-size="14" font-weight="800" fill="#10b981">&lt; 3.5 µs</text>
+      <text x="95" y="32" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#34d399">(Up to 5x-7x Latency Reduction!)</text>
+    </g>
+
+    <g transform="translate(640, 12)">
+      <line x1="-20" y1="0" x2="-20" y2="40" stroke="#334155" stroke-width="1.5" />
+      <text x="0" y="15" font-family="system-ui, sans-serif" font-size="10" font-weight="700" fill="#94a3b8">Key Mechanism:</text>
+      <text x="0" y="30" font-family="system-ui, sans-serif" font-size="10" font-weight="800" fill="#a78bfa">Single-Phase All-Reduce</text>
+      <text x="0" y="42" font-family="system-ui, sans-serif" font-size="8.5" font-weight="500" fill="#64748b">via CUDA Peer memory mapping</text>
+    </g>
+  </g>
+</svg>

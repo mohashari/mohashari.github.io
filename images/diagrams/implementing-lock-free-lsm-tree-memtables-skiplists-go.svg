@@ -1,0 +1,259 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="writerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+    <linearGradient id="activeNodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecfdf5" />
+      <stop offset="100%" stop-color="#d1fae5" />
+    </linearGradient>
+    <linearGradient id="frozenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64748b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+    
+    <!-- Shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.08" />
+    </filter>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#3b82f6" flood-opacity="0.3" />
+    </filter>
+    
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#475569" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#2563eb" />
+    </marker>
+    <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#059669" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#fafafa" rx="16" />
+  
+  <!-- Border/Grid Effect (Subtle) -->
+  <rect x="10" y="10" width="940" height="520" fill="none" stroke="#e2e8f0" stroke-width="1.5" rx="12" />
+
+  <!-- TITLE -->
+  <text x="30" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#0f172a">
+    Lock-Free LSM-Tree Memtable Architecture (Skiplist-based)
+  </text>
+  
+  <!-- SECTION 1: CONCURRENT WRITERS -->
+  <g transform="translate(30, 80)">
+    <rect width="180" height="420" fill="#f1f5f9" rx="8" stroke="#e2e8f0" stroke-width="1" />
+    <text x="90" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#475569" text-anchor="middle">Concurrent Writers</text>
+    
+    <!-- Goroutine 1 -->
+    <g transform="translate(15, 60)" filter="url(#glow)">
+      <rect width="150" height="70" rx="6" fill="url(#writerGrad)" />
+      <text x="15" y="30" font-family="monospace" font-size="12" font-weight="bold" fill="#ffffff">Goroutine A</text>
+      <text x="15" y="50" font-family="monospace" font-size="11" fill="#bfdbfe">Put("usr_9", val)</text>
+      <!-- Connection line -->
+      <path d="M 150 35 L 225 35" fill="none" stroke="#3b82f6" stroke-dasharray="4,4" stroke-width="2" marker-end="url(#arrow-blue)" />
+    </g>
+
+    <!-- Goroutine 2 -->
+    <g transform="translate(15, 170)" filter="url(#glow)">
+      <rect width="150" height="70" rx="6" fill="url(#writerGrad)" />
+      <text x="15" y="30" font-family="monospace" font-size="12" font-weight="bold" fill="#ffffff">Goroutine B</text>
+      <text x="15" y="50" font-family="monospace" font-size="11" fill="#bfdbfe">Put("usr_3", val)</text>
+      <!-- Connection line -->
+      <path d="M 150 35 L 225 100" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)" />
+    </g>
+
+    <!-- Goroutine 3 -->
+    <g transform="translate(15, 280)" filter="url(#glow)">
+      <rect width="150" height="70" rx="6" fill="url(#writerGrad)" />
+      <text x="15" y="30" font-family="monospace" font-size="12" font-weight="bold" fill="#ffffff">Goroutine C</text>
+      <text x="15" y="50" font-family="monospace" font-size="11" fill="#bfdbfe">Delete("usr_1")</text>
+      <!-- Connection line -->
+      <path d="M 150 35 L 225 160" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)" />
+    </g>
+    
+    <text x="90" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" width="160">
+      Zero Locks (Mutexes)
+    </text>
+    <text x="90" y="405" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b" text-anchor="middle" width="160">
+      Parallel CAS Insertion
+    </text>
+  </g>
+
+  <!-- SECTION 2: ACTIVE MEMTABLE (LOCK-FREE SKIPLIST) -->
+  <g transform="translate(250, 80)">
+    <!-- Container -->
+    <rect width="450" height="230" fill="#ffffff" rx="8" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)" />
+    <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#0f172a">Active Memtable (Lock-Free Skiplist)</text>
+    <rect x="330" y="10" width="105" height="20" rx="10" fill="#d1fae5" />
+    <text x="382.5" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#065f46" text-anchor="middle">MUTABLE (CAS)</text>
+
+    <!-- Skiplist Nodes Representation -->
+    <!-- Head Node -->
+    <g transform="translate(20, 50)">
+      <rect width="50" height="150" fill="#e2e8f0" rx="4" stroke="#94a3b8" stroke-width="1" />
+      <text x="25" y="20" font-family="monospace" font-size="11" font-weight="bold" fill="#475569" text-anchor="middle">HEAD</text>
+      <!-- Levels -->
+      <rect x="5" y="35" width="40" height="25" fill="#cbd5e1" rx="2" />
+      <text x="25" y="51" font-family="monospace" font-size="10" fill="#334155" text-anchor="middle">L2</text>
+      
+      <rect x="5" y="70" width="40" height="25" fill="#cbd5e1" rx="2" />
+      <text x="25" y="86" font-family="monospace" font-size="10" fill="#334155" text-anchor="middle">L1</text>
+      
+      <rect x="5" y="105" width="40" height="25" fill="#cbd5e1" rx="2" />
+      <text x="25" y="121" font-family="monospace" font-size="10" fill="#334155" text-anchor="middle">L0</text>
+    </g>
+
+    <!-- Node 1 (Key: usr_1, Height: 1) -->
+    <g transform="translate(120, 115)">
+      <rect width="65" height="85" fill="url(#nodeGrad)" rx="4" stroke="#94a3b8" stroke-width="1" />
+      <text x="32.5" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">usr_1</text>
+      
+      <rect x="5" y="40" width="55" height="35" fill="#f8fafc" rx="2" stroke="#e2e8f0" />
+      <text x="32.5" y="53" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">L0 Next</text>
+      <circle cx="32.5" cy="63" r="3.5" fill="#64748b" />
+    </g>
+
+    <!-- Node 2 (Key: usr_3, Height: 3) -->
+    <g transform="translate(230, 50)">
+      <rect width="65" height="150" fill="url(#activeNodeGrad)" rx="4" stroke="#059669" stroke-width="1.5" />
+      <text x="32.5" y="20" font-family="monospace" font-size="11" font-weight="bold" fill="#065f46" text-anchor="middle">usr_3</text>
+      <text x="32.5" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#059669" text-anchor="middle">[NEW CAS]</text>
+      
+      <!-- Levels -->
+      <rect x="5" y="45" width="55" height="25" fill="#ffffff" rx="2" stroke="#a7f3d0" />
+      <text x="32.5" y="61" font-family="monospace" font-size="9" fill="#047857" text-anchor="middle">L2 Ptr</text>
+      
+      <rect x="5" y="78" width="55" height="25" fill="#ffffff" rx="2" stroke="#a7f3d0" />
+      <text x="32.5" y="94" font-family="monospace" font-size="9" fill="#047857" text-anchor="middle">L1 Ptr</text>
+      
+      <rect x="5" y="111" width="55" height="25" fill="#ffffff" rx="2" stroke="#a7f3d0" />
+      <text x="32.5" y="127" font-family="monospace" font-size="9" fill="#047857" text-anchor="middle">L0 Ptr</text>
+    </g>
+
+    <!-- Node 3 (Key: usr_9, Height: 2) -->
+    <g transform="translate(360, 82)">
+      <rect width="65" height="118" fill="url(#nodeGrad)" rx="4" stroke="#94a3b8" stroke-width="1" />
+      <text x="32.5" y="18" font-family="monospace" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">usr_9</text>
+      
+      <!-- Levels -->
+      <rect x="5" y="40" width="55" height="25" fill="#f8fafc" rx="2" stroke="#e2e8f0" />
+      <text x="32.5" y="56" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">L1 Ptr</text>
+      
+      <rect x="5" y="75" width="55" height="25" fill="#f8fafc" rx="2" stroke="#e2e8f0" />
+      <text x="32.5" y="91" font-family="monospace" font-size="9" fill="#64748b" text-anchor="middle">L0 Ptr</text>
+    </g>
+
+    <!-- Pointer Connections (Arrows) -->
+    <!-- Head L2 -> usr_3 L2 -->
+    <path d="M 70 98 L 222 108" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+    <!-- Head L1 -> usr_3 L1 -->
+    <path d="M 70 133 L 222 141" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+    <!-- Head L0 -> usr_1 L0 -->
+    <path d="M 70 168 L 112 168" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+
+    <!-- usr_1 L0 -> usr_3 L0 (CAS Update happening) -->
+    <path d="M 185 178 L 222 174" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arrow-teal)" />
+    
+    <!-- usr_3 L2 -> (NULL/End of level) -->
+    <path d="M 295 108 L 340 108" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+    <!-- usr_3 L1 -> usr_9 L1 -->
+    <path d="M 295 141 L 352 135" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+    <!-- usr_3 L0 -> usr_9 L0 -->
+    <path d="M 295 174 L 352 170" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+
+    <!-- usr_9 pointers to end -->
+    <path d="M 425 135 L 440 135" fill="none" stroke="#94a3b8" stroke-width="1" />
+    <path d="M 425 170 L 440 170" fill="none" stroke="#94a3b8" stroke-width="1" />
+  </g>
+
+  <!-- ROTATION: ATOMIC POINTER SWAP -->
+  <g transform="translate(430, 310)">
+    <!-- Swapping Mechanics -->
+    <path d="M 50 10 L 50 50" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#arrow-blue)" />
+    <rect x="-40" y="15" width="180" height="24" rx="4" fill="#dbeafe" stroke="#93c5fd" />
+    <text x="50" y="31" font-family="monospace" font-size="10" font-weight="bold" fill="#1e40af" text-anchor="middle">
+      atomic.StorePointer()
+    </text>
+  </g>
+
+  <!-- SECTION 3: IMMUTABLE MEMTABLE (FROZEN) -->
+  <g transform="translate(250, 370)">
+    <!-- Container -->
+    <rect width="450" height="130" fill="url(#frozenGrad)" rx="8" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)" />
+    <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#475569">Immutable Memtable (Frozen)</text>
+    
+    <rect x="330" y="10" width="105" height="20" rx="10" fill="#f1f5f9" />
+    <text x="382.5" y="24" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#475569" text-anchor="middle">READ-ONLY</text>
+    
+    <!-- Miniaturized representations of frozen nodes -->
+    <g transform="translate(30, 45)">
+      <!-- Node A -->
+      <rect x="0" y="10" width="80" height="45" fill="#e2e8f0" rx="3" />
+      <text x="40" y="28" font-family="monospace" font-size="10" fill="#475569" text-anchor="middle">usr_0</text>
+      <!-- Node B -->
+      <rect x="110" y="10" width="80" height="45" fill="#e2e8f0" rx="3" />
+      <text x="150" y="28" font-family="monospace" font-size="10" fill="#475569" text-anchor="middle">usr_2</text>
+      <!-- Node C -->
+      <rect x="220" y="10" width="80" height="45" fill="#e2e8f0" rx="3" />
+      <text x="260" y="28" font-family="monospace" font-size="10" fill="#475569" text-anchor="middle">usr_5</text>
+      
+      <!-- Connectors -->
+      <path d="M 80 32 L 110 32" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+      <path d="M 190 32 L 220 32" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+    </g>
+    <text x="15" y="115" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748b">
+      Accepts no new writes. Serves point/range queries during flush.
+    </text>
+  </g>
+
+  <!-- SECTION 4: FLUSH THREAD & SSTABLE -->
+  <g transform="translate(730, 80)">
+    <rect width="200" height="420" fill="#f1f5f9" rx="8" stroke="#e2e8f0" stroke-width="1" />
+    <text x="100" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#475569" text-anchor="middle">Background Flusher</text>
+
+    <!-- Flush Worker Goroutine -->
+    <g transform="translate(20, 60)">
+      <rect width="160" height="80" rx="6" fill="#475569" />
+      <text x="80" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Flush Worker</text>
+      <text x="80" y="50" font-family="monospace" font-size="11" fill="#cbd5e1" text-anchor="middle">Scan &amp; Serialize</text>
+      <text x="80" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Single-threaded IO</text>
+    </g>
+    
+    <!-- Flow indicators -->
+    <!-- From Immutable to Flush worker -->
+    <path d="M -30 355 C 50 355 30 180 80 150" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow)" />
+    <text x="15" y="240" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#475569" transform="rotate(-75, 15, 240)">Sequential Read</text>
+
+    <!-- Disk Storage Cylinder (SSTable) -->
+    <g transform="translate(40, 260)" filter="url(#shadow)">
+      <!-- Cylinder top -->
+      <ellipse cx="60" cy="40" rx="40" ry="15" fill="#475569" stroke="#334155" stroke-width="1" />
+      <!-- Cylinder body -->
+      <path d="M 20 40 L 20 120 A 40 15 0 0 0 100 120 L 100 40 Z" fill="url(#dbGrad)" stroke="#334155" stroke-width="1" />
+      <!-- Rings inside cylinder body to look like disk stack -->
+      <path d="M 20 65 A 40 15 0 0 0 100 65" fill="none" stroke="#1e293b" stroke-dasharray="3,3" />
+      <path d="M 20 90 A 40 15 0 0 0 100 90" fill="none" stroke="#1e293b" stroke-dasharray="3,3" />
+      <ellipse cx="60" cy="40" rx="30" ry="10" fill="#64748b" />
+      <text x="60" y="85" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">SSTable</text>
+      <text x="60" y="100" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">on SSD/Disk</text>
+    </g>
+    
+    <!-- Arrow from Flush Worker to SSTable -->
+    <path d="M 100 140 L 100 240" fill="none" stroke="#059669" stroke-width="2.5" marker-end="url(#arrow-teal)" />
+    <text x="105" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#059669">Writes</text>
+  </g>
+</svg>
