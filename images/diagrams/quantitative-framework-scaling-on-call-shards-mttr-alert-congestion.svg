@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <defs>
+    <!-- Styles -->
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #1e293b; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12px; fill: #64748b; }
+      .node-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 500; fill: #0f172a; }
+      .node-desc { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 10px; fill: #475569; }
+      .math-text { font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; font-size: 11px; fill: #0284c7; font-weight: bold; }
+      .arrow-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 10px; fill: #64748b; font-weight: 500; }
+      
+      /* Component Box Styles */
+      .box-source { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; rx: 6px; }
+      .box-router { fill: #f0fdf4; stroke: #bbf7d0; stroke-width: 1.5; rx: 6px; }
+      .box-engine { fill: #f0f9ff; stroke: #bae6fd; stroke-width: 1.5; rx: 6px; }
+      .box-shard { fill: #fff7ed; stroke: #fed7aa; stroke-width: 1.5; rx: 6px; }
+      .box-feedback { fill: #faf5ff; stroke: #e9d5ff; stroke-width: 1.5; rx: 6px; }
+      
+      /* Flow elements */
+      .flow-line { fill: none; stroke: #94a3b8; stroke-width: 1.5; stroke-dasharray: 4 4; }
+      .solid-line { fill: none; stroke: #475569; stroke-width: 1.5; }
+      .highlight-line { fill: none; stroke: #0284c7; stroke-width: 2; }
+      .marker-arrow { fill: #475569; }
+      .marker-highlight { fill: #0284c7; }
+    </style>
+
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" class="marker-arrow"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" class="marker-highlight"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  
+  <!-- Outer Border -->
+  <rect x="10" y="10" width="880" height="530" rx="8" fill="none" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Title and Subtitle -->
+  <text x="30" y="40" class="title">Quantitative On-Call Sharding &amp; Queue Model Flow</text>
+  <text x="30" y="60" class="subtitle">Architectural design for telemetry routing, congestion analysis, dynamic sharding, and closed-loop feedback.</text>
+
+  <!-- ==================== COLUMN 1: SOURCES ==================== -->
+  <g transform="translate(40, 100)">
+    <rect width="160" height="340" fill="#f8fafc" stroke="#e2e8f0" rx="8"/>
+    <text x="80" y="25" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#475569">Telemetry &amp; Alerts</text>
+    
+    <!-- Source: Prometheus/Alertmanager -->
+    <g transform="translate(15, 45)">
+      <rect width="130" height="75" class="box-source"/>
+      <text x="15" y="22" class="node-text">Platform Metrics</text>
+      <text x="15" y="38" class="node-desc">Prometheus/Alertmanager</text>
+      <text x="15" y="52" class="node-desc">Infra, JVM, Network</text>
+      <text x="15" y="66" class="math-text">λ_infra = 0.82/hr</text>
+    </g>
+
+    <!-- Source: Datadog APM -->
+    <g transform="translate(15, 135)">
+      <rect width="130" height="75" class="box-source"/>
+      <text x="15" y="22" class="node-text">Application APM</text>
+      <text x="15" y="38" class="node-desc">Datadog / OpenTelemetry</text>
+      <text x="15" y="52" class="node-desc">Latency, Errs, Saturation</text>
+      <text x="15" y="66" class="math-text">λ_app = 1.45/hr</text>
+    </g>
+
+    <!-- Source: CloudWatch / OpsGenie -->
+    <g transform="translate(15, 225)">
+      <rect width="130" height="75" class="box-source"/>
+      <text x="15" y="22" class="node-text">External Probes</text>
+      <text x="15" y="38" class="node-desc">Pingdom / Cloudflare</text>
+      <text x="15" y="52" class="node-desc">Synthetics, DNS, Edge</text>
+      <text x="15" y="66" class="math-text">λ_edge = 0.15/hr</text>
+    </g>
+    
+    <text x="80" y="320" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0f172a">Total Alert Rate (Λ)</text>
+  </g>
+
+  <!-- Connection: Sources to Gateway -->
+  <path d="M 200 270 L 250 270" class="solid-line" marker-end="url(#arrow)"/>
+  <text x="225" y="260" text-anchor="middle" class="arrow-text">Raw Alerts</text>
+
+  <!-- ==================== COLUMN 2: ROUTER & DECISION ENGINE ==================== -->
+  <!-- Alert Ingestion & Deduplication Gateway -->
+  <g transform="translate(260, 150)">
+    <rect width="180" height="110" class="box-router"/>
+    <text x="15" y="25" class="node-text" fill="#14532d">Ingestion &amp; Router</text>
+    <text x="15" y="45" class="node-desc">PagerDuty Event Orchestration</text>
+    <text x="15" y="60" class="node-desc">• Deduplication &amp; Grouping</text>
+    <text x="15" y="75" class="node-desc">• Severity Upgrades/Downgrades</text>
+    <text x="15" y="95" class="math-text" fill="#166534">Grouping Eff (η) = 74%</text>
+  </g>
+
+  <!-- Queue Analyzer & Sharding Engine -->
+  <g transform="translate(260, 290)">
+    <rect width="180" height="150" class="box-engine"/>
+    <text x="15" y="25" class="node-text" fill="#1e3a8a">Queueing Analyzer</text>
+    <text x="15" y="45" class="node-desc">Calculates Erlang-C Math</text>
+    <text x="15" y="65" class="math-text">ρ = λ / (c * μ)</text>
+    <text x="15" y="85" class="node-desc">Determines Congestion</text>
+    <text x="15" y="100" class="node-desc">If ρ &gt; 0.65 or Wq &gt; 15m</text>
+    <text x="15" y="118" class="node-text" fill="#0284c7">→ Trigger Sharding</text>
+    <text x="15" y="135" class="node-desc">Split rot. by context domain</text>
+  </g>
+
+  <!-- Connection: Router to Engine -->
+  <path d="M 350 260 L 350 290" class="solid-line" marker-end="url(#arrow)"/>
+  <text x="355" y="280" class="arrow-text">Clean Alerts</text>
+
+  <!-- Connection: Engine to Shards -->
+  <path d="M 440 365 L 485 365 L 485 240 L 520 240" class="solid-line" marker-end="url(#arrow)"/>
+  <path d="M 485 365 L 520 365" class="solid-line" marker-end="url(#arrow)"/>
+  <path d="M 485 365 L 485 490 L 520 490" class="solid-line" marker-end="url(#arrow)"/>
+  
+  <text x="480" y="320" text-anchor="middle" class="arrow-text" transform="rotate(-90 480 320)">Route to Shard</text>
+
+  <!-- ==================== COLUMN 3: SHARDS (TARGET ROTATIONS) ==================== -->
+  <text x="615" y="100" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0f172a">On-Call Shards (c = 1 per shard, total c = 3)</text>
+  
+  <!-- Shard 1: Core Systems -->
+  <g transform="translate(530, 120)">
+    <rect width="170" height="110" class="box-shard"/>
+    <text x="15" y="25" class="node-text" fill="#7c2d12">Shard A: Core Infra</text>
+    <text x="15" y="45" class="node-desc">Scope: DBs, Cache, Networking</text>
+    <text x="15" y="65" class="node-desc">Primary: APAC (00-08 UTC)</text>
+    <text x="15" y="80" class="node-desc">Secondary: EMEA (08-16 UTC)</text>
+    <text x="15" y="98" class="math-text" fill="#b45309">λ_A = 0.32/hr | μ_A = 1.4/hr</text>
+  </g>
+
+  <!-- Shard 2: Core Platform APIs -->
+  <g transform="translate(530, 245)">
+    <rect width="170" height="110" class="box-shard"/>
+    <text x="15" y="25" class="node-text" fill="#7c2d12">Shard B: Application &amp; APIs</text>
+    <text x="15" y="45" class="node-desc">Scope: Gateway, Auth, Checkout</text>
+    <text x="15" y="65" class="node-desc">Primary: EMEA (08-16 UTC)</text>
+    <text x="15" y="80" class="node-desc">Secondary: AMER (16-00 UTC)</text>
+    <text x="15" y="98" class="math-text" fill="#b45309">λ_B = 0.58/hr | μ_B = 1.1/hr</text>
+  </g>
+
+  <!-- Shard 3: Data & Ingestion Pipelines -->
+  <g transform="translate(530, 370)">
+    <rect width="170" height="110" class="box-shard"/>
+    <text x="15" y="25" class="node-text" fill="#7c2d12">Shard C: Data &amp; Analytics</text>
+    <text x="15" y="45" class="node-desc">Scope: Kafka, Flink, ClickHouse</text>
+    <text x="15" y="65" class="node-desc">Primary: AMER (16-00 UTC)</text>
+    <text x="15" y="80" class="node-desc">Secondary: APAC (00-08 UTC)</text>
+    <text x="15" y="98" class="math-text" fill="#b45309">λ_C = 0.22/hr | μ_C = 0.9/hr</text>
+  </g>
+
+  <!-- Connections from Shards to Feedback Loop -->
+  <path d="M 700 175 L 750 175 L 750 250" class="flow-line"/>
+  <path d="M 700 300 L 750 300" class="flow-line"/>
+  <path d="M 700 425 L 750 425 L 750 350" class="flow-line"/>
+  <path d="M 750 300 L 780 300" class="solid-line" marker-end="url(#arrow)"/>
+
+  <!-- ==================== COLUMN 4: METRICS & CLOSED-LOOP FEEDBACK ==================== -->
+  <!-- Feedback Metric Collector -->
+  <g transform="translate(780, 235)">
+    <rect width="100" height="130" class="box-feedback"/>
+    <text x="10" y="25" class="node-text" fill="#581c87">Analytics (MTTR)</text>
+    <text x="10" y="45" class="node-desc">• MTTR per Shard</text>
+    <text x="10" y="60" class="node-desc">• Fatigue Score</text>
+    <text x="10" y="75" class="node-desc">• Esc. Rate</text>
+    <text x="10" y="90" class="node-desc">• Context Swap</text>
+    <text x="10" y="112" class="math-text" fill="#7e22ce">W_q &amp; W_s target</text>
+  </g>
+
+  <!-- Feedback Line Back to Sharding Decision Engine -->
+  <!-- Drawn under other boxes or curved -->
+  <path d="M 830 365 L 830 510 L 350 510 L 350 440" class="highlight-line" marker-end="url(#arrow-blue)"/>
+  <text x="590" y="525" text-anchor="middle" class="arrow-text" fill="#0284c7">Closed-loop optimization: Resizing shard boundaries &amp; schedules based on queue math</text>
+
+</svg>

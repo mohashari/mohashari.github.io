@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="100%" height="100%" style="background-color: #0d1117; font-family: system-ui, -apple-system, sans-serif;">
+  <!-- Definitions for markers and filters -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="link-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#39d353" />
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Title / Header (Internal Context) -->
+  <text x="30" y="40" fill="#f0f6fc" font-size="18" font-weight="bold">B-Link Tree: Concurrent Navigation &amp; Node Splitting</text>
+  <text x="30" y="60" fill="#8b949e" font-size="12">Traversing while Node A is splitting into Node B without holding locks on Parent</text>
+
+  <!-- Root Node -->
+  <g transform="translate(320, 100)" filter="url(#shadow)">
+    <!-- Node Frame -->
+    <rect width="260" height="60" rx="6" fill="#161b22" stroke="#30363d" stroke-width="2" />
+    <!-- Cell Dividers -->
+    <line x1="80" y1="0" x2="80" y2="60" stroke="#30363d" stroke-width="1" />
+    <line x1="160" y1="0" x2="160" y2="60" stroke="#30363d" stroke-width="1" />
+    <line x1="210" y1="0" x2="210" y2="60" stroke="#30363d" stroke-width="1" />
+    
+    <!-- Values / Keys -->
+    <text x="40" y="35" fill="#f0f6fc" font-size="14" font-weight="600" text-anchor="middle">Key: 20</text>
+    <text x="120" y="35" fill="#f0f6fc" font-size="14" font-weight="600" text-anchor="middle">Key: 50</text>
+    <text x="185" y="35" fill="#8b949e" font-size="11" text-anchor="middle">Link Ptr</text>
+    <text x="235" y="35" fill="#ff7b72" font-size="11" font-weight="bold" text-anchor="middle">High: ∞</text>
+    
+    <text x="130" y="-10" fill="#58a6ff" font-size="12" font-weight="bold" text-anchor="middle">Parent Node</text>
+  </g>
+
+  <!-- Child Node A (Left / Original) -->
+  <g transform="translate(100, 260)" filter="url(#shadow)">
+    <rect width="250" height="70" rx="6" fill="#161b22" stroke="#ff7b72" stroke-width="2" />
+    <line x1="75" y1="0" x2="75" y2="70" stroke="#30363d" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="70" stroke="#30363d" stroke-width="1" />
+    <line x1="200" y1="0" x2="200" y2="70" stroke="#30363d" stroke-width="1" />
+
+    <text x="37.5" y="30" fill="#f0f6fc" font-size="13" text-anchor="middle">Key: 10</text>
+    <text x="37.5" y="52" fill="#8b949e" font-size="11" text-anchor="middle">Ptr: D1</text>
+    <text x="112.5" y="30" fill="#f0f6fc" font-size="13" text-anchor="middle">Key: 15</text>
+    <text x="112.5" y="52" fill="#8b949e" font-size="11" text-anchor="middle">Ptr: D2</text>
+    
+    <text x="175" y="40" fill="#39d353" font-size="12" font-weight="bold" text-anchor="middle">LINK</text>
+    <text x="225" y="40" fill="#ff7b72" font-size="12" font-weight="bold" text-anchor="middle">High: 20</text>
+    
+    <text x="125" y="88" fill="#ff7b72" font-size="12" text-anchor="middle">Node A (Split state, High Key restricted to 20)</text>
+  </g>
+
+  <!-- Child Node B (Right / Newly Created from Split) -->
+  <g transform="translate(520, 260)" filter="url(#shadow)">
+    <rect width="250" height="70" rx="6" fill="#161b22" stroke="#39d353" stroke-width="2" />
+    <line x1="75" y1="0" x2="75" y2="70" stroke="#30363d" stroke-width="1" />
+    <line x1="150" y1="0" x2="150" y2="70" stroke="#30363d" stroke-width="1" />
+    <line x1="200" y1="0" x2="200" y2="70" stroke="#30363d" stroke-width="1" />
+
+    <text x="37.5" y="30" fill="#f0f6fc" font-size="13" text-anchor="middle">Key: 25</text>
+    <text x="37.5" y="52" fill="#8b949e" font-size="11" text-anchor="middle">Ptr: D3</text>
+    <text x="112.5" y="30" fill="#f0f6fc" font-size="13" text-anchor="middle">Key: 40</text>
+    <text x="112.5" y="52" fill="#8b949e" font-size="11" text-anchor="middle">Ptr: D4</text>
+    
+    <text x="175" y="40" fill="#8b949e" font-size="12" text-anchor="middle">Null</text>
+    <text x="225" y="40" fill="#39d353" font-size="12" font-weight="bold" text-anchor="middle">High: 50</text>
+
+    <text x="125" y="88" fill="#39d353" font-size="12" text-anchor="middle">Node B (New Sibling, inherits original High Key 50)</text>
+  </g>
+
+  <!-- Connectors / Arrows -->
+  <!-- Parent Left pointer to Node A -->
+  <path d="M 360,160 L 225,250" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="270" y="200" fill="#58a6ff" font-size="11">Child Ptr</text>
+
+  <!-- Parent Right pointer to Node B (Incomplete/To be inserted, or direct path) -->
+  <path d="M 440,160 L 640,250" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <text x="560" y="200" fill="#8b949e" font-size="11">Missing Parent Link (During Split)</text>
+
+  <!-- Right Link pointer from A to B -->
+  <path d="M 350,295 L 510,295" fill="none" stroke="#39d353" stroke-width="2.5" marker-end="url(#link-arrow)" />
+  <text x="430" y="285" fill="#39d353" font-size="12" font-weight="bold" text-anchor="middle">Right-Link Pointer</text>
+
+  <!-- Explanatory note on concurrent traversal -->
+  <rect x="250" y="380" width="400" height="40" rx="4" fill="#21262d" stroke="#30363d" />
+  <text x="450" y="404" fill="#c9d1d9" font-size="12" text-anchor="middle">
+    A reader searching for <tspan fill="#58a6ff" font-weight="bold">Key: 25</tspan> traverses to Node A, sees <tspan fill="#ff7b72" font-weight="bold">High Key (20) &lt; 25</tspan>, and follows the <tspan fill="#39d353" font-weight="bold">Right-Link</tspan> to Node B.
+  </text>
+</svg>
