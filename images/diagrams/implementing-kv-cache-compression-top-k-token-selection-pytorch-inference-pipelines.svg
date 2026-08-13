@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    
+    <!-- Flow Gradient -->
+    <linearGradient id="flow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#34D399"/>
+    </linearGradient>
+    
+    <!-- Box Gradients -->
+    <linearGradient id="sink-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#F43F5E" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="heavy-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="local-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#34D399" stop-opacity="0.05"/>
+    </linearGradient>
+    
+    <!-- Drop Shadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-grad)"/>
+
+  <!-- Grid Lines (Subtle) -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.3">
+    <path d="M 0,50 L 800,50 M 0,100 L 800,100 M 0,150 L 800,150 M 0,200 L 800,200 M 0,250 L 800,250 M 0,300 L 800,300 M 0,350 L 800,350 M 0,400 L 800,400 M 0,450 L 800,450"/>
+    <path d="M 100,0 L 100,500 M 200,0 L 200,500 M 300,0 L 300,500 M 400,0 L 400,500 M 500,0 L 500,500 M 600,0 L 600,500 M 700,0 L 700,500"/>
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="40" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="700" letter-spacing="0.5">Heavy-Hitter Oracle (H2O) KV Cache Compression Pipeline</text>
+
+  <!-- INPUT SEQUENCE & ATTENTION MAP -->
+  <g transform="translate(40, 80)">
+    <!-- Input tokens -->
+    <rect x="0" y="10" width="340" height="40" rx="6" fill="#1E293B" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="15" y="34" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Incoming Query Token (t)</text>
+    
+    <!-- Full KV Cache Before Eviction -->
+    <text x="0" y="90" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="13" font-weight="700">Uncompressed KV Cache (Sequence Length L)</text>
+    
+    <!-- Token boxes representing KV pairs -->
+    <!-- Sinks -->
+    <rect x="0" y="105" width="40" height="40" rx="4" fill="url(#sink-grad)" stroke="#F43F5E" stroke-width="2"/>
+    <text x="20" y="129" fill="#F43F5E" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Sink 1</text>
+    
+    <rect x="45" y="105" width="40" height="40" rx="4" fill="url(#sink-grad)" stroke="#F43F5E" stroke-width="2"/>
+    <text x="65" y="129" fill="#F43F5E" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Sink 2</text>
+    
+    <!-- Middle tokens (Evictable candidates) -->
+    <rect x="95" y="105" width="35" height="40" rx="4" fill="#334155" stroke="#475569" stroke-width="1" opacity="0.6"/>
+    <text x="112.5" y="129" fill="#64748B" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">t₃</text>
+    
+    <rect x="135" y="105" width="35" height="40" rx="4" fill="url(#heavy-grad)" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="152.5" y="129" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">t₄ (H)</text>
+
+    <rect x="175" y="105" width="35" height="40" rx="4" fill="#334155" stroke="#475569" stroke-width="1" opacity="0.6"/>
+    <text x="192.5" y="129" fill="#64748B" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">t₅</text>
+
+    <rect x="215" y="105" width="35" height="40" rx="4" fill="url(#heavy-grad)" stroke="#38BDF8" stroke-width="1.5"/>
+    <text x="232.5" y="129" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">t₆ (H)</text>
+    
+    <!-- Local Sliding Window (Pinned) -->
+    <rect x="260" y="105" width="40" height="40" rx="4" fill="url(#local-grad)" stroke="#34D399" stroke-width="2"/>
+    <text x="280" y="129" fill="#34D399" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Loc 1</text>
+    
+    <rect x="305" y="105" width="40" height="40" rx="4" fill="url(#local-grad)" stroke="#34D399" stroke-width="2"/>
+    <text x="325" y="129" fill="#34D399" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle">Loc 2</text>
+  </g>
+
+  <!-- DYNAMIC MONITORING & EVICTION LOGIC -->
+  <g transform="translate(420, 90)">
+    <rect x="0" y="0" width="340" height="155" rx="8" fill="#1E293B" stroke="#475569" stroke-width="1.5" filter="url(#shadow)"/>
+    <text x="15" y="25" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="13" font-weight="700">Eviction Oracle (Top-k Selection)</text>
+    
+    <!-- Dynamic score tracking -->
+    <text x="15" y="55" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11">1. Accumulate Attention Scores per Token:</text>
+    <text x="30" y="75" fill="#38BDF8" font-family="monospace" font-size="11">Score(i) = λ × Score(i) + Attn(t, i)</text>
+    
+    <text x="15" y="105" fill="#94A3B8" font-family="system-ui, sans-serif" font-size="11">2. Identify Top-K Heavy Hitters (H):</text>
+    <text x="30" y="125" fill="#34D399" font-family="monospace" font-size="11">Keep: Sinks ∪ Sliding Window ∪ Top-K(Scores)</text>
+    <text x="30" y="140" fill="#EF4444" font-family="monospace" font-size="11">Evict: Remaining lowest score items</text>
+  </g>
+
+  <!-- FLOW CONNECTORS -->
+  <!-- Query to Attention Score calculation -->
+  <path d="M 210,130 L 210,180 Q 210,210 320,210 L 410,210" fill="none" stroke="url(#flow-grad)" stroke-width="2" stroke-dasharray="4 4"/>
+  <polygon points="410,206 420,210 410,214" fill="#34D399"/>
+  
+  <!-- Eviction decision to output -->
+  <path d="M 590,245 L 590,300 Q 590,320 480,320 L 380,320 Q 340,320 340,350 L 340,370" fill="none" stroke="#64748B" stroke-width="2"/>
+  <polygon points="336,370 340,380 344,370" fill="#64748B"/>
+  
+  <!-- COMPRESSED KV CACHE -->
+  <g transform="translate(140, 390)">
+    <rect x="0" y="0" width="520" height="80" rx="8" fill="#0F172A" stroke="#34D399" stroke-width="2" filter="url(#shadow)"/>
+    <text x="20" y="28" fill="#F8FAFC" font-family="system-ui, sans-serif" font-size="13" font-weight="700">Compressed KV Cache in GPU VRAM (Fixed Budget Size K)</text>
+    
+    <!-- Saved Tokens -->
+    <g transform="translate(20, 42)">
+      <!-- Sinks -->
+      <rect x="0" y="0" width="80" height="26" rx="4" fill="url(#sink-grad)" stroke="#F43F5E" stroke-width="1.5"/>
+      <text x="40" y="17" fill="#F43F5E" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Sinks (2)</text>
+      
+      <!-- Top-K Heavy Hitters -->
+      <rect x="90" y="0" width="160" height="26" rx="4" fill="url(#heavy-grad)" stroke="#38BDF8" stroke-width="1.5"/>
+      <text x="170" y="17" fill="#38BDF8" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Heavy Hitters (t₄, t₆)</text>
+      
+      <!-- Local Sliding Window -->
+      <rect x="260" y="0" width="120" height="26" rx="4" fill="url(#local-grad)" stroke="#34D399" stroke-width="1.5"/>
+      <text x="320" y="17" fill="#34D399" font-family="system-ui, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Local Window (2)</text>
+      
+      <!-- Evicted/Pruned placeholder (dashed) -->
+      <rect x="390" y="0" width="90" height="26" rx="4" fill="none" stroke="#475569" stroke-dasharray="3 3"/>
+      <text x="435" y="16" fill="#64748B" font-family="system-ui, sans-serif" font-size="10" text-anchor="middle">Pruned (t₃, t₅)</text>
+    </g>
+  </g>
+  
+  <!-- Info Badges -->
+  <g transform="translate(40, 290)">
+    <rect x="0" y="0" width="160" height="36" rx="6" fill="#1E293B" stroke="#475569" stroke-width="1"/>
+    <text x="10" y="22" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Memory Reduction: </text>
+    <text x="118" y="22" fill="#34D399" font-family="system-ui, sans-serif" font-size="11" font-weight="700">up to 4x</text>
+  </g>
+  
+  <g transform="translate(210, 290)">
+    <rect x="0" y="0" width="160" height="36" rx="6" fill="#1E293B" stroke="#475569" stroke-width="1"/>
+    <text x="10" y="22" fill="#E2E8F0" font-family="system-ui, sans-serif" font-size="11" font-weight="600">Throughput Boost: </text>
+    <text x="115" y="22" fill="#34D399" font-family="system-ui, sans-serif" font-size="11" font-weight="700">~2.5x</text>
+  </g>
+</svg>

@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%" style="background-color: #0f172a; font-family: system-ui, -apple-system, sans-serif;">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="gradient-source" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="gradient-analyzer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#7e22ce" />
+    </linearGradient>
+    <linearGradient id="gradient-aggregator" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f43f5e" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <linearGradient id="gradient-output" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-highlight" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38bdf8" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="440" y="35" text-anchor="middle" fill="#f8fafc" font-size="20" font-weight="800" letter-spacing="0.5">MONOREPO QUANTITATIVE ANALYSIS PIPELINE</text>
+  <text x="440" y="55" text-anchor="middle" fill="#94a3b8" font-size="12">Continuous tracking of AST complexity, dependency graphs, and API surface drift</text>
+
+  <!-- Section 1: Monorepo Sources -->
+  <g transform="translate(30, 80)" filter="url(#shadow)">
+    <rect width="180" height="380" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect width="180" height="40" rx="12" fill="url(#gradient-source)" opacity="0.9" />
+    <text x="90" y="26" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">1. INPUT SOURCES</text>
+
+    <!-- Source Node: Git History -->
+    <g transform="translate(15, 60)">
+      <rect width="150" height="85" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="12" font-weight="600">Git Repository</text>
+      <text x="15" y="45" fill="#94a3b8" font-size="10">• Commit Frequency</text>
+      <text x="15" y="60" fill="#94a3b8" font-size="10">• Churn &amp; File Touches</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="10">• Directory Heatmaps</text>
+    </g>
+
+    <!-- Source Node: Codebase AST -->
+    <g transform="translate(15, 160)">
+      <rect width="150" height="85" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="12" font-weight="600">Abstract Syntax Tree</text>
+      <text x="15" y="45" fill="#94a3b8" font-size="10">• Functions &amp; Classes</text>
+      <text x="15" y="60" fill="#94a3b8" font-size="10">• Imports &amp; Callgraphs</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="10">• Cyclomatic Nodes</text>
+    </g>
+
+    <!-- Source Node: API Definitions -->
+    <g transform="translate(15, 260)">
+      <rect width="150" height="90" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="12" font-weight="600">Interface Specs</text>
+      <text x="15" y="45" fill="#94a3b8" font-size="10">• OpenAPI YAML/JSON</text>
+      <text x="15" y="60" fill="#94a3b8" font-size="10">• gRPC Protobufs</text>
+      <text x="15" y="75" fill="#94a3b8" font-size="10">• GraphQL Schemas</text>
+    </g>
+  </g>
+
+  <!-- Connectors Group 1 -->
+  <path d="M 210 182 L 242 182" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 210 282 L 242 282" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 210 382 L 242 382" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Section 2: Extraction & Analyzer -->
+  <g transform="translate(250, 80)" filter="url(#shadow)">
+    <rect width="180" height="380" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect width="180" height="40" rx="12" fill="url(#gradient-analyzer)" opacity="0.9" />
+    <text x="90" y="26" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">2. ANALYSIS ENGINES</text>
+
+    <!-- Analyzer: Complexity Analyzer -->
+    <g transform="translate(15, 60)">
+      <rect width="150" height="85" rx="8" fill="#0f172a" stroke="#a855f7" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="11" font-weight="600">Complexity Calculator</text>
+      <text x="15" y="45" fill="#94a3b8" font-size="9">• Radon / McCabe metric</text>
+      <text x="15" y="60" fill="#94a3b8" font-size="9">• Halstead Volume</text>
+      <text x="15" y="75" fill="#e2e8f0" font-size="9" font-weight="700">Returns: CC per file</text>
+    </g>
+
+    <!-- Analyzer: Dependency Graph -->
+    <g transform="translate(15, 160)">
+      <rect width="150" height="85" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="11" font-weight="600">Dependency Parser</text>
+      <text x="15" y="45" fill="#94a3b8" font-size="9">• Fan-in / Fan-out matrix</text>
+      <text x="15" y="60" fill="#94a3b8" font-size="9">• Cyclical Import Detector</text>
+      <text x="15" y="75" fill="#e2e8f0" font-size="9" font-weight="700">Returns: Instability Index</text>
+    </g>
+
+    <!-- Analyzer: API Schema Analyzer -->
+    <g transform="translate(15, 260)">
+      <rect width="150" height="90" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="11" font-weight="600">API Diff Engine</text>
+      <text x="15" y="45" fill="#94a3b8" font-size="9">• Path &amp; Parameter count</text>
+      <text x="15" y="60" fill="#94a3b8" font-size="9">• Breaking Change check</text>
+      <text x="15" y="75" fill="#e2e8f0" font-size="9" font-weight="700">Returns: Endpoint Count</text>
+    </g>
+  </g>
+
+  <!-- Connectors Group 2 -->
+  <path d="M 430 182 L 462 182" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 430 282 L 462 282" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 430 382 L 462 382" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Section 3: Metric Aggregator -->
+  <g transform="translate(470, 80)" filter="url(#shadow)">
+    <rect width="180" height="380" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect width="180" height="40" rx="12" fill="url(#gradient-aggregator)" opacity="0.9" />
+    <text x="90" y="26" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">3. CORE METRICS</text>
+
+    <!-- Metric: System Entropy (H) -->
+    <g transform="translate(15, 60)">
+      <rect width="150" height="85" rx="8" fill="#0f172a" stroke="#f43f5e" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="11" font-weight="600">Shannon Entropy (H)</text>
+      <text x="15" y="42" fill="#fda4af" font-size="9">H = -Σ P(x_i) log2 P(x_i)</text>
+      <text x="15" y="58" fill="#94a3b8" font-size="9">• Focuses on code changes</text>
+      <text x="15" y="73" fill="#94a3b8" font-size="9">• Measures drift spread</text>
+    </g>
+
+    <!-- Metric: API Surface Score -->
+    <g transform="translate(15, 160)">
+      <rect width="150" height="85" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="11" font-weight="600">API Surface Area (A)</text>
+      <text x="15" y="42" fill="#e2e8f0" font-size="9">A = E_r * W_c * P_d</text>
+      <text x="15" y="58" fill="#94a3b8" font-size="9">• Weight by endpoint complexity</text>
+      <text x="15" y="73" fill="#94a3b8" font-size="9">• Param depth density score</text>
+    </g>
+
+    <!-- Metric: Coupling Matrix -->
+    <g transform="translate(15, 260)">
+      <rect width="150" height="90" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="15" y="25" fill="#f8fafc" font-size="11" font-weight="600">Monorepo Coupling Ratio</text>
+      <text x="15" y="42" fill="#e2e8f0" font-size="9">C_r = E_d / (I_d + E_d)</text>
+      <text x="15" y="58" fill="#94a3b8" font-size="9">• Efferent vs Afferent imports</text>
+      <text x="15" y="73" fill="#94a3b8" font-size="9">• Boundary violation count</text>
+    </g>
+  </g>
+
+  <!-- Connectors Group 3 -->
+  <path d="M 650 182 L 682 182" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 650 282 L 682 282" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 650 382 L 682 382" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Section 4: Outputs & Gating -->
+  <g transform="translate(690, 80)" filter="url(#shadow)">
+    <rect width="160" height="380" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect width="160" height="40" rx="12" fill="url(#gradient-output)" opacity="0.9" />
+    <text x="80" y="26" text-anchor="middle" fill="#ffffff" font-size="13" font-weight="700">4. ACTIONS</text>
+
+    <!-- Action: CI/CD Build Gate -->
+    <g transform="translate(10, 60)">
+      <rect width="140" height="85" rx="8" fill="#0f172a" stroke="#10b981" stroke-width="1" />
+      <text x="10" y="25" fill="#f8fafc" font-size="11" font-weight="600">CI Build Gates</text>
+      <text x="10" y="45" fill="#34d399" font-size="9" font-weight="700">FAIL IF:</text>
+      <text x="10" y="58" fill="#e2e8f0" font-size="9">• Entropy Change &gt; 12%</text>
+      <text x="10" y="70" fill="#e2e8f0" font-size="9">• Unapproved API growth</text>
+    </g>
+
+    <!-- Action: Alerts -->
+    <g transform="translate(10, 160)">
+      <rect width="140" height="85" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="10" y="25" fill="#f8fafc" font-size="11" font-weight="600">Alerts &amp; Reports</text>
+      <text x="10" y="45" fill="#94a3b8" font-size="9">• Slack notification digest</text>
+      <text x="10" y="60" fill="#94a3b8" font-size="9">• Weekly PDF reports</text>
+      <text x="10" y="75" fill="#94a3b8" font-size="9">• Code review metadata</text>
+    </g>
+
+    <!-- Action: TSDB Dashboard -->
+    <g transform="translate(10, 260)">
+      <rect width="140" height="90" rx="8" fill="#0f172a" stroke="#475569" stroke-width="1" />
+      <text x="10" y="25" fill="#f8fafc" font-size="11" font-weight="600">TSDB / Grafana</text>
+      <text x="10" y="45" fill="#94a3b8" font-size="9">• Metric persistence</text>
+      <text x="10" y="60" fill="#94a3b8" font-size="9">• Historical regression line</text>
+      <text x="10" y="75" fill="#94a3b8" font-size="9">• Team-specific sub-dash</text>
+    </g>
+  </g>
+</svg>

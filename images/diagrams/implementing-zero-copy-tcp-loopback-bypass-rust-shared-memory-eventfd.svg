@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 550" width="100%" height="100%">
+  <defs>
+    <!-- Background styling and gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+    
+    <!-- Component Gradients -->
+    <linearGradient id="procGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#0284C7"/>
+    </linearGradient>
+    
+    <linearGradient id="shmGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+
+    <linearGradient id="kernelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E"/>
+      <stop offset="100%" stop-color="#BE123C"/>
+    </linearGradient>
+    
+    <linearGradient id="eventfdGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <!-- Drop Shadow for Cards -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
+      <feOffset dx="0" dy="4" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge> 
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer Canvas -->
+  <rect width="850" height="550" rx="8" fill="url(#bgGrad)"/>
+  
+  <!-- Title / Label -->
+  <text x="30" y="40" fill="#F8FAFC" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700">Zero-Copy TCP Loopback Bypass Architecture</text>
+  <text x="30" y="60" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="12">Direct User-Space IPC vs. Traditional Kernel TCP Loopback Path</text>
+
+  <!-- Process A (Sender) -->
+  <g filter="url(#shadow)">
+    <rect x="50" y="110" width="180" height="340" rx="10" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+    <rect x="65" y="125" width="150" height="35" rx="6" fill="url(#procGrad)"/>
+    <text x="140" y="147" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">Process A (Producer)</text>
+    
+    <!-- User Space Buffers / App Logic -->
+    <rect x="65" y="180" width="150" height="60" rx="6" fill="#334155" stroke="#475569" stroke-width="1"/>
+    <text x="140" y="205" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle">User-Space Application</text>
+    <text x="140" y="222" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">Raw Data Pointers</text>
+
+    <!-- Ring Buffer Control Logic -->
+    <rect x="65" y="260" width="150" height="60" rx="6" fill="#334155" stroke="#475569" stroke-width="1"/>
+    <text x="140" y="285" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Shared-Memory Queue</text>
+    <text x="140" y="302" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">Atomic Write Cursor</text>
+
+    <!-- eventfd descriptor -->
+    <rect x="65" y="340" width="150" height="45" rx="6" fill="#334155" stroke="#F59E0B" stroke-width="1"/>
+    <text x="140" y="360" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle">eventfd (TX Descriptor)</text>
+    <text x="140" y="375" fill="#F59E0B" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">write(efd, &amp;1, 8)</text>
+
+    <!-- Traditional Socket -->
+    <rect x="65" y="400" width="150" height="35" rx="6" fill="#334155" stroke="#F43F5E" stroke-dasharray="3,3" stroke-width="1.5"/>
+    <text x="140" y="422" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Legacy TCP Socket</text>
+  </g>
+
+  <!-- Process B (Receiver) -->
+  <g filter="url(#shadow)">
+    <rect x="620" y="110" width="180" height="340" rx="10" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+    <rect x="635" y="125" width="150" height="35" rx="6" fill="url(#procGrad)"/>
+    <text x="710" y="147" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">Process B (Consumer)</text>
+    
+    <!-- User Space Buffers / App Logic -->
+    <rect x="635" y="180" width="150" height="60" rx="6" fill="#334155" stroke="#475569" stroke-width="1"/>
+    <text x="710" y="205" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle">User-Space Application</text>
+    <text x="710" y="222" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">Zero-Copy Read Buffers</text>
+
+    <!-- Ring Buffer Control Logic -->
+    <rect x="635" y="260" width="150" height="60" rx="6" fill="#334155" stroke="#475569" stroke-width="1"/>
+    <text x="710" y="285" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Shared-Memory Queue</text>
+    <text x="710" y="302" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">Atomic Read Cursor</text>
+
+    <!-- eventfd descriptor -->
+    <rect x="635" y="340" width="150" height="45" rx="6" fill="#334155" stroke="#F59E0B" stroke-width="1"/>
+    <text x="710" y="360" fill="#E2E8F0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle">eventfd (RX Descriptor)</text>
+    <text x="710" y="375" fill="#F59E0B" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">read(efd, &amp;buf, 8)</text>
+
+    <!-- Traditional Socket -->
+    <rect x="635" y="400" width="150" height="35" rx="6" fill="#334155" stroke="#F43F5E" stroke-dasharray="3,3" stroke-width="1.5"/>
+    <text x="710" y="422" fill="#94A3B8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" text-anchor="middle">Legacy TCP Socket</text>
+  </g>
+
+  <!-- Shared Memory Segment (The Fast Path Bypass) -->
+  <g filter="url(#shadow)">
+    <rect x="290" y="110" width="270" height="230" rx="10" fill="#022C22" stroke="#34D399" stroke-width="2"/>
+    <rect x="305" y="125" width="240" height="35" rx="6" fill="url(#shmGrad)"/>
+    <text x="425" y="147" fill="#FFFFFF" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">POSIX Shared Memory (/dev/shm)</text>
+    
+    <!-- Tx Ring Buffer -->
+    <rect x="305" y="180" width="240" height="65" rx="6" fill="#064E3B" stroke="#059669" stroke-width="1"/>
+    <text x="425" y="200" fill="#34D399" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">TX RING BUFFER (A → B)</text>
+    <text x="425" y="218" fill="#A7F3D0" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">[Atomic Head/Tail]  |  [Continuous Pre-allocated Slots]</text>
+    <text x="425" y="232" fill="#A7F3D0" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">0 copy: direct pointer manipulation</text>
+
+    <!-- Rx Ring Buffer -->
+    <rect x="305" y="260" width="240" height="65" rx="6" fill="#064E3B" stroke="#059669" stroke-width="1"/>
+    <text x="425" y="280" fill="#34D399" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">RX RING BUFFER (B → A)</text>
+    <text x="425" y="298" fill="#A7F3D0" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">[Atomic Head/Tail]  |  [Continuous Pre-allocated Slots]</text>
+    <text x="425" y="312" fill="#A7F3D0" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">0 copy: direct pointer manipulation</text>
+  </g>
+
+  <!-- Synchronization Layer (eventfd) -->
+  <g filter="url(#shadow)">
+    <rect x="290" y="360" width="270" height="60" rx="10" fill="#451A03" stroke="#F59E0B" stroke-width="2"/>
+    <text x="425" y="382" fill="#FBBF24" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" text-anchor="middle">eventfd Kernel Wait-Queue</text>
+    <text x="425" y="400" fill="#FDE68A" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Low-Overhead Wakeup Notification (no network stack)</text>
+  </g>
+
+  <!-- Traditional Kernel Loopback Layer (Slow Path) -->
+  <g filter="url(#shadow)">
+    <rect x="290" y="480" width="270" height="50" rx="6" fill="#4C0519" stroke="#F43F5E" stroke-dasharray="4,4" stroke-width="1.5"/>
+    <text x="425" y="502" fill="#FDA4AF" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700" text-anchor="middle">Linux Kernel TCP Loopback Stack</text>
+    <text x="425" y="520" fill="#FECDD3" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle">Sk_buff allocation, socket locks, sys_enter/sys_exit context switches</text>
+  </g>
+
+  <!-- Flow Arrows (Bypass Path) -->
+  <!-- Process A Write to Shm -->
+  <path d="M 215 290 Q 252.5 290 290 220" fill="none" stroke="#34D399" stroke-width="3" stroke-dasharray="1,1"/>
+  <polygon points="290,220 286,227 280,223" fill="#34D399" />
+  <text x="252" y="270" fill="#34D399" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">1. Write SHM</text>
+
+  <!-- Process A Signal eventfd -->
+  <path d="M 215 362 L 290 390" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+  <polygon points="290,390 280,387 285,382" fill="#F59E0B"/>
+  <text x="252" y="365" fill="#FBBF24" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">2. Signal</text>
+
+  <!-- Process B Poll eventfd -->
+  <path d="M 560 390 L 635 362.5" fill="none" stroke="#F59E0B" stroke-width="2.5"/>
+  <polygon points="635,362.5 625,365 630,370" fill="#F59E0B"/>
+  <text x="597" y="365" fill="#FBBF24" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">3. Wakeup</text>
+
+  <!-- Process B Read from Shm -->
+  <path d="M 560 210 Q 597.5 290 635 290" fill="none" stroke="#34D399" stroke-width="3" stroke-dasharray="1,1"/>
+  <polygon points="635,290 627,286 627,294" fill="#34D399"/>
+  <text x="597" y="270" fill="#34D399" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">4. Read SHM</text>
+
+  <!-- Traditional Path (Slow Path) -->
+  <path d="M 215 417 L 290 500" fill="none" stroke="#F43F5E" stroke-dasharray="5,5" stroke-width="2"/>
+  <polygon points="290,500 286,492 281,497" fill="#F43F5E"/>
+  
+  <path d="M 560 500 L 635 417" fill="none" stroke="#F43F5E" stroke-dasharray="5,5" stroke-width="2"/>
+  <polygon points="635,417 626,420 631,425" fill="#F43F5E"/>
+  
+  <text x="252" y="475" fill="#F43F5E" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" text-anchor="middle">Slow TCP</text>
+  <text x="597" y="475" fill="#F43F5E" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="600" text-anchor="middle">Slow TCP</text>
+</svg>
