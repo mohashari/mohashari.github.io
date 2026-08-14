@@ -1,0 +1,318 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <!-- Definition for grid background and gradients/styles -->
+  <defs>
+    <!-- Background grid -->
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2a303c" stroke-width="1" />
+    </pattern>
+    
+    <!-- Linear Gradients for UI Elements -->
+    <linearGradient id="gpuGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ade80" />
+      <stop offset="100%" stop-color="#15803d" />
+    </linearGradient>
+    
+    <linearGradient id="dramGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    
+    <linearGradient id="nvmeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+
+    <linearGradient id="engineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="100%" stop-color="#6b21a8" />
+    </linearGradient>
+
+    <linearGradient id="ioUringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Drop shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="#0f172a" />
+  <rect width="800" height="600" fill="url(#grid)" opacity="0.5" />
+
+  <!-- Main Title -->
+  <text x="40" y="45" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="800" fill="#f8fafc" letter-spacing="0.5">
+    KV CACHE PAGE SWAPPING ENGINE ARCHITECTURE
+  </text>
+  <text x="40" y="65" font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="500" fill="#94a3b8">
+    Hierarchical Slot Swapping with Async Direct I/O (O_DIRECT) &amp; madvise
+  </text>
+
+  <!-- GPU VRAM Region -->
+  <g transform="translate(40, 100)" filter="url(#shadow)">
+    <!-- Container -->
+    <rect width="210" height="420" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2" />
+    <rect width="210" height="40" rx="8" fill="url(#gpuGrad)" opacity="0.15" />
+    <line x1="0" y1="40" x2="210" y2="40" stroke="#334155" stroke-width="2" />
+    
+    <!-- Title -->
+    <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#4ade80">GPU VRAM</text>
+    <text x="195" y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" fill="#4ade80" text-anchor="end">Active Cache</text>
+
+    <!-- VRAM Slots -->
+    <g transform="translate(15, 60)">
+      <!-- Slot 0 -->
+      <rect width="180" height="45" rx="4" fill="#0f172a" stroke="#22c55e" stroke-width="1.5" />
+      <text x="10" y="18" font-family="monospace" font-size="10" fill="#4ade80" font-weight="bold">Slot #001 (Active)</text>
+      <text x="10" y="32" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#94a3b8">Attention Heads: QK V-Vectors</text>
+      <circle cx="165" cy="22" r="5" fill="#22c55e" />
+
+      <!-- Slot 1 -->
+      <rect width="180" height="45" rx="4" fill="#0f172a" stroke="#22c55e" stroke-width="1.5" transform="translate(0, 55)" />
+      <text x="10" y="73" font-family="monospace" font-size="10" fill="#4ade80" font-weight="bold">Slot #002 (Active)</text>
+      <text x="10" y="87" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#94a3b8">Attention Heads: QK V-Vectors</text>
+      <circle cx="165" cy="77" r="5" fill="#22c55e" />
+
+      <!-- Slot 2 -->
+      <rect width="180" height="45" rx="4" fill="#0f172a" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3" transform="translate(0, 110)" />
+      <text x="10" y="128" font-family="monospace" font-size="10" fill="#94a3b8" font-weight="bold">Slot #003 (Evicting)</text>
+      <text x="10" y="142" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#64748b">Swapping to Host DRAM...</text>
+      <circle cx="165" cy="132" r="5" fill="#f59e0b" />
+
+      <!-- Slot 3 -->
+      <rect width="180" height="45" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1" transform="translate(0, 165)" opacity="0.4" />
+      <text x="10" y="183" font-family="monospace" font-size="10" fill="#64748b" font-weight="bold">Slot #004 (Empty)</text>
+      <text x="10" y="197" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#475569">Unallocated / Free</text>
+
+      <!-- Pinning Indicator -->
+      <g transform="translate(0, 225)">
+        <rect width="180" height="115" rx="6" fill="#111827" stroke="#334155" stroke-width="1" />
+        <text x="10" y="20" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">CUDA Unified Memory</text>
+        <text x="10" y="38" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#94a3b8">Active batches mapped in</text>
+        <text x="10" y="52" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#94a3b8">pinned memory buffers</text>
+        <!-- Mini stats block -->
+        <rect x="10" y="65" width="160" height="40" rx="4" fill="#1e293b" />
+        <text x="20" y="80" font-family="monospace" font-size="10" fill="#4ade80" font-weight="bold">VRAM-to-DRAM PCIe</text>
+        <text x="20" y="94" font-family="monospace" font-size="10" fill="#38bdf8" font-weight="bold">BW: ~26.5 GB/s (Gen4)</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Host DRAM Memory Region -->
+  <g transform="translate(290, 100)" filter="url(#shadow)">
+    <!-- Container -->
+    <rect width="220" height="420" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2" />
+    <rect width="220" height="40" rx="8" fill="url(#dramGrad)" opacity="0.15" />
+    <line x1="0" y1="40" x2="220" y2="40" stroke="#334155" stroke-width="2" />
+
+    <!-- Title -->
+    <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">HOST DRAM</text>
+    <text x="205" y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" fill="#38bdf8" text-anchor="end">Aligned Pages</text>
+
+    <!-- Custom Swapping Engine Layer -->
+    <g transform="translate(15, 60)">
+      <!-- Custom Page Pool -->
+      <rect width="190" height="150" rx="6" fill="#111827" stroke="#38bdf8" stroke-width="1.5" />
+      <text x="10" y="20" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">Custom 4KB Aligned Pages</text>
+      <text x="10" y="34" font-family="monospace" font-size="9.5" fill="#0ea5e9">posix_memalign / O_DIRECT ready</text>
+
+      <!-- Sub pages grid -->
+      <g transform="translate(10, 45)">
+        <!-- Page 0 (MADV_WILLNEED) -->
+        <rect width="80" height="40" rx="4" fill="#075985" stroke="#38bdf8" stroke-width="1" />
+        <text x="8" y="16" font-family="monospace" font-size="9" fill="#e0f2fe" font-weight="bold">Page A</text>
+        <text x="8" y="28" font-family="'Segoe UI', sans-serif" font-size="7" fill="#bae6fd">WILLNEED</text>
+        <circle cx="70" cy="12" r="3" fill="#38bdf8" />
+
+        <!-- Page 1 (MADV_DONTNEED) -->
+        <rect width="80" height="40" rx="4" fill="#0f172a" stroke="#64748b" stroke-width="1" transform="translate(90, 0)" />
+        <text x="98" y="16" font-family="monospace" font-size="9" fill="#94a3b8" font-weight="bold">Page B</text>
+        <text x="98" y="28" font-family="'Segoe UI', sans-serif" font-size="7" fill="#64748b">DONTNEED</text>
+        <circle cx="160" cy="12" r="3" fill="#475569" />
+
+        <!-- Page 2 (Dirty - Swapping out) -->
+        <rect width="80" height="40" rx="4" fill="#0f172a" stroke="#f59e0b" stroke-width="1" transform="translate(0, 50)" />
+        <text x="8" y="66" font-family="monospace" font-size="9" fill="#f59e0b" font-weight="bold">Page C</text>
+        <text x="8" y="78" font-family="'Segoe UI', sans-serif" font-size="7" fill="#d97706">SWAPPING...</text>
+        <circle cx="70" cy="62" r="3" fill="#f59e0b" />
+
+        <!-- Page 3 (Pre-fetched) -->
+        <rect width="80" height="40" rx="4" fill="#0c4a6e" stroke="#0ea5e9" stroke-width="1" transform="translate(90, 50)" />
+        <text x="98" y="66" font-family="monospace" font-size="9" fill="#e0f2fe" font-weight="bold">Page D</text>
+        <text x="98" y="78" font-family="'Segoe UI', sans-serif" font-size="7" fill="#bae6fd">PRE-FETCHED</text>
+        <circle cx="160" cy="62" r="3" fill="#22c55e" />
+      </g>
+      <text x="10" y="142" font-family="'Segoe UI', sans-serif" font-size="8.5" fill="#64748b">Kernel Bypass: Zero Kernel Copying</text>
+    </g>
+
+    <!-- io_uring Ring Buffers -->
+    <g transform="translate(15, 225)">
+      <rect width="190" height="180" rx="6" fill="#111827" stroke="#f59e0b" stroke-width="1.5" />
+      <text x="10" y="20" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700" fill="#f8fafc">io_uring Subsystem</text>
+      <text x="10" y="35" font-family="monospace" font-size="9.5" fill="#f59e0b">SQ / CQ Ring Mappings</text>
+
+      <!-- Submission Queue (SQ) -->
+      <g transform="translate(10, 48)">
+        <rect width="170" height="50" rx="4" fill="#292524" stroke="#a8a29e" stroke-width="1" />
+        <rect width="170" height="15" rx="4" fill="url(#ioUringGrad)" opacity="0.2" />
+        <text x="10" y="12" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#f59e0b">Submission Queue (SQ)</text>
+        <!-- SQEs -->
+        <g transform="translate(8, 22)">
+          <rect width="32" height="20" rx="2" fill="#44403c" stroke="#f59e0b" stroke-width="1" />
+          <text x="16" y="13" font-family="monospace" font-size="8" fill="#f8fafc" text-anchor="middle">sqe[0]</text>
+          
+          <rect width="32" height="20" rx="2" fill="#44403c" stroke="#f59e0b" stroke-width="1" transform="translate(38, 0)" />
+          <text x="54" y="13" font-family="monospace" font-size="8" fill="#f8fafc" text-anchor="middle">sqe[1]</text>
+          
+          <rect width="32" height="20" rx="2" fill="#1c1917" stroke="#44403c" stroke-width="1" transform="translate(76, 0)" opacity="0.5" />
+          <text x="92" y="13" font-family="monospace" font-size="8" fill="#78716c" text-anchor="middle">sqe[2]</text>
+
+          <rect width="38" height="20" rx="2" fill="#1c1917" stroke="#44403c" stroke-width="1" transform="translate(114, 0)" opacity="0.5" />
+          <text x="133" y="13" font-family="monospace" font-size="8" fill="#78716c" text-anchor="middle">...</text>
+        </g>
+      </g>
+
+      <!-- Completion Queue (CQ) -->
+      <g transform="translate(10, 112)">
+        <rect width="170" height="50" rx="4" fill="#292524" stroke="#a8a29e" stroke-width="1" />
+        <rect width="170" height="15" rx="4" fill="url(#gpuGrad)" opacity="0.1" />
+        <text x="10" y="12" font-family="'Segoe UI', sans-serif" font-size="10" font-weight="bold" fill="#22c55e">Completion Queue (CQ)</text>
+        <!-- CQEs -->
+        <g transform="translate(8, 22)">
+          <rect width="45" height="20" rx="2" fill="#14532d" stroke="#22c55e" stroke-width="1" />
+          <text x="30" y="13" font-family="monospace" font-size="8" fill="#4ade80" text-anchor="middle">cqe[0]: Ok</text>
+          
+          <rect width="45" height="20" rx="2" fill="#14532d" stroke="#22c55e" stroke-width="1" transform="translate(51, 0)" />
+          <text x="73" y="13" font-family="monospace" font-size="8" fill="#4ade80" text-anchor="middle">cqe[1]: Ok</text>
+
+          <rect width="55" height="20" rx="2" fill="#1c1917" stroke="#44403c" stroke-width="1" transform="translate(102, 0)" opacity="0.5" />
+          <text x="129" y="13" font-family="monospace" font-size="8" fill="#78716c" text-anchor="middle">Pending</text>
+        </g>
+      </g>
+      <text x="10" y="174" font-family="sans-serif" font-size="8" fill="#78716c">Shared kernel ring buffers eliminate syscall overhead</text>
+    </g>
+  </g>
+
+  <!-- NVMe SSD / Disk Storage Region -->
+  <g transform="translate(550, 100)" filter="url(#shadow)">
+    <!-- Container -->
+    <rect width="210" height="420" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2" />
+    <rect width="210" height="40" rx="8" fill="url(#nvmeGrad)" opacity="0.15" />
+    <line x1="0" y1="40" x2="210" y2="40" stroke="#334155" stroke-width="2" />
+
+    <!-- Title -->
+    <text x="15" y="25" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#fb7185">NVMe SSD (Direct I/O)</text>
+    <text x="195" y="24" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="600" fill="#fb7185" text-anchor="end">O_DIRECT</text>
+
+    <!-- Storage blocks -->
+    <g transform="translate(15, 60)">
+      <!-- Cache File layout -->
+      <rect width="180" height="150" rx="6" fill="#111827" stroke="#fb7185" stroke-width="1.5" />
+      <text x="10" y="20" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#f8fafc">preallocated_swap.bin</text>
+      <text x="10" y="34" font-family="monospace" font-size="9.5" fill="#f43f5e">Seek offsets = SlotID * SlotSize</text>
+
+      <!-- Blocks grid representation -->
+      <g transform="translate(10, 48)">
+        <!-- Slot Block 0 -->
+        <rect width="75" height="38" rx="3" fill="#881337" stroke="#f43f5e" stroke-width="1" />
+        <text x="8" y="16" font-family="monospace" font-size="9" fill="#fecdd3" font-weight="bold">Slot #001</text>
+        <text x="8" y="28" font-family="sans-serif" font-size="8" fill="#fda4af">Offset: 0MB</text>
+
+        <!-- Slot Block 1 -->
+        <rect width="75" height="38" rx="3" fill="#881337" stroke="#f43f5e" stroke-width="1" transform="translate(85, 0)" />
+        <text x="93" y="16" font-family="monospace" font-size="9" fill="#fecdd3" font-weight="bold">Slot #002</text>
+        <text x="93" y="28" font-family="sans-serif" font-size="8" fill="#fda4af">Offset: 16MB</text>
+
+        <!-- Slot Block 2 -->
+        <rect width="75" height="38" rx="3" fill="#0f172a" stroke="#475569" stroke-width="1" transform="translate(0, 48)" />
+        <text x="8" y="64" font-family="monospace" font-size="9" fill="#94a3b8" font-weight="bold">Slot #003</text>
+        <text x="8" y="76" font-family="sans-serif" font-size="8" fill="#64748b">Offset: 32MB</text>
+
+        <!-- Slot Block 3 -->
+        <rect width="75" height="38" rx="3" fill="#0f172a" stroke="#475569" stroke-width="1" transform="translate(85, 48)" />
+        <text x="93" y="64" font-family="monospace" font-size="9" fill="#94a3b8" font-weight="bold">Slot #004</text>
+        <text x="93" y="76" font-family="sans-serif" font-size="8" fill="#64748b">Offset: 48MB</text>
+      </g>
+      <text x="10" y="140" font-family="sans-serif" font-size="8.5" fill="#f43f5e">Direct flash writes bypass OS Page Cache</text>
+    </g>
+
+    <!-- Swap statistics / characteristics -->
+    <g transform="translate(15, 225)">
+      <rect width="180" height="180" rx="6" fill="#111827" stroke="#334155" stroke-width="1" />
+      <text x="10" y="20" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">I/O Performance</text>
+      <text x="10" y="35" font-family="'Segoe UI', sans-serif" font-size="9" fill="#94a3b8">Bypassing VFS cache overhead</text>
+      
+      <g transform="translate(10, 50)">
+        <rect width="160" height="35" rx="4" fill="#1e293b" />
+        <text x="10" y="15" font-family="sans-serif" font-size="9.5" fill="#e2e8f0">Async Engine Read Latency</text>
+        <text x="10" y="27" font-family="monospace" font-size="10.5" fill="#f43f5e" font-weight="bold">~78 μs (4KB direct block)</text>
+      </g>
+
+      <g transform="translate(10, 95)">
+        <rect width="160" height="35" rx="4" fill="#1e293b" />
+        <text x="10" y="15" font-family="sans-serif" font-size="9.5" fill="#e2e8f0">Throughput Target (4x PCIe Gen4)</text>
+        <text x="10" y="27" font-family="monospace" font-size="10.5" fill="#f43f5e" font-weight="bold">Up to 6.2 GB/s parallel read</text>
+      </g>
+
+      <g transform="translate(10, 140)">
+        <text x="0" y="12" font-family="sans-serif" font-size="8.5" fill="#64748b">• No page faults during copy</text>
+        <text x="0" y="24" font-family="sans-serif" font-size="8.5" fill="#64748b">• Zero-copy async block transfer</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Flow Arrows & Interconnect Labels -->
+
+  <!-- GPU VRAM to Host DRAM Arrow (PCIe Swapping) -->
+  <path d="M 250 220 L 290 220" fill="none" stroke="#22c55e" stroke-width="3" stroke-dasharray="5,3" marker-end="url(#arrow)" />
+  <path d="M 290 240 L 250 240" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="5,3" />
+  <text x="270" y="205" font-family="'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" fill="#22c55e" text-anchor="middle">CUDA memcpy</text>
+  <text x="270" y="258" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" fill="#38bdf8" text-anchor="middle">H2D Pinning</text>
+
+  <!-- Host DRAM to NVMe SSD Arrow (Direct I/O via io_uring) -->
+  <path d="M 510 260 L 550 260" fill="none" stroke="#fb7185" stroke-width="3" stroke-dasharray="6,4" />
+  <path d="M 550 280 L 510 280" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6,4" />
+  <text x="530" y="245" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="700" fill="#fb7185" text-anchor="middle">Direct Write</text>
+  <text x="530" y="300" font-family="'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="700" fill="#f59e0b" text-anchor="middle">io_uring SQE</text>
+
+  <!-- Flow indicators/markers (Custom design for simplicity) -->
+  <g transform="translate(283, 215)">
+    <polygon points="0,0 8,5 0,10" fill="#22c55e" />
+  </g>
+  <g transform="translate(247, 235)">
+    <polygon points="8,0 0,5 8,10" fill="#38bdf8" />
+  </g>
+
+  <g transform="translate(543, 255)">
+    <polygon points="0,0 8,5 0,10" fill="#fb7185" />
+  </g>
+  <g transform="translate(507, 275)">
+    <polygon points="8,0 0,5 8,10" fill="#f59e0b" />
+  </g>
+
+  <!-- Custom allocator control / madvise lines -->
+  <path d="M 400 180 C 400 60, 480 60, 480 100" fill="none" stroke="#a855f7" stroke-dasharray="2,2" stroke-width="1.5" />
+  <text x="450" y="55" font-family="monospace" font-size="8.5" fill="#a855f7" text-anchor="middle">madvise(MADV_DONTNEED)</text>
+  <circle cx="480" cy="100" r="3" fill="#a855f7" />
+  <circle cx="400" cy="180" r="3" fill="#a855f7" />
+
+  <!-- Legend -->
+  <g transform="translate(40, 535)">
+    <rect width="720" height="45" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+    <text x="15" y="26" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#94a3b8">LEGEND:</text>
+    
+    <rect x="80" y="16" width="12" height="12" rx="2" fill="url(#gpuGrad)" />
+    <text x="98" y="26" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#e2e8f0">GPU VRAM Slots</text>
+
+    <rect x="230" y="16" width="12" height="12" rx="2" fill="url(#dramGrad)" />
+    <text x="248" y="26" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#e2e8f0">Aligned Page Pool</text>
+
+    <rect x="390" y="16" width="12" height="12" rx="2" fill="url(#nvmeGrad)" />
+    <text x="408" y="26" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#e2e8f0">NVMe SSD Filesystem</text>
+
+    <rect x="560" y="16" width="12" height="12" rx="2" fill="url(#ioUringGrad)" />
+    <text x="578" y="26" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#e2e8f0">Async Ring Interface</text>
+  </g>
+</svg>

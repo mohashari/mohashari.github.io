@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F19" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+
+    <!-- Node Glow Effects -->
+    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Box Gradients -->
+    <linearGradient id="blue-box" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <!-- Connector Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748B" />
+    </marker>
+    <marker id="arrow-highlight" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3B82F6" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 20px; font-weight: 700; fill: #F8FAFC; }
+    .subtitle { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 13px; fill: #94A3B8; }
+    .node-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: 600; fill: #F8FAFC; }
+    .node-text { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; fill: #94A3B8; }
+    .node-bold { font-weight: bold; fill: #3B82F6; }
+    .badge { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 10px; font-weight: 700; fill: #1E293B; }
+    .edge-label { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-size: 11px; font-weight: 500; fill: #64748B; }
+    .border-blue { stroke: #3B82F6; stroke-width: 1.5; }
+    .border-green { stroke: #10B981; stroke-width: 1.5; }
+    .border-slate { stroke: #334155; stroke-width: 1.5; }
+    .border-purple { stroke: #8B5CF6; stroke-width: 1.5; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="600" rx="8" fill="url(#bg-grad)" />
+  <rect width="1000" height="600" rx="8" fill="none" stroke="#1E293B" stroke-width="2" />
+
+  <!-- Header -->
+  <g transform="translate(40, 45)">
+    <text class="title">COGNITIVE LOAD ANALYSIS ENGINE: ARCHITECTURE &amp; PIPELINE</text>
+    <text class="subtitle" y="22">Continuous telemetry of AST complexity variance maps and code churn dynamics</text>
+  </g>
+
+  <!-- Phase 1: Ingestion Sources -->
+  <g transform="translate(40, 110)">
+    <!-- Boundary box -->
+    <rect width="200" height="440" rx="6" fill="url(#blue-box)" class="border-slate" />
+    <text class="node-title" x="20" y="30" fill="#64748B">1. DATA ACQUISITION</text>
+
+    <!-- Sub-node: Git Commit Logs -->
+    <g transform="translate(15, 60)">
+      <rect width="170" height="100" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1" />
+      <text class="node-title" x="15" y="25">Git History Telemetry</text>
+      <text class="node-text" x="15" y="45">• Raw file diffs</text>
+      <text class="node-text" x="15" y="62">• Commit metadata</text>
+      <text class="node-text" x="15" y="79">• Deletion/Addition lines</text>
+    </g>
+
+    <!-- Sub-node: AST Raw Tree -->
+    <g transform="translate(15, 180)">
+      <rect width="170" height="100" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1" />
+      <text class="node-title" x="15" y="25">AST Parser Engine</text>
+      <text class="node-text" x="15" y="45">• Tree-sitter integration</text>
+      <text class="node-text" x="15" y="62">• Language-agnostic nodes</text>
+      <text class="node-text" x="15" y="79">• Logical structures extract</text>
+    </g>
+
+    <!-- Sub-node: File Metadata -->
+    <g transform="translate(15, 300)">
+      <rect width="170" height="100" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1" />
+      <text class="node-title" x="15" y="25">File Schema Map</text>
+      <text class="node-text" x="15" y="45">• File age &amp; path structure</text>
+      <text class="node-text" x="15" y="62">• Ownership profiles</text>
+      <text class="node-text" x="15" y="79">• External imports count</text>
+    </g>
+  </g>
+
+  <!-- Connectors Phase 1 -> Phase 2 -->
+  <path d="M 240 220 L 320 220" fill="none" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 240 340 L 320 340" fill="none" stroke="#64748B" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Phase 2: Processing and Calculation -->
+  <g transform="translate(330, 110)">
+    <rect width="320" height="440" rx="6" fill="url(#blue-box)" class="border-blue" />
+    <text class="node-title" x="20" y="30" fill="#3B82F6">2. METRICS &amp; ENTROPY ANALYSIS</text>
+
+    <!-- Sub-node: Code Churn Analyzer -->
+    <g transform="translate(20, 60)">
+      <rect width="280" height="100" rx="4" fill="#0F172A" stroke="#3B82F6" stroke-width="1" />
+      <text class="node-title" x="15" y="25">Churn Velocity Calculator</text>
+      <text class="node-text" x="15" y="45">Formula: <tspan fill="#3B82F6" font-family="monospace">Churn = (Added + Deleted) / LOC</tspan></text>
+      <text class="node-text" x="15" y="62">• Normalized per code component</text>
+      <text class="node-text" x="15" y="79">• Relative to component historical depth</text>
+    </g>
+
+    <!-- Sub-node: AST Complexity Analyzer -->
+    <g transform="translate(20, 180)">
+      <rect width="280" height="100" rx="4" fill="#0F172A" stroke="#3B82F6" stroke-width="1" />
+      <text class="node-title" x="15" y="25">AST Complexity Engine</text>
+      <text class="node-text" x="15" y="45">Checks: <tspan fill="#10B981" font-family="monospace">If, For, Switch, Catch, Logical Ops</tspan></text>
+      <text class="node-text" x="15" y="62">• Computes Cyclomatic Complexity (M) per node</text>
+      <text class="node-text" x="15" y="79">• Discards comment / syntax modifications</text>
+    </g>
+
+    <!-- Sub-node: Variance Calculator -->
+    <g transform="translate(20, 300)">
+      <rect width="280" height="110" rx="4" fill="#0F172A" stroke="#3B82F6" stroke-width="1" />
+      <text class="node-title" x="15" y="25">Variance Engine (&amp;sigma;&amp;sup2;<sub>M</sub>)</text>
+      <text class="node-text" x="15" y="45">Formula: <tspan fill="#F59E0B" font-family="monospace">&amp;sigma;&amp;sup2; = &amp;Sigma; (M_i - &amp;mu;)&amp;sup2; / N</tspan></text>
+      <text class="node-text" x="15" y="65">• Calculates rate of structural change</text>
+      <text class="node-text" x="15" y="82">• Focuses on control flow fluctuations</text>
+      <text class="node-text" x="15" y="99">• Identifies highly volatile logic branches</text>
+    </g>
+  </g>
+
+  <!-- Connectors Phase 2 -> Phase 3 -->
+  <path d="M 650 330 L 730 330" fill="none" stroke="#3B82F6" stroke-dasharray="4,4" stroke-width="2" marker-end="url(#arrow-highlight)" />
+
+  <!-- Phase 3: CLI Evaluation and Output -->
+  <g transform="translate(740, 110)">
+    <rect width="220" height="440" rx="6" fill="url(#blue-box)" class="border-green" />
+    <text class="node-title" x="20" y="30" fill="#10B981">3. COGNITIVE LOAD INDEX</text>
+
+    <!-- Formula Node -->
+    <g transform="translate(15, 60)">
+      <rect width="190" height="120" rx="4" fill="#0F172A" stroke="#10B981" stroke-width="1.5" />
+      <text class="node-title" x="15" y="25" fill="#10B981">CLI Formula (W_i)</text>
+      <text class="node-text" x="15" y="50" font-family="monospace" fill="#F8FAFC" font-size="12px">CLI = &amp;alpha;&amp;middot;Churn + &amp;beta;&amp;middot;&amp;sigma;&amp;sup2;<sub>M</sub></text>
+      <text class="node-text" x="15" y="75" fill="#64748B">Where &amp;alpha; = 0.4, &amp;beta; = 0.6</text>
+      <text class="node-text" x="15" y="95" fill="#94A3B8">• Outlier threshold: &gt; 2.5 &amp;sigma;</text>
+      <text class="node-text" x="15" y="108" fill="#94A3B8">• Refactoring trigger: CLI &gt; 8.0</text>
+    </g>
+
+    <!-- Outputs -->
+    <g transform="translate(15, 200)">
+      <rect width="190" height="210" rx="4" fill="#0F172A" stroke="#475569" stroke-width="1" />
+      <text class="node-title" x="15" y="25">Engine Actions</text>
+      
+      <!-- Output 1: CI/CD Gate -->
+      <g transform="translate(15, 45)">
+        <rect width="160" height="40" rx="3" fill="#1E293B" />
+        <text class="node-title" x="10" y="24" font-size="11px" fill="#EF4444">CI/CD Risk Interceptor</text>
+        <circle cx="145" cy="20" r="5" fill="#EF4444" />
+      </g>
+
+      <!-- Output 2: Code Review Assist -->
+      <g transform="translate(15, 95)">
+        <rect width="160" height="40" rx="3" fill="#1E293B" />
+        <text class="node-title" x="10" y="24" font-size="11px" fill="#3B82F6">PR Review Highlighting</text>
+        <circle cx="145" cy="20" r="5" fill="#3B82F6" />
+      </g>
+
+      <!-- Output 3: Hotspot Alerting -->
+      <g transform="translate(15, 145)">
+        <rect width="160" height="45" rx="3" fill="#1E293B" />
+        <text class="node-title" x="10" y="20" font-size="11px" fill="#10B981">Prometheus Exporter</text>
+        <text class="node-text" x="10" y="35" font-size="9px" fill="#94A3B8">Grafana Dashboard Analytics</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Labels on arrows -->
+  <text class="edge-label" x="255" y="195">Raw Diffs</text>
+  <text class="edge-label" x="260" y="325">AST nodes</text>
+  <text class="edge-label" x="665" y="305">Calculated</text>
+  <text class="edge-label" x="672" y="322">Variables</text>
+</svg>

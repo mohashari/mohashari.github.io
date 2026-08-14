@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 550" width="850" height="550" style="background-color: #0f172a; font-family: ui-sans-serif, system-ui, sans-serif;">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-indigo" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#818cf8" />
+    </marker>
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#0f172a" />
+  <g opacity="0.05">
+    <path d="M 0,50 L 850,50 M 0,100 L 850,100 M 0,150 L 850,150 M 0,200 L 850,200 M 0,250 L 850,250 M 0,300 L 850,300 M 0,350 L 850,350 M 0,400 L 850,400 M 0,450 L 850,450 M 0,500 L 850,500" stroke="#94a3b8" stroke-width="1" />
+    <path d="M 50,0 L 50,550 M 100,0 L 100,550 M 150,0 L 150,550 M 200,0 L 200,550 M 250,0 L 250,550 M 300,0 L 300,550 M 350,0 L 350,550 M 400,0 L 400,550 M 450,0 L 450,550 M 500,0 L 500,550 M 550,0 L 550,550 M 600,0 L 600,550 M 650,0 L 650,550 M 700,0 L 700,550 M 750,0 L 750,550 M 800,0 L 800,550" stroke="#94a3b8" stroke-width="1" />
+  </g>
+
+  <rect x="40" y="40" width="340" height="220" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2" />
+  <text x="56" y="68" fill="#f8fafc" font-size="16" font-weight="bold">USER SPACE</text>
+  
+  <rect x="60" y="90" width="300" height="150" rx="8" fill="#0f172a" stroke="#475569" stroke-dasharray="4" stroke-width="1.5" />
+  <text x="76" y="114" fill="#94a3b8" font-size="12" font-weight="600" letter-spacing="0.05em">APPLICATION PROCESS (e.g., Go / Nginx)</text>
+
+  <rect x="80" y="135" width="260" height="85" rx="6" fill="#1e1b4b" stroke="#6366f1" stroke-width="1.5" />
+  <text x="96" y="160" fill="#c084fc" font-size="14" font-weight="bold">TLS Library (OpenSSL / Go TLS)</text>
+  
+  <rect x="100" y="180" width="220" height="30" rx="4" fill="#311042" stroke="#d946ef" stroke-width="1.5" />
+  <text x="110" y="199" fill="#f472b6" font-size="11" font-weight="bold">Uprobe: SSL_write() / SSL_read()</text>
+  <circle cx="210" cy="180" r="4" fill="#e879f9" filter="url(#glow)" />
+
+  <rect x="40" y="290" width="340" height="220" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2" />
+  <text x="56" y="318" fill="#f8fafc" font-size="16" font-weight="bold">KERNEL SPACE</text>
+
+  <rect x="60" y="340" width="300" height="150" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+  <text x="76" y="364" fill="#38bdf8" font-size="12" font-weight="bold" letter-spacing="0.05em">TCP/IP PROTOCOL STACK</text>
+  
+  <g transform="translate(80, 385)">
+    <rect x="0" y="0" width="260" height="32" rx="4" fill="#0c4a6e" stroke="#0ea5e9" stroke-width="1" />
+    <text x="12" y="20" fill="#e0f2fe" font-size="11" font-weight="bold">kprobe: tcp_v4_connect()</text>
+    <circle cx="120" cy="0" r="4" fill="#38bdf8" filter="url(#glow)" />
+    
+    <rect x="0" y="42" width="260" height="32" rx="4" fill="#0c4a6e" stroke="#0ea5e9" stroke-width="1" />
+    <text x="12" y="62" fill="#e0f2fe" font-size="11" font-weight="bold">kprobe: tcp_rcv_state_process()</text>
+    <circle cx="120" cy="42" r="4" fill="#38bdf8" filter="url(#glow)" />
+  </g>
+
+  <path d="M 10,120 L 30,120 M 10,400 L 30,400" stroke="#475569" stroke-width="2" marker-start="url(#arrow)" />
+
+  <g transform="translate(420, 100)">
+    <rect x="0" y="0" width="160" height="350" rx="12" fill="#111827" stroke="#4b5563" stroke-width="2" />
+    <text x="20" y="30" fill="#f3f4f6" font-size="14" font-weight="bold" letter-spacing="0.02em">eBPF DATA PLANES</text>
+
+    <rect x="15" y="60" width="130" height="120" rx="8" fill="#1f2937" stroke="#a855f7" stroke-width="1.5" />
+    <text x="25" y="85" fill="#c084fc" font-size="12" font-weight="bold">Ring Buffer</text>
+    <text x="25" y="105" fill="#e9d5ff" font-size="10">TLS Events</text>
+    <text x="25" y="120" fill="#e9d5ff" font-size="10">(PID, Client Hello,</text>
+    <text x="25" y="135" fill="#e9d5ff" font-size="10">Handshake Time)</text>
+
+    <rect x="15" y="200" width="130" height="120" rx="8" fill="#1f2937" stroke="#06b6d4" stroke-width="1.5" />
+    <text x="25" y="225" fill="#22d3ee" font-size="12" font-weight="bold">BPF Hash Map</text>
+    <text x="25" y="245" fill="#cffafe" font-size="10">Active Sockets</text>
+    <text x="25" y="260" fill="#cffafe" font-size="10">(Sock Struct pointer</text>
+    <text x="25" y="275" fill="#cffafe" font-size="10">→ TCP Timestamps)</text>
+  </g>
+
+  <g transform="translate(620, 100)">
+    <rect x="0" y="0" width="190" height="350" rx="12" fill="#1e293b" stroke="#3b82f6" stroke-width="2" />
+    <text x="20" y="30" fill="#f8fafc" font-size="14" font-weight="bold">COLLECTOR DAEMON</text>
+    <rect x="15" y="60" width="160" height="260" rx="8" fill="#0f172a" stroke="#1e40af" stroke-width="1.5" />
+    <text x="25" y="90" fill="#60a5fa" font-size="12" font-weight="bold">Correlation Engine</text>
+    
+    <rect x="25" y="115" width="140" height="190" rx="6" fill="#1e293b" stroke="#334155" />
+    <text x="35" y="135" fill="#94a3b8" font-size="10" font-weight="bold">STEPS:</text>
+    <text x="35" y="155" fill="#e2e8f0" font-size="10">1. Match TCP Conn event</text>
+    <text x="35" y="170" fill="#e2e8f0" font-size="10">   via Socket Tuple</text>
+    <text x="35" y="195" fill="#e2e8f0" font-size="10">2. Match TLS Handshake</text>
+    <text x="35" y="210" fill="#e2e8f0" font-size="10">   via PID &amp; FD mapping</text>
+    <text x="35" y="235" fill="#e2e8f0" font-size="10">3. Compute Latencies:</text>
+    <text x="45" y="255" fill="#34d399" font-size="10" font-weight="bold">TCP Handshake Δt</text>
+    <text x="45" y="275" fill="#f472b6" font-size="10" font-weight="bold">TLS Handshake Δt</text>
+    <text x="45" y="295" fill="#60a5fa" font-size="10" font-weight="bold">TCP Queue Delay</text>
+  </g>
+
+  <path d="M 320,195 Q 400,195 430,150" fill="none" stroke="#d946ef" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-indigo)" />
+  <text x="350" y="180" fill="#e9d5ff" font-size="10" font-weight="bold" text-anchor="middle">TLS events</text>
+
+  <path d="M 340,410 Q 400,410 430,300" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4" marker-end="url(#arrow-blue)" />
+  <text x="365" y="335" fill="#cffafe" font-size="10" font-weight="bold" text-anchor="middle">TCP state</text>
+
+  <path d="M 580,160 L 620,160" fill="none" stroke="#a855f7" stroke-width="2" marker-end="url(#arrow-indigo)" />
+  <text x="600" y="150" fill="#e9d5ff" font-size="9" text-anchor="middle">Perf Poll</text>
+
+  <path d="M 580,290 Q 600,290 620,290" fill="none" stroke="#06b6d4" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="600" y="280" fill="#cffafe" font-size="9" text-anchor="middle">Map Query</text>
+
+  <path d="M 210,240 L 210,290" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="2 2" />
+  <text x="215" y="270" fill="#94a3b8" font-size="10">Socket Write/Read System Calls</text>
+</svg>

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Modern Gradient Definitions -->
+    <linearGradient id="producerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+    <linearGradient id="consumerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="physGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#6366f1" />
+    </linearGradient>
+    <linearGradient id="virtGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#eab308" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background Layer -->
+  <rect width="800" height="450" fill="#0f172a" rx="12" />
+  
+  <!-- Grid lines for clean technical aesthetic -->
+  <g stroke="#1e293b" stroke-width="1" opacity="0.3">
+    <path d="M 0,50 L 800,50 M 0,100 L 800,100 M 0,150 L 800,150 M 0,200 L 800,200 M 0,250 L 800,250 M 0,300 L 800,300 M 0,350 L 800,350 M 0,400 L 800,400" />
+    <path d="M 100,0 L 100,450 M 200,0 L 200,450 M 300,0 L 300,450 M 400,0 L 400,450 M 500,0 L 500,450 M 600,0 L 600,450 M 700,0 L 700,450" />
+  </g>
+
+  <!-- Header Title -->
+  <text x="30" y="35" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="18" font-weight="700" letter-spacing="0.5">Virtual Memory Double-Mapping for Zero-Copy IPC</text>
+  <text x="30" y="55" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Direct hardware page translation eliminates boundary wrap checks in C++</text>
+
+  <!-- PRODUCER PROCESS (Left) -->
+  <g transform="translate(40, 90)" filter="url(#dropShadow)">
+    <rect width="200" height="80" fill="url(#producerGrad)" rx="8" />
+    <text x="100" y="35" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700">Producer Process</text>
+    <text x="100" y="55" text-anchor="middle" fill="#ccfbf1" font-family="system-ui, sans-serif" font-size="11">Appends to Write Pointer</text>
+  </g>
+
+  <!-- CONSUMER PROCESS (Right) -->
+  <g transform="translate(560, 90)" filter="url(#dropShadow)">
+    <rect width="200" height="80" fill="url(#consumerGrad)" rx="8" />
+    <text x="100" y="35" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="14" font-weight="700">Consumer Process</text>
+    <text x="100" y="55" text-anchor="middle" fill="#dbeafe" font-family="system-ui, sans-serif" font-size="11">Reads from Read Pointer</text>
+  </g>
+
+  <!-- PHYSICAL BACKING FILE (Bottom Center) -->
+  <g transform="translate(280, 320)" filter="url(#dropShadow)">
+    <rect width="240" height="70" fill="url(#physGrad)" rx="8" />
+    <text x="120" y="28" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="700">Physical RAM Pages (memfd)</text>
+    <text x="120" y="48" text-anchor="middle" fill="#e0e7ff" font-family="system-ui, sans-serif" font-size="11">Shared Memory Buffer (Size = N)</text>
+  </g>
+
+  <!-- VIRTUAL ADDRESS SPACE (Middle Center) -->
+  <g transform="translate(180, 200)">
+    <rect width="440" height="60" fill="none" stroke="#334155" stroke-dasharray="4 4" stroke-width="2" rx="6" />
+    <text x="220" y="-12" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" font-weight="600">VIRTUAL ADDRESS RANGE (Size = 2N)</text>
+    
+    <!-- Map 1 (First Half) -->
+    <g transform="translate(10, 10)">
+      <rect width="200" height="40" fill="url(#virtGrad)" rx="4" />
+      <text x="100" y="25" text-anchor="middle" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="700">Primary Mirror [0 ... N-1]</text>
+    </g>
+    
+    <!-- Map 2 (Second Half) -->
+    <g transform="translate(230, 10)">
+      <rect width="200" height="40" fill="url(#virtGrad)" rx="4" opacity="0.85" />
+      <text x="100" y="25" text-anchor="middle" fill="#0f172a" font-family="system-ui, sans-serif" font-size="12" font-weight="700">Secondary Mirror [0 ... N-1]</text>
+    </g>
+  </g>
+
+  <!-- Connection Arrows / Flow lines -->
+  <g stroke-width="2" fill="none">
+    <!-- Producer to virtual space -->
+    <path d="M 140,170 Q 140,230 180,230" stroke="#14b8a6" marker-end="url(#arrow)" />
+    
+    <!-- Consumer to virtual space -->
+    <path d="M 660,170 Q 660,230 630,230" stroke="#3b82f6" />
+    
+    <!-- Double mappings to Physical backing -->
+    <!-- Mirror 1 mapping -->
+    <path d="M 280,260 L 320,320" stroke="#f59e0b" stroke-dasharray="3 3" />
+    <!-- Mirror 2 mapping -->
+    <path d="M 520,260 L 480,320" stroke="#f59e0b" stroke-dasharray="3 3" />
+  </g>
+
+  <!-- IPC descriptor passing -->
+  <g transform="translate(300, 105)">
+    <rect width="200" height="30" fill="#1e293b" stroke="#334155" rx="4" />
+    <text x="100" y="19" text-anchor="middle" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="10">Unix Socket (SCM_RIGHTS FD Passing)</text>
+    <path d="M -60,15 L 0,15" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow-small)" />
+    <path d="M 200,15 L 260,15" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow-small)" />
+  </g>
+
+  <!-- Data Boundary wrapping indicator -->
+  <g transform="translate(350, 185)">
+    <path d="M 10,0 L 80,0" stroke="#ef4444" stroke-width="2.5" />
+    <path d="M 45,-8 L 45,8" stroke="#ef4444" stroke-width="2.5" />
+    <text x="45" y="-14" text-anchor="middle" fill="#f87171" font-family="system-ui, sans-serif" font-size="9" font-weight="700">PAGE BOUNDARY</text>
+  </g>
+
+  <!-- Flow details -->
+  <!-- Write pointer arrow crossing page boundary -->
+  <g transform="translate(340, 240)">
+    <path d="M 0,0 C 20,-10 60,-10 80,0" stroke="#10b981" stroke-width="2.5" stroke-dasharray="4 2" fill="none" />
+    <text x="40" y="-18" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="10" font-weight="600">Zero-Wrap Contiguous Access</text>
+  </g>
+
+  <!-- Marker definitions -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#14b8a6" />
+    </marker>
+    <marker id="arrow-small" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+  </defs>
+</svg>
