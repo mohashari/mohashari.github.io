@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" width="100%" height="100%">
+  <defs>
+    <!-- Fonts -->
+    <style>
+      .title { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 700; fill: #1e293b; }
+      .subtitle { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; fill: #64748b; font-weight: 500; }
+      .label { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 600; fill: #0f172a; }
+      .desc { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 10px; fill: #475569; }
+      .code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; font-size: 10px; fill: #0f766e; font-weight: bold; }
+      .group-title { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 700; fill: #475569; letter-spacing: 0.05em; }
+      .arrow-text { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 9px; fill: #64748b; font-weight: 600; }
+    </style>
+
+    <!-- Shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.06" />
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#0f172a" flood-opacity="0.04" />
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff" />
+      <stop offset="100%" stop-color="#dbeafe" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecfdf5" />
+      <stop offset="100%" stop-color="#d1fae5" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb" />
+      <stop offset="100%" stop-color="#fef3c7" />
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff5f5" />
+      <stop offset="100%" stop-color="#ffe3e3" />
+    </linearGradient>
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+
+    <!-- Markers for Arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#ffffff" rx="8" />
+  <rect width="100%" height="100%" fill="none" stroke="#f1f5f9" stroke-width="2" rx="8" />
+
+  <!-- Diagram Title -->
+  <text x="30" y="35" class="title">PR Latency &amp; Defect Correlation Framework Architecture</text>
+  <text x="30" y="52" class="subtitle">Data ingestion, telemetry mapping, metrics normalization, and statistical analysis pipeline</text>
+
+  <!-- ================= GROUP: DATA SOURCES ================= -->
+  <rect x="25" y="80" width="180" height="360" rx="8" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" />
+  <text x="35" y="100" class="group-title">1. DATA SOURCES</text>
+
+  <!-- GitHub Source -->
+  <g transform="translate(40, 115)" filter="url(#shadow)">
+    <rect width="150" height="65" rx="6" fill="url(#blueGrad)" stroke="#bfdbfe" stroke-width="1" />
+    <text x="12" y="22" class="label">GitHub API / Webhooks</text>
+    <text x="12" y="38" class="desc">PR lifetime events, diff size,</text>
+    <text x="12" y="50" class="desc">reviews, &amp; commit timestamps</text>
+    <circle cx="138" cy="15" r="4" fill="#3b82f6" />
+  </g>
+
+  <!-- Jira Source -->
+  <g transform="translate(40, 195)" filter="url(#shadow)">
+    <rect width="150" height="65" rx="6" fill="url(#amberGrad)" stroke="#fde68a" stroke-width="1" />
+    <text x="12" y="22" class="label">Jira Software Cloud</text>
+    <text x="12" y="38" class="desc">Ticket type (Bug, Story),</text>
+    <text x="12" y="50" class="desc">linked branches &amp; epics</text>
+    <circle cx="138" cy="15" r="4" fill="#d97706" />
+  </g>
+
+  <!-- Sentry / APM Source -->
+  <g transform="translate(40, 275)" filter="url(#shadow)">
+    <rect width="150" height="65" rx="6" fill="url(#roseGrad)" stroke="#fecaca" stroke-width="1" />
+    <text x="12" y="22" class="label">Sentry / APM Alerts</text>
+    <text x="12" y="38" class="desc">Post-release exceptions,</text>
+    <text x="12" y="50" class="desc">release tags, &amp; issue counts</text>
+    <circle cx="138" cy="15" r="4" fill="#ef4444" />
+  </g>
+
+  <!-- Production Hotfixes Source -->
+  <g transform="translate(40, 355)" filter="url(#shadow)">
+    <rect width="150" height="65" rx="6" fill="url(#slateGrad)" stroke="#e2e8f0" stroke-width="1" />
+    <text x="12" y="22" class="label">Prod Deploy Logs</text>
+    <text x="12" y="38" class="desc">Hotfix branch patterns,</text>
+    <text x="12" y="50" class="desc">rollbacks, deploy timestamps</text>
+    <circle cx="138" cy="15" r="4" fill="#64748b" />
+  </g>
+
+  <!-- ================= GROUP: INGESTION & PIPELINE ================= -->
+  <rect x="245" y="80" width="220" height="360" rx="8" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" />
+  <text x="255" y="100" class="group-title">2. STORAGE &amp; ETL PIPELINE</text>
+
+  <!-- Pipeline Connector Nodes -->
+  <path d="M 190 147 L 275 147" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 190 227 L 275 227" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 190 307 L 275 307" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 190 387 L 275 387" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Data Ingestion Worker -->
+  <g transform="translate(260, 115)" filter="url(#shadow)">
+    <rect width="190" height="90" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+    <rect width="190" height="4" rx="2" fill="#64748b" />
+    <text x="12" y="22" class="label">Extractor / Normalizer</text>
+    <text x="12" y="40" class="desc">Go-based background daemon</text>
+    <text x="12" y="54" class="desc">resolves commit-to-issue links</text>
+    <text x="12" y="68" class="desc">and normalizes timezones.</text>
+    <text x="12" y="81" class="code">pkg/ingest/github.go</text>
+  </g>
+
+  <!-- Warehouse / Database -->
+  <g transform="translate(260, 245)" filter="url(#shadow)">
+    <rect width="190" height="175" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+    <rect width="190" height="4" rx="2" fill="#3b82f6" />
+    <text x="12" y="22" class="label">Analytical Database</text>
+    <text x="12" y="38" class="desc">DuckDB / PostgreSQL</text>
+
+    <!-- Schema visual -->
+    <rect x="12" y="50" width="166" height="110" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+    <text x="20" y="68" class="code" fill="#475569">Fact Tables:</text>
+    <text x="20" y="82" class="code" fill="#0f766e"> - pr_metrics_fact</text>
+    <text x="20" y="94" class="desc" style="font-size:9px;">   (latency, review_time, lines)</text>
+    <text x="20" y="112" class="code" fill="#0f766e"> - release_defects_fact</text>
+    <text x="20" y="124" class="desc" style="font-size:9px;">   (sentry_errs, hotfix_commits)</text>
+    <text x="20" y="142" class="code" fill="#0f766e"> - code_ownership_dim</text>
+  </g>
+
+  <!-- Flow to Analysis Engine -->
+  <path d="M 355 205 L 355 245" fill="none" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- ================= GROUP: CORRELATION ENGINE ================= -->
+  <rect x="500" y="80" width="325" height="360" rx="8" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4" />
+  <text x="510" y="100" class="group-title">3. QUANTITATIVE ANALYSIS &amp; REPORTING</text>
+
+  <!-- DB to Engine Arrow -->
+  <path d="M 450 332 L 520 332" fill="none" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="460" y="322" class="arrow-text" fill="#3b82f6">Clean Datasets</text>
+
+  <!-- Analysis Engine Container -->
+  <g transform="translate(520, 115)" filter="url(#shadow)">
+    <rect width="285" height="180" rx="6" fill="url(#emeraldGrad)" stroke="#a7f3d0" stroke-width="1.5" />
+    <text x="15" y="25" class="label" style="font-size: 13px;">Correlation &amp; Statistical Engine</text>
+    <text x="15" y="42" class="desc">Executes statistical models to compute risks</text>
+
+    <!-- Inner boxes for models -->
+    <g transform="translate(15, 55)">
+      <rect width="255" height="34" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1" />
+      <text x="10" y="20" class="label" style="font-size: 11px;">1. Pearson/Spearman Rank Correlation</text>
+      <text x="210" y="20" class="code" style="font-size: 9px; fill:#059669;">SciPy</text>
+    </g>
+
+    <g transform="translate(15, 96)">
+      <rect width="255" height="34" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1" />
+      <text x="10" y="20" class="label" style="font-size: 11px;">2. Multivariate Logistic Regression</text>
+      <text x="195" y="20" class="code" style="font-size: 9px; fill:#059669;">Statsmodels</text>
+    </g>
+
+    <g transform="translate(15, 137)">
+      <rect width="255" height="34" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1" />
+      <text x="10" y="20" class="label" style="font-size: 11px;">3. Survival Analysis (Cox Proportional Hazard)</text>
+      <text x="215" y="20" class="code" style="font-size: 9px; fill:#059669;">Lifelines</text>
+    </g>
+  </g>
+
+  <!-- Dashboard / Alert Outputs -->
+  <g transform="translate(520, 320)" filter="url(#shadow)">
+    <rect width="135" height="100" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" />
+    <rect width="135" height="4" rx="2" fill="#10b981" />
+    <text x="10" y="22" class="label">Metrics BI Dashboard</text>
+    <text x="10" y="40" class="desc">Visualizes Scatterplots,</text>
+    <text x="10" y="52" class="desc">Latency Heatmaps, &amp;</text>
+    <text x="10" y="64" class="desc">Defect Trends over time</text>
+    <text x="10" y="85" class="code" fill="#0f766e">Grafana / Superset</text>
+  </g>
+
+  <g transform="translate(670, 320)" filter="url(#shadow)">
+    <rect width="135" height="100" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" />
+    <rect width="135" height="4" rx="2" fill="#f59e0b" />
+    <text x="10" y="22" class="label">Alerting Gateway</text>
+    <text x="10" y="40" class="desc">Flags anomalous latency</text>
+    <text x="10" y="52" class="desc">or "Reviewer Fatigue"</text>
+    <text x="10" y="64" class="desc">risks on active PRs</text>
+    <text x="10" y="85" class="code" fill="#b45309">Slack / PR Comments</text>
+  </g>
+
+  <!-- Engine to Outputs Arrows -->
+  <path d="M 588 295 L 588 320" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-emerald)" />
+  <path d="M 738 295 L 738 320" fill="none" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-emerald)" />
+
+</svg>

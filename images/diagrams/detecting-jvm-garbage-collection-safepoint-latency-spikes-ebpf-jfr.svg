@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="jvmGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="ebpfGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="jfrGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="kernelGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="550" rx="12" fill="url(#bgGrad)"/>
+  <rect width="900" height="550" rx="12" fill="none" stroke="#334155" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="30" y="40" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="20" font-weight="bold">JVM Safepoint Latency Profiling Architecture</text>
+  <text x="30" y="60" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">Correlation of User-space JVM Flight Recorder (JFR) &amp; Kernel-space eBPF USDT Probes</text>
+
+  <!-- ==================== USER SPACE (JVM) ==================== -->
+  <g transform="translate(30, 90)" filter="url(#shadow)">
+    <!-- JVM Container -->
+    <rect width="500" height="280" rx="8" fill="url(#jvmGrad)" stroke="#475569" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">JVM Process (User Space)</text>
+    
+    <!-- Java Application Threads -->
+    <g transform="translate(20, 45)">
+      <rect width="180" height="105" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1" stroke-dasharray="3,3"/>
+      <text x="10" y="20" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Java App Threads</text>
+      
+      <!-- Thread Running -->
+      <g transform="translate(10, 30)">
+        <rect width="160" height="20" rx="4" fill="#059669" stroke="#10b981" stroke-width="1"/>
+        <text x="8" y="14" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Thread 1: Mutator (Running)</text>
+      </g>
+      
+      <!-- Thread Blocked at Safepoint -->
+      <g transform="translate(10, 55)">
+        <rect width="160" height="20" rx="4" fill="#b91c1c" stroke="#ef4444" stroke-width="1"/>
+        <text x="8" y="14" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Thread 2: TTSP Blocked (Spinning)</text>
+      </g>
+
+      <!-- Thread in Native (JNI) -->
+      <g transform="translate(10, 80)">
+        <rect width="160" height="20" rx="4" fill="#0d9488" stroke="#14b8a6" stroke-width="1"/>
+        <text x="8" y="14" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Thread 3: Native (JNI Transition)</text>
+      </g>
+    </g>
+
+    <!-- VM Thread (Garbage Collector, Revocation, etc.) -->
+    <g transform="translate(220, 45)">
+      <rect width="120" height="105" rx="6" fill="#1e293b" stroke="#64748b" stroke-width="1"/>
+      <text x="10" y="20" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">VM Thread</text>
+      
+      <rect x="10" y="35" width="100" height="55" rx="4" fill="#475569" stroke="#94a3b8" stroke-width="1"/>
+      <text x="15" y="52" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Safepoint Initiator</text>
+      <text x="15" y="68" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="9">(GC, Biased Lock)</text>
+    </g>
+
+    <!-- Hotspot USDT Probes (Static Instrumentation Points) -->
+    <g transform="translate(20, 175)">
+      <rect width="320" height="85" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+      <text x="10" y="18" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">Hotspot USDT Probes (libjvm.so)</text>
+      
+      <!-- Probe: safepoint__begin -->
+      <rect x="15" y="32" width="135" height="38" rx="4" fill="#1e293b" stroke="#0284c7" stroke-width="1"/>
+      <text x="22" y="47" fill="#38bdf8" font-family="monospace" font-size="10" font-weight="bold">safepoint__begin</text>
+      <text x="22" y="60" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">Fires at TTSP start</text>
+
+      <!-- Probe: safepoint__end -->
+      <rect x="170" y="32" width="135" height="38" rx="4" fill="#1e293b" stroke="#0284c7" stroke-width="1"/>
+      <text x="177" y="47" fill="#38bdf8" font-family="monospace" font-size="10" font-weight="bold">safepoint__end</text>
+      <text x="177" y="60" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9">Fires at VM resumption</text>
+    </g>
+
+    <!-- JFR Engine Block -->
+    <g transform="translate(360, 45)">
+      <rect width="120" height="215" rx="6" fill="url(#jfrGrad)" stroke="#d97706" stroke-width="1"/>
+      <text x="10" y="22" fill="#ffffff" font-family="system-ui, sans-serif" font-size="13" font-weight="bold">JFR Engine</text>
+      
+      <!-- JFR Events Box -->
+      <rect x="10" y="45" width="100" height="155" rx="4" fill="#78350f" stroke="#b45309" stroke-width="1"/>
+      
+      <text x="15" y="65" fill="#fef3c7" font-family="monospace" font-size="9" font-weight="bold">jdk.SafepointBegin</text>
+      <text x="15" y="85" fill="#fef3c7" font-family="monospace" font-size="9" font-weight="bold">jdk.SafepointEnd</text>
+      <text x="15" y="105" fill="#fef3c7" font-family="monospace" font-size="9" font-weight="bold">jdk.SafepointWait...</text>
+      <text x="15" y="125" fill="#fef3c7" font-family="monospace" font-size="9" font-weight="bold">jdk.ExecuteVM...</text>
+      
+      <line x1="15" y1="140" x2="95" y2="140" stroke="#b45309" stroke-width="1"/>
+      
+      <text x="15" y="157" fill="#fcd34d" font-family="system-ui, sans-serif" font-size="9" font-weight="bold">Thread Stacks</text>
+      <text x="15" y="170" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="8">Dumped on latency</text>
+      <text x="15" y="180" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="8">threshold (&gt;10ms)</text>
+    </g>
+  </g>
+
+  <!-- ==================== KERNEL SPACE (eBPF) ==================== -->
+  <g transform="translate(30, 390)" filter="url(#shadow)">
+    <rect width="500" height="130" rx="8" fill="url(#kernelGrad)" stroke="#475569" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">Linux Kernel Space</text>
+
+    <!-- eBPF Subsystem -->
+    <g transform="translate(20, 40)">
+      <rect width="460" height="75" rx="6" fill="url(#ebpfGrad)" stroke="#0284c7" stroke-width="1"/>
+      <text x="15" y="20" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">eBPF Runtime (usdt &amp; kprobe / sched tracepoints)</text>
+      
+      <!-- eBPF Map -->
+      <rect x="15" y="32" width="130" height="33" rx="4" fill="#0c4a6e" stroke="#0284c7" stroke-width="1"/>
+      <text x="22" y="46" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Ring Buffer / Maps</text>
+      <text x="22" y="57" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="8">Lock-less Event Export</text>
+
+      <!-- Scheduler Hook -->
+      <rect x="155" y="32" width="145" height="33" rx="4" fill="#0c4a6e" stroke="#0284c7" stroke-width="1"/>
+      <text x="162" y="46" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">sched_switch hook</text>
+      <text x="162" y="57" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="8">Measure task wait states</text>
+
+      <!-- Page Fault Hook -->
+      <rect x="310" y="32" width="135" height="33" rx="4" fill="#0c4a6e" stroke="#0284c7" stroke-width="1"/>
+      <text x="317" y="46" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">page_fault_entry</text>
+      <text x="317" y="57" fill="#bae6fd" font-family="system-ui, sans-serif" font-size="8">Detect disk-IO blocking</text>
+    </g>
+  </g>
+
+  <!-- ==================== OBSERVABILITY / ANALYSIS LAYER ==================== -->
+  <g transform="translate(560, 90)" filter="url(#shadow)">
+    <rect width="310" height="430" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <text x="20" y="30" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">Metrics &amp; Analysis Engine</text>
+
+    <!-- Correlator Daemon -->
+    <g transform="translate(20, 50)">
+      <rect width="270" height="110" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+      <text x="15" y="22" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">1. Correlation Daemon (e.g. Go)</text>
+      <text x="15" y="40" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Reads eBPF ring buffer + stream</text>
+      <text x="15" y="55" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Matches USDT events to Kernel state</text>
+      <text x="15" y="70" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Correlates system-wide blocking duration</text>
+      <rect x="15" y="82" width="240" height="18" rx="3" fill="#312e81" stroke="#4f46e5" stroke-width="1"/>
+      <text x="22" y="94" fill="#c7d2fe" font-family="system-ui, sans-serif" font-size="9" font-weight="bold">Matches PID/TID + Nanosecond Timestamp</text>
+    </g>
+
+    <!-- JFR Parser / JDK Mission Control -->
+    <g transform="translate(20, 180)">
+      <rect width="270" height="100" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+      <text x="15" y="22" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">2. JFR Parser (Continuous/Offline)</text>
+      <text x="15" y="40" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Extracts Safepoint sync timings:</text>
+      
+      <text x="25" y="58" fill="#f59e0b" font-family="monospace" font-size="9">- Time-To-Safepoint (TTSP)</text>
+      <text x="25" y="72" fill="#f59e0b" font-family="monospace" font-size="9">- GC / VM Operations duration</text>
+      <text x="25" y="86" fill="#f59e0b" font-family="monospace" font-size="9">- Suspended Application Thread stacks</text>
+    </g>
+
+    <!-- Grafana / Alerts -->
+    <g transform="translate(20, 300)">
+      <rect width="270" height="110" rx="6" fill="#0f172a" stroke="#059669" stroke-width="1"/>
+      <text x="15" y="22" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">3. Production Observability</text>
+      
+      <!-- Metrics Pill -->
+      <rect x="15" y="35" width="240" height="28" rx="4" fill="#064e3b" stroke="#059669" stroke-width="1"/>
+      <text x="22" y="52" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">Alert: Safepoint Sync &gt; 50ms</text>
+      
+      <!-- Root Cause Analysis -->
+      <rect x="15" y="72" width="240" height="28" rx="4" fill="#7f1d1d" stroke="#b91c1c" stroke-width="1"/>
+      <text x="22" y="89" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="9" font-weight="bold">Root Cause: Page Fault in libjvm.so (mmap / mprotect)</text>
+    </g>
+  </g>
+
+  <!-- ==================== INTER-LAYER CONNECTORS (ARROWS) ==================== -->
+  
+  <!-- VM Thread to USDT Probes -->
+  <path d="M 230,150 L 230,175" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" fill="none" stroke-dasharray="3,3"/>
+  
+  <!-- Java Threads to USDT Probes -->
+  <path d="M 110,150 L 110,175" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" fill="none" stroke-dasharray="3,3"/>
+
+  <!-- USDT Probes to eBPF hooks -->
+  <path d="M 90,260 L 90,430" stroke="#38bdf8" stroke-width="2" stroke-dasharray="5,5" fill="none" />
+  <polygon points="90,432 86,424 94,424" fill="#38bdf8"/>
+  <text x="96" y="340" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">USDT Hooking</text>
+
+  <!-- eBPF System Data to Correlator -->
+  <path d="M 500,455 L 695,455 L 695,160" stroke="#0284c7" stroke-width="2" fill="none"/>
+  <polygon points="695,160 691,168 699,168" fill="#0284c7"/>
+  <text x="515" y="445" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">RingBuffer Stream (JSON/Protobuf)</text>
+
+  <!-- JFR Output to JFR Parser -->
+  <path d="M 480,200 L 580,200" stroke="#d97706" stroke-width="2" fill="none"/>
+  <polygon points="580,200 572,196 572,204" fill="#d97706"/>
+  <text x="492" y="190" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="10" font-weight="bold">JFR Stream</text>
+
+  <!-- JFR Parser to Observability -->
+  <path d="M 695,280 L 695,300" stroke="#94a3b8" stroke-width="1.5" fill="none"/>
+  <polygon points="695,300 691,292 699,292" fill="#94a3b8"/>
+
+  <!-- Correlator to Observability -->
+  <path d="M 695,160 L 695,180" stroke="#94a3b8" stroke-width="1.5" fill="none"/>
+  <polygon points="695,180 691,172 699,172" fill="#94a3b8"/>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+</svg>

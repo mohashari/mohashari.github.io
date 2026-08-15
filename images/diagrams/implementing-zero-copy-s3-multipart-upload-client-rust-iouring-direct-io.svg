@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="900" height="550" rx="12" fill="#0f172a"/>
+  
+  <!-- Outer Border -->
+  <rect x="2" y="2" width="896" height="546" rx="10" fill="none" stroke="#1e293b" stroke-width="2"/>
+  
+  <!-- Boundary Headers -->
+  <text x="30" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#64748b" letter-spacing="1">USER SPACE</text>
+  <text x="510" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#64748b" letter-spacing="1">KERNEL &amp; HARDWARE</text>
+  
+  <!-- Boundary Line -->
+  <line x1="480" y1="20" x2="480" y2="530" stroke="#1e293b" stroke-width="2" stroke-dasharray="8 6"/>
+
+  <!-- ==================== USER SPACE COMPONENTS ==================== -->
+  
+  <!-- Rust Zero-Copy S3 Client Container -->
+  <rect x="30" y="70" width="420" height="450" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="45" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">Rust S3 Multipart Upload Client</text>
+  
+  <!-- Fixed Ring Buffers (Registered with io_uring) -->
+  <rect x="50" y="120" width="380" height="110" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="65" y="142" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#38bdf8">Registered Buffers (io_uring Fixed Buffers)</text>
+  <!-- Buffer Blocks -->
+  <rect x="65" y="160" width="70" height="50" rx="4" fill="#0284c7" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="100" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Buf 0</text>
+  
+  <rect x="150" y="160" width="70" height="50" rx="4" fill="#0284c7" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="185" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Buf 1</text>
+  
+  <rect x="235" y="160" width="70" height="50" rx="4" fill="#0284c7" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="270" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Buf 2</text>
+  
+  <rect x="320" y="160" width="70" height="50" rx="4" fill="#334155" stroke="#475569" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="355" y="190" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="500" fill="#94a3b8" text-anchor="middle">Buf N</text>
+
+  <!-- Upload Coordinator & HTTP/TCP Engine -->
+  <rect x="50" y="250" width="380" height="140" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="65" y="272" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">Upload Coordinator &amp; Network Engine</text>
+  
+  <!-- Upload Tasks -->
+  <rect x="65" y="290" width="165" height="80" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="147.5" y="315" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="middle">Task Coordinator</text>
+  <text x="147.5" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">S3 Multipart State Machine</text>
+  <text x="147.5" y="350" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Tracks part numbers &amp; ETags</text>
+
+  <!-- TLS/TCP Engine -->
+  <rect x="250" y="290" width="165" height="80" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+  <text x="332.5" y="315" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0" text-anchor="middle">TLS / TCP Writer</text>
+  <text x="332.5" y="335" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Direct network transfer</text>
+  <text x="332.5" y="350" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#f43f5e" text-anchor="middle">Bypasses CPU copies</text>
+
+  <!-- Ring Buffer Queue manager status line -->
+  <rect x="50" y="410" width="380" height="90" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="65" y="432" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="600" fill="#f8fafc">io_uring User-Space Interface (tokio-uring / io-uring)</text>
+  
+  <rect x="65" y="448" width="165" height="40" rx="4" fill="#0284c7" stroke="#0ea5e9" stroke-width="1"/>
+  <text x="147.5" y="472" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Submission Queue (SQ)</text>
+  
+  <rect x="250" y="448" width="165" height="40" rx="4" fill="#10b981" stroke="#34d399" stroke-width="1"/>
+  <text x="332.5" y="472" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Completion Queue (CQ)</text>
+
+  <!-- ==================== KERNEL & HARDWARE COMPONENTS ==================== -->
+  
+  <!-- io_uring Kernel Core -->
+  <rect x="510" y="70" width="360" height="150" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="525" y="95" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">Kernel io_uring Subsystem</text>
+  
+  <!-- Kernel rings -->
+  <rect x="530" y="115" width="150" height="90" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="605" y="135" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#e2e8f0" text-anchor="middle">Submission Ring</text>
+  <text x="605" y="155" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Reads OP_READV /</text>
+  <text x="605" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">OP_WRITEV commands</text>
+  <text x="605" y="188" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#0ea5e9" font-weight="600" text-anchor="middle">SQE Ring (Shared Memory)</text>
+
+  <rect x="700" y="115" width="150" height="90" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+  <text x="775" y="135" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" fill="#e2e8f0" text-anchor="middle">Completion Ring</text>
+  <text x="775" y="155" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Posts result status &amp;</text>
+  <text x="775" y="170" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">bytes read/written</text>
+  <text x="775" y="188" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#10b981" font-weight="600" text-anchor="middle">CQE Ring (Shared Memory)</text>
+
+  <!-- Storage Engine (VFS & Block Layer) -->
+  <rect x="510" y="240" width="360" height="150" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <text x="525" y="265" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="bold" fill="#f8fafc">Storage Path (Direct I/O)</text>
+  
+  <!-- Page Cache Bypass Box -->
+  <rect x="530" y="285" width="320" height="90" rx="6" fill="#0f172a" stroke="#f43f5e" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <text x="690" y="308" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f43f5e" text-anchor="middle">PAGE CACHE BYPASS (O_DIRECT)</text>
+  
+  <!-- Inside direct I/O block, visual of zero copy -->
+  <rect x="545" y="325" width="290" height="40" rx="4" fill="#111827" stroke="#374151" stroke-width="1"/>
+  <text x="690" y="349" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#e2e8f0" text-anchor="middle">NVMe DMA Engine uploads directly to Registered Buffers</text>
+
+  <!-- Hardware Layer (NVMe SSD & NIC) -->
+  <rect x="510" y="410" width="170" height="90" rx="8" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+  <text x="595" y="440" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#f1f5f9" text-anchor="middle">NVMe SSD</text>
+  <text x="595" y="465" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">PCIe Gen 4 / 5</text>
+  <text x="595" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">Sequential read: 7 GB/s</text>
+
+  <rect x="700" y="410" width="170" height="90" rx="8" fill="#111827" stroke="#334155" stroke-width="1.5"/>
+  <text x="785" y="440" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#f1f5f9" text-anchor="middle">Network Card (NIC)</text>
+  <text x="785" y="465" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="94a3b8" text-anchor="middle">100GbE / 25GbE link</text>
+  <text x="785" y="480" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#10b981" text-anchor="middle">Zero-Copy TCP send</text>
+
+  <!-- ==================== FLOW ARROWS ==================== -->
+
+  <!-- User SQ to Kernel SQ -->
+  <path d="M 230 468 Q 330 520, 520 180" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4 2"/>
+  <polygon points="522,175 520,185 513,180" fill="#38bdf8"/>
+  <text x="420" y="490" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">1. Submit Read SQE</text>
+
+  <!-- NVMe DMA directly to Registered Buffers -->
+  <path d="M 595 410 Q 560 350, 430 190" fill="none" stroke="#38bdf8" stroke-width="2.5"/>
+  <polygon points="426,186 435,190 431,195" fill="#38bdf8"/>
+  <text x="470" y="320" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#38bdf8" text-anchor="middle">2. NVMe DMA to Buf 0</text>
+  
+  <!-- Kernel CQ to User CQ -->
+  <path d="M 700 180 Q 520 280, 415 460" fill="none" stroke="#10b981" stroke-width="2" stroke-dasharray="4 2"/>
+  <polygon points="412,464 414,455 421,459" fill="#10b981"/>
+  <text x="470" y="375" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#10b981" text-anchor="middle">3. Post Read CQE</text>
+
+  <!-- App transmits registered buffers to NIC -->
+  <path d="M 332.5 370 Q 340 430, 700 455" fill="none" stroke="#10b981" stroke-width="2.5"/>
+  <polygon points="705,455 697,450 698,460" fill="#10b981"/>
+  <text x="495" y="440" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#10b981" text-anchor="middle">4. Zero-Copy send to NIC</text>
+  
+</svg>
