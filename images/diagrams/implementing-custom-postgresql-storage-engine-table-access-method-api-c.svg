@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    
+    <!-- Component Gradients -->
+    <linearGradient id="pgCoreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="tamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="customEngGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="storageGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#64748b" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" rx="12" fill="url(#bgGrad)" />
+  
+  <!-- Diagram Title -->
+  <text x="40" y="50" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="22" font-weight="bold" fill="#f8fafc" letter-spacing="0.5">
+    PostgreSQL Table Access Method (TAM) Architecture
+  </text>
+  <text x="40" y="75" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14" fill="#94a3b8">
+    Decoupling the Executor from Physical Storage Mechanics
+  </text>
+
+  <!-- Group: PostgreSQL Core Executor -->
+  <g transform="translate(40, 110)" filter="url(#dropShadow)">
+    <rect width="220" height="440" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect x="10" y="10" width="200" height="40" rx="6" fill="url(#pgCoreGrad)" />
+    <text x="110" y="35" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">PG Query Executor</text>
+    
+    <!-- Inside Executor steps -->
+    <rect x="20" y="70" width="180" height="50" rx="4" fill="#334155" stroke="#475569" />
+    <text x="110" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f1f5f9" text-anchor="middle">Parser &amp; Optimizer</text>
+    <text x="110" y="108" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Generates Execution Plan</text>
+
+    <rect x="20" y="140" width="180" height="50" rx="4" fill="#334155" stroke="#475569" />
+    <text x="110" y="160" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f1f5f9" text-anchor="middle">SeqScan / IndexScan</text>
+    <text x="110" y="178" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Nodes executing plans</text>
+
+    <rect x="20" y="210" width="180" height="50" rx="4" fill="#334155" stroke="#475569" />
+    <text x="110" y="230" font-family="sans-serif" font-size="12" font-weight="bold" fill="#f1f5f9" text-anchor="middle">Tuple Table Slot (TTS)</text>
+    <text x="110" y="248" font-family="sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Abstract container for tuples</text>
+
+    <!-- Visual connection down inside core -->
+    <path d="M 110,120 L 110,140" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+    <path d="M 110,190 L 110,210" stroke="#94a3b8" stroke-width="2" fill="none" />
+  </g>
+
+  <!-- Group: Table Access Method API Layer (The Interface) -->
+  <g transform="translate(290, 110)" filter="url(#dropShadow)">
+    <rect width="220" height="440" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect x="10" y="10" width="200" height="40" rx="6" fill="url(#tamGrad)" />
+    <text x="110" y="35" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">TableAmRoutine API</text>
+
+    <!-- Scan Callbacks -->
+    <rect x="20" y="70" width="180" height="75" rx="4" fill="#022c22" stroke="#047857" stroke-width="1" />
+    <text x="30" y="90" font-family="monospace" font-size="11" font-weight="bold" fill="#34d399">Scan Lifecycle</text>
+    <text x="35" y="110" font-family="monospace" font-size="10" fill="#a7f3d0">• relation_beginscan</text>
+    <text x="35" y="122" font-family="monospace" font-size="10" fill="#a7f3d0">• relation_getnextslot</text>
+    <text x="35" y="134" font-family="monospace" font-size="10" fill="#a7f3d0">• relation_endscan</text>
+
+    <!-- DML Callbacks -->
+    <rect x="20" y="155" width="180" height="75" rx="4" fill="#022c22" stroke="#047857" stroke-width="1" />
+    <text x="30" y="175" font-family="monospace" font-size="11" font-weight="bold" fill="#34d399">DML / Writing</text>
+    <text x="35" y="195" font-family="monospace" font-size="10" fill="#a7f3d0">• tuple_insert</text>
+    <text x="35" y="207" font-family="monospace" font-size="10" fill="#a7f3d0">• tuple_delete</text>
+    <text x="35" y="219" font-family="monospace" font-size="10" fill="#a7f3d0">• tuple_update</text>
+
+    <!-- DDL & Utility Callbacks -->
+    <rect x="20" y="240" width="180" height="85" rx="4" fill="#022c22" stroke="#047857" stroke-width="1" />
+    <text x="30" y="260" font-family="monospace" font-size="11" font-weight="bold" fill="#34d399">Storage / DDL</text>
+    <text x="35" y="280" font-family="monospace" font-size="10" fill="#a7f3d0">• relation_size</text>
+    <text x="35" y="292" font-family="monospace" font-size="10" fill="#a7f3d0">• relation_estimate_size</text>
+    <text x="35" y="304" font-family="monospace" font-size="10" fill="#a7f3d0">• relation_set_new_filenode</text>
+    <text x="35" y="316" font-family="monospace" font-size="10" fill="#a7f3d0">• relation_vacuum</text>
+    
+    <!-- Transaction Validation -->
+    <rect x="20" y="335" width="180" height="50" rx="4" fill="#022c22" stroke="#047857" stroke-width="1" />
+    <text x="30" y="352" font-family="monospace" font-size="11" font-weight="bold" fill="#34d399">MVCC &amp; Visibility</text>
+    <text x="35" y="368" font-family="monospace" font-size="10" fill="#a7f3d0">• tuple_satisfies_snapshot</text>
+    <text x="35" y="380" font-family="monospace" font-size="10" fill="#a7f3d0">• tuple_tid_valid</text>
+  </g>
+
+  <!-- Group: Custom Storage Engine -->
+  <g transform="translate(540, 110)" filter="url(#dropShadow)">
+    <rect width="220" height="440" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <rect x="10" y="10" width="200" height="40" rx="6" fill="url(#customEngGrad)" />
+    <text x="110" y="35" font-family="sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle">Custom Engine (C Ext.)</text>
+
+    <!-- Custom Data Layout (e.g. LSM, Columnar, Memory) -->
+    <rect x="20" y="70" width="180" height="90" rx="4" fill="#451a03" stroke="#d97706" stroke-width="1" />
+    <text x="30" y="90" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24">Physical Data Layout</text>
+    <text x="35" y="110" font-family="sans-serif" font-size="10" fill="#fde68a">• Skip Heap-style slots</text>
+    <text x="35" y="122" font-family="sans-serif" font-size="10" fill="#fde68a">• Run-length compression</text>
+    <text x="35" y="134" font-family="sans-serif" font-size="10" fill="#fde68a">• Columnar blocks or LSM-Tree</text>
+    <text x="35" y="146" font-family="sans-serif" font-size="10" fill="#fde68a">• Custom block structure</text>
+
+    <!-- Custom WAL & Transaction Logging -->
+    <rect x="20" y="170" width="180" height="70" rx="4" fill="#451a03" stroke="#d97706" stroke-width="1" />
+    <text x="30" y="190" font-family="sans-serif" font-size="11" font-weight="bold" fill="#fbbf24">WAL / Recovery</text>
+    <text x="35" y="210" font-family="sans-serif" font-size="10" fill="#fde68a">• Generic WAL Records</text>
+    <text x="35" y="222" font-family="sans-serif" font-size="10" fill="#fde68a">• Custom XLOG handlers</text>
+    <text x="35" y="234" font-family="sans-serif" font-size="10" fill="#fde68a">• Resource Manager registration</text>
+
+    <!-- Low-level File / Memory System -->
+    <rect x="20" y="250" width="180" height="175" rx="4" fill="url(#storageGrad)" stroke="#64748b" />
+    <text x="30" y="270" font-family="sans-serif" font-size="11" font-weight="bold" fill="#f1f5f9">Storage Interface</text>
+    
+    <!-- SMGR Block -->
+    <rect x="30" y="282" width="160" height="40" rx="2" fill="#334155" />
+    <text x="110" y="296" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">smgr (Storage Manager)</text>
+    <text x="110" y="308" font-family="monospace" font-size="8" fill="#cbd5e1" text-anchor="middle">smgropen / smgrwrite / smgrread</text>
+
+    <!-- Buffer Manager Block -->
+    <rect x="30" y="328" width="160" height="40" rx="2" fill="#334155" />
+    <text x="110" y="342" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">Shared Buffers</text>
+    <text x="110" y="354" font-family="monospace" font-size="8" fill="#cbd5e1" text-anchor="middle">ReadBuffer / WriteBuffer</text>
+
+    <!-- Direct OS File access -->
+    <rect x="30" y="374" width="160" height="40" rx="2" fill="#334155" />
+    <text x="110" y="388" font-family="monospace" font-size="9" fill="#94a3b8" text-anchor="middle">OS Filesystem</text>
+    <text x="110" y="400" font-family="monospace" font-size="8" fill="#cbd5e1" text-anchor="middle">Raw disk / file descriptors</text>
+  </g>
+
+  <!-- Connectors (Arrows) -->
+  <g stroke-width="2" fill="none">
+    <!-- Executor to TAM API (Bidirectional flow of slots/commands) -->
+    <path d="M 230, 250 L 280, 250" stroke="#3b82f6" marker-end="url(#arrowBlue)" />
+    <path d="M 280, 270 L 230, 270" stroke="#10b981" marker-end="url(#arrowGreen)" />
+    <text x="255" y="240" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Query/Plan</text>
+    <text x="255" y="295" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Tuple Slots</text>
+
+    <!-- TAM API to Custom Engine -->
+    <path d="M 480, 250 L 530, 250" stroke="#10b981" marker-end="url(#arrowGreen)" />
+    <path d="M 530, 270 L 480, 270" stroke="#f59e0b" marker-end="url(#arrowOrange)" />
+    <text x="505" y="240" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Callbacks</text>
+    <text x="505" y="295" font-family="sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">Raw Data</text>
+  </g>
+
+  <!-- Marker Definitions for Arrows -->
+  <defs>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981" />
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f59e0b" />
+    </marker>
+  </defs>
+</svg>

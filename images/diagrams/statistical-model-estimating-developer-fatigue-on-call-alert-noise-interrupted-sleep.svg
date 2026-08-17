@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bgGradient" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#030712" />
+    </radialGradient>
+
+    <!-- Card Gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f2937" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#111827" stop-opacity="0.9" />
+    </linearGradient>
+
+    <!-- Flow Accent Gradients -->
+    <linearGradient id="alertGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f87171" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+    <linearGradient id="processGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa" />
+      <stop offset="100%" stop-color="#3b82f6" />
+    </linearGradient>
+    <linearGradient id="actionGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <!-- Box Glow Filters -->
+    <filter id="glowAlert" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#ef4444" flood-opacity="0.3" />
+    </filter>
+    <filter id="glowProcess" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#3b82f6" flood-opacity="0.3" />
+    </filter>
+    <filter id="glowAction" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#10b981" flood-opacity="0.3" />
+    </filter>
+
+    <!-- Arrow Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#9ca3af" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#60a5fa" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f87171" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399" />
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect width="1000" height="600" rx="16" fill="url(#bgGradient)" />
+  <g stroke="#374151" stroke-width="0.5" opacity="0.3">
+    <path d="M 0,50 L 1000,50 M 0,100 L 1000,100 M 0,150 L 1000,150 M 0,200 L 1000,200 M 0,250 L 1000,250 M 0,300 L 1000,300 M 0,350 L 1000,350 M 0,400 L 1000,400 M 0,450 L 1000,450 M 0,500 L 1000,500 M 0,550 L 1000,550" />
+    <path d="M 50,0 L 50,600 M 100,0 L 100,600 M 150,0 L 150,600 M 200,0 L 200,600 M 250,0 L 250,600 M 300,0 L 300,600 M 350,0 L 350,600 M 400,0 L 400,600 M 450,0 L 450,600 M 500,0 L 500,600 M 550,0 L 550,600 M 600,0 L 600,600 M 650,0 L 650,600 M 700,0 L 700,600 M 750,0 L 750,600 M 800,0 L 800,600 M 850,0 L 850,600 M 900,0 L 900,600 M 950,0 L 950,600" />
+  </g>
+
+  <!-- Title & Headers -->
+  <text x="50" y="55" font-family="'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700" fill="#f3f4f6">On-Call Developer Fatigue Estimator</text>
+  <text x="50" y="80" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" fill="#9ca3af">Closed-loop telemetry ingestion and real-time circadian fatigue modeling</text>
+
+  <!-- Stage Labels -->
+  <text x="140" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#f87171" letter-spacing="1.5" text-anchor="middle">01 / EVENT SOURCES</text>
+  <text x="400" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#60a5fa" letter-spacing="1.5" text-anchor="middle">02 / PIPELINE &amp; ENGINE</text>
+  <text x="670" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#818cf8" letter-spacing="1.5" text-anchor="middle">03 / MATHEMATICAL MODEL</text>
+  <text x="880" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#34d399" letter-spacing="1.5" text-anchor="middle">04 / MITIGATION</text>
+
+  <!-- 1. Event Sources (Left Column) -->
+  <!-- PagerDuty / Opsgenie Source -->
+  <rect x="40" y="150" width="200" height="90" rx="8" fill="url(#cardGrad)" stroke="#ef4444" stroke-width="1.5" filter="url(#glowAlert)" />
+  <text x="60" y="180" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#f9fafb">Alert Streams</text>
+  <text x="60" y="200" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#9ca3af">PagerDuty API / Webhooks</text>
+  <text x="60" y="218" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-style="italic" fill="#ef4444">Trigger/ACK/Resolve payloads</text>
+
+  <!-- Slack / Interactive Source -->
+  <rect x="40" y="260" width="200" height="90" rx="8" fill="url(#cardGrad)" stroke="#374151" stroke-width="1" />
+  <text x="60" y="290" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#f9fafb">Human Interaction</text>
+  <text x="60" y="310" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#9ca3af">Slack / Microsoft Teams</text>
+  <text x="60" y="328" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#6b7280">Slack ACK times, emoji reactions</text>
+
+  <!-- Developer Activity Source -->
+  <rect x="40" y="370" width="200" height="90" rx="8" fill="url(#cardGrad)" stroke="#374151" stroke-width="1" />
+  <text x="60" y="400" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#f9fafb">Telemetry Source</text>
+  <text x="60" y="420" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#9ca3af">GitHub / GitLab Events</text>
+  <text x="60" y="438" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#6b7280">PR merges, SSH logins, CLI calls</text>
+
+  <!-- 2. Pipeline & Engine (Middle Column) -->
+  <!-- Vector / Kafka Stream Ingestion -->
+  <rect x="300" y="150" width="200" height="135" rx="8" fill="url(#cardGrad)" stroke="#3b82f6" stroke-width="1.5" filter="url(#glowProcess)" />
+  <text x="320" y="180" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#f9fafb">Data Ingest Node</text>
+  <text x="320" y="200" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#9ca3af">Vector Stream Parser</text>
+  <text x="320" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#3b82f6" font-weight="600">Normalization &amp; De-duping</text>
+  <text x="320" y="242" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9ca3af">Extracts timestamp &amp; severity</text>
+  <text x="320" y="259" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9ca3af">Maps user ID to local timezone</text>
+
+  <!-- Circadian State Tracker -->
+  <rect x="300" y="325" width="200" height="135" rx="8" fill="url(#cardGrad)" stroke="#3b82f6" stroke-width="1" />
+  <text x="320" y="355" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#f9fafb">Circadian Estimator</text>
+  <text x="320" y="375" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#9ca3af">Sleep-Wake Estimator</text>
+  <text x="320" y="400" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#60a5fa" font-weight="600">Calculates Circadian State</text>
+  <text x="320" y="418" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9ca3af">Determines Sleep Interruption</text>
+  <text x="320" y="435" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9ca3af">T_sleep windows (e.g. 23:00-07:00)</text>
+
+  <!-- 3. Mathematical Model Engine (Center-Right) -->
+  <!-- Fatigue Accumulator Node -->
+  <rect x="570" y="195" width="200" height="190" rx="8" fill="url(#cardGrad)" stroke="#818cf8" stroke-width="1.5" />
+  <text x="590" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="600" fill="#f9fafb">Fatigue Engine</text>
+  <text x="590" y="245" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#9ca3af">Statistical Evaluator</text>
+  <!-- Formula rendering -->
+  <rect x="585" y="260" width="170" height="40" rx="4" fill="#111827" stroke="#4b5563" stroke-width="0.5" />
+  <text x="670" y="284" font-family="'Courier New', Courier, monospace" font-size="11" font-weight="bold" fill="#a5b4fc" text-anchor="middle">F(t) = Σ w_i * e^(-λ Δt)</text>
+  <text x="590" y="325" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#f3f4f6">Accumulator: alert load decay</text>
+  <text x="590" y="342" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#f87171">Circadian Penalty: Sleep block loss</text>
+  <text x="590" y="359" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#fbbf24">Fatigue Index Output (0.0 - 1.0)</text>
+
+  <!-- 4. Mitigation Actions (Right Column) -->
+  <!-- Auto-escalation modifier -->
+  <rect x="830" y="150" width="130" height="85" rx="8" fill="url(#cardGrad)" stroke="#34d399" stroke-width="1.5" filter="url(#glowAction)" />
+  <text x="845" y="175" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#f9fafb">Auto-Override</text>
+  <text x="845" y="195" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9ca3af">Primary Swap</text>
+  <text x="845" y="212" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#34d399" font-weight="600">Triggered at F(t) &gt; 0.8</text>
+
+  <!-- Route to secondary -->
+  <rect x="830" y="250" width="130" height="85" rx="8" fill="url(#cardGrad)" stroke="#374151" stroke-width="1" />
+  <text x="845" y="275" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#f9fafb">Escalation Mod</text>
+  <text x="845" y="295" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9ca3af">Opsgenie API</text>
+  <text x="845" y="312" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#6b7280">Bypasses primary desk</text>
+
+  <!-- Telemetry Dashboard -->
+  <rect x="830" y="350" width="130" height="85" rx="8" fill="url(#cardGrad)" stroke="#374151" stroke-width="1" />
+  <text x="845" y="375" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#f9fafb">Grafana / Alert</text>
+  <text x="845" y="395" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9ca3af">Prometheus metrics</text>
+  <text x="845" y="412" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#6b7280">Exposes fatigue metric</text>
+
+  <!-- Connections / Arrows (Paths) -->
+  <!-- Left to middle -->
+  <path d="M 240,195 L 300,195" fill="none" stroke="url(#alertGrad)" stroke-width="2" marker-end="url(#arrow-red)" />
+  <path d="M 240,305 C 270,305 270,240 300,240" fill="none" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 240,415 C 270,415 270,370 300,370" fill="none" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Split from Ingest to Circadian -->
+  <path d="M 400,285 L 400,325" fill="none" stroke="url(#processGrad)" stroke-width="2" marker-end="url(#arrow-blue)" />
+
+  <!-- Middle to engine -->
+  <path d="M 500,217 C 535,217 535,240 570,240" fill="none" stroke="url(#processGrad)" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <path d="M 500,392 C 535,392 535,340 570,340" fill="none" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Engine to mitigations -->
+  <path d="M 770,260 C 800,260 800,192 830,192" fill="none" stroke="url(#actionGrad)" stroke-width="2" marker-end="url(#arrow-green)" />
+  <path d="M 770,290 L 830,290" fill="none" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 770,320 C 800,320 800,392 830,392" fill="none" stroke="#4b5563" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Legend & Meta details at the bottom -->
+  <rect x="40" y="490" width="920" height="70" rx="8" fill="#111827" stroke="#1f2937" stroke-width="1" />
+  <text x="60" y="515" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" fill="#f9fafb">System Architecture Specifications:</text>
+  <text x="60" y="535" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9ca3af">Ingestion: Prometheus Webhooks &amp; PagerDuty REST API. Model Evaluation Interval: 5 min Cron. State Persistence: Redis (for decay parameters).</text>
+  <text x="550" y="535" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#9ca3af">Primary Alert Penalty w_high = 0.35, Interruption Period = 4 hours, Circadian Weight = 2.5.</text>
+</g>
+</svg>
