@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    
+    <!-- Box Gradients -->
+    <linearGradient id="inputGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    
+    <!-- Accents -->
+    <linearGradient id="accentBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    
+    <linearGradient id="accentOrange" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+
+    <linearGradient id="accentEmerald" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    
+    <!-- Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="500" rx="8" fill="url(#bgGrad)" />
+
+  <!-- Grid (Very subtle slate grid for design structure, not a background pattern) -->
+  <path d="M 0,100 L 900,100 M 0,200 L 900,200 M 0,300 L 900,300 M 0,400 L 900,400 M 150,0 L 150,500 M 300,0 L 300,500 M 450,0 L 450,500 M 600,0 L 600,500 M 750,0 L 750,500" stroke="#334155" stroke-opacity="0.1" stroke-width="1" />
+
+  <!-- Header -->
+  <text x="30" y="45" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#f8fafc">
+    QUANTITATIVE SIMULATION FRAMEWORK FOR DEBT DEGRADATION
+  </text>
+  <text x="30" y="65" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#94a3b8">
+    Stochastic model mapping technical debt accumulation rates to MTTR and cycle time decay.
+  </text>
+
+  <!-- ================= INPUT SECTION ================= -->
+  <g transform="translate(30, 95)" filter="url(#shadow)">
+    <!-- Main Box -->
+    <rect width="240" height="360" rx="6" fill="url(#inputGrad)" stroke="#334155" stroke-width="1" />
+    <rect width="240" height="5" rx="2" fill="url(#accentBlue)" />
+    
+    <!-- Title -->
+    <text x="15" y="30" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#38bdf8">
+      1. Telemetry &amp; Inputs
+    </text>
+    
+    <!-- Items -->
+    <!-- Churn -->
+    <rect x="15" y="55" width="210" height="75" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="25" y="75" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">Codebase Churn &amp; Volume</text>
+    <text x="25" y="93" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Lines Added/Modified (LOC)</text>
+    <text x="25" y="108" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Commit Frequency &amp; PR Size</text>
+
+    <!-- Structural -->
+    <rect x="15" y="145" width="210" height="75" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="25" y="165" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">Complexity Metrics</text>
+    <text x="25" y="183" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Cognitive Complexity Index</text>
+    <text x="25" y="198" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Component Coupling &amp; Depth</text>
+
+    <!-- Operational -->
+    <rect x="15" y="235" width="210" height="75" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="25" y="255" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">Process Qualifiers</text>
+    <text x="25" y="273" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Unit Test Coverage &lt; Thresh</text>
+    <text x="25" y="288" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Bypassed Lint/Security Rules</text>
+  </g>
+
+  <!-- Connectors from Input to Engine -->
+  <path d="M 270,187 L 330,187" stroke="#38bdf8" stroke-width="2" fill="none" />
+  <path d="M 270,277 L 330,277" stroke="#38bdf8" stroke-width="2" fill="none" />
+  <path d="M 270,367 L 330,367" stroke="#38bdf8" stroke-width="2" fill="none" />
+
+  <!-- ================= ENGINE SECTION ================= -->
+  <g transform="translate(330, 95)" filter="url(#shadow)">
+    <!-- Main Box -->
+    <rect width="240" height="360" rx="6" fill="url(#inputGrad)" stroke="#334155" stroke-width="1" />
+    <rect width="240" height="5" rx="2" fill="url(#accentOrange)" />
+    
+    <!-- Title -->
+    <text x="15" y="30" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#fb923c">
+      2. Accumulation &amp; Decay Engine
+    </text>
+    
+    <!-- Simulation Core -->
+    <rect x="15" y="55" width="210" height="110" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="25" y="75" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">STOCHASTIC ACCUMULATION</text>
+    <text x="25" y="95" font-family="Courier, monospace" font-size="11" fill="#fb923c">dD_t = β · C_t · dt + σ · dW_t</text>
+    <text x="25" y="115" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="9" fill="#94a3b8">β: Debt conversion coefficient</text>
+    <text x="25" y="128" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="9" fill="#94a3b8">C_t: Cycle volume &amp; complexity</text>
+    <text x="25" y="141" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="9" fill="#94a3b8">dW_t: Brownian motion (risk factor)</text>
+
+    <!-- State Transition -->
+    <rect x="15" y="180" width="210" height="130" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="25" y="200" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" font-weight="700" fill="#e2e8f0">QUALITY DEGRADATION (Q_t)</text>
+    <text x="25" y="220" font-family="Courier, monospace" font-size="11" fill="#fb923c">Q_t = Q_0 · e^(-λ · D_t)</text>
+    <text x="25" y="240" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="9" fill="#94a3b8">λ: Decay constant per debt unit</text>
+    
+    <!-- State Flow representation -->
+    <g transform="translate(25, 255)">
+      <!-- Green State -->
+      <rect x="0" y="0" width="45" height="18" rx="2" fill="#064e3b" stroke="#059669" stroke-width="1"/>
+      <text x="7" y="12" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="8" fill="#a7f3d0" font-weight="bold">CLEAN</text>
+      
+      <!-- Arrow -->
+      <path d="M 48,9 L 58,9" stroke="#94a3b8" stroke-width="1" />
+      <polygon points="58,9 54,6 54,12" fill="#94a3b8"/>
+
+      <!-- Orange State -->
+      <rect x="62" y="0" width="45" height="18" rx="2" fill="#7c2d12" stroke="#ea580c" stroke-width="1"/>
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="8" fill="#ffedd5" font-weight="bold">ROTTING</text>
+
+      <!-- Arrow -->
+      <path d="M 110,9 L 120,9" stroke="#94a3b8" stroke-width="1" />
+      <polygon points="120,9 116,6 116,12" fill="#94a3b8"/>
+
+      <!-- Red State -->
+      <rect x="124" y="0" width="40" height="18" rx="2" fill="#7f1d1d" stroke="#dc2626" stroke-width="1"/>
+      <text x="6" y="12" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="8" fill="#fee2e2" font-weight="bold">STUCK</text>
+    </g>
+    <text x="25" y="295" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="9" fill="#94a3b8">Transitions triggered by debt thresholds.</text>
+  </g>
+
+  <!-- Connectors from Engine to Output -->
+  <path d="M 570,187 L 630,187" stroke="#fb923c" stroke-width="2" fill="none" />
+  <path d="M 570,277 L 630,277" stroke="#fb923c" stroke-width="2" fill="none" />
+  <path d="M 570,367 L 630,367" stroke="#fb923c" stroke-width="2" fill="none" />
+
+  <!-- ================= OUTPUT SECTION ================= -->
+  <g transform="translate(630, 95)" filter="url(#shadow)">
+    <!-- Main Box -->
+    <rect width="240" height="360" rx="6" fill="url(#inputGrad)" stroke="#334155" stroke-width="1" />
+    <rect width="240" height="5" rx="2" fill="url(#accentEmerald)" />
+    
+    <!-- Title -->
+    <text x="15" y="30" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#34d399">
+      3. Impact Metrics (Outputs)
+    </text>
+    
+    <!-- MTTR & Defects -->
+    <rect x="15" y="55" width="210" height="75" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="25" y="75" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">Engineering Friction</text>
+    <text x="25" y="93" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#34d399">MTTR Escalation: T_m ≈ T_0 · e^(k·D_t)</text>
+    <text x="25" y="108" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Defect Density &amp; Change Failure Rate</text>
+
+    <!-- Cycle Time -->
+    <rect x="15" y="145" width="210" height="75" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="25" y="165" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">Delivery Velocity Decay</text>
+    <text x="25" y="183" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#34d399">Cycle Time Increase: +45% to +180%</text>
+    <text x="25" y="198" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Sprint Volatility / Lead Time Variance</text>
+
+    <!-- Business Cost -->
+    <rect x="15" y="235" width="210" height="75" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+    <text x="25" y="255" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="12" font-weight="600" fill="#e2e8f0">Financial Headwinds</text>
+    <text x="25" y="273" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#34d399">Maintenance vs. Feature Cost Ratio</text>
+    <text x="25" y="288" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">Interest Surcharge (Opportunity Cost)</text>
+  </g>
+
+  <!-- Legend / Info Badge -->
+  <g transform="translate(680, 25)" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="10" fill="#94a3b8">
+    <circle cx="10" cy="5" r="4" fill="#38bdf8" />
+    <text x="20" y="8">Inputs</text>
+    
+    <circle cx="70" cy="5" r="4" fill="#fb923c" />
+    <text x="80" y="8">Simulation</text>
+    
+    <circle cx="140" cy="5" r="4" fill="#34d399" />
+    <text x="150" y="8">Effects</text>
+  </g>
+</svg>

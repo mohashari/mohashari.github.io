@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%" style="background-color: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">
+  <!-- Background Grid -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#21262d" stroke-width="1" stroke-opacity="0.5"/>
+    </pattern>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#58a6ff" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#3fb950" />
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#da3633" />
+      <stop offset="100%" stop-color="#f85149" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8957e5" />
+      <stop offset="100%" stop-color="#bc8cff" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9e6a00" />
+      <stop offset="100%" stop-color="#d4a373" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b949e"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f85149"/>
+    </marker>
+  </defs>
+
+  <rect width="100%" height="100%" fill="#0d1117" />
+  <rect width="100%" height="100%" fill="url(#grid)" />
+
+  <!-- Diagram Title -->
+  <text x="30" y="35" fill="#f0f6fc" font-size="18" font-weight="bold">PostgreSQL Lock Contention &amp; OpenTelemetry Correlation Architecture</text>
+  <text x="30" y="55" fill="#8b949e" font-size="12">Propagating W3C Trace Contexts to PostgreSQL &amp; Extracting Blocking/Blocked Relationships</text>
+
+  <!-- ==================== APPLICATION LAYER ==================== -->
+  <g transform="translate(40, 90)">
+    <!-- Main Application Container -->
+    <rect width="380" height="230" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5" />
+    <text x="15" y="25" fill="#f0f6fc" font-size="14" font-weight="bold">App Instance (Go / sqlx / otelsql)</text>
+
+    <!-- Thread A: Holding TX -->
+    <g transform="translate(15, 45)">
+      <rect width="350" height="75" rx="6" fill="#1f242c" stroke="#58a6ff" stroke-width="1" />
+      <text x="10" y="20" fill="#58a6ff" font-size="11" font-weight="bold">HTTP Worker A (Trace-ID: 4bf92f...)</text>
+      <text x="10" y="38" fill="#8b949e" font-size="10" font-family="monospace">TX 1: UPDATE accounts SET balance = balance - 100 WHERE id = 1;</text>
+      <rect x="10" y="48" width="330" height="18" rx="3" fill="#21262d" />
+      <text x="15" y="61" fill="#3fb950" font-size="9" font-family="monospace">/*traceparent=00-4bf92f350280...-00f067aa-01*/</text>
+    </g>
+
+    <!-- Thread B: Blocked TX -->
+    <g transform="translate(15, 135)">
+      <rect width="350" height="75" rx="6" fill="#1f242c" stroke="#f85149" stroke-width="1" />
+      <text x="10" y="20" fill="#f85149" font-size="11" font-weight="bold">HTTP Worker B (Trace-ID: c3d52f...)</text>
+      <text x="10" y="38" fill="#8b949e" font-size="10" font-family="monospace">TX 2: UPDATE accounts SET balance = balance + 50 WHERE id = 1;</text>
+      <rect x="10" y="48" width="330" height="18" rx="3" fill="#21262d" />
+      <text x="15" y="61" fill="#f85149" font-size="9" font-family="monospace">/*traceparent=00-c3d52fa18e7c...-55e128aa-01*/</text>
+    </g>
+  </g>
+
+  <!-- ==================== POSTGRESQL ENGINE ==================== -->
+  <g transform="translate(480, 90)">
+    <!-- PostgreSQL Database Container -->
+    <rect width="480" height="230" rx="8" fill="#161b22" stroke="#337ab7" stroke-width="1.5" />
+    <text x="15" y="25" fill="#f0f6fc" font-size="14" font-weight="bold">PostgreSQL Engine (v15+)</text>
+
+    <!-- Shared lock table state -->
+    <g transform="translate(15, 45)">
+      <rect width="450" height="165" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1" />
+      <text x="12" y="20" fill="#8b949e" font-size="11" font-weight="bold">Active Locks &amp; pg_stat_activity / pg_locks</text>
+
+      <!-- PID 101: Holding Lock -->
+      <g transform="translate(10, 32)">
+        <rect width="430" height="42" rx="4" fill="#1f2937" stroke="#30363d" stroke-width="1" />
+        <text x="8" y="16" fill="#3fb950" font-size="10" font-weight="bold">PID: 5801 (Grantee) | Lock: RowExclusiveLock | Row: accounts(id=1)</text>
+        <text x="8" y="30" fill="#8b949e" font-size="9" font-family="monospace">Query: UPDATE accounts SET... /*traceparent=00-4bf92f350280...*/</text>
+      </g>
+
+      <!-- Connection / Lock Dependency Arrow -->
+      <path d="M 225 78 L 225 106" fill="none" stroke="#f85149" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-red)" />
+      <text x="235" y="96" fill="#f85149" font-size="9" font-weight="bold">BLOCKED BY (Lock Wait)</text>
+
+      <!-- PID 102: Waiting for Lock -->
+      <g transform="translate(10, 110)">
+        <rect width="430" height="42" rx="4" fill="#2d1d24" stroke="#f85149" stroke-width="1" />
+        <text x="8" y="16" fill="#f85149" font-size="10" font-weight="bold">PID: 5942 (Waiter) | Lock: RowExclusiveLock (Waiting) | Row: accounts(id=1)</text>
+        <text x="8" y="30" fill="#8b949e" font-size="9" font-family="monospace">Query: UPDATE accounts SET... /*traceparent=00-c3d52fa18e7c...*/</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Connectors Application -> Postgres -->
+  <path d="M 420 135 L 470 135" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)" />
+  <path d="M 420 250 L 470 250" fill="none" stroke="#f85149" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- ==================== EXPORTER & PARSING LAYER ==================== -->
+  <g transform="translate(260, 370)">
+    <rect width="480" height="110" rx="8" fill="#161b22" stroke="#30363d" stroke-width="1.5" />
+    <text x="15" y="22" fill="#f0f6fc" font-size="12" font-weight="bold">OTel DB Lock Exporter Daemon (or custom pg-exporter)</text>
+
+    <!-- Execution step inside exporter -->
+    <g transform="translate(15, 32)">
+      <rect width="450" height="65" rx="6" fill="#0d1117" stroke="#21262d" stroke-width="1" />
+      <text x="10" y="16" fill="#58a6ff" font-size="10" font-weight="bold">1. SQL Poll: JOIN pg_locks, pg_stat_activity, and pg_class</text>
+      <text x="10" y="30" fill="#8b949e" font-size="9">2. Extract Trace Contexts from regex match on SQL text query comments</text>
+      <text x="10" y="44" fill="#8957e5" font-size="9" font-family="monospace">3. Map PID 5942 (Blocked: Trace c3d52f...) to PID 5801 (Blocking: Trace 4bf92f...)</text>
+    </g>
+  </g>
+
+  <!-- Connector Postgres -> Exporter -->
+  <path d="M 720 320 L 720 350 L 500 350 L 500 370" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arrow)" />
+  <text x="590" y="340" fill="#8b949e" font-size="9">Polls block relationships</text>
+
+  <!-- ==================== COLLECTOR & APM BACKEND ==================== -->
+  <g transform="translate(260, 520)">
+    <rect width="480" height="100" rx="8" fill="#161b22" stroke="#8957e5" stroke-width="1.5" />
+    <text x="15" y="20" fill="#f0f6fc" font-size="12" font-weight="bold">Observability Backend &amp; OpenTelemetry Collector</text>
+
+    <g transform="translate(15, 30)">
+      <rect width="450" height="55" rx="6" fill="#0d1117" stroke="#21262d" stroke-width="1" />
+      <!-- Trace Context correlation visualization representational Gantt -->
+      <text x="10" y="16" fill="#f0f6fc" font-size="9" font-weight="bold">Trace c3d52fa18e7c... (HTTP POST /accounts/transfer-in)</text>
+      <!-- Gantt Bar A (blocking) -->
+      <rect x="10" y="22" width="180" height="8" rx="2" fill="#58a6ff" />
+      <text x="195" y="30" fill="#8b949e" font-size="8">Trace 4bf92f35... (Active TX)</text>
+      <!-- Gantt Bar B (waiting) -->
+      <rect x="10" y="34" width="80" height="8" rx="2" fill="#3fb950" />
+      <rect x="90" y="34" width="240" height="8" rx="2" fill="#da3633" />
+      <text x="335" y="42" fill="#f85149" font-size="8" font-weight="bold">DB Lock Wait (Span Link to Trace 4bf92f35...)</text>
+    </g>
+  </g>
+
+  <!-- Connectors Exporter -> Collector -->
+  <path d="M 500 480 L 500 520" fill="none" stroke="#8957e5" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="510" y="504" fill="#8957e5" font-size="10" font-weight="bold">OTLP Logs/Metrics (Span Links)</text>
+
+  <!-- Connector Application -> Collector -->
+  <path d="M 200 320 L 200 570 L 250 570" fill="none" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="70" y="460" fill="#58a6ff" font-size="9" font-weight="bold" transform="rotate(-90 70 460)">App Spans (Direct)</text>
+</svg>
