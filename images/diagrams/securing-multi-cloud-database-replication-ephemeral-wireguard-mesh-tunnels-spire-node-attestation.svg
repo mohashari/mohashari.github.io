@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%" style="background-color: #0f172a; font-family: ui-sans-serif, system-ui, sans-serif;">
+  <!-- Definitions for markers and shadows -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3b82f6" />
+    </marker>
+    <filter id="drop-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" fill="#f8fafc" font-size="20" font-weight="700" letter-spacing="0.5">Multi-Cloud DB Replication with Ephemeral WireGuard &amp; SPIRE</text>
+
+  <!-- AWS Region Box (Cloud A) -->
+  <rect x="50" y="80" width="340" height="420" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="2" filter="url(#drop-shadow)" />
+  <text x="70" y="110" fill="#38bdf8" font-size="14" font-weight="700" letter-spacing="1">CLOUD A (AWS - us-east-1)</text>
+
+  <!-- GCP Region Box (Cloud B) -->
+  <rect x="510" y="80" width="340" height="420" rx="12" fill="#1e293b" stroke="#f43f5e" stroke-width="2" filter="url(#drop-shadow)" />
+  <text x="530" y="110" fill="#f43f5e" font-size="14" font-weight="700" letter-spacing="1">CLOUD B (GCP - europe-west1)</text>
+
+  <!-- SPIRE Server (Central Control Plane, placed in Cloud A or shared) -->
+  <rect x="80" y="140" width="280" height="90" rx="8" fill="#0f172a" stroke="#64748b" stroke-width="1.5" />
+  <text x="220" y="165" text-anchor="middle" fill="#f1f5f9" font-size="14" font-weight="700">SPIRE Server</text>
+  <text x="220" y="185" text-anchor="middle" fill="#94a3b8" font-size="12">Trust Anchor &amp; Node Attestation</text>
+  <rect x="200" y="195" width="40" height="20" rx="4" fill="#334155" />
+  <text x="220" y="209" text-anchor="middle" fill="#38bdf8" font-size="10" font-weight="700">ROOT CA</text>
+
+  <!-- Node A (AWS EC2 Instance) -->
+  <rect x="80" y="270" width="280" height="200" rx="8" fill="#0f172a" stroke="#38bdf8" stroke-width="1.5" />
+  <text x="95" y="295" fill="#f1f5f9" font-size="13" font-weight="700">Database Node A (Primary)</text>
+
+  <!-- SPIRE Agent A inside Node A -->
+  <rect x="95" y="315" width="115" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+  <text x="152" y="335" text-anchor="middle" fill="#f1f5f9" font-size="11" font-weight="700">SPIRE Agent</text>
+  <text x="152" y="355" text-anchor="middle" fill="#94a3b8" font-size="9">Node Attestor</text>
+  <text x="152" y="370" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="monospace">aws_iid</text>
+
+  <!-- WireGuard & Postgres A inside Node A -->
+  <rect x="230" y="315" width="115" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+  <text x="287" y="335" text-anchor="middle" fill="#f1f5f9" font-size="11" font-weight="700">WG / Peer Controller</text>
+  <text x="287" y="355" text-anchor="middle" fill="#94a3b8" font-size="9">Ephemeral Key Gen</text>
+  <text x="287" y="370" text-anchor="middle" fill="#38bdf8" font-size="9" font-weight="700">wg0: 10.0.0.1/30</text>
+
+  <rect x="95" y="400" width="250" height="55" rx="6" fill="#0284c7" fill-opacity="0.2" stroke="#0284c7" stroke-width="1" />
+  <text x="220" y="423" text-anchor="middle" fill="#38bdf8" font-size="12" font-weight="700">PostgreSQL Primary</text>
+  <text x="220" y="440" text-anchor="middle" fill="#94a3b8" font-size="10">Port 5432 (Internal Mesh)</text>
+
+  <!-- Node B (GCP VM Instance) -->
+  <rect x="540" y="270" width="280" height="200" rx="8" fill="#0f172a" stroke="#f43f5e" stroke-width="1.5" />
+  <text x="555" y="295" fill="#f1f5f9" font-size="13" font-weight="700">Database Node B (Replica)</text>
+
+  <!-- SPIRE Agent B inside Node B -->
+  <rect x="555" y="315" width="115" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+  <text x="612" y="335" text-anchor="middle" fill="#f1f5f9" font-size="11" font-weight="700">SPIRE Agent</text>
+  <text x="612" y="355" text-anchor="middle" fill="#94a3b8" font-size="9">Node Attestor</text>
+  <text x="612" y="370" text-anchor="middle" fill="#e2e8f0" font-size="9" font-family="monospace">gcp_iit</text>
+
+  <!-- WireGuard & Postgres B inside Node B -->
+  <rect x="690" y="315" width="115" height="70" rx="6" fill="#1e293b" stroke="#475569" stroke-width="1" />
+  <text x="747" y="335" text-anchor="middle" fill="#f1f5f9" font-size="11" font-weight="700">WG / Peer Controller</text>
+  <text x="747" y="355" text-anchor="middle" fill="#94a3b8" font-size="9">Ephemeral Key Gen</text>
+  <text x="747" y="370" text-anchor="middle" fill="#f43f5e" font-size="9" font-weight="700">wg0: 10.0.0.2/30</text>
+
+  <rect x="555" y="400" width="250" height="55" rx="6" fill="#e11d48" fill-opacity="0.2" stroke="#e11d48" stroke-width="1" />
+  <text x="680" y="423" text-anchor="middle" fill="#fb7185" font-size="12" font-weight="700">PostgreSQL Replica</text>
+  <text x="680" y="440" text-anchor="middle" fill="#94a3b8" font-size="10">Streaming Replication</text>
+
+  <!-- Flow lines and labels -->
+  <!-- Attestation flow A -->
+  <path d="M 152 315 L 152 230" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3" marker-start="url(#arrow)" />
+  <text x="145" y="255" text-anchor="end" fill="#94a3b8" font-size="10">1. Attest Node (IAM/IID)</text>
+
+  <!-- Attestation flow B -->
+  <path d="M 612 315 L 612 185 L 360 185" fill="none" stroke="#64748b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arrow)" />
+  <text x="515" y="175" text-anchor="middle" fill="#94a3b8" font-size="10">2. Attest Node B (GCP IIT)</text>
+
+  <!-- SVID Issuance A -->
+  <path d="M 170 230 L 170 315" fill="none" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+  <text x="175" y="255" text-anchor="start" fill="#38bdf8" font-size="10">3. Issue SVID (X.509)</text>
+
+  <!-- SVID Issuance B -->
+  <path d="M 360 200 L 595 200 L 595 315" fill="none" stroke="#f43f5e" stroke-width="1.5" marker-end="url(#arrow-green)" />
+  <text x="490" y="215" text-anchor="middle" fill="#f43f5e" font-size="10">4. Issue SVID B (X.509)</text>
+
+  <!-- Key Exchange Control Plane -->
+  <path d="M 345 350 L 540 350" fill="none" stroke="#a78bfa" stroke-width="2" stroke-dasharray="5 5" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+  <text x="442" y="340" text-anchor="middle" fill="#c084fc" font-size="10" font-weight="700">5. Ephemeral WG Key Exchange (mTLS via SVID)</text>
+
+  <!-- Secure Tunnel (WireGuard wg0) -->
+  <path d="M 345 365 L 540 365" fill="none" stroke="#10b981" stroke-width="4" />
+  <rect x="400" y="375" width="85" height="18" rx="4" fill="#065f46" />
+  <text x="442" y="388" text-anchor="middle" fill="#34d399" font-size="10" font-weight="700">WireGuard wg0</text>
+
+  <!-- Replication data flow -->
+  <path d="M 220 455 L 220 480 L 680 480 L 680 455" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arrow-blue)" />
+  <text x="450" y="495" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="700">6. DB Replication over wg0 (Encrypted)</text>
+
+  <!-- Legend -->
+  <rect x="50" y="510" width="800" height="30" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1" />
+  <circle cx="70" cy="525" r="5" fill="#38bdf8" />
+  <text x="80" y="529" fill="#94a3b8" font-size="10">SVID / mTLS Path</text>
+
+  <circle cx="210" cy="525" r="5" fill="#10b981" />
+  <text x="220" y="529" fill="#94a3b8" font-size="10">WireGuard Data Plane</text>
+
+  <circle cx="380" cy="525" r="5" fill="#a78bfa" />
+  <text x="390" y="529" fill="#94a3b8" font-size="10">Control Plane Key Swap</text>
+
+  <circle cx="560" cy="525" r="5" fill="#64748b" />
+  <text x="570" y="529" fill="#94a3b8" font-size="10">Node Attestation Flow</text>
+</svg>

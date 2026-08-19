@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 550" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    
+    <!-- Box Gradients -->
+    <linearGradient id="client-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="router-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="faiss-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <linearGradient id="db-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="llm-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.5" />
+    </filter>
+
+    <!-- Marker definition for arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#ef4444" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-grad)" rx="8" />
+
+  <!-- Grid overlay for tech look -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.3">
+    <path d="M 0,50 L 850,50 M 0,100 L 850,100 M 0,150 L 850,150 M 0,200 L 850,200 M 0,250 L 850,250 M 0,300 L 850,300 M 0,350 L 850,350 M 0,400 L 850,400 M 0,450 L 850,450 M 0,500 L 850,500" />
+    <path d="M 50,0 L 50,550 M 100,0 L 100,550 M 150,0 L 150,550 M 200,0 L 200,550 M 250,0 L 250,550 M 300,0 L 300,550 M 350,0 L 350,550 M 400,0 L 400,550 M 450,0 L 450,550 M 500,0 L 500,550 M 550,0 L 550,550 M 600,0 L 600,550 M 650,0 L 650,550 M 700,0 L 700,550 M 750,0 L 750,550 M 800,0 L 800,550" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="40" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700">Semantic Cache Routing Architecture</text>
+  <text x="30" y="60" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12">High-performance LLM agent query routing via quantized C++ HNSW / FAISS indexing</text>
+
+  <!-- CLIENT -->
+  <g transform="translate(40, 180)" filter="url(#shadow)">
+    <rect width="130" height="120" rx="10" fill="url(#client-grad)" />
+    <text x="65" y="40" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">API Client</text>
+    <text x="65" y="60" fill="#bfdbfe" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">LLM Agent / Gateway</text>
+    <rect x="15" y="80" width="100" height="25" rx="5" fill="#1e3a8a" stroke="#3b82f6" stroke-width="1" />
+    <text x="65" y="96" fill="#93c5fd" font-family="monospace" font-size="10" text-anchor="middle">"What's my balance?"</text>
+  </g>
+
+  <!-- ROUTING ENGINE (C++ SERVICE) -->
+  <g transform="translate(230, 100)" filter="url(#shadow)">
+    <!-- Outer Border -->
+    <rect width="360" height="290" rx="12" fill="#1e293b" stroke="#0f766e" stroke-width="2" />
+    <rect width="360" height="35" rx="12" fill="url(#router-grad)" />
+    <text x="180" y="22" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">Semantic Router Daemon (C++)</text>
+
+    <!-- Sub-component 1: Embedder -->
+    <g transform="translate(20, 55)">
+      <rect width="320" height="55" rx="8" fill="#0f172a" stroke="#334155" />
+      <text x="15" y="24" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">1. Local Embedder (ONNX/Inference)</text>
+      <text x="15" y="40" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">Generates dense float32 vector (e.g. 768d)</text>
+    </g>
+
+    <!-- Sub-component 2: FAISS Quantized Search -->
+    <g transform="translate(20, 125)">
+      <rect width="320" height="75" rx="8" fill="url(#faiss-grad)" stroke="#a78bfa" stroke-width="1" />
+      <text x="15" y="22" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">2. FAISS Index (HNSW32 + SQ8 / PQ)</text>
+      <text x="15" y="40" fill="#ddd6fe" font-family="monospace" font-size="9">IndexHNSWFlat / IndexIVFPQ</text>
+      <text x="15" y="55" fill="#ddd6fe" font-family="system-ui, -apple-system, sans-serif" font-size="10">Quantized search -> Returns Top-K (ID, Distance)</text>
+    </g>
+
+    <!-- Sub-component 3: Threshold Gate -->
+    <g transform="translate(20, 215)">
+      <rect width="320" height="60" rx="8" fill="#0f172a" stroke="#f43f5e" stroke-width="1" />
+      <text x="15" y="22" fill="#fda4af" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="700">3. Distance Decision Gate</text>
+      <text x="15" y="40" fill="#94a3b8" font-family="monospace" font-size="10">if (distance &lt;= 0.12) HIT else MISS</text>
+    </g>
+  </g>
+
+  <!-- CACHE STORE -->
+  <g transform="translate(650, 100)" filter="url(#shadow)">
+    <rect width="160" height="100" rx="10" fill="url(#db-grad)" />
+    <text x="80" y="35" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">Cache DB</text>
+    <text x="80" y="55" fill="#fef3c7" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">Redis / RocksDB (KeyValue)</text>
+    <rect x="20" y="70" width="120" height="20" rx="4" fill="#78350f" />
+    <text x="80" y="83" fill="#fde68a" font-family="monospace" font-size="9" text-anchor="middle">Key: hash(Embedding)</text>
+  </g>
+
+  <!-- BACKEND LLM / vLLM -->
+  <g transform="translate(650, 290)" filter="url(#shadow)">
+    <rect width="160" height="100" rx="10" fill="url(#llm-grad)" />
+    <text x="80" y="35" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" text-anchor="middle">LLM Engine</text>
+    <text x="80" y="55" fill="#fee2e2" font-family="system-ui, -apple-system, sans-serif" font-size="11" text-anchor="middle">vLLM / Triton / OpenAI</text>
+    <rect x="20" y="70" width="120" height="20" rx="4" fill="#7f1d1d" />
+    <text x="80" y="83" fill="#fecaca" font-family="monospace" font-size="9" text-anchor="middle">Latency: ~800ms - 3s</text>
+  </g>
+
+  <!-- FLOW ARROWS & LABELS -->
+  
+  <!-- Client to Router -->
+  <path d="M 170,225 L 220,225" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="195" y="215" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Query</text>
+
+  <!-- Router to Cache (HIT) -->
+  <path d="M 590,150 L 640,150" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)" />
+  <text x="615" y="142" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">1. HIT</text>
+  
+  <!-- Cache return path directly back to Client -->
+  <path d="M 730,90 C 730,40, 105,40, 105,170" fill="none" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-green)" />
+  <text x="417" y="52" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">Fast Path: Cached Response (Latency &lt; 5ms)</text>
+
+  <!-- Router to LLM (MISS) -->
+  <path d="M 590,340 L 640,340" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow-red)" />
+  <text x="615" y="332" fill="#ef4444" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="700" text-anchor="middle">1. MISS</text>
+
+  <!-- LLM writes back to Cache and FAISS Index (MISS path continuation) -->
+  <path d="M 730,390 C 730,430, 410,430, 410,395" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-red)" />
+  <text x="570" y="423" fill="#ef4444" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">2. Update Index &amp; Cache Store</text>
+
+  <!-- Cache write on Miss -->
+  <path d="M 730,290 L 730,210" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-red)" />
+  <text x="740" y="255" fill="#ef4444" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="start">Store KV</text>
+
+  <!-- LLM response back to client -->
+  <path d="M 650,370 L 105,370 C 105,370, 105,330, 105,310" fill="none" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="350" y="362" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="10" text-anchor="middle">Slow Path: Generated Response (Latency ~1500ms)</text>
+
+</svg>
