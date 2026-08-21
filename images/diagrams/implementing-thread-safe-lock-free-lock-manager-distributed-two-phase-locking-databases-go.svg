@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%" style="background-color: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrow-gray" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#8b949e" />
+    </marker>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Title & Context -->
+  <text x="30" y="45" font-size="22" font-weight="bold" fill="#f0f6fc">Lock-Free Lock Manager Architecture (Distributed 2PL)</text>
+  <text x="30" y="70" font-size="14" fill="#8b949e">Bucket-based Lock-Free Hash Map (CAS-based pointers) &amp; Spin-Wait Queueing</text>
+
+  <!-- Goroutines / Worker threads -->
+  <g transform="translate(30, 120)">
+    <rect x="0" y="0" width="180" height="420" rx="8" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+    <text x="90" y="30" font-size="16" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Worker Goroutines</text>
+    <text x="90" y="50" font-size="11" fill="#8b949e" text-anchor="middle">Concurrent Txn Executions</text>
+
+    <!-- Goroutine 1 -->
+    <g transform="translate(15, 80)">
+      <rect x="0" y="0" width="150" height="80" rx="6" fill="#1f242c" stroke="#388bfd" stroke-width="1.5"/>
+      <text x="15" y="25" font-size="13" font-weight="bold" fill="#58a6ff">Goroutine A (Txn 1)</text>
+      <text x="15" y="45" font-size="11" fill="#8b949e">Lock Resource: X</text>
+      <rect x="15" y="55" width="120" height="16" rx="3" fill="#ff7b72" fill-opacity="0.1" stroke="#ff7b72" stroke-width="1"/>
+      <text x="20" y="67" font-size="10" font-weight="bold" fill="#ff7b72">Mode: EXCLUSIVE (X)</text>
+    </g>
+
+    <!-- Goroutine 2 -->
+    <g transform="translate(15, 185)">
+      <rect x="0" y="0" width="150" height="80" rx="6" fill="#1f242c" stroke="#388bfd" stroke-width="1.5"/>
+      <text x="15" y="25" font-size="13" font-weight="bold" fill="#58a6ff">Goroutine B (Txn 2)</text>
+      <text x="15" y="45" font-size="11" fill="#8b949e">Lock Resource: Y</text>
+      <rect x="15" y="55" width="120" height="16" rx="3" fill="#3fb950" fill-opacity="0.1" stroke="#3fb950" stroke-width="1"/>
+      <text x="20" y="67" font-size="10" font-weight="bold" fill="#3fb950">Mode: SHARED (S)</text>
+    </g>
+
+    <!-- Goroutine 3 -->
+    <g transform="translate(15, 290)">
+      <rect x="0" y="0" width="150" height="80" rx="6" fill="#1f242c" stroke="#8b949e" stroke-width="1"/>
+      <text x="15" y="25" font-size="13" fill="#c9d1d9">Goroutine C (Txn 3)</text>
+      <text x="15" y="45" font-size="11" fill="#8b949e">Lock Resource: X</text>
+      <rect x="15" y="55" width="120" height="16" rx="3" fill="#3fb950" fill-opacity="0.1" stroke="#3fb950" stroke-width="1"/>
+      <text x="20" y="67" font-size="10" font-weight="bold" fill="#3fb950">Mode: SHARED (S)</text>
+    </g>
+
+    <path d="M 165 120 L 255 180" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M 165 225 L 255 225" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+    <path d="M 165 330 L 255 270" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+  </g>
+
+  <!-- Lock-Free Lock Map (LockTable) -->
+  <g transform="translate(270, 120)">
+    <rect x="0" y="0" width="320" height="420" rx="8" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+    <text x="160" y="30" font-size="16" font-weight="bold" fill="#f0f6fc" text-anchor="middle">LockTable (Sharded Buckets)</text>
+    <text x="160" y="50" font-size="11" fill="#8b949e" text-anchor="middle">Atomic Hash Ring to Avoid Lock Contention</text>
+
+    <!-- Bucket List -->
+    <g transform="translate(20, 80)">
+      <!-- Bucket 0 -->
+      <g transform="translate(0, 0)">
+        <rect x="0" y="0" width="80" height="40" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+        <text x="40" y="24" font-size="12" fill="#c9d1d9" text-anchor="middle">Bucket 0</text>
+        <path d="M 80 20 L 140 20" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-gray)"/>
+        <text x="110" y="15" font-size="9" fill="#8b949e" text-anchor="middle">nil</text>
+      </g>
+
+      <!-- Bucket 1 -->
+      <g transform="translate(0, 60)">
+        <rect x="0" y="0" width="80" height="40" rx="4" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+        <text x="40" y="24" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Bucket 1</text>
+        <path d="M 80 20 L 132 20" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+      </g>
+
+      <!-- Bucket 2 -->
+      <g transform="translate(0, 180)">
+        <rect x="0" y="0" width="80" height="40" rx="4" fill="#21262d" stroke="#58a6ff" stroke-width="2"/>
+        <text x="40" y="24" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Bucket 2</text>
+        <path d="M 80 20 L 132 20" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+      </g>
+
+      <!-- Bucket N -->
+      <g transform="translate(0, 275)">
+        <rect x="0" y="0" width="80" height="40" rx="4" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+        <text x="40" y="24" font-size="12" fill="#c9d1d9" text-anchor="middle">Bucket N</text>
+        <path d="M 80 20 L 140 20" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-gray)"/>
+      </g>
+
+      <!-- Dots representing middle buckets -->
+      <circle cx="40" cy="140" r="3" fill="#30363d"/>
+      <circle cx="40" cy="150" r="3" fill="#30363d"/>
+      <circle cx="40" cy="160" r="3" fill="#30363d"/>
+    </g>
+
+    <!-- Hash Entries inside Buckets (Linked lists of LockNodes) -->
+    <!-- Bucket 1 Chain (Resource X) -->
+    <g transform="translate(160, 115)">
+      <rect x="0" y="0" width="130" height="90" rx="6" fill="#1f242c" stroke="#30363d" stroke-width="1.5"/>
+      <text x="65" y="20" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">LockHead [Key: X]</text>
+      <rect x="10" y="32" width="110" height="20" rx="3" fill="#ff7b72" fill-opacity="0.05" stroke="#ff7b72" stroke-width="1"/>
+      <text x="65" y="46" font-size="10" fill="#ff7b72" font-weight="bold" text-anchor="middle">Mutex: LOCK_EX</text>
+      <text x="10" y="68" font-size="9" fill="#8b949e">State: CAS Spinning</text>
+      <text x="10" y="80" font-size="9" fill="#8b949e">Waiters: 2</text>
+      <path d="M 130 45 L 342 45" fill="none" stroke="#58a6ff" stroke-width="2" marker-end="url(#arrow)"/>
+      <text x="240" y="38" font-size="10" fill="#58a6ff" text-anchor="middle">atomic.Pointer</text>
+    </g>
+
+    <!-- Bucket 2 Chain (Resource Y) -->
+    <g transform="translate(160, 275)">
+      <rect x="0" y="0" width="130" height="90" rx="6" fill="#1f242c" stroke="#30363d" stroke-width="1.5"/>
+      <text x="65" y="20" font-size="12" font-weight="bold" fill="#f0f6fc" text-anchor="middle">LockHead [Key: Y]</text>
+      <rect x="10" y="32" width="110" height="20" rx="3" fill="#3fb950" fill-opacity="0.05" stroke="#3fb950" stroke-width="1"/>
+      <text x="65" y="46" font-size="10" fill="#3fb950" font-weight="bold" text-anchor="middle">Mutex: LOCK_SH</text>
+      <text x="10" y="68" font-size="9" fill="#8b949e">State: GRANTED</text>
+      <text x="10" y="80" font-size="9" fill="#8b949e">Waiters: 0</text>
+      <path d="M 130 45 L 342 165" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-gray)"/>
+    </g>
+  </g>
+
+  <!-- Lock Queues (Spin-Wait & Wakeup Channels) -->
+  <g transform="translate(630, 120)">
+    <rect x="0" y="0" width="340" height="420" rx="8" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+    <text x="170" y="30" font-size="16" font-weight="bold" fill="#f0f6fc" text-anchor="middle">LockRequest Wait Queues</text>
+    <text x="170" y="50" font-size="11" fill="#8b949e" text-anchor="middle">Lock-Free FIFO Linked List per Resource</text>
+
+    <!-- Resource X Waiters Queue -->
+    <g transform="translate(15, 80)">
+      <rect x="0" y="0" width="310" height="150" rx="6" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+      <text x="15" y="25" font-size="12" font-weight="bold" fill="#58a6ff">Resource X Queue (CAS Linked List)</text>
+
+      <!-- Lock Request Node 1 (Granted) -->
+      <g transform="translate(15, 45)">
+        <rect x="0" y="0" width="80" height="85" rx="4" fill="#1f242c" stroke="#3fb950" stroke-width="2"/>
+        <text x="40" y="20" font-size="11" font-weight="bold" fill="#f0f6fc" text-anchor="middle">Req 1 (Txn 1)</text>
+        <rect x="10" y="28" width="60" height="14" rx="2" fill="#ff7b72" fill-opacity="0.1" stroke="#ff7b72" stroke-width="0.5"/>
+        <text x="40" y="38" font-size="9" fill="#ff7b72" font-weight="bold" text-anchor="middle">EXCLUSIVE</text>
+        <rect x="10" y="47" width="60" height="14" rx="2" fill="#3fb950" fill-opacity="0.1" stroke="#3fb950" stroke-width="0.5"/>
+        <text x="40" y="57" font-size="9" fill="#3fb950" font-weight="bold" text-anchor="middle">GRANTED</text>
+        <text x="40" y="75" font-size="9" fill="#8b949e" text-anchor="middle">Owner</text>
+        <path d="M 80 42 L 105 42" fill="none" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arrow)"/>
+      </g>
+
+      <!-- Lock Request Node 2 (Waiting) -->
+      <g transform="translate(110, 45)">
+        <rect x="0" y="0" width="80" height="85" rx="4" fill="#1f242c" stroke="#ffb13b" stroke-width="1.5"/>
+        <text x="40" y="20" font-size="11" fill="#c9d1d9" text-anchor="middle">Req 2 (Txn 3)</text>
+        <rect x="10" y="28" width="60" height="14" rx="2" fill="#3fb950" fill-opacity="0.1" stroke="#3fb950" stroke-width="0.5"/>
+        <text x="40" y="38" font-size="9" fill="#3fb950" font-weight="bold" text-anchor="middle">SHARED</text>
+        <rect x="10" y="47" width="60" height="14" rx="2" fill="#ffb13b" fill-opacity="0.1" stroke="#ffb13b" stroke-width="0.5"/>
+        <text x="40" y="57" font-size="9" fill="#ffb13b" font-weight="bold" text-anchor="middle">WAITING</text>
+        <text x="40" y="75" font-size="9" fill="#8b949e" text-anchor="middle">Chan: chan struct{}</text>
+        <path d="M 80 42 L 105 42" fill="none" stroke="#8b949e" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arrow-gray)"/>
+      </g>
+
+      <!-- Lock Request Node 3 (Waiting) -->
+      <g transform="translate(205, 45)">
+        <rect x="0" y="0" width="90" height="85" rx="4" fill="#1f242c" stroke="#8b949e" stroke-width="1"/>
+        <text x="45" y="20" font-size="11" fill="#8b949e" text-anchor="middle">Req 3 (Txn 4)</text>
+        <rect x="15" y="28" width="60" height="14" rx="2" fill="#ff7b72" fill-opacity="0.1" stroke="#ff7b72" stroke-width="0.5"/>
+        <text x="45" y="38" font-size="9" fill="#ff7b72" font-weight="bold" text-anchor="middle">EXCLUSIVE</text>
+        <rect x="15" y="47" width="60" height="14" rx="2" fill="#ffb13b" fill-opacity="0.1" stroke="#ffb13b" stroke-width="0.5"/>
+        <text x="45" y="57" font-size="9" fill="#ffb13b" font-weight="bold" text-anchor="middle">WAITING</text>
+        <text x="45" y="75" font-size="9" fill="#8b949e" text-anchor="middle">Chan: chan struct{}</text>
+      </g>
+    </g>
+
+    <!-- Thread-Safety Detail Callout -->
+    <g transform="translate(15, 260)">
+      <rect x="0" y="0" width="310" height="135" rx="6" fill="#1f242c" stroke="#388bfd" stroke-width="1"/>
+      <text x="15" y="25" font-size="13" font-weight="bold" fill="#f0f6fc">Key Design Mechanics:</text>
+      <text x="15" y="50" font-size="11" fill="#c9d1d9">1. LockTable Lookup: Lock-free CAS pointer swaps.</text>
+      <text x="15" y="70" font-size="11" fill="#c9d1d9">2. Granular Bucketing: Minimizes CPU cache bouncing.</text>
+      <text x="15" y="90" font-size="11" fill="#c9d1d9">3. Wakeup Flow: Closed channels trigger instant worker</text>
+      <text x="30" y="105" font-size="11" fill="#c9d1d9">rescheduling without thread blocking.</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrows connecting Map to Queues -->
+  <path d="M 600 320 C 610 320, 615 200, 630 200" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow)"/>
+</svg>

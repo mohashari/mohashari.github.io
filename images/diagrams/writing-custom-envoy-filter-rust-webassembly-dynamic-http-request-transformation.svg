@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <!-- Definitions for styling and markers -->
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .box { stroke: #38bdf8; stroke-width: 2; fill: #1e293b; rx: 6px; }
+      .box-wasm { stroke: #f43f5e; stroke-width: 2; fill: #1e293b; rx: 6px; }
+      .box-external { stroke: #a855f7; stroke-width: 2; fill: #1e293b; rx: 6px; }
+      .text-title { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #f8fafc; text-anchor: middle; }
+      .text-body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; fill: #cbd5e1; }
+      .text-body-center { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; fill: #cbd5e1; text-anchor: middle; }
+      .text-header { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #38bdf8; }
+      .text-header-wasm { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #f43f5e; }
+      .arrow { stroke: #64748b; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .arrow-highlight { stroke: #38bdf8; stroke-width: 2; fill: none; marker-end: url(#arrowhead-highlight); }
+      .arrow-wasm { stroke: #f43f5e; stroke-width: 2; stroke-dasharray: 4; fill: none; marker-end: url(#arrowhead-wasm); }
+      .boundary { stroke: #475569; stroke-width: 2; stroke-dasharray: 6 4; fill: none; }
+      .label-bg { fill: #0f172a; opacity: 0.85; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+    </marker>
+    <marker id="arrowhead-highlight" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#38bdf8" />
+    </marker>
+    <marker id="arrowhead-wasm" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#f43f5e" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" class="bg" />
+
+  <!-- Outer Containers / Boundaries -->
+  <!-- Envoy Proxy Boundary -->
+  <rect x="180" y="40" width="440" height="420" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="8 4" rx="10" />
+  <text x="195" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="14px" font-weight="bold" fill="#94a3b8">Envoy Proxy Host Process</text>
+
+  <!-- WebAssembly Runtime Boundary -->
+  <rect x="360" y="100" width="240" height="330" fill="none" stroke="#f43f5e" stroke-width="1.5" stroke-dasharray="4 4" rx="8" />
+  <text x="375" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="12px" font-weight="bold" fill="#f43f5e">Wasm VM (V8/Wasmtime)</text>
+
+  <!-- Downstream Client -->
+  <rect x="20" y="180" width="120" height="80" class="box" />
+  <text x="80" y="215" class="text-title">Downstream</text>
+  <text x="80" y="235" class="text-body-center">Client Application</text>
+
+  <!-- Envoy Downstream Connection Manager -->
+  <rect x="200" y="180" width="130" height="80" class="box" />
+  <text x="265" y="210" class="text-title">HTTP Connection</text>
+  <text x="265" y="228" class="text-title">Manager (HCM)</text>
+  <text x="265" y="245" class="text-body-center">Envoy Filter Chain</text>
+
+  <!-- Rust Wasm Filter Module -->
+  <rect x="380" y="160" width="200" height="130" class="box-wasm" />
+  <text x="480" y="190" class="text-header-wasm">Rust WASM Filter</text>
+  <text x="395" y="220" class="text-body">on_http_request_headers()</text>
+  <text x="395" y="240" class="text-body">on_http_request_body()</text>
+  <text x="395" y="265" class="text-body" fill="#34d399">✓ Dynamic Header Inject</text>
+
+  <!-- Upstream Service -->
+  <rect x="660" y="180" width="120" height="80" class="box-external" />
+  <text x="720" y="215" class="text-title">Upstream</text>
+  <text x="720" y="235" class="text-body-center">Backend Service</text>
+
+  <!-- External Auth / Config Service (Async HTTP Call) -->
+  <rect x="380" y="340" width="200" height="70" class="box" />
+  <text x="480" y="365" class="text-title">External IDP / Auth</text>
+  <text x="480" y="385" class="text-body-center">Metadata Provider</text>
+
+  <!-- Data & Control Flow Lines -->
+  <!-- 1. Request Inbound -->
+  <path d="M 140 210 L 200 210" class="arrow-highlight" />
+  <text x="170" y="200" class="text-body-center" fill="#38bdf8">1. HTTP Req</text>
+
+  <!-- 2. Call VM / ABI Boundary -->
+  <path d="M 330 200 L 380 200" class="arrow-wasm" />
+  <text x="355" y="190" class="text-body-center" fill="#f43f5e">2. Invoke</text>
+
+  <!-- 3. Host API: HTTP Callout (Out of VM to Envoy Host) -->
+  <path d="M 450 290 L 450 340" class="arrow" />
+  <path d="M 470 340 L 470 290" class="arrow" stroke-dasharray="3" />
+  <text x="410" y="320" class="text-body" fill="#94a3b8">3. Host Call</text>
+
+  <!-- 4. VM returns action (Continue / Stop / Modify Headers) -->
+  <path d="M 380 240 L 330 240" class="arrow-wasm" />
+  <text x="355" y="255" class="text-body-center" fill="#f43f5e">4. Action</text>
+
+  <!-- 5. Envoy routes mutated request to Upstream -->
+  <path d="M 330 220 L 660 220" class="arrow-highlight" />
+  <text x="615" y="210" class="text-body-center" fill="#38bdf8">5. Mutated Req</text>
+
+  <!-- Labels / Legend -->
+  <g transform="translate(200, 440)">
+    <line x1="0" y1="10" x2="30" y2="10" class="arrow-highlight" />
+    <text x="40" y="14" class="text-body">Data Path</text>
+
+    <line x1="140" y1="10" x2="170" y2="10" class="arrow-wasm" />
+    <text x="180" y="14" class="text-body">Wasm ABI boundary</text>
+  </g>
+</svg>

@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Definitions for markers and filters -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#4A5568"/>
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#DD6B20"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#F7FAFC" rx="8"/>
+
+  <!-- User Space Layer -->
+  <rect x="50" y="40" width="800" height="70" fill="#EDF2F7" stroke="#CBD5E0" stroke-width="2" rx="6" filter="url(#shadow)"/>
+  <text x="70" y="80" font-family="monospace" font-size="16" font-weight="bold" fill="#2D3748">User Space</text>
+  <rect x="350" y="50" width="200" height="50" fill="#E2E8F0" stroke="#4A5568" stroke-width="1.5" rx="4"/>
+  <text x="450" y="80" font-family="monospace" font-size="14" font-weight="bold" fill="#2D3748" text-anchor="middle">Application (Go/Rust/C)</text>
+
+  <!-- Kernel Space Layer -->
+  <rect x="50" y="160" width="800" height="230" fill="#EBF8FF" stroke="#BEE3F8" stroke-width="2" rx="6" filter="url(#shadow)"/>
+  <text x="70" y="195" font-family="monospace" font-size="16" font-weight="bold" fill="#2B6CB0">Kernel Space (VFS &amp; Page Cache)</text>
+
+  <!-- Page Cache & Dirty Pages Block -->
+  <rect x="100" y="220" width="240" height="140" fill="#FFFFFF" stroke="#3182CE" stroke-width="1.5" rx="4" filter="url(#shadow)"/>
+  <text x="220" y="245" font-family="monospace" font-size="14" font-weight="bold" fill="#2B6CB0" text-anchor="middle">Page Cache (Dirty Pages)</text>
+  <rect x="115" y="265" width="210" height="80" fill="#FEEBC8" stroke="#DD6B20" stroke-width="1" rx="3"/>
+  <text x="220" y="295" font-family="monospace" font-size="12" font-weight="bold" fill="#C05621" text-anchor="middle">balance_dirty_pages()</text>
+  <text x="220" y="315" font-family="monospace" font-size="11" fill="#7B341E" text-anchor="middle">Throttling Loop (Dirty Ratio)</text>
+
+  <!-- Flusher Threads (bdi_writeback) -->
+  <rect x="560" y="220" width="240" height="140" fill="#FFFFFF" stroke="#3182CE" stroke-width="1.5" rx="4" filter="url(#shadow)"/>
+  <text x="680" y="245" font-family="monospace" font-size="14" font-weight="bold" fill="#2B6CB0" text-anchor="middle">Flusher Daemon</text>
+  <rect x="575" y="265" width="210" height="80" fill="#EBF8FF" stroke="#3182CE" stroke-width="1" rx="3"/>
+  <text x="680" y="295" font-family="monospace" font-size="12" font-weight="bold" fill="#2B6CB0" text-anchor="middle">wb_writeback()</text>
+  <text x="680" y="315" font-family="monospace" font-size="11" fill="#2C5282" text-anchor="middle">Background writeback flusher</text>
+
+  <!-- Block / Physical I/O Layer -->
+  <rect x="50" y="440" width="800" height="80" fill="#EDFBF7" stroke="#C6F6D5" stroke-width="2" rx="6" filter="url(#shadow)"/>
+  <text x="70" y="485" font-family="monospace" font-size="16" font-weight="bold" fill="#22543D">Block I/O Layer &amp; HW</text>
+  <rect x="350" y="455" width="200" height="50" fill="#FFFFFF" stroke="#2F855A" stroke-width="1.5" rx="4" filter="url(#shadow)"/>
+  <text x="450" y="485" font-family="monospace" font-size="14" font-weight="bold" fill="#22543D" text-anchor="middle">NVMe / SSD Storage</text>
+
+  <!-- Data Flow Arrows -->
+  <!-- App to Page Cache (writes) -->
+  <path d="M 400 100 L 220 100 L 220 220" fill="none" stroke="#4A5568" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="235" y="130" font-family="monospace" font-size="12" fill="#4A5568">1. write() / sys_write</text>
+
+  <!-- Dirty Page Threshold exceed triggers writeback -->
+  <path d="M 340 280 L 560 280" fill="none" stroke="#DD6B20" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-orange)"/>
+  <text x="450" y="270" font-family="monospace" font-size="11" fill="#DD6B20" text-anchor="middle">2. Triggers flusher / blocks write()</text>
+
+  <!-- Flusher to Block Layer -->
+  <path d="M 680 360 L 680 475 L 550 475" fill="none" stroke="#2F855A" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="690" y="415" font-family="monospace" font-size="12" fill="#2F855A">3. Asynchronous writeback</text>
+
+  <!-- bpftrace Probe Points -->
+  <!-- Probe 1: App Write Latency -->
+  <circle cx="220" cy="180" r="8" fill="#E53E3E" stroke="#FFF" stroke-width="1.5"/>
+  <text x="235" y="184" font-family="monospace" font-size="11" font-weight="bold" fill="#E53E3E">BPF 1: kprobe:vfs_write</text>
+
+  <!-- Probe 2: Throttling Latency -->
+  <circle cx="280" cy="305" r="8" fill="#E53E3E" stroke="#FFF" stroke-width="1.5"/>
+  <text x="295" y="345" font-family="monospace" font-size="11" font-weight="bold" fill="#E53E3E">BPF 2: kprobe:balance_dirty_pages</text>
+
+  <!-- Probe 3: Writeback Latency -->
+  <circle cx="680" cy="385" r="8" fill="#E53E3E" stroke="#FFF" stroke-width="1.5"/>
+  <text x="695" y="389" font-family="monospace" font-size="11" font-weight="bold" fill="#E53E3E">BPF 3: tracepoint:writeback:*</text>
+
+  <!-- Probe 4: Block Device Latency -->
+  <circle cx="585" cy="475" r="8" fill="#E53E3E" stroke="#FFF" stroke-width="1.5"/>
+  <text x="595" y="460" font-family="monospace" font-size="11" font-weight="bold" fill="#E53E3E">BPF 4: tracepoint:block:*</text>
+</svg>

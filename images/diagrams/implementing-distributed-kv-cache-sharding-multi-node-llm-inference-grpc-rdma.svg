@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%" style="background-color: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Background Grid -->
+  <defs>
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#21262d" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f6feb"/>
+      <stop offset="100%" stop-color="#0d419d"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#238636"/>
+      <stop offset="100%" stop-color="#115320"/>
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8957e5"/>
+      <stop offset="100%" stop-color="#552c9d"/>
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0883e"/>
+      <stop offset="100%" stop-color="#9e4e13"/>
+    </linearGradient>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f0883e" />
+    </marker>
+  </defs>
+
+  <!-- Apply Grid -->
+  <rect width="100%" height="100%" fill="url(#grid)" />
+
+  <!-- Title -->
+  <text x="30" y="35" fill="#f0f6fc" font-size="18" font-weight="bold">Multi-Node LLM KV Cache Sharding Architecture</text>
+  <text x="30" y="55" fill="#8b949e" font-size="12">Control Plane via gRPC / Data Plane via RDMA (RoCEv2) Zero-Copy Direct Access</text>
+
+  <!-- Client / Gateway -->
+  <g transform="translate(350, 80)">
+    <rect x="0" y="0" width="200" height="50" rx="6" fill="url(#blueGrad)" stroke="#58a6ff" stroke-width="1.5" />
+    <text x="100" y="28" fill="#f0f6fc" font-size="14" font-weight="bold" text-anchor="middle">API Gateway / Orchestrator</text>
+    <text x="100" y="42" fill="#c9d1d9" font-size="10" text-anchor="middle">Request Router &amp; Scheduler</text>
+  </g>
+
+  <!-- Metadata Store / Directory Service -->
+  <g transform="translate(350, 180)">
+    <rect x="0" y="0" width="200" height="50" rx="6" fill="url(#purpleGrad)" stroke="#bc8cff" stroke-width="1.5" />
+    <text x="100" y="24" fill="#f0f6fc" font-size="13" font-weight="bold" text-anchor="middle">Distributed Hash Ring</text>
+    <text x="100" y="40" fill="#c9d1d9" font-size="10" text-anchor="middle">KV Cache Block Directory (gRPC)</text>
+  </g>
+
+  <!-- NODE 1: Prefill / Storage Node -->
+  <g transform="translate(60, 280)">
+    <rect x="0" y="0" width="340" height="230" rx="8" fill="#161b22" stroke="#30363d" stroke-width="2" />
+    <text x="20" y="25" fill="#f0f6fc" font-size="14" font-weight="bold">Inference Node A (Prefill/Storage)</text>
+    <text x="20" y="40" fill="#8b949e" font-size="10">IP: 10.0.0.11 (RoCEv2 Enabled)</text>
+
+    <!-- GPU VRAM Block Manager -->
+    <g transform="translate(20, 60)">
+      <rect x="0" y="0" width="140" height="100" rx="4" fill="#21262d" stroke="#30363d" stroke-dasharray="2,2" />
+      <text x="10" y="20" fill="#c9d1d9" font-size="11" font-weight="bold">GPU VRAM (80GB)</text>
+      <!-- KV Cache Slots -->
+      <rect x="10" y="32" width="55" height="25" rx="3" fill="#1f6feb" opacity="0.8" />
+      <text x="37" y="48" fill="#f0f6fc" font-size="9" text-anchor="middle">Block #102</text>
+      <rect x="75" y="32" width="55" height="25" rx="3" fill="#1f6feb" opacity="0.8" />
+      <text x="102" y="48" fill="#f0f6fc" font-size="9" text-anchor="middle">Block #103</text>
+      
+      <rect x="10" y="65" width="55" height="25" rx="3" fill="#238636" opacity="0.8" />
+      <text x="37" y="81" fill="#f0f6fc" font-size="9" text-anchor="middle">Block #104</text>
+      <rect x="75" y="65" width="55" height="25" rx="3" fill="#30363d" />
+      <text x="102" y="81" fill="#8b949e" font-size="9" text-anchor="middle">[Free]</text>
+    </g>
+
+    <!-- Execution Engine -->
+    <g transform="translate(180, 60)">
+      <rect x="0" y="0" width="140" height="100" rx="4" fill="#21262d" stroke="#30363d" />
+      <text x="70" y="25" fill="#f0f6fc" font-size="12" font-weight="bold" text-anchor="middle">Prefill Engine</text>
+      <rect x="15" y="40" width="110" height="20" rx="3" fill="#161b22" stroke="#30363d" />
+      <text x="70" y="53" fill="#c9d1d9" font-size="9" text-anchor="middle">vLLM / vLLM-Engine</text>
+      <rect x="15" y="68" width="110" height="20" rx="3" fill="#8957e5" opacity="0.3" stroke="#bc8cff" />
+      <text x="70" y="81" fill="#bc8cff" font-size="9" text-anchor="middle">gRPC Daemon</text>
+    </g>
+
+    <!-- RDMA NIC (RNIC) -->
+    <g transform="translate(90, 180)">
+      <rect x="0" y="0" width="160" height="35" rx="4" fill="url(#greenGrad)" stroke="#3fb950" stroke-width="1" />
+      <text x="80" y="22" fill="#f0f6fc" font-size="12" font-weight="bold" text-anchor="middle">Mellanox ConnectX-6 RNIC</text>
+    </g>
+  </g>
+
+  <!-- NODE 2: Decode Node -->
+  <g transform="translate(500, 280)">
+    <rect x="0" y="0" width="340" height="230" rx="8" fill="#161b22" stroke="#30363d" stroke-width="2" />
+    <text x="20" y="25" fill="#f0f6fc" font-size="14" font-weight="bold">Inference Node B (Decode/Target)</text>
+    <text x="20" y="40" fill="#8b949e" font-size="10">IP: 10.0.0.12 (RoCEv2 Enabled)</text>
+
+    <!-- GPU VRAM Block Manager -->
+    <g transform="translate(20, 60)">
+      <rect x="0" y="0" width="140" height="100" rx="4" fill="#21262d" stroke="#30363d" stroke-dasharray="2,2" />
+      <text x="10" y="20" fill="#c9d1d9" font-size="11" font-weight="bold">GPU VRAM (80GB)</text>
+      <!-- KV Cache Slots -->
+      <rect x="10" y="32" width="55" height="25" rx="3" fill="#238636" stroke="#58a6ff" stroke-width="1.5" />
+      <text x="37" y="48" fill="#f0f6fc" font-size="9" text-anchor="middle">Block #104</text>
+      <rect x="75" y="32" width="55" height="25" rx="3" fill="#30363d" />
+      <text x="102" y="48" fill="#8b949e" font-size="9" text-anchor="middle">[Free]</text>
+      
+      <!-- RDMA Write Destination Slot -->
+      <rect x="10" y="65" width="120" height="25" rx="3" fill="#21262d" stroke="#3fb950" stroke-dasharray="3,3" />
+      <text x="70" y="81" fill="#3fb950" font-size="9" font-weight="bold" text-anchor="middle">RDMA Direct Target</text>
+    </g>
+
+    <!-- Execution Engine -->
+    <g transform="translate(180, 60)">
+      <rect x="0" y="0" width="140" height="100" rx="4" fill="#21262d" stroke="#30363d" />
+      <text x="70" y="25" fill="#f0f6fc" font-size="12" font-weight="bold" text-anchor="middle">Decode Engine</text>
+      <rect x="15" y="40" width="110" height="20" rx="3" fill="#161b22" stroke="#30363d" />
+      <text x="70" y="53" fill="#c9d1d9" font-size="9" text-anchor="middle">vLLM / vLLM-Engine</text>
+      <rect x="15" y="68" width="110" height="20" rx="3" fill="#8957e5" opacity="0.3" stroke="#bc8cff" />
+      <text x="70" y="81" fill="#bc8cff" font-size="9" text-anchor="middle">gRPC Daemon</text>
+    </g>
+
+    <!-- RDMA NIC (RNIC) -->
+    <g transform="translate(90, 180)">
+      <rect x="0" y="0" width="160" height="35" rx="4" fill="url(#greenGrad)" stroke="#3fb950" stroke-width="1" />
+      <text x="80" y="22" fill="#f0f6fc" font-size="12" font-weight="bold" text-anchor="middle">Mellanox ConnectX-6 RNIC</text>
+    </g>
+  </g>
+
+  <!-- Flow Lines & Connectors -->
+  <path d="M 450,130 L 450,180" fill="none" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+  <path d="M 450,230 L 450,250 L 230,250 L 230,272" fill="none" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+  <text x="210" y="235" fill="#58a6ff" font-size="10" font-weight="bold">1. Route to Shard (gRPC)</text>
+
+  <!-- Node A registers blocks to Directory -->
+  <path d="M 260,280 L 260,215 L 350,215" fill="none" stroke="#bc8cff" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowBlue)" />
+  <text x="270" y="210" fill="#bc8cff" font-size="10">2. Reg Blocks</text>
+
+  <!-- Node B queries Block Map for pre-existing prompts -->
+  <path d="M 640,280 L 640,215 L 550,215" fill="none" stroke="#bc8cff" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowBlue)" />
+  <text x="560" y="210" fill="#bc8cff" font-size="10">3. Lookup Shard</text>
+
+  <!-- Node B requests RDMA Transfer from Node A -->
+  <path d="M 590,348 L 590,265 L 310,265 L 310,340" fill="none" stroke="#f0883e" stroke-width="1.5" marker-end="url(#arrowOrange)" />
+  <text x="450" y="260" fill="#f0883e" font-size="10" font-weight="bold" text-anchor="middle">4. gRPC Trigger: Sync Metadata (Virtual Address/rkey)</text>
+
+  <!-- RDMA Direct Memory Transfer (RoCEv2 Fabric) -->
+  <path d="M 250,398 L 290,410 C 390,460 510,460 610,410 L 650,398" fill="none" stroke="#3fb950" stroke-width="3" marker-end="url(#arrowGreen)" />
+  <rect x="400" y="440" width="100" height="20" rx="3" fill="#115320" stroke="#3fb950" stroke-width="1" />
+  <text x="450" y="454" fill="#f0f6fc" font-size="10" font-weight="bold" text-anchor="middle">5. RDMA WRITE (Zero-Copy)</text>
+</svg>
