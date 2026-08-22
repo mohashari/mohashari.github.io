@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Definitions for markers and gradients -->
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0ea5e9"/>
+      <stop offset="100%" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="green-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="550" fill="url(#bg-grad)" rx="12"/>
+
+  <!-- Title -->
+  <text x="30" y="45" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="bold">PostgreSQL-Style MVCC Snapshot Visibility &amp; Conflict Detection</text>
+  <text x="30" y="70" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="14">How a transaction determines tuple visibility and prevents write-write skew at commit time</text>
+
+  <!-- Col 1: Transaction Manager -->
+  <g transform="translate(30, 110)" filter="url(#shadow)">
+    <!-- Header -->
+    <rect width="240" height="40" fill="#1e293b" stroke="#334155" stroke-width="1.5" rx="6"/>
+    <text x="120" y="25" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Transaction Manager</text>
+
+    <!-- Body -->
+    <rect y="45" width="240" height="340" fill="#1e293b" opacity="0.6" stroke="#334155" stroke-width="1.5" rx="6"/>
+    
+    <!-- Active Txn Info -->
+    <text x="20" y="80" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">ACTIVE TRANSACTIONS</text>
+    
+    <!-- Txn List -->
+    <g transform="translate(20, 95)">
+      <!-- Txn 101 -->
+      <rect width="200" height="30" fill="#334155" rx="4"/>
+      <text x="15" y="20" fill="#f1f5f9" font-family="monospace" font-size="12">Txn 101 (Active)</text>
+      
+      <!-- Txn 102 -->
+      <rect y="40" width="200" height="30" fill="#065f46" rx="4"/>
+      <text x="15" y="60" fill="#34d399" font-family="monospace" font-size="12">Txn 102 (Committed)</text>
+      
+      <!-- Txn 103 -->
+      <rect y="80" width="200" height="30" fill="#334155" rx="4"/>
+      <text x="15" y="100" fill="#f1f5f9" font-family="monospace" font-size="12">Txn 103 (Active)</text>
+
+      <!-- Txn 104 -->
+      <rect y="120" width="200" height="30" fill="#7f1d1d" rx="4"/>
+      <text x="15" y="140" fill="#f87171" font-family="monospace" font-size="12">Txn 104 (Aborted)</text>
+      
+      <!-- Txn 105 -->
+      <rect y="160" width="200" height="30" fill="url(#blue-grad)" rx="4"/>
+      <text x="15" y="180" fill="#ffffff" font-family="monospace" font-size="12" font-weight="bold">Txn 105 (Current - SI)</text>
+    </g>
+
+    <!-- Global State -->
+    <path d="M 20 300 L 220 300" stroke="#334155" stroke-width="1"/>
+    <text x="20" y="325" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="12">Next Txn ID (Global Xmax):</text>
+    <text x="200" y="325" fill="#f8fafc" font-family="monospace" font-size="14" font-weight="bold" text-anchor="end">106</text>
+  </g>
+
+  <!-- Arrow from Txn 105 to Snapshot -->
+  <path d="M 270 285 L 320 285" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Col 2: Txn 105 Snapshot -->
+  <g transform="translate(330, 110)" filter="url(#shadow)">
+    <rect width="240" height="40" fill="url(#blue-grad)" rx="6"/>
+    <text x="120" y="25" fill="#ffffff" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Snapshot (Txn 105)</text>
+
+    <rect y="45" width="240" height="340" fill="#1e293b" opacity="0.6" stroke="#0ea5e9" stroke-width="1.5" rx="6"/>
+
+    <!-- Snapshot details -->
+    <!-- Xmin -->
+    <rect x="20" y="70" width="200" height="50" fill="#1e293b" stroke="#334155" stroke-width="1" rx="4"/>
+    <text x="35" y="90" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11">xmin (Lowest Active ID)</text>
+    <text x="35" y="110" fill="#38bdf8" font-family="monospace" font-size="16" font-weight="bold">101</text>
+    
+    <!-- Xmax -->
+    <rect x="20" y="130" width="200" height="50" fill="#1e293b" stroke="#334155" stroke-width="1" rx="4"/>
+    <text x="35" y="150" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11">xmax (Highest Completed+1)</text>
+    <text x="35" y="170" fill="#38bdf8" font-family="monospace" font-size="16" font-weight="bold">105</text>
+
+    <!-- Active Set -->
+    <rect x="20" y="190" width="200" height="80" fill="#1e293b" stroke="#334155" stroke-width="1" rx="4"/>
+    <text x="35" y="210" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11">Active Txns at Snapshot</text>
+    <text x="35" y="235" fill="#f1f5f9" font-family="monospace" font-size="14" font-weight="bold">{ 101, 103 }</text>
+    <text x="35" y="255" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="10">(Txn 104 aborted, 102 committed)</text>
+
+    <path d="M 20 290 L 220 290" stroke="#334155" stroke-width="1"/>
+    
+    <!-- Rules Summary -->
+    <text x="20" y="315" fill="#38bdf8" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">VISIBILITY RULES:</text>
+    <text x="20" y="335" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="11">1. Txn ID &lt; xmin (101) → VISIBLE</text>
+    <text x="20" y="355" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="11">2. Txn ID &gt;= xmax (105) → INVISIBLE</text>
+    <text x="20" y="375" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="11">3. xmin &lt;= ID &lt; xmax → Visible if committed &amp; not active</text>
+  </g>
+
+  <!-- Connectors from Snapshot to Row Versions -->
+  <path d="M 570 195 L 620 195" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M 570 295 L 620 295" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M 570 395 L 620 395" stroke="#94a3b8" stroke-dasharray="4" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Col 3: Data Row Tuple Version Chain -->
+  <g transform="translate(630, 110)" filter="url(#shadow)">
+    <rect width="240" height="40" fill="#334155" rx="6"/>
+    <text x="120" y="25" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Tuple Version Chain (Row A)</text>
+
+    <!-- Version 1 -->
+    <g transform="translate(0, 50)">
+      <rect width="240" height="75" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="6"/>
+      <text x="15" y="20" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">v1 (VISIBLE)</text>
+      <text x="15" y="40" fill="#f8fafc" font-family="monospace" font-size="12">Val: "Balance = $100"</text>
+      <text x="15" y="60" fill="#94a3b8" font-family="monospace" font-size="10">xmin: 100 (Committed) | xmax: 102 (Committed)</text>
+      <!-- Green check -->
+      <circle cx="215" cy="25" r="10" fill="#10b981"/>
+      <path d="M 210 25 L 213 28 L 220 21" stroke="#ffffff" stroke-width="2" fill="none"/>
+    </g>
+
+    <!-- Version 2 -->
+    <g transform="translate(0, 150)">
+      <rect width="240" height="75" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5" rx="6"/>
+      <text x="15" y="20" fill="#f43f5e" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">v2 (INVISIBLE - Active in Snapshot)</text>
+      <text x="15" y="40" fill="#f8fafc" font-family="monospace" font-size="12">Val: "Balance = $150"</text>
+      <text x="15" y="60" fill="#94a3b8" font-family="monospace" font-size="10">xmin: 102 (Committed) | xmax: 103 (Active)</text>
+      <!-- Red Cross -->
+      <circle cx="215" cy="25" r="10" fill="#f43f5e"/>
+      <path d="M 210 20 L 220 30 M 220 20 L 210 30" stroke="#ffffff" stroke-width="2"/>
+    </g>
+
+    <!-- Version 3 -->
+    <g transform="translate(0, 250)">
+      <rect width="240" height="75" fill="#1e293b" stroke="#f43f5e" stroke-width="1.5" rx="6"/>
+      <text x="15" y="20" fill="#f43f5e" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold">v3 (INVISIBLE - Future Txn)</text>
+      <text x="15" y="40" fill="#f8fafc" font-family="monospace" font-size="12">Val: "Balance = $200"</text>
+      <text x="15" y="60" fill="#94a3b8" font-family="monospace" font-size="10">xmin: 105 (Self/Current) | xmax: 0</text>
+      <!-- Red Cross -->
+      <circle cx="215" cy="25" r="10" fill="#f43f5e"/>
+      <path d="M 210 20 L 220 30 M 220 20 L 210 30" stroke="#ffffff" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- Flow Arrows connecting versions -->
+  <path d="M 750 235 L 750 260" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <path d="M 750 335 L 750 360" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Footer/Key -->
+  <rect x="30" y="480" width="840" height="45" fill="#1e293b" stroke="#334155" stroke-width="1.5" rx="6"/>
+  <text x="50" y="507" fill="#e2e8f0" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold">Conflict Check (at commit / update):</text>
+  <text x="260" y="507" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="11">If Txn 105 writes to Row A, it checks if the latest visible version has a active/committed xmax. If xmax is committed and concurrent, Txn 105 aborts.</text>
+</svg>

@@ -1,0 +1,246 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Node Gradient (Primary) -->
+    <linearGradient id="primary-node-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+
+    <!-- Node Gradient (Secondary) -->
+    <linearGradient id="secondary-node-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+
+    <!-- Node Gradient (Neutral Dark) -->
+    <linearGradient id="dark-node-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Node Gradient (Database/VCS) -->
+    <linearGradient id="db-node-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+
+    <!-- Shadow Filter -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+
+    <!-- Marker Arrow -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#38bdf8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#34d399" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-grad)" rx="12" />
+
+  <!-- Grid Pattern Overlay for tech aesthetic -->
+  <g opacity="0.05">
+    <path d="M0,45 H960 M0,90 H960 M0,135 H960 M0,180 H960 M0,225 H960 M0,270 H960 M0,315 H960 M0,360 H960 M0,405 H960 M0,450 H960 M0,495 H960" stroke="#ffffff" stroke-width="1"/>
+    <path d="M80,0 V540 M160,0 V540 M240,0 V540 M320,0 V540 M400,0 V540 M480,0 V540 M560,0 V540 M640,0 V540 M720,0 V540 M800,0 V540 M880,0 V540" stroke="#ffffff" stroke-width="1"/>
+  </g>
+
+  <!-- Diagram Title -->
+  <text x="40" y="45" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#f8fafc" letter-spacing="0.5">
+    BUILD-TO-MERGE QUANTITATIVE TELEMETRY PIPELINE
+  </text>
+  <text x="40" y="65" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" fill="#94a3b8">
+    Architecture for capturing local build hit rates and correlating them with VCS pull request cycles
+  </text>
+
+  <!-- ==================== ZONE 1: LOCAL DEVELOPER ENVIRONMENT ==================== -->
+  <g filter="url(#shadow)">
+    <!-- Boundary box for Dev Environment -->
+    <rect x="40" y="100" width="260" height="390" rx="8" fill="#1e293b" stroke="#334155" stroke-width="2" />
+    <text x="55" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#94a3b8" letter-spacing="1">
+      DEVELOPER WORKSTATION
+    </text>
+
+    <!-- Sub-component: Local Build Tool (Bazel/Gradle) -->
+    <rect x="60" y="150" width="220" height="80" rx="6" fill="url(#primary-node-grad)" />
+    <text x="75" y="180" font-family="'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">
+      Build Engine (Bazel/Gradle)
+    </text>
+    <text x="75" y="200" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#e0f2fe">
+      Executes local compilation &amp; tests
+    </text>
+    <text x="75" y="215" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#bae6fd">
+      Generates BEP / Build Scan
+    </text>
+
+    <!-- Sub-component: Local Cache -->
+    <rect x="60" y="260" width="220" height="60" rx="6" fill="url(#dark-node-grad)" stroke="#475569" stroke-width="1.5" />
+    <text x="75" y="285" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#f1f5f9">
+      Local Target Cache
+    </text>
+    <text x="75" y="303" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#94a3b8">
+      SSD-backed cache hits/misses
+    </text>
+
+    <!-- Sub-component: Build hook / Telemetry agent -->
+    <rect x="60" y="390" width="220" height="80" rx="6" fill="url(#secondary-node-grad)" />
+    <text x="75" y="420" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#ffffff">
+      Local Telemetry Hook
+    </text>
+    <text x="75" y="440" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#ffe4e6">
+      Extracts Git SHA, Cache hit stats,
+    </text>
+    <text x="75" y="455" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#ffe4e6">
+      Target names, and Wall time
+    </text>
+  </g>
+
+  <!-- ==================== ZONE 2: INFRASTRUCTURE & INGESTION ==================== -->
+  <!-- Shared Remote Cache -->
+  <g filter="url(#shadow)">
+    <rect x="360" y="100" width="200" height="75" rx="8" fill="url(#dark-node-grad)" stroke="#38bdf8" stroke-width="2" />
+    <text x="375" y="125" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#38bdf8">
+      Shared Remote Cache
+    </text>
+    <text x="375" y="145" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#94a3b8">
+      Bazel Remote Cache / Gradle Ent.
+    </text>
+    <text x="375" y="160" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748b">
+      Hits populated by CI pipeline
+    </text>
+  </g>
+
+  <!-- Event Ingestion Gateway -->
+  <g filter="url(#shadow)">
+    <rect x="360" y="390" width="200" height="80" rx="8" fill="url(#dark-node-grad)" stroke="#f43f5e" stroke-width="2" />
+    <text x="375" y="415" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#f43f5e">
+      Ingestion Pipeline
+    </text>
+    <text x="375" y="435" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#94a3b8">
+      Vector / Kafka / Event Gateway
+    </text>
+    <text x="375" y="450" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748b">
+      Validates &amp; sanitizes build events
+    </text>
+  </g>
+
+  <!-- VCS / GitHub webhook listener -->
+  <g filter="url(#shadow)">
+    <rect x="360" y="245" width="200" height="90" rx="8" fill="url(#dark-node-grad)" stroke="#34d399" stroke-width="2" />
+    <text x="375" y="270" font-family="'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#34d399">
+      VCS Event Consumer
+    </text>
+    <text x="375" y="290" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#94a3b8">
+      GitHub / GitLab Webhooks
+    </text>
+    <text x="375" y="305" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748b">
+      Captures PR creation, commits,
+    </text>
+    <text x="375" y="320" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#64748b">
+      review iterations, &amp; merge velocity
+    </text>
+  </g>
+
+  <!-- ==================== ZONE 3: STORAGE & ANALYTICS ==================== -->
+  <!-- ClickHouse Warehouse -->
+  <g filter="url(#shadow)">
+    <rect x="620" y="210" width="140" height="150" rx="8" fill="url(#db-node-grad)" />
+    <!-- Cylinder indicators to represent Database -->
+    <ellipse cx="690" cy="235" rx="50" ry="12" fill="#a7f3d0" opacity="0.3" />
+    <text x="690" y="275" font-family="'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">
+      ClickHouse
+    </text>
+    <text x="690" y="295" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#d1fae5" text-anchor="middle">
+      Data Warehouse
+    </text>
+    <text x="690" y="315" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" font-weight="bold" fill="#34d399" text-anchor="middle">
+      Join Key: GIT_SHA
+    </text>
+    <text x="690" y="330" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#a7f3d0" text-anchor="middle">
+      + Anonymized Dev ID
+    </text>
+  </g>
+
+  <!-- Correlation / Analysis Engine (Python / R) -->
+  <g filter="url(#shadow)">
+    <rect x="800" y="160" width="130" height="100" rx="8" fill="url(#dark-node-grad)" stroke="#475569" stroke-width="1.5" />
+    <text x="865" y="190" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#f1f5f9" text-anchor="middle">
+      Statistical Engine
+    </text>
+    <text x="865" y="210" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">
+      Statsmodels / R
+    </text>
+    <text x="865" y="225" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">
+      OLS / Survival Model
+    </text>
+    <text x="865" y="240" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#64748b" text-anchor="middle">
+      Controls for Diff Size
+    </text>
+  </g>
+
+  <!-- Grafana Dashboard / Reporting -->
+  <g filter="url(#shadow)">
+    <rect x="800" y="310" width="130" height="100" rx="8" fill="url(#dark-node-grad)" stroke="#e11d48" stroke-width="1.5" />
+    <text x="865" y="340" font-family="'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="bold" fill="#f1f5f9" text-anchor="middle">
+      Dashboard
+    </text>
+    <text x="865" y="360" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" fill="#fb7185" text-anchor="middle">
+      Grafana / Superset
+    </text>
+    <text x="865" y="380" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">
+      Daily Merge Velocity
+    </text>
+    <text x="865" y="395" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#94a3b8" text-anchor="middle">
+      vs. Build Cache Rate
+    </text>
+  </g>
+
+  <!-- ==================== CONNECTING LINES & ARROWS ==================== -->
+  <!-- Local Build <=> Local Cache -->
+  <path d="M170,230 L170,260" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" marker-start="url(#arrow)" />
+  <text x="180" y="250" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#94a3b8">Hit/Miss Check</text>
+
+  <!-- Local Build -> Local Hook -->
+  <path d="M140,230 L140,390" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <text x="75" y="350" font-family="'Segoe UI', Roboto, sans-serif" font-size="10" fill="#94a3b8">Post-Build Trigger</text>
+
+  <!-- Local Build <=> Remote Cache -->
+  <path d="M280,180 L320,180 L320,138 L360,138" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-blue)" />
+  <text x="300" y="160" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#38bdf8" font-weight="bold">Fetch/Upload</text>
+
+  <!-- Local Hook -> Ingestion Pipeline -->
+  <path d="M280,430 L360,430" fill="none" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="295" y="420" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#f43f5e" font-weight="bold">HTTPS JSON</text>
+
+  <!-- Git Provider -> VCS Event Consumer -->
+  <path d="M50,100 L50,80 L460,80 L460,245" fill="none" stroke="#34d399" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arrow-green)" />
+  <text x="220" y="75" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#34d399">Git Commits / PR Lifecycle Actions</text>
+
+  <!-- Ingestion Pipeline -> ClickHouse -->
+  <path d="M560,430 L590,430 L590,285 L620,285" fill="none" stroke="#f43f5e" stroke-width="2" marker-end="url(#arrow)" />
+  
+  <!-- VCS Event Consumer -> ClickHouse -->
+  <path d="M560,285 L620,285" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-green)" />
+
+  <!-- ClickHouse -> Correlation Engine -->
+  <path d="M760,260 L780,260 L780,210 L800,210" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- ClickHouse -> Dashboard -->
+  <path d="M760,310 L780,310 L780,360 L800,360" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+
+  <!-- Correlation Engine -> Dashboard -->
+  <path d="M865,260 L865,310" fill="none" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow-blue)" />
+  <text x="872" y="290" font-family="'Segoe UI', Roboto, sans-serif" font-size="9" fill="#38bdf8">Model Outputs</text>
+
+</svg>
