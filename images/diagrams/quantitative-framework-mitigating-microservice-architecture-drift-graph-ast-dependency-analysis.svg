@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 950 550" width="100%" height="100%" style="background-color: #0b0f19; font-family: system-ui, -apple-system, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="codeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+    <linearGradient id="astGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <linearGradient id="specGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+    <linearGradient id="graphGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818cf8" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <linearGradient id="driftGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#be123c" />
+    </linearGradient>
+    <linearGradient id="ciGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Marker Arrow -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-glow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#f43f5e" />
+    </marker>
+  </defs>
+
+  <!-- Title & Background Grid -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 950,50 M 0,100 L 950,100 M 0,150 L 950,150 M 0,200 L 950,200 M 0,250 L 950,250 M 0,300 L 950,300 M 0,350 L 950,350 M 0,400 L 950,400 M 0,450 L 950,450 M 0,500 L 950,500" stroke="#94a3b8" stroke-width="1"/>
+    <path d="M 100,0 L 100,550 M 200,0 L 200,550 M 300,0 L 300,550 M 400,0 L 400,550 M 500,0 L 500,550 M 600,0 L 600,550 M 700,0 L 700,550 M 800,0 L 800,550 M 900,0 L 900,550" stroke="#94a3b8" stroke-width="1"/>
+  </g>
+
+  <!-- Flow lines -->
+  <g fill="none" stroke-width="2.5" stroke-linecap="round">
+    <!-- Code to AST -->
+    <path d="M 170,270 L 230,270" stroke="#38bdf8" marker-end="url(#arrow)" />
+    <!-- AST to Graph Engine -->
+    <path d="M 370,270 L 430,270" stroke="#2dd4bf" marker-end="url(#arrow)" />
+    <!-- Spec to Drift Engine -->
+    <path d="M 500,140 L 500,195 C 500,210 550,210 580,240" stroke="#a78bfa" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+    <!-- Graph to Drift Engine -->
+    <path d="M 570,270 L 620,270" stroke="#818cf8" marker-end="url(#arrow)" />
+    <!-- Drift Engine to CI/CD & DB -->
+    <path d="M 760,270 L 810,270" stroke="#fb7185" marker-end="url(#arrow)" />
+    <!-- Drift Engine loop back feedback / alerts -->
+    <path d="M 690,320 L 690,440 L 90,440 L 90,320" stroke="#f43f5e" stroke-dasharray="6,4" marker-end="url(#arrow-glow)" opacity="0.8"/>
+  </g>
+
+  <!-- Nodes & Boxes -->
+
+  <!-- STEP 1: Microservice Codebase -->
+  <g transform="translate(20, 210)" filter="url(#shadow)">
+    <rect width="150" height="120" rx="12" fill="url(#codeGrad)" stroke="#0284c7" stroke-width="1.5" />
+    <text x="75" y="35" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">1. Source Code</text>
+    <rect x="15" y="55" width="120" height="20" rx="4" fill="#0c4a6e" opacity="0.6"/>
+    <text x="75" y="69" fill="#e0f2fe" font-size="11" font-family="monospace" text-anchor="middle">HTTP/gRPC Clients</text>
+    <rect x="15" y="80" width="120" height="20" rx="4" fill="#0c4a6e" opacity="0.6"/>
+    <text x="75" y="94" fill="#e0f2fe" font-size="11" font-family="monospace" text-anchor="middle">SQL / DB Drivers</text>
+  </g>
+
+  <!-- STEP 2: AST Parser -->
+  <g transform="translate(220, 210)" filter="url(#shadow)">
+    <rect width="150" height="120" rx="12" fill="url(#astGrad)" stroke="#0d9488" stroke-width="1.5" />
+    <text x="75" y="35" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">2. AST Extraction</text>
+    <rect x="15" y="55" width="120" height="20" rx="4" fill="#042f2e" opacity="0.6"/>
+    <text x="75" y="69" fill="#ccfbf1" font-size="11" font-family="monospace" text-anchor="middle">Go AST / Python AST</text>
+    <rect x="15" y="80" width="120" height="20" rx="4" fill="#042f2e" opacity="0.6"/>
+    <text x="75" y="94" fill="#ccfbf1" font-size="11" font-family="monospace" text-anchor="middle">Extract Dep Call-Graph</text>
+  </g>
+
+  <!-- STEP 3: Graph Engine (NetworkX / Neo4j) -->
+  <g transform="translate(420, 210)" filter="url(#shadow)">
+    <rect width="150" height="120" rx="12" fill="url(#graphGrad)" stroke="#4338ca" stroke-width="1.5" />
+    <text x="75" y="35" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">3. Graph Builder</text>
+    <rect x="15" y="55" width="120" height="20" rx="4" fill="#1e1b4b" opacity="0.6"/>
+    <text x="75" y="69" fill="#e0e7ff" font-size="11" font-family="monospace" text-anchor="middle">Nodes: Services, DB</text>
+    <rect x="15" y="80" width="120" height="20" rx="4" fill="#1e1b4b" opacity="0.6"/>
+    <text x="75" y="94" fill="#e0e7ff" font-size="11" font-family="monospace" text-anchor="middle">Edges: Calls &amp; Types</text>
+  </g>
+
+  <!-- Architecture Specification (Policy) -->
+  <g transform="translate(420, 30)" filter="url(#shadow)">
+    <rect width="160" height="90" rx="10" fill="url(#specGrad)" stroke="#5b21b6" stroke-width="1.5" />
+    <text x="80" y="30" fill="#ffffff" font-size="13" font-weight="bold" text-anchor="middle">Architecture Spec</text>
+    <rect x="15" y="45" width="130" height="30" rx="4" fill="#2e1065" opacity="0.6"/>
+    <text x="80" y="64" fill="#f5f3ff" font-size="10" font-family="monospace" text-anchor="middle">architecture_spec.yaml</text>
+  </g>
+
+  <!-- STEP 4: Quantitative Drift Engine -->
+  <g transform="translate(610, 210)" filter="url(#shadow)">
+    <rect width="160" height="120" rx="12" fill="url(#driftGrad)" stroke="#9f1239" stroke-width="1.5" />
+    <text x="80" y="35" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">4. Drift Analyzer</text>
+    <rect x="15" y="55" width="130" height="20" rx="4" fill="#4c0519" opacity="0.6"/>
+    <text x="80" y="69" fill="#ffe4e6" font-size="11" font-family="monospace" text-anchor="middle">Compute Jaccard / GDD</text>
+    <rect x="15" y="80" width="130" height="20" rx="4" fill="#4c0519" opacity="0.6"/>
+    <text x="80" y="94" fill="#ffe4e6" font-size="11" font-family="monospace" text-anchor="middle">Detect Violations</text>
+  </g>
+
+  <!-- STEP 5: CI/CD Enforcement & Dashboard -->
+  <g transform="translate(810, 210)" filter="url(#shadow)">
+    <rect width="120" height="120" rx="12" fill="url(#ciGrad)" stroke="#065f46" stroke-width="1.5" />
+    <text x="60" y="35" fill="#ffffff" font-size="14" font-weight="bold" text-anchor="middle">5. CI/CD Gate</text>
+    <rect x="12" y="55" width="96" height="20" rx="4" fill="#022c22" opacity="0.6"/>
+    <text x="60" y="69" fill="#d1fae5" font-size="10" font-family="monospace" text-anchor="middle">Block PR if Drift &gt; 0</text>
+    <rect x="12" y="80" width="96" height="20" rx="4" fill="#022c22" opacity="0.6"/>
+    <text x="60" y="94" fill="#d1fae5" font-size="10" font-family="monospace" text-anchor="middle">Alert &amp; Log Graph</text>
+  </g>
+
+  <!-- Legend / Labels -->
+  <text x="25" y="475" fill="#ef4444" font-size="12" font-weight="bold">─── Red Team Path:</text>
+  <text x="160" y="475" fill="#94a3b8" font-size="12">Feedback loop blocks builds and alerts engineers of architectural policy violations.</text>
+
+  <text x="475" y="520" fill="#64748b" font-size="12" text-anchor="middle">Figure 1: Pipeline for Automated Static Graph Dependency Extraction and Architecture Drift Calculation</text>
+</svg>

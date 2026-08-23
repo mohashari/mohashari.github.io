@@ -1,0 +1,262 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1f6feb" />
+      <stop offset="100%" stop-color="#58a6ff" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#238636" />
+      <stop offset="100%" stop-color="#3fb950" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8957e5" />
+      <stop offset="100%" stop-color="#d2a8ff" />
+    </linearGradient>
+    <linearGradient id="darkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#21262d" />
+      <stop offset="100%" stop-color="#30363d" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9e6a00" />
+      <stop offset="100%" stop-color="#f0b429" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#c9d1d9" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#58a6ff" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#3fb950" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#0d1117" rx="8" />
+  <rect width="100%" height="100%" fill="none" stroke="#30363d" stroke-width="2" rx="8" />
+
+  <!-- Diagram Title -->
+  <text x="30" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="18" font-weight="bold" fill="#f0f6fc">PagedAttention: Logical-to-Physical KV-Cache Mapping</text>
+
+  <!-- SECTION 1: LOGICAL SEQUENCE -->
+  <g transform="translate(30, 80)">
+    <rect width="210" height="430" fill="url(#darkGrad)" stroke="#30363d" stroke-width="1.5" rx="6" />
+    <text x="15" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#8b949e">Logical Sequences</text>
+
+    <!-- Sequence 0 -->
+    <g transform="translate(15, 50)">
+      <rect width="180" height="160" fill="#161b22" stroke="#30363d" stroke-width="1" rx="4" />
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Sequence 0 (Active)</text>
+      
+      <!-- Logical Blocks -->
+      <g transform="translate(10, 35)">
+        <rect width="160" height="32" fill="#21262d" stroke="#1f6feb" stroke-width="1" rx="3" />
+        <text x="8" y="20" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9">L-Block 0 (Tokens 0-15)</text>
+      </g>
+      <g transform="translate(10, 75)">
+        <rect width="160" height="32" fill="#21262d" stroke="#1f6feb" stroke-width="1" rx="3" />
+        <text x="8" y="20" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9">L-Block 1 (Tokens 16-31)</text>
+      </g>
+      <g transform="translate(10, 115)">
+        <rect width="160" height="32" fill="#21262d" stroke="#1f6feb" stroke-width="1" rx="3" />
+        <text x="8" y="20" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9">L-Block 2 (Tokens 32-47)</text>
+      </g>
+    </g>
+
+    <!-- Sequence 1 -->
+    <g transform="translate(15, 230)">
+      <rect width="180" height="120" fill="#161b22" stroke="#30363d" stroke-width="1" rx="4" />
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Sequence 1 (Active)</text>
+      
+      <!-- Logical Blocks -->
+      <g transform="translate(10, 35)">
+        <rect width="160" height="32" fill="#21262d" stroke="#238636" stroke-width="1" rx="3" />
+        <text x="8" y="20" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9">L-Block 0 (Tokens 0-15)</text>
+      </g>
+      <g transform="translate(10, 75)">
+        <rect width="160" height="32" fill="#21262d" stroke="#238636" stroke-width="1" rx="3" />
+        <text x="8" y="20" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9">L-Block 1 (Tokens 16-31)</text>
+      </g>
+    </g>
+
+    <!-- Legend/Note -->
+    <text x="15" y="380" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#8b949e" width="180">
+      <tspan x="15" dy="0">Block Size = 16 tokens</tspan>
+      <tspan x="15" dy="16">Logical blocks are contiguous</tspan>
+      <tspan x="15" dy="16">in sequence space.</tspan>
+    </text>
+  </g>
+
+  <!-- SECTION 2: BLOCK TABLE -->
+  <g transform="translate(280, 80)">
+    <rect width="240" height="430" fill="url(#darkGrad)" stroke="#30363d" stroke-width="1.5" rx="6" />
+    <text x="15" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#8b949e">Scheduler Block Table</text>
+
+    <!-- Mapping Table Seq 0 -->
+    <g transform="translate(15, 50)">
+      <rect width="210" height="160" fill="#161b22" stroke="#30363d" stroke-width="1" rx="4" />
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#58a6ff">Sequence 0 Map</text>
+      
+      <!-- Table Headers -->
+      <text x="15" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#8b949e">Logical Index</text>
+      <text x="120" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#8b949e">Physical Index</text>
+
+      <!-- Row 0 -->
+      <g transform="translate(10, 55)">
+        <rect width="90" height="24" fill="#21262d" stroke="#30363d" stroke-width="1" />
+        <text x="45" y="16" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9" text-anchor="middle">0</text>
+        <rect x="100" width="90" height="24" fill="#21262d" stroke="#1f6feb" stroke-width="1" />
+        <text x="145" y="16" font-family="Courier New, monospace" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">Block 4</text>
+      </g>
+      <!-- Row 1 -->
+      <g transform="translate(10, 84)">
+        <rect width="90" height="24" fill="#21262d" stroke="#30363d" stroke-width="1" />
+        <text x="45" y="16" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9" text-anchor="middle">1</text>
+        <rect x="100" width="90" height="24" fill="#21262d" stroke="#1f6feb" stroke-width="1" />
+        <text x="145" y="16" font-family="Courier New, monospace" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">Block 17</text>
+      </g>
+      <!-- Row 2 -->
+      <g transform="translate(10, 113)">
+        <rect width="90" height="24" fill="#21262d" stroke="#30363d" stroke-width="1" />
+        <text x="45" y="16" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9" text-anchor="middle">2</text>
+        <rect x="100" width="90" height="24" fill="#21262d" stroke="#1f6feb" stroke-width="1" />
+        <text x="145" y="16" font-family="Courier New, monospace" font-size="11" font-weight="bold" fill="#58a6ff" text-anchor="middle">Block 9</text>
+      </g>
+    </g>
+
+    <!-- Mapping Table Seq 1 -->
+    <g transform="translate(15, 230)">
+      <rect width="210" height="120" fill="#161b22" stroke="#30363d" stroke-width="1" rx="4" />
+      <text x="10" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" font-weight="bold" fill="#3fb950">Sequence 1 Map</text>
+      
+      <!-- Table Headers -->
+      <text x="15" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#8b949e">Logical Index</text>
+      <text x="120" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="10" font-weight="bold" fill="#8b949e">Physical Index</text>
+
+      <!-- Row 0 -->
+      <g transform="translate(10, 55)">
+        <rect width="90" height="24" fill="#21262d" stroke="#30363d" stroke-width="1" />
+        <text x="45" y="16" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9" text-anchor="middle">0</text>
+        <rect x="100" width="90" height="24" fill="#21262d" stroke="#238636" stroke-width="1" />
+        <text x="145" y="16" font-family="Courier New, monospace" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">Block 2</text>
+      </g>
+      <!-- Row 1 -->
+      <g transform="translate(10, 84)">
+        <rect width="90" height="24" fill="#21262d" stroke="#30363d" stroke-width="1" />
+        <text x="45" y="16" font-family="Courier New, monospace" font-size="11" fill="#c9d1d9" text-anchor="middle">1</text>
+        <rect x="100" width="90" height="24" fill="#21262d" stroke="#238636" stroke-width="1" />
+        <text x="145" y="16" font-family="Courier New, monospace" font-size="11" font-weight="bold" fill="#3fb950" text-anchor="middle">Block 11</text>
+      </g>
+    </g>
+
+    <text x="15" y="380" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#8b949e" width="210">
+      <tspan x="15" dy="0">Block table translates logical</tspan>
+      <tspan x="15" dy="16">offsets to physical indices during</tspan>
+      <tspan x="15" dy="16">attention kernel grid launch.</tspan>
+    </text>
+  </g>
+
+  <!-- SECTION 3: PHYSICAL GPU MEMORY -->
+  <g transform="translate(560, 80)">
+    <rect width="310" height="430" fill="url(#darkGrad)" stroke="#30363d" stroke-width="1.5" rx="6" />
+    <text x="15" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="bold" fill="#8b949e">Physical GPU VRAM (KV-Cache Pools)</text>
+
+    <!-- Physical Memory Blocks Grid -->
+    <g transform="translate(15, 50)">
+      <rect width="280" height="300" fill="#161b22" stroke="#30363d" stroke-width="1" rx="4" />
+      
+      <!-- Row 0 -->
+      <g transform="translate(15, 20)">
+        <rect width="75" height="50" fill="#21262d" stroke="#30363d" stroke-width="1.5" rx="3" />
+        <text x="37" y="25" font-family="Courier New, monospace" font-size="10" fill="#8b949e" text-anchor="middle">Block 0</text>
+        <text x="37" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">[FREE]</text>
+      </g>
+      <g transform="translate(100, 20)">
+        <rect width="75" height="50" fill="#21262d" stroke="#30363d" stroke-width="1.5" rx="3" />
+        <text x="37" y="25" font-family="Courier New, monospace" font-size="10" fill="#8b949e" text-anchor="middle">Block 1</text>
+        <text x="37" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">[FREE]</text>
+      </g>
+      <g transform="translate(185, 20)">
+        <rect width="75" height="50" fill="#21262d" stroke="#238636" stroke-width="2" rx="3" />
+        <text x="37" y="22" font-family="Courier New, monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">Block 2</text>
+        <text x="37" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" font-weight="bold" fill="#3fb950" text-anchor="middle">Seq 1 [0]</text>
+      </g>
+
+      <!-- Row 1 -->
+      <g transform="translate(15, 90)">
+        <rect width="75" height="50" fill="#21262d" stroke="#30363d" stroke-width="1.5" rx="3" />
+        <text x="37" y="25" font-family="Courier New, monospace" font-size="10" fill="#8b949e" text-anchor="middle">Block 3</text>
+        <text x="37" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">[FREE]</text>
+      </g>
+      <g transform="translate(100, 90)">
+        <rect width="75" height="50" fill="#21262d" stroke="#1f6feb" stroke-width="2" rx="3" />
+        <text x="37" y="22" font-family="Courier New, monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">Block 4</text>
+        <text x="37" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" font-weight="bold" fill="#58a6ff" text-anchor="middle">Seq 0 [0]</text>
+      </g>
+      <g transform="translate(185, 90)">
+        <rect width="75" height="50" fill="#21262d" stroke="#30363d" stroke-width="1.5" rx="3" />
+        <text x="37" y="25" font-family="Courier New, monospace" font-size="10" fill="#8b949e" text-anchor="middle">Block 5</text>
+        <text x="37" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">[FREE]</text>
+      </g>
+
+      <!-- Row 2 -->
+      <g transform="translate(15, 160)">
+        <rect width="75" height="50" fill="#21262d" stroke="#30363d" stroke-width="1.5" rx="3" />
+        <text x="37" y="25" font-family="Courier New, monospace" font-size="10" fill="#8b949e" text-anchor="middle">Block 8</text>
+        <text x="37" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">[FREE]</text>
+      </g>
+      <g transform="translate(100, 160)">
+        <rect width="75" height="50" fill="#21262d" stroke="#1f6feb" stroke-width="2" rx="3" />
+        <text x="37" y="22" font-family="Courier New, monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">Block 9</text>
+        <text x="37" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" font-weight="bold" fill="#58a6ff" text-anchor="middle">Seq 0 [2]</text>
+      </g>
+      <g transform="translate(185, 160)">
+        <rect width="75" height="50" fill="#21262d" stroke="#30363d" stroke-width="1.5" rx="3" />
+        <text x="37" y="25" font-family="Courier New, monospace" font-size="10" fill="#8b949e" text-anchor="middle">Block 10</text>
+        <text x="37" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">[FREE]</text>
+      </g>
+
+      <!-- Row 3 -->
+      <g transform="translate(15, 230)">
+        <rect width="75" height="50" fill="#21262d" stroke="#238636" stroke-width="2" rx="3" />
+        <text x="37" y="22" font-family="Courier New, monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">Block 11</text>
+        <text x="37" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" font-weight="bold" fill="#3fb950" text-anchor="middle">Seq 1 [1]</text>
+      </g>
+      <g transform="translate(100, 230)">
+        <rect width="75" height="50" fill="#21262d" stroke="#30363d" stroke-width="1.5" rx="3" />
+        <text x="37" y="25" font-family="Courier New, monospace" font-size="10" fill="#8b949e" text-anchor="middle">Block 12</text>
+        <text x="37" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" fill="#8b949e" text-anchor="middle">[FREE]</text>
+      </g>
+      <g transform="translate(185, 230)">
+        <rect width="75" height="50" fill="#21262d" stroke="#1f6feb" stroke-width="2" rx="3" />
+        <text x="37" y="22" font-family="Courier New, monospace" font-size="10" fill="#c9d1d9" text-anchor="middle">Block 17</text>
+        <text x="37" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="9" font-weight="bold" fill="#58a6ff" text-anchor="middle">Seq 0 [1]</text>
+      </g>
+    </g>
+
+    <text x="15" y="375" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#8b949e" width="280">
+      <tspan x="15" dy="0">Each block hosts cache key/value data for</tspan>
+      <tspan x="15" dy="16">16 tokens (dimensions: [NumHeads, HeadDim, 16]).</tspan>
+      <tspan x="15" dy="16">Memory allocated dynamically to resolve fragmentation.</tspan>
+    </text>
+  </g>
+
+  <!-- Flow Arrows (Logical to Block Table) -->
+  <path d="M 215, 160 L 272, 160" fill="none" stroke="#58a6ff" stroke-width="1.5" marker-end="url(#arrow-blue)" />
+  <path d="M 215, 310 L 272, 310" fill="none" stroke="#3fb950" stroke-width="1.5" marker-end="url(#arrow-green)" />
+
+  <!-- Flow Arrows (Block Table to Physical Memory) -->
+  <!-- Seq 0 Row 0 (Block 4) -->
+  <path d="M 480, 167 C 510, 167 510, 195 650, 195" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-blue)" />
+  <!-- Seq 0 Row 1 (Block 17) -->
+  <path d="M 480, 196 C 530, 196 530, 335 735, 335" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-blue)" />
+  <!-- Seq 0 Row 2 (Block 9) -->
+  <path d="M 480, 225 C 500, 225 500, 265 650, 265" fill="none" stroke="#58a6ff" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-blue)" />
+
+  <!-- Seq 1 Row 0 (Block 2) -->
+  <path d="M 480, 317 C 530, 317 530, 125 735, 125" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-green)" />
+  <!-- Seq 1 Row 1 (Block 11) -->
+  <path d="M 480, 346 C 510, 346 510, 335 565, 335" fill="none" stroke="#3fb950" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-green)" />
+
+</svg>
