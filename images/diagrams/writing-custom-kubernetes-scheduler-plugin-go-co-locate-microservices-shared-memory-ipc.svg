@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" width="100%" height="100%">
+  <!-- Background styling and definitions -->
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#1f2937" />
+    </linearGradient>
+
+    <!-- Node Gradient (Active) -->
+    <linearGradient id="nodeActiveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+
+    <!-- Node Gradient (Inactive/Filtered) -->
+    <linearGradient id="nodeFilteredGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d1f2d" />
+      <stop offset="100%" stop-color="#1c101c" />
+    </linearGradient>
+
+    <!-- Pod Gradient -->
+    <linearGradient id="podGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </linearGradient>
+
+    <!-- Incoming Pod Gradient -->
+    <linearGradient id="incomingPodGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+
+    <!-- Memory Vol Gradient -->
+    <linearGradient id="memGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4" />
+    </filter>
+
+    <!-- Arrow marker definitions -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+    
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#10b981" />
+    </marker>
+
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444" />
+    </marker>
+    
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#fbbf24" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="620" rx="12" fill="url(#bgGrad)" />
+  <rect width="998" height="618" x="1" y="1" rx="11" fill="none" stroke="#374151" stroke-width="1.5" />
+
+  <!-- TITLE -->
+  <text x="30" y="35" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="18" fill="#f8fafc">
+    Kube-Scheduler SHM Co-Location Plugin Architecture
+  </text>
+  <text x="30" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#9ca3af">
+    Enforcing low-latency shared-memory IPC via custom scheduler cycle plugins.
+  </text>
+
+  <!-- CONTROL PLANE (SCHEDULER FRAMEWORK) -->
+  <g transform="translate(40, 80)">
+    <rect width="920" height="130" rx="8" fill="#1e293b" fill-opacity="0.6" stroke="#475569" stroke-width="1.5" filter="url(#shadow)" />
+    <text x="20" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="13" fill="#cbd5e1">
+      Custom Kube-Scheduler Bin (SHM Affinity Plugin)
+    </text>
+
+    <!-- Plugin Phases -->
+    <!-- PreFilter -->
+    <g transform="translate(30, 45)">
+      <rect width="180" height="65" rx="6" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5" />
+      <text x="15" y="23" font-family="monospace" font-weight="bold" font-size="12" fill="#0ea5e9">1. PreFilter</text>
+      <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Parse "shm-group" annotation</text>
+      <text x="15" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Verify pod requirements</text>
+    </g>
+
+    <line x1="210" y1="77" x2="250" y2="77" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- Filter -->
+    <g transform="translate(250, 45)">
+      <rect width="180" height="65" rx="6" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5" />
+      <text x="15" y="23" font-family="monospace" font-weight="bold" font-size="12" fill="#0ea5e9">2. Filter</text>
+      <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Isolate nodes running</text>
+      <text x="15" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">the target shm-group</text>
+    </g>
+
+    <line x1="430" y1="77" x2="470" y2="77" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- Score -->
+    <g transform="translate(470, 45)">
+      <rect width="180" height="65" rx="6" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5" />
+      <text x="15" y="23" font-family="monospace" font-weight="bold" font-size="12" fill="#0ea5e9">3. Score</text>
+      <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Prioritize nodes with</text>
+      <text x="15" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">warm shm cache &amp; coloc</text>
+    </g>
+
+    <line x1="650" y1="77" x2="690" y2="77" stroke="#475569" stroke-width="2" marker-end="url(#arrow)" />
+
+    <!-- Reserve -->
+    <g transform="translate(690, 45)">
+      <rect width="180" height="65" rx="6" fill="#0f172a" stroke="#0ea5e9" stroke-width="1.5" />
+      <text x="15" y="23" font-family="monospace" font-weight="bold" font-size="12" fill="#0ea5e9">4. Reserve / Bind</text>
+      <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Lock shm resource quota</text>
+      <text x="15" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Commit node binding</text>
+    </g>
+  </g>
+
+  <!-- POD SCHEDULING FLOW REPRESENTATION -->
+  <!-- Left Side: Incoming Unscheduled Pod -->
+  <g transform="translate(40, 260)">
+    <rect width="160" height="90" rx="8" fill="url(#incomingPodGrad)" stroke="#14b8a6" stroke-width="1.5" filter="url(#shadow)" />
+    <rect x="8" y="8" width="45" height="15" rx="3" fill="#0f766e" />
+    <text x="12" y="19" font-family="monospace" font-weight="bold" font-size="9" fill="#2dd4bf">UNBOUND</text>
+    <text x="10" y="45" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="13" fill="#ffffff">Pod-B (Consumer)</text>
+    <text x="10" y="62" font-family="monospace" font-size="10" fill="#ccfbf1">shm-group: fast-ipc</text>
+    <text x="10" y="78" font-family="monospace" font-size="9" fill="#99f6e4">Status: Pending</text>
+  </g>
+
+  <!-- Flow lines from Unscheduled Pod to Scheduler Framework -->
+  <path d="M 120 260 C 120 220, 200 210, 200 210" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-dasharray="4 4" marker-end="url(#arrow-green)" />
+  <text x="140" y="225" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#2dd4bf" transform="rotate(-7, 140, 225)">Requests Node</text>
+
+  <!-- TARGET NODE (CO-LOCATED) -->
+  <g transform="translate(240, 260)">
+    <rect width="340" height="320" rx="8" fill="url(#nodeActiveGrad)" stroke="#10b981" stroke-width="2" filter="url(#shadow)" />
+    <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="14" fill="#ffffff">Node 1: worker-node-us-east-1a</text>
+    <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#a7f3d0">Status: Selected by custom plugin</text>
+
+    <!-- Pod A (Running) -->
+    <g transform="translate(20, 70)">
+      <rect width="130" height="90" rx="6" fill="url(#podGrad)" stroke="#38bdf8" stroke-width="1.5" />
+      <rect x="8" y="8" width="40" height="15" rx="3" fill="#0369a1" />
+      <text x="12" y="19" font-family="monospace" font-weight="bold" font-size="9" fill="#bae6fd">RUNNING</text>
+      <text x="10" y="45" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="12" fill="#ffffff">Pod-A (Producer)</text>
+      <text x="10" y="62" font-family="monospace" font-size="10" fill="#e0f2fe">shm-group: fast-ipc</text>
+      <text x="10" y="78" font-family="monospace" font-size="9" fill="#0ea5e9">IP: 10.244.1.42</text>
+    </g>
+
+    <!-- Pod B (Scheduled here) -->
+    <g transform="translate(190, 70)">
+      <rect width="130" height="90" rx="6" fill="url(#incomingPodGrad)" stroke="#14b8a6" stroke-width="1.5" />
+      <rect x="8" y="8" width="45" height="15" rx="3" fill="#0f766e" />
+      <text x="12" y="19" font-family="monospace" font-weight="bold" font-size="9" fill="#2dd4bf">ASSIGNED</text>
+      <text x="10" y="45" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="12" fill="#ffffff">Pod-B (Consumer)</text>
+      <text x="10" y="62" font-family="monospace" font-size="10" fill="#ccfbf1">shm-group: fast-ipc</text>
+      <text x="10" y="78" font-family="monospace" font-size="9" fill="#14b8a6">IP: 10.244.1.43</text>
+    </g>
+
+    <!-- Shared Volume (emptyDir Memory) -->
+    <g transform="translate(60, 210)">
+      <rect width="220" height="80" rx="6" fill="url(#memGrad)" stroke="#f59e0b" stroke-width="1.5" />
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="12" fill="#ffffff">Shared tmpfs Volume</text>
+      <text x="15" y="42" font-family="monospace" font-size="11" fill="#fef3c7">Medium: Memory (/dev/shm)</text>
+      <text x="15" y="60" font-family="monospace" font-size="10" fill="#fde68a">IPC: Zero-Copy mmap()</text>
+    </g>
+
+    <!-- IPC Flow Arrows -->
+    <!-- Pod A to Volume -->
+    <path d="M 85 160 L 85 195 L 105 195 L 105 210" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow-amber)" />
+    <!-- Volume to Pod B -->
+    <path d="M 235 210 L 235 195 L 255 195 L 255 160" fill="none" stroke="#fbbf24" stroke-width="2" marker-end="url(#arrow-amber)" />
+    
+    <!-- IPC Arrow Label -->
+    <rect x="135" y="175" width="70" height="18" rx="3" fill="#78350f" />
+    <text x="140" y="188" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="9" fill="#fde68a">IPC &lt; 500ns</text>
+  </g>
+
+  <!-- REJECTED NODE (FILTERED OUT) -->
+  <g transform="translate(620, 260)">
+    <rect width="340" height="320" rx="8" fill="url(#nodeFilteredGrad)" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3 3" filter="url(#shadow)" />
+    <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="14" fill="#94a3b8">Node 2: worker-node-us-east-1b</text>
+    <text x="15" y="42" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#fca5a5">Filtered Out: Missing "fast-ipc" members</text>
+
+    <!-- Empty/Forbidden Pod Slot -->
+    <g transform="translate(105, 110)">
+      <rect width="130" height="90" rx="6" fill="#180f18" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4 4" />
+      <line x1="10" y1="10" x2="120" y2="80" stroke="#ef4444" stroke-width="1.5" />
+      <line x1="120" y1="10" x2="10" y2="80" stroke="#ef4444" stroke-width="1.5" />
+      <text x="35" y="50" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="12" fill="#ef4444">NOT ALLOWED</text>
+    </g>
+
+    <!-- Red Filter Indicator -->
+    <circle cx="170" cy="50" r="16" fill="#7f1d1d" />
+    <text x="165" y="55" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="16" fill="#f87171">X</text>
+  </g>
+
+  <!-- Decision flow line from Reserve/Bind phase to Target Node -->
+  <path d="M 780 210 C 780 240, 480 230, 480 255" fill="none" stroke="#10b981" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <text x="590" y="235" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="12" fill="#10b981">BIND POD B TO NODE 1</text>
+
+  <!-- Separation Warning / Network fallback (illustrative line between nodes) -->
+  <path d="M 580 350 L 620 350" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="2 2" />
+  <rect x="560" y="325" width="80" height="18" rx="3" fill="#7f1d1d" />
+  <text x="565" y="337" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="9" fill="#fca5a5">Network Fallback</text>
+  <text x="563" y="347" font-family="system-ui, -apple-system, sans-serif" font-weight="bold" font-size="8" fill="#fca5a5">Latency: ~1.2ms (Blocked)</text>
+
+</svg>

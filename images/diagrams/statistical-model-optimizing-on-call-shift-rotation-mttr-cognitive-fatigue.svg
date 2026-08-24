@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Gradients & Filters -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#3B82F6" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="roseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F43F5E" />
+      <stop offset="100%" stop-color="#E11D48" />
+    </linearGradient>
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#FAFBFD" rx="8" />
+
+  <!-- Grid lines for engineering feel -->
+  <g stroke="#E2E8F0" stroke-width="1" opacity="0.5">
+    <line x1="100" y1="0" x2="100" y2="500" />
+    <line x1="200" y1="0" x2="200" y2="500" />
+    <line x1="300" y1="0" x2="300" y2="500" />
+    <line x1="400" y1="0" x2="400" y2="500" />
+    <line x1="500" y1="0" x2="500" y2="500" />
+    <line x1="600" y1="0" x2="600" y2="500" />
+    <line x1="700" y1="0" x2="700" y2="500" />
+    <line x1="0" y1="100" x2="800" y2="100" />
+    <line x1="0" y1="200" x2="800" y2="200" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+    <line x1="0" y1="400" x2="800" y2="400" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="45" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">Balancing MTTR &amp; Fatigue: On-Call Optimization Loop</text>
+  <text x="30" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" fill="#64748B">A queueing-theory and circadian decay framework for schedule design</text>
+
+  <!-- Left: Inputs -->
+  <g transform="translate(40, 100)" filter="url(#dropShadow)">
+    <rect width="220" height="340" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8" />
+    <text x="15" y="30" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#334155">1. Observational Inputs</text>
+    
+    <!-- Input Sub-box A: Incident Flow -->
+    <g transform="translate(15, 50)">
+      <rect width="190" height="75" fill="url(#slateGrad)" rx="6" />
+      <text x="10" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#0F172A">Incident Load: λ(t)</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" fill="#475569">• Non-Homogeneous Poisson</text>
+      <text x="10" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" fill="#475569">• Severity weight: w_i ∈ [1, 5]</text>
+    </g>
+
+    <!-- Input Sub-box B: Engineer Fatigue State -->
+    <g transform="translate(15, 145)">
+      <rect width="190" height="75" fill="url(#slateGrad)" rx="6" />
+      <text x="10" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#0F172A">Fatigue Accumulator: F(t)</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" fill="#475569">• Circadian decay rate: α</text>
+      <text x="10" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" fill="#475569">• Recovery half-life (Sleep): t_half</text>
+    </g>
+
+    <!-- Input Sub-box C: Service Degradation -->
+    <g transform="translate(15, 240)">
+      <rect width="190" height="80" fill="url(#slateGrad)" rx="6" />
+      <text x="10" y="20" font-family="monospace" font-size="11" font-weight="700" fill="#0F172A">Performance Profile: MTTR(F)</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" fill="#475569">• Base MTTR: μ_0 ( rested )</text>
+      <text x="10" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" fill="#475569">• Escalation &amp; Handover loss</text>
+      <text x="10" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" fill="#475569">• MTTR_eff = μ_0 * exp(k * F)</text>
+    </g>
+  </g>
+
+  <!-- Connectors from Left to Middle -->
+  <g stroke="#94A3B8" stroke-width="2" fill="none">
+    <path d="M 260,187 L 310,187" />
+    <path d="M 260,282 L 310,282" />
+    <path d="M 260,378 L 310,378" />
+  </g>
+  <polygon points="310,184 316,187 310,190" fill="#94A3B8" />
+  <polygon points="310,280 316,282 310,284" fill="#94A3B8" />
+  <polygon points="310,375 316,378 310,381" fill="#94A3B8" />
+
+  <!-- Middle: Optimization Engine -->
+  <g transform="translate(320, 100)" filter="url(#dropShadow)">
+    <rect width="200" height="340" fill="#FFFFFF" stroke="#4F46E5" stroke-width="2" rx="8" />
+    <rect width="200" height="40" fill="url(#blueGrad)" rx="8" />
+    <text x="15" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">2. Objective Function</text>
+    
+    <!-- Formula Area -->
+    <g transform="translate(15, 60)">
+      <rect width="170" height="150" fill="#F8FAFC" stroke="#E2E8F0" rx="6" />
+      <text x="10" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#0F172A">Minimize Cost (J):</text>
+      
+      <!-- Mathematical expression representation -->
+      <text x="10" y="55" font-family="monospace" font-size="11" fill="#3B82F6" font-weight="bold">J = w_1*MTTR + w_2*F_peak</text>
+      
+      <text x="10" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10.5" fill="#475569">Constraints:</text>
+      <text x="10" y="105" font-family="monospace" font-size="10" fill="#941111">Max F(t) &lt; F_critical</text>
+      <text x="10" y="125" font-family="monospace" font-size="10" fill="#941111">Min Sleep (S_t) &gt;= 6h/day</text>
+      <text x="10" y="140" font-family="monospace" font-size="10" fill="#941111">Handover Cost &lt; H_max</text>
+    </g>
+
+    <!-- Simulated Annealing / Solver block -->
+    <g transform="translate(15, 230)">
+      <rect width="170" height="90" fill="#EEF2F6" rx="6" />
+      <text x="10" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#0F172A">Solvers Evaluated:</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#334155">• Markov Decision Process (MDP)</text>
+      <text x="10" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#334155">• Monte Carlo Policy Rollout</text>
+      <text x="10" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="10" fill="#334155">• Simulated Annealing (Static)</text>
+    </g>
+  </g>
+
+  <!-- Connectors from Middle to Right -->
+  <g stroke="#4F46E5" stroke-width="2" fill="none">
+    <path d="M 520,270 L 570,270" />
+  </g>
+  <polygon points="570,267 576,270 570,273" fill="#4F46E5" />
+
+  <!-- Right: Optimized Output -->
+  <g transform="translate(580, 100)" filter="url(#dropShadow)">
+    <rect width="180" height="340" fill="#FFFFFF" stroke="#10B981" stroke-width="2" rx="8" />
+    <rect width="180" height="40" fill="url(#greenGrad)" rx="8" />
+    <text x="15" y="25" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">3. Schedule Output</text>
+    
+    <!-- Output Box A: Optimal Shift Length -->
+    <g transform="translate(15, 60)">
+      <rect width="150" height="75" fill="#ECFDF5" rx="6" />
+      <text x="10" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#065F46">Optimal Rotation</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#047857">12-Hour Splitted</text>
+      <text x="10" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9" fill="#065F46">Saturating at F = 42% max</text>
+    </g>
+
+    <!-- Output Box B: Handover Checkpoints -->
+    <g transform="translate(15, 150)">
+      <rect width="150" height="85" fill="#F0FDFA" rx="6" />
+      <text x="10" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#0F766E">Handover Rules</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9.5" fill="#115E59">• Context serialization</text>
+      <text x="10" y="55" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9.5" fill="#115E59">• 15-minute overlap</text>
+      <text x="10" y="70" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9.5" fill="#115E59">• Silent-hours secondary</text>
+    </g>
+
+    <!-- Output Box C: System Health Metrics -->
+    <g transform="translate(15, 250)">
+      <rect width="150" height="75" fill="#FFFBEB" rx="6" />
+      <text x="10" y="20" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#92400E">Estimated Gains</text>
+      <text x="10" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5" font-weight="700" fill="#B45309">MTTR reduced: 27%</text>
+      <text x="10" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="9.5" fill="#92400E">Burnout attrition: -40%</text>
+    </g>
+  </g>
+</svg>

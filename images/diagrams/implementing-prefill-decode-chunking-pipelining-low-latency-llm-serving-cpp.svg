@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <!-- Background -->
+  <rect width="800" height="500" fill="#0f172a" rx="8"/>
+  
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="prefillGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="decodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="chunkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <linearGradient id="grayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+    
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="30" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" text-anchor="middle">
+    LLM Serving Execution Architectures: Traditional vs. Chunked vs. Splitwise Pipelined
+  </text>
+
+  <!-- 1. TRADITIONAL CO-LOCATION (Head-of-Line Blocking) -->
+  <g transform="translate(40, 60)">
+    <rect width="340" height="180" fill="#1e293b" rx="6" stroke="#334155" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">
+      A. Conventional Serving (Naive Batching)
+    </text>
+    
+    <!-- Timeline -->
+    <path d="M 30 140 L 320 140" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="315" y="155" fill="#64748b" font-family="system-ui, sans-serif" font-size="10" text-anchor="end">Time</text>
+    
+    <!-- Large Prefill Block -->
+    <rect x="40" y="50" width="160" height="45" fill="url(#prefillGrad)" rx="4"/>
+    <text x="120" y="77" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">
+      Large Prefill (1024 tkn)
+    </text>
+    <text x="120" y="90" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">
+      Compute Bound (High FLOPs)
+    </text>
+
+    <!-- Blocked Decodes -->
+    <g opacity="0.4">
+      <rect x="210" y="50" width="30" height="45" fill="url(#decodeGrad)" rx="4"/>
+      <rect x="245" y="50" width="30" height="45" fill="url(#decodeGrad)" rx="4"/>
+      <rect x="280" y="50" width="30" height="45" fill="url(#decodeGrad)" rx="4"/>
+    </g>
+    
+    <!-- Stalled label -->
+    <path d="M 210 110 L 310 110" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="260" y="125" fill="#f87171" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">
+      Decodes Stalled (High ITL Jitter)
+    </text>
+    <path d="M 260 100 L 260 108" stroke="#ef4444" stroke-width="1.5"/>
+  </g>
+
+  <!-- 2. CHUNKED PREFILL (Co-scheduling) -->
+  <g transform="translate(420, 60)">
+    <rect width="340" height="180" fill="#1e293b" rx="6" stroke="#334155" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">
+      B. Chunked Prefill (Sarathi-Serve Style)
+    </text>
+
+    <!-- Timeline -->
+    <path d="M 30 140 L 320 140" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+    <text x="315" y="155" fill="#64748b" font-family="system-ui, sans-serif" font-size="10" text-anchor="end">Time</text>
+
+    <!-- Chunk 1 + Decodes -->
+    <g transform="translate(40, 50)">
+      <rect width="240" height="50" fill="none" stroke="#475569" stroke-dasharray="2,2" rx="4"/>
+      
+      <!-- Chunk 1 -->
+      <rect x="5" y="5" width="70" height="40" fill="url(#chunkGrad)" rx="3"/>
+      <text x="40" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Prefill Chk 1</text>
+      <text x="40" y="36" fill="#ffe4e6" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">(256 tkn)</text>
+
+      <!-- Co-scheduled Decodes -->
+      <rect x="80" y="5" width="25" height="40" fill="url(#decodeGrad)" rx="3"/>
+      <text x="92.5" y="28" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">D1</text>
+      <rect x="110" y="5" width="25" height="40" fill="url(#decodeGrad)" rx="3"/>
+      <text x="122.5" y="28" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">D2</text>
+
+      <!-- Chunk 2 -->
+      <rect x="140" y="5" width="70" height="40" fill="url(#chunkGrad)" rx="3"/>
+      <text x="175" y="25" fill="#ffffff" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Prefill Chk 2</text>
+      <text x="175" y="36" fill="#ffe4e6" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">(256 tkn)</text>
+
+      <!-- Decode 3 -->
+      <rect x="215" y="5" width="20" height="40" fill="url(#decodeGrad)" rx="3"/>
+      <text x="225" y="28" fill="#ffffff" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">D3</text>
+    </g>
+
+    <text x="170" y="125" fill="#34d399" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">
+      Smooth ITL: Prefills co-scheduled as chunks
+    </text>
+  </g>
+
+  <!-- 3. SPLITWISE / DISTSERVE PIPELINED ARCHITECTURE -->
+  <g transform="translate(40, 260)">
+    <rect width="720" height="210" fill="#1e293b" rx="6" stroke="#334155" stroke-width="1.5"/>
+    <text x="15" y="25" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">
+      C. Split-GPU Prefill-Decode Pipelining (e.g., Splitwise / DistServe)
+    </text>
+
+    <!-- Request Ingestion -->
+    <rect x="20" y="80" width="90" height="50" fill="#334155" rx="4" stroke="#475569"/>
+    <text x="65" y="105" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">
+      Client Requests
+    </text>
+    <text x="65" y="120" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">
+      (Prompts)
+    </text>
+
+    <!-- Arrow from Client to Prefill Node -->
+    <path d="M 110 105 L 150 105" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Prefill Node -->
+    <g transform="translate(160, 55)">
+      <rect width="160" height="100" fill="none" stroke="#38bdf8" stroke-width="2" rx="6"/>
+      <rect width="160" height="30" fill="url(#prefillGrad)" rx="6"/>
+      <text x="80" y="20" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
+        PREFILL GPU Pool
+      </text>
+      <!-- Compute description -->
+      <text x="80" y="55" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">
+        Processes Prompts Only
+      </text>
+      <text x="80" y="70" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">
+        High Arithmetic Intensity
+      </text>
+      <text x="80" y="85" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">
+        Tensor Parallel (TP=2/4)
+      </text>
+    </g>
+
+    <!-- KV Cache Streaming Arrow -->
+    <path d="M 320 105 L 430 105" stroke="#34d399" stroke-width="3" stroke-dasharray="4,2" marker-end="url(#arrow-green)"/>
+    <text x="375" y="90" fill="#34d399" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">
+      KV Cache Streaming
+    </text>
+    <text x="375" y="122" fill="#64748b" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">
+      PCIe / NVLink / RDMA
+    </text>
+
+    <!-- Decode Node -->
+    <g transform="translate(440, 55)">
+      <rect width="160" height="100" fill="none" stroke="#34d399" stroke-width="2" rx="6"/>
+      <rect width="160" height="30" fill="url(#decodeGrad)" rx="6"/>
+      <text x="80" y="20" fill="#ffffff" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
+        DECODE GPU Pool
+      </text>
+      <!-- Memory description -->
+      <text x="80" y="55" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">
+        Generates Tokens Only
+      </text>
+      <text x="80" y="70" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="9" text-anchor="middle">
+        High Memory Bandwidth Bound
+      </text>
+      <text x="80" y="85" fill="#34d399" font-family="system-ui, sans-serif" font-size="9" font-weight="bold" text-anchor="middle">
+        High Batch Size (BS=256+)
+      </text>
+    </g>
+
+    <!-- Arrow to Output -->
+    <path d="M 600 105 L 640 105" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
+
+    <!-- Generated Tokens -->
+    <rect x="650" y="80" width="55" height="50" fill="#059669" rx="4"/>
+    <text x="677.5" y="105" fill="#ffffff" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" text-anchor="middle">
+      Tokens
+    </text>
+    <text x="677.5" y="118" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="8" text-anchor="middle">
+      Generated
+    </text>
+
+    <!-- Overlapping pipeline label -->
+    <text x="360" y="185" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle">
+      Key Optimization: Prefill overhead is decoupled from Decode steps. Prefill chunks can be stream-copied to Decode nodes.
+    </text>
+  </g>
+</svg>
