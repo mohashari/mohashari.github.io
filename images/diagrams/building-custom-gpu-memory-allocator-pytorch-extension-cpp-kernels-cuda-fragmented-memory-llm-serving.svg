@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    
+    <!-- Box Gradients -->
+    <linearGradient id="pytorchGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EE4C2C" />
+      <stop offset="100%" stop-color="#CD371A" />
+    </linearGradient>
+    <linearGradient id="customAllocatorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" />
+      <stop offset="100%" stop-color="#0369A1" />
+    </linearGradient>
+    <linearGradient id="kernelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="gpuMemGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    
+    <!-- Dropshadow -->
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" rx="12" fill="url(#bgGrad)" />
+  
+  <!-- Title -->
+  <text x="40" y="45" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="20" font-weight="bold" fill="#F8FAFC">
+    Architecture: Custom CUDA Arena Allocator for C++ Kernels
+  </text>
+  <text x="40" y="70" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="13" fill="#94A3B8">
+    Mitigating PyTorch allocator fragmentation during dynamic LLM workspace allocations
+  </text>
+
+  <!-- Group 1: PyTorch Land (Left) -->
+  <g transform="translate(40, 110)" filter="url(#shadow)">
+    <!-- Boundary Box -->
+    <rect width="320" height="340" rx="8" fill="#1E293B" stroke="#334155" stroke-width="2" />
+    <text x="15" y="25" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#EE4C2C">PyTorch Runtime &amp; Caching Allocator</text>
+    
+    <!-- PyTorch CUDACachingAllocator block -->
+    <rect x="20" y="50" width="280" height="90" rx="6" fill="url(#pytorchGrad)" />
+    <text x="35" y="80" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">PyTorch CUDACachingAllocator</text>
+    <text x="35" y="100" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#FFE4E0">• Manages model weights &amp; KV Cache</text>
+    <text x="35" y="118" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#FFE4E0">• Fragile to dynamic, variable-sized workspaces</text>
+    
+    <!-- Torch Tensor Wrapper -->
+    <rect x="20" y="200" width="280" height="110" rx="6" fill="#0F172A" stroke="#475569" stroke-width="1.5" />
+    <text x="35" y="225" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#38BDF8">at::Tensor (torch::from_blob)</text>
+    <text x="35" y="248" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#94A3B8">• Wraps custom pointer as PyTorch tensor</text>
+    <text x="35" y="266" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#94A3B8">• Custom Deleter catches garbage collection</text>
+    <text x="35" y="290" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#10B981">Recycles buffer back to Custom Arena</text>
+  </g>
+
+  <!-- Group 2: Custom C++ Extension Land (Right) -->
+  <g transform="translate(440, 110)" filter="url(#shadow)">
+    <!-- Boundary Box -->
+    <rect width="320" height="340" rx="8" fill="#1E293B" stroke="#334155" stroke-width="2" />
+    <text x="15" y="25" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#38BDF8">Custom C++ / CUDA Extension</text>
+    
+    <!-- C++ Kernel -->
+    <rect x="20" y="50" width="280" height="90" rx="6" fill="url(#kernelGrad)" />
+    <text x="35" y="80" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">CUDA Kernel (e.g. Fused Attention)</text>
+    <text x="35" y="100" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#E2E8F0">• Requires variable size scratch workspace</text>
+    <text x="35" y="118" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#E2E8F0">• Calls Custom Allocator inside kernel shell</text>
+    
+    <!-- Custom Arena Allocator -->
+    <rect x="20" y="180" width="280" height="130" rx="6" fill="url(#customAllocatorGrad)" />
+    <text x="35" y="210" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#FFFFFF">Custom Arena Allocator (Slab Pool)</text>
+    <text x="35" y="230" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#E0F2FE">• Pre-allocates fixed block from CUDA (O(1))</text>
+    <text x="35" y="248" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#E0F2FE">• Zero runtime cudaMalloc / cudaFree calls</text>
+    <text x="35" y="266" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#E0F2FE">• Custom pointer recycling via custom deleter</text>
+    <text x="35" y="288" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#FBBF24">Isolation from PyTorch Caching Pool</text>
+  </g>
+
+  <!-- Arrows and connections -->
+  
+  <!-- 1. Kernel requesting memory from Custom Allocator (within Extension) -->
+  <path d="M 580,140 L 580,180" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrow)" fill="none" />
+  <text x="588" y="165" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#38BDF8" font-weight="bold">Get Block</text>
+
+  <!-- 2. Allocator returning block to kernel wrapper / wrapping into tensor -->
+  <path d="M 440,245 L 320,245" stroke="#10B981" stroke-width="2.5" fill="none" stroke-dasharray="4,4" />
+  <text x="345" y="235" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#10B981" font-weight="bold">torch::from_blob()</text>
+
+  <!-- 3. Deleter returning memory to allocator -->
+  <path d="M 320,290 L 440,290" stroke="#F59E0B" stroke-width="2" fill="none" />
+  <text x="340" y="308" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" fill="#F59E0B" font-weight="bold">Custom Deleter Callback</text>
+
+  <!-- Marker definition for arrows -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#38BDF8" />
+    </marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#F59E0B" />
+    </marker>
+  </defs>
+
+  <!-- GPU Physical Memory representation (bottom) -->
+  <g transform="translate(240, 465)">
+    <rect width="320" height="25" rx="4" fill="url(#gpuMemGrad)" />
+    <text x="160" y="17" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="11" font-weight="bold" fill="#FFFFFF" text-anchor="middle">PHYSICAL GPU MEMORY VRAM</text>
+  </g>
+
+  <!-- Connectors to physical memory -->
+  <!-- PyTorch connection -->
+  <path d="M 200,450 L 200,465" stroke="#EE4C2C" stroke-dasharray="2,2" stroke-width="1.5" fill="none" />
+  <!-- Custom Allocator connection -->
+  <path d="M 600,450 L 600,465" stroke="#0284C7" stroke-width="2" fill="none" />
+  <text x="610" y="460" font-family="'Segoe UI', Roboto, Helvetica, sans-serif" font-size="9" fill="#0284C7">One-time cudaMalloc</text>
+</svg>

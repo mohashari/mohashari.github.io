@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%" style="background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <!-- Definitions for arrows and markers -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#15803d" />
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.1" />
+    </filter>
+  </defs>
+
+  <!-- Title -->
+  <text x="500" y="35" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">SPIFFE-based Ephemeral CA Rollover in Multi-Cluster Istio</text>
+
+  <!-- Central Root CA / Vault -->
+  <rect x="380" y="60" width="240" height="70" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2" filter="url(#shadow)" />
+  <text x="500" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#0369a1">HashiCorp Vault / Root CA</text>
+  <text x="500" y="110" text-anchor="middle" font-size="11" fill="#0284c7">Trust Root &amp; Policy Authority</text>
+
+  <!-- Cluster A (Left) -->
+  <rect x="40" y="160" width="430" height="390" rx="12" fill="#f1f5f9" stroke="#cbd5e1" stroke-dasharray="5,5" stroke-width="2" />
+  <text x="60" y="190" font-size="14" font-weight="bold" fill="#334155">Kubernetes Cluster A (Primary: us-west)</text>
+
+  <!-- Cluster A Components -->
+  <!-- cert-manager -->
+  <rect x="60" y="210" width="170" height="60" rx="6" fill="#fae8ff" stroke="#c084fc" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="145" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#86198f">cert-manager</text>
+  <text x="145" y="255" text-anchor="middle" font-size="10" fill="#a21caf">ClusterIssuer (Vault-backed)</text>
+
+  <!-- trust-manager -->
+  <rect x="270" y="210" width="170" height="60" rx="6" fill="#fef9c3" stroke="#eab308" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="355" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#854d0e">trust-manager</text>
+  <text x="355" y="255" text-anchor="middle" font-size="10" fill="#a16207">Syncs Root Trust Bundle</text>
+
+  <!-- istiod -->
+  <rect x="60" y="310" width="170" height="70" rx="6" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="145" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#166534">istiod (CA)</text>
+  <text x="145" y="355" text-anchor="middle" font-size="10" fill="#15803d">Loads ephemeral 'cacerts'</text>
+  <text x="145" y="368" text-anchor="middle" font-size="9" fill="#166534" font-family="monospace">spiffe://west.local</text>
+
+  <!-- Trust Bundle ConfigMap -->
+  <rect x="270" y="310" width="170" height="70" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="355" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">SPIFFE Trust Bundle</text>
+  <text x="355" y="355" text-anchor="middle" font-size="10" fill="#475569">ConfigMap: ns/all</text>
+  <text x="355" y="368" text-anchor="middle" font-size="9" fill="#475569">(Federated trust roots)</text>
+
+  <!-- Workload A -->
+  <rect x="130" y="430" width="250" height="80" rx="8" fill="#ffe4e6" stroke="#f43f5e" stroke-width="2" filter="url(#shadow)" />
+  <text x="255" y="455" text-anchor="middle" font-size="13" font-weight="bold" fill="#9f1239">Workload A (Envoy Sidecar)</text>
+  <text x="255" y="475" text-anchor="middle" font-size="10" fill="#be123c">Trusts: ConfigMap Bundle</text>
+  <text x="255" y="495" text-anchor="middle" font-size="9" fill="#9f1239" font-family="monospace">spiffe://west.local/ns/foo/sa/a</text>
+
+
+  <!-- Cluster B (Right) -->
+  <rect x="530" y="160" width="430" height="390" rx="12" fill="#f1f5f9" stroke="#cbd5e1" stroke-dasharray="5,5" stroke-width="2" />
+  <text x="550" y="190" font-size="14" font-weight="bold" fill="#334155">Kubernetes Cluster B (Remote: us-east)</text>
+
+  <!-- Cluster B Components -->
+  <!-- cert-manager -->
+  <rect x="550" y="210" width="170" height="60" rx="6" fill="#fae8ff" stroke="#c084fc" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="635" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#86198f">cert-manager</text>
+  <text x="635" y="255" text-anchor="middle" font-size="10" fill="#a21caf">ClusterIssuer (Vault-backed)</text>
+
+  <!-- trust-manager -->
+  <rect x="760" y="210" width="170" height="60" rx="6" fill="#fef9c3" stroke="#eab308" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="845" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#854d0e">trust-manager</text>
+  <text x="845" y="255" text-anchor="middle" font-size="10" fill="#a16207">Syncs Root Trust Bundle</text>
+
+  <!-- istiod -->
+  <rect x="550" y="310" width="170" height="70" rx="6" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="635" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#166534">istiod (CA)</text>
+  <text x="635" y="355" text-anchor="middle" font-size="10" fill="#15803d">Loads ephemeral 'cacerts'</text>
+  <text x="635" y="368" text-anchor="middle" font-size="9" fill="#166534" font-family="monospace">spiffe://east.local</text>
+
+  <!-- Trust Bundle ConfigMap -->
+  <rect x="760" y="310" width="170" height="70" rx="6" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" filter="url(#shadow)" />
+  <text x="845" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#334155">SPIFFE Trust Bundle</text>
+  <text x="845" y="355" text-anchor="middle" font-size="10" fill="#475569">ConfigMap: ns/all</text>
+  <text x="845" y="368" text-anchor="middle" font-size="9" fill="#475569">(Federated trust roots)</text>
+
+  <!-- Workload B -->
+  <rect x="620" y="430" width="250" height="80" rx="8" fill="#ffe4e6" stroke="#f43f5e" stroke-width="2" filter="url(#shadow)" />
+  <text x="745" y="455" text-anchor="middle" font-size="13" font-weight="bold" fill="#9f1239">Workload B (Envoy Sidecar)</text>
+  <text x="745" y="475" text-anchor="middle" font-size="10" fill="#be123c">Trusts: ConfigMap Bundle</text>
+  <text x="745" y="495" text-anchor="middle" font-size="9" fill="#9f1239" font-family="monospace">spiffe://east.local/ns/bar/sa/b</text>
+
+
+  <!-- Paths & Connections -->
+  <!-- Vault -> cert-manager A -->
+  <path d="M 450 130 Q 350 150 200 210" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <!-- Vault -> cert-manager B -->
+  <path d="M 550 130 Q 650 150 800 210" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+
+  <!-- Vault -> trust-manager A & B -->
+  <path d="M 480 130 L 375 210" fill="none" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 520 130 L 825 210" fill="none" stroke="#0284c7" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- cert-manager A -> istiod A -->
+  <path d="M 145 270 L 145 302" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="150" y="295" font-size="9" fill="#64748b">Write Secret</text>
+
+  <!-- cert-manager B -> istiod B -->
+  <path d="M 635 270 L 635 302" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="640" y="295" font-size="9" fill="#64748b">Write Secret</text>
+
+  <!-- trust-manager A -> Trust Bundle CM A -->
+  <path d="M 355 270 L 355 302" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="360" y="295" font-size="9" fill="#64748b">Sync CM</text>
+
+  <!-- trust-manager B -> Trust Bundle CM B -->
+  <path d="M 845 270 L 845 302" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="850" y="295" font-size="9" fill="#64748b">Sync CM</text>
+
+  <!-- istiod A -> Workload A -->
+  <path d="M 145 380 L 145 405 Q 145 450 200 450" fill="none" stroke="#166534" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="80" y="405" font-size="9" fill="#15803d">SDS Issue (24h SVID)</text>
+
+  <!-- Trust Bundle CM A -> Workload A -->
+  <path d="M 355 380 L 355 430" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="360" y="405" font-size="9" fill="#475569">Mount CA Bundle</text>
+
+  <!-- istiod B -> Workload B -->
+  <path d="M 635 380 L 635 405 Q 635 450 690 450" fill="none" stroke="#166534" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="570" y="405" font-size="9" fill="#15803d">SDS Issue (24h SVID)</text>
+
+  <!-- Trust Bundle CM B -> Workload B -->
+  <path d="M 845 380 L 845 430" fill="none" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="850" y="405" font-size="9" fill="#475569">Mount CA Bundle</text>
+
+  <!-- Workload A <-> Workload B (mTLS) -->
+  <path d="M 380 470 L 620 470" fill="none" stroke="#166534" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arrow-green)" marker-start="url(#arrow-green)" />
+  <rect x="420" y="455" width="160" height="30" rx="4" fill="#dcfce7" stroke="#166534" stroke-width="1" />
+  <text x="500" y="474" text-anchor="middle" font-size="11" font-weight="bold" fill="#166534">Cross-Cluster Federated mTLS</text>
+</svg>

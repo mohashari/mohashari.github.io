@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 550" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #0f172a; }
+      .box { fill: #1e293b; stroke: #38bdf8; stroke-width: 1.5; rx: 8px; }
+      .box-highlight { fill: #1e293b; stroke: #f43f5e; stroke-width: 2; rx: 8px; }
+      .box-db { fill: #1e293b; stroke: #34d399; stroke-width: 1.5; rx: 8px; }
+      .text-title { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #f8fafc; }
+      .text-subtitle { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 11px; fill: #94a3b8; }
+      .text-body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 13px; fill: #cbd5e1; }
+      .text-body-bold { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #f8fafc; }
+      .arrow { stroke: #64748b; stroke-width: 2; fill: none; stroke-dasharray: 4 2; }
+      .arrow-solid { stroke: #38bdf8; stroke-width: 2; fill: none; }
+      .arrow-highlight { stroke: #f43f5e; stroke-width: 2; fill: none; }
+      .marker { fill: #64748b; }
+      .marker-blue { fill: #38bdf8; }
+      .marker-red { fill: #f43f5e; }
+      .group-label { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 12px; font-weight: bold; fill: #64748b; letter-spacing: 1px; }
+      .group-bg { fill: #1e293b; opacity: 0.3; stroke: #475569; stroke-width: 1; stroke-dasharray: 4 4; rx: 12px; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" class="marker" />
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" class="marker-blue" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" class="marker-red" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" class="bg" />
+
+  <!-- Grid Pattern (Subtle) -->
+  <g opacity="0.05">
+    <path d="M 0,50 L 800,50 M 0,100 L 800,100 M 0,150 L 800,150 M 0,200 L 800,200 M 0,250 L 800,250 M 0,300 L 800,300 M 0,350 L 800,350 M 0,400 L 800,400 M 0,450 L 800,450 M 0,500 L 800,500" stroke="#cbd5e1" stroke-width="1" />
+    <path d="M 50,0 L 50,550 M 100,0 L 100,550 M 150,0 L 150,550 M 200,0 L 200,550 M 250,0 L 250,550 M 300,0 L 300,550 M 350,0 L 350,550 M 400,0 L 400,550 M 450,0 L 450,550 M 500,0 L 500,550 M 550,0 L 550,550 M 600,0 L 600,550 M 650,0 L 650,550 M 700,0 L 700,550 M 750,0 L 750,550" stroke="#cbd5e1" stroke-width="1" />
+  </g>
+
+  <!-- Title -->
+  <text x="30" y="35" class="text-title" font-size="18px">Quantitative Interruption &amp; Lead Time Correlation Pipeline</text>
+  <text x="30" y="52" class="text-subtitle">Framework for measuring the statistical impact of on-call context-switching on engineering throughput</text>
+
+  <!-- DATA SOURCES GROUP -->
+  <rect x="30" y="80" width="180" height="430" class="group-bg" />
+  <text x="40" y="100" class="group-label">1. DATA SOURCES</text>
+
+  <!-- PagerDuty / Opsgenie (Interruption Source) -->
+  <g transform="translate(45, 120)">
+    <rect width="150" height="90" class="box-highlight" />
+    <text x="12" y="25" class="text-body-bold">PagerDuty / Alerts</text>
+    <text x="12" y="45" class="text-subtitle">PagerDuty API Webhooks</text>
+    <text x="12" y="65" class="text-body" font-size="11px">• Incident Triggered/Acked</text>
+    <text x="12" y="80" class="text-body" font-size="11px">• Target Responder ID</text>
+  </g>
+
+  <!-- Jira / Linear (Work Items Source) -->
+  <g transform="translate(45, 250)">
+    <rect width="150" height="90" class="box" />
+    <text x="12" y="25" class="text-body-bold">Jira / Linear</text>
+    <text x="12" y="45" class="text-subtitle">Webhooks &amp; REST API</text>
+    <text x="12" y="65" class="text-body" font-size="11px">• Ticket Status Transitions</text>
+    <text x="12" y="80" class="text-body" font-size="11px">• Assignee Metadata</text>
+  </g>
+
+  <!-- GitHub / GitLab (VCS Source) -->
+  <g transform="translate(45, 380)">
+    <rect width="150" height="90" class="box" />
+    <text x="12" y="25" class="text-body-bold">GitHub / GitLab</text>
+    <text x="12" y="45" class="text-subtitle">Webhook Events</text>
+    <text x="12" y="65" class="text-body" font-size="11px">• PR Created/Merged</text>
+    <text x="12" y="80" class="text-body" font-size="11px">• Reviewer Activity</text>
+  </g>
+
+  <!-- INGESTION & PIPELINE GROUP -->
+  <rect x="250" y="80" width="220" height="430" class="group-bg" />
+  <text x="260" y="100" class="group-label">2. INGESTION &amp; STORAGE</text>
+
+  <!-- Event Collector & Normalizer -->
+  <g transform="translate(265, 120)">
+    <rect width="190" height="110" class="box" />
+    <text x="12" y="25" class="text-body-bold">Event Collector Daemon</text>
+    <text x="12" y="45" class="text-subtitle">Go / Python API Worker</text>
+    <text x="12" y="70" class="text-body" font-size="11px">• Maps PagerDuty/Jira users</text>
+    <text x="12" y="85" class="text-body" font-size="11px">• Deduplicates alerts</text>
+    <text x="12" y="100" class="text-body" font-size="11px">• Cleans commit authorship</text>
+  </g>
+
+  <!-- TimescaleDB / Postgres Store -->
+  <g transform="translate(265, 300)">
+    <rect width="190" height="170" class="box-db" />
+    <text x="12" y="25" class="text-body-bold">TimescaleDB Store</text>
+    <text x="12" y="45" class="text-subtitle">Time-Series &amp; Relational Engine</text>
+    
+    <!-- Table Mockups inside DB -->
+    <rect x="12" y="60" width="166" height="30" fill="#0f172a" stroke="#475569" rx="3" />
+    <text x="20" y="78" font-family="Courier New, monospace" font-size="11px" fill="#34d399">raw_interruption_events</text>
+
+    <rect x="12" y="98" width="166" height="30" fill="#0f172a" stroke="#475569" rx="3" />
+    <text x="20" y="116" font-family="Courier New, monospace" font-size="11px" fill="#38bdf8">raw_feature_lifecycle</text>
+
+    <rect x="12" y="136" width="166" height="25" fill="#0f172a" stroke="#475569" rx="3" />
+    <text x="20" y="152" font-family="Courier New, monospace" font-size="10px" fill="#cbd5e1">developer_schedules_map</text>
+  </g>
+
+  <!-- ANALYTICS & PRESENTATION GROUP -->
+  <rect x="510" y="80" width="260" height="430" class="group-bg" />
+  <text x="520" y="100" class="group-label">3. CORRELATION &amp; OUTPUT</text>
+
+  <!-- Correlation Engine -->
+  <g transform="translate(525, 120)">
+    <rect width="230" height="170" class="box-highlight" />
+    <text x="12" y="25" class="text-body-bold">Correlation Engine</text>
+    <text x="12" y="45" class="text-subtitle">Statistical &amp; Mathematical Processing</text>
+    
+    <rect x="10" y="60" width="210" height="100" fill="#0f172a" stroke="#f43f5e" rx="4" />
+    <!-- Formulas / Steps inside engine -->
+    <text x="20" y="80" class="text-body" font-size="11px" font-weight="bold">Step 1: Calculate Interruption Heat</text>
+    <text x="20" y="95" font-family="Courier New, monospace" font-size="10px" fill="#f43f5e">H(t) = Σ e^(-λ * (t - t_i))</text>
+    
+    <text x="20" y="125" class="text-body" font-size="11px" font-weight="bold">Step 2: Linear Regression Model</text>
+    <text x="20" y="140" font-family="Courier New, monospace" font-size="10px" fill="#38bdf8">LeadTime ~ InterruptionHeat + Size</text>
+  </g>
+
+  <!-- Grafana / Metabase Dashboard -->
+  <g transform="translate(525, 340)">
+    <rect width="230" height="130" class="box" />
+    <text x="12" y="25" class="text-body-bold">Visualization &amp; Reports</text>
+    <text x="12" y="45" class="text-subtitle">Grafana / Alerting Systems</text>
+
+    <!-- Small chart line graphic inside -->
+    <rect x="15" y="60" width="200" height="55" fill="#0f172a" rx="4" />
+    <path d="M 25,100 L 60,90 L 100,95 L 140,70 L 180,65 L 205,80" fill="none" stroke="#f43f5e" stroke-width="2" />
+    <path d="M 25,95 L 60,80 L 100,70 L 140,55 L 180,45 L 205,35" fill="none" stroke="#34d399" stroke-width="1.5" stroke-dasharray="3 3" transform="translate(0, 15)" />
+    <text x="25" y="75" font-family="sans-serif" font-size="8px" fill="#f43f5e">Lead Time Degradation Index</text>
+  </g>
+
+
+  <!-- CONNECTORS -->
+  
+  <!-- Sources to Event Collector -->
+  <path d="M 195,165 L 265,165" class="arrow-highlight" marker-end="url(#arrowhead-red)" />
+  <path d="M 195,295 L 230,295 L 230,190 L 265,190" class="arrow" marker-end="url(#arrowhead)" />
+  <path d="M 195,425 L 240,425 L 240,210 L 265,210" class="arrow" marker-end="url(#arrowhead)" />
+
+  <!-- Event Collector to DB -->
+  <path d="M 360,230 L 360,300" class="arrow-solid" marker-end="url(#arrowhead-blue)" />
+
+  <!-- DB to Correlation Engine -->
+  <!-- Direct pipeline path for interruption telemetry (red highlight) and features (blue) -->
+  <path d="M 455,350 L 490,350 L 490,200 L 525,200" class="arrow-highlight" marker-end="url(#arrowhead-red)" />
+  <path d="M 455,380 L 480,380 L 480,240 L 525,240" class="arrow-solid" marker-end="url(#arrowhead-blue)" />
+
+  <!-- Engine to Presentation -->
+  <path d="M 640,290 L 640,340" class="arrow-solid" marker-end="url(#arrowhead-blue)" />
+
+</svg>
