@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="emerald-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34d399" />
+      <stop offset="100%" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="rose-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" />
+      <stop offset="100%" stop-color="#e11d48" />
+    </linearGradient>
+    <linearGradient id="amber-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: system-ui, -apple-system, sans-serif; font-weight: 700; font-size: 22px; fill: #f8fafc; }
+    .subtitle { font-family: system-ui, -apple-system, sans-serif; font-weight: 400; font-size: 14px; fill: #94a3b8; }
+    .node-title { font-family: system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 14px; fill: #ffffff; }
+    .node-text { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #cbd5e1; }
+    .node-bold { font-weight: bold; fill: #ffffff; }
+    .connection-text { font-family: system-ui, -apple-system, sans-serif; font-size: 11px; fill: #94a3b8; font-weight: 500; }
+    .group-label { font-family: system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 12px; fill: #64748b; letter-spacing: 0.1em; text-transform: uppercase; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="600" fill="url(#bg-grad)" rx="8" />
+  <rect width="998" height="598" x="1" y="1" fill="none" stroke="#334155" stroke-width="2" rx="8" />
+
+  <!-- Diagram Title -->
+  <text x="40" y="45" class="title">Quantitative Technical Debt ROI Pipeline</text>
+  <text x="40" y="68" class="subtitle">End-to-end flow from code telemetry to engineering management decision matrix</text>
+
+  <!-- Data Sources Group -->
+  <rect x="40" y="110" width="220" height="440" fill="#1e293b" stroke="#334155" stroke-width="1.5" rx="6" />
+  <text x="55" y="135" class="group-label">1. Telemetry Sources</text>
+
+  <!-- Source: Git History -->
+  <g transform="translate(60, 160)">
+    <rect width="180" height="90" fill="#334155" stroke="#475569" stroke-width="1.5" rx="4" />
+    <rect width="6" height="90" fill="url(#blue-grad)" rx="2" />
+    <text x="20" y="25" class="node-title">Git VCS Analytics</text>
+    <text x="20" y="48" class="node-text">Metric: Churn Rate (C_F)</text>
+    <text x="20" y="65" class="node-text">Tools: git-log, git-forensics</text>
+  </g>
+
+  <!-- Source: Static Analysis -->
+  <g transform="translate(60, 280)">
+    <rect width="180" height="90" fill="#334155" stroke="#475569" stroke-width="1.5" rx="4" />
+    <rect width="6" height="90" fill="url(#purple-grad)" rx="2" />
+    <text x="20" y="25" class="node-title">Static Analysis</text>
+    <text x="20" y="48" class="node-text">Metric: Complexity (CC, LOC)</text>
+    <text x="20" y="65" class="node-text">Tools: gocognit, radon, Sonar</text>
+  </g>
+
+  <!-- Source: Incidents & Deployments -->
+  <g transform="translate(60, 400)">
+    <rect width="180" height="90" fill="#334155" stroke="#475569" stroke-width="1.5" rx="4" />
+    <rect width="6" height="90" fill="url(#rose-grad)" rx="2" />
+    <text x="20" y="25" class="node-title">Deployment Logs</text>
+    <text x="20" y="48" class="node-text">Metric: Failure Rate (DFR)</text>
+    <text x="20" y="65" class="node-text">Tools: Datadog, PagerDuty</text>
+  </g>
+
+
+  <!-- Processing Engine Group -->
+  <rect x="380" y="110" width="240" height="440" fill="#1e293b" stroke="#334155" stroke-width="1.5" rx="6" />
+  <text x="395" y="135" class="group-label">2. ROI Aggregation Engine</text>
+
+  <g transform="translate(400, 160)">
+    <rect width="200" height="150" fill="#1e293b" stroke="#475569" stroke-width="1" rx="4" />
+    <text x="15" y="25" class="node-title" fill="#f1f5f9">Analysis Pipeline</text>
+    <line x1="15" y1="35" x2="185" y2="35" stroke="#334155" />
+    <text x="15" y="55" class="node-text">1. Correlate churn with DFR</text>
+    <text x="15" y="75" class="node-text">2. Calculate Cost of Failures</text>
+    <text x="15" y="95" class="node-text">3. Estimate Remediation Cost</text>
+    <text x="15" y="115" class="node-text">4. Compute Risk Amortization</text>
+  </g>
+
+  <g transform="translate(400, 340)">
+    <rect width="200" height="150" fill="#0f172a" stroke="url(#amber-grad)" stroke-width="1.5" rx="4" />
+    <text x="15" y="28" class="node-title" fill="#fbbf24">ROI Formulas</text>
+    <line x1="15" y1="38" x2="185" y2="38" stroke="#334155" />
+    <text x="15" y="60" class="node-text">EAFC = CF * DFR * (MTTR * R_eng + L_b)</text>
+    <text x="15" y="85" class="node-text">RC = LOC * ComplexityFactor * R_eng</text>
+    <text x="15" y="110" class="node-text" fill="#fbbf24">ROI = (EAFC_before - EAFC_after) / RC</text>
+  </g>
+
+
+  <!-- Outputs & Actions Group -->
+  <rect x="740" y="110" width="220" height="440" fill="#1e293b" stroke="#334155" stroke-width="1.5" rx="6" />
+  <text x="755" y="135" class="group-label">3. Prioritized Actions</text>
+
+  <!-- Output 1: Immediate Refactor -->
+  <g transform="translate(760, 160)">
+    <rect width="180" height="100" fill="#1e293b" stroke="url(#rose-grad)" stroke-width="1.5" rx="4" />
+    <text x="15" y="25" class="node-title" fill="#f43f5e">Quadrant I: Refactor</text>
+    <text x="15" y="48" class="node-text">• High Churn (CF &gt; 10/mo)</text>
+    <text x="15" y="65" class="node-text">• High DFR (&gt; 10%)</text>
+    <text x="15" y="82" class="node-text" fill="#fb7185" font-weight="600">ROI: &gt; 150% (Immediate)</text>
+  </g>
+
+  <!-- Output 2: Tactical Defang -->
+  <g transform="translate(760, 280)">
+    <rect width="180" height="100" fill="#1e293b" stroke="url(#amber-grad)" stroke-width="1.5" rx="4" />
+    <text x="15" y="25" class="node-title" fill="#fbbf24">Quadrant II: Defang</text>
+    <text x="15" y="48" class="node-text">• Low Churn (CF &lt; 2/mo)</text>
+    <text x="15" y="65" class="node-text">• High Failure Impact</text>
+    <text x="15" y="82" class="node-text" fill="#fcd34d" font-weight="600">Action: Add Alerting/Wrappers</text>
+  </g>
+
+  <!-- Output 3: Accept / Deprecate -->
+  <g transform="translate(760, 400)">
+    <rect width="180" height="100" fill="#1e293b" stroke="url(#emerald-grad)" stroke-width="1.5" rx="4" />
+    <text x="15" y="25" class="node-title" fill="#10b981">Quadrant III/IV: Accept</text>
+    <text x="15" y="48" class="node-text">• High Complexity</text>
+    <text x="15" y="65" class="node-text">• Zero Churn &amp; Failures</text>
+    <text x="15" y="82" class="node-text" fill="#34d399" font-weight="600">Action: No Action / Monitor</text>
+  </g>
+
+  <!-- Connection Arrows -->
+  <!-- Telemetry to Aggregator -->
+  <path d="M 240,205 L 300,205 L 300,330 L 380,330" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 240,325 L 380,325" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 240,445 L 300,445 L 300,340 L 380,340" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <text x="260" y="295" class="connection-text">Telemetry</text>
+  <text x="265" y="310" class="connection-text">Ingestion</text>
+
+  <!-- Aggregator to Outputs -->
+  <path d="M 620,330 L 670,330 L 670,210 L 740,210" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 620,330 L 740,330" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 620,330 L 670,330 L 670,450 L 740,450" fill="none" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <text x="640" y="295" class="connection-text">ROI-Driven</text>
+  <text x="645" y="310" class="connection-text">Backlog</text>
+
+</svg>
