@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+    
+    <!-- Component Gradients -->
+    <linearGradient id="tcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b" />
+      <stop offset="100%" stop-color="#312e81" />
+    </linearGradient>
+    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b" />
+      <stop offset="100%" stop-color="#065f46" />
+    </linearGradient>
+    <linearGradient id="brokerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#701a75" />
+      <stop offset="100%" stop-color="#86198f" />
+    </linearGradient>
+    <linearGradient id="svcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1c1917" />
+      <stop offset="100%" stop-color="#292524" />
+    </linearGradient>
+
+    <!-- Drop Shadows -->
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#020617" flood-opacity="0.6"/>
+    </filter>
+
+    <!-- Markers for Arrows -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#94a3b8" />
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#34d399" />
+    </marker>
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#fb7185" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="600" rx="16" fill="url(#bgGrad)" />
+
+  <!-- Outer Grid Lines for Tech Aesthetic -->
+  <g stroke="#334155" stroke-opacity="0.15" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="600" />
+    <line x1="200" y1="0" x2="200" y2="600" />
+    <line x1="300" y1="0" x2="300" y2="600" />
+    <line x1="400" y1="0" x2="400" y2="600" />
+    <line x1="500" y1="0" x2="500" y2="600" />
+    <line x1="600" y1="0" x2="600" y2="600" />
+    <line x1="700" y1="0" x2="700" y2="600" />
+    <line x1="800" y1="0" x2="800" y2="600" />
+    <line x1="900" y1="0" x2="900" y2="600" />
+    <line x1="0" y1="100" x2="1000" y2="100" />
+    <line x1="0" y1="200" x2="1000" y2="200" />
+    <line x1="0" y1="300" x2="1000" y2="300" />
+    <line x1="0" y1="400" x2="1000" y2="400" />
+    <line x1="0" y1="500" x2="1000" y2="500" />
+  </g>
+
+  <!-- Title & Subtitle -->
+  <text x="40" y="45" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="20" font-weight="bold" letter-spacing="0.5">Distributed Saga Orchestrator &amp; Outbox Engine</text>
+  <text x="40" y="70" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13">Rust-based Transaction Coordinator with Transactional Outbox Pattern for Resilient Event Dispatching</text>
+
+  <!-- Client -->
+  <g transform="translate(40, 230)" filter="url(#shadow)">
+    <rect width="100" height="140" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+    <text x="50" y="35" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Client /</text>
+    <text x="50" y="55" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Gateway</text>
+    <rect x="15" y="80" width="70" height="40" rx="4" fill="#334155" />
+    <text x="50" y="105" text-anchor="middle" fill="#38bdf8" font-family="Courier New, monospace" font-size="12" font-weight="bold">POST /order</text>
+  </g>
+
+  <!-- Transaction Coordinator (TC) Boundary -->
+  <g transform="translate(200, 100)" filter="url(#shadow)">
+    <!-- Container -->
+    <rect width="320" height="440" rx="12" fill="url(#tcGrad)" stroke="#6366f1" stroke-width="2" />
+    <text x="20" y="30" fill="#a5b4fc" font-family="system-ui, sans-serif" font-size="12" font-weight="bold" letter-spacing="1">RUST COORDINATOR SERVICE</text>
+    
+    <!-- Web/gRPC Handler -->
+    <rect x="20" y="60" width="280" height="70" rx="8" fill="#312e81" stroke="#4f46e5" stroke-width="1.5" />
+    <text x="35" y="90" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="14" font-weight="600">API/Ingress Controller</text>
+    <text x="35" y="110" fill="#c7d2fe" font-family="Courier New, monospace" font-size="11">axum :: routing :: post</text>
+    
+    <!-- State Machine & Saga Coordinator Engine -->
+    <rect x="20" y="160" width="280" height="90" rx="8" fill="#312e81" stroke="#4f46e5" stroke-width="1.5" />
+    <text x="35" y="190" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="14" font-weight="600">Saga Coordinator Engine</text>
+    <text x="35" y="210" fill="#94a3b8" font-family="Courier New, monospace" font-size="11">SagaState::transition()</text>
+    <text x="35" y="230" fill="#a5b4fc" font-family="Courier New, monospace" font-size="11">Atomic Saga State Control</text>
+
+    <!-- Outbox Publisher (Background Worker) -->
+    <rect x="20" y="330" width="280" height="80" rx="8" fill="#312e81" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4" />
+    <text x="35" y="355" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="14" font-weight="bold">Outbox Publisher (Tokio)</text>
+    <text x="35" y="375" fill="#94a3b8" font-family="Courier New, monospace" font-size="11">tokio::spawn(loop { ... })</text>
+    <text x="35" y="395" fill="#38bdf8" font-family="Courier New, monospace" font-size="11">SKIP LOCKED / LISTEN</text>
+  </g>
+
+  <!-- Database (PostgreSQL) Boundary -->
+  <g transform="translate(580, 100)" filter="url(#shadow)">
+    <rect width="180" height="230" rx="12" fill="url(#dbGrad)" stroke="#10b981" stroke-width="2" />
+    <text x="20" y="30" fill="#a7f3d0" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" letter-spacing="1">POSTGRESQL DB</text>
+
+    <!-- Table: Saga Instances -->
+    <rect x="15" y="60" width="150" height="65" rx="6" fill="#065f46" stroke="#047857" stroke-width="1.5" />
+    <text x="25" y="85" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">saga_instances</text>
+    <text x="25" y="105" fill="#a7f3d0" font-family="Courier New, monospace" font-size="10">id | state | payload</text>
+
+    <!-- Table: Outbox -->
+    <rect x="15" y="145" width="150" height="65" rx="6" fill="#065f46" stroke="#34d399" stroke-width="1.5" />
+    <text x="25" y="170" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="bold">outbox_table</text>
+    <text x="25" y="190" fill="#34d399" font-family="Courier New, monospace" font-size="10">id | event | status</text>
+  </g>
+
+  <!-- Message Broker (Kafka) -->
+  <g transform="translate(580, 390)" filter="url(#shadow)">
+    <rect width="180" height="150" rx="12" fill="url(#brokerGrad)" stroke="#d946ef" stroke-width="2" />
+    <text x="20" y="30" fill="#f5d0fe" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" letter-spacing="1">KAFKA CLUSTER</text>
+    
+    <!-- Topic: commands -->
+    <rect x="15" y="50" width="150" height="35" rx="4" fill="#86198f" stroke="#c084fc" stroke-width="1" />
+    <text x="25" y="72" fill="#f5d0fe" font-family="Courier New, monospace" font-size="11" font-weight="bold">saga-commands</text>
+
+    <!-- Topic: events -->
+    <rect x="15" y="95" width="150" height="35" rx="4" fill="#86198f" stroke="#c084fc" stroke-width="1" />
+    <text x="25" y="117" fill="#f5d0fe" font-family="Courier New, monospace" font-size="11" font-weight="bold">saga-events</text>
+  </g>
+
+  <!-- Saga Participants (External Microservices) -->
+  <g transform="translate(820, 200)" filter="url(#shadow)">
+    <rect width="140" height="230" rx="12" fill="url(#svcGrad)" stroke="#475569" stroke-width="1.5" />
+    <text x="15" y="30" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11" font-weight="bold" letter-spacing="1">PARTICIPANTS</text>
+
+    <!-- Payment Service -->
+    <rect x="15" y="55" width="110" height="65" rx="6" fill="#292524" stroke="#78716c" stroke-width="1" />
+    <text x="25" y="80" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Payment Svc</text>
+    <text x="25" y="100" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Debit / Refund</text>
+
+    <!-- Inventory Service -->
+    <rect x="15" y="140" width="110" height="65" rx="6" fill="#292524" stroke="#78716c" stroke-width="1" />
+    <text x="25" y="165" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="12" font-weight="600">Inventory Svc</text>
+    <text x="25" y="185" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">Reserve / Release</text>
+  </g>
+
+  <!-- FLOW LINES & ARROWS -->
+  
+  <!-- 1. Client -> Ingress API -->
+  <path d="M 140 300 L 220 300" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="180" y="290" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">1. Call</text>
+
+  <!-- 2. Ingress API -> Saga Engine -->
+  <path d="M 340 230 L 340 260" fill="none" stroke="#6366f1" stroke-width="2" marker-end="url(#arrow)" />
+  
+  <!-- 3. Saga Engine -> DB (ACID Write: Instance + Outbox) -->
+  <path d="M 500 280 L 580 280" fill="none" stroke="#34d399" stroke-width="2.5" marker-end="url(#arrow-green)" />
+  <text x="540" y="270" text-anchor="middle" fill="#34d399" font-family="system-ui, sans-serif" font-size="11" font-weight="bold">2. ACID TX</text>
+
+  <!-- 4. Outbox Publisher -> Outbox Table (Poll/Listen) -->
+  <path d="M 500 450 L 540 450 L 540 320 L 580 320" fill="none" stroke="#38bdf8" stroke-dasharray="3" stroke-width="2" />
+  <path d="M 580 320 L 500 345" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="525" y="390" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11">3. Poll / Notify</text>
+
+  <!-- 5. Outbox Publisher -> Kafka commands -->
+  <path d="M 480 470 L 580 470" fill="none" stroke="#38bdf8" stroke-width="2.5" marker-end="url(#arrow)" />
+  <text x="530" y="490" text-anchor="middle" fill="#38bdf8" font-family="system-ui, sans-serif" font-size="11">4. Publish</text>
+
+  <!-- 6. Kafka -> Saga Participants -->
+  <path d="M 760 440 L 790 440 L 790 320 L 820 320" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="795" y="375" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="10">5. Execute</text>
+
+  <!-- 7. Saga Participants -> Kafka events -->
+  <path d="M 820 380 L 800 380 L 800 510 L 760 510" fill="none" stroke="#a5b4fc" stroke-width="2" marker-end="url(#arrow)" />
+  <text x="790" y="475" text-anchor="middle" fill="#a5b4fc" font-family="system-ui, sans-serif" font-size="10">6. Event</text>
+
+  <!-- 8. Kafka events -> Saga Coordinator (Consume Event to continue) -->
+  <path d="M 580 520 L 340 520 L 340 450" fill="none" stroke="#fb7185" stroke-width="2" marker-end="url(#arrow-rose)" />
+  <text x="440" y="540" text-anchor="middle" fill="#fb7185" font-family="system-ui, sans-serif" font-size="11">7. Consume Event &amp; Drive State Machine</text>
+
+</svg>
