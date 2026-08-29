@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eff6ff" />
+      <stop offset="100%" stop-color="#dbeafe" />
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff7ed" />
+      <stop offset="100%" stop-color="#ffedd5" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#faf5ff" />
+      <stop offset="100%" stop-color="#f3e8ff" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0fdf4" />
+      <stop offset="100%" stop-color="#dcfce7" />
+    </linearGradient>
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </linearGradient>
+    
+    <!-- Shadow Filter -->
+    <filter id="dropShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" />
+      <feOffset dx="0" dy="4" />
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Markers -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748b" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#ef4444" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <rect x="15" y="15" width="850" height="490" rx="12" fill="#fafafa" stroke="#e2e8f0" stroke-width="1.5" />
+
+  <!-- TITLE -->
+  <text x="35" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#0f172a">
+    Deprecation Risk Engine: Statistical Reliability Cost Architecture
+  </text>
+  <text x="35" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#64748b">
+    Ingesting production telemetry and metadata to compute risk and optimize sunset timelines
+  </text>
+
+  <!-- SECTION 1: PRODUCTION TRAFFIC LAYER -->
+  <rect x="35" y="90" width="360" height="230" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="45" y="110" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#475569" letter-spacing="0.5">
+    PRODUCTION TRAFFIC &amp; METRIC INGESTION
+  </text>
+
+  <!-- Upstream Clients -->
+  <g filter="url(#dropShadow)" transform="translate(50, 130)">
+    <rect width="120" height="45" rx="6" fill="url(#blueGrad)" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="60" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#1e3a8a">Client Services</text>
+    <text x="60" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" fill="#2563eb">Envoy / Service Mesh</text>
+  </g>
+
+  <!-- Deprecated Target Endpoint -->
+  <g filter="url(#dropShadow)" transform="translate(240, 130)">
+    <rect width="130" height="45" rx="6" fill="url(#orangeGrad)" stroke="#f97316" stroke-width="1.5" />
+    <text x="65" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#7c2d12">Deprecated API</text>
+    <text x="65" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" fill="#ea580c">Target Service (e.g. v1)</text>
+  </g>
+
+  <!-- Traffic Line -->
+  <path d="M 170 152.5 L 232 152.5" fill="none" stroke="#f97316" stroke-width="2" marker-end="url(#arrow-red)" stroke-dasharray="3 3" />
+  <text x="201" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#ef4444">v1 Traffic</text>
+
+  <!-- Prometheus Metrics -->
+  <g filter="url(#dropShadow)" transform="translate(50, 210)">
+    <rect width="140" height="45" rx="6" fill="url(#slateGrad)" stroke="#64748b" stroke-width="1.5" />
+    <text x="70" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#334155">Telemetry Ingestion</text>
+    <text x="70" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" fill="#64748b">Prometheus &amp; Jaeger</text>
+  </g>
+
+  <!-- Metadata / Catalog -->
+  <g filter="url(#dropShadow)" transform="translate(230, 210)">
+    <rect width="140" height="45" rx="6" fill="url(#purpleGrad)" stroke="#a855f7" stroke-width="1.5" />
+    <text x="70" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#581c87">Service Catalog</text>
+    <text x="70" y="36" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" fill="#7e22ce">Backstage (Owner, Tier)</text>
+  </g>
+
+  <!-- Links from Traffic to metrics -->
+  <path d="M 305 175 L 305 210" fill="none" stroke="#64748b" stroke-width="1" marker-end="url(#arrow)" />
+  <path d="M 110 175 L 110 210" fill="none" stroke="#64748b" stroke-width="1" marker-end="url(#arrow)" />
+
+  <!-- DuckDB / OLAP Data Warehouse -->
+  <g filter="url(#dropShadow)" transform="translate(130, 280)">
+    <rect width="160" height="30" rx="4" fill="#1e293b" stroke="#0f172a" stroke-width="1.5" />
+    <text x="80" y="19" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#f8fafc">OLAP Layer (DuckDB/dbt)</text>
+  </g>
+  <path d="M 120 255 L 120 268 L 210 268 L 210 280" fill="none" stroke="#64748b" stroke-width="1" />
+  <path d="M 300 255 L 300 268 L 210 268 L 210 280" fill="none" stroke="#64748b" stroke-width="1" />
+
+  <!-- SECTION 2: STATISTICAL ENGINE -->
+  <rect x="420" y="90" width="415" height="230" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="430" y="110" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#475569" letter-spacing="0.5">
+    STATISTICAL ENGINE &amp; ANALYSIS (PYTHON / LIFELINES)
+  </text>
+
+  <!-- Component A: Decay Modeler -->
+  <g filter="url(#dropShadow)" transform="translate(440, 130)">
+    <rect width="170" height="50" rx="6" fill="url(#greenGrad)" stroke="#22c55e" stroke-width="1.5" />
+    <text x="85" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#14532d">1. Traffic Decay Estimator</text>
+    <text x="85" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" fill="#15803d">Survival Analysis (Weibull)</text>
+    <text x="85" y="43" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle" fill="#166534">Estimates migration half-life (λ)</text>
+  </g>
+
+  <!-- Component B: SLA/Cost Mapping -->
+  <g filter="url(#dropShadow)" transform="translate(640, 130)">
+    <rect width="170" height="50" rx="6" fill="url(#greenGrad)" stroke="#22c55e" stroke-width="1.5" />
+    <text x="85" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#14532d">2. Failure Cost Modeler</text>
+    <text x="85" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="9" text-anchor="middle" fill="#15803d">SLA Tier &amp; Request Volume</text>
+    <text x="85" y="43" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle" fill="#166534">Converts outage probability to $$</text>
+  </g>
+
+  <!-- Component C: Monte Carlo / Risk Evaluator -->
+  <g filter="url(#dropShadow)" transform="translate(525, 230)">
+    <rect width="210" height="65" rx="6" fill="url(#greenGrad)" stroke="#16a34a" stroke-width="2" />
+    <text x="105" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#14532d">3. Joint Risk Engine</text>
+    <text x="105" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="600" text-anchor="middle" fill="#15803d">E[Outage Cost] = Σ P_i(t) × Vol_i × C_i</text>
+    <text x="105" y="48" font-family="system-ui, -apple-system, sans-serif" font-size="8.5" text-anchor="middle" fill="#166534">Computes reliability exposure curve over time</text>
+    <text x="105" y="58" font-family="system-ui, -apple-system, sans-serif" font-size="8" text-anchor="middle" fill="#166534">for T_sunset candidate dates</text>
+  </g>
+
+  <!-- Internal Engine Arrows -->
+  <path d="M 525 180 L 525 205 L 595 205 L 595 230" fill="none" stroke="#16a34a" stroke-width="1.2" marker-end="url(#arrow)" />
+  <path d="M 725 180 L 725 205 L 665 205 L 665 230" fill="none" stroke="#16a34a" stroke-width="1.2" marker-end="url(#arrow)" />
+
+  <!-- Data Flow: Ingestion Layer to Statistical Engine -->
+  <path d="M 290 295 L 490 295 L 490 200 L 440 200 L 440 160 L 435 160" fill="none" stroke="#2563eb" stroke-width="1.5" stroke-dasharray="2 2" />
+  <path d="M 290 295 L 500 295 L 500 255 L 525 255" fill="none" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 370 232.5 L 400 232.5 L 400 155 L 440 155" fill="none" stroke="#a855f7" stroke-width="1.5" marker-end="url(#arrow)" />
+  <text x="390" y="278" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="bold" fill="#2563eb">Cleaned Telemetry</text>
+
+  <!-- SECTION 3: DECISION & POLICY ENGINE -->
+  <rect x="35" y="340" width="800" height="145" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 4" />
+  <text x="45" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#475569" letter-spacing="0.5">
+    DECISION FRAMEWORK &amp; ACTIONABLE OUTCOMES
+  </text>
+
+  <!-- Outage Cost Curve -->
+  <g filter="url(#dropShadow)" transform="translate(55, 380)">
+    <rect width="210" height="85" rx="6" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" />
+    <text x="15" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#334155">Reliability Cost Over Time</text>
+    <!-- Simple Plot -->
+    <path d="M 30 75 L 180 75" fill="none" stroke="#cbd5e1" stroke-width="1.5" /> <!-- X axis -->
+    <path d="M 30 25 L 30 75" fill="none" stroke="#cbd5e1" stroke-width="1.5" /> <!-- Y axis -->
+    <text x="180" y="83" font-family="system-ui, -apple-system, sans-serif" font-size="7" text-anchor="middle" fill="#64748b">Time</text>
+    <text x="25" y="22" font-family="system-ui, -apple-system, sans-serif" font-size="7" text-anchor="end" fill="#64748b">Cost</text>
+    <!-- Decay curve -->
+    <path d="M 30 30 Q 80 32, 130 65 T 180 72" fill="none" stroke="#ef4444" stroke-width="2" />
+    <!-- Sunset Threshold Line -->
+    <line x1="120" y1="25" x2="120" y2="75" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="2 2" />
+    <text x="123" y="32" font-family="system-ui, -apple-system, sans-serif" font-size="7" font-weight="bold" fill="#3b82f6">T_sunset (Acceptable Risk)</text>
+  </g>
+
+  <!-- Policy Decision Box -->
+  <g filter="url(#dropShadow)" transform="translate(320, 380)">
+    <rect width="230" height="85" rx="6" fill="#ffffff" stroke="#a855f7" stroke-width="1.5" />
+    <text x="115" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#581c87">Dynamic Sunset Policy Manager</text>
+    <text x="15" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#334155">• If E[Cost] &lt; Threshold → Proceed with Sunset</text>
+    <text x="15" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#334155">• If E[Cost] ≥ Threshold → Alert/Extend Timeline</text>
+    <text x="15" y="66" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#334155">• Target SLA Penalties dynamically calculated</text>
+  </g>
+
+  <!-- Auto JIRA / Alert Dispatcher -->
+  <g filter="url(#dropShadow)" transform="translate(600, 380)">
+    <rect width="210" height="85" rx="6" fill="#ffffff" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="105" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" text-anchor="middle" fill="#1e3a8a">Automated Outbox Actions</text>
+    <text x="15" y="38" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" fill="#334155">✓ Escalate critical path migrations</text>
+    <text x="15" y="52" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" fill="#334155">✓ Generate custom migrator PRs</text>
+    <text x="15" y="66" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" fill="#334155">✓ Apply rate-limiting (chaos testing)</text>
+  </g>
+
+  <!-- Connecting Engine to Outcomes -->
+  <path d="M 630 295 L 630 325 L 160 325 L 160 380" fill="none" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 630 325 L 435 325 L 435 380" fill="none" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)" />
+  <path d="M 630 325 L 705 325 L 705 380" fill="none" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow)" />
+  
+</svg>

@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 650" width="100%" height="100%">
+  <!-- Definitions for gradients and markers -->
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2b6cb0" />
+      <stop offset="100%" stop-color="#1a365d" />
+    </linearGradient>
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dd6b20" />
+      <stop offset="100%" stop-color="#7b341e" />
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e53e3e" />
+      <stop offset="100%" stop-color="#742a2a" />
+    </linearGradient>
+    <linearGradient id="grayGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#edf2f7" />
+      <stop offset="100%" stop-color="#cbd5e0" />
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#48bb78" />
+      <stop offset="100%" stop-color="#22543d" />
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#4a5568" />
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#e53e3e" />
+    </marker>
+  </defs>
+
+  <style>
+    .title { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 20px; font-weight: bold; fill: #2d3748; }
+    .subtitle { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; fill: #718096; }
+    .label { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; font-weight: 600; fill: #2d3748; }
+    .value { font-family: 'Courier New', Courier, monospace; font-size: 11px; fill: #4a5568; }
+    .text-white { fill: #ffffff; }
+    .text-center { text-anchor: middle; }
+    .box { stroke: #cbd5e0; stroke-width: 1.5; rx: 6; ry: 6; }
+    .boundary { stroke: #a0aec0; stroke-width: 2; stroke-dasharray: 6,4; fill: none; rx: 8; ry: 8; }
+  </style>
+
+  <!-- Background -->
+  <rect width="1000" height="650" fill="#f7fafc" />
+
+  <!-- Diagram Title -->
+  <text x="30" y="40" class="title">CFS Bandwidth Throttling &amp; gRPC Thread Starvation Cascade</text>
+  <text x="30" y="60" class="subtitle">How micro-bursting exhausts CPU quotas, triggering OS throttling and thread pool saturation</text>
+
+  <!-- Boundary: Kubernetes Pod / Linux Container -->
+  <rect x="250" y="90" width="710" height="520" class="boundary" stroke="#4a5568" />
+  <text x="270" y="115" class="label" fill="#4a5568">Kubernetes Pod Container Boundary (cpu.cfs_quota_us = 200ms / period = 100ms)</text>
+
+  <!-- Client Side -->
+  <rect x="30" y="180" width="160" height="320" fill="url(#blueGrad)" class="box" />
+  <text x="110" y="210" class="label text-white text-center">gRPC Client</text>
+  <text x="110" y="230" class="value text-white text-center">(High Traffic Load)</text>
+  
+  <!-- Client Actions -->
+  <rect x="45" y="270" width="130" height="50" fill="#ffffff" opacity="0.15" rx="4" />
+  <text x="110" y="290" class="value text-white text-center">Concurrent Requests</text>
+  <text x="110" y="305" class="value text-white text-center">(bursty payload)</text>
+
+  <rect x="45" y="380" width="130" height="70" fill="#742a2a" rx="4" stroke="#e53e3e" />
+  <text x="110" y="400" class="label text-white text-center">Client Timeout</text>
+  <text x="110" y="415" class="value text-white text-center">DEADLINE_EXCEEDED</text>
+  <text x="110" y="435" class="value text-white text-center">P99 Spikes &gt; 2000ms</text>
+
+  <!-- Flow Arrows from Client to Container -->
+  <path d="M 190 295 L 290 295" fill="none" stroke="#4a5568" stroke-width="2.5" marker-end="url(#arrow)" />
+  <text x="240" y="285" class="label text-center">gRPC/HTTP2</text>
+
+  <path d="M 290 415 L 190 415" fill="none" stroke="#e53e3e" stroke-width="2.5" stroke-dasharray="4,4" marker-end="url(#arrow-red)" />
+  <text x="240" y="435" class="label text-center" fill="#e53e3e">Timeout / Retry</text>
+
+  <!-- In-Container Component: gRPC Netty/Tokio Event Loop -->
+  <rect x="300" y="150" width="160" height="380" fill="url(#grayGrad)" class="box" />
+  <text x="380" y="180" class="label text-center">Event Loop / Epoll</text>
+  <text x="380" y="195" class="value text-center">Non-blocking IO</text>
+
+  <!-- Queue inside Event Loop -->
+  <rect x="315" y="240" width="130" height="260" fill="#ffffff" rx="4" stroke="#a0aec0" />
+  <text x="380" y="260" class="label text-center" fill="#4a5568">Request Queue</text>
+  
+  <!-- Queue Items -->
+  <rect x="325" y="280" width="110" height="30" fill="url(#orangeGrad)" rx="3" />
+  <text x="380" y="298" class="value text-white text-center">Req #108 (Queued)</text>
+  
+  <rect x="325" y="320" width="110" height="30" fill="url(#orangeGrad)" rx="3" />
+  <text x="380" y="338" class="value text-white text-center">Req #107 (Queued)</text>
+  
+  <rect x="325" y="360" width="110" height="30" fill="url(#orangeGrad)" rx="3" />
+  <text x="380" y="378" class="value text-white text-center">Req #106 (Queued)</text>
+  
+  <text x="380" y="420" class="label text-center" fill="#dd6b20">Queue Backlog ↑</text>
+  <text x="380" y="440" class="value text-center" fill="#718096">Latency accumulating</text>
+
+  <!-- Arrow from Queue to Thread Pool -->
+  <path d="M 460 340 L 520 340" fill="none" stroke="#2b6cb0" stroke-width="3" marker-end="url(#arrow)" />
+  <text x="490" y="325" class="label text-center" fill="#2b6cb0">Dispatch</text>
+
+  <!-- gRPC Worker Thread Pool -->
+  <rect x="530" y="150" width="200" height="380" fill="url(#blueGrad)" class="box" />
+  <text x="630" y="180" class="label text-white text-center">Worker Thread Pool</text>
+  <text x="630" y="195" class="value text-white text-center">(gRPC-default-executor)</text>
+
+  <!-- Workers Status -->
+  <!-- Worker 1: Throttled/Stalled -->
+  <rect x="545" y="230" width="170" height="50" fill="url(#redGrad)" rx="4" stroke="#feb2b2" stroke-width="1.5" />
+  <text x="630" y="250" class="label text-white text-center">Thread #1: STALLED</text>
+  <text x="630" y="265" class="value text-white text-center">(Waiting for CPU shares)</text>
+
+  <!-- Worker 2: Throttled/Stalled -->
+  <rect x="545" y="295" width="170" height="50" fill="url(#redGrad)" rx="4" stroke="#feb2b2" stroke-width="1.5" />
+  <text x="630" y="315" class="label text-white text-center">Thread #2: STALLED</text>
+  <text x="630" y="330" class="value text-white text-center">(Execution suspended)</text>
+
+  <!-- Worker 3: Throttled/Stalled -->
+  <rect x="545" y="360" width="170" height="50" fill="url(#redGrad)" rx="4" stroke="#feb2b2" stroke-width="1.5" />
+  <text x="630" y="380" class="label text-white text-center">Thread #3: STALLED</text>
+  <text x="630" y="395" class="value text-white text-center">(Throttled by Kernel)</text>
+
+  <!-- Worker 4: Idle/Waiting -->
+  <rect x="545" y="425" width="170" height="50" fill="url(#orangeGrad)" rx="4" />
+  <text x="630" y="445" class="label text-white text-center">Thread #4: STARVED</text>
+  <text x="630" y="460" class="value text-white text-center">(Waiting for Lock / Context Switch)</text>
+
+  <text x="630" y="505" class="label text-center text-white">Active Workers: 100% Saturated</text>
+
+  <!-- Linux Kernel / CFS Scheduler Area -->
+  <rect x="760" y="150" width="180" height="380" fill="url(#orangeGrad)" class="box" stroke="#dd6b20" />
+  <text x="850" y="180" class="label text-white text-center">Linux Kernel CFS</text>
+  <text x="850" y="195" class="value text-white text-center">CPU Bandwidth Controller</text>
+
+  <!-- CFS Stats -->
+  <rect x="775" y="230" width="150" height="150" fill="#ffffff" rx="4" />
+  <text x="850" y="255" class="label text-center" fill="#e53e3e">cpu.stat (Throttled!)</text>
+  
+  <text x="790" y="285" class="value" font-weight="bold">nr_periods: 14205</text>
+  <text x="790" y="310" class="value" fill="#e53e3e" font-weight="bold">nr_throttled: 4892</text>
+  <text x="790" y="335" class="value" fill="#e53e3e" font-weight="bold">throttled_time: 298.5s</text>
+  <path d="M 790 350 L 910 350" stroke="#cbd5e0" stroke-width="1" />
+  <text x="850" y="368" class="value text-center" fill="#718096">Throttled Ratio: 34.4%</text>
+
+  <rect x="775" y="400" width="150" height="100" fill="#7b341e" rx="4" />
+  <text x="850" y="425" class="label text-white text-center">CFS Enforcement</text>
+  <text x="850" y="450" class="value text-white text-center">Quota exhausted for</text>
+  <text x="850" y="465" class="value text-white text-center">current 100ms period.</text>
+  <text x="850" y="485" class="value text-white text-center" fill="#feb2b2">SIGKILL / Suspend Thread</text>
+
+  <!-- Interaction Lines between Workers and CFS -->
+  <path d="M 730 260 L 760 260" fill="none" stroke="#e53e3e" stroke-width="2" marker-end="url(#arrow-red)" />
+  <path d="M 730 325 L 760 325" fill="none" stroke="#e53e3e" stroke-width="2" marker-end="url(#arrow-red)" />
+  <path d="M 730 390 L 760 390" fill="none" stroke="#e53e3e" stroke-width="2" marker-end="url(#arrow-red)" />
+  
+  <text x="745" y="245" class="value text-center" fill="#e53e3e">Limit</text>
+
+  <!-- Timeline representation at the bottom -->
+  <rect x="250" y="545" width="690" height="50" fill="url(#grayGrad)" rx="4" />
+  <text x="270" y="575" class="label">Timeline (100ms CFS Period):</text>
+  
+  <!-- Active slice -->
+  <rect x="440" y="555" width="80" height="30" fill="url(#greenGrad)" rx="2" />
+  <text x="480" y="573" class="value text-white text-center">Active (20ms)</text>
+  
+  <!-- Throttled slice -->
+  <rect x="525" y="555" width="310" height="30" fill="url(#redGrad)" rx="2" />
+  <text x="680" y="573" class="value text-white text-center">Throttled / Suspended (80ms)</text>
+  
+  <text x="850" y="575" class="value">Next Period Reset</text>
+  <path d="M 915 570 L 930 570" fill="none" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrow)" />
+
+</svg>

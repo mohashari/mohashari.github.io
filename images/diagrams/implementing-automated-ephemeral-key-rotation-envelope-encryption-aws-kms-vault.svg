@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 550" width="100%" height="100%">
+  <!-- Definitions for markers and styles -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 6 5 L 0 8.5 z" fill="#4B5563" />
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 6 5 L 0 8.5 z" fill="#3B82F6" />
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+    </filter>
+  </defs>
+
+  <rect width="900" height="550" fill="#F9FAFB" rx="8"/>
+
+  <!-- Title -->
+  <text x="30" y="40" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#111827">Envelope Encryption with Ephemeral DEK Rotation</text>
+  <text x="30" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#6B7280">Hybrid AWS KMS &amp; HashiCorp Vault Architecture with Local Cache and Background Rotation</text>
+
+  <!-- Group: Application Server -->
+  <g transform="translate(50, 100)" filter="url(#shadow)">
+    <rect width="320" height="380" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#374151">Application Instance (Go/Python)</text>
+    
+    <!-- Local Memory Cache / DEK Manager -->
+    <g transform="translate(20, 60)">
+      <rect width="280" height="130" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1.5" rx="6"/>
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">Ephemeral DEK Manager</text>
+      <text x="15" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#1E40AF">Cache TTL: 5-15 mins</text>
+      
+      <!-- Key State -->
+      <rect x="15" y="65" width="250" height="50" fill="#FFFFFF" stroke="#DBEAFE" stroke-width="1" rx="4"/>
+      <text x="25" y="85" font-family="monospace" font-size="10" fill="#1E3A8A">Active DEK ID: dek_v4 (Memory)</text>
+      <text x="25" y="100" font-family="monospace" font-size="10" fill="#93C5FD">Stale DEK ID: dek_v3 (Grace Period)</text>
+    </g>
+
+    <!-- Encryption Engine -->
+    <g transform="translate(20, 220)">
+      <rect width="280" height="130" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.5" rx="6"/>
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#065F46">Cryptographic Engine</text>
+      <text x="15" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#047857">AES-GCM-256 (Local Encrypt/Decrypt)</text>
+      
+      <!-- Action -->
+      <rect x="15" y="65" width="250" height="50" fill="#FFFFFF" stroke="#D1FAE5" stroke-width="1" rx="4"/>
+      <text x="25" y="85" font-family="monospace" font-size="10" fill="#065F46">Payload + plaintext_dek = Ciphertext</text>
+      <text x="25" y="100" font-family="monospace" font-size="10" fill="#065F46">IV (12B) + Tag (16B) prepended</text>
+    </g>
+  </g>
+
+  <!-- Group: KMS & Vault Providers -->
+  <g transform="translate(480, 100)" filter="url(#shadow)">
+    <rect width="360" height="170" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#374151">External Key Management (KEKs)</text>
+    
+    <!-- AWS KMS -->
+    <g transform="translate(20, 50)">
+      <rect width="150" height="100" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.5" rx="6"/>
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#92400E">AWS KMS</text>
+      <text x="15" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#B45309">Provider: AWS KEK</text>
+      <text x="15" y="65" font-family="monospace" font-size="9" fill="#D97706">arn:aws:kms:us-east-1...</text>
+      <rect x="15" y="75" width="120" height="15" fill="#FEF3C7" rx="3"/>
+      <text x="20" y="86" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#92400E">GenerateDataKey</text>
+    </g>
+
+    <!-- HashiCorp Vault -->
+    <g transform="translate(190, 50)">
+      <rect width="150" height="100" fill="#FDF2F8" stroke="#FBCFE8" stroke-width="1.5" rx="6"/>
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#9D174D">HashiCorp Vault</text>
+      <text x="15" y="45" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#BE185D">Transit Secrets Engine</text>
+      <text x="15" y="65" font-family="monospace" font-size="9" fill="#DB2777">transit/keys/app-kek</text>
+      <rect x="15" y="75" width="120" height="15" fill="#FCE7F3" rx="3"/>
+      <text x="20" y="86" font-family="system-ui, -apple-system, sans-serif" font-size="8" font-weight="bold" fill="#9D174D">transit/datakey/plaintext</text>
+    </g>
+  </g>
+
+  <!-- Group: Database Store -->
+  <g transform="translate(480, 310)" filter="url(#shadow)">
+    <rect width="360" height="170" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#374151">Data Persistence (e.g., PostgreSQL)</text>
+    
+    <!-- Table Representation -->
+    <g transform="translate(20, 50)">
+      <rect width="320" height="100" fill="#F3F4F6" stroke="#D1D5DB" stroke-width="1" rx="4"/>
+      <!-- Header -->
+      <line x1="0" y1="25" x2="320" y2="25" stroke="#D1D5DB" stroke-width="1"/>
+      <text x="10" y="17" font-family="monospace" font-size="10" font-weight="bold" fill="#4B5563">id (UUID)</text>
+      <text x="90" y="17" font-family="monospace" font-size="10" font-weight="bold" fill="#4B5563">encrypted_payload (Bytea)</text>
+      <text x="240" y="17" font-family="monospace" font-size="10" font-weight="bold" fill="#4B5563">dek_meta (JSONB)</text>
+      
+      <!-- Row 1 -->
+      <text x="10" y="45" font-family="monospace" font-size="9" fill="#4B5563">8a1b-...</text>
+      <text x="90" y="45" font-family="monospace" font-size="9" fill="#059669">\x013f98a2cd...</text>
+      <text x="240" y="45" font-family="monospace" font-size="9" fill="#1D4ED8">{"v": 4, "key_id": "..."}</text>
+
+      <!-- Row 2 -->
+      <line x1="0" y1="55" x2="320" y2="55" stroke="#E5E7EB" stroke-width="1"/>
+      <text x="10" y="72" font-family="monospace" font-size="9" fill="#9CA3AF">f3e5-...</text>
+      <text x="90" y="72" font-family="monospace" font-size="9" fill="#9CA3AF">\x92f021e8ab...</text>
+      <text x="240" y="72" font-family="monospace" font-size="9" fill="#B45309">{"v": 3, "key_id": "..."}</text>
+
+      <text x="10" y="92" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#6B7280" font-style="italic">Each record stores its own encrypted DEK metadata &amp; version</text>
+    </g>
+  </g>
+
+  <!-- Flow Arrows & Labeling -->
+  <!-- 1. App fetches new DEK from KMS/Vault -->
+  <path d="M 370 170 Q 420 150 480 150" fill="none" stroke="#2563EB" stroke-dasharray="4,4" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="390" y="135" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" fill="#2563EB">1. Fetch New Ephemeral DEK</text>
+  <text x="390" y="147" font-family="system-ui, -apple-system, sans-serif" font-size="8" fill="#1D4ED8">(Once per TTL / Rotation interval)</text>
+
+  <!-- 2. KMS returns Plaintext & Ciphertext DEK -->
+  <path d="M 480 190 Q 420 190 370 210" fill="none" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="385" y="215" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#047857">2. Return Plain/Cipher DEK</text>
+
+  <!-- 3. Local Encrypt / Decrypt in Cryptographic Engine -->
+  <path d="M 180 190 L 180 220" fill="none" stroke="#4B5563" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="190" y="210" font-family="system-ui, -apple-system, sans-serif" font-size="9" fill="#4B5563">Cache Hit / Local Encrypt</text>
+
+  <!-- 4. Write Encrypted Data & Encrypted DEK Meta to DB -->
+  <path d="M 370 380 L 470 380" fill="none" stroke="#4B5563" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="380" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" fill="#374151">3. Persist Payload + Meta</text>
+</svg>
