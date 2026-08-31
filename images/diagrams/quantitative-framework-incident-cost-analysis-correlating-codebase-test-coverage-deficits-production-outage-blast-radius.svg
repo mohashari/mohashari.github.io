@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    
+    <!-- Element Gradients -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#16a34a"/>
+    </linearGradient>
+
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f87171"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+
+    <linearGradient id="orangeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#9333ea"/>
+    </linearGradient>
+
+    <!-- Filters -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="glowRed" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1000" height="600" rx="16" fill="url(#bgGrad)"/>
+  <rect width="1000" height="600" rx="16" fill="none" stroke="#334155" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="50" y="50" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="800" fill="#f8fafc">
+    QUANTITATIVE INCIDENT COST &amp; COVERAGE CORRELATION FRAMEWORK
+  </text>
+  <text x="50" y="75" font-family="system-ui, -apple-system, sans-serif" font-size="14" fill="#94a3b8">
+    Mapping Codebase Vulnerabilities to Production Financial Risk
+  </text>
+
+  <!-- COLUMN 1: CODEBASE & CI PIPELINE -->
+  <g transform="translate(50, 110)" filter="url(#dropShadow)">
+    <!-- Header Block -->
+    <rect width="250" height="40" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+    <text x="125" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38bdf8" text-anchor="middle">
+      1. Codebase &amp; CI Gate
+    </text>
+
+    <!-- Content Block -->
+    <rect y="55" width="250" height="380" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    
+    <!-- Code Module A (High Coverage) -->
+    <rect x="15" y="75" width="220" height="80" rx="6" fill="#1e293b" stroke="#1e293b"/>
+    <rect x="15" y="75" width="220" height="80" rx="6" fill="none" stroke="#16a34a" stroke-dasharray="4 2"/>
+    <text x="30" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#4ade80">Critical Path: Payment Auth</text>
+    <text x="30" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Test Coverage: 94% (High)</text>
+    <text x="30" y="136" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#4ade80">● CI Gate: Blocks Defect Leakage</text>
+    <rect x="180" y="110" width="40" height="20" rx="4" fill="#16a34a" opacity="0.2"/>
+    <text x="200" y="124" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#4ade80" text-anchor="middle">SAFE</text>
+
+    <!-- Separator Line -->
+    <line x1="20" y1="175" x2="230" y2="175" stroke="#334155" stroke-width="1"/>
+
+    <!-- Code Module B (Coverage Deficit) -->
+    <rect x="15" y="195" width="220" height="110" rx="6" fill="#1e293b" stroke="#dc2626" stroke-width="1.5"/>
+    <text x="30" y="218" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" fill="#f87171">Critical Path: Batch Processor</text>
+    <text x="30" y="238" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#f87171" font-weight="bold">Test Coverage: 38% (Deficit)</text>
+    <text x="30" y="258" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Untested paths: Error Retries,</text>
+    <text x="30" y="274" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">DB Lock Handling, Buffer Flushes</text>
+    <rect x="175" y="230" width="48" height="20" rx="4" fill="#dc2626" opacity="0.2"/>
+    <text x="199" y="244" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#f87171" text-anchor="middle">RISK</text>
+
+    <!-- CI Pipeline Box -->
+    <rect x="15" y="325" width="220" height="90" rx="6" fill="#0f172a" stroke="#475569"/>
+    <text x="30" y="348" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#e2e8f0">CI Run Results</text>
+    <!-- Line items in CI -->
+    <text x="30" y="370" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#4ade80">✓ PaymentAuth Tests: PASSED</text>
+    <text x="30" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#fb923c">⚠ BatchProcessor: Missed Regression</text>
+    <circle cx="215" cy="386" r="6" fill="#fb923c" />
+  </g>
+
+  <!-- FLOW ARROW 1 -> 2 -->
+  <g>
+    <path d="M 315, 335 L 365, 335" fill="none" stroke="#f87171" stroke-width="3" stroke-dasharray="6 4"/>
+    <polygon points="365,330 375,335 365,340" fill="#f87171" />
+    <rect x="315" y="295" width="55" height="30" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="342" y="314" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" fill="#f87171" text-anchor="middle">LEAKAGE</text>
+  </g>
+
+  <!-- COLUMN 2: PRODUCTION INCIDENT LAYER -->
+  <g transform="translate(385, 110)" filter="url(#dropShadow)">
+    <!-- Header Block -->
+    <rect width="250" height="40" rx="8" fill="#1e293b" stroke="#fb923c" stroke-width="1.5"/>
+    <text x="125" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#fb923c" text-anchor="middle">
+      2. Production Blast Radius
+    </text>
+
+    <!-- Content Block -->
+    <rect y="55" width="250" height="380" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+
+    <!-- Deployment Trigger -->
+    <rect x="15" y="75" width="220" height="60" rx="6" fill="#0f172a" stroke="#fb923c" stroke-dasharray="4 2"/>
+    <text x="30" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#fb923c">Deployment &amp; Trigger</text>
+    <text x="30" y="118" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Uncaught bug deployed &amp; activated</text>
+
+    <!-- Blast Radius Components -->
+    <g transform="translate(15, 150)">
+      <!-- Component Box -->
+      <rect width="220" height="150" rx="6" fill="#0f172a" stroke="#dc2626" stroke-width="1.5" filter="url(#glowRed)"/>
+      <text x="15" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#f87171">Cascading Failures</text>
+      
+      <!-- Affected services -->
+      <g transform="translate(15, 40)">
+        <rect width="80" height="30" rx="4" fill="#7f1d1d" stroke="#f87171"/>
+        <text x="40" y="19" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#f87171" text-anchor="middle">Batch Job</text>
+      </g>
+      
+      <g transform="translate(110, 40)">
+        <rect width="90" height="30" rx="4" fill="#7f1d1d" stroke="#f87171"/>
+        <text x="45" y="19" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#f87171" text-anchor="middle">Database Locks</text>
+      </g>
+
+      <g transform="translate(15, 85)">
+        <rect width="185" height="30" rx="4" fill="#7f1d1d" stroke="#f87171" stroke-dasharray="2 2"/>
+        <text x="92" y="19" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#f87171" text-anchor="middle">Downstream API Degradation</text>
+      </g>
+      
+      <text x="15" y="138" font-family="system-ui, -apple-system, sans-serif" font-size="10" fill="#ef4444" font-weight="bold">⚠ Blast Radius Coefficient (B): 4.5</text>
+    </g>
+
+    <!-- Outage metrics -->
+    <rect x="15" y="315" width="220" height="100" rx="6" fill="#0f172a" stroke="#475569"/>
+    <text x="30" y="338" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#e2e8f0">Outage Metrics (Actual)</text>
+    <text x="30" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Active MTTR: 180 Minutes</text>
+    <text x="30" y="378" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Impacted Users: 45,000</text>
+    <text x="30" y="396" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#ef4444" font-weight="bold">SLA Breach Penalty: $18,500</text>
+  </g>
+
+  <!-- FLOW ARROW 2 -> 3 -->
+  <g>
+    <path d="M 650, 335 L 700, 335" fill="none" stroke="#fb923c" stroke-width="3"/>
+    <polygon points="700,330 710,335 700,340" fill="#fb923c" />
+    <rect x="650" y="295" width="55" height="30" rx="4" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="677" y="314" font-family="system-ui, -apple-system, sans-serif" font-size="9" font-weight="bold" fill="#fb923c" text-anchor="middle">METRICS</text>
+  </g>
+
+  <!-- COLUMN 3: QUANTITATIVE CORRELATION MODEL -->
+  <g transform="translate(710, 110)" filter="url(#dropShadow)">
+    <!-- Header Block -->
+    <rect width="240" height="40" rx="8" fill="#1e293b" stroke="#a855f7" stroke-width="1.5"/>
+    <text x="120" y="25" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#c084fc" text-anchor="middle">
+      3. Incident Cost Model
+    </text>
+
+    <!-- Content Block -->
+    <rect y="55" width="240" height="380" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+
+    <!-- Cost Formula Box -->
+    <rect x="15" y="75" width="210" height="110" rx="6" fill="#0f172a" stroke="#a855f7"/>
+    <text x="25" y="98" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#c084fc">Cost Correlation Formula</text>
+    
+    <!-- Mathematical representation -->
+    <g transform="translate(20, 115)">
+      <rect width="170" height="50" rx="4" fill="#1e1b4b" stroke="#6366f1"/>
+      <text x="85" y="30" font-family="Courier New, monospace" font-size="14" font-weight="bold" fill="#818cf8" text-anchor="middle">
+        Risk = C_def × W_crit × B
+      </text>
+    </g>
+
+    <!-- Variable definitions -->
+    <g transform="translate(20, 200)">
+      <!-- C_def -->
+      <text x="0" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#f87171">C_def</text>
+      <text x="45" y="15" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">: Coverage Deficit (1 - Cov)</text>
+      
+      <!-- W_crit -->
+      <text x="0" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#38bdf8">W_crit</text>
+      <text x="45" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">: Criticality Weight (1 to 10)</text>
+
+      <!-- B -->
+      <text x="0" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#fb923c">B</text>
+      <text x="45" y="55" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">: Outage Blast Radius</text>
+    </g>
+
+    <!-- Calculation & Decision -->
+    <rect x="15" y="285" width="210" height="130" rx="6" fill="#0f172a" stroke="#4ade80" stroke-width="1"/>
+    <text x="25" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="12" font-weight="bold" fill="#4ade80">Expected Cost Output</text>
+    
+    <!-- Calculations -->
+    <text x="25" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#94a3b8">Deficit (62%) × Crit (8) × B (4.5)</text>
+    <text x="25" y="348" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#e2e8f0">Normalized Risk Score: 22.3</text>
+    <text x="25" y="368" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#ef4444" font-weight="bold">Expected Cost: $27,900 / yr</text>
+    
+    <rect x="25" y="382" width="190" height="22" rx="4" fill="#16a34a" opacity="0.2"/>
+    <text x="120" y="397" font-family="system-ui, -apple-system, sans-serif" font-size="10" font-weight="bold" fill="#4ade80" text-anchor="middle">DECISION: Refactor Coverage Now</text>
+  </g>
+
+  <!-- FEEDBACK LOOP / LINE BACK TO COLUMN 1 -->
+  <g>
+    <path d="M 830, 490 L 830, 530 L 175, 530 L 175, 495" fill="none" stroke="#a855f7" stroke-width="2" stroke-dasharray="4 4"/>
+    <polygon points="170,495 175,485 180,495" fill="#a855f7" />
+    <rect x="420" y="515" width="180" height="28" rx="4" fill="#0f172a" stroke="#a855f7" stroke-width="1"/>
+    <text x="510" y="533" font-family="system-ui, -apple-system, sans-serif" font-size="11" font-weight="bold" fill="#c084fc" text-anchor="middle">
+      Feedback Loop: Continuous Risk Allocation
+    </text>
+  </g>
+</svg>

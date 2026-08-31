@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 550" width="100%" height="100%">
+  <!-- Styles -->
+  <style>
+    .bg { fill: #0f172a; }
+    .title { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; font-size: 20px; fill: #f8fafc; text-anchor: middle; }
+    .label { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; fill: #cbd5e1; font-weight: 500; }
+    .bold-label { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; fill: #f8fafc; font-weight: 600; }
+    .code-label { font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 12px; fill: #38bdf8; }
+    .box { stroke-width: 2; stroke-linejoin: round; }
+    .box-q { fill: #1e293b; stroke: #38bdf8; }
+    .box-kv { fill: #1e293b; stroke: #818cf8; }
+    .box-block { fill: #0f172a; stroke: #475569; stroke-dasharray: 4 4; }
+    .box-cuda { fill: #1e293b; stroke: #10b981; }
+    .box-reduce { fill: #1e293b; stroke: #f59e0b; }
+    .arrow { stroke: #64748b; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+    .arrow-dash { stroke: #64748b; stroke-width: 1.5; stroke-dasharray: 4 4; fill: none; marker-end: url(#arrowhead); }
+    .math { font-family: 'Cambria Math', 'Times New Roman', serif; font-style: italic; }
+  </style>
+
+  <!-- Definitions for markers -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" class="bg" rx="8" />
+
+  <!-- Title -->
+  <text x="425" y="40" class="title">FlashDecoding: Sequence-Level Parallelization during Decode Phase</text>
+
+  <!-- INPUTS SECTION -->
+  <g transform="translate(40, 80)">
+    <!-- Query (Q) -->
+    <rect x="0" y="20" width="100" height="50" rx="6" class="box box-q" />
+    <text x="50" y="45" class="bold-label" text-anchor="middle">Query (Q)</text>
+    <text x="50" y="62" class="code-label" text-anchor="middle">[1, H, D]</text>
+
+    <!-- KV Cache (K, V) -->
+    <rect x="180" y="20" width="180" height="240" rx="6" class="box box-kv" />
+    <text x="270" y="45" class="bold-label" text-anchor="middle">KV Cache (K, V)</text>
+    <text x="270" y="62" class="code-label" text-anchor="middle">[N, H, D]</text>
+
+    <!-- Sub-blocks of KV Cache -->
+    <rect x="190" y="80" width="160" height="40" rx="4" class="box box-block" />
+    <text x="270" y="105" class="label" text-anchor="middle">Block 0 (Size B)</text>
+
+    <rect x="190" y="130" width="160" height="40" rx="4" class="box box-block" />
+    <text x="270" y="155" class="label" text-anchor="middle">Block 1 (Size B)</text>
+
+    <text x="270" y="200" class="label" text-anchor="middle" font-size="20px">...</text>
+
+    <rect x="190" y="210" width="160" height="40" rx="4" class="box box-block" />
+    <text x="270" y="235" class="label" text-anchor="middle">Block S-1 (Size B)</text>
+  </g>
+
+  <!-- CUDA KERNELS - STEP 1 (PARALLEL ATTENTION) -->
+  <g transform="translate(430, 80)">
+    <text x="100" y="0" class="bold-label" text-anchor="middle" fill="#10b981">Phase 1: Parallel KV-Block Attention</text>
+    
+    <!-- Thread Block 0 -->
+    <rect x="0" y="20" width="200" height="70" rx="6" class="box box-cuda" />
+    <text x="100" y="40" class="bold-label" text-anchor="middle">Thread Block 0</text>
+    <text x="100" y="55" class="label" text-anchor="middle" font-size="11px">Local Attn on Block 0</text>
+    <text x="100" y="75" class="code-label" text-anchor="middle">O_0, m_0, l_0</text>
+
+    <!-- Thread Block 1 -->
+    <rect x="0" y="110" width="200" height="70" rx="6" class="box box-cuda" />
+    <text x="100" y="130" class="bold-label" text-anchor="middle">Thread Block 1</text>
+    <text x="100" y="145" class="label" text-anchor="middle" font-size="11px">Local Attn on Block 1</text>
+    <text x="100" y="165" class="code-label" text-anchor="middle">O_1, m_1, l_1</text>
+
+    <!-- Vertical Dots -->
+    <text x="100" y="210" class="label" text-anchor="middle" font-size="20px">...</text>
+
+    <!-- Thread Block S-1 -->
+    <rect x="0" y="230" width="200" height="70" rx="6" class="box box-cuda" />
+    <text x="100" y="250" class="bold-label" text-anchor="middle">Thread Block S-1</text>
+    <text x="100" y="265" class="label" text-anchor="middle" font-size="11px">Local Attn on Block S-1</text>
+    <text x="100" y="285" class="code-label" text-anchor="middle">O_s, m_s, l_s</text>
+  </g>
+
+  <!-- REDUCTION STEP -->
+  <g transform="translate(680, 180)">
+    <text x="65" y="-15" class="bold-label" text-anchor="middle" fill="#f59e0b">Phase 2: Reduction</text>
+    <rect x="0" y="0" width="130" height="150" rx="6" class="box box-reduce" />
+    <text x="65" y="30" class="bold-label" text-anchor="middle">Merge Kernel</text>
+    <text x="65" y="55" class="label" text-anchor="middle" font-size="11px">Rescale local</text>
+    <text x="65" y="70" class="label" text-anchor="middle" font-size="11px">accumulators</text>
+    <text x="65" y="85" class="label" text-anchor="middle" font-size="11px">using m_i &amp; l_i</text>
+    <text x="65" y="110" class="code-label" text-anchor="middle">Global Softmax</text>
+    <text x="65" y="130" class="code-label" text-anchor="middle">O_final</text>
+  </g>
+
+  <!-- FLOW ARROWS -->
+  <!-- Q to Thread Blocks -->
+  <path d="M 140 130 C 240 100, 340 100, 420 110" class="arrow" />
+  <path d="M 140 130 C 240 150, 340 180, 420 190" class="arrow" />
+  <path d="M 140 130 C 240 220, 340 290, 420 310" class="arrow" />
+
+  <!-- KV Blocks to Thread Blocks -->
+  <path d="M 390 180 L 420 135" class="arrow" />
+  <path d="M 390 230 L 420 225" class="arrow" />
+  <path d="M 390 310 L 420 345" class="arrow" />
+
+  <!-- Thread Blocks to Reduction -->
+  <path d="M 640 135 C 655 135, 660 170, 675 190" class="arrow" />
+  <path d="M 640 225 L 675 235" class="arrow" />
+  <path d="M 640 345 C 655 345, 660 310, 675 305" class="arrow" />
+
+  <!-- Output Arrow -->
+  <path d="M 810 255 L 830 255" class="arrow" />
+  
+  <!-- Labels and Notes -->
+  <text x="40" y="410" class="bold-label" fill="#f8fafc">Key Features of FlashDecoding:</text>
+  <text x="40" y="435" class="label">1. Parallelizes decode attention computation along the sequence length dimension (KV Cache).</text>
+  <text x="40" y="455" class="label">2. Solves GPU underutilization in low batch size, long context length inference scenarios.</text>
+  <text x="40" y="475" class="label">3. Phase 1 computes local outputs asynchronously; Phase 2 reduces them with log-sum-exp.</text>
+</svg>

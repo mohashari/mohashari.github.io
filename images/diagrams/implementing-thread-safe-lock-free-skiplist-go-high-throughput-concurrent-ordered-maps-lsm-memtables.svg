@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 450" width="100%" height="100%" style="background-color:#0f172a; font-family: system-ui, -apple-system, sans-serif;">
+  <defs>
+    <!-- Arrow marker for normal links -->
+    <marker id="arrow-sky" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#38bdf8"/>
+    </marker>
+    <!-- Arrow marker for old/dotted links -->
+    <marker id="arrow-slate" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#475569"/>
+    </marker>
+    <!-- Arrow marker for new links -->
+    <marker id="arrow-emerald" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#34d399"/>
+    </marker>
+    <!-- Arrow marker for CAS swing -->
+    <marker id="arrow-rose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#f43f5e"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="30" y="45" fill="#f8fafc" font-size="20" font-weight="bold">Lock-Free Skiplist Insertion via CAS</text>
+  <text x="30" y="70" fill="#94a3b8" font-size="13">In LSM Memtables, nodes are inserted concurrently by swinging forward pointers using Compare-And-Swap (CAS).</text>
+
+  <!-- Legend -->
+  <g transform="translate(560, 25)">
+    <!-- Existing Node -->
+    <rect x="0" y="0" width="16" height="16" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5" rx="3"/>
+    <text x="24" y="13" fill="#e2e8f0" font-size="12">Existing Node</text>
+
+    <!-- New Node -->
+    <rect x="140" y="0" width="16" height="16" fill="#064e3b" stroke="#34d399" stroke-width="1.5" rx="3"/>
+    <text x="164" y="13" fill="#e2e8f0" font-size="12">Inserting Node</text>
+
+    <!-- CAS Swing -->
+    <line x1="0" y1="28" x2="25" y2="28" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#arrow-rose)"/>
+    <text x="35" y="32" fill="#e2e8f0" font-size="12">CAS Pointer Swing</text>
+
+    <!-- Pre-existing Link (Dotted) -->
+    <line x1="140" y1="28" x2="165" y2="28" stroke="#475569" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrow-slate)"/>
+    <text x="175" y="32" fill="#e2e8f0" font-size="12">Bypassed Link</text>
+  </g>
+
+  <!-- Level Grid Lines / Labels -->
+  <g opacity="0.15">
+    <line x1="100" y1="150" x2="850" y2="150" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+    <line x1="100" y1="230" x2="850" y2="230" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+    <line x1="100" y1="310" x2="850" y2="310" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,4"/>
+  </g>
+  
+  <text x="50" y="154" fill="#64748b" font-size="12" font-weight="bold">Level 3</text>
+  <text x="50" y="234" fill="#64748b" font-size="12" font-weight="bold">Level 2</text>
+  <text x="50" y="314" fill="#64748b" font-size="12" font-weight="bold">Level 1</text>
+
+  <!-- HEAD NODE -->
+  <rect x="120" y="110" width="60" height="240" fill="#1e293b" stroke="#64748b" stroke-width="2" rx="6"/>
+  <text x="150" y="235" fill="#f8fafc" font-size="14" font-weight="bold" text-anchor="middle" transform="rotate(-90 150 235)">HEAD</text>
+  <circle cx="150" cy="150" r="6" fill="#38bdf8"/>
+  <circle cx="150" cy="230" r="6" fill="#38bdf8"/>
+  <circle cx="150" cy="310" r="6" fill="#38bdf8"/>
+
+  <!-- NODE 10 -->
+  <rect x="260" y="190" width="80" height="160" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="6"/>
+  <text x="300" y="270" fill="#f8fafc" font-size="13" font-weight="bold" text-anchor="middle">Key: 10</text>
+  <text x="300" y="290" fill="#94a3b8" font-size="11" text-anchor="middle">Val: "foo"</text>
+  <circle cx="300" cy="230" r="6" fill="#38bdf8"/>
+  <circle cx="300" cy="310" r="6" fill="#38bdf8"/>
+
+  <!-- NODE 20 (INSERTING) -->
+  <rect x="460" y="190" width="80" height="160" fill="#064e3b" stroke="#34d399" stroke-dasharray="1" stroke-width="2.5" rx="6"/>
+  <text x="500" y="270" fill="#f8fafc" font-size="13" font-weight="bold" text-anchor="middle">Key: 20</text>
+  <text x="500" y="290" fill="#a7f3d0" font-size="11" text-anchor="middle">Val: "bar"</text>
+  <circle cx="500" cy="230" r="6" fill="#34d399"/>
+  <circle cx="500" cy="310" r="6" fill="#34d399"/>
+
+  <!-- NODE 30 -->
+  <rect x="660" y="110" width="80" height="240" fill="#1e293b" stroke="#38bdf8" stroke-width="2" rx="6"/>
+  <text x="700" y="230" fill="#f8fafc" font-size="13" font-weight="bold" text-anchor="middle">Key: 30</text>
+  <text x="700" y="250" fill="#94a3b8" font-size="11" text-anchor="middle">Val: "baz"</text>
+  <circle cx="700" cy="150" r="6" fill="#38bdf8"/>
+  <circle cx="700" cy="230" r="6" fill="#38bdf8"/>
+  <circle cx="700" cy="310" r="6" fill="#38bdf8"/>
+
+  <!-- TAIL NODE -->
+  <rect x="810" y="110" width="60" height="240" fill="#1e293b" stroke="#64748b" stroke-width="2" rx="6"/>
+  <text x="840" y="235" fill="#f8fafc" font-size="14" font-weight="bold" text-anchor="middle" transform="rotate(90 840 235)">TAIL</text>
+  <circle cx="840" cy="150" r="6" fill="#64748b"/>
+  <circle cx="840" cy="230" r="6" fill="#64748b"/>
+  <circle cx="840" cy="310" r="6" fill="#64748b"/>
+
+  <!-- Level 3 Connections (Unchanged by insert) -->
+  <path d="M 156,150 L 654,150" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-sky)"/>
+  <path d="M 706,150 L 804,150" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-sky)"/>
+
+  <!-- Level 2 Connections -->
+  <!-- HEAD to Node 10 -->
+  <path d="M 156,230 L 254,230" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-sky)"/>
+  
+  <!-- Node 10 to Node 30 (Old pre-insert link - Bypassed) -->
+  <path d="M 306,230 Q 480,185 654,230" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-slate)" opacity="0.6"/>
+  
+  <!-- CAS Swing: Node 10 to Node 20 -->
+  <path d="M 306,230 L 454,230" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#arrow-rose)"/>
+  
+  <!-- Node 20 to Node 30 (New link) -->
+  <path d="M 506,230 L 654,230" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+  <!-- Level 1 Connections -->
+  <!-- HEAD to Node 10 -->
+  <path d="M 156,310 L 254,310" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-sky)"/>
+  
+  <!-- Node 10 to Node 30 (Old pre-insert link - Bypassed) -->
+  <path d="M 306,310 Q 480,355 654,310" fill="none" stroke="#475569" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow-slate)" opacity="0.6"/>
+  
+  <!-- CAS Swing: Node 10 to Node 20 -->
+  <path d="M 306,310 L 454,310" stroke="#f43f5e" stroke-width="2.5" marker-end="url(#arrow-rose)"/>
+  
+  <!-- Node 20 to Node 30 (New link) -->
+  <path d="M 506,310 L 654,310" stroke="#34d399" stroke-width="2" marker-end="url(#arrow-emerald)"/>
+
+  <!-- Node 30 to TAIL -->
+  <path d="M 706,310 L 804,310" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-sky)"/>
+  <path d="M 706,230 L 804,230" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrow-sky)"/>
+
+  <!-- Helper text overlays for CAS swing explanation -->
+  <rect x="330" y="202" width="105" height="18" fill="#1e1b4b" stroke="#f43f5e" stroke-width="1" rx="3"/>
+  <text x="382" y="215" fill="#f43f5e" font-size="10" font-weight="bold" text-anchor="middle">CAS: 10.next[1] -> 20</text>
+
+  <rect x="330" y="322" width="105" height="18" fill="#1e1b4b" stroke="#f43f5e" stroke-width="1" rx="3"/>
+  <text x="382" y="335" fill="#f43f5e" font-size="10" font-weight="bold" text-anchor="middle">CAS: 10.next[0] -> 20</text>
+</svg>

@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <!-- Box Gradients -->
+    <linearGradient id="clientGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="kernelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#334155"/>
+    </linearGradient>
+    <linearGradient id="appGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#34d399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="ebpfGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="100%" stop-color="#e11d48"/>
+    </linearGradient>
+    <!-- Drop Shadow -->
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.4"/>
+    </filter>
+    <!-- Glow Filter for Warnings -->
+    <filter id="warningGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#bgGrad)"/>
+
+  <!-- Title Grid Lines (Subtle) -->
+  <path d="M 0,50 L 800,50 M 0,450 L 800,450" stroke="#334155" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- COLUMNS / BOUNDARIES -->
+  <!-- Client Space -->
+  <rect x="20" y="70" width="160" height="360" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="100" y="95" fill="#38bdf8" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">CLIENT</text>
+
+  <!-- Kernel Space -->
+  <rect x="200" y="70" width="400" height="360" rx="8" fill="#1e293b" stroke="#64748b" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="400" y="95" fill="#94a3b8" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">LINUX KERNEL SPACE</text>
+
+  <!-- Server Space (User) -->
+  <rect x="620" y="70" width="160" height="360" rx="8" fill="#1e293b" stroke="#34d399" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="700" y="95" fill="#34d399" font-family="monospace" font-size="14" font-weight="bold" text-anchor="middle">gRPC SERVER (USER)</text>
+
+  <!-- COMPONENTS -->
+
+  <!-- Client Node -->
+  <rect x="40" y="150" width="120" height="50" rx="6" fill="url(#clientGrad)" filter="url(#dropShadow)"/>
+  <text x="100" y="175" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">gRPC Client</text>
+  <text x="100" y="190" fill="#e0f2fe" font-family="monospace" font-size="9" text-anchor="middle">TCP Handshake Init</text>
+
+  <!-- SYN Queue -->
+  <rect x="230" y="130" width="140" height="70" rx="6" fill="url(#kernelGrad)" stroke="#475569" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="300" y="150" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">SYN Queue</text>
+  <text x="300" y="165" fill="#94a3b8" font-family="monospace" font-size="10" text-anchor="middle">(Half-Open Conns)</text>
+  <text x="300" y="185" fill="#38bdf8" font-family="monospace" font-size="9" text-anchor="middle">tcp_max_syn_backlog</text>
+
+  <!-- Accept Queue -->
+  <rect x="230" y="270" width="140" height="80" rx="6" fill="url(#kernelGrad)" stroke="#ef4444" stroke-width="2" filter="url(#dropShadow)"/>
+  <text x="300" y="290" fill="#f8fafc" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">Accept Queue</text>
+  <text x="300" y="305" fill="#f87171" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">OVERFLOW TRIPPED</text>
+  <text x="300" y="322" fill="#ef4444" font-family="monospace" font-size="9" text-anchor="middle">Limit: net.core.somaxconn</text>
+  <text x="300" y="338" fill="#ef4444" font-family="monospace" font-size="9" text-anchor="middle">or listen(backlog)</text>
+
+  <!-- eBPF Probe -->
+  <rect x="440" y="270" width="130" height="80" rx="6" fill="url(#ebpfGrad)" filter="url(#dropShadow)"/>
+  <text x="505" y="290" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">eBPF Program</text>
+  <text x="505" y="305" fill="#ffe4e6" font-family="monospace" font-size="9" text-anchor="middle">kprobe:tcp_v4_syn_recv_sock</text>
+  <text x="505" y="320" fill="#ffe4e6" font-family="monospace" font-size="9" text-anchor="middle">Checks sk_acceptq_is_full</text>
+  <text x="505" y="335" fill="#fecdd3" font-family="monospace" font-size="10" font-weight="bold" text-anchor="middle">Ring Buffer Event</text>
+
+  <!-- gRPC App Server -->
+  <rect x="640" y="270" width="120" height="80" rx="6" fill="url(#appGrad)" filter="url(#dropShadow)"/>
+  <text x="700" y="295" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">gRPC Server App</text>
+  <text x="700" y="315" fill="#d1fae5" font-family="monospace" font-size="10" text-anchor="middle">Slow accept() loop</text>
+  <text x="700" y="330" fill="#a7f3d0" font-family="monospace" font-size="9" text-anchor="middle">p99.9 Tail Spikes!</text>
+
+
+  <!-- CONNECTORS & FLOW ARROWS -->
+
+  <!-- Client SYN -> SYN Queue -->
+  <path d="M 160,165 L 220,165" fill="none" stroke="#38bdf8" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="190" y="155" fill="#38bdf8" font-family="monospace" font-size="9" text-anchor="middle">1. SYN</text>
+
+  <!-- SYN Queue -> Client SYN-ACK -->
+  <path d="M 220,185 L 160,185" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arrowBlue)"/>
+  <text x="190" y="200" fill="#38bdf8" font-family="monospace" font-size="9" text-anchor="middle">2. SYN-ACK</text>
+
+  <!-- Client ACK -> SYN Recv / Accept Queue transition -->
+  <path d="M 100,200 L 100,240 L 230,285" fill="none" stroke="#38bdf8" stroke-width="2"/>
+  <text x="145" y="235" fill="#38bdf8" font-family="monospace" font-size="9" text-anchor="middle">3. ACK</text>
+
+  <!-- Flow check overflow -->
+  <path d="M 300,200 L 300,260" fill="none" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrowRed)" stroke-dasharray="3,3"/>
+  <text x="335" y="235" fill="#ef4444" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="start">Handshake Complete?</text>
+
+  <!-- Silent Drop Event / Warning -->
+  <circle cx="205" cy="310" r="18" fill="#ef4444" filter="url(#warningGlow)"/>
+  <text x="205" y="314" fill="#ffffff" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">X</text>
+  <text x="140" y="325" fill="#f87171" font-family="sans-serif" font-size="10" font-weight="bold" text-anchor="middle">Silent TCP Drop</text>
+  <text x="140" y="338" fill="#ef4444" font-family="monospace" font-size="8" text-anchor="middle">(Client waits RTO 1s+)</text>
+  
+  <path d="M 230,310 L 213,310" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- eBPF Hook into Accept Queue Check -->
+  <path d="M 370,310 L 430,310" fill="none" stroke="#fb7185" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arrowRose)"/>
+  <text x="400" y="300" fill="#fb7185" font-family="monospace" font-size="9" text-anchor="middle">Trace</text>
+
+  <!-- eBPF Ring Buffer to User exporter -->
+  <path d="M 505,350 L 505,400 L 700,400 L 700,358" fill="none" stroke="#fb7185" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="600" y="390" fill="#fb7185" font-family="monospace" font-size="9" text-anchor="middle">Correlate: drop events vs latency spikes</text>
+
+  <!-- gRPC App server accepting connections -->
+  <path d="M 640,310 L 378,310" fill="none" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="590" y="325" fill="#34d399" font-family="monospace" font-size="10" text-anchor="middle">4. accept() call</text>
+
+  <!-- Markers -->
+  <markers>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#38bdf8"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#ef4444"/>
+    </marker>
+    <marker id="arrowRose" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#fb7185"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#34d399"/>
+    </marker>
+  </markers>
+</svg>
